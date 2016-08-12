@@ -258,13 +258,15 @@ public class OpersExpr implements Serializable {
 			this.rightAttributeName = attributeName2;
 			setLeftExpressionType(expressionVertexType);
 			setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+			setRightSemanticElement(semanticElement);
 		} else {
 			this.setRightSemanticElement(semanticConElement);
 			this.setRightSemanticRelElement(semanticRelElement);
 			this.rightAttributeName = attributeName1;
 			this.leftAttributeName = attributeName2;
 			setRightExpressionType(expressionVertexType);
-			setLeftExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+			setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
+			setLeftSemanticElement(semanticElement);
 		}
 	}
 

@@ -4058,18 +4058,28 @@ public class DefaultOpersMM {
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, null, "Sel", "True", true);
+			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
+					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+					instVertexHHGR, instVertexHC, "Sel", true, "True");
+
+			t2 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
+					"DoubleImplies"),
+					ExpressionVertexType.LEFTITERINCCONVARIABLE,
+					instVertexHHGR, instVertexHC, t1, "Sel");
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"GreaterOrEq"), t2,
 					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
 					"LowRange");
 
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, null, "Sel", "True", true);
+			t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
+					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+					instVertexHHGR, instVertexHC, "Sel", true, "True");
+
+			t2 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
+					"DoubleImplies"),
+					ExpressionVertexType.LEFTITERINCCONVARIABLE,
+					instVertexHHGR, instVertexHC, t2, "Sel");
 
 			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"LessOrEquals"), t2,

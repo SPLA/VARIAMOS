@@ -1070,12 +1070,12 @@ public class SemanticExpressionDialog extends JDialog {
 			if (instElement != null) {
 
 				List<InstElement> opersParent = null;
-				if (instElement.getTransSupportMetaElement() != null
-						&& instElement.getTransSupportMetaElement()
-								.getTransInstSemanticElement() != null)
-					opersParent = instElement.getTransSupportMetaElement()
-							.getTransInstSemanticElement()
-							.getParentOpersConcept();
+				// if (instElement.getTransSupportMetaElement() != null
+				// && instElement.getTransSupportMetaElement()
+				// .getTransInstSemanticElement() != null)
+				opersParent = instElement// .getTransSupportMetaElement()
+						// .getTransInstSemanticElement()
+						.getParentOpersConcept();
 				if (instElement.getEdOperEle() != null)
 					for (ElemAttribute attribute : instElement.getEdOperEle()
 							.getAllSemanticAttributes(opersParent).values())
@@ -1096,11 +1096,11 @@ public class SemanticExpressionDialog extends JDialog {
 			if (instElements != null)
 				for (InstElement instElementT : instElements) {
 					List<InstElement> opersParent = null;
-					if (instElementT.getTransSupportMetaElement()
-							.getTransInstSemanticElement() != null)
-						opersParent = instElementT.getTransSupportMetaElement()
-								.getTransInstSemanticElement()
-								.getParentOpersConcept();
+					// if (instElementT.getTransSupportMetaElement()
+					// .getTransInstSemanticElement() != null)
+					opersParent = instElementT// .getTransSupportMetaElement()
+							// .getTransInstSemanticElement()
+							.getParentOpersConcept();
 					if (instElementT.getEdOperEle() != null)
 						for (ElemAttribute attribute : instElementT
 								.getEdOperEle()
