@@ -355,7 +355,6 @@ public class PerspEditorGraph extends AbstractGraph {
 					.getInstElement();
 			ModelInstance refas = getModelInstance();
 			directRelation.clearRelations();
-			directRelation.clearMetaPairwiseRelation();
 			source.addTargetRelation(directRelation, true);
 			target.addSourceRelation(directRelation, true);
 			List<InstElement> parents = null;
@@ -374,12 +373,8 @@ public class PerspEditorGraph extends AbstractGraph {
 					.getInstAttribute(InstPairwiseRel.VAR_METAPAIRWISE);
 			List<InstElement> pwrList = ia.getValidationMEList();
 			mxGraphModel refasGraph = (mxGraphModel) getModel();
-			refasGraph.getCells().remove(cell.getId());
-
-			// cell.setVisible(false); // TODO workaround to hide non
-			// allowed
-			// relations - fix delete
 			if (pwrList.size() == 0) {
+				directRelation.clearMetaPairwiseRelation();
 				return false;
 			}
 			directRelation.setTransSupInstElement(pwrList.get(0));
