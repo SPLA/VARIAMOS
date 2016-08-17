@@ -812,6 +812,8 @@ public class OpersExpr implements Serializable {
 				|| type == ExpressionVertexType.LEFTITERINCRELFIXEDVARIABLE
 				|| type == ExpressionVertexType.LEFTITEROUTRELFIXEDVARIABLE
 				|| type == ExpressionVertexType.LEFTITERANYFIXEDVARIABLE
+				|| type == ExpressionVertexType.LEFTITERINCCONVARIABLE
+				|| type == ExpressionVertexType.LEFTITEROUTCONVARIABLE
 				|| type == ExpressionVertexType.LEFTITERINCRELVARIABLE
 				|| type == ExpressionVertexType.LEFTITEROUTRELVARIABLE
 				|| type == ExpressionVertexType.LEFTITERANYRELVARIABLE)

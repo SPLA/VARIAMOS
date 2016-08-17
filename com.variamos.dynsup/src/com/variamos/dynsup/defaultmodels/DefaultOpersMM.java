@@ -4069,7 +4069,7 @@ public class DefaultOpersMM {
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"GreaterOrEq"), t2,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHHGR,
 					"LowRange");
 
 			t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -4083,7 +4083,7 @@ public class DefaultOpersMM {
 
 			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"LessOrEquals"), t2,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHHGR,
 					"HighRange");
 
 			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
