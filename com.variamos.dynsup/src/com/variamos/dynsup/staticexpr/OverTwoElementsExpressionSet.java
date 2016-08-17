@@ -142,21 +142,32 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 			 */
 			// System.out.println(relationType + " " + element);
 			if (relationType.equals("range")) {
+				InstAttribute att = instOverTwoRelation
+						.getInstAttribute("LowRange");
+				int i = 0;
+				Object obj = att.getValue();
+				if (obj instanceof String)
+					i = Integer.parseInt((String) obj);
+				else
+					i = (int) att.getValue();
 
 				AbstractExpression r = new EqualsComparisonExpression(
 						instOverTwoRelation, instOverTwoRelation
 								.getInstAttribute("LowRange").getIdentifier(),
-						getHlclFactory().number(
-								(int) instOverTwoRelation.getInstAttribute(
-										"LowRange").getValue()));
+						getHlclFactory().number(i));
 				getElementExpressions().add(r);
 				allList.add(r);
 
+				att = instOverTwoRelation.getInstAttribute("LowRange");
+				obj = att.getValue();
+				if (obj instanceof String)
+					i = Integer.parseInt((String) obj);
+				else
+					i = (int) att.getValue();
+
 				r = new EqualsComparisonExpression(instOverTwoRelation,
 						instOverTwoRelation.getInstAttribute("HighRange")
-								.getIdentifier(), getHlclFactory().number(
-								(int) instOverTwoRelation.getInstAttribute(
-										"HighRange").getValue()));
+								.getIdentifier(), getHlclFactory().number(i));
 				getElementExpressions().add(r);
 				allList.add(r);
 			}

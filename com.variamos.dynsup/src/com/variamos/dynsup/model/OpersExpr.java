@@ -258,13 +258,15 @@ public class OpersExpr implements Serializable {
 			this.rightAttributeName = attributeName2;
 			setLeftExpressionType(expressionVertexType);
 			setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+			setRightSemanticElement(semanticElement);
 		} else {
 			this.setRightSemanticElement(semanticConElement);
 			this.setRightSemanticRelElement(semanticRelElement);
 			this.rightAttributeName = attributeName1;
 			this.leftAttributeName = attributeName2;
 			setRightExpressionType(expressionVertexType);
-			setLeftExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+			setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
+			setLeftSemanticElement(semanticElement);
 		}
 	}
 
@@ -810,6 +812,8 @@ public class OpersExpr implements Serializable {
 				|| type == ExpressionVertexType.LEFTITERINCRELFIXEDVARIABLE
 				|| type == ExpressionVertexType.LEFTITEROUTRELFIXEDVARIABLE
 				|| type == ExpressionVertexType.LEFTITERANYFIXEDVARIABLE
+				|| type == ExpressionVertexType.LEFTITERINCCONVARIABLE
+				|| type == ExpressionVertexType.LEFTITEROUTCONVARIABLE
 				|| type == ExpressionVertexType.LEFTITERINCRELVARIABLE
 				|| type == ExpressionVertexType.LEFTITEROUTRELVARIABLE
 				|| type == ExpressionVertexType.LEFTITERANYRELVARIABLE)
@@ -1048,7 +1052,7 @@ public class OpersExpr implements Serializable {
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
-
+		case LEFTVARIABLE:
 		case LEFTCONCEPTVARIABLE:
 		case LEFTITERCONCEPTVARIABLE:
 		case LEFTITERCONFIXEDVARIABLE:
@@ -1057,6 +1061,7 @@ public class OpersExpr implements Serializable {
 		case LEFTITERINCRELFIXEDVARIABLE:
 		case LEFTITEROUTRELFIXEDVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
+		case LEFTITERINCCONVARIABLE:
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTRELVARIABLE:
 		case LEFTUNIQUEINCRELVARIABLE:
@@ -1066,6 +1071,7 @@ public class OpersExpr implements Serializable {
 			}
 			break;
 		case RIGHTCONCEPTVARIABLE:
+		case RIGHTVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
 			if (volatileRightSemanticElement != null) {

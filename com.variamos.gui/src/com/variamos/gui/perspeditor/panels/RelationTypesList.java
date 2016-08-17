@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.DefaultListCellRenderer;
@@ -15,7 +14,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import com.cfm.productline.type.IntegerType;
-import com.variamos.dynsup.instance.EnumerationSort;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstElement;
@@ -300,8 +298,8 @@ public class RelationTypesList extends JList<InstAttribute> {
 					attributes.add(v);
 					semExpAttributes.add(instSemanticExpressions);
 				}
-				Collections.sort(attributes, new EnumerationSort());
-
+				// Collections.sort(attributes, new EnumerationSort());
+				// Cannot apply sort only for attributes, operExprs got mixed
 				afterAction();
 				return true;
 			}
