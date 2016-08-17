@@ -438,7 +438,7 @@ public class SemanticExpressionDialog extends JDialog {
 				showExpression(semanticExpression.getLeftSemanticExpression(),
 						element, leftPanel,
 						semanticExpression.getLeftValidExpressions(),
-						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
+						color > 20 ? color - 15 : color > 5 ? color - 5 : color);
 				semanticExpression
 						.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 			}
@@ -462,7 +462,8 @@ public class SemanticExpressionDialog extends JDialog {
 		if (leftSide.getSelectedItem().equals("This Concept Variable")
 				|| leftSide.getSelectedItem().equals("An Element Fixed")) {
 			{
-				if (semanticExpression.getSemanticExpressionType() != null) {
+				if (semanticExpression != null
+						&& semanticExpression.getSemanticExpressionType() != null) {
 					leftPanel.add(createCombo(semanticExpression, element,
 							ExpressionVertexType.LEFTCONCEPTVARIABLE,
 							semanticExpression.getLeftValidExpressions(),
@@ -621,7 +622,7 @@ public class SemanticExpressionDialog extends JDialog {
 				showExpression(semanticExpression.getLeftSemanticExpression(),
 						recElement, recElement, true, leftPanel,
 						semanticExpression.getLeftValidExpressions(),
-						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
+						color > 20 ? color - 15 : color > 5 ? color - 5 : color);
 				semanticExpression.setLeftExpressionType(iterativeType);
 			}
 		basePanel.add(leftPanel);
@@ -706,7 +707,7 @@ public class SemanticExpressionDialog extends JDialog {
 							semanticExpression.getRightSemanticExpression(),
 							element, rightPanel,
 							semanticExpression.getRightValidExpressions(),
-							color > 20 ? color - 20 : color > 5 ? color - 5
+							color > 20 ? color - 15 : color > 5 ? color - 5
 									: color);
 					semanticExpression
 							.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
@@ -1036,6 +1037,8 @@ public class SemanticExpressionDialog extends JDialog {
 		case RIGHTUNIQUEOUTCONVARIABLE:
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
+		case LEFTITERINCCONVARIABLE:
+		case LEFTITEROUTCONVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (sourceRelation.getSupInstEleId().equals("OMConcept")
