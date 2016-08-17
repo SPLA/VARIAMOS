@@ -260,14 +260,14 @@ public class SemanticExpressionDialog extends JDialog {
 	private void showExpression(final OpersExpr semanticExpression,
 			final InstElement element, JPanel parentPanel,
 			int topExpressionType, int color) {
-		showExpression(semanticExpression, element, null, false, parentPanel,
+		showExpression(semanticExpression, element, null, null, parentPanel,
 				topExpressionType, color);
 	}
 
 	private void showExpression(final OpersExpr semanticExpression,
 			final InstElement element, final InstElement recursiveElement,
-			boolean fixedType, JPanel parentPanel, int topExpressionType,
-			int color) {
+			ExpressionVertexType fixedType, JPanel parentPanel,
+			int topExpressionType, int color) {
 		final InstElement ele = element;
 		final OpersExpr exp = semanticExpression;
 
@@ -338,7 +338,7 @@ public class SemanticExpressionDialog extends JDialog {
 			public void mouseExited(MouseEvent e) {
 			}
 		});
-		if (selectedExpression == semanticExpression && !fixedType) {
+		if (selectedExpression == semanticExpression && fixedType == null) {
 			leftPanel.setBorder(raisedbevel);
 			basePanel.add(leftSide);
 		}
@@ -346,12 +346,17 @@ public class SemanticExpressionDialog extends JDialog {
 				&& semanticExpression.getLeftExpressionType() != null)
 			switch (semanticExpression.getLeftExpressionType()) {
 			case LEFTITERCONFIXEDVARIABLE:
+			case LEFTITERINCRELFIXEDVARIABLE:
+			case LEFTITERANYFIXEDVARIABLE:
+			case LEFTITEROUTRELFIXEDVARIABLE:
+			case LEFTITEROUTCONFIXEDVARIABLE:
+			case LEFTITERINCCONFIXEDVARIABLE:
 				leftSide.setSelectedItem("An Element Fixed");
 				break;
 			case LEFTSUBEXPRESSION:
 				leftSide.setSelectedItem("SubExpression");
 				break;
-			case LEFTCONCEPTVARIABLE:
+			case LEFTVARIABLE:
 				leftSide.setSelectedItem("This Concept Variable");
 				break;
 			case LEFTNUMERICVALUE:
@@ -403,7 +408,7 @@ public class SemanticExpressionDialog extends JDialog {
 			case RIGHTSUBEXPRESSION:
 				rightSide.setSelectedItem("SubExpression");
 				break;
-			case RIGHTCONCEPTVARIABLE:
+			case RIGHTVARIABLE:
 				rightSide.setSelectedItem("This Concept Variable");
 				break;
 			case RIGHTNUMERICVALUE:
@@ -459,17 +464,28 @@ public class SemanticExpressionDialog extends JDialog {
 							ExpressionVertexType.LEFTSTRINGVALUE));
 				}
 		}
-		if (leftSide.getSelectedItem().equals("This Concept Variable")
-				|| leftSide.getSelectedItem().equals("An Element Fixed")) {
+		if (leftSide.getSelectedItem().equals("This Concept Variable")) {
 			{
 				if (semanticExpression != null
 						&& semanticExpression.getSemanticExpressionType() != null) {
 					leftPanel.add(createCombo(semanticExpression, element,
-							ExpressionVertexType.LEFTCONCEPTVARIABLE,
+							ExpressionVertexType.LEFTVARIABLE,
 							semanticExpression.getLeftValidExpressions(),
 							false, 'C', true));
 					semanticExpression
-							.setLeftExpressionType(ExpressionVertexType.LEFTCONCEPTVARIABLE);
+							.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
+				}
+			}
+		}
+		if (leftSide.getSelectedItem().equals("An Element Fixed")) {
+			{
+				if (semanticExpression != null
+						&& semanticExpression.getSemanticExpressionType() != null) {
+					leftPanel.add(createCombo(semanticExpression, element,
+							fixedType,
+							semanticExpression.getLeftValidExpressions(),
+							false, 'C', true));
+					semanticExpression.setLeftExpressionType(fixedType);
 				}
 			}
 		}
@@ -620,7 +636,7 @@ public class SemanticExpressionDialog extends JDialog {
 				InstElement recElement = refasModel
 						.getVertex((String) conceptCombo.getSelectedItem());
 				showExpression(semanticExpression.getLeftSemanticExpression(),
-						recElement, recElement, true, leftPanel,
+						recElement, recElement, subIterType, leftPanel,
 						semanticExpression.getLeftValidExpressions(),
 						color > 20 ? color - 15 : color > 5 ? color - 5 : color);
 				semanticExpression.setLeftExpressionType(iterativeType);
@@ -1159,7 +1175,7 @@ public class SemanticExpressionDialog extends JDialog {
 
 	private JComboBox<String> createSidesCombo(
 			final OpersExpr semanticExpression, final InstElement element,
-			final boolean left, boolean relation, boolean fixed) {
+			final boolean left, boolean relation, ExpressionVertexType fixed) {
 		JComboBox<String> combo = new JComboBox<String>();
 		combo.addItem("This Concept Variable");
 		combo.addItem("SubExpression");
@@ -1174,7 +1190,7 @@ public class SemanticExpressionDialog extends JDialog {
 			combo.addItem("Source/Target Variables (Concept)");
 			combo.addItem("Source/Target Variables (Relation)");
 		}
-		if (fixed)
+		if (fixed != null)
 			combo.addItem("An Element Fixed");
 		combo.addItem("Source Variable - Unique Rel. (Concept)");
 		combo.addItem("Target Variable - Unique Rel. (Concept)");
@@ -1195,10 +1211,10 @@ public class SemanticExpressionDialog extends JDialog {
 						case "This Concept Variable":
 							if (left)
 								semanticExpression
-										.setLeftExpressionType(ExpressionVertexType.LEFTCONCEPTVARIABLE);
+										.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
 							else
 								semanticExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
+										.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
 							break;
 						case "SubExpression":
 							if (left)

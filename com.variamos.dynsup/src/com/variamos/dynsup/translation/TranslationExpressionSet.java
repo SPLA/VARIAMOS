@@ -543,9 +543,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	// Dynamic call
 	public HlclProgram getHlCLProgramExpressions(String column) {
 		HlclProgram prog = new HlclProgram();
+		String i = "";
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			BooleanExpression newExp = (BooleanExpression) expression
 					.createSGSExpression();
+
 			if (newExp != null)
 				prog.add(newExp);
 		}

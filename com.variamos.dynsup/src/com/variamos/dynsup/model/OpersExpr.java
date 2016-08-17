@@ -1052,7 +1052,7 @@ public class OpersExpr implements Serializable {
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
-
+		case LEFTVARIABLE:
 		case LEFTCONCEPTVARIABLE:
 		case LEFTITERCONCEPTVARIABLE:
 		case LEFTITERCONFIXEDVARIABLE:
@@ -1071,6 +1071,7 @@ public class OpersExpr implements Serializable {
 			}
 			break;
 		case RIGHTCONCEPTVARIABLE:
+		case RIGHTVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
 			if (volatileRightSemanticElement != null) {

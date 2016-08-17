@@ -3964,7 +3964,7 @@ public class DefaultOpersMM {
 
 			t1 = new OpersExpr("ANDhardConcept", refas
 					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTCONCEPTVARIABLE,
+					ExpressionVertexType.LEFTVARIABLE,
 					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 					instVertexHHGR, instVertexHC, "Sel", "Sel");
 
@@ -3995,7 +3995,7 @@ public class DefaultOpersMM {
 
 			t1 = new OpersExpr("ORhardConcept", refas
 					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTCONCEPTVARIABLE,
+					ExpressionVertexType.LEFTVARIABLE,
 					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 					instVertexHHGR, instVertexHC, "Sel", "Sel");
 
@@ -4026,7 +4026,7 @@ public class DefaultOpersMM {
 
 			t1 = new OpersExpr("MUTEXhardConcept", refas
 					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTCONCEPTVARIABLE,
+					ExpressionVertexType.LEFTVARIABLE,
 					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 					instVertexHHGR, instVertexHC, "Sel", "Sel");
 
@@ -4073,7 +4073,7 @@ public class DefaultOpersMM {
 
 			t1 = new OpersExpr("RANGEhardConcept", refas
 					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTCONCEPTVARIABLE,
+					ExpressionVertexType.LEFTVARIABLE,
 					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 					instVertexHHGR, instVertexHC, "Sel", "Sel");
 
