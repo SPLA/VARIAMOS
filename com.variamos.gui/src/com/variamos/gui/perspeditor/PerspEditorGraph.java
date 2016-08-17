@@ -258,6 +258,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		Document doc = mxUtils.loadDocument(MainFrame.getFilesUrl()
 				+ "styles.xml");
 		codec.decode(doc.getDocumentElement(), stylesheet);
+
 	}
 
 	public void loadStencil() {

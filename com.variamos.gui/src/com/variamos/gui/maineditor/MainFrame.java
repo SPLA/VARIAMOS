@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20160726-1830";
+	private String variamosBuild = "20160817-1300";
 	private String downloadId = "465";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -69,7 +69,7 @@ public class MainFrame extends JFrame {
 
 	public MainFrame(String[] args) {
 		try {
-			System.out.println(createResources());
+			createResources();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -392,6 +392,20 @@ public class MainFrame extends JFrame {
 
 		File directory = new File(getFilesUrl());
 		directory.mkdir();
+		if (!directory.exists() || !directory.canRead()
+				|| !directory.canWrite()) {
+			System.out
+					.println("VariaMos needs the folder "
+							+ getFilesUrl()
+							+ " with writing privileges. Please change the privileges or manually create the folder with writing privileges and execute VariaMos againt");
+			JOptionPane
+					.showMessageDialog(
+							this,
+							"VariaMos needs the folder "
+									+ getFilesUrl()
+									+ " with writing privileges. Please change the privileges or manually create the folder with writing privileges",
+							"Fatal Error", JOptionPane.ERROR_MESSAGE, null);
+		}
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
 		String[] resourceNames = {
@@ -407,7 +421,7 @@ public class MainFrame extends JFrame {
 				String fileName = resourceName.substring(resourceName
 						.lastIndexOf("/") + 1);
 
-				System.out.println(fileName);
+				// System.out.println(fileName);
 				File file = new File(getFilesUrl() + fileName);
 
 				int readBytes;
