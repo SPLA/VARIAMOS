@@ -36,6 +36,7 @@ import com.variamos.gui.perspeditor.widgets.WidgetR;
 @SuppressWarnings("serial")
 public class PropertyParameterDialog extends JDialog {
 	private HashMap<String, WidgetR> widgets;
+	private List<OpersExpr> expressions;
 	private DialogButtonAction onAccept, onDelete, onCancel;
 
 	static interface DialogButtonAction {
@@ -66,14 +67,15 @@ public class PropertyParameterDialog extends JDialog {
 				panel.add(jb);
 				jb.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						List<OpersExpr> ie = new ArrayList<OpersExpr>();
-						;
-						if (elementAttribute.getValue() != null)
-							ie.addAll((List<OpersExpr>) elementAttribute
-									.getValue());
 
+						if (elementAttribute.getValue() != null) {
+							expressions = (List<OpersExpr>) elementAttribute
+									.getValue();
+							if (expressions == null)
+								expressions = new ArrayList<OpersExpr>();
+						}
 						final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
-								editor, instElement, ie);
+								editor, instElement, expressions);
 						dialog.center();
 						dialog.setOnAccept(new SemanticExpressionButtonAction() {
 							@Override
