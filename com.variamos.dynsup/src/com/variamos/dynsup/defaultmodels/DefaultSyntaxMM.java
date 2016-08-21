@@ -98,6 +98,11 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
+		// TODO include different visibility for extended attribute
+		syntaxFeature.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+
 		syntaxFeature.addPanelVisibleAttribute("04#"
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxFeature.addPanelSpacersAttribute("#"
@@ -155,9 +160,14 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxVariabilityArtifact.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO include different visibility for extended attribute
+		syntaxVariabilityArtifact.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, -1, "", "", -1, "", "");
+				"Name", "", "", 0, 3, "", "", 3, "", "");
 
 		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
@@ -378,7 +388,9 @@ public class DefaultSyntaxMM {
 		// InstConcept instGroupPairWiseRel = new InstConcept("Group Relation",
 		// supportMetaElementPairwise, metaGroupPairwiseRel);
 		metaGroupPairwiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", "", 0, 0, -1, "", "", -1, "", "");
+				false, "Aggregation Low", "", 0, 0, 3, "", "", 3, "[#"
+						+ "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaGroupPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaGroupPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaGroupPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -387,7 +399,9 @@ public class DefaultSyntaxMM {
 				+ "#..");
 
 		metaGroupPairwiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "Aggregation High", "", 0, 0, -1, "", "", -1, "", "");
+				false, "Aggregation High", "", 0, 0, 4, "", "", 4, "#"
+						+ "AggregationHigh" + "#]\n", "AggregationHigh"
+						+ "#!=#" + "0");
 		metaGroupPairwiseRel
 				.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaGroupPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
@@ -833,6 +847,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		sOperationalization.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
 
 		InstConcept instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
@@ -891,6 +906,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxAssumption.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
 
 		InstConcept instVertexAssum = new InstConcept("Assu",
 				supportMetaElementConcept, syntaxAssumption);
@@ -979,8 +995,9 @@ public class DefaultSyntaxMM {
 		 */
 
 		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
+				"[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
@@ -991,8 +1008,9 @@ public class DefaultSyntaxMM {
 				+ "AggregationLow" + "#..");
 
 		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
+				"#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirStructHardPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirStructHardPairwiseRel.addPropVisibleAttribute("04#"
@@ -1047,8 +1065,9 @@ public class DefaultSyntaxMM {
 				directSideHardHardSemanticEdge);
 
 		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
+				"[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirSideHardPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirSideHardPairwiseRel.addPropVisibleAttribute("03#"
@@ -1059,8 +1078,9 @@ public class DefaultSyntaxMM {
 				+ "AggregationLow" + "#..");
 
 		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
+				"#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirSideHardPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirSideHardPairwiseRel.addPropVisibleAttribute("04#"
@@ -1255,9 +1275,10 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxSoftGoal.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
 
 		syntaxSoftGoal.addModelingAttribute("name", "String", false, "Name",
-				"", "", 0, -1, "", "", -1, "", "");
+				"", "", 0, 3, "", "", 3, "", "");
 		// syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
@@ -1630,6 +1651,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxContextGroup.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
 
 		syntaxContextGroup.addModelingAttribute("name", "String", false,
 				"Name", "", "", 0, -1, "", "", -1, "", "");
@@ -1678,6 +1700,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxAbsVariable.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// TODO
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
 				"", "", 0, -1, "", "", -1, "", "");
@@ -1815,11 +1838,11 @@ public class DefaultSyntaxMM {
 
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMNAME,
 				"String", false, SyntaxElement.VAR_METAENUMNAMENAME, "", "", 0,
-				1, "", "", 1, "#-#\n\n", "");
+				1, "", "", -1, "#-#\n\n", "");
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMVALUE,
 				"Set", false, SyntaxElement.VAR_METAENUMVALUENAME, "",
 				SyntaxElement.VAR_METAENUMVALUECLASS,
-				new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n", "");
+				new ArrayList<InstAttribute>(), 0, -1, "", "", 5, "#\n", "");
 
 		metaEnumeration.addPropEditableAttribute("01#"
 				+ SyntaxElement.VAR_METAENUMNAME);
@@ -1835,6 +1858,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		metaEnumeration.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
 
 		SyntaxElement syntaxMetaChildView = new SyntaxElement('V',
 				"FullContext", "Context with Enumerations", "Context Palette",
@@ -2164,14 +2188,15 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxClaim.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// TODO
 
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, -1, "", "", -1, "", "");
+				"", 0, 3, "", "", 3, "", "");
 
 		syntaxClaim.addModelingAttribute("conditionalExpression",
 				new ElemAttribute("conditionalExpression", "String",
 						AttributeType.SYNTAX, false, "Cond. Expression Text",
-						"", "", 0, -1, "", "", -1, "", ""));
+						"", "", 0, 10, "", "", 10, "", ""));
 
 		// syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -2234,9 +2259,10 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxSoftDependency.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// TODO
 
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, -1, "", "", -1, "", "");
+				"Name", "", "", 0, 3, "", "", 3, "", "");
 
 		// syntaxSoftDependency
 		// .addModelingAttribute("conditionalExpression",
@@ -2355,8 +2381,9 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semClaimPairwiseRel);
 		metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
+				"[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirClaimPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirClaimPairwiseRel.addPropVisibleAttribute("03#"
@@ -2367,8 +2394,9 @@ public class DefaultSyntaxMM {
 				+ "AggregationLow" + "#..");
 
 		metaDirClaimPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
+				"#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirClaimPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirClaimPairwiseRel.addPropVisibleAttribute("04#"
@@ -2674,9 +2702,10 @@ public class DefaultSyntaxMM {
 				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxAsset.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
 
 		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, -1, "", "", -1, "", "");
+				"", 0, 3, "", "", 3, "", "");
 		// syntaxAsset.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
@@ -2817,7 +2846,9 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
 		metaAssetPairWiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", "", 0, 0, -1, "", "", -1, "", "");
+				false, "Aggregation Low", "", 0, 0, 3, "", "", 3, "[#"
+						+ "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaAssetPairWiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaAssetPairWiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaAssetPairWiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -2826,7 +2857,9 @@ public class DefaultSyntaxMM {
 				+ "#..");
 
 		metaAssetPairWiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "AggregationHigh", "", 0, 0, -1, "", "", -1, "", "");
+				false, "AggregationHigh", "", 0, 0, 4, "", "", 4, "#"
+						+ "AggregationHigh" + "#]\n", "AggregationHigh"
+						+ "#!=#" + "0");
 		metaAssetPairWiseRel
 				.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaAssetPairWiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
