@@ -53,8 +53,8 @@ public class ElementsOperationAssociationPanel extends
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
 	private int dialog = 0;
-	private int width = 880;
-	private int height = 600;
+	private int width = 980;
+	private int height = 500;
 	List<InstElement> operActions = null;
 	private AssociationTreeTable table = null;
 
@@ -96,7 +96,7 @@ public class ElementsOperationAssociationPanel extends
 						editor.getEditedModel(), operAction);
 				panel.removeAll();
 				table = tableN;
-				table.setPreferredSize(new Dimension(width, height + 400));
+				table.setPreferredSize(new Dimension(width, height + 1000));
 				JScrollPane scrollPane = new JScrollPane(table);
 				scrollPane.setPreferredSize(new Dimension(width, height));
 				panel.add(scrollPane);

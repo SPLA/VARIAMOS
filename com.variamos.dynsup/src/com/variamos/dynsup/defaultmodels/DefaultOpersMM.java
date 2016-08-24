@@ -2094,23 +2094,26 @@ public class DefaultOpersMM {
 				"relationType", "Class", AttributeType.OPERATION, true,
 				"Relation Type", "Type of over two relation",
 				InstAttribute.class.getCanonicalName(), null, null, 0, 6, "",
-				"", 6, "", ""));
+				"", 6, "#relationType#", ""));
 		semInfraOTRel.addPropEditableAttribute("06#" + "relationType");
 		semInfraOTRel.addPropVisibleAttribute("06#" + "relationType");
-		semInfraOTRel.addPanelVisibleAttribute("06#" + "relationType");
-		semInfraOTRel.addPanelSpacersAttribute("#" + "relationType" + "#");
+		// semInfraOTRel.addPanelVisibleAttribute("06#" + "relationType");
+		// semInfraOTRel.addPanelSpacersAttribute("#" + "relationType" + "#");
 
 		attribute = new ElemAttribute("LowRange", "Integer",
 				AttributeType.OPERATION, "Low Range",
 				"Low value for range relation type", 1, false, new RangeDomain(
-						0, 50, 0), 0, 6, "", "", 6, "", "");
+						0, 50, 0), 0, 8, "", "relationType" + "#==#" + "range"
+						+ "#" + "1", 8, " [#" + "LowRange" + "#",
+				"relationType" + "#==#" + "range");
+
 		semInfraOTRel.putSemanticAttribute("LowRange", attribute);
 		semInfraOTRel.addPropEditableAttribute("08#" + "LowRange");
 		semInfraOTRel.addPropVisibleAttribute("08#" + "LowRange" + "#"
 				+ "relationType" + "#==#" + "range" + "#" + "1");
-		semInfraOTRel.addPanelVisibleAttribute("08#" + "LowRange" + "#"
-				+ "relationType" + "#==#" + "range");
-		semInfraOTRel.addPanelSpacersAttribute(" [#" + "LowRange" + "#");
+		// semInfraOTRel.addPanelVisibleAttribute("08#" + "LowRange" + "#"
+		// + "relationType" + "#==#" + "range");
+		// semInfraOTRel.addPanelSpacersAttribute(" [#" + "LowRange" + "#");
 
 		if (!empty) {
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -2126,14 +2129,13 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("HighRange", "Integer",
 				AttributeType.OPERATION, "High Range",
 				"High value for range relation type", 1, false,
-				new RangeDomain(0, 50, 0), 0, 6, "", "", 6, "", "");
-		semInfraOTRel.putSemanticAttribute("HighRange", attribute);
-		semInfraOTRel.addPropEditableAttribute("09#" + "HighRange");
-		semInfraOTRel.addPropVisibleAttribute("09#" + "HighRange" + "#"
-				+ "relationType" + "#==#" + "range" + "#" + "1");
-		semInfraOTRel.addPanelVisibleAttribute("09#" + "HighRange" + "#"
-				+ "relationType" + "#==#" + "range");
-		semInfraOTRel.addPanelSpacersAttribute("-#" + "HighRange" + "#]");
+				new RangeDomain(0, 50, 0), 0, 9, "", "relationType" + "#==#"
+						+ "range" + "#" + "1", 9, "-#" + "HighRange" + "#]",
+				"relationType" + "#==#" + "range");
+
+		// semInfraOTRel.addPanelVisibleAttribute("09#" + "HighRange" + "#"
+		// + "relationType" + "#==#" + "range");
+		// semInfraOTRel.addPanelSpacersAttribute("-#" + "HighRange" + "#]");
 
 		if (!empty) {
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -2154,11 +2156,12 @@ public class DefaultOpersMM {
 				"relationType", "Class", AttributeType.OPERATION, true,
 				"Relation Type", "Type of pairwise relation",
 				InstAttribute.class.getCanonicalName(), null, "", 0, 6, "", "",
-				6, "#-#\n", ""));
+				6, "#" + "relationType" + "#\n", ""));
 		semGeneralPair.addPropEditableAttribute("06#" + "relationType");
 		semGeneralPair.addPropVisibleAttribute("06#" + "relationType");
-		semGeneralPair.addPanelVisibleAttribute("06#" + "relationType");
-		semGeneralPair.addPanelSpacersAttribute("#" + "relationType" + "#\n");
+		// semGeneralPair.addPanelVisibleAttribute("06#" + "relationType");
+		// semGeneralPair.addPanelSpacersAttribute("#" + "relationType" +
+		// "#\n");
 
 		refas.getVariabilityVertex().put("InfraMPWRel", instInfraPair);
 
@@ -2227,11 +2230,16 @@ public class DefaultOpersMM {
 				"Concern Level",
 				"Concern level of this element associated from the context view",
 				InstConcept.class.getCanonicalName(), "CG", null, 0, -1, "",
-				"", -1, "", "");
+				"", 0, "<<#" + "ConcernLevel" + "#>>\n", "Scope" + "#==#"
+						+ "false");
 		semVariable.putSemanticAttribute("ConcernLevel", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 		// TODO: use concern level
+		// semVariable.addPanelVisibleAttribute("00#" + "ConcernLevel" + "#"
+		// + "Scope" + "#==#" + "false");
+		// semVariable.addPanelSpacersAttribute("<<#" + "ConcernLevel" +
+		// "#>>\n");
 
 		attribute = new ElemAttribute("name", "String",
 				AttributeType.OPERATION, false, "Name",
@@ -2242,41 +2250,59 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("variableType", "Enumeration",
 				AttributeType.OPERATION, true, "Variable Type",
 				"Type of variable", VariableType.class.getCanonicalName(),
-				"String", "", 0, 2, "", "", -1, "", "variableType" + "#!=#"
-						+ "Enumeration");
+				"String", "", 0, 2, "", "", 5, "{#" + "variableType" + "#} ",
+				"variableType" + "#!=#" + "Enumeration");
 		semVariable.putSemanticAttribute("variableType", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// semVariable.addPanelVisibleAttribute("05#" + "variableType" + "#"
+		// + "variableType" + "#!=#" + "Enumeration");
+		// semVariable.addPanelSpacersAttribute("{#" + "variableType" + "#} ");
 
 		attribute = new ElemAttribute("varDom", "String",
 				AttributeType.OPERATION, false, "Variable Domain",
 				"Defined domain (positive numbers) {n-m,o,p-r}", "0,1", 0, 3,
 				"variableType" + "#==#" + "Integer", "variableType" + "#==#"
-						+ "Integer", -1, "", "");
+						+ "Integer", 7, "{#" + "varDom" + "#} ", "variableType"
+						+ "#==#" + "Integer");
 		semVariable.putSemanticAttribute("varDom", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// semVariable.addPanelVisibleAttribute("07#" + "varDom" + "#"
+		// + "variableType" + "#==#" + "Integer");
+		// semVariable.addPanelSpacersAttribute("{#" + "varDom" + "#} ");
 
 		attribute = new ElemAttribute("floatDom", "String",
 				AttributeType.OPERATION, false, "Float Domain",
 				"Defined domain (positive numbers) {n-m,o,p-r}", "0,1", 0, 3,
 				"variableType" + "#==#" + "Float", "variableType" + "#==#"
-						+ "Float", -1, "", "");
+						+ "Float", 7, "{#" + "floatDom" + "#} ", "variableType"
+						+ "#==#" + "Float");
 		semVariable.putSemanticAttribute("floatDom", attribute);
+		// semVariable.addPanelVisibleAttribute("07#" + "floatDom" + "#"
+		// + "variableType" + "#==#" + "Float");
+		// semVariable.addPanelSpacersAttribute("{#" + "floatDom" + "#} ");
 
 		attribute = new ElemAttribute("floatPrec", "Integer",
 				AttributeType.OPERATION, false, "Float Precision",
 				"Number of decimal for float precision", 2, 0, 3,
 				"variableType" + "#==#" + "Float", "variableType" + "#==#"
-						+ "Float", -1, "", "");
+						+ "Float", 7, "#" + "floatPrec" + "#", "variableType"
+						+ "#==#" + "Float");
 		semVariable.putSemanticAttribute("floatPrec", attribute);
+		// semVariable.addPanelVisibleAttribute("07#" + "floatPrec" + "#"
+		// + "variableType" + "#==#" + "Float");
 
 		attribute = new ElemAttribute("enumType", "Class",
 				AttributeType.OPERATION, false, "Enumeration",
 				"Enumeration type from the context view",
 				InstConcept.class.getCanonicalName(), "ME", "String", "", 0, 4,
 				"variableType" + "#==#" + "Enumeration", "variableType"
-						+ "#==#" + "Enumeration", -1, "", "");
+						+ "#==#" + "Enumeration", 6,
+				"#" + "variableType" + "#", "variableType" + "#==#"
+						+ "Enumeration");
 		semVariable.putSemanticAttribute("enumType", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// semVariable.addPanelVisibleAttribute("06#" + "enumType" + "#"
+		// + "variableType" + "#==#" + "Enumeration");
 
 		// TODO define domain for enumtype
 		attribute = new ElemAttribute("value", "Integer",
@@ -2405,21 +2431,6 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("02#" + "varConfDom" + "#"
 				+ "isConfDom" + "#==#" + "true");
 
-		semVariable.addPanelVisibleAttribute("05#" + "variableType" + "#"
-				+ "variableType" + "#!=#" + "Enumeration");
-		semVariable.addPanelVisibleAttribute("06#" + "enumType" + "#"
-				+ "variableType" + "#==#" + "Enumeration");
-		semVariable.addPanelVisibleAttribute("07#" + "varDom" + "#"
-				+ "variableType" + "#==#" + "Integer");
-		semVariable.addPanelVisibleAttribute("07#" + "floatDom" + "#"
-				+ "variableType" + "#==#" + "Float");
-		semVariable.addPanelVisibleAttribute("07#" + "floatPrec" + "#"
-				+ "variableType" + "#==#" + "Float");
-		semVariable.addPanelSpacersAttribute("{#" + "variableType" + "#} ");
-
-		semVariable.addPanelSpacersAttribute("{#" + "varDom" + "#} ");
-		semVariable.addPanelSpacersAttribute("{#" + "floatDom" + "#} ");
-
 		semVariable.addPropEditableAttribute("03#" + "DBVis");
 		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
 		semVariable.addPropVisibleAttribute("03#" + "DBVis");
@@ -2432,10 +2443,6 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("05#" + "Scope");
 		semVariable.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false" + "#" + "");
-
-		semVariable.addPanelVisibleAttribute("00#" + "ConcernLevel" + "#"
-				+ "Scope" + "#==#" + "false");
-		semVariable.addPanelSpacersAttribute("<<#" + "ConcernLevel" + "#>>\n");
 
 		refas.getVariabilityVertex().put("Variable", instVertexVAR);
 
@@ -2786,8 +2793,13 @@ public class DefaultOpersMM {
 					AttributeType.OPERATION, false, "Concern Level",
 					"Concern Level of the element (Ignored for operations)",
 					InstConcept.class.getCanonicalName(), "CG", null, 2, -1,
-					"", "", -1, "", "");
+					"", "", 0, "<<#" + "ConcernLevel" + "#>>\n", "#" + "Scope"
+							+ "#==#" + "false");
 			semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
+			// semGeneralElement.addPanelVisibleAttribute("00#" + "ConcernLevel"
+			// + "#" + "Scope" + "#==#" + "false");
+			// semGeneralElement.addPanelSpacersAttribute("<<#" + "ConcernLevel"
+			// + "#>>\n");
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
 			// TODO: use concern level
@@ -2801,11 +2813,6 @@ public class DefaultOpersMM {
 			semGeneralElement.addPropVisibleAttribute("05#" + "Scope");
 			semGeneralElement.addPropVisibleAttribute("06#" + "ConcernLevel"
 					+ "#" + "Scope" + "#==#" + "false" + "#" + "");
-
-			semGeneralElement.addPanelVisibleAttribute("00#" + "ConcernLevel"
-					+ "#" + "Scope" + "#==#" + "false");
-			semGeneralElement.addPanelSpacersAttribute("<<#" + "ConcernLevel"
-					+ "#>>\n");
 
 			// Configuration attributes: do no change identifiers
 			/*
@@ -3102,8 +3109,14 @@ public class DefaultOpersMM {
 
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semGoal
 					.getIdentifier(), "Sel", true));
-			semGoal.addPanelVisibleAttribute("01#" + "satType");
-			semGoal.addPanelSpacersAttribute("<#" + "satType" + "#>\n");
+			attribute = new ElemAttribute("satType", "Enumeration",
+					AttributeType.OPERATION, false, "satType", "",
+					"com.variamos.dynsup.statictypes.SatisfactionType",
+					"achieve", "", 0, -1, "", "", 1, "<#" + "satType" + "#>\n",
+					"");
+			semGoal.putSemanticAttribute("satType", attribute);
+			// semGoal.addPanelVisibleAttribute("01#" + "satType");
+			// semGoal.addPanelSpacersAttribute("<#" + "satType" + "#>\n");
 			InstConcept instVertexG = new InstConcept("Goal", metaMetaConcept,
 					semGoal);
 			refas.getVariabilityVertex().put("Goal", instVertexG);
@@ -3677,13 +3690,16 @@ public class DefaultOpersMM {
 					false,
 					"Conditional Expression",
 					"Claim activation expression (in addition to operationalizations/left features)",
-					null, 0, -1, "", "", -1, "", "");
+					null, 0, -1, "", "", 3, "#ConditionalExpression#", "");
 			semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semClaim.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semClaim
 					.getIdentifier(), attribute.getName(), true));
 			// simulOperationSubAction.addInVariable(attribute);
+
+			// semClaim.addPanelVisibleAttribute("03#" +
+			// "ConditionalExpression");
 
 			attribute = new ElemAttribute("CompExp", "Boolean",
 					AttributeType.GLOBALCONFIG, false,
@@ -3714,17 +3730,14 @@ public class DefaultOpersMM {
 					false,
 					"Claim Expression Text",
 					"Textual representation of the conditional expression (only to display)",
-					"", 0, -1, "", "", -1, "", "");
+					"", 0, -1, "", "", 10, "#ClaimExpression#", "");
 			semClaim.putSemanticAttribute("ClaimExpression", attribute);
+			// semClaim.addPanelVisibleAttribute("10#" + "ClaimExpression");
+
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
 
 			// semClaim.addPanelVisibleAttribute("01#" + "Operationalizations");
-			semClaim.addPanelVisibleAttribute("03#" + "ConditionalExpression"); // TODO
-																				// move
-																				// to
-																				// semantic
-																				// attributes
 
 			// semClaim.addPropEditableAttribute("01#" + "Operationalizations");
 			semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
@@ -3741,8 +3754,6 @@ public class DefaultOpersMM {
 			semClaim.addPropVisibleAttribute("01#" + "CompExp");
 
 			// semClaim.addPropVisibleAttribute("02#" + "ClaimSelected");
-
-			semClaim.addPanelVisibleAttribute("10#" + "ClaimExpression");
 
 			// semClaim.addPanelSpacersAttribute("#" + "Operationalizations" +
 			// "#\n#");
@@ -3787,7 +3798,7 @@ public class DefaultOpersMM {
 					ModelExpr.class.getCanonicalName(),
 					AttributeType.OPERATION, false, "Conditional Expression",
 					"Soft dependency activation expression", null, 0, -1, "",
-					"", -1, "", "");
+					"", 3, "#ConditionalExpression#", "");
 			semSoftDependency.putSemanticAttribute("ConditionalExpression",
 					attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -3797,6 +3808,8 @@ public class DefaultOpersMM {
 					semSoftDependency.getIdentifier(), attribute.getName(),
 					true));
 			// simulOperationSubAction.addInVariable(attribute);
+			// semSoftDependency.addPanelVisibleAttribute("03#"
+			// + "ConditionalExpression");
 
 			attribute = new ElemAttribute(
 					"SDExpression",
@@ -3805,9 +3818,11 @@ public class DefaultOpersMM {
 					false,
 					"SD Expression Text",
 					"Textual representation of the conditional expression (only to display)",
-					"", 2, -1, "", "", -1, "", "");
+					"", 2, -1, "", "", 10, "#SDExpression#", "");
 			semSoftDependency.putSemanticAttribute("SDExpression", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
+			// semSoftDependency.addPanelVisibleAttribute("10#" +
+			// "SDExpression");
 
 			attribute = new ElemAttribute("CompExp", "Boolean",
 					AttributeType.GLOBALCONFIG, false,
@@ -3821,9 +3836,6 @@ public class DefaultOpersMM {
 					false, 2, -1, "", "", -1, "", "");
 			semSoftDependency.putSemanticAttribute("SDSelected", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			semSoftDependency.addPanelVisibleAttribute("03#"
-					+ "ConditionalExpression");
 
 			// semSoftDependency.addPanelVisibleAttribute("10#" +
 			// "SDExpression");
@@ -3840,8 +3852,6 @@ public class DefaultOpersMM {
 			semSoftDependency.addPropVisibleAttribute("01#" + "CompExp");
 
 			semSoftDependency.addPropVisibleAttribute("02#" + "SDSelected");
-
-			semSoftDependency.addPanelVisibleAttribute("10#" + "SDExpression");
 
 			// Elements Lists
 			// List<AbstractSemanticVertex> semAssumptionElements = new
@@ -4127,15 +4137,15 @@ public class DefaultOpersMM {
 					new ElemAttribute("relationType", "Class",
 							AttributeType.OPERATION, true, "Relation Type", "",
 							InstAttribute.class.getCanonicalName(), null, "",
-							0, 6, "", "", 6, "#-#\n", ""));
+							0, 6, "", "", 6, "#" + "relationType" + "#\n", ""));
 			directHardHardSemanticEdge.addPropEditableAttribute("06#"
 					+ "relationType");
 			directHardHardSemanticEdge.addPropVisibleAttribute("06#"
 					+ "relationType");
-			directHardHardSemanticEdge.addPanelVisibleAttribute("06#"
-					+ "relationType");
-			directHardHardSemanticEdge.addPanelSpacersAttribute("#"
-					+ "relationType" + "#\n");
+			// directHardHardSemanticEdge.addPanelVisibleAttribute("06#"
+			// + "relationType");
+			// directHardHardSemanticEdge.addPanelSpacersAttribute("#"
+			// + "relationType" + "#\n");
 
 			instEdge = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("ggstoip", instEdge);
@@ -5213,7 +5223,8 @@ public class DefaultOpersMM {
 			OpersConcept directSGSGSemEdge = new OpersConcept("SgSgPWAsso");
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", 8,
+					"#sourceLevel#", "");
 			directSGSGSemEdge.putSemanticAttribute("sourceLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5227,10 +5238,15 @@ public class DefaultOpersMM {
 			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
 					true));
+			directSGSGSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
+			directSGSGSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
+			// directSGSGSemEdge.addPanelVisibleAttribute("08#" +
+			// "sourceLevel");
 
 			attribute = new ElemAttribute("targetLevel", "Integer",
 					AttributeType.OPERATION, "Target Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", 9,
+					"#targetLevel#", "");
 			directSGSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5244,10 +5260,16 @@ public class DefaultOpersMM {
 			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
 					true));
+			directSGSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel"
+					+ "#");
+			directSGSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
+			directSGSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
+			// directSGSGSemEdge.addPanelVisibleAttribute("09#" +
+			// "targetLevel");
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, -1, "", "", -1, "", "");
+					0, -1, "", "", 7, "[#" + "AggregationLow" + "#..", "");
 			directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5262,11 +5284,12 @@ public class DefaultOpersMM {
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
 					true));
 
-			directSGSGSemEdge
-					.addPanelVisibleAttribute("07#" + "AggregationLow");
+			// directSGSGSemEdge
+			// .addPanelVisibleAttribute("07#" + "AggregationLow");
 
-			directSGSGSemEdge.addPanelSpacersAttribute("[#" + "AggregationLow"
-					+ "#..");
+			// directSGSGSemEdge.addPanelSpacersAttribute("[#" +
+			// "AggregationLow"
+			// + "#..");
 
 			directSGSGSemEdge
 					.addPropEditableAttribute("07#" + "AggregationLow");
@@ -5275,7 +5298,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, -1, "", "", -1, "", "");
+					0, -1, "", "", 8, "#" + "AggregationHigh" + "#]\n", "");
 			directSGSGSemEdge
 					.putSemanticAttribute("AggregationHigh", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5291,27 +5314,18 @@ public class DefaultOpersMM {
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
 					true));
 
-			directSGSGSemEdge.addPanelVisibleAttribute("08#"
-					+ "AggregationHigh");
+			// directSGSGSemEdge.addPanelVisibleAttribute("08#"
+			// + "AggregationHigh");
 
-			directSGSGSemEdge.addPanelSpacersAttribute("#" + "AggregationHigh"
-					+ "#]\n");
+			// directSGSGSemEdge.addPanelSpacersAttribute("#" +
+			// "AggregationHigh"
+			// + "#]\n");
 
 			directSGSGSemEdge.addPropEditableAttribute("08#"
 					+ "AggregationHigh");
 
 			directSGSGSemEdge
 					.addPropVisibleAttribute("08#" + "AggregationHigh");
-
-			directSGSGSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
-			directSGSGSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
-			directSGSGSemEdge.addPanelVisibleAttribute("08#" + "sourceLevel");
-
-			directSGSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel"
-					+ "#");
-			directSGSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
-			directSGSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
-			directSGSGSemEdge.addPanelVisibleAttribute("09#" + "targetLevel");
 
 			InstConcept instDirSGSGSemanticEdge = new InstConcept("SgSgPWAsso",
 					metaMetaPairwiseRelation, directSGSGSemEdge);
@@ -5636,7 +5650,8 @@ public class DefaultOpersMM {
 					"sgsgOTAssoToPWAsso");
 			attribute = new ElemAttribute("targetLevel", "Integer",
 					AttributeType.OPERATION, "Target Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", 9,
+					":#targetLevel#", "");
 			directGRSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directGRSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5655,7 +5670,8 @@ public class DefaultOpersMM {
 					+ "#");
 			directGRSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
 			directGRSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
-			directGRSGSemEdge.addPanelVisibleAttribute("09#" + "targetLevel");
+			// directGRSGSemEdge.addPanelVisibleAttribute("09#" +
+			// "targetLevel");
 
 			// FIXME remove, use other
 			InstConcept instSgsgGRSG = new InstConcept("sgsgOTAssoToPWAsso",
@@ -5946,7 +5962,8 @@ public class DefaultOpersMM {
 					"sgsgOTAssoFromPWAsso");
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", 8,
+					"#sourceLevel#", "");
 			directSGGRSemEdge.putSemanticAttribute("sourceLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
@@ -5960,10 +5977,14 @@ public class DefaultOpersMM {
 			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
 					true));
+			directSGGRSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
+			directSGGRSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
+			// directSGGRSemEdge.addPanelVisibleAttribute("08#" +
+			// "sourceLevel");
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, -1, "", "", -1, "", "");
+					0, -1, "", "", 7, "[#" + "AggregationLow" + "#..", "");
 			directSGGRSemEdge.putSemanticAttribute("AggregationLow", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
@@ -5972,11 +5993,12 @@ public class DefaultOpersMM {
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
 					true));
 
-			directSGGRSemEdge
-					.addPanelVisibleAttribute("07#" + "AggregationLow");
+			// directSGGRSemEdge
+			// .addPanelVisibleAttribute("07#" + "AggregationLow");
 
-			directSGGRSemEdge.addPanelSpacersAttribute("[#" + "AggregationLow"
-					+ "#..");
+			// directSGGRSemEdge.addPanelSpacersAttribute("[#" +
+			// "AggregationLow"
+			// + "#..");
 
 			directSGGRSemEdge
 					.addPropEditableAttribute("07#" + "AggregationLow");
@@ -5985,7 +6007,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, -1, "", "", -1, "", "");
+					0, -1, "", "", 8, "#" + "AggregationHigh" + "#]\n", "");
 			directSGGRSemEdge
 					.putSemanticAttribute("AggregationHigh", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5995,21 +6017,18 @@ public class DefaultOpersMM {
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
 					true));
 
-			directSGGRSemEdge.addPanelVisibleAttribute("08#"
-					+ "AggregationHigh");
+			// directSGGRSemEdge.addPanelVisibleAttribute("08#"
+			// + "AggregationHigh");
 
-			directSGGRSemEdge.addPanelSpacersAttribute("#" + "AggregationHigh"
-					+ "#]\n");
+			// directSGGRSemEdge.addPanelSpacersAttribute("#" +
+			// "AggregationHigh"
+			// + "#]\n");
 
 			directSGGRSemEdge.addPropEditableAttribute("08#"
 					+ "AggregationHigh");
 
 			directSGGRSemEdge
 					.addPropVisibleAttribute("08#" + "AggregationHigh");
-
-			directSGGRSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
-			directSGGRSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
-			directSGGRSemEdge.addPanelVisibleAttribute("08#" + "sourceLevel");
 
 			InstConcept instSgsgSGR = new InstConcept("sgsgOTAssoFromPWAsso",
 					metaMetaPairwiseRelation, directSGGRSemEdge);
@@ -6735,7 +6754,8 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("CLSGLevel", "Integer",
 					AttributeType.OPERATION, "Relation Level",
 					"Required level for the Claim (0..4)", 2, false,
-					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "#CLSGLevel#",
+					"");
 			directClaimSGSemanticEdge.putSemanticAttribute("CLSGLevel",
 					attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -6755,8 +6775,8 @@ public class DefaultOpersMM {
 					+ "CLSGLevel");
 			directClaimSGSemanticEdge.addPropVisibleAttribute("08#"
 					+ "CLSGLevel");
-			directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
-					+ "CLSGLevel");
+			// directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
+			// + "CLSGLevel");
 			InstConcept instDirClaimSGSemanticEdge = new InstConcept(
 					"ClaimSGPWAsso", metaMetaPairwiseRelation,
 					directClaimSGSemanticEdge);
@@ -6876,7 +6896,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("level", "Integer",
 					AttributeType.OPERATION, "Level",
 					"Required level for the SD (0..4)", 1, false,
-					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "level", "");
 			directSDSGSemanticEdge.putSemanticAttribute("level", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSDSGSemanticEdge.getIdentifier(),
@@ -6893,7 +6913,7 @@ public class DefaultOpersMM {
 
 			directSDSGSemanticEdge.addPropEditableAttribute("08#" + "level");
 			directSDSGSemanticEdge.addPropVisibleAttribute("08#" + "level");
-			directSDSGSemanticEdge.addPanelVisibleAttribute("08#" + "level");
+			// directSDSGSemanticEdge.addPanelVisibleAttribute("08#" + "level");
 			InstConcept instDirSDSGSemanticEdge = new InstConcept("SDSGPWAsso",
 					metaMetaPairwiseRelation, directSDSGSemanticEdge);
 

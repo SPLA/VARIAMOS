@@ -718,9 +718,9 @@ public class SyntaxElement implements Serializable {
 
 	public ElemAttribute getAbstractAttribute(String attributeName,
 			List<InstElement> syntaxParents, List<InstElement> opersParents) {
-		ElemAttribute out = getSemanticAttribute(attributeName);
+		ElemAttribute out = getModelingAttribute(attributeName, syntaxParents);
 		if (out == null)
-			return getModelingAttribute(attributeName, syntaxParents);
+			return getSemanticAttribute(attributeName);
 		else
 			return out;
 	}
@@ -735,14 +735,14 @@ public class SyntaxElement implements Serializable {
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		if (!name.equals(VAR_AUTOIDENTIFIER)
-				&& modelingAttributes.get(name) == null)
-			modelingAttributes.put(name, new ElemAttribute(name, type,
-					AttributeType.SYNTAX, affectProperties, displayName,
-					toolTipText, defaultValue, defaultGroup, propTabPosition,
-					propTabEditionCondition, propTabVisualCondition,
-					elementDisplayPosition, elementDisplaySpacers,
-					elementDisplayCondition));
+		if (modelingAttributes.get(name) != null)
+			modelingAttributes.remove(modelingAttributes.get(name));
+		modelingAttributes.put(name, new ElemAttribute(name, type,
+				AttributeType.SYNTAX, affectProperties, displayName,
+				toolTipText, defaultValue, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition));
 	}
 
 	public void addModelingAttribute(String name,

@@ -831,6 +831,13 @@ public class ElemAttribute implements Serializable {
 		return elementDisplayPosition;
 	}
 
+	public String getElementDisplayPositionStr() {
+		if (elementDisplayPosition < 10)
+			return "0" + elementDisplayPosition;
+		else
+			return elementDisplayPosition + "";
+	}
+
 	public String getElementDisplaySpacers() {
 		return elementDisplaySpacers;
 	}

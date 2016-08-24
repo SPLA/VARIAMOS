@@ -98,13 +98,18 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
-		syntaxFeature.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxFeature.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO include different visibility for extended attribute
+		syntaxFeature.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+
+		// syntaxFeature.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxFeature.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxFeature.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, 3, "", "", 3, "", "");
+				"", 0, 3, "", "", -1, "", "");
 
 		// syntaxFeature.addPanelVisibleAttribute("03#" + "name");
 
@@ -151,13 +156,18 @@ public class DefaultSyntaxMM {
 				false, true, "VariabilityArtifact", null, "", 0, 0, null, true,
 				null, 3, semHardConcept, true);
 
-		syntaxVariabilityArtifact.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxVariabilityArtifact.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxVariabilityArtifact.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxVariabilityArtifact.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO include different visibility for extended attribute
+		syntaxVariabilityArtifact.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, -1, "", "", -1, "", "");
+				"Name", "", "", 0, 3, "", "", -1, "", "");
 
 		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
@@ -178,6 +188,11 @@ public class DefaultSyntaxMM {
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
+		syntaxRootFeature.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+
 		InstConcept instVertexRF = new InstConcept("RootFeature",
 				supportMetaElementConcept, syntaxRootFeature);
 		refas.getVariabilityVertex().put("RootFeature", instVertexRF);
@@ -188,6 +203,11 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
+		syntaxGeneralFeature.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+
 		InstConcept instVertexGF = new InstConcept("GeneralFeature",
 				supportMetaElementConcept, syntaxGeneralFeature);
 		refas.getVariabilityVertex().put("GeneralFeature", instVertexGF);
@@ -196,6 +216,10 @@ public class DefaultSyntaxMM {
 				true, true, "LeafFeature", "plnode", "Defines a leaf feature",
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
+
+		syntaxVertexLF.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		InstConcept instVertexLF = new InstConcept("LeafFeature",
 				supportMetaElementConcept, syntaxVertexLF);
@@ -259,6 +283,10 @@ public class DefaultSyntaxMM {
 						+ " satisfied with a clear cut condition", 120, 60,
 				"/com/variamos/gui/perspeditor/images/goal.png", true,
 				Color.BLUE.toString(), 3, semGoal, true);
+
+		syntaxGoal.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		InstConcept instVertexG = new InstConcept("Goal",
 				supportMetaElementConcept, syntaxGoal);
@@ -378,7 +406,9 @@ public class DefaultSyntaxMM {
 		// InstConcept instGroupPairWiseRel = new InstConcept("Group Relation",
 		// supportMetaElementPairwise, metaGroupPairwiseRel);
 		metaGroupPairwiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", "", 0, 0, -1, "", "", -1, "", "");
+				false, "Aggregation Low", "", 0, 0, 3, "", "", 3, "[#"
+						+ "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaGroupPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaGroupPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaGroupPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -387,7 +417,9 @@ public class DefaultSyntaxMM {
 				+ "#..");
 
 		metaGroupPairwiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "Aggregation High", "", 0, 0, -1, "", "", -1, "", "");
+				false, "Aggregation High", "", 0, 0, 4, "", "", 4, "#"
+						+ "AggregationHigh" + "#]\n", "AggregationHigh"
+						+ "#!=#" + "0");
 		metaGroupPairwiseRel
 				.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaGroupPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
@@ -829,10 +861,16 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/operational.png", true,
 				Color.BLUE.toString(), 2, semOperationalization, true);
 
-		sOperationalization.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		sOperationalization.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// sOperationalization.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// sOperationalization.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
+
+		sOperationalization.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		InstConcept instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
@@ -887,10 +925,14 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 1, semAssumption, true);
 
-		syntaxAssumption.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxAssumption.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxAssumption.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxAssumption.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
+		syntaxAssumption.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		InstConcept instVertexAssum = new InstConcept("Assu",
 				supportMetaElementConcept, syntaxAssumption);
@@ -979,8 +1021,9 @@ public class DefaultSyntaxMM {
 		 */
 
 		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
+				"[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
@@ -991,8 +1034,9 @@ public class DefaultSyntaxMM {
 				+ "AggregationLow" + "#..");
 
 		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
+				"#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirStructHardPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirStructHardPairwiseRel.addPropVisibleAttribute("04#"
@@ -1047,8 +1091,9 @@ public class DefaultSyntaxMM {
 				directSideHardHardSemanticEdge);
 
 		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
+				"[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirSideHardPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirSideHardPairwiseRel.addPropVisibleAttribute("03#"
@@ -1059,8 +1104,9 @@ public class DefaultSyntaxMM {
 				+ "AggregationLow" + "#..");
 
 		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
+				"#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirSideHardPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirSideHardPairwiseRel.addPropVisibleAttribute("04#"
@@ -1251,13 +1297,18 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/softgoal.png", true,
 				Color.WHITE.toString(), 3, semSoftgoal, true);
 
-		syntaxSoftGoal.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxSoftGoal.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxSoftGoal.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxSoftGoal.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
+
+		syntaxSoftGoal.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		syntaxSoftGoal.addModelingAttribute("name", "String", false, "Name",
-				"", "", 0, -1, "", "", -1, "", "");
+				"", "", 0, 3, "", "", -1, "", "");
 		// syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
@@ -1626,13 +1677,18 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/contextgrp.png", true,
 				Color.BLUE.toString(), 1, semContextGroup, true);
 
-		syntaxContextGroup.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxContextGroup.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxContextGroup.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxContextGroup.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
+		syntaxContextGroup.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		syntaxContextGroup.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, -1, "", "", -1, "", "");
+				"Name", "", "", 0, 3, "", "", -1, "", "");
 
 		InstConcept instVertexCG = new InstConcept("CG",
 				supportMetaElementConcept, syntaxContextGroup);
@@ -1674,10 +1730,15 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/globCnxtVar.png", true,
 				Color.BLUE.toString(), 1, semVariable, true);
 
-		syntaxAbsVariable.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxAbsVariable.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// syntaxAbsVariable.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxAbsVariable.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// TODO
+		syntaxAbsVariable.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
 				"", "", 0, -1, "", "", -1, "", "");
@@ -1815,11 +1876,11 @@ public class DefaultSyntaxMM {
 
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMNAME,
 				"String", false, SyntaxElement.VAR_METAENUMNAMENAME, "", "", 0,
-				1, "", "", 1, "#-#\n\n", "");
+				1, "", "", -1, "#-#\n\n", "");
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMVALUE,
 				"Set", false, SyntaxElement.VAR_METAENUMVALUENAME, "",
 				SyntaxElement.VAR_METAENUMVALUECLASS,
-				new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n", "");
+				new ArrayList<InstAttribute>(), 0, -1, "", "", 5, "#\n", "");
 
 		metaEnumeration.addPropEditableAttribute("01#"
 				+ SyntaxElement.VAR_METAENUMNAME);
@@ -1831,10 +1892,14 @@ public class DefaultSyntaxMM {
 		metaEnumeration.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_METAENUMVALUE + "#\n");
 
-		metaEnumeration.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		metaEnumeration.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// metaEnumeration.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// metaEnumeration.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
+		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		SyntaxElement syntaxMetaChildView = new SyntaxElement('V',
 				"FullContext", "Context with Enumerations", "Context Palette",
@@ -2160,18 +2225,22 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/claim.png", true,
 				Color.BLUE.toString(), 1, semClaim, true);
 
-		syntaxClaim.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxClaim.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// syntaxClaim.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxClaim.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// TODO
+		syntaxClaim.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
 
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, -1, "", "", -1, "", "");
+				"", 0, 3, "", "", -1, "", "");
 
 		syntaxClaim.addModelingAttribute("conditionalExpression",
 				new ElemAttribute("conditionalExpression", "String",
 						AttributeType.SYNTAX, false, "Cond. Expression Text",
-						"", "", 0, -1, "", "", -1, "", ""));
+						"", "", 0, 10, "", "", 10, "", ""));
 
 		// syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -2230,13 +2299,18 @@ public class DefaultSyntaxMM {
 				100, 70, "/com/variamos/gui/perspeditor/images/softdep.png",
 				true, Color.BLUE.toString(), 1, semSoftDependency, true);
 
-		syntaxSoftDependency.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxSoftDependency.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// syntaxSoftDependency.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxSoftDependency.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// TODO
+		syntaxSoftDependency.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
 
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, -1, "", "", -1, "", "");
+				"Name", "", "", 0, 3, "", "", -1, "", "");
 
 		// syntaxSoftDependency
 		// .addModelingAttribute("conditionalExpression",
@@ -2355,8 +2429,9 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semClaimPairwiseRel);
 		metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
+				"[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirClaimPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirClaimPairwiseRel.addPropVisibleAttribute("03#"
@@ -2367,8 +2442,9 @@ public class DefaultSyntaxMM {
 				+ "AggregationLow" + "#..");
 
 		metaDirClaimPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", "", 0, 0, -1, "", "", -1,
-				"", "");
+				"Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
+				"#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaDirClaimPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirClaimPairwiseRel.addPropVisibleAttribute("04#"
@@ -2670,13 +2746,17 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/component.png", true,
 				Color.WHITE.toString(), 1, semAsset, true);
 
-		syntaxAsset.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxAsset.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxAsset.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxAsset.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// TODO
+		syntaxAsset.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, -1, "", "", -1, "", "");
+				"", 0, 3, "", "", -1, "", "");
 		// syntaxAsset.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
@@ -2817,7 +2897,9 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
 		metaAssetPairWiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", "", 0, 0, -1, "", "", -1, "", "");
+				false, "Aggregation Low", "", 0, 0, 3, "", "", 3, "[#"
+						+ "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+						+ "0");
 		metaAssetPairWiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaAssetPairWiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaAssetPairWiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -2826,7 +2908,9 @@ public class DefaultSyntaxMM {
 				+ "#..");
 
 		metaAssetPairWiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "AggregationHigh", "", 0, 0, -1, "", "", -1, "", "");
+				false, "AggregationHigh", "", 0, 0, 4, "", "", 4, "#"
+						+ "AggregationHigh" + "#]\n", "AggregationHigh"
+						+ "#!=#" + "0");
 		metaAssetPairWiseRel
 				.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaAssetPairWiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
