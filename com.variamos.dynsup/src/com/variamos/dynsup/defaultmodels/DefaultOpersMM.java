@@ -2106,6 +2106,7 @@ public class DefaultOpersMM {
 						0, 50, 0), 0, 8, "", "relationType" + "#==#" + "range"
 						+ "#" + "1", 8, " [#" + "LowRange" + "#",
 				"relationType" + "#==#" + "range");
+
 		semInfraOTRel.putSemanticAttribute("LowRange", attribute);
 		semInfraOTRel.addPropEditableAttribute("08#" + "LowRange");
 		semInfraOTRel.addPropVisibleAttribute("08#" + "LowRange" + "#"
@@ -2131,10 +2132,7 @@ public class DefaultOpersMM {
 				new RangeDomain(0, 50, 0), 0, 9, "", "relationType" + "#==#"
 						+ "range" + "#" + "1", 9, "-#" + "HighRange" + "#]",
 				"relationType" + "#==#" + "range");
-		semInfraOTRel.putSemanticAttribute("HighRange", attribute);
-		semInfraOTRel.addPropEditableAttribute("09#" + "HighRange");
-		semInfraOTRel.addPropVisibleAttribute("09#" + "HighRange" + "#"
-				+ "relationType" + "#==#" + "range" + "#" + "1");
+
 		// semInfraOTRel.addPanelVisibleAttribute("09#" + "HighRange" + "#"
 		// + "relationType" + "#==#" + "range");
 		// semInfraOTRel.addPanelSpacersAttribute("-#" + "HighRange" + "#]");

@@ -35,8 +35,8 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 	private DialogButtonAction onClose;
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
-	private int width = 900;
-	private int height = 650;
+	private int width = 1100;
+	private int height = 850;
 
 	static interface DialogButtonAction {
 		public boolean onAction();
