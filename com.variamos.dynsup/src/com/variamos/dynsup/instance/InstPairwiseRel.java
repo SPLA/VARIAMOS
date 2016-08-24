@@ -470,96 +470,65 @@ public class InstPairwiseRel extends InstElement {
 	}
 
 	public String getText(List<InstElement> parents) {// TODO move to superclass
-		String out = "";
-		// List<String> visibleAttributesNames = metaConcept
-		// .getPanelVisibleAttributes();
-		if (getMetaPairwiseRelation() != null) {
-			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes(parents);
-			List<String> listVisibleAttributes = new ArrayList<String>();
-			listVisibleAttributes.addAll(visibleAttributesNames);
-			Collections.sort(listVisibleAttributes);
+		return panelVisible(parents, getMetaPairwiseRelation());
 
-			// List<String> spacersAttributes = metaConcept
-			// .getPanelSpacersAttributes();
-			Set<String> spacersAttributes = getDisPanelSpacersAttributes(parents);
-			for (String visibleAttribute : listVisibleAttributes) {
-				boolean validCondition = true;
-
-				int nameEnd = visibleAttribute.indexOf("#", 3);
-				int varEnd = visibleAttribute.indexOf("#", nameEnd + 1);
-				int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
-
-				String name = visibleAttribute.substring(3);
-				// if (getInstAttributes().get(name) != null) {
-				if (nameEnd != -1) {
-					name = visibleAttribute.substring(3, nameEnd);
-					String variable = null;
-					String condition = null;
-					String value = null;
-					variable = visibleAttribute.substring(nameEnd + 1, varEnd);
-					condition = visibleAttribute.substring(varEnd + 1, condEnd);
-					value = visibleAttribute.substring(condEnd + 1);
-					InstAttribute varValue = getInstAttributes().get(variable);
-					if (varValue == null)
-						validCondition = false;
-					else if (varValue.getValue().toString().trim()
-							.equals(value)) {
-						if (condition.equals("!="))
-							validCondition = false;
-					} else {
-						if (condition.equals("=="))
-							validCondition = false;
-					}
-				}
-				boolean nvar = false;
-				if (name != null && validCondition) {
-					Iterator<String> spacers = spacersAttributes.iterator();
-					while (spacers.hasNext()) {
-						String spacer = spacers.next();
-						if (spacer.indexOf("#" + name + "#") != -1) {
-							nvar = true;
-							int sp1 = spacer.indexOf("#");
-							int sp2 = spacer.indexOf("#", sp1 + 1);
-
-							out += spacer.substring(0, sp1);
-							if (name.equals("relationType")
-									&& getInstAttributes().get(name) != null
-									&& getInstAttributes().get(name)
-											.getValueObject() != null
-									&& getInstAttributes().get(name)
-											.getValueObject() instanceof InstAttribute) {
-								InstAttribute att = (InstAttribute) getInstAttributes()
-										.get(name).getValueObject();
-								String[] atts = ((String) att
-										.getInstAttributeAttribute("Value"))
-										.split("#");
-								out += atts[1];
-							} else
-								out += getInstAttributes().get(name).toString()
-										.trim();
-							while (sp2 != spacer.length()) {
-								int sp3 = spacer.indexOf("#", sp2 + 1);
-								if (sp3 == -1) {
-
-									out += spacer.substring(sp2 + 1);
-									break;
-								}
-								out += spacer.substring(sp2 + 1, sp3);
-
-								sp2 = sp3;
-							}
-						}
-
-					}
-					if (!nvar)
-						out += getInstAttributes().get(name);
-				}
-				// } else {
-				// System.err.println(name + " attribute is null");
-				// }
-			}
-		}
-		return out;
+		/*
+		 * String out = ""; // List<String> visibleAttributesNames = metaConcept
+		 * // .getPanelVisibleAttributes();
+		 * 
+		 * if (getMetaPairwiseRelation() != null) { Set<String>
+		 * visibleAttributesNames = getDisPanelVisibleAttributes(parents);
+		 * List<String> listVisibleAttributes = new ArrayList<String>();
+		 * listVisibleAttributes.addAll(visibleAttributesNames);
+		 * Collections.sort(listVisibleAttributes);
+		 * 
+		 * // List<String> spacersAttributes = metaConcept //
+		 * .getPanelSpacersAttributes(); Set<String> spacersAttributes =
+		 * getDisPanelSpacersAttributes(parents); for (String visibleAttribute :
+		 * listVisibleAttributes) { boolean validCondition = true;
+		 * 
+		 * int nameEnd = visibleAttribute.indexOf("#", 3); int varEnd =
+		 * visibleAttribute.indexOf("#", nameEnd + 1); int condEnd =
+		 * visibleAttribute.indexOf("#", varEnd + 1);
+		 * 
+		 * String name = visibleAttribute.substring(3); // if
+		 * (getInstAttributes().get(name) != null) { if (nameEnd != -1) { name =
+		 * visibleAttribute.substring(3, nameEnd); String variable = null;
+		 * String condition = null; String value = null; variable =
+		 * visibleAttribute.substring(nameEnd + 1, varEnd); condition =
+		 * visibleAttribute.substring(varEnd + 1, condEnd); value =
+		 * visibleAttribute.substring(condEnd + 1); InstAttribute varValue =
+		 * getInstAttributes().get(variable); if (varValue == null)
+		 * validCondition = false; else if
+		 * (varValue.getValue().toString().trim() .equals(value)) { if
+		 * (condition.equals("!=")) validCondition = false; } else { if
+		 * (condition.equals("==")) validCondition = false; } } boolean nvar =
+		 * false; if (name != null && validCondition) { Iterator<String> spacers
+		 * = spacersAttributes.iterator(); while (spacers.hasNext()) { String
+		 * spacer = spacers.next(); if (spacer.indexOf("#" + name + "#") != -1)
+		 * { nvar = true; int sp1 = spacer.indexOf("#"); int sp2 =
+		 * spacer.indexOf("#", sp1 + 1);
+		 * 
+		 * out += spacer.substring(0, sp1); if (name.equals("relationType") &&
+		 * getInstAttributes().get(name) != null &&
+		 * getInstAttributes().get(name) .getValueObject() != null &&
+		 * getInstAttributes().get(name) .getValueObject() instanceof
+		 * InstAttribute) { InstAttribute att = (InstAttribute)
+		 * getInstAttributes() .get(name).getValueObject(); String[] atts =
+		 * ((String) att .getInstAttributeAttribute("Value")) .split("#"); out
+		 * += atts[1]; } else if (getInstAttributes().get(name) != null) out +=
+		 * getInstAttributes().get(name).toString() .trim(); while (sp2 !=
+		 * spacer.length()) { int sp3 = spacer.indexOf("#", sp2 + 1); if (sp3 ==
+		 * -1) {
+		 * 
+		 * out += spacer.substring(sp2 + 1); break; } out +=
+		 * spacer.substring(sp2 + 1, sp3);
+		 * 
+		 * sp2 = sp3; } }
+		 * 
+		 * } if (!nvar) out += getInstAttributes().get(name); } // } else { //
+		 * System.err.println(name + " attribute is null"); // } } } return out;
+		 */
 	}
 
 	public void updateIdentifiers() {

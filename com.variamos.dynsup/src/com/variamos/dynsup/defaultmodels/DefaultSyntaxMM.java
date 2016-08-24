@@ -103,13 +103,13 @@ public class DefaultSyntaxMM {
 				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
 				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
-		syntaxFeature.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxFeature.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxFeature.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxFeature.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxFeature.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, 3, "", "", 3, "", "");
+				"", 0, 3, "", "", -1, "", "");
 
 		// syntaxFeature.addPanelVisibleAttribute("03#" + "name");
 
@@ -156,10 +156,10 @@ public class DefaultSyntaxMM {
 				false, true, "VariabilityArtifact", null, "", 0, 0, null, true,
 				null, 3, semHardConcept, true);
 
-		syntaxVariabilityArtifact.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxVariabilityArtifact.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxVariabilityArtifact.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxVariabilityArtifact.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO include different visibility for extended attribute
 		syntaxVariabilityArtifact.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -167,7 +167,7 @@ public class DefaultSyntaxMM {
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, 3, "", "", 3, "", "");
+				"Name", "", "", 0, 3, "", "", -1, "", "");
 
 		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
@@ -188,6 +188,11 @@ public class DefaultSyntaxMM {
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
+		syntaxRootFeature.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+
 		InstConcept instVertexRF = new InstConcept("RootFeature",
 				supportMetaElementConcept, syntaxRootFeature);
 		refas.getVariabilityVertex().put("RootFeature", instVertexRF);
@@ -198,6 +203,11 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
+		syntaxGeneralFeature.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+
 		InstConcept instVertexGF = new InstConcept("GeneralFeature",
 				supportMetaElementConcept, syntaxGeneralFeature);
 		refas.getVariabilityVertex().put("GeneralFeature", instVertexGF);
@@ -206,6 +216,10 @@ public class DefaultSyntaxMM {
 				true, true, "LeafFeature", "plnode", "Defines a leaf feature",
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
+
+		syntaxVertexLF.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		InstConcept instVertexLF = new InstConcept("LeafFeature",
 				supportMetaElementConcept, syntaxVertexLF);
@@ -269,6 +283,10 @@ public class DefaultSyntaxMM {
 						+ " satisfied with a clear cut condition", 120, 60,
 				"/com/variamos/gui/perspeditor/images/goal.png", true,
 				Color.BLUE.toString(), 3, semGoal, true);
+
+		syntaxGoal.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		InstConcept instVertexG = new InstConcept("Goal",
 				supportMetaElementConcept, syntaxGoal);
@@ -843,11 +861,16 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/operational.png", true,
 				Color.BLUE.toString(), 2, semOperationalization, true);
 
-		sOperationalization.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		sOperationalization.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// sOperationalization.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// sOperationalization.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO
+
+		sOperationalization.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		InstConcept instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
@@ -902,11 +925,14 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 1, semAssumption, true);
 
-		syntaxAssumption.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxAssumption.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxAssumption.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxAssumption.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO
+		syntaxAssumption.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		InstConcept instVertexAssum = new InstConcept("Assu",
 				supportMetaElementConcept, syntaxAssumption);
@@ -1271,14 +1297,18 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/softgoal.png", true,
 				Color.WHITE.toString(), 3, semSoftgoal, true);
 
-		syntaxSoftGoal.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxSoftGoal.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxSoftGoal.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxSoftGoal.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO
 
+		syntaxSoftGoal.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+
 		syntaxSoftGoal.addModelingAttribute("name", "String", false, "Name",
-				"", "", 0, 3, "", "", 3, "", "");
+				"", "", 0, 3, "", "", -1, "", "");
 		// syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
@@ -1647,14 +1677,18 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/contextgrp.png", true,
 				Color.BLUE.toString(), 1, semContextGroup, true);
 
-		syntaxContextGroup.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxContextGroup.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxContextGroup.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxContextGroup.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO
+		syntaxContextGroup.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		syntaxContextGroup.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, -1, "", "", -1, "", "");
+				"Name", "", "", 0, 3, "", "", -1, "", "");
 
 		InstConcept instVertexCG = new InstConcept("CG",
 				supportMetaElementConcept, syntaxContextGroup);
@@ -1696,11 +1730,15 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/globCnxtVar.png", true,
 				Color.BLUE.toString(), 1, semVariable, true);
 
-		syntaxAbsVariable.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxAbsVariable.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// syntaxAbsVariable.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxAbsVariable.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 		// TODO
+		syntaxAbsVariable.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
 				"", "", 0, -1, "", "", -1, "", "");
@@ -1854,11 +1892,14 @@ public class DefaultSyntaxMM {
 		metaEnumeration.addPanelSpacersAttribute("#"
 				+ SyntaxElement.VAR_METAENUMVALUE + "#\n");
 
-		metaEnumeration.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		metaEnumeration.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// metaEnumeration.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// metaEnumeration.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO
+		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		SyntaxElement syntaxMetaChildView = new SyntaxElement('V',
 				"FullContext", "Context with Enumerations", "Context Palette",
@@ -2184,14 +2225,17 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/claim.png", true,
 				Color.BLUE.toString(), 1, semClaim, true);
 
-		syntaxClaim.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxClaim.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// syntaxClaim.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxClaim.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 		// TODO
+		syntaxClaim.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
 
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, 3, "", "", 3, "", "");
+				"", 0, 3, "", "", -1, "", "");
 
 		syntaxClaim.addModelingAttribute("conditionalExpression",
 				new ElemAttribute("conditionalExpression", "String",
@@ -2255,14 +2299,18 @@ public class DefaultSyntaxMM {
 				100, 70, "/com/variamos/gui/perspeditor/images/softdep.png",
 				true, Color.BLUE.toString(), 1, semSoftDependency, true);
 
-		syntaxSoftDependency.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxSoftDependency.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// syntaxSoftDependency.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxSoftDependency.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 		// TODO
+		syntaxSoftDependency.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
 
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, 3, "", "", 3, "", "");
+				"Name", "", "", 0, 3, "", "", -1, "", "");
 
 		// syntaxSoftDependency
 		// .addModelingAttribute("conditionalExpression",
@@ -2698,14 +2746,17 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/component.png", true,
 				Color.WHITE.toString(), 1, semAsset, true);
 
-		syntaxAsset.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		syntaxAsset.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		// syntaxAsset.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// syntaxAsset.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO
+		syntaxAsset.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, 3, "", "", 3, "", "");
+				"", 0, 3, "", "", -1, "", "");
 		// syntaxAsset.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 

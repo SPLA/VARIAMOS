@@ -384,6 +384,7 @@ public abstract class InstElement implements Serializable,
 	public String getText(List<InstElement> syntaxParents) {
 		String out = "";
 		String out2 = "";
+		// For Syntax MM
 		if (getEdSyntaxEle() != null) {
 			out2 = "\n";
 			// Set<String> modelingAttributes = this.getEditableMetaElement()
@@ -407,6 +408,7 @@ public abstract class InstElement implements Serializable,
 				}
 			}
 		}
+		// For Opers MM
 		if (getEdOperEle() != null) {
 			out2 = "\n";
 			Set<String> modelingAttributes = getEdOperEle()
@@ -418,128 +420,17 @@ public abstract class InstElement implements Serializable,
 					out2 += attributeName + "\n";
 			}
 		}
+		// For all
 		// TODO: Remove when Claim is no longer a OverTwoRelation
 		if (this.getInstAttribute("Name") != null
 				&& this.getInstAttribute("Name").getValue().equals("Claim"))
 			out = "<<MetaConcept>>\nClaim\n\n";
 		else if (getTransSupportMetaElement() != null) {
-			Set<String> visibleAttributesNames = getTransSupportMetaElement()
-					.getPanelVisibleAttributesSet(syntaxParents);
-			List<String> listVisibleAttributes = new ArrayList<String>();
-			listVisibleAttributes.addAll(visibleAttributesNames);
-			Collections.sort(listVisibleAttributes);
-			Set<String> spacersAttributes = getTransSupportMetaElement()
-					.getPanelSpacersAttributesSet(syntaxParents);
-			for (String visibleAttribute : listVisibleAttributes) {
-				boolean validCondition = true;
-
-				int nameEnd = visibleAttribute.indexOf("#", 3);
-				int varEnd = visibleAttribute.indexOf("#", nameEnd + 1);
-				int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
-
-				String name = visibleAttribute.substring(3);
-				if (nameEnd != -1) {
-					name = visibleAttribute.substring(3, nameEnd);
-					String variable = null;
-					String condition = null;
-					String value = null;
-					variable = visibleAttribute.substring(nameEnd + 1, varEnd);
-					condition = visibleAttribute.substring(varEnd + 1, condEnd);
-					value = visibleAttribute.substring(condEnd + 1);
-					InstAttribute varValue = getInstAttributes().get(variable);
-					if (varValue == null || varValue.getValue() == null)
-						validCondition = false;
-					else if (varValue.getValue().toString().trim()
-							.equals(value)) {
-						if (condition.equals("!="))
-							validCondition = false;
-					} else {
-						if (condition.equals("=="))
-							validCondition = false;
-					}
-				}
-				boolean nvar = false;
-				if (name != null && validCondition) {
-					Iterator<String> spacers = spacersAttributes.iterator();
-					while (spacers.hasNext()) {
-						String spacer = spacers.next();
-						if (spacer.indexOf("#" + name + "#") != -1) {
-							nvar = true;
-							int sp1 = spacer.indexOf("#");
-							int sp2 = spacer.indexOf("#", sp1 + 1);
-
-							out += spacer.substring(0, sp1);
-							if (name.equals("name")
-									&& getInstAttributes().get(name).toString()
-											.trim().equals(""))
-								out += "<<NoName>>";
-							else {
-								InstAttribute instAttribute = getInstAttributes()
-										.get(name);
-								// System.out.println(this.getIdentifier());
-								if (instAttribute != null) {
-									if (instAttribute.getType() != null
-											&& instAttribute.getType().equals(
-													"Set"))
-										for (InstAttribute e : (Collection<InstAttribute>) instAttribute
-												.getValue())
-											out += e.toString().trim() + "\n";
-									else
-										out += instAttribute.toString().trim();
-								}
-							}
-							while (sp2 != spacer.length()) {
-								int sp3 = spacer.indexOf("#", sp2 + 1);
-								if (sp3 == -1) {
-									out += spacer.substring(sp2 + 1);
-									break;
-								}
-								out += spacer.substring(sp2 + 1, sp3);
-
-								sp2 = sp3;
-							}
-						}
-
-					}
-					if (!nvar)
-						if (name.equals("name")
-								&& getInstAttributes().get(name) != null
-								&& getInstAttributes().get(name).toString()
-										.trim().equals(""))
-							out += "<<NoName>>";
-						else {
-							InstAttribute instAttribute = getInstAttributes()
-									.get(name);
-							if (instAttribute.getEnumType() != null
-									&& instAttribute.getEnumType().equals(
-											InstConcept.class
-													.getCanonicalName())) {
-								out += (String) instAttribute.getValue();
-								if (instAttribute.getValueObject() != null) {
-									Map<String, InstAttribute> o = (Map<String, InstAttribute>) ((InstElement) instAttribute
-											.getValueObject())
-											.getDynamicAttribute(VAR_INSTATTRIBUTES);
-									InstAttribute oo = o
-											.get(SyntaxElement.VAR_METAENUMVALUE);
-									Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
-											.getInstAttributeAttribute("Value");
-									String outt = "{ ";
-									for (InstAttribute i : ooo) {
-										String values[] = ((String) i
-												.getValue()).split("#");
-										outt += values[1] + ", ";
-									}
-									outt = outt.substring(0, outt.length() - 2);
-									outt += " }";
-									out += AbstractElement.multiLine(outt, 40);
-								}
-							} else
-								out += instAttribute.toString().trim();
-						}
-				}
-			}
+			out = oldPanelVisible(syntaxParents);
+			out += panelVisible(syntaxParents, getTransSupportMetaElement());
 			if (out.equals(""))
 				out = "No display attributes defined";
+
 		}
 		return out + out2;
 	}
@@ -638,6 +529,260 @@ public abstract class InstElement implements Serializable,
 				}
 			}
 		}
+	}
+
+	protected String panelVisible(List<InstElement> syntaxParents,
+			SyntaxElement supportElement) {
+		String out = "";
+		if (supportElement == null)
+			return out;
+		Set<String> attributes = supportElement
+				.getAllAttributesNames(syntaxParents);
+		List<String> visibleAttributesNames = new ArrayList<String>();
+
+		// FIXME use a partial sort instead of this additional structure and
+		// repetitive
+		for (String attributeName : attributes) {
+			ElemAttribute attribute = supportElement.getAbstractAttribute(
+					attributeName, syntaxParents, null);
+
+			if (attribute.getElementDisplayPosition() != -1)
+				visibleAttributesNames.add(attribute
+						.getElementDisplayPositionStr() + attribute.getName());
+		}
+		Collections.sort(visibleAttributesNames);
+		for (String attributeName : visibleAttributesNames) {
+			ElemAttribute attribute = supportElement.getAbstractAttribute(
+					attributeName.substring(2), syntaxParents, null);
+			String visibleAttribute = attribute.getElementDisplayCondition();
+			int varEnd = visibleAttribute.indexOf("#");
+			int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
+			String variable = null;
+			String condition = null;
+			String value = null;
+			String name = attributeName.substring(2);
+			boolean validCondition = true;
+			if (varEnd != -1 && condEnd != -1) {
+
+				variable = visibleAttribute.substring(0, varEnd);
+				condition = visibleAttribute.substring(varEnd + 1, condEnd);
+				value = visibleAttribute.substring(condEnd + 1);
+				InstAttribute varValue = getInstAttributes().get(variable);
+				if (varValue == null || varValue.getValue() == null)
+					validCondition = false;
+				else if (varValue.getValue().toString().trim().equals(value)) {
+					if (condition.equals("!="))
+						validCondition = false;
+				} else {
+					if (condition.equals("=="))
+						validCondition = false;
+				}
+			}
+			boolean nvar = false;
+			if (validCondition) {
+				String spacer = attribute.getElementDisplaySpacers();
+				if (spacer.indexOf("#" + name + "#") != -1) {
+					nvar = true;
+					int sp1 = spacer.indexOf("#");
+					int sp2 = spacer.indexOf("#", sp1 + 1);
+
+					out += spacer.substring(0, sp1);
+					if (name.equals("name")
+							&& getInstAttributes().get(name).toString().trim()
+									.equals(""))
+						out += "<<NoName>>";
+					else if (name.equals("relationType")
+							&& getInstAttributes().get(name) != null
+							&& getInstAttributes().get(name).getValueObject() != null
+							&& getInstAttributes().get(name).getValueObject() instanceof InstAttribute) {
+						InstAttribute att = (InstAttribute) getInstAttributes()
+								.get(name).getValueObject();
+						String[] atts = ((String) att
+								.getInstAttributeAttribute("Value")).split("#");
+						out += atts[1];
+					} else {
+						InstAttribute instAttribute = getInstAttributes().get(
+								name);
+						// System.out.println(this.getIdentifier());
+						if (instAttribute != null) {
+							if (instAttribute.getType() != null
+									&& instAttribute.getType().equals("Set"))
+								for (InstAttribute e : (Collection<InstAttribute>) instAttribute
+										.getValue())
+									out += e.toString().trim() + "\n";
+							else
+								out += instAttribute.toString().trim();
+						}
+					}
+					while (sp2 != spacer.length()) {
+						int sp3 = spacer.indexOf("#", sp2 + 1);
+						if (sp3 == -1) {
+							out += spacer.substring(sp2 + 1);
+							break;
+						}
+						out += spacer.substring(sp2 + 1, sp3);
+
+						sp2 = sp3;
+					}
+				}
+
+				if (!nvar)
+					if (name.equals("name")
+							&& getInstAttributes().get(name) != null
+							&& getInstAttributes().get(name).toString().trim()
+									.equals(""))
+						out += "<<NoName>>";
+					else {
+						InstAttribute instAttribute = getInstAttributes().get(
+								name);
+						if (instAttribute.getEnumType() != null
+								&& instAttribute.getEnumType().equals(
+										InstConcept.class.getCanonicalName())) {
+							out += (String) instAttribute.getValue();
+							if (instAttribute.getValueObject() != null) {
+								Map<String, InstAttribute> o = (Map<String, InstAttribute>) ((InstElement) instAttribute
+										.getValueObject())
+										.getDynamicAttribute(VAR_INSTATTRIBUTES);
+								InstAttribute oo = o
+										.get(SyntaxElement.VAR_METAENUMVALUE);
+								Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
+										.getInstAttributeAttribute("Value");
+								String outt = "{ ";
+								for (InstAttribute i : ooo) {
+									String values[] = ((String) i.getValue())
+											.split("#");
+									outt += values[1] + ", ";
+								}
+								outt = outt.substring(0, outt.length() - 2);
+								outt += " }";
+								out += AbstractElement.multiLine(outt, 40);
+							}
+						} else
+							out += instAttribute.toString().trim();
+					}
+			}
+		}
+
+		return out;
+	}
+
+	private String oldPanelVisible(List<InstElement> syntaxParents) {
+		String out = "";
+		// OLD implementation
+		Set<String> visibleAttributesNames = getTransSupportMetaElement()
+				.getPanelVisibleAttributesSet(syntaxParents);
+		List<String> listVisibleAttributes = new ArrayList<String>();
+		listVisibleAttributes.addAll(visibleAttributesNames);
+		Collections.sort(listVisibleAttributes);
+		Set<String> spacersAttributes = getTransSupportMetaElement()
+				.getPanelSpacersAttributesSet(syntaxParents);
+		for (String visibleAttribute : listVisibleAttributes) {
+			boolean validCondition = true;
+
+			int nameEnd = visibleAttribute.indexOf("#", 3);
+			int varEnd = visibleAttribute.indexOf("#", nameEnd + 1);
+			int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
+
+			String name = visibleAttribute.substring(3);
+			if (nameEnd != -1) {
+				name = visibleAttribute.substring(3, nameEnd);
+				String variable = null;
+				String condition = null;
+				String value = null;
+				variable = visibleAttribute.substring(nameEnd + 1, varEnd);
+				condition = visibleAttribute.substring(varEnd + 1, condEnd);
+				value = visibleAttribute.substring(condEnd + 1);
+				InstAttribute varValue = getInstAttributes().get(variable);
+				if (varValue == null || varValue.getValue() == null)
+					validCondition = false;
+				else if (varValue.getValue().toString().trim().equals(value)) {
+					if (condition.equals("!="))
+						validCondition = false;
+				} else {
+					if (condition.equals("=="))
+						validCondition = false;
+				}
+			}
+			boolean nvar = false;
+			if (name != null && validCondition) {
+				Iterator<String> spacers = spacersAttributes.iterator();
+				while (spacers.hasNext()) {
+					String spacer = spacers.next();
+					if (spacer.indexOf("#" + name + "#") != -1) {
+						nvar = true;
+						int sp1 = spacer.indexOf("#");
+						int sp2 = spacer.indexOf("#", sp1 + 1);
+
+						out += spacer.substring(0, sp1);
+						if (name.equals("name")
+								&& getInstAttributes().get(name).toString()
+										.trim().equals(""))
+							out += "<<NoName>>";
+						else {
+							InstAttribute instAttribute = getInstAttributes()
+									.get(name);
+							// System.out.println(this.getIdentifier());
+							if (instAttribute != null) {
+								if (instAttribute.getType() != null
+										&& instAttribute.getType()
+												.equals("Set"))
+									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
+											.getValue())
+										out += e.toString().trim() + "\n";
+								else
+									out += instAttribute.toString().trim();
+							}
+						}
+						while (sp2 != spacer.length()) {
+							int sp3 = spacer.indexOf("#", sp2 + 1);
+							if (sp3 == -1) {
+								out += spacer.substring(sp2 + 1);
+								break;
+							}
+							out += spacer.substring(sp2 + 1, sp3);
+
+							sp2 = sp3;
+						}
+					}
+
+				}
+				if (!nvar)
+					if (name.equals("name")
+							&& getInstAttributes().get(name) != null
+							&& getInstAttributes().get(name).toString().trim()
+									.equals(""))
+						out += "<<NoName>>";
+					else {
+						InstAttribute instAttribute = getInstAttributes().get(
+								name);
+						if (instAttribute.getEnumType() != null
+								&& instAttribute.getEnumType().equals(
+										InstConcept.class.getCanonicalName())) {
+							out += (String) instAttribute.getValue();
+							if (instAttribute.getValueObject() != null) {
+								Map<String, InstAttribute> o = (Map<String, InstAttribute>) ((InstElement) instAttribute
+										.getValueObject())
+										.getDynamicAttribute(VAR_INSTATTRIBUTES);
+								InstAttribute oo = o
+										.get(SyntaxElement.VAR_METAENUMVALUE);
+								Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
+										.getInstAttributeAttribute("Value");
+								String outt = "{ ";
+								for (InstAttribute i : ooo) {
+									String values[] = ((String) i.getValue())
+											.split("#");
+									outt += values[1] + ", ";
+								}
+								outt = outt.substring(0, outt.length() - 2);
+								outt += " }";
+								out += AbstractElement.multiLine(outt, 40);
+							}
+						} else
+							out += instAttribute.toString().trim();
+					}
+			}
+		}
+		return out;
 	}
 
 	public ElemAttribute getSemanticAttribute(String name) {
