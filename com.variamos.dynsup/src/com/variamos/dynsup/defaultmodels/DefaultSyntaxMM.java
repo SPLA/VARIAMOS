@@ -1880,17 +1880,18 @@ public class DefaultSyntaxMM {
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMVALUE,
 				"Set", false, SyntaxElement.VAR_METAENUMVALUENAME, "",
 				SyntaxElement.VAR_METAENUMVALUECLASS,
-				new ArrayList<InstAttribute>(), 0, -1, "", "", 5, "#\n", "");
+				new ArrayList<InstAttribute>(), 0, -1, "", "", 5, "#"
+						+ SyntaxElement.VAR_METAENUMVALUE + "#\n", "");
 
 		metaEnumeration.addPropEditableAttribute("01#"
 				+ SyntaxElement.VAR_METAENUMNAME);
 
 		metaEnumeration.addPropVisibleAttribute("01#"
 				+ SyntaxElement.VAR_METAENUMNAME);
-		metaEnumeration.addPanelVisibleAttribute("05#"
-				+ SyntaxElement.VAR_METAENUMVALUE);
-		metaEnumeration.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_METAENUMVALUE + "#\n");
+		// metaEnumeration.addPanelVisibleAttribute("05#"
+		// + SyntaxElement.VAR_METAENUMVALUE);
+		// metaEnumeration.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_METAENUMVALUE + "#\n");
 
 		// metaEnumeration.addPanelVisibleAttribute("04#"
 		// + SyntaxElement.VAR_USERIDENTIFIER);

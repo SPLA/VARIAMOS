@@ -1722,8 +1722,9 @@ public class DefaultOpersMM {
 		}
 		ElemAttribute attributeSel = new ElemAttribute("Sel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", "",
-				false, 2, -1, "", "", -1, "", "");
+				false, 2, 1, "false", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Sel", attributeSel);
+		semInfraMConcept.addPropVisibleAttribute("01#" + "Sel");
 
 		if (!empty) {
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -1738,8 +1739,9 @@ public class DefaultOpersMM {
 		}
 		attribute = new ElemAttribute("Exclu", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Excluded***", "",
-				false, 2, -1, "", "", -1, "", "");
+				false, 2, 2, "false", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Exclu", attribute);
+		semInfraMConcept.addPropVisibleAttribute("02#" + "Exclu");
 
 		if (!empty) {
 			simulationExecOperUniqueLabeling
@@ -1761,13 +1763,15 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("Active", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Is Active",
-				"Ignored for operations", true, 0, -1, "", "", -1, "", "");
+				"Ignored for operations", true, 0, 1, "false", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Active", attribute);
+		semInfraMConcept.addPropVisibleAttribute("01#" + "Active");
 
 		attribute = new ElemAttribute("Visibility", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Is Visible", "", true, 0,
-				-1, "", "", -1, "", "");
+				2, "false", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Visibility", attribute);
+		semInfraMConcept.addPropVisibleAttribute("02#" + "Visibility");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("Allowed", "Boolean",
@@ -1780,8 +1784,13 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("ConfSel", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configuration Selected",
 				"Manually/Implication selected for this configuration", false,
-				2, -1, "", "", -1, "", "");
+				2, 15, "", "Core" + "#==#" + "false" + "#" + "false", -1, "",
+				"");
 		semInfraMConcept.putSemanticAttribute("ConfSel", attribute);
+		semInfraMConcept.addPropVisibleAttribute("15#" + "ConfSel" + "#"
+				+ "Active" + "#==#" + "true" + "#" + "false");
+		semInfraMConcept.addPropEditableAttribute("15#" + "ConfSel" + "#"
+				+ "Core" + "#==#" + "false" + "#" + "false");
 
 		if (!empty) {
 			simulationExecOperUniqueLabeling
@@ -1801,8 +1810,13 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("ConfNotSel", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configuration Not Selected",
 				"Manually/Implication not selected for this configuration",
-				false, 2, -1, "", "", -1, "", "");
+				false, 2, 16, "Dead" + "#==#" + "false" + "#" + "false",
+				"Active" + "#==#" + "true" + "#" + "false", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("ConfNotSel", attribute);
+		semInfraMConcept.addPropEditableAttribute("16#" + "ConfNotSel" + "#"
+				+ "Dead" + "#==#" + "false" + "#" + "false");
+		semInfraMConcept.addPropVisibleAttribute("16#" + "ConfNotSel" + "#"
+				+ "Active" + "#==#" + "true" + "#" + "false");
 
 		if (!empty) {
 			simulationExecOperUniqueLabeling
@@ -1821,8 +1835,8 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("Proh", "Boolean",
 				AttributeType.OPERATION, true, "Prohibited",
-				"Manually prohibited (exluded) by design", false, 0, -1, "",
-				"", -1, "", "");
+				"Manually prohibited (exluded) by design", false, 0, 8, "", "",
+				-1, "", "");
 		semInfraMConcept.putSemanticAttribute("Proh", attribute);
 		semInfraMConcept.addPropVisibleAttribute("08#" + "Proh");
 		semInfraMConcept.addPropEditableAttribute("08#" + "Proh");
@@ -1844,12 +1858,13 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("Required", "Boolean",
 				AttributeType.OPERATION, true, "Is Required",
-				"Manually defined as required", false, 2, -1, "", "", -1, "",
-				"");
+				"Manually defined as required", false, 2, 4, "", "", -1, "", "");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		semInfraMConcept.putSemanticAttribute("Required", attribute);
+		semInfraMConcept.addPropEditableAttribute("04#" + "Required");
+		semInfraMConcept.addPropVisibleAttribute("04#" + "Required");
 
 		if (!empty) {
 			simulOperationSubAction
@@ -1869,8 +1884,9 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("Core", "Boolean",
 				AttributeType.OPERATION, false, "Is a Core Concept",
 				"Core element defined by the core update operation", false, 2,
-				-1, "", "", -1, "", "");
+				7, "false", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Core", attribute);
+		semInfraMConcept.addPropVisibleAttribute("07#" + "Core");
 
 		if (!empty) {
 			simulationExecOperUniqueLabeling
@@ -1889,9 +1905,11 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("Dead", "Boolean",
 				AttributeType.OPERATION, false, "Is a Dead Concept",
-				"Dead element defined by core update operation", false, 2, -1,
-				"", "", -1, "", "");
+				"Dead element defined by core update operation", false, 2, 8,
+				"false", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Dead", attribute);
+
+		semInfraMConcept.addPropVisibleAttribute("08#" + "Dead");
 
 		if (!empty) {
 			simulationExecOperUniqueLabeling
@@ -1912,8 +1930,9 @@ public class DefaultOpersMM {
 				AttributeType.EXECCURRENTSTATE, false,
 				"Selected by simulation",
 				"Selected for this solution (with or without constraint)",
-				false, 0, -1, "", "", -1, "", "");
+				false, 0, 5, "false", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("NReqSel", attribute);
+		semInfraMConcept.addPropVisibleAttribute("05#" + "NReqSel");
 
 		if (!empty) {
 			simulationExecOperUniqueLabeling
@@ -1932,52 +1951,31 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("NNotSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false,
-				"Not selected(inactive)", "", false, 0, -1, "", "", -1, "", "");
+				"Not selected(inactive)", "", false, 0, 4, "false", "", -1, "",
+				"");
 		semInfraMConcept.putSemanticAttribute("NNotSel", attribute);
+		semInfraMConcept.addPropVisibleAttribute("04#" + "NNotSel");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addOutVariable(attribute);
 
-		semInfraMConcept.addPropVisibleAttribute("01#" + "Sel");
-		semInfraMConcept.addPropVisibleAttribute("05#" + "NReqSel");
-
-		semInfraMConcept.addPropVisibleAttribute("02#" + "Exclu");
-		semInfraMConcept.addPropVisibleAttribute("04#" + "NNotSel");
-
-		semInfraMConcept.addPropVisibleAttribute("07#" + "Core");
-		semInfraMConcept.addPropVisibleAttribute("08#" + "Dead");
-		semInfraMConcept.addPropEditableAttribute("04#" + "Required");
-		semInfraMConcept.addPropVisibleAttribute("04#" + "Required");
-
 		attribute = new ElemAttribute("DBVis", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
-				"Element displayed on simulation dashboard", true, 0, -1, "",
+				"Element displayed on simulation dashboard", true, 0, 3, "",
 				"", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("DBVis", attribute);
+		semInfraMConcept.addPropEditableAttribute("03#" + "DBVis");
+		semInfraMConcept.addPropVisibleAttribute("03#" + "DBVis");
+
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Include in XLS export",
-				"Element exported in XLS solutions file", true, 0, -1, "", "",
+				"Element exported in XLS solutions file", true, 0, 4, "", "",
 				-1, "", "");
 		semInfraMConcept.putSemanticAttribute("ExportOnConfig", attribute);
-		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		semInfraMConcept.addPropEditableAttribute("15#" + "ConfSel" + "#"
-				+ "Core" + "#==#" + "false" + "#" + "false");
-		semInfraMConcept.addPropEditableAttribute("16#" + "ConfNotSel" + "#"
-				+ "Dead" + "#==#" + "false" + "#" + "false");
-		semInfraMConcept.addPropEditableAttribute("03#" + "DBVis");
 		semInfraMConcept.addPropEditableAttribute("04#" + "ExportOnConfig");
-
-		semInfraMConcept.addPropVisibleAttribute("01#" + "Active");
-		semInfraMConcept.addPropVisibleAttribute("02#" + "Visibility");
-
-		semInfraMConcept.addPropVisibleAttribute("03#" + "DBVis");
 		semInfraMConcept.addPropVisibleAttribute("04#" + "ExportOnConfig");
-		semInfraMConcept.addPropVisibleAttribute("15#" + "ConfSel" + "#"
-				+ "Active" + "#==#" + "true" + "#" + "false");
-		semInfraMConcept.addPropVisibleAttribute("16#" + "ConfNotSel" + "#"
-				+ "Active" + "#==#" + "true" + "#" + "false");
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		refas.getVariabilityVertex().put("InfraMetaConcept", instVertexIE);
 
@@ -2133,6 +2131,10 @@ public class DefaultOpersMM {
 						+ "range" + "#" + "1", 9, "-#" + "HighRange" + "#]",
 				"relationType" + "#==#" + "range");
 
+		semInfraOTRel.putSemanticAttribute("HighRange", attribute);
+		semInfraOTRel.addPropEditableAttribute("09#" + "HighRange");
+		semInfraOTRel.addPropVisibleAttribute("09#" + "HighRange" + "#"
+				+ "relationType" + "#==#" + "range" + "#" + "1");
 		// semInfraOTRel.addPanelVisibleAttribute("09#" + "HighRange" + "#"
 		// + "relationType" + "#==#" + "range");
 		// semInfraOTRel.addPanelSpacersAttribute("-#" + "HighRange" + "#]");
@@ -2194,21 +2196,29 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("DBVis", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard", "",
-				true, 0, -1, "", "", -1, "", "");
+				true, 0, 3, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("DBVis", attribute);
+		semVariable.addPropEditableAttribute("03#" + "DBVis");
+		semVariable.addPropVisibleAttribute("03#" + "DBVis");
+
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Export on Configuration",
-				"", true, 0, -1, "", "", -1, "", "");
+				"", true, 0, 4, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ExportOnConfig", attribute);
+		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
+		semVariable.addPropVisibleAttribute("04#" + "ExportOnConfig");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("Scope", "Boolean",
 				AttributeType.OPERATION, true, "Global Scope",
 				"Global or Concern Level scope (Ignored for operations)", true,
-				0, -1, "", "", -1, "", "");
+				0, 5, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
+
+		semVariable.addPropEditableAttribute("05#" + "Scope");
+		semVariable.addPropVisibleAttribute("05#" + "Scope");
 		if (!empty) {
 			// simulationExecOperUniqueLabeling.addAttribute(new
 			// OpersIOAttribute(
@@ -2229,10 +2239,14 @@ public class DefaultOpersMM {
 				false,
 				"Concern Level",
 				"Concern level of this element associated from the context view",
-				InstConcept.class.getCanonicalName(), "CG", null, 0, -1, "",
-				"", 0, "<<#" + "ConcernLevel" + "#>>\n", "Scope" + "#==#"
-						+ "false");
+				InstConcept.class.getCanonicalName(), "CG", null, 0, 6, "",
+				"Scope" + "#==#" + "false" + "#" + "", 0, "<<#"
+						+ "ConcernLevel" + "#>>\n", "Scope" + "#==#" + "false");
 		semVariable.putSemanticAttribute("ConcernLevel", attribute);
+		semVariable.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
+				+ "Scope" + "#==#" + "false" + "#" + "");
+		semVariable.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
+				+ "Scope" + "#==#" + "false" + "#" + "");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 		// TODO: use concern level
@@ -2245,6 +2259,8 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, false, "Name",
 				"Name to identify the variable", "", 0, 1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("name", attribute);
+		semVariable.addPropEditableAttribute("01#" + "name");
+		semVariable.addPropVisibleAttribute("01#" + "name");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("variableType", "Enumeration",
@@ -2253,6 +2269,8 @@ public class DefaultOpersMM {
 				"String", "", 0, 2, "", "", 5, "{#" + "variableType" + "#} ",
 				"variableType" + "#!=#" + "Enumeration");
 		semVariable.putSemanticAttribute("variableType", attribute);
+		semVariable.addPropEditableAttribute("02#" + "variableType");
+		semVariable.addPropVisibleAttribute("02#" + "variableType");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// semVariable.addPanelVisibleAttribute("05#" + "variableType" + "#"
 		// + "variableType" + "#!=#" + "Enumeration");
@@ -2260,11 +2278,14 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("varDom", "String",
 				AttributeType.OPERATION, false, "Variable Domain",
-				"Defined domain (positive numbers) {n-m,o,p-r}", "0,1", 0, 3,
+				"Defined domain {n..m,o,p..r} (no spaces)", "0,1", 0, 3,
 				"variableType" + "#==#" + "Integer", "variableType" + "#==#"
 						+ "Integer", 7, "{#" + "varDom" + "#} ", "variableType"
 						+ "#==#" + "Integer");
 		semVariable.putSemanticAttribute("varDom", attribute);
+		semVariable.addPropEditableAttribute("03#" + "varDom");
+		semVariable.addPropVisibleAttribute("03#" + "varDom" + "#"
+				+ "variableType" + "#==#" + "Integer");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// semVariable.addPanelVisibleAttribute("07#" + "varDom" + "#"
 		// + "variableType" + "#==#" + "Integer");
@@ -2272,11 +2293,14 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("floatDom", "String",
 				AttributeType.OPERATION, false, "Float Domain",
-				"Defined domain (positive numbers) {n-m,o,p-r}", "0,1", 0, 3,
+				"Defined domain {n..m,o,p..r} (no spaces)", "0,1", 0, 3,
 				"variableType" + "#==#" + "Float", "variableType" + "#==#"
 						+ "Float", 7, "{#" + "floatDom" + "#} ", "variableType"
 						+ "#==#" + "Float");
 		semVariable.putSemanticAttribute("floatDom", attribute);
+		semVariable.addPropEditableAttribute("03#" + "floatDom");
+		semVariable.addPropVisibleAttribute("03#" + "floatDom" + "#"
+				+ "variableType" + "#==#" + "Float");
 		// semVariable.addPanelVisibleAttribute("07#" + "floatDom" + "#"
 		// + "variableType" + "#==#" + "Float");
 		// semVariable.addPanelSpacersAttribute("{#" + "floatDom" + "#} ");
@@ -2288,6 +2312,10 @@ public class DefaultOpersMM {
 						+ "Float", 7, "#" + "floatPrec" + "#", "variableType"
 						+ "#==#" + "Float");
 		semVariable.putSemanticAttribute("floatPrec", attribute);
+		semVariable.addPropEditableAttribute("03#" + "floatPrec");
+		semVariable.addPropVisibleAttribute("03#" + "floatPrec" + "#"
+				+ "variableType" + "#==#" + "Float");
+
 		// semVariable.addPanelVisibleAttribute("07#" + "floatPrec" + "#"
 		// + "variableType" + "#==#" + "Float");
 
@@ -2300,6 +2328,9 @@ public class DefaultOpersMM {
 				"#" + "variableType" + "#", "variableType" + "#==#"
 						+ "Enumeration");
 		semVariable.putSemanticAttribute("enumType", attribute);
+		semVariable.addPropEditableAttribute("04#" + "enumType");
+		semVariable.addPropVisibleAttribute("04#" + "enumType" + "#"
+				+ "variableType" + "#==#" + "Enumeration");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// semVariable.addPanelVisibleAttribute("06#" + "enumType" + "#"
 		// + "variableType" + "#==#" + "Enumeration");
@@ -2308,8 +2339,10 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("value", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "Value",
 				"Variable current value (defined by an operation execution)",
-				0, 1, -1, "", "", -1, "", "");
+				0, 1, 7, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("value", attribute);
+		semVariable.addPropVisibleAttribute("07#" + "value");
+		semVariable.addPropVisibleAttribute("07#" + "value");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
@@ -2319,12 +2352,16 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, false, "Context Defined",
 				"(Ignored for operations)", false, 0, 5, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("isContext", attribute);
+		semVariable.addPropEditableAttribute("05#" + "isContext");
+		semVariable.addPropVisibleAttribute("05#" + "isContext");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExtVisible", "Boolean",
 				AttributeType.OPERATION, false, "Externally Visible",
 				"(Ignored by operations)", false, 0, 8, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ExtVisible", attribute);
+		semVariable.addPropEditableAttribute("08#" + "ExtVisible");
+		semVariable.addPropVisibleAttribute("08#" + "ExtVisible");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExtControl", "Boolean",
@@ -2332,12 +2369,26 @@ public class DefaultOpersMM {
 				"(Ignored by operations)", false, 0, 9, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ExtControl", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semVariable.addPropEditableAttribute("09#" + "ExtControl");
+		semVariable.addPropVisibleAttribute("09#" + "ExtControl");
 
 		attribute = new ElemAttribute("isConfDom", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configure Domain",
-				"Configured value (positive numbers)", 0, 0, -1, "", "", -1,
-				"", "", "varConfDom", "", null);
+				"Configured value (positive numbers)", 0, 0, 1, "",
+				"variableType" + "#!=#" + "String", -1, "", "", "varConfDom",
+				"", null);
+		// TODO define multiple conditions
 		semVariable.putSemanticAttribute("isConfDom", attribute);
+		semVariable.addPropEditableAttribute("01#" + "isConfDom");
+		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
+				+ "variableType" + "#==#" + "Enumeration");
+		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
+				+ "variableType" + "#==#" + "Integer");
+		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
+				+ "variableType" + "#==#" + "Boolean");
+		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
+				+ "variableType" + "#==#" + "Float");
+
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semVariable
@@ -2359,20 +2410,26 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("varConfDom", "String",
 				AttributeType.GLOBALCONFIG, false, "Configured Domain",
-				"Configured domain (positive numbers) {n-m,o,p-r}"
-						+ " (not used by dynamic operations)", "", 0, 1,
+				"Configured domain {n..m,o,p..r} (no spaces)"
+						+ " (not used by dynamic operations)", "", 0, 1, "",
 				"variableType" + "#==#" + "Integer" + "||" + "variableType"
 						+ "#==#" + "Enumeration" + "||" + "variableType"
-						+ "#==#" + "Boolean", "", -1, "", "");
+						+ "#==#" + "Boolean", -1, "", "");
 		semVariable.putSemanticAttribute("varConfDom", attribute);
+		semVariable.addPropEditableAttribute("02#" + "varConfDom");
+		semVariable.addPropVisibleAttribute("02#" + "varConfDom" + "#"
+				+ "isConfDom" + "#==#" + "true");
 
 		attribute = new ElemAttribute("LowLevelExpression",
 				ModelExpr.class.getCanonicalName(), AttributeType.OPERATION,
 				false, "Low-Level Expression",
 				"Expression at the solver level (language independent)", null,
-				0, -1, "variableType" + "#==#" + "LowLevel_Expression", "", -1,
+				0, -1, "", "variableType" + "#==#" + "LowLevel_Expression", -1,
 				"", "");
 		semVariable.putSemanticAttribute("LowLevelExpression", attribute);
+		semVariable.addPropEditableAttribute("03#" + "LowLevelExpression");
+		semVariable.addPropVisibleAttribute("03#" + "LowLevelExpression" + "#"
+				+ "variableType" + "#==#" + "LowLevel expression");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(new
@@ -2385,65 +2442,6 @@ public class DefaultOpersMM {
 		// simsceExecOperLabeling1.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
-		semVariable.addPropEditableAttribute("01#" + "name");
-		semVariable.addPropEditableAttribute("02#" + "variableType");
-		semVariable.addPropEditableAttribute("03#" + "varDom");
-		semVariable.addPropEditableAttribute("03#" + "floatDom");
-		semVariable.addPropEditableAttribute("03#" + "floatPrec");
-		semVariable.addPropEditableAttribute("04#" + "enumType");
-		semVariable.addPropEditableAttribute("05#" + "isContext");
-
-		semVariable.addPropEditableAttribute("08#" + "ExtVisible");
-		semVariable.addPropEditableAttribute("03#" + "LowLevelExpression");
-		semVariable.addPropEditableAttribute("09#" + "ExtControl");
-
-		semVariable.addPropEditableAttribute("01#" + "isConfDom");
-		semVariable.addPropEditableAttribute("02#" + "varConfDom");
-
-		semVariable.addPropVisibleAttribute("01#" + "name");
-		semVariable.addPropVisibleAttribute("02#" + "variableType");
-		semVariable.addPropVisibleAttribute("03#" + "varDom" + "#"
-				+ "variableType" + "#==#" + "Integer");
-		semVariable.addPropVisibleAttribute("03#" + "floatDom" + "#"
-				+ "variableType" + "#==#" + "Float");
-		semVariable.addPropVisibleAttribute("03#" + "floatPrec" + "#"
-				+ "variableType" + "#==#" + "Float");
-		semVariable.addPropVisibleAttribute("04#" + "enumType" + "#"
-				+ "variableType" + "#==#" + "Enumeration");
-		semVariable.addPropVisibleAttribute("05#" + "isContext");
-
-		semVariable.addPropVisibleAttribute("06#" + "value");
-		semVariable.addPropVisibleAttribute("07#" + "value");
-		semVariable.addPropVisibleAttribute("08#" + "ExtVisible");
-		semVariable.addPropVisibleAttribute("09#" + "ExtControl");
-		semVariable.addPropVisibleAttribute("03#" + "LowLevelExpression" + "#"
-				+ "variableType" + "#==#" + "LowLevel expression");
-
-		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
-				+ "variableType" + "#==#" + "Enumeration");
-		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
-				+ "variableType" + "#==#" + "Integer");
-		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
-				+ "variableType" + "#==#" + "Boolean");
-		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
-				+ "variableType" + "#==#" + "Float");
-
-		semVariable.addPropVisibleAttribute("02#" + "varConfDom" + "#"
-				+ "isConfDom" + "#==#" + "true");
-
-		semVariable.addPropEditableAttribute("03#" + "DBVis");
-		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
-		semVariable.addPropVisibleAttribute("03#" + "DBVis");
-		semVariable.addPropVisibleAttribute("04#" + "ExportOnConfig");
-
-		semVariable.addPropEditableAttribute("05#" + "Scope");
-		semVariable.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
-				+ "Scope" + "#==#" + "false" + "#" + "");
-
-		semVariable.addPropVisibleAttribute("05#" + "Scope");
-		semVariable.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
-				+ "Scope" + "#==#" + "false" + "#" + "");
-
 		refas.getVariabilityVertex().put("Variable", instVertexVAR);
 
 		OpersElement semContextGroup = new OpersElement("ConcernLevel");
@@ -2451,28 +2449,26 @@ public class DefaultOpersMM {
 		semContextGroup.putSemanticAttribute("name", new ElemAttribute("name",
 				"String", AttributeType.OPERATION, false, "Group Name", "",
 				"<<new>>", 0, 1, "", "", 1, "", ""));
+		semContextGroup.addPropVisibleAttribute("01#" + "name");
+		semContextGroup.addPropEditableAttribute("01#" + "name");
 		semContextGroup.putSemanticAttribute("instances", new ElemAttribute(
 				"instances", "Integer", AttributeType.OPERATION, false,
 				"Number of Instances",
 				"Instances of the concern level (Ignored for operations)", "1",
 				0, 7, "", "", -1, "", ""));
+		semContextGroup.addPropEditableAttribute("07#" + "instances");
+		semContextGroup.addPropVisibleAttribute("07#" + "instances");
 		semContextGroup.putSemanticAttribute("ExtVisible", new ElemAttribute(
 				"ExtVisible", "Boolean", AttributeType.OPERATION, false,
 				"External Visible", "(Ignored for operations)", false, 0, 8,
 				"", "", -1, "", ""));
+		semContextGroup.addPropEditableAttribute("08#" + "ExtVisible");
+		semContextGroup.addPropVisibleAttribute("08#" + "ExtVisible");
 		semContextGroup.putSemanticAttribute("ExtControl", new ElemAttribute(
 				"ExtControl", "Boolean", AttributeType.OPERATION, false,
 				"Externally Controlled", "(Ignored for operations)", false, 0,
 				9, "", "", -1, "", ""));
-
-		semContextGroup.addPropEditableAttribute("01#" + "name");
-		semContextGroup.addPropEditableAttribute("07#" + "instances");
-		semContextGroup.addPropEditableAttribute("08#" + "ExtVisible");
 		semContextGroup.addPropEditableAttribute("09#" + "ExtControl");
-
-		semContextGroup.addPropVisibleAttribute("01#" + "name");
-		semContextGroup.addPropVisibleAttribute("07#" + "instances");
-		semContextGroup.addPropVisibleAttribute("08#" + "ExtVisible");
 		semContextGroup.addPropVisibleAttribute("09#" + "ExtControl");
 
 		InstConcept instVertexCG = new InstConcept("ConcernLevel",
@@ -2773,7 +2769,9 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("Scope", "Boolean",
 					AttributeType.OPERATION, true, "Global Scope", "", true, 0,
-					-1, "", "", -1, "", "");
+					5, "", "", -1, "", "");
+			semGeneralElement.addPropEditableAttribute("05#" + "Scope");
+			semGeneralElement.addPropVisibleAttribute("05#" + "Scope");
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
 					true));
@@ -2792,10 +2790,14 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("ConcernLevel", "Class",
 					AttributeType.OPERATION, false, "Concern Level",
 					"Concern Level of the element (Ignored for operations)",
-					InstConcept.class.getCanonicalName(), "CG", null, 2, -1,
-					"", "", 0, "<<#" + "ConcernLevel" + "#>>\n", "#" + "Scope"
-							+ "#==#" + "false");
+					InstConcept.class.getCanonicalName(), "CG", null, 2, 6, "",
+					"Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
+							+ "#>>\n", "#" + "Scope" + "#==#" + "false");
 			semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
+			semGeneralElement.addPropEditableAttribute("06#" + "ConcernLevel"
+					+ "#" + "Scope" + "#==#" + "false" + "#" + "");
+			semGeneralElement.addPropVisibleAttribute("06#" + "ConcernLevel"
+					+ "#" + "Scope" + "#==#" + "false" + "#" + "");
 			// semGeneralElement.addPanelVisibleAttribute("00#" + "ConcernLevel"
 			// + "#" + "Scope" + "#==#" + "false");
 			// semGeneralElement.addPanelSpacersAttribute("<<#" + "ConcernLevel"
@@ -2803,16 +2805,6 @@ public class DefaultOpersMM {
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
 			// TODO: use concern level
-
-			semGeneralElement.addPropEditableAttribute("05#" + "Scope");
-			semGeneralElement.addPropEditableAttribute("06#" + "ConcernLevel"
-					+ "#" + "Scope" + "#==#" + "false" + "#" + "");
-
-			semGeneralElement.addPropEditableAttribute("08#"
-					+ "IgnoreForSimulation");
-			semGeneralElement.addPropVisibleAttribute("05#" + "Scope");
-			semGeneralElement.addPropVisibleAttribute("06#" + "ConcernLevel"
-					+ "#" + "Scope" + "#==#" + "false" + "#" + "");
 
 			// Configuration attributes: do no change identifiers
 			/*
@@ -2879,9 +2871,10 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("NPrefSel", "Boolean",
 					AttributeType.EXECCURRENTSTATE, false,
-					"Selected by configuration", "", false, 0, -1, "", "", -1,
-					"", "");
+					"Selected by configuration", "", false, 0, 3, "false", "",
+					-1, "", "");
 			semGeneralElement.putSemanticAttribute("NPrefSel", attribute);
+			semGeneralElement.addPropVisibleAttribute("03#" + "NPrefSel");
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
 					true));
@@ -2897,9 +2890,10 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("NNotPrefSel", "Boolean",
 					AttributeType.EXECCURRENTSTATE, false,
-					"Not Selected by configuration", "", false, 0, -1, "", "",
-					-1, "", "");
+					"Not Selected by configuration", "", false, 0, 6, "false",
+					"", -1, "", "");
 			semGeneralElement.putSemanticAttribute("NNotPrefSel", attribute);
+			semGeneralElement.addPropVisibleAttribute("06#" + "NNotPrefSel");
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
 					true));
@@ -2913,15 +2907,12 @@ public class DefaultOpersMM {
 					semGeneralElement.getIdentifier(), attribute.getName(),
 					true));
 
-			semGeneralElement.addPropVisibleAttribute("06#" + "NNotPrefSel");
-			semGeneralElement.addPropVisibleAttribute("03#" + "NPrefSel");
-
 			OpersConcept semHardConcept = new OpersConcept("semHardConcept");
 
 			attribute = new ElemAttribute("satType", "Enumeration",
 					AttributeType.OPERATION, false, "satType", "",
 					"com.variamos.dynsup.statictypes.SatisfactionType",
-					"achieve", "", 0, -1, "", "", -1, "", "");
+					"achieve", "", 0, 1, "", "", -1, "", "");
 			semHardConcept.putSemanticAttribute("satType", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -3134,7 +3125,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("attributeValue", "Set",
 					AttributeType.SYNTAX, false, "values", "",
 					InstAttribute.class.getCanonicalName(),
-					new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "", "");
+					new ArrayList<InstAttribute>(), 0, 6, "", "", -1, "", "");
 			semOperationalization.putSemanticAttribute("attributeValue",
 					attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -3171,7 +3162,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("satisficingLevel", "String",
 					AttributeType.OPERATION, "Satisficing Level",
 					"Satisficing for dynamic operations (low/high/close)",
-					"high", false, d, 0, 10, "", "", -1, "", "");
+					"high", false, d, 0, 11, "", "", -1, "", "");
 
 			semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -3192,6 +3183,8 @@ public class DefaultOpersMM {
 					"Achieve as close as possible", "", 0, 10, "", "", -1, "",
 					"");
 			semSoftgoal.putSemanticAttribute("satisficingType", attribute);
+			semSoftgoal.addPropEditableAttribute("10#" + "satisficingType");
+			semSoftgoal.addPropVisibleAttribute("10#" + "satisficingType");
 
 			attribute = new ElemAttribute("ConfigReqLevel", "Integer",
 					AttributeType.OPERATION, "Config Req Level (5=ignored)",
@@ -3199,6 +3192,9 @@ public class DefaultOpersMM {
 					new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#"
 							+ "true" + "#" + "0", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
+			semSoftgoal.addPropEditableAttribute("05#" + "ConfigReqLevel" + "#"
+					+ "Required" + "#==#" + "true" + "#" + "5");
+			semSoftgoal.addPropVisibleAttribute("05#" + "ConfigReqLevel");
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
@@ -3222,13 +3218,6 @@ public class DefaultOpersMM {
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
 			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
-
-			semSoftgoal.addPropEditableAttribute("10#" + "satisficingType");
-			semSoftgoal.addPropEditableAttribute("05#" + "ConfigReqLevel" + "#"
-					+ "Required" + "#==#" + "true" + "#" + "5");
-
-			semSoftgoal.addPropVisibleAttribute("10#" + "satisficingType");
-			semSoftgoal.addPropVisibleAttribute("05#" + "ConfigReqLevel");
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -3692,6 +3681,8 @@ public class DefaultOpersMM {
 					"Claim activation expression (in addition to operationalizations/left features)",
 					null, 0, -1, "", "", 3, "#ConditionalExpression#", "");
 			semClaim.putSemanticAttribute("ConditionalExpression", attribute);
+			semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
+			semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semClaim.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semClaim
@@ -3706,6 +3697,9 @@ public class DefaultOpersMM {
 					"Boolean Comp. Expression", "", true, 0, -1, "", "", -1,
 					"", "");
 			semClaim.putSemanticAttribute("CompExp", attribute);
+			semClaim.addPropEditableAttribute("01#" + "CompExp");
+			semClaim.addPropVisibleAttribute("01#" + "CompExp");
+
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 			attribute = new ElemAttribute("ConfidenceLevel", "Integer",
@@ -3713,6 +3707,8 @@ public class DefaultOpersMM {
 					"(Ignored for operations)", 1, false, new RangeDomain(0, 4,
 							0), 0, -1, "", "", -1, "", "");
 			semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
+			semClaim.addPropEditableAttribute("05#" + "ConfidenceLevel");
+			semClaim.addPropVisibleAttribute("05#" + "ConfidenceLevel");
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
 
@@ -3732,6 +3728,8 @@ public class DefaultOpersMM {
 					"Textual representation of the conditional expression (only to display)",
 					"", 0, -1, "", "", 10, "#ClaimExpression#", "");
 			semClaim.putSemanticAttribute("ClaimExpression", attribute);
+			semClaim.addPropEditableAttribute("04#" + "ClaimExpression");
+			semClaim.addPropVisibleAttribute("04#" + "ClaimExpression");
 			// semClaim.addPanelVisibleAttribute("10#" + "ClaimExpression");
 
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -3740,18 +3738,8 @@ public class DefaultOpersMM {
 			// semClaim.addPanelVisibleAttribute("01#" + "Operationalizations");
 
 			// semClaim.addPropEditableAttribute("01#" + "Operationalizations");
-			semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
-			semClaim.addPropEditableAttribute("04#" + "ClaimExpression");
-			semClaim.addPropEditableAttribute("05#" + "ConfidenceLevel");
 
 			// semClaim.addPropVisibleAttribute("01#" + "Operationalizations");
-
-			semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
-			semClaim.addPropVisibleAttribute("04#" + "ClaimExpression");
-			semClaim.addPropVisibleAttribute("05#" + "ConfidenceLevel");
-
-			semClaim.addPropEditableAttribute("01#" + "CompExp");
-			semClaim.addPropVisibleAttribute("01#" + "CompExp");
 
 			// semClaim.addPropVisibleAttribute("02#" + "ClaimSelected");
 
@@ -3801,6 +3789,10 @@ public class DefaultOpersMM {
 					"", 3, "#ConditionalExpression#", "");
 			semSoftDependency.putSemanticAttribute("ConditionalExpression",
 					attribute);
+			semSoftDependency.addPropEditableAttribute("03#"
+					+ "ConditionalExpression");
+			semSoftDependency.addPropVisibleAttribute("03#"
+					+ "ConditionalExpression");
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftDependency.getIdentifier(), attribute.getName(),
 					true));
@@ -3820,6 +3812,8 @@ public class DefaultOpersMM {
 					"Textual representation of the conditional expression (only to display)",
 					"", 2, -1, "", "", 10, "#SDExpression#", "");
 			semSoftDependency.putSemanticAttribute("SDExpression", attribute);
+			semSoftDependency.addPropEditableAttribute("04#" + "SDExpression");
+			semSoftDependency.addPropVisibleAttribute("04#" + "SDExpression");
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// semSoftDependency.addPanelVisibleAttribute("10#" +
 			// "SDExpression");
@@ -3829,29 +3823,19 @@ public class DefaultOpersMM {
 					"Boolean Comp. Expression", "", true, 2, -1, "", "", -1,
 					"", "");
 			semSoftDependency.putSemanticAttribute("CompExp", attribute);
+			semSoftDependency.addPropEditableAttribute("01#" + "CompExp");
+			semSoftDependency.addPropVisibleAttribute("01#" + "CompExp");
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 			attribute = new ElemAttribute("SDSelected", "Boolean",
 					AttributeType.GLOBALCONFIG, false, "SD Selected", "",
 					false, 2, -1, "", "", -1, "", "");
 			semSoftDependency.putSemanticAttribute("SDSelected", attribute);
+			semSoftDependency.addPropVisibleAttribute("02#" + "SDSelected");
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 			// semSoftDependency.addPanelVisibleAttribute("10#" +
 			// "SDExpression");
-
-			semSoftDependency.addPropEditableAttribute("03#"
-					+ "ConditionalExpression");
-			semSoftDependency.addPropEditableAttribute("04#" + "SDExpression");
-
-			semSoftDependency.addPropVisibleAttribute("03#"
-					+ "ConditionalExpression");
-			semSoftDependency.addPropVisibleAttribute("04#" + "SDExpression");
-
-			semSoftDependency.addPropEditableAttribute("01#" + "CompExp");
-			semSoftDependency.addPropVisibleAttribute("01#" + "CompExp");
-
-			semSoftDependency.addPropVisibleAttribute("02#" + "SDSelected");
 
 			// Elements Lists
 			// List<AbstractSemanticVertex> semAssumptionElements = new

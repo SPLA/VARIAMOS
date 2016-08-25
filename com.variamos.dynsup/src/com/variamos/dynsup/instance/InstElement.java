@@ -635,6 +635,7 @@ public abstract class InstElement implements Serializable,
 					else {
 						InstAttribute instAttribute = getInstAttributes().get(
 								name);
+						System.out.println(instAttribute.getEnumType());
 						if (instAttribute.getEnumType() != null
 								&& instAttribute.getEnumType().equals(
 										InstConcept.class.getCanonicalName())) {
