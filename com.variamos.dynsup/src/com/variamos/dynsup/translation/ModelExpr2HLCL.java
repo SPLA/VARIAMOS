@@ -439,14 +439,6 @@ public class ModelExpr2HLCL {
 			if (exp.size() > 1) {
 
 				hlclProgram = exp;
-				// Set<Identifier> identifiers = new TreeSet<Identifier>();
-				// for (Expression exp : hlclProgram) {
-				// // System.out.println(HlclUtil.getUsedIdentifiers(exp));
-				// identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
-				// text += exp + "\n";
-				// }
-				// if (swiSolver != null)
-				// swiSolver.close();
 				swiSolver = new SWIPrologSolver(hlclProgram);
 				if (progressMonitor != null && progressMonitor.isCanceled())
 					throw (new InterruptedException());
