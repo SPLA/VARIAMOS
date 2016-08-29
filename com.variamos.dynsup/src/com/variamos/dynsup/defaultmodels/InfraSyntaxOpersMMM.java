@@ -442,11 +442,16 @@ public class InfraSyntaxOpersMMM {
 				100, 250, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxOpersM2InfraConcept.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2InfraConcept.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n" + "<<non-editable>>"
-				+ "\n\n");
+		infraSyntaxOpersM2InfraConcept.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n"
+						+ "<<non-editable>>" + "\n\n", "");
+		// infraSyntaxOpersM2InfraConcept.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2InfraConcept.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n" + "<<non-editable>>"
+		// + "\n\n");
 
 		InstConcept instInfraSyntaxOpersM2InfraConcept = new InstConcept(
 				"OMInfConcept", basicOpersSyntaxM3Concept,
@@ -466,10 +471,14 @@ public class InfraSyntaxOpersMMM {
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxOpersM2Concept.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2Concept.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2Concept.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+		// infraSyntaxOpersM2Concept.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2Concept.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2Concept = new InstConcept(
 				"OMConcept", basicOpersSyntaxM3Concept,
@@ -505,11 +514,16 @@ public class InfraSyntaxOpersMMM {
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxOpersM2PWRel.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2PWRel.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n" + "<<non-editable>>"
-				+ "\n\n");
+		infraSyntaxOpersM2PWRel.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n"
+						+ "<<non-editable>>" + "\n\n", "");
+		// infraSyntaxOpersM2PWRel.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2PWRel.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n" + "<<non-editable>>"
+		// + "\n\n");
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				"relTypesAttr",
@@ -558,10 +572,14 @@ public class InfraSyntaxOpersMMM {
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		metaMetaPairwiseRel.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		metaMetaPairwiseRel.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		metaMetaPairwiseRel.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+		// metaMetaPairwiseRel.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// metaMetaPairwiseRel.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instPairWiseRelation = new InstConcept("OMPWRel",
 				basicOpersSyntaxM3Concept, metaMetaPairwiseRel);
@@ -622,11 +640,16 @@ public class InfraSyntaxOpersMMM {
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		infraSyntaxOpersM2InfraOTRel.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2InfraOTRel.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n" + "<<non-editable>>"
-				+ "\n\n");
+		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n"
+						+ "<<non-editable>>" + "\n\n", "");
+		// infraSyntaxOpersM2InfraOTRel.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2InfraOTRel.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n" + "<<non-editable>>"
+		// + "\n\n");
 
 		InstConcept instInfraSyntaxOpersM2InfraOTRel = new InstConcept(
 				"OMInfraOTRel", basicOpersSyntaxM3Concept,
@@ -656,10 +679,14 @@ public class InfraSyntaxOpersMMM {
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		infraSyntaxOpersM2OTRel.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2OTRel.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2OTRel.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+		// infraSyntaxOpersM2OTRel.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2OTRel.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2OTRel = new InstConcept("OMOTRel",
 				basicOpersSyntaxM3Concept, infraSyntaxOpersM2OTRel);
@@ -686,10 +713,14 @@ public class InfraSyntaxOpersMMM {
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				instBasicOpersM2AsoRel);
 
-		infraSyntaxOpersM2AsoRel.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2AsoRel.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2AsoRel.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+		// infraSyntaxOpersM2AsoRel.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2AsoRel.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		constraintInstEdges.put("InfraSyntaxOpersM2AsoRel",
 				new InstPairwiseRel(infraSyntaxOpersM2AsoRel));
@@ -705,10 +736,14 @@ public class InfraSyntaxOpersMMM {
 				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
-		infraSyntaxOpersM2ExtRel.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2ExtRel.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2ExtRel.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+		// infraSyntaxOpersM2ExtRel.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2ExtRel.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstPairwiseRel rel = new InstPairwiseRel(basicOpersM2ExtRel);
 		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
@@ -803,7 +838,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("menuType",
 				new ElemAttribute("menuType", "String",
 						AttributeType.OPERATION, "Oper Group Type", "", "4",
-						false, d, 0, 5, "", "", 5, "", ""));
+						false, d, 0, 5, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperGroup
 				.addPropEditableAttribute("05#" + "menuType");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("05#" + "menuType");
@@ -811,7 +846,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("visible",
 				new ElemAttribute("visible", "Boolean",
 						AttributeType.OPERATION, false, "Visible", "", true, 0,
-						8, "", "", 8, "", ""));
+						8, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("08#" + "visible");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("08#" + "visible");
 
@@ -820,29 +855,34 @@ public class InfraSyntaxOpersMMM {
 						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("06#" + "name");
-		infraSyntaxOpersM2OperGroup.addPanelVisibleAttribute("06#" + "name");
-		infraSyntaxOpersM2OperGroup
-				.addPanelSpacersAttribute("#" + "name" + "#");
+		// infraSyntaxOpersM2OperGroup.addPanelVisibleAttribute("06#" + "name");
+		// infraSyntaxOpersM2OperGroup
+		// .addPanelSpacersAttribute("#" + "name" + "#");
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("shortcut",
 				new ElemAttribute("shortcut", "String",
 						AttributeType.OPERATION, false, "Shortcut", "", null,
-						0, 7, "", "", 7, "", ""));
+						0, 7, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperGroup
 				.addPropEditableAttribute("07#" + "shortcut");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("07#" + "shortcut");
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("Index",
 				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", "", 1, 0, 9, "", "", 9, "", ""));
+						false, "Position", "", 1, 0, 9, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#" + "Index");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#" + "Index");
 
-		infraSyntaxOpersM2OperGroup.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
 		infraSyntaxOpersM2OperGroup
-				.addPanelSpacersAttribute("<<OMOperGroup>>\n#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+				.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+						"String", false, "User Identifier", "", "", 0, 4, "",
+						"", 4, "<<OMOperGroup>>\n#"
+								+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
+		// infraSyntaxOpersM2OperGroup.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2OperGroup
+		// .addPanelSpacersAttribute("<<OMOperGroup>>\n#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2OperGroup = new InstConcept(
 				"OMOperGroup", basicOpersSyntaxM3Concept,
@@ -858,17 +898,21 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2MetaModel.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
+						false, "Name", "", null, 0, 6, "", "", 4, "", ""));
 		infraSyntaxOpersM2MetaModel.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2MetaModel.addPropVisibleAttribute("06#" + "name");
-		infraSyntaxOpersM2MetaModel.addPanelVisibleAttribute("06#" + "name");
-		infraSyntaxOpersM2MetaModel
-				.addPanelSpacersAttribute("#" + "name" + "#");
+		// infraSyntaxOpersM2MetaModel.addPanelVisibleAttribute("06#" + "name");
+		// infraSyntaxOpersM2MetaModel
+		// .addPanelSpacersAttribute("#" + "name" + "#");
 
-		infraSyntaxOpersM2MetaModel.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2MetaModel.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2OperGroup.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+		// infraSyntaxOpersM2MetaModel.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2MetaModel.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2MetaModel = new InstConcept(
 				"OMModel", basicOpersSyntaxM3Concept,
@@ -883,60 +927,64 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
+						false, "Name", "", null, 0, 6, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperAction.addPropEditableAttribute("06#" + "name");
+		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("06#" + "name");
+		// infraSyntaxOpersM2OperAction.addPanelSpacersAttribute("#" + "name"
+		// + "#");
+
 		infraSyntaxOpersM2OperAction.addModelingAttribute("shortcut",
 				new ElemAttribute("shortcut", "String",
 						AttributeType.OPERATION, false, "Shortcut", "", null,
-						0, 7, "", "", 7, "", ""));
-		infraSyntaxOpersM2OperAction.addModelingAttribute("Index",
-				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", "", 1, 0, 8, "", "", 8, "", ""));
-		infraSyntaxOpersM2OperAction.addModelingAttribute("iteration",
-				new ElemAttribute("iteration", "Boolean",
-						AttributeType.OPERATION, false, "Iterate Button", "",
-						false, 0, 9, "", "", 9, "", ""));
-		infraSyntaxOpersM2OperAction.addModelingAttribute("iterationName",
-				new ElemAttribute("iterationName", "String",
-						AttributeType.OPERATION, false, "Iterate Name", "",
-						null, 0, 6, "", "", 6, "", ""));
-		infraSyntaxOpersM2OperAction.addModelingAttribute("prevSpacer",
-				new ElemAttribute("prevSpacer", "Boolean",
-						AttributeType.OPERATION, false, "Add Previous Spacer",
-						"", false, 0, 9, "", "", 9, "", ""));
-
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("06#" + "name");
-		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("06#" + "name");
-		infraSyntaxOpersM2OperAction.addPanelSpacersAttribute("#" + "name"
-				+ "#");
-
+						0, 7, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("07#"
 				+ "shortcut");
 		infraSyntaxOpersM2OperAction
 				.addPropVisibleAttribute("07#" + "shortcut");
 
+		infraSyntaxOpersM2OperAction.addModelingAttribute("Index",
+				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
+						false, "Position", "", 1, 0, -1, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("08#" + "Index");
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("08#" + "Index");
 
+		infraSyntaxOpersM2OperAction.addModelingAttribute("iteration",
+				new ElemAttribute("iteration", "Boolean",
+						AttributeType.OPERATION, false, "Iterate Button", "",
+						false, 0, 9, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("09#"
 				+ "iteration");
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("09#"
 				+ "iteration");
 
+		infraSyntaxOpersM2OperAction.addModelingAttribute("iterationName",
+				new ElemAttribute("iterationName", "String",
+						AttributeType.OPERATION, false, "Iterate Name", "",
+						null, 0, 6, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("09#"
 				+ "iterationName");
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("09#"
 				+ "iterationName");
 
+		infraSyntaxOpersM2OperAction.addModelingAttribute("prevSpacer",
+				new ElemAttribute("prevSpacer", "Boolean",
+						AttributeType.OPERATION, false, "Add Previous Spacer",
+						"", false, 0, 9, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("10#"
 				+ "prevSpacer");
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("10#"
 				+ "prevSpacer");
 
-		infraSyntaxOpersM2OperAction.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
 		infraSyntaxOpersM2OperAction
-				.addPanelSpacersAttribute("<<OMOperation>>\n#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+				.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
+						"String", false, "User Identifier", "", "", 0, 4, "",
+						"", 4, "<<OMOperation>>\n#"
+								+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
+		// infraSyntaxOpersM2OperAction.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2OperAction
+		// .addPanelSpacersAttribute("<<OMOperation>>\n#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2OperAction = new InstConcept(
 				"OMOperation", basicOpersSyntaxM3Concept,
@@ -952,13 +1000,14 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
+						false, "Name", "", null, 0, 6, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
+
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("Index",
 				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", "", 1, 0, 6, "", "", 6, "", ""));
+						false, "Position", "", 1, 0, 6, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("08#"
 				+ "Index");
 		infraSyntaxOpersM2OperSubAction
@@ -967,7 +1016,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",
 						AttributeType.OPERATION, false,
-						"Iterate Sub-Operation", "", false, 0, 6, "", "", 6,
+						"Iterate Sub-Operation", "", false, 0, 6, "", "", -1,
 						"", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
 				+ "iteration");
@@ -978,7 +1027,7 @@ public class InfraSyntaxOpersMMM {
 				new ElemAttribute("type", "Enumeration",
 						AttributeType.OPERATION, false, "Type", "",
 						OperationSubActionType.class.getCanonicalName(),
-						"SINGLEUPDATE", "", 0, 6, "", "", 6, "", ""));
+						"SINGLEUPDATE", "", 0, 6, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addPropEditableAttribute("10#" + "type");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
@@ -988,14 +1037,18 @@ public class InfraSyntaxOpersMMM {
 				new ElemAttribute("exptype", "Set", AttributeType.SYNTAX,
 						false, "exptype", InstAttribute.class
 								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
+						new ArrayList<InstAttribute>(), 0, 2, "", "", 6, "#\n",
 						""));
 
-		infraSyntaxOpersM2OperSubAction.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2OperSubAction
-				.addPanelSpacersAttribute("<<OMSubOper>>\n#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMSubOper>>\n#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
+		// infraSyntaxOpersM2OperSubAction.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2OperSubAction
+		// .addPanelSpacersAttribute("<<OMSubOper>>\n#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2OperSubAction = new InstConcept(
 				"OMSubOper", basicOpersSyntaxM3Concept,
@@ -1011,44 +1064,51 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("labelId",
 				new ElemAttribute("labelId", "String", AttributeType.OPERATION,
-						false, "Label ID", "", null, 0, 6, "", "", 6, "", ""));
+						false, "Label ID", "", null, 0, 6, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("06#"
+				+ "labelId");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("06#"
+				+ "labelId");
+
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("position",
 				new ElemAttribute("position", "Integer",
 						AttributeType.OPERATION, false, "Position", "", 1, 0,
-						6, "", "", 6, "", ""));
+						-1, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("07#"
+				+ "position");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("07#"
+				+ "position");
+
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("once",
 				new ElemAttribute("once", "Boolean", AttributeType.OPERATION,
-						false, "Once", "", false, 0, 6, "", "", 6, "", ""));
+						false, "Once", "", false, 0, 6, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#" + "once");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#" + "once");
+
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("order",
 				new ElemAttribute("order", "Boolean", AttributeType.OPERATION,
-						false, "Order", "", false, 0, 6, "", "", 6, "", ""));
+						false, "Order", "", false, 0, 6, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperLabeling
+				.addPropEditableAttribute("09#" + "order");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("09#" + "order");
+
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
 				"sortorder",
 				new ElemAttribute("sortorder", "Set", AttributeType.SYNTAX,
 						false, "sortorder", InstAttribute.class
 								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
-						""));
-		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("06#"
-				+ "labelId");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("06#"
-				+ "labelId");
-		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("07#"
-				+ "position");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("07#"
-				+ "position");
-		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#" + "once");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#" + "once");
+						new ArrayList<InstAttribute>(), 0, 2, "", "", -1,
+						"#\n", ""));
 
-		infraSyntaxOpersM2OperLabeling
-				.addPropEditableAttribute("09#" + "order");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("09#" + "order");
-
-		infraSyntaxOpersM2OperLabeling.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2OperLabeling
-				.addPanelSpacersAttribute("<<OMLabeling>>\n#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMLabeling>>\n#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
+		// infraSyntaxOpersM2OperLabeling.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2OperLabeling
+		// .addPanelSpacersAttribute("<<OMLabeling>>\n#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2OperLabeling = new InstConcept(
 				"OMLabeling", basicOpersSyntaxM3Concept,
@@ -1066,15 +1126,15 @@ public class InfraSyntaxOpersMMM {
 				new ElemAttribute("suboperexptype", "Enumeration",
 						AttributeType.OPERATION, false, "Expression Type", "",
 						OperationSubActionExecType.class.getCanonicalName(),
-						"NORMAL", "", 0, 6, "", "", 6, "", ""));
+						"NORMAL", "", 0, 6, "", "", 7, "", ""));
 
-		infraSyntaxOpersM2ExpType.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2ExpType.addPanelSpacersAttribute("<<OMExpType>>\n#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
+		// infraSyntaxOpersM2ExpType.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// infraSyntaxOpersM2ExpType.addPanelSpacersAttribute("<<OMExpType>>\n#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2ExpType = new InstConcept(
-				"OMLabeling", basicOpersSyntaxM3Concept,
+				"OMExpType", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2ExpType);
 		variabilityInstVertex.put("OMExpType", instInfraSyntaxOpersM2ExpType);
 
