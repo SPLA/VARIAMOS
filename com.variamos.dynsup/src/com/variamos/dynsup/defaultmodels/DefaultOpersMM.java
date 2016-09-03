@@ -2140,6 +2140,7 @@ public class DefaultOpersMM {
 		semInfraOTRel.addPropEditableAttribute("09#" + "HighRange");
 		semInfraOTRel.addPropVisibleAttribute("09#" + "HighRange" + "#"
 				+ "relationType" + "#==#" + "range" + "#" + "1");
+
 		// semInfraOTRel.addPanelVisibleAttribute("09#" + "HighRange" + "#"
 		// + "relationType" + "#==#" + "range");
 		// semInfraOTRel.addPanelSpacersAttribute("-#" + "HighRange" + "#]");
@@ -2244,9 +2245,11 @@ public class DefaultOpersMM {
 				false,
 				"Concern Level",
 				"Concern level of this element associated from the context view",
+
 				InstConcept.class.getCanonicalName(), "CG", null, 0, 6, "",
 				"Scope" + "#==#" + "false" + "#" + "", 0, "<<#"
 						+ "ConcernLevel" + "#>>\n", "Scope" + "#==#" + "false");
+
 		semVariable.putSemanticAttribute("ConcernLevel", attribute);
 		semVariable.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false" + "#" + "");
@@ -2303,9 +2306,11 @@ public class DefaultOpersMM {
 						+ "Float", 7, "{#" + "floatDom" + "#} ", "variableType"
 						+ "#==#" + "Float");
 		semVariable.putSemanticAttribute("floatDom", attribute);
+
 		semVariable.addPropEditableAttribute("03#" + "floatDom");
 		semVariable.addPropVisibleAttribute("03#" + "floatDom" + "#"
 				+ "variableType" + "#==#" + "Float");
+
 		// semVariable.addPanelVisibleAttribute("07#" + "floatDom" + "#"
 		// + "variableType" + "#==#" + "Float");
 		// semVariable.addPanelSpacersAttribute("{#" + "floatDom" + "#} ");
@@ -2317,6 +2322,7 @@ public class DefaultOpersMM {
 						+ "Float", 7, "#" + "floatPrec" + "#", "variableType"
 						+ "#==#" + "Float");
 		semVariable.putSemanticAttribute("floatPrec", attribute);
+
 		semVariable.addPropEditableAttribute("03#" + "floatPrec");
 		semVariable.addPropVisibleAttribute("03#" + "floatPrec" + "#"
 				+ "variableType" + "#==#" + "Float");
@@ -2795,14 +2801,18 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("ConcernLevel", "Class",
 					AttributeType.OPERATION, false, "Concern Level",
 					"Concern Level of the element (Ignored for operations)",
+
 					InstConcept.class.getCanonicalName(), "CG", null, 2, 6, "",
 					"Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
 							+ "#>>\n", "#" + "Scope" + "#==#" + "false");
+
 			semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
+
 			semGeneralElement.addPropEditableAttribute("06#" + "ConcernLevel"
 					+ "#" + "Scope" + "#==#" + "false" + "#" + "");
 			semGeneralElement.addPropVisibleAttribute("06#" + "ConcernLevel"
 					+ "#" + "Scope" + "#==#" + "false" + "#" + "");
+
 			// semGeneralElement.addPanelVisibleAttribute("00#" + "ConcernLevel"
 			// + "#" + "Scope" + "#==#" + "false");
 			// semGeneralElement.addPanelSpacersAttribute("<<#" + "ConcernLevel"
@@ -3697,6 +3707,9 @@ public class DefaultOpersMM {
 			// semClaim.addPanelVisibleAttribute("03#" +
 			// "ConditionalExpression");
 
+			// semClaim.addPanelVisibleAttribute("03#" +
+			// "ConditionalExpression");
+
 			attribute = new ElemAttribute("CompExp", "Boolean",
 					AttributeType.GLOBALCONFIG, false,
 					"Boolean Comp. Expression", "", true, 0, -1, "", "", -1,
@@ -3733,8 +3746,10 @@ public class DefaultOpersMM {
 					"Textual representation of the conditional expression (only to display)",
 					"", 0, -1, "", "", 10, "#ClaimExpression#", "");
 			semClaim.putSemanticAttribute("ClaimExpression", attribute);
+
 			semClaim.addPropEditableAttribute("04#" + "ClaimExpression");
 			semClaim.addPropVisibleAttribute("04#" + "ClaimExpression");
+
 			// semClaim.addPanelVisibleAttribute("10#" + "ClaimExpression");
 
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -6060,7 +6075,8 @@ public class DefaultOpersMM {
 					.addPropVisibleAttribute("08#" + "AggregationHigh");
 
 			InstConcept instSgsgSGR = new InstConcept("SgFromOT",
-					metaMetaPairwiseRelation, directSGGRSemEdge);
+
+			metaMetaPairwiseRelation, directSGGRSemEdge);
 
 			refas.getVariabilityVertex().put("SgFromOT", instSgsgSGR);
 
@@ -6960,8 +6976,10 @@ public class DefaultOpersMM {
 			directSDSGSemanticEdge.addPropEditableAttribute("08#" + "level");
 			directSDSGSemanticEdge.addPropVisibleAttribute("08#" + "level");
 			// directSDSGSemanticEdge.addPanelVisibleAttribute("08#" + "level");
+
 			InstConcept instDirSDSGSemanticEdge = new InstConcept("SdSgPW",
-					metaMetaPairwiseRelation, directSDSGSemanticEdge);
+
+			metaMetaPairwiseRelation, directSDSGSemanticEdge);
 
 			instEdge = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sdsgtoip", instEdge);

@@ -2430,6 +2430,7 @@ public class DefaultSyntaxMM {
 						+ " is required to satisfy a claim", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semClaimPairwiseRel);
+
 		// metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow",
 		// "Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
 		// "[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
@@ -2898,6 +2899,7 @@ public class DefaultSyntaxMM {
 						+ " assets", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
+
 		// metaAssetPairWiseRel.addModelingAttribute("AggregationLow",
 		// "Integer",
 		// false, "Aggregation Low", "", 0, 0, 3, "", "", 3, "[#"
