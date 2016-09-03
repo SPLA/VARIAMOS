@@ -471,11 +471,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							if (firstSimulExec && lastConfiguration == null) {
 								switch (operationIdentifier) {
 								case "simulation":
-								case "SimulationOper":
+								case "BasicSimulOper":
 									errorMessage = "Last changes on the model makes it inconsistent."
 											+ " \n Please review the restrictions defined and "
 											+ "try again. \nModel visual representation was not updated.";
-									errorTitle = "Model Verification Error";
+									errorTitle = "Model Simulation Error";
 									correctExecution = false;
 									break;
 								case "a":
@@ -486,7 +486,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									correctExecution = false;
 									break;
 								case "d":
-								case "SimulationScenarios":
+								case "SimulSceOper":
 									errorMessage = "No solution found for this model configuration."
 											+ " \n Please review the restrictions defined and "
 											+ "try again.";

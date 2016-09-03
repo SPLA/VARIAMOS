@@ -51,7 +51,6 @@ public abstract class InstElement implements Serializable,
 	private List<ModelExpr> modExp;
 	private OpersElement edOperEle;
 	private SyntaxElement edSyntaxEle;
-	private SyntaxElement supMetaElement;
 	private InstElement supInstElement;
 
 	/**
@@ -606,10 +605,14 @@ public abstract class InstElement implements Serializable,
 						// System.out.println(this.getIdentifier());
 						if (instAttribute != null) {
 							if (instAttribute.getType() != null
-									&& instAttribute.getType().equals("Set"))
+									&& instAttribute.getType().equals("Set")) {
 								for (InstAttribute e : (Collection<InstAttribute>) instAttribute
 										.getValue())
 									out += e.toString().trim() + "\n";
+
+								// out = out.substring(0, out.length() - 2);
+							}
+
 							else
 								out += instAttribute.toString().trim();
 						}
@@ -635,7 +638,7 @@ public abstract class InstElement implements Serializable,
 					else {
 						InstAttribute instAttribute = getInstAttributes().get(
 								name);
-						System.out.println(instAttribute.getEnumType());
+						// System.out.println(instAttribute.getEnumType());
 						if (instAttribute.getEnumType() != null
 								&& instAttribute.getEnumType().equals(
 										InstConcept.class.getCanonicalName())) {
@@ -649,11 +652,15 @@ public abstract class InstElement implements Serializable,
 								Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
 										.getInstAttributeAttribute("Value");
 								String outt = "{ ";
-								for (InstAttribute i : ooo) {
-									String values[] = ((String) i.getValue())
-											.split("#");
-									outt += values[1] + ", ";
+								{
+									for (InstAttribute i : ooo) {
+										String values[] = ((String) i
+												.getValue()).split("#");
+										outt += values[1] + ", ";
+									}
+									// out = out.substring(0, out.length() - 2);
 								}
+
 								outt = outt.substring(0, outt.length() - 2);
 								outt += " }";
 								out += AbstractElement.multiLine(outt, 40);

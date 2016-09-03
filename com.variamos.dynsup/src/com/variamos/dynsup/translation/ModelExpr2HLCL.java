@@ -384,7 +384,7 @@ public class ModelExpr2HLCL {
 		if (iterVertex.hasNext()) {
 			InstElement instVertex = iterVertex.next();
 			if (last.getInstAttribute(attributeName) != null
-					&& this.validateConceptType(last, "GeneralElement")
+					&& this.validateConceptType(last, "GeneralConcept")
 					&& last.getInstAttribute("Active").getAsBoolean() == true)
 				return f.sum(
 						f.newIdentifier(last.getIdentifier() + "_"
@@ -392,7 +392,7 @@ public class ModelExpr2HLCL {
 						getSumExpression(instVertex, iterVertex, attributeName));
 			else
 				return getSumExpression(instVertex, iterVertex, attributeName);
-		} else if (this.validateConceptType(last, "GeneralElement")
+		} else if (this.validateConceptType(last, "GeneralConcept")
 				&& last.getInstAttribute("Active").getAsBoolean() == true)
 			return f.newIdentifier(last.getIdentifier() + "_" + attributeName);
 		else
@@ -570,7 +570,7 @@ public class ModelExpr2HLCL {
 		// Call the SWIProlog and obtain the result
 
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
-			if (this.validateConceptType(instVertex, "GeneralElement")) {
+			if (this.validateConceptType(instVertex, "GeneralConcept")) {
 				/*
 				 * if (instVertex.getInstAttribute("Core").getAsBoolean() ||
 				 * instVertex.getInstAttribute("Dead").getAsBoolean()) continue;
@@ -859,7 +859,7 @@ public class ModelExpr2HLCL {
 			Map<String, ElementExpressionSet> constraintGroups) {
 		if (identifier == null)
 			for (InstElement elm : refas.getConstraintVertexCollection()) {
-				// if (this.validateConceptType(elm, "GeneralElement"))
+				// if (this.validateConceptType(elm, "GeneralConcept"))
 				constraintGroups.put(elm.getIdentifier(),
 						new SingleElementExpressionSet(elm.getIdentifier(),
 								idMap, f, elm, execType));
@@ -957,7 +957,7 @@ public class ModelExpr2HLCL {
 	public void updateRequiredConcepts(List<String> requiredConceptsNames,
 			boolean test) {
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex, "GeneralElement")) {
+			if (validateConceptType(instVertex, "GeneralConcept")) {
 				InstAttribute instAttributeTest = instVertex
 						.getInstAttribute("NPrefSel");
 				InstAttribute instAttributeConf = instVertex
@@ -996,7 +996,7 @@ public class ModelExpr2HLCL {
 	public void updateDeadConfigConcepts(List<String> requiredConceptsNames,
 			boolean test) {
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex, "GeneralElement")) {
+			if (validateConceptType(instVertex, "GeneralConcept")) {
 				InstAttribute instAttributeTest = instVertex
 						.getInstAttribute("NNotPrefSel");
 				InstAttribute instAttributeConf = instVertex
@@ -1033,7 +1033,7 @@ public class ModelExpr2HLCL {
 			Set<InstElement> elementSubSet) {
 		TreeMap<String, Integer> out = new TreeMap<String, Integer>();
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex, "GeneralElement")
+			if (validateConceptType(instVertex, "GeneralConcept")
 					&& (elementSubSet == null || elementSubSet
 							.contains(instVertex))) {
 				InstAttribute instAttribute = instVertex
@@ -1060,7 +1060,7 @@ public class ModelExpr2HLCL {
 	public Set<Identifier> getFreeIdentifiers() {
 		Set<Identifier> out = new HashSet<Identifier>();
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex, "GeneralElement")) {
+			if (validateConceptType(instVertex, "GeneralConcept")) {
 				InstAttribute instAttribute = instVertex
 						.getInstAttribute("Core");
 				InstAttribute instAttribute2 = instVertex
@@ -1114,7 +1114,7 @@ public class ModelExpr2HLCL {
 
 	public void updateDeadConcepts(List<String> deadIdentifiers) {
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex, "GeneralElement")) {
+			if (validateConceptType(instVertex, "GeneralConcept")) {
 				InstAttribute instAttributeDead = instVertex
 						.getInstAttribute("Dead");
 				InstAttribute instAttributeNotAva = instVertex

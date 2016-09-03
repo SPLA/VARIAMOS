@@ -120,7 +120,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 		if (instVertex instanceof InstConcept
 				|| instVertex instanceof InstOverTwoRel) {
-			if (validateConceptType(instVertex, "GeneralElement")
+			if (validateConceptType(instVertex, "GeneralConcept")
 					|| instVertex.getIdentifier().contains("Variable")) {
 				InstAttribute validAttribute = instVertex
 						.getInstAttribute("Active");

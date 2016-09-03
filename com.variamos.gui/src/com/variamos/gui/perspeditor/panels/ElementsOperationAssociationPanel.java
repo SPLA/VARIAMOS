@@ -80,7 +80,7 @@ public class ElementsOperationAssociationPanel extends
 		for (InstElement operAction : operActions) {
 			combo.addItem(operAction.getEdOperEle().getIdentifier());
 		}
-		combo.setSelectedItem("SimulationOper");
+		combo.setSelectedItem("BasicSimulOper");
 		JPanel topPanel = new JPanel();
 		topPanel.add(new JLabel("Operation"));
 		topPanel.add(combo);

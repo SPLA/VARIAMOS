@@ -81,7 +81,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 		for (InstElement vertex : refas.getVariabilityVertexCollection()) {
 			SyntaxElement metaElement = ((SyntaxElement) vertex
 					.getTransSupportMetaElement());
-			if (validateConceptType(vertex, "GeneralElement"))
+			if (validateConceptType(vertex, "GeneralConcept"))
 				if (vertex.getInstAttribute("Active").getAsBoolean()) {
 					switch (execType) {
 					case ModelExpr2HLCL.VAL_UPD_EXEC:
