@@ -13,7 +13,7 @@ import com.mxgraph.model.mxCell;
  * @version 1.1
  * @since 2015-01-29 *
  */
-public class InstCell implements Serializable {
+public class InstCell implements Serializable, Cloneable {
 	/**
 	 * 
 	 */
@@ -37,6 +37,16 @@ public class InstCell implements Serializable {
 		else
 			originalInstElement = instElement;
 		this.mxCellinst = mxCellinst;
+	}
+
+	@Override
+	public InstCell clone() throws CloneNotSupportedException {
+		InstCell out = (InstCell) super.clone();
+		if (originalInstElement != null)
+			out.originalInstElement = originalInstElement.clone();
+		if (volatileInstElement != null)
+			out.volatileInstElement = volatileInstElement.clone();
+		return out;
 	}
 
 	public InstElement getOriginalInstElement() {

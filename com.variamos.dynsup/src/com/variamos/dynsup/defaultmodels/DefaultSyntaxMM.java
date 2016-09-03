@@ -433,10 +433,10 @@ public class DefaultSyntaxMM {
 		// instGroupPairWiseRel);
 
 		InstElement directFeatFeatVertSemEdge = refas.getOperationalModel()
-				.getVertex("FeatFeatParentPWAsso");
+				.getVertex("parentFeatPW");
 
 		InstElement directFeatFeatSideSemEdge = refas.getOperationalModel()
-				.getVertex("FeatFeatSidePWAsso");
+				.getVertex("altFeatPW");
 
 		SyntaxElement metaFeatVertPairwiseRel = new SyntaxElement('P',
 				"Feature Child Relation", true, true, "Feature Child Relation",
@@ -593,7 +593,7 @@ public class DefaultSyntaxMM {
 		// Features OverTwoRelations
 
 		InstConcept semanticFeatFeatGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("FeatFeatOTAsso"));
+				.getOperationalModel().getVertex("FeatOT"));
 
 		SyntaxElement featureMetaOverTwoRel = new SyntaxElement('O',
 				"FeatOTAsso", true, true, "FeatOTAsso", "plgroup",
@@ -978,8 +978,9 @@ public class DefaultSyntaxMM {
 
 		// Direct Hard Relations
 
+		// FIXIT change meansHardPW for meansHardToOT
 		InstElement directStructHardHardSemanticEdge = refas
-				.getOperationalModel().getVertex("structHardHardPWAsso");
+				.getOperationalModel().getVertex("meansHardPW");
 
 		SyntaxElement metaGrpStructHardPairwiseRel = new SyntaxElement('P',
 				"HardRelation", true, true, "HardRelation", "",
@@ -1020,31 +1021,31 @@ public class DefaultSyntaxMM {
 		 * "Aggregation");
 		 */
 
-		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
-				"[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
-						+ "0");
-		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
-		metaDirStructHardPairwiseRel.addPanelVisibleAttribute("03#"
-				+ "AggregationLow" + "#" + "AggregationHigh" + "#!=#" + "0");
-		metaDirStructHardPairwiseRel.addPanelSpacersAttribute("[#"
-				+ "AggregationLow" + "#..");
-
-		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
-				"#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
-						+ "0");
-		metaDirStructHardPairwiseRel.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		metaDirStructHardPairwiseRel.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
-		metaDirStructHardPairwiseRel.addPanelVisibleAttribute("04#"
-				+ "AggregationHigh" + "#" + "AggregationHigh" + "#!=#" + "0");
-		metaDirStructHardPairwiseRel.addPanelSpacersAttribute("#"
-				+ "AggregationHigh" + "#]\n");
+		// metaDirStructHardPairwiseRel.addModelingAttribute("AggregationLow",
+		// "Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
+		// "[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+		// + "0");
+		// metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
+		// + "AggregationLow");
+		// metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
+		// + "AggregationLow");
+		// metaDirStructHardPairwiseRel.addPanelVisibleAttribute("03#"
+		// + "AggregationLow" + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaDirStructHardPairwiseRel.addPanelSpacersAttribute("[#"
+		// + "AggregationLow" + "#..");
+		//
+		// metaDirStructHardPairwiseRel.addModelingAttribute("AggregationHigh",
+		// "Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
+		// "#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
+		// + "0");
+		// metaDirStructHardPairwiseRel.addPropEditableAttribute("04#"
+		// + "AggregationHigh");
+		// metaDirStructHardPairwiseRel.addPropVisibleAttribute("04#"
+		// + "AggregationHigh");
+		// metaDirStructHardPairwiseRel.addPanelVisibleAttribute("04#"
+		// + "AggregationHigh" + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaDirStructHardPairwiseRel.addPanelSpacersAttribute("#"
+		// + "AggregationHigh" + "#]\n");
 
 		// TODO create another meta element
 		InstConcept instDirMeansEndsRelation = new InstConcept(
@@ -1059,7 +1060,7 @@ public class DefaultSyntaxMM {
 				instDirMeansEndsRelation);
 
 		InstElement directSideHardHardSemanticEdge = refas
-				.getOperationalModel().getVertex("GoalGoalSidePWAsso");
+				.getOperationalModel().getVertex("travHardPW");
 
 		SyntaxElement metaGrpSideHardPairwiseRel = new SyntaxElement('P',
 				"SideRelation", true, true, "SideRelation", "",
@@ -1090,31 +1091,31 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directSideHardHardSemanticEdge);
 
-		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
-				"[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
-						+ "0");
-		metaDirSideHardPairwiseRel.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		metaDirSideHardPairwiseRel.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
-		metaDirSideHardPairwiseRel.addPanelVisibleAttribute("03#"
-				+ "AggregationLow" + "#" + "AggregationHigh" + "#!=#" + "0");
-		metaDirSideHardPairwiseRel.addPanelSpacersAttribute("[#"
-				+ "AggregationLow" + "#..");
-
-		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
-				"#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
-						+ "0");
-		metaDirSideHardPairwiseRel.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		metaDirSideHardPairwiseRel.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
-		metaDirSideHardPairwiseRel.addPanelVisibleAttribute("04#"
-				+ "AggregationHigh" + "#" + "AggregationHigh" + "#!=#" + "0");
-		metaDirSideHardPairwiseRel.addPanelSpacersAttribute("#"
-				+ "AggregationHigh" + "#]\n");
+		// metaDirSideHardPairwiseRel.addModelingAttribute("AggregationLow",
+		// "Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
+		// "[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+		// + "0");
+		// metaDirSideHardPairwiseRel.addPropEditableAttribute("03#"
+		// + "AggregationLow");
+		// metaDirSideHardPairwiseRel.addPropVisibleAttribute("03#"
+		// + "AggregationLow");
+		// metaDirSideHardPairwiseRel.addPanelVisibleAttribute("03#"
+		// + "AggregationLow" + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaDirSideHardPairwiseRel.addPanelSpacersAttribute("[#"
+		// + "AggregationLow" + "#..");
+		//
+		// metaDirSideHardPairwiseRel.addModelingAttribute("AggregationHigh",
+		// "Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
+		// "#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
+		// + "0");
+		// metaDirSideHardPairwiseRel.addPropEditableAttribute("04#"
+		// + "AggregationHigh");
+		// metaDirSideHardPairwiseRel.addPropVisibleAttribute("04#"
+		// + "AggregationHigh");
+		// metaDirSideHardPairwiseRel.addPanelVisibleAttribute("04#"
+		// + "AggregationHigh" + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaDirSideHardPairwiseRel.addPanelSpacersAttribute("#"
+		// + "AggregationHigh" + "#]\n");
 
 		// TODO create another
 		InstConcept instDirSideHardHardPairWiseRel = new InstConcept(
@@ -1146,7 +1147,7 @@ public class DefaultSyntaxMM {
 		// Hard OverTwoRelations
 
 		InstConcept semanticHardHardGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("GoalOTAsso"));
+				.getOperationalModel().getVertex("GoalOT"));
 
 		SyntaxElement hardMetaOverTwoRel = new SyntaxElement('O',
 				"HardOverTwoRel", true, true, "HardOverTwoRel", "plgroup",
@@ -1460,10 +1461,10 @@ public class DefaultSyntaxMM {
 				"SgSgPWAsso");
 
 		InstElement directSGGRSemEdge = refas.getOperationalModel().getVertex(
-				"sgsgOTAssoFromPWAsso");
+				"SgFromOT");
 
 		InstElement directGRSGSemEdge = refas.getOperationalModel().getVertex(
-				"sgsgOTAssoToPWAsso");
+				"SgToOT");
 
 		SyntaxElement metaGroupSoftFromPairWiseRel = new SyntaxElement('P',
 				"GroupSoftFromRelation", true, true,
@@ -1560,7 +1561,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instDirSoftPairWiseRel, true);
 
 		InstConcept semanticSGSGGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("SgSgOTAsso"));
+				.getOperationalModel().getVertex("SgOT"));
 
 		// Group soft relation
 
@@ -1880,17 +1881,18 @@ public class DefaultSyntaxMM {
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMVALUE,
 				"Set", false, SyntaxElement.VAR_METAENUMVALUENAME, "",
 				SyntaxElement.VAR_METAENUMVALUECLASS,
-				new ArrayList<InstAttribute>(), 0, -1, "", "", 5, "#\n", "");
+				new ArrayList<InstAttribute>(), 0, -1, "", "", 5, "#"
+						+ SyntaxElement.VAR_METAENUMVALUE + "#\n", "");
 
 		metaEnumeration.addPropEditableAttribute("01#"
 				+ SyntaxElement.VAR_METAENUMNAME);
 
 		metaEnumeration.addPropVisibleAttribute("01#"
 				+ SyntaxElement.VAR_METAENUMNAME);
-		metaEnumeration.addPanelVisibleAttribute("05#"
-				+ SyntaxElement.VAR_METAENUMVALUE);
-		metaEnumeration.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_METAENUMVALUE + "#\n");
+		// metaEnumeration.addPanelVisibleAttribute("05#"
+		// + SyntaxElement.VAR_METAENUMVALUE);
+		// metaEnumeration.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_METAENUMVALUE + "#\n");
 
 		// metaEnumeration.addPanelVisibleAttribute("04#"
 		// + SyntaxElement.VAR_USERIDENTIFIER);
@@ -1999,7 +2001,7 @@ public class DefaultSyntaxMM {
 		// Direct variable relations
 
 		InstElement directCVCGSemanticEdge = refas.getOperationalModel()
-				.getVertex("CVCGPWAsso");
+				.getVertex("VaClPW");
 
 		SyntaxElement metaVariableEdge = new SyntaxElement('P',
 				"Variable To Context Relation", true, true,
@@ -2361,7 +2363,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semanticOperClaimGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("OperCLOTAsso"));
+				.getOperationalModel().getVertex("OperClOT"));
 
 		hardMetaOverTwoRel = new SyntaxElement(
 				'O',
@@ -2377,7 +2379,7 @@ public class DefaultSyntaxMM {
 				false, "white", 1, semanticOperClaimGroupRelation, false);
 
 		InstElement semClaimPairwiseRel = refas.getOperationalModel()
-				.getVertex("OperClaimPWAsso");
+				.getVertex("OperClPW");
 
 		SyntaxElement metaClaimPairwiseRel = new SyntaxElement(
 				'P',
@@ -2428,31 +2430,32 @@ public class DefaultSyntaxMM {
 						+ " is required to satisfy a claim", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semClaimPairwiseRel);
-		metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
-				"[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
-						+ "0");
-		metaDirClaimPairwiseRel.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		metaDirClaimPairwiseRel.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
-		metaDirClaimPairwiseRel.addPanelVisibleAttribute("03#"
-				+ "AggregationLow" + "#" + "AggregationHigh" + "#!=#" + "0");
-		metaDirClaimPairwiseRel.addPanelSpacersAttribute("[#"
-				+ "AggregationLow" + "#..");
 
-		metaDirClaimPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
-				"#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
-						+ "0");
-		metaDirClaimPairwiseRel.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		metaDirClaimPairwiseRel.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
-		metaDirClaimPairwiseRel.addPanelVisibleAttribute("04#"
-				+ "AggregationHigh" + "#" + "AggregationHigh" + "#!=#" + "0");
-		metaDirClaimPairwiseRel.addPanelSpacersAttribute("#"
-				+ "AggregationHigh" + "#]\n");
+		// metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow",
+		// "Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
+		// "[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+		// + "0");
+		// metaDirClaimPairwiseRel.addPropEditableAttribute("03#"
+		// + "AggregationLow");
+		// metaDirClaimPairwiseRel.addPropVisibleAttribute("03#"
+		// + "AggregationLow");
+		// metaDirClaimPairwiseRel.addPanelVisibleAttribute("03#"
+		// + "AggregationLow" + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaDirClaimPairwiseRel.addPanelSpacersAttribute("[#"
+		// + "AggregationLow" + "#..");
+
+		// metaDirClaimPairwiseRel.addModelingAttribute("AggregationHigh",
+		// "Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
+		// "#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
+		// + "0");
+		// metaDirClaimPairwiseRel.addPropEditableAttribute("04#"
+		// + "AggregationHigh");
+		// metaDirClaimPairwiseRel.addPropVisibleAttribute("04#"
+		// + "AggregationHigh");
+		// metaDirClaimPairwiseRel.addPanelVisibleAttribute("04#"
+		// + "AggregationHigh" + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaDirClaimPairwiseRel.addPanelSpacersAttribute("#"
+		// + "AggregationHigh" + "#]\n");
 
 		InstConcept instDirOperClaimPairWiseRel = new InstConcept(
 				"DirOperClaimRelation", supportMetaElementPairwise,
@@ -2505,7 +2508,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semanticLFClaimGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("LFtoClaimOTAsso"));
+				.getOperationalModel().getVertex("LfClOT"));
 
 		hardMetaOverTwoRel = new SyntaxElement(
 				'O',
@@ -2645,7 +2648,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instVertexFCOTR, true);
 
 		InstElement directSDSGSemanticEdge = refas.getOperationalModel()
-				.getVertex("SDSGPWAsso");
+				.getVertex("SdSgPW");
 
 		SyntaxElement metaSDSGEdge = new SyntaxElement(
 				'P',
@@ -2789,16 +2792,16 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Asset", instVertexAsset);
 
 		InstConcept semanticAssetOperGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("AssetOperOTAsso"));
+				.getOperationalModel().getVertex("AssetOperOT"));
 
 		InstElement directAssetOperSemanticEdge = refas.getOperationalModel()
-				.getVertex("AssetOperPWAsso");
+				.getVertex("AssetOperPW");
 
 		InstConcept semanticAssetAssetGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("AssetAssetOTAsso"));
+				.getOperationalModel().getVertex("AssetOT"));
 
 		InstElement directAssetSemanticEdge = refas.getOperationalModel()
-				.getVertex("varAssetPWAsso");
+				.getVertex("AssetPW");
 
 		hardMetaOverTwoRel = new SyntaxElement('O', "AssetOperGroupDep", true,
 				true, "AssetOperGroupDep", "plgroup",
@@ -2896,28 +2899,36 @@ public class DefaultSyntaxMM {
 						+ " assets", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
-		metaAssetPairWiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", "", 0, 0, 3, "", "", 3, "[#"
-						+ "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
-						+ "0");
-		metaAssetPairWiseRel.addPropEditableAttribute("03#" + "AggregationLow");
-		metaAssetPairWiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
-		metaAssetPairWiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
-				+ "#" + "AggregationHigh" + "#!=#" + "0");
-		metaAssetPairWiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
-				+ "#..");
 
-		metaAssetPairWiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "AggregationHigh", "", 0, 0, 4, "", "", 4, "#"
-						+ "AggregationHigh" + "#]\n", "AggregationHigh"
-						+ "#!=#" + "0");
-		metaAssetPairWiseRel
-				.addPropEditableAttribute("04#" + "AggregationHigh");
-		metaAssetPairWiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
-		metaAssetPairWiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh"
-				+ "#" + "AggregationHigh" + "#!=#" + "0");
-		metaAssetPairWiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
-				+ "#]\n");
+		// metaAssetPairWiseRel.addModelingAttribute("AggregationLow",
+		// "Integer",
+		// false, "Aggregation Low", "", 0, 0, 3, "", "", 3, "[#"
+		// + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
+		// + "0");
+		// metaAssetPairWiseRel.addPropEditableAttribute("03#" +
+		// "AggregationLow");
+		// metaAssetPairWiseRel.addPropVisibleAttribute("03#" +
+		// "AggregationLow");
+		// metaAssetPairWiseRel.addPanelVisibleAttribute("03#" +
+		// "AggregationLow"
+		// + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaAssetPairWiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
+		// + "#..");
+		//
+		// metaAssetPairWiseRel.addModelingAttribute("AggregationHigh",
+		// "Integer",
+		// false, "AggregationHigh", "", 0, 0, 4, "", "", 4, "#"
+		// + "AggregationHigh" + "#]\n", "AggregationHigh"
+		// + "#!=#" + "0");
+		// metaAssetPairWiseRel
+		// .addPropEditableAttribute("04#" + "AggregationHigh");
+		// metaAssetPairWiseRel.addPropVisibleAttribute("04#" +
+		// "AggregationHigh");
+		// metaAssetPairWiseRel.addPanelVisibleAttribute("04#" +
+		// "AggregationHigh"
+		// + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaAssetPairWiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
+		// + "#]\n");
 
 		InstConcept instDirAssetPairWiseRel = new InstConcept(
 				"Dir Asset To Asset Relation", supportMetaElementPairwise,

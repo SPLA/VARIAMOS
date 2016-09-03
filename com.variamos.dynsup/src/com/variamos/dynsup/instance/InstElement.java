@@ -32,7 +32,7 @@ import com.variamos.hlcl.LabelingOrder;
  * @see com.variamos.syntaxsupport.metamodel.InsVertex
  * @see com.variamos.syntaxsupport.metamodel.InsEdge
  */
-public abstract class InstElement implements Serializable,
+public abstract class InstElement implements Serializable, Cloneable,
 		Comparable<InstElement> {
 	/**
 	 * 
@@ -51,7 +51,6 @@ public abstract class InstElement implements Serializable,
 	private List<ModelExpr> modExp;
 	private OpersElement edOperEle;
 	private SyntaxElement edSyntaxEle;
-	private SyntaxElement supMetaElement;
 	private InstElement supInstElement;
 
 	/**
@@ -70,6 +69,36 @@ public abstract class InstElement implements Serializable,
 	private String supInstEleId; // InstIdentifier
 
 	private Map<String, String> volatileDefects;
+
+	@Override
+	public InstElement clone() throws CloneNotSupportedException {
+
+		InstElement out = (InstElement) super.clone();
+		out.dynamicAttributes = new HashMap<>();
+		for (String key : dynamicAttributes.keySet()) {
+			Object att = dynamicAttributes.get(key);
+			Object cl = att;
+			if (att instanceof String)
+				cl = ((String) att) + "";
+			// FIXME consider other types of attributes
+			if (att instanceof HashMap) {
+				cl = new HashMap();
+				for (Object subkey : ((HashMap) att).keySet()) {
+					Object subatt = ((HashMap) att).get(subkey);
+					Object subcl = subatt;
+					if (subatt instanceof String)
+						subcl = ((String) subatt) + "";
+					// FIXME consider not strings but InstAttributes, clone them
+					// depending on their type
+					((HashMap) cl).put(subkey, subcl);
+				}
+			}
+			out.dynamicAttributes.put(key, cl);
+		}
+		out.volatileSourceRelations = new ArrayList<InstElement>();
+		out.volatileTargetRelations = new ArrayList<InstElement>();
+		return out;
+	}
 
 	public InstElement(String identifier) {
 		this(identifier, new HashMap<String, InstAttribute>());
@@ -606,10 +635,14 @@ public abstract class InstElement implements Serializable,
 						// System.out.println(this.getIdentifier());
 						if (instAttribute != null) {
 							if (instAttribute.getType() != null
-									&& instAttribute.getType().equals("Set"))
+									&& instAttribute.getType().equals("Set")) {
 								for (InstAttribute e : (Collection<InstAttribute>) instAttribute
 										.getValue())
 									out += e.toString().trim() + "\n";
+
+								// out = out.substring(0, out.length() - 2);
+							}
+
 							else
 								out += instAttribute.toString().trim();
 						}
@@ -635,6 +668,7 @@ public abstract class InstElement implements Serializable,
 					else {
 						InstAttribute instAttribute = getInstAttributes().get(
 								name);
+						// System.out.println(instAttribute.getEnumType());
 						if (instAttribute.getEnumType() != null
 								&& instAttribute.getEnumType().equals(
 										InstConcept.class.getCanonicalName())) {
@@ -648,11 +682,15 @@ public abstract class InstElement implements Serializable,
 								Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
 										.getInstAttributeAttribute("Value");
 								String outt = "{ ";
-								for (InstAttribute i : ooo) {
-									String values[] = ((String) i.getValue())
-											.split("#");
-									outt += values[1] + ", ";
+								{
+									for (InstAttribute i : ooo) {
+										String values[] = ((String) i
+												.getValue()).split("#");
+										outt += values[1] + ", ";
+									}
+									// out = out.substring(0, out.length() - 2);
 								}
+
 								outt = outt.substring(0, outt.length() - 2);
 								outt += " }";
 								out += AbstractElement.multiLine(outt, 40);

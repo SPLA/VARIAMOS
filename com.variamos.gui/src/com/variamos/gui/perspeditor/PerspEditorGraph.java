@@ -1,6 +1,7 @@
 package com.variamos.gui.perspeditor;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -295,6 +296,11 @@ public class PerspEditorGraph extends AbstractGraph {
 	}
 
 	@Override
+	protected void movingVertex(mxCell cell, mxCell parent, int index) {
+		// System.out.println("moving");
+	}
+
+	@Override
 	public boolean isValidConnection(Object source, Object target) {
 		// if (perspective == 3)
 		// return true;
@@ -524,6 +530,27 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	}
 
+	public Object[] moveCells(Object[] cells, double dx, double dy,
+			boolean clone, Object target, Point location) {
+		Object[] out = super.moveCells(cells, dx, dy, clone, target, location);
+
+		if (clone)
+			for (Object cell : out) {
+				mxCell c = (mxCell) cell;
+				Object value = c.getValue();
+				if (value instanceof InstCell) {
+
+					try {
+						c.setValue(((InstCell) c.getValue()).clone());
+					} catch (CloneNotSupportedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		return out;
+	}
+
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
 		((InstCell) cell.getValue()).setMxCell(cell);
 		InstElement value = ((InstCell) cell.getValue()).getInstElement();
@@ -535,15 +562,31 @@ public class PerspEditorGraph extends AbstractGraph {
 					.getInstElement();
 			if (cell.getGeometry() != null) {
 				if (instElement instanceof InstVertex) {
-					InstElement element = instElement;
-					elementIdentifier = element.getIdentifier();
+					elementIdentifier = instElement.getIdentifier();
 					if (elementIdentifier != null
 							&& !"".equals(elementIdentifier))
-						return false;
+						if (cell.getId().equals(elementIdentifier)
+								|| cell.getId().equals(
+										modelViewIndex + elementIdentifier))
+							return false;
+						else
+							try {
+
+								instElement = (InstElement) value.clone();
+								InstCell instCell = new InstCell(cell,
+										instElement,
+										((InstCell) cell.getValue()).isCloned());
+								cell.setValue(instCell);
+
+							} catch (CloneNotSupportedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+
 					if (instElement instanceof InstOverTwoRel)
-						id = pl.addNewInstGroupDependency((InstOverTwoRel) element);
+						id = pl.addNewInstGroupDependency((InstOverTwoRel) instElement);
 					else
-						id = pl.addNewVariabilityInstElement(element);
+						id = pl.addNewVariabilityInstElement(instElement);
 				} else {
 					/*
 					 * elementIdentifier = ((Constraint) instElement)

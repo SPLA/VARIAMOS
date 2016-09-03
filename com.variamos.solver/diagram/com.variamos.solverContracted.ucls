@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="com.variamos.solver.SWIPrologSolver" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/SWIPrologSolver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="637" y="502"/>    
+    <position height="-1" width="-1" x="634" y="525"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <interface id="4" language="java" name="com.variamos.solver.Solver" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/Solver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="265" width="245" x="225" y="368"/>    
+    <position height="265" width="245" x="227" y="388"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </interface>  
   <class id="5" language="java" name="com.variamos.solver.GNUPrologSolver" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/GNUPrologSolver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="98" y="500"/>    
+    <position height="-1" width="-1" x="102" y="520"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,75 +75,75 @@
     </display>  
   </interface>  
   <association id="9">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="10" name="mode">        
-        <position height="0" width="0" x="-640" y="-3"/>      
-      </attribute>      
-      <multiplicity id="11" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-640" y="-3"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="12">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="13">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="14">    
     <bendpoint x="126" y="181"/>    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="15" name="configuration">        
+      <attribute id="10" name="configuration">        
         <position height="0" width="0" x="-20" y="102"/>      
       </attribute>      
-      <multiplicity id="16" minimum="0" maximum="1">        
+      <multiplicity id="11" minimum="0" maximum="1">        
         <position height="0" width="0" x="-20" y="102"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="17">    
+  <association id="12">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="18" name="listener">        
-        <position height="0" width="0" x="-722" y="-15"/>      
+      <attribute id="13" name="solver">        
+        <position height="0" width="0" x="-34" y="377"/>      
       </attribute>      
-      <multiplicity id="19" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-722" y="-15"/>      
+      <multiplicity id="14" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-34" y="377"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="20">    
+  <association id="15">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="16" name="mode">        
+        <position height="0" width="0" x="-640" y="-3"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-640" y="-3"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="18">    
     <bendpoint x="370" y="268"/>    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="21" name="options">        
+      <attribute id="19" name="options">        
         <position height="0" width="0" x="-532" y="-308"/>      
       </attribute>      
-      <multiplicity id="22" minimum="0" maximum="1">        
+      <multiplicity id="20" minimum="0" maximum="1">        
         <position height="0" width="0" x="-532" y="-308"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="23">    
+  <association id="21">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="24" name="solver">        
-        <position height="0" width="0" x="-36" y="357"/>      
+      <attribute id="22" name="listener">        
+        <position height="0" width="0" x="-722" y="-15"/>      
       </attribute>      
-      <multiplicity id="25" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-36" y="357"/>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-722" y="-15"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="24">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <realization id="25">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

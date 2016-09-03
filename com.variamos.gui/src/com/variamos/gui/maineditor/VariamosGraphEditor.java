@@ -80,7 +80,6 @@ import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.perspeditor.panels.ElementDesignPanel;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationDialog;
 import com.variamos.gui.perspeditor.panels.ExternalContextDialog;
-import com.variamos.gui.perspeditor.panels.OperationDefinitionDialog;
 import com.variamos.gui.perspeditor.panels.StaticExpressionsPanel;
 import com.variamos.gui.perspeditor.panels.VariamosDashBoardFrame;
 import com.variamos.gui.perspeditor.widgets.MClassWidget;
@@ -164,8 +163,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private ExternalContextDialog ecd = new ExternalContextDialog(this);
 
 	private ElementsOperationAssociationDialog eoad;
-
-	private OperationDefinitionDialog odd;
 
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
 			(ModelInstance) getEditedModel());
@@ -1030,7 +1027,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 						if (finalEditElm instanceof InstElement
 						// refas2hlcl.validateConceptType(finalEditElm,
-						// "GeneralElement")
+						// "GeneralConcept")
 						)
 							consoleTextArea.setText(refas2hlcl
 									.getElementTextConstraints(
@@ -2019,11 +2016,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void showElementOperationAssociationDialog(int dialog) {
 		eoad = new ElementsOperationAssociationDialog(this, dialog);
 		eoad.center();
-	}
-
-	public void showOperationDefinitionDialog() {
-		odd = new OperationDefinitionDialog(this);
-		odd.center();
 	}
 
 }

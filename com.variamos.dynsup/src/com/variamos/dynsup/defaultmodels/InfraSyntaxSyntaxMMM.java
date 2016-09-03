@@ -22,274 +22,9 @@ public class InfraSyntaxSyntaxMMM {
 
 		Map<String, InstPairwiseRel> constraintInstEdges = modelInstance
 				.getConstraintInstEdges();
-		// Begin Syntax M3 Model
 
 		InstElement infraBasicSyntaxOpersM3Concept = modelInstance
 				.getSyntaxModel().getVertex("OMMConcept");
-
-		// SyntaxConcept infraBasicSyntaxOpersM3Concept = new SyntaxConcept('C',
-		// "SMMMConcept", true, true, "SMMMConcept", "refasminiclass",
-		// "Syntax Meta Meta Meta Concept", 180, 180,
-		// "/com/variamos/gui/perspeditor/images/concept.png", true,
-		// Color.BLUE.toString(), 3, null, true);
-		//
-		// infraBasicSyntaxOpersM3Concept.addPanelVisibleAttribute("04#"
-		// + SyntaxConcept.VAR_USERIDENTIFIER);
-		// infraBasicSyntaxOpersM3Concept.addPanelSpacersAttribute("#"
-		// + SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
-		//
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("Name",
-		// new ElemAttribute("Name", "String", AttributeType.SYNTAX,
-		// false, "Concept Name", "", 0, -1, "", "", -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("Description",
-		// new ElemAttribute("Description", "String",
-		// AttributeType.SYNTAX, false, "Description", "", 0, -1,
-		// "", "", -1, "", ""));
-		//
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("MetaType",
-		// new ElemAttribute("MetaType", "Enumeration",
-		// AttributeType.SYNTAX, false, "MetaConcept Type",
-		// ConceptType.class.getCanonicalName(), "SyntaxConcept",
-		// "", 0, -1, "", "", -1, "", ""));
-		// // metaBasicConcept.addModelingAttribute("Identifier",
-		// // new ElemAttribute("Identifier", "String", false,
-		// // "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("Visible",
-		// new ElemAttribute("Visible", "Boolean", AttributeType.SYNTAX,
-		// false, "Visible", true, 0, -1, "", "", -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("Name",
-		// new ElemAttribute("Name", "String", AttributeType.SYNTAX,
-		// false, "Concept Name", "", 0, -1, "", "", -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("Style",
-		// new ElemAttribute("Style", "String", AttributeType.SYNTAX,
-		// false, "Drawing Style", "refasclaim", 0, -1, "", "",
-		// -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept
-		// .addModelingAttribute("Width", new ElemAttribute("Width",
-		// "Integer", AttributeType.SYNTAX, false,
-		// "Initial Width", 100, 0, -1, "", "", -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept
-		// .addModelingAttribute("Height", new ElemAttribute("Height",
-		// "Integer", AttributeType.SYNTAX, false,
-		// "Initial Height", 40, 0, -1, "", "", -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("Image",
-		// new ElemAttribute("Image", "String", AttributeType.SYNTAX,
-		// false, "Image File",
-		// "/com/variamos/gui/perspeditor/images/claim.png", 0,
-		// -1, "", "", -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("TopConcept",
-		// new ElemAttribute("TopConcept", "Boolean",
-		// AttributeType.SYNTAX, false, "Is Top Concept", true, 0,
-		// -1, "", "", -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("BackgroundColor",
-		// new ElemAttribute("BackgroundColor", "String",
-		// AttributeType.SYNTAX, false, "Background Color",
-		// "java.awt.Color[r=0,g=0,b=255]", 0, -1, "", "", -1, "",
-		// ""));
-		// infraBasicSyntaxOpersM3Concept.addModelingAttribute("BorderStroke",
-		// new ElemAttribute("BorderStroke", "Integer",
-		// AttributeType.SYNTAX, false, "Border Stroke", 1, 0, -1,
-		// "", "", -1, "", ""));
-		// infraBasicSyntaxOpersM3Concept
-		// .addModelingAttribute("Resizable", new ElemAttribute(
-		// "Resizable", "Boolean", AttributeType.SYNTAX, false,
-		// "Is Resizable", true, 0, -1, "", "", -1, "", ""));
-
-		// End Syntax M3 Model
-
-		// Begin Opers M2 Model
-
-		// OpersConcept infraOpersM2View = new OpersConcept();
-		//
-		// infraOpersM2View.putSemanticAttribute("MetaType", new
-		// ElemAttribute(
-		// "MetaType", "Enumeration", AttributeType.SYNTAX, false,
-		// "MetaConcept Type", ConceptType.class.getCanonicalName(),
-		// "SyntaxView", 0, -1, "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("Index", new ElemAttribute(
-		// "Index", "Integer", AttributeType.SYNTAX, false, "View Index",
-		// 3, 0, -1, "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("Identifier",
-		// new ElemAttribute("Identifier", "String",
-		// AttributeType.SYNTAX, false, "View Identifier", "", 0,
-		// -1, "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("Visible", new ElemAttribute(
-		// "Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
-		// true, 0, -1, "", "", -1, "", ""));
-		// // semView.putSemanticAttribute("Parent", new
-		// ElemAttribute("Parent",
-		// // "String", AttributeType.SYNTAX, false, "Parent View", "", 0,
-		// // -1, "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("Name", new ElemAttribute(
-		// "Name", "String", AttributeType.SYNTAX, false, "Concept Name",
-		// "", 0, -1, "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("Style", new ElemAttribute(
-		// "Style", "String", AttributeType.SYNTAX, false,
-		// "Drawing Style", "refasclaim", 0, -1, "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("Description",
-		// new ElemAttribute("Description", "String",
-		// AttributeType.SYNTAX, false, "Description", "", 0, -1,
-		// "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("Width", new ElemAttribute(
-		// "Width", "Integer", AttributeType.SYNTAX, false,
-		// "Initial Width", 100, 0, -1, "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("Height", new ElemAttribute(
-		// "Height", "Integer", AttributeType.SYNTAX, false,
-		// "Initial Height", 40, 0, -1, "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("Image", new ElemAttribute(
-		// "Image", "String", AttributeType.SYNTAX, false, "Image File",
-		// "/com/variamos/gui/perspeditor/images/claim.png", 0, -1, "",
-		// "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("BorderStroke",
-		// new ElemAttribute("BorderStroke", "Integer",
-		// AttributeType.SYNTAX, false, "Border Stroke", 1, 0, -1,
-		// "", "", -1, "", ""));
-		// infraOpersM2View.putSemanticAttribute("PaletteNames",
-		// new ElemAttribute("PaletteNames", "String",
-		// AttributeType.SYNTAX, false, "Palette Name", "", 0, -1,
-		// "", "", -1, "", ""));
-		//
-		// infraOpersM2View.addPropEditableAttribute("03#" + "PaletteNames");
-		// infraOpersM2View.addPropVisibleAttribute("03#" + "PaletteNames");
-		// infraOpersM2View.addPanelVisibleAttribute("05#" + "PaletteNames" +
-		// "#"
-		// + "PaletteNames" + "#!=#" + "" + "#" + "");
-		// infraOpersM2View.addPanelSpacersAttribute("{Palettes:#"
-		// + "PaletteNames" + "#}\n\n");
-		// infraOpersM2View.addPropVisibleAttribute("00#" + "MetaType");
-		// // semView.addPropEditableAttribute("01#" + "Identifier");
-		// // semView.addPropVisibleAttribute("01#" + "Identifier");
-		// infraOpersM2View.addPropEditableAttribute("02#" + "Index");
-		// infraOpersM2View.addPropVisibleAttribute("02#" + "Index");
-		// infraOpersM2View.addPropEditableAttribute("03#" + "Visible");
-		// infraOpersM2View.addPropVisibleAttribute("03#" + "Visible");
-		// // semView.addPropEditableAttribute("04#" + "Parent");
-		// // semView.addPropVisibleAttribute("04#" + "Parent");
-		// infraOpersM2View.addPropEditableAttribute("05#" + "Name");
-		// infraOpersM2View.addPropVisibleAttribute("05#" + "Name");
-		// infraOpersM2View.addPropEditableAttribute("06#" + "Style");
-		// infraOpersM2View.addPropVisibleAttribute("06#" + "Style");
-		// infraOpersM2View.addPropEditableAttribute("07#" + "Description");
-		// infraOpersM2View.addPropVisibleAttribute("07#" + "Description");
-		// infraOpersM2View.addPropEditableAttribute("08#" + "Width");
-		// infraOpersM2View.addPropVisibleAttribute("08#" + "Width");
-		// infraOpersM2View.addPropEditableAttribute("09#" + "Height");
-		// infraOpersM2View.addPropVisibleAttribute("09#" + "Height");
-		// infraOpersM2View.addPropEditableAttribute("10#" + "Image");
-		// infraOpersM2View.addPropVisibleAttribute("10#" + "Image");
-		// // semView.addDisPropEditableAttribute("11#" + "BorderStroke");
-		// infraOpersM2View.addPropVisibleAttribute("11#" + "BorderStroke");
-		//
-		// // semView.addPanelVisibleAttribute("01#" + "Name");
-		// // semView.addPanelSpacersAttribute("#" + "Name" + "#");
-		//
-		// InstConcept instInfraOpersM2View = new InstConcept("SMMView", null,
-		// infraOpersM2View);
-
-		// OpersConcept infraOpersM2Concept = new OpersConcept("SMMConcept");
-		//
-		// infraOpersM2Concept.putSemanticAttribute("Name", new ElemAttribute(
-		// "Name", "String", AttributeType.SYNTAX, false,
-		// "Meta Concept Name", "", 0, -1, "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("Description",
-		// new ElemAttribute("Description", "String",
-		// AttributeType.SYNTAX, false, "Description", "", 0, -1,
-		// "", "", -1, "", ""));
-		//
-		// infraOpersM2Concept.putSemanticAttribute("MetaType",
-		// new ElemAttribute("MetaType", "Enumeration",
-		// AttributeType.SYNTAX, false, "MetaConcept Type",
-		// ConceptType.class.getCanonicalName(), "SyntaxConcept",
-		// 0, -1, "", "", -1, "", ""));
-		// // semVertex.putSemanticAttribute("Identifier", new ElemAttribute(
-		// // "Identifier", "String", false, "Concept Identifier", "", 0, -1,
-		// // "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("Visible",
-		// new ElemAttribute("Visible", "Boolean", AttributeType.SYNTAX,
-		// false, "Visible", true, 0, -1, "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("Name", new ElemAttribute(
-		// "Name", "String", AttributeType.SYNTAX, false, "MConcept Name",
-		// "", 0, -1, "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("Style", new
-		// ElemAttribute(
-		// "Style", "String", AttributeType.SYNTAX, false,
-		// "Drawing Style", "refasclaim", 0, -1, "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("Width", new
-		// ElemAttribute(
-		// "Width", "Integer", AttributeType.SYNTAX, false,
-		// "Initial Width", 100, 0, -1, "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("Height", new
-		// ElemAttribute(
-		// "Height", "Integer", AttributeType.SYNTAX, false,
-		// "Initial Height", 40, 0, -1, "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("Image", new
-		// ElemAttribute(
-		// "Image", "String", AttributeType.SYNTAX, false, "Image File",
-		// "/com/variamos/gui/perspeditor/images/claim.png", 0, -1, "",
-		// "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("TopConcept",
-		// new ElemAttribute("TopConcept", "Boolean",
-		// AttributeType.SYNTAX, false, "Is Top Concept", true, 0,
-		// -1, "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("BackgroundColor",
-		// new ElemAttribute("BackgroundColor", "String",
-		// AttributeType.SYNTAX, false, "Background Color",
-		// "java.awt.Color[r=0,g=0,b=255]", 0, -1, "", "", -1, "",
-		// ""));
-		// infraOpersM2Concept.putSemanticAttribute("BorderStroke",
-		// new ElemAttribute("BorderStroke", "Integer",
-		// AttributeType.SYNTAX, false, "Border Stroke", 1, 0, -1,
-		// "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("Resizable",
-		// new ElemAttribute("Resizable", "Boolean",
-		// AttributeType.SYNTAX, false, "Is Resizable", true, 0,
-		// -1, "", "", -1, "", ""));
-		// infraOpersM2Concept.putSemanticAttribute("value", new
-		// ElemAttribute(
-		// "value", "Set", AttributeType.SYNTAX, false, "values", "", 0,
-		// -1, "", "", -1, "", ""));
-		//
-		// infraOpersM2Concept.addPropVisibleAttribute("00#" + "MetaType");
-		// // semVertex.addPropEditableAttribute("01#" + "Identifier");
-		// // semVertex.addPropVisibleAttribute("01#" + "Identifier");
-		// infraOpersM2Concept.addPropEditableAttribute("02#" + "Visible");
-		// infraOpersM2Concept.addPropVisibleAttribute("02#" + "Visible");
-		// infraOpersM2Concept.addPropEditableAttribute("03#" + "Name");
-		// infraOpersM2Concept.addPropVisibleAttribute("03#" + "Name");
-		// infraOpersM2Concept.addPropEditableAttribute("04#" + "Style");
-		// infraOpersM2Concept.addPropVisibleAttribute("04#" + "Style");
-		// infraOpersM2Concept.addPropEditableAttribute("05#" + "Description");
-		// infraOpersM2Concept.addPropVisibleAttribute("05#" + "Description");
-		// infraOpersM2Concept.addPropEditableAttribute("06#" + "Width");
-		// infraOpersM2Concept.addPropVisibleAttribute("06#" + "Width");
-		// infraOpersM2Concept.addPropEditableAttribute("07#" + "Height");
-		// infraOpersM2Concept.addPropVisibleAttribute("07#" + "Height");
-		// infraOpersM2Concept.addPropEditableAttribute("08#" + "Image");
-		// infraOpersM2Concept.addPropVisibleAttribute("08#" + "Image");
-		// infraOpersM2Concept.addPropEditableAttribute("09#" + "TopConcept");
-		// infraOpersM2Concept.addPropVisibleAttribute("09#" + "TopConcept");
-		// infraOpersM2Concept.addPropEditableAttribute("10#" +
-		// "BackgroundColor");
-		// infraOpersM2Concept.addPropVisibleAttribute("10#" +
-		// "BackgroundColor");
-		// infraOpersM2Concept.addPropEditableAttribute("11#" + "BorderStroke");
-		// infraOpersM2Concept.addPropVisibleAttribute("11#" + "BorderStroke");
-		// infraOpersM2Concept.addPropEditableAttribute("12#" + "Resizable");
-		// infraOpersM2Concept.addPropVisibleAttribute("12#" + "Resizable");
-		//
-		// infraOpersM2Concept.putSemanticAttribute("OperationsMMType",
-		// new OpersAttribute("OperationsMMType", "Class",
-		// AttributeType.OPERATION, false, "Operations MMType",
-		// OpersConcept.class.getCanonicalName(), "C", null, "",
-		// 0, -1, "", "", -1, "", ""));
-		//
-		// infraOpersM2Concept
-		// .addPropEditableAttribute("00#" + "OperationsMMType");
-		// infraOpersM2Concept.addPropVisibleAttribute("00#" +
-		// "OperationsMMType");
-		//
-		// InstConcept instInfraOpersM2Concept = new InstConcept("SMMConcept",
-		// null, infraOpersM2Concept);
 
 		SyntaxElement infraSyntaxM2Concept = new SyntaxElement('C',
 				"SMMConcept", true, true, "SMMConcept",
@@ -310,9 +45,7 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "MetaConcept Type", "",
 						ConceptType.class.getCanonicalName(), "SyntaxConcept",
 						"", 0, -1, "", "", -1, "", ""));
-		// semVertex.putSemanticAttribute("Identifier", new ElemAttribute(
-		// "Identifier", "String", false, "Concept Identifier", "", 0, -1,
-		// "", "", -1, "", ""));
+
 		infraSyntaxM2Concept.addModelingAttribute("Visible", new ElemAttribute(
 				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
 				"", true, 0, -1, "", "", -1, "", ""));
@@ -396,8 +129,6 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2Concept
 				.addPanelSpacersAttribute("<<MetaConcept>>\n{OperType:\"#"
 						+ "OperationsMMType" + "#\"}\n");
-		// concept.addPanelVisibleAttribute("01#" + "Name");
-		// concept.addPanelSpacersAttribute("#" + "Name" + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2Concept = new InstConcept(
 				"SMMConcept", infraBasicSyntaxOpersM3Concept,
@@ -746,9 +477,6 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2View.addModelingAttribute("Visible", new ElemAttribute(
 				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
 				"", true, 0, -1, "", "", -1, "", ""));
-		// semView.putSemanticAttribute("Parent", new ElemAttribute("Parent",
-		// "String", AttributeType.SYNTAX, false, "Parent View", "", 0,
-		// -1, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Name", new ElemAttribute(
 				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
 				"", "", 0, -1, "", "", -1, "", ""));
@@ -905,12 +633,6 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2OTRel.addPropEditableAttribute("12#" + "Resizable");
 		infraSyntaxM2OTRel.addPropVisibleAttribute("12#" + "Resizable");
 
-		// infraSyntaxM2OTRel.addModelingAttribute("MetaType", new
-		// ElemAttribute(
-		// "MetaType", "Enumeration", AttributeType.SYNTAX, false,
-		// "MetaConcept Type", "", ConceptType.class.getCanonicalName(),
-		// "SyntaxOverTwoRel", "", 0, -1, "", "", -1, "", ""));
-
 		infraSyntaxM2OTRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.OPERATION, false, "Operations MMType",
@@ -935,10 +657,6 @@ public class InfraSyntaxSyntaxMMM {
 
 		// overTwoRelation.addPropVisibleAttribute("03#" + "Type");
 		// overTwoRelation.addPropEditableAttribute("03#" + "Type");
-		// overTwoRelation.addPanelVisibleAttribute("03#" + "Type" + "#" +
-		// "Type"
-		// + "#!=#" + "" + "#" + "");
-		// overTwoRelation.addPanelSpacersAttribute("\n{#" + "Type" + "#}");
 
 		InstConcept instInfraSyntaxM2OTRel = new InstConcept(
 				"SMMOverTwoRelation", infraBasicSyntaxOpersM3Concept,
@@ -1224,10 +942,6 @@ public class InfraSyntaxSyntaxMMM {
 
 		// pairwiseRelation.addPropEditableAttribute("03#" + "Type");
 		// pairwiseRelation.addPropVisibleAttribute("03#" + "Type");
-		// pairwiseRelation.addPanelVisibleAttribute("03#" + "Type" + "#" +
-		// "Type"
-		// + "#!=#" + "" + "#" + "");
-		// pairwiseRelation.addPanelSpacersAttribute("\n{#" + "Type" + "#}");
 
 		infraSyntaxM2PWRel.addModelingAttribute("SourceCardinality",
 				new ElemAttribute("SourceCardinality", "String",
