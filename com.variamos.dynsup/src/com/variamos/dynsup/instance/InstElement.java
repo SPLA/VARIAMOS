@@ -32,7 +32,7 @@ import com.variamos.hlcl.LabelingOrder;
  * @see com.variamos.syntaxsupport.metamodel.InsVertex
  * @see com.variamos.syntaxsupport.metamodel.InsEdge
  */
-public abstract class InstElement implements Serializable,
+public abstract class InstElement implements Serializable, Cloneable,
 		Comparable<InstElement> {
 	/**
 	 * 
@@ -69,6 +69,36 @@ public abstract class InstElement implements Serializable,
 	private String supInstEleId; // InstIdentifier
 
 	private Map<String, String> volatileDefects;
+
+	@Override
+	public InstElement clone() throws CloneNotSupportedException {
+
+		InstElement out = (InstElement) super.clone();
+		out.dynamicAttributes = new HashMap<>();
+		for (String key : dynamicAttributes.keySet()) {
+			Object att = dynamicAttributes.get(key);
+			Object cl = att;
+			if (att instanceof String)
+				cl = ((String) att) + "";
+			// FIXME consider other types of attributes
+			if (att instanceof HashMap) {
+				cl = new HashMap();
+				for (Object subkey : ((HashMap) att).keySet()) {
+					Object subatt = ((HashMap) att).get(subkey);
+					Object subcl = subatt;
+					if (subatt instanceof String)
+						subcl = ((String) subatt) + "";
+					// FIXME consider not strings but InstAttributes, clone them
+					// depending on their type
+					((HashMap) cl).put(subkey, subcl);
+				}
+			}
+			out.dynamicAttributes.put(key, cl);
+		}
+		out.volatileSourceRelations = new ArrayList<InstElement>();
+		out.volatileTargetRelations = new ArrayList<InstElement>();
+		return out;
+	}
 
 	public InstElement(String identifier) {
 		this(identifier, new HashMap<String, InstAttribute>());

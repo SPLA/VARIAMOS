@@ -115,6 +115,30 @@ public abstract class AbstractGraph extends mxGraph {
 			}
 
 		});
+
+		addListener(mxEvent.CELLS_MOVED, new mxIEventListener() {
+
+			public void invoke(Object sender, mxEventObject evt) {
+				Object[] addedCells = (Object[]) evt.getProperty("cells");
+				mxCell parentCell = (mxCell) evt.getProperty("parent");
+				// int indexCell = (int) evt.getProperty("index");
+				for (Object obj : addedCells) {
+					mxCell cell = (mxCell) obj;
+					if (cell == null)
+						return;
+
+					if (!cell.isEdge()) {
+						movingVertex(cell, parentCell, 0);
+
+					}
+				}
+			}
+
+		});
+	}
+
+	protected void movingVertex(mxCell cell, mxCell parent, int index) {
+		// System.out.println("moving");
 	}
 
 	protected void removingRefaElements(mxCell cell) {
