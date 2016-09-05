@@ -128,8 +128,8 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.OPERATION, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, -1, "", "", 0, "<<MetaConcept>>\n{OperType:\"#"
-								+ "-" + "#\"}\n", ""));
+						0, -1, "", "", 1, "<<MetaConcept>>\n{OperType:\"#"
+								+ "OperationsMMType" + "#\"}\n", ""));
 
 		infraSyntaxM2Concept
 				.addPropVisibleAttribute("00#" + "OperationsMMType");
@@ -515,8 +515,8 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2View.addModelingAttribute("PaletteNames",
 				new ElemAttribute("PaletteNames", "String",
 						AttributeType.SYNTAX, false, "Palette Name", "", "", 0,
-						-1, "", "", 5, "{Palettes:#" + "-" + "#}\n\n",
-						"PaletteNames" + "#!=#" + ""));
+						-1, "", "", 5, "{Palettes:#" + "PaletteNames"
+								+ "#}\n\n", "PaletteNames" + "#!=#" + ""));
 
 		infraSyntaxM2View.addPropEditableAttribute("03#" + "PaletteNames");
 		infraSyntaxM2View.addPropVisibleAttribute("03#" + "PaletteNames");
@@ -656,8 +656,8 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.OPERATION, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "O", null, "",
-						0, -1, "", "", 0, "<<MetaOverTwoAsso>>\n{OperType:\"#"
-								+ "-" + "#\"}\n", ""));
+						0, -1, "", "", 1, "<<MetaOverTwoAsso>>\n{OperType:\"#"
+								+ "OperationsMMType" + "#\"}\n", ""));
 
 		// infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "MetaType");
 		infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "OperationsMMType");
@@ -789,9 +789,10 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("value",
 				new ElemAttribute("value", "Set", AttributeType.SYNTAX, false,
 						"values", "", "", 0, -1, "", "", -1, "", ""));
-		// semElementNoSyntax.putSemanticAttribute("dummy", new ElemAttribute(
-		// "dummy", "String", AttributeType.SYNTAX, false, "dummy", "", 0,
-		// -1, "", "", -1, "", ""));
+		infraSyntaxM2ViewConceptAsso.addModelingAttribute("dummy",
+				new ElemAttribute("dummy", "String", AttributeType.SYNTAX,
+						false, "dummy", "", "", 0, -1, "", "", 1,
+						"<<MetaViewConceptAsso>>#dummy#\n", ""));
 
 		infraSyntaxM2ViewConceptAsso
 				.addPropVisibleAttribute("00#" + "MetaType");
@@ -812,7 +813,8 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("Palette",
 				new ElemAttribute("Palette", "String", AttributeType.SYNTAX,
 						false, "Palette Name", "", "", 0, -1, "", "", 2,
-						"{Palette:#" + "-" + "#}\n", "Palette" + "#!=#" + ""));
+						"{Palette:#" + "Palette" + "#}\n", "Palette" + "#!=#"
+								+ ""));
 
 		infraSyntaxM2ViewConceptAsso
 				.addPropEditableAttribute("02#" + "Palette");
@@ -885,7 +887,8 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "P", null, "",
-						0, -1, "", "", -1, "", ""));
+						0, -1, "", "", 1, "<<MetaPairwiseAsso>>\n{OperType:\"#"
+								+ "OperationsMMType" + "#\",\n", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("Identifier",
 				new ElemAttribute("Identifier", "String", AttributeType.SYNTAX,
 						false, "Association Identifier", "", "", 0, -1, "", "",
@@ -946,14 +949,6 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2PWRel.addPropEditableAttribute("14#" + "value");
 		infraSyntaxM2PWRel.addPropVisibleAttribute("14#" + "value");
 
-		infraSyntaxM2PWRel.addModelingAttribute("OperationsMMType",
-				new ElemAttribute("OperationsMMType", "Class",
-						AttributeType.OPERATION, false, "Operations MMType",
-						"Type from the Operations Meta-Model",
-						OpersConcept.class.getCanonicalName(), "P", null, "",
-						0, -1, "", "", 0, "<<MetaPairwiseAsso>>\n{OperType:\"#"
-								+ "OperationsMMType" + "#\",\n", ""));
-
 		infraSyntaxM2PWRel.addPropVisibleAttribute("00#" + "OperationsMMType");
 		infraSyntaxM2PWRel.addPropEditableAttribute("00#" + "OperationsMMType");
 		// infraSyntaxM2PWRel.addPanelVisibleAttribute("00#" +
@@ -972,8 +967,8 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2PWRel.addModelingAttribute("SourceCardinality",
 				new ElemAttribute("SourceCardinality", "String",
 						AttributeType.SYNTAX, false, "Source Cardinality", "",
-						"String", "[]", "", 0, -1, "", "", -1, "Type" + "#!=#"
-								+ "", "Type" + "#!=#" + ""));
+						"String", "[]", "", 0, -1, "", "", 4, "{SourCard:#"
+								+ "SourceCardinality" + "#,", ""));
 
 		infraSyntaxM2PWRel
 				.addPropEditableAttribute("04#" + "SourceCardinality");
@@ -987,8 +982,8 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2PWRel.addModelingAttribute("TargetCardinality",
 				new ElemAttribute("TargetCardinality", "String",
 						AttributeType.SYNTAX, false, "Target Cardinality", "",
-						"String", "[]", "", 0, 5, "", "", 5, "TargCard:#-#}\n",
-						"Type#!=##"));
+						"String", "[]", "", 0, 5, "", "", 5,
+						"TargCard:#TargetCardinality#}\n", ""));
 
 		infraSyntaxM2PWRel
 				.addPropEditableAttribute("05#" + "TargetCardinality");
