@@ -437,6 +437,7 @@ public class InstPairwiseRel extends InstElement {
 		return editableAttributes;
 	}
 
+	@Deprecated
 	public Set<String> getDisPanelVisibleAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
 				.getPanelVisibleAttributesSet(parents);
@@ -451,6 +452,7 @@ public class InstPairwiseRel extends InstElement {
 		return editableAttributes;
 	}
 
+	@Deprecated
 	public Set<String> getDisPanelSpacersAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
 				.getPanelSpacersAttributesSet(parents);

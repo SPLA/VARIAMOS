@@ -976,6 +976,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return new HashSet<String>();
 	}
 
+	@Deprecated
 	public Collection<String> getPanelSpacersAttributes() {
 		if (getEdOperEle() != null)
 			return getEdOperEle().getPanelSpacersAttributes(
@@ -983,6 +984,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return new HashSet<String>();
 	}
 
+	@Deprecated
 	public Collection<String> getPanelVisibleAttributes() {
 		if (getEdOperEle() != null)
 			return getEdOperEle().getPanelVisibleAttributes(

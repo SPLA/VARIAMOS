@@ -25,10 +25,15 @@ public class InfraBasicSyntaxMMMM {
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		basicOpersSyntaxM3Concept.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		basicOpersSyntaxM3Concept.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		basicOpersSyntaxM3Concept.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+
+		// basicOpersSyntaxM3Concept.addPanelVisibleAttribute("04#"
+		// + SyntaxElement.VAR_USERIDENTIFIER);
+		// basicOpersSyntaxM3Concept.addPanelSpacersAttribute("#"
+		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		basicOpersSyntaxM3Concept.addModelingAttribute("Name",
 				new ElemAttribute("Name", "String", AttributeType.SYNTAX,

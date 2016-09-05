@@ -411,10 +411,11 @@ public class DefaultSyntaxMM {
 						+ "0");
 		metaGroupPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaGroupPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
-		metaGroupPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
-				+ "#" + "AggregationHigh" + "#!=#" + "0");
-		metaGroupPairwiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
-				+ "#..");
+		// metaGroupPairwiseRel.addPanelVisibleAttribute("03#" +
+		// "AggregationLow"
+		// + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaGroupPairwiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
+		// + "#..");
 
 		metaGroupPairwiseRel.addModelingAttribute("AggregationHigh", "Integer",
 				false, "Aggregation High", "", 0, 0, 4, "", "", 4, "#"
@@ -423,10 +424,11 @@ public class DefaultSyntaxMM {
 		metaGroupPairwiseRel
 				.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaGroupPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
-		metaGroupPairwiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh"
-				+ "#" + "AggregationHigh" + "#!=#" + "0");
-		metaGroupPairwiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
-				+ "#]\n");
+		// metaGroupPairwiseRel.addPanelVisibleAttribute("04#" +
+		// "AggregationHigh"
+		// + "#" + "AggregationHigh" + "#!=#" + "0");
+		// metaGroupPairwiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
+		// + "#]\n");
 
 		// instGroupPairWiseRel.setInstAttribute("Type", "Default");
 		// refas.getVariabilityVertex().put("Group Relation",
@@ -2018,8 +2020,9 @@ public class DefaultSyntaxMM {
 				directCVCGSemanticEdge);
 
 		metaContextEdge.addModelingAttribute("cardinality", "String", false,
-				"cardinality", "", "", "", 0, -1, "", "", -1, "", "");
-		metaContextEdge.addPanelVisibleAttribute("01#cardinality");
+				"cardinality", "", "", "", 0, -1, "", "", -1, "#cardinality#",
+				"");
+		// metaContextEdge.addPanelVisibleAttribute("01#cardinality");
 		metaContextEdge.addPropEditableAttribute("01#cardinality");
 		metaContextEdge.addPropVisibleAttribute("01#cardinality");
 
@@ -2242,7 +2245,8 @@ public class DefaultSyntaxMM {
 		syntaxClaim.addModelingAttribute("conditionalExpression",
 				new ElemAttribute("conditionalExpression", "String",
 						AttributeType.SYNTAX, false, "Cond. Expression Text",
-						"", "", 0, 10, "", "", 10, "", ""));
+						"", "", 0, 10, "", "", 10, "#conditionalExpression#",
+						""));
 
 		// syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -2255,7 +2259,8 @@ public class DefaultSyntaxMM {
 
 		// syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
-		syntaxClaim.addPanelVisibleAttribute("10#" + "conditionalExpression");
+		// syntaxClaim.addPanelVisibleAttribute("10#" +
+		// "conditionalExpression");
 
 		syntaxClaim.addPropEditableAttribute("10#" + "conditionalExpression");
 

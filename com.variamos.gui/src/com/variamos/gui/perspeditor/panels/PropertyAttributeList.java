@@ -230,8 +230,13 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 					if (instElement.getEdSyntaxEle() != null) {
 						SyntaxElement me = instElement.getEdSyntaxEle();
 						me.addModelingAttribute((String) name.getValue(), v);
-						me.addPanelVisibleAttribute("99#"
-								+ SyntaxElement.VAR_USERIDENTIFIER);
+						me.addModelingAttribute(
+								SyntaxElement.VAR_USERIDENTIFIER, "String",
+								false, "User Identifier", "", "", 0, 4, "", "",
+								99, "#" + SyntaxElement.VAR_USERIDENTIFIER
+										+ "#", "");
+						// me.addPanelVisibleAttribute("99#"
+						// + SyntaxElement.VAR_USERIDENTIFIER);
 						me.addPropVisibleAttribute("99#"
 								+ (String) name.getValue());
 						me.addPropEditableAttribute("99#"
@@ -241,8 +246,17 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 						OpersElement sc = ((OpersElement) instElement
 								.getEdOperEle());
 						sc.putSemanticAttribute((String) name.getValue(), v);
-						sc.addPanelVisibleAttribute("99#"
-								+ SyntaxElement.VAR_USERIDENTIFIER);
+						sc.putSemanticAttribute(
+								SyntaxElement.VAR_USERIDENTIFIER,
+								new ElemAttribute(
+										SyntaxElement.VAR_USERIDENTIFIER,
+										"String", AttributeType.OPERATION,
+										false, "User Identifier", "", "", 0, 4,
+										"", "", 99,
+										"#" + SyntaxElement.VAR_USERIDENTIFIER
+												+ "#", ""));
+						// sc.addPanelVisibleAttribute("99#"
+						// + SyntaxElement.VAR_USERIDENTIFIER);
 						sc.addPropVisibleAttribute("19#"
 								+ (String) name.getValue());
 						sc.addPropEditableAttribute("19#"
