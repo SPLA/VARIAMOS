@@ -1307,7 +1307,7 @@ public class DefaultSyntaxMM {
 		// TODO
 
 		syntaxSoftGoal.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, -1, "", "", 4,
+				"String", false, "User Identifier", "", "", 0, 3, "", "", 4,
 				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
 		syntaxSoftGoal.addModelingAttribute("name", "String", false, "Name",
@@ -1883,7 +1883,7 @@ public class DefaultSyntaxMM {
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMVALUE,
 				"Set", false, SyntaxElement.VAR_METAENUMVALUENAME, "",
 				SyntaxElement.VAR_METAENUMVALUECLASS,
-				new ArrayList<InstAttribute>(), 0, -1, "", "", 5, "#"
+				new ArrayList<InstAttribute>(), 0, 1, "", "", 5, "#"
 						+ SyntaxElement.VAR_METAENUMVALUE + "#\n", "");
 
 		metaEnumeration.addPropEditableAttribute("01#"
@@ -2020,7 +2020,7 @@ public class DefaultSyntaxMM {
 				directCVCGSemanticEdge);
 
 		metaContextEdge.addModelingAttribute("cardinality", "String", false,
-				"cardinality", "", "", "", 0, -1, "", "", -1, "#cardinality#",
+				"cardinality", "", "", "", 0, 1, "", "", -1, "#cardinality#",
 				"");
 		// metaContextEdge.addPanelVisibleAttribute("01#cardinality");
 		metaContextEdge.addPropEditableAttribute("01#cardinality");
