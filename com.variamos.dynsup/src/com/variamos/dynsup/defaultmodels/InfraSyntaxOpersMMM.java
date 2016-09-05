@@ -41,7 +41,7 @@ public class InfraSyntaxOpersMMM {
 		// Begin Opers M2 Model
 
 		SyntaxElement infraSyntaxOpersM2InfraConcept = new SyntaxElement(
-				'N',
+				'C',
 				"OMInfConcept",
 				false,
 				false,
@@ -104,7 +104,7 @@ public class InfraSyntaxOpersMMM {
 		// rel.setSourceRelation(instBasicOpersM2PWRel, true);
 
 		SyntaxElement infraSyntaxOpersM2PWRel = new SyntaxElement(
-				'W',
+				'P',
 				"OMInfraPWRel",
 				false,
 				false,

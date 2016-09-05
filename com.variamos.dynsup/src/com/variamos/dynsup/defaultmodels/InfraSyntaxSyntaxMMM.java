@@ -32,6 +32,11 @@ public class InfraSyntaxSyntaxMMM {
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
+		infraSyntaxM2Concept.addPanelVisibleAttribute("03#"
+				+ SyntaxElement.VAR_USERIDENTIFIER);
+		infraSyntaxM2Concept.addPanelSpacersAttribute("#"
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+
 		infraSyntaxM2Concept.addModelingAttribute("Name", new ElemAttribute(
 				"Name", "String", AttributeType.SYNTAX, false,
 				"Meta Concept Name", "", "", 0, -1, "", "", -1, "", ""));
@@ -116,14 +121,14 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2Concept.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.OPERATION, false, "Operations MMType",
+						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
 						0, -1, "", "", -1, "", ""));
 
-		infraSyntaxM2Concept.addPanelVisibleAttribute("04#"
-				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxM2Concept.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
-
+		infraSyntaxM2Concept
+				.addPropVisibleAttribute("00#" + "OperationsMMType");
+		infraSyntaxM2Concept.addPropEditableAttribute("00#"
+				+ "OperationsMMType");
 		infraSyntaxM2Concept.addPanelVisibleAttribute("00#"
 				+ "OperationsMMType");
 		infraSyntaxM2Concept
@@ -636,8 +641,9 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2OTRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.OPERATION, false, "Operations MMType",
-						"", OpersConcept.class.getCanonicalName(), "O", null,
-						"", 0, -1, "", "", -1, "", ""));
+						"Type from the Operations Meta-Model",
+						OpersConcept.class.getCanonicalName(), "O", null, "",
+						0, -1, "", "", -1, "", ""));
 
 		// infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "MetaType");
 		infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "OperationsMMType");
@@ -860,7 +866,8 @@ public class InfraSyntaxSyntaxMMM {
 
 		infraSyntaxM2PWRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
-						AttributeType.SYNTAX, false, "Operations MMType", "",
+						AttributeType.SYNTAX, false, "Operations MMType",
+						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "P", null, "",
 						0, -1, "", "", -1, "", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("Identifier",
@@ -926,6 +933,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2PWRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.OPERATION, false, "Operations MMType",
+						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "P", null, "",
 						0, -1, "", "", -1, "", ""));
 

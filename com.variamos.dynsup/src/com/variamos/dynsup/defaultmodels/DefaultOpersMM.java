@@ -95,8 +95,6 @@ public class DefaultOpersMM {
 		// refas
 		// .getSyntaxModel().getVertex("TypeEnumeration"))
 		// .getEditableMetaElement();
-		InstElement metaMetaConcept = ((InstConcept) refas.getSyntaxModel()
-				.getVertex("OMConcept"));
 		InstConcept metaMetaInstConcept = ((InstConcept) refas.getSyntaxModel()
 				.getVertex("OMConcept"));
 		InstElement metaMetaPairwiseRelation = ((InstConcept) refas
@@ -2526,7 +2524,7 @@ public class DefaultOpersMM {
 			 * false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", ""));
 			 */
 			InstConcept instVertexGE = new InstConcept("GeneralConcept",
-					metaMetaConcept, semGeneralElement);
+					metaMetaInstConcept, semGeneralElement);
 
 			// t1 = new SemanticExpression("REFAS_pref<=1", refas
 			// .getSemanticExpressionTypes().get("LessOrEquals"),
@@ -2958,7 +2956,7 @@ public class DefaultOpersMM {
 			semHardConcept.addPropVisibleAttribute("01#" + "satType");
 
 			InstConcept instVertexHC = new InstConcept("HardConcept",
-					metaMetaConcept, semHardConcept);
+					metaMetaInstConcept, semHardConcept);
 			refas.getVariabilityVertex().put("HardConcept", instVertexHC);
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -2996,7 +2994,7 @@ public class DefaultOpersMM {
 					semFeature.getIdentifier(), "Sel", true));
 
 			InstConcept instVertexF = new InstConcept("Feature",
-					metaMetaConcept, semFeature);
+					metaMetaInstConcept, semFeature);
 
 			attribute = new ElemAttribute("IsRootFeature", "Boolean",
 					AttributeType.OPERATION, true, "Is a Root Feature Concept",
@@ -3124,7 +3122,7 @@ public class DefaultOpersMM {
 					semAssumption.getIdentifier(), "Sel", true));
 
 			InstConcept instVertexAS = new InstConcept("Assumption",
-					metaMetaConcept, semAssumption);
+					metaMetaInstConcept, semAssumption);
 			refas.getVariabilityVertex().put("Assumption", instVertexAS);
 
 			instEdge = new InstPairwiseRel();
@@ -3146,8 +3144,8 @@ public class DefaultOpersMM {
 			semGoal.putSemanticAttribute("satType", attribute);
 			// semGoal.addPanelVisibleAttribute("01#" + "satType");
 			// semGoal.addPanelSpacersAttribute("<#" + "satType" + "#>\n");
-			InstConcept instVertexG = new InstConcept("Goal", metaMetaConcept,
-					semGoal);
+			InstConcept instVertexG = new InstConcept("Goal",
+					metaMetaInstConcept, semGoal);
 			refas.getVariabilityVertex().put("Goal", instVertexG);
 
 			instEdge = new InstPairwiseRel();
@@ -3177,7 +3175,7 @@ public class DefaultOpersMM {
 					semOperationalization.getIdentifier(), "Sel", true));
 
 			InstConcept instVertexOper = new InstConcept("Operationalization",
-					metaMetaConcept, semOperationalization);
+					metaMetaInstConcept, semOperationalization);
 			refas.getVariabilityVertex().put("Operationalization",
 					instVertexOper);
 
@@ -3262,7 +3260,7 @@ public class DefaultOpersMM {
 			semSoftgoal.setSemanticExpressions(semanticExpressions);
 
 			InstConcept instVertexSG = new InstConcept("Softgoal",
-					metaMetaConcept, semSoftgoal);
+					metaMetaInstConcept, semSoftgoal);
 
 			t3 = new OpersExpr("22", refas.getSemanticExpressionTypes().get(
 					"NotEquals"), instVertexSG, "ConfigReqLevel", true, 5);
@@ -3475,7 +3473,7 @@ public class DefaultOpersMM {
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semAsset
 					.getIdentifier(), "Sel", true));
 			InstConcept instVertexAsset = new InstConcept("Asset",
-					metaMetaConcept, semAsset);
+					metaMetaInstConcept, semAsset);
 			refas.getVariabilityVertex().put("Asset", instVertexAsset);
 
 			semanticExpressions = new ArrayList<OpersExpr>();

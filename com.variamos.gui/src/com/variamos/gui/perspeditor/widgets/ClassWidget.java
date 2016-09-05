@@ -51,6 +51,7 @@ public class ClassWidget extends WidgetR {
 
 		setLayout(new BorderLayout());
 		txtValue = new JComboBox<String>();
+		txtValue.addItem("");
 		add(txtValue, BorderLayout.CENTER);
 		revalidate();
 	}
