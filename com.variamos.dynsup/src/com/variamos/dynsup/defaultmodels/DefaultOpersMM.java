@@ -2387,6 +2387,7 @@ public class DefaultOpersMM {
 				AttributeType.GLOBALCONFIG, true, "Configure Domain",
 				"Configured value", 0, 0, 1, "", "variableType" + "#!=#"
 						+ "String", -1, "", "", "varConfDom", "", null);
+
 		// TODO define multiple conditions
 		semVariable.putSemanticAttribute("isConfDom", attribute);
 		semVariable.addPropEditableAttribute("01#" + "isConfDom");
@@ -3142,7 +3143,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("attributeValue", "Set",
 					AttributeType.SYNTAX, false, "values", "",
 					InstAttribute.class.getCanonicalName(),
-					new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "", "");
+					new ArrayList<InstAttribute>(), 0, 6, "", "", -1, "", "");
 			semOperationalization.putSemanticAttribute("attributeValue",
 					attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
