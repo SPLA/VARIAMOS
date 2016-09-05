@@ -813,8 +813,10 @@ public class ElementDesignPanel extends JPanel {
 					attPanel.add(new JScrollPane(attList));
 				} else if (((InstElement) editElm).getSupInstEleId().equals(
 						"OPER")) {
+					// FIXME generalize with the dynamic attribute - Find how to
+					// show more than one.
 					VariableAttributeList attList = new VariableAttributeList(
-							editor, instCell);
+							editor, instCell, "attributeValue");
 					attPanel.add(new JScrollPane(attList));
 				} else {
 					EnumerationTypeAttributeList attList = new EnumerationTypeAttributeList(

@@ -69,11 +69,11 @@ public class VariableAttributeList extends JList<InstAttribute> {
 
 	@SuppressWarnings("unchecked")
 	public VariableAttributeList(final VariamosGraphEditor editor,
-			final InstCell instCell) {
+			final InstCell instCell, String instAttribute) {
 		this.editor = editor;
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
-		InstAttribute o = element.getInstAttributes().get("attributeValue");
+		InstAttribute o = element.getInstAttributes().get(instAttribute);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
 	}
@@ -145,9 +145,9 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		final InstAttribute instVariableType = new InstAttribute(
 				"variableType", new ElemAttribute("variableType",
 						EnumerationSingleSelectionType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Variable Type",
-						VariableType.class.getCanonicalName(), "String", "",
-						"", 1, -1, "", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Variable Type", "",
+						VariableType.class.getCanonicalName(), "String", "", 1,
+						-1, "", "", -1, "", ""), "");
 
 		final InstAttribute instContext = new InstAttribute("isContext",
 				new ElemAttribute("isContext", BooleanType.IDENTIFIER,
@@ -161,9 +161,9 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		final InstAttribute instEnumerationType = new InstAttribute("enumType",
 				new ElemAttribute("enumType",
 						ClassSingleSelectionType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Enumeration",
-						InstConcept.class.getCanonicalName(), "ME", "", "", 1,
-						-1, "", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Enumeration", "",
+						InstConcept.class.getCanonicalName(), "ME", "", 1, -1,
+						"", "", -1, "", ""), "");
 		final InstAttribute instVariableConfigValue = new InstAttribute(
 				"varConfValue", new ElemAttribute("varConfValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,

@@ -3142,7 +3142,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("attributeValue", "Set",
 					AttributeType.SYNTAX, false, "values", "",
 					InstAttribute.class.getCanonicalName(),
-					new ArrayList<InstAttribute>(), 0, 6, "", "", -1, "", "");
+					new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "", "");
 			semOperationalization.putSemanticAttribute("attributeValue",
 					attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
