@@ -2246,7 +2246,7 @@ public class DefaultOpersMM {
 				"Concern Level",
 				"Concern level of this element associated from the context view",
 
-				InstConcept.class.getCanonicalName(), "CG", null, 0, 6, "",
+				InstConcept.class.getCanonicalName(), "CG", null, "", 0, 6, "",
 				"Scope" + "#==#" + "false" + "#" + "", 0, "<<#"
 						+ "ConcernLevel" + "#>>\n", "Scope" + "#==#" + "false");
 
@@ -2805,9 +2805,9 @@ public class DefaultOpersMM {
 					AttributeType.OPERATION, false, "Concern Level",
 					"Concern Level of the element (Ignored for operations)",
 
-					InstConcept.class.getCanonicalName(), "CG", null, 2, 6, "",
-					"Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
-							+ "#>>\n", "#" + "Scope" + "#==#" + "false");
+					InstConcept.class.getCanonicalName(), "CG", null, "", 2, 6,
+					"", "Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
+							+ "#>>\n", "Scope" + "#==#" + "false");
 
 			semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
 
