@@ -1738,7 +1738,7 @@ public class DefaultSyntaxMM {
 		// TODO
 		syntaxAbsVariable.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, -1, "", "", 4, "#"
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",

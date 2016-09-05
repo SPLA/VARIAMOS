@@ -1288,6 +1288,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				}
 
+				if (simulationPanelElements == ((simulationPanelElements / 2 * 2))) {
+					elementSimPropSubPanel.add(new JPanel());
+					elementSimPropSubPanel.add(new JPanel());
+					elementSimPropSubPanel.add(new JPanel());
+				}
+
 				SpringUtilities.makeCompactGrid(elementSimPropSubPanel,
 						simulationPanelElements / 2, 6, 4, 4, 4, 4);
 				elementConfPropSubPanel.setMinimumSize(new Dimension(350,
@@ -1311,6 +1317,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			((MainFrame) getFrame()).waitingCursor(false);
 
 		} catch (Exception e) {
+
+			ConsoleTextArea.addText(e.getMessage());
 			ConsoleTextArea.addText(e.getStackTrace());
 		} finally {
 			recursiveCall = false;

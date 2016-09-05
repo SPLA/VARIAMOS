@@ -2385,9 +2385,8 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("isConfDom", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configure Domain",
-				"Configured value (positive numbers)", 0, 0, 1, "",
-				"variableType" + "#!=#" + "String", -1, "", "", "varConfDom",
-				"", null);
+				"Configured value", 0, 0, 1, "", "variableType" + "#!=#"
+						+ "String", -1, "", "", "varConfDom", "", null);
 		// TODO define multiple conditions
 		semVariable.putSemanticAttribute("isConfDom", attribute);
 		semVariable.addPropEditableAttribute("01#" + "isConfDom");
@@ -2410,9 +2409,12 @@ public class DefaultOpersMM {
 				semVariable.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("varConfValue", "Integer",
-				AttributeType.GLOBALCONFIG, false, "Configured Value",
-				"Configured value (positive numbers)", 0, 0, -1, "", "", -1,
-				"", "", "varConfDom", "", null);
+				AttributeType.EXECCURRENTSTATE, false, "Configured Value",
+				"Configured value", 0, 0, -1, "", "", -1, "", "", "varConfDom",
+				"", null);
+
+		// semVariable.addPropVisibleAttribute("08#" + "varConfValue");
+		// semVariable.addPropVisibleAttribute("08#" + "varConfValue");
 		semVariable.putSemanticAttribute("varConfValue", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
