@@ -3,6 +3,7 @@ package com.variamos.dynsup.instance;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -393,6 +394,8 @@ public class InstPairwiseRel extends InstElement {
 	}
 
 	public Set<String> getDisPropEditableAttributes(List<InstElement> parents) {
+		if (getMetaPairwiseRelation() == null)
+			return new HashSet<String>();
 		Set<String> editableAttributes = getMetaPairwiseRelation()
 				.getPropEditableAttributesSet(parents);
 

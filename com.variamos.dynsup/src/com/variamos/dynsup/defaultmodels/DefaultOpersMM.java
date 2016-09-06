@@ -103,20 +103,18 @@ public class DefaultOpersMM {
 				.getSyntaxModel().getVertex("OMOTRel"));
 
 		InstElement infraMetaMetaConcept = ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMInfConcept"));
+				.getSyntaxModel().getVertex("OMnmConcept"));
 		InstElement infraMetaMetaPairwiseRelation = ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMInfraPWRel"));
+				.getSyntaxModel().getVertex("OMnmPWRel"));
 		InstElement infraMetaMetaOverTwoRelation = ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMInfraOTRel"));
+				.getSyntaxModel().getVertex("OMnmOTRel"));
 
 		InstPairwiseRel metaPairwRelCCExt = ((InstPairwiseRel) refas
-				.getSyntaxModel().getConstraintInstEdge("ExtendsCCRel"));
+				.getSyntaxModel().getConstraintInstEdge("OMExtCEdge"));
 		InstPairwiseRel metaPairwRelOCExt = ((InstPairwiseRel) refas
-				.getSyntaxModel().getConstraintInstEdge("ExtendsOCRel"));
-
+				.getSyntaxModel().getConstraintInstEdge("OMExtOTEdge"));
 		InstPairwiseRel metaPairwRelAso = ((InstPairwiseRel) refas
-				.getSyntaxModel().getConstraintInstEdge(
-						"InfraSyntaxOpersM2AsoRel"));
+				.getSyntaxModel().getConstraintInstEdge("OMAsoEdge"));
 
 		OpersLabeling simulationExecOperUniqueLabeling = null;
 		simulationExecOperUniqueLabeling = new OpersLabeling("unique");
@@ -1680,9 +1678,9 @@ public class DefaultOpersMM {
 
 		// FIXED concept's definition
 
-		OpersConcept semInfraMConcept = new OpersConcept("InfraMetaConcept");
+		OpersConcept semInfraMConcept = new OpersConcept("nmMetaConcept");
 
-		InstConcept instVertexIE = new InstConcept("InfraMetaConcept",
+		InstConcept instVertexIE = new InstConcept("nmMetaConcept",
 				infraMetaMetaConcept, semInfraMConcept);
 
 		attribute = new ElemAttribute("True", "Boolean",
@@ -1980,9 +1978,9 @@ public class DefaultOpersMM {
 		semInfraMConcept.addPropVisibleAttribute("04#" + "ExportOnConfig");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		refas.getVariabilityVertex().put("InfraMetaConcept", instVertexIE);
+		refas.getVariabilityVertex().put("nmMetaConcept", instVertexIE);
 
-		OpersConcept semInfraOTRel = new OpersConcept("InfraMetaOTRel");
+		OpersConcept semInfraOTRel = new OpersConcept("nmMetaOTRel");
 
 		/*
 		 * semGeneralGroup.putSemanticAttribute("Sel", new ElemAttribute("Sel",
@@ -1992,10 +1990,10 @@ public class DefaultOpersMM {
 		 * AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***", false,
 		 * 2, -1, "", "", -1, "", ""));
 		 */
-		InstConcept instVertexGR = new InstConcept("InfraMetaOTRel",
+		InstConcept instVertexGR = new InstConcept("nmMetaOTRel",
 				infraMetaMetaOverTwoRelation, semInfraOTRel);
 
-		refas.getVariabilityVertex().put("InfraMetaOTRel", instVertexGR);
+		refas.getVariabilityVertex().put("nmMetaOTRel", instVertexGR);
 
 		attribute = new ElemAttribute("True", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", "",
@@ -2154,8 +2152,8 @@ public class DefaultOpersMM {
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		}
 
-		OpersConcept semGeneralPair = new OpersConcept("InfraMetaPWRel");
-		InstConcept instInfraPair = new InstConcept("InfraMetaPWRel",
+		OpersConcept semGeneralPair = new OpersConcept("nmMetaPWRel");
+		InstConcept instInfraPair = new InstConcept("nmMetaPWRel",
 				infraMetaMetaPairwiseRelation, semGeneralPair);
 
 		semGeneralPair.putSemanticAttribute("relationType", new ElemAttribute(
@@ -2169,9 +2167,9 @@ public class DefaultOpersMM {
 		// semGeneralPair.addPanelSpacersAttribute("#" + "relationType" +
 		// "#\n");
 
-		refas.getVariabilityVertex().put("InfraMetaPWRel", instInfraPair);
+		refas.getVariabilityVertex().put("nmMetaPWRel", instInfraPair);
 
-		OpersVariable semVariable = new OpersVariable("Variable");
+		OpersVariable semVariable = new OpersVariable("nmVariable");
 
 		// simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
 		// .getIdentifier(), "Exclu", true));
@@ -2180,7 +2178,7 @@ public class DefaultOpersMM {
 
 		semVariable.setSemanticExpressions(semanticExpressions);
 
-		InstConcept instVertexVAR = new InstConcept("Variable",
+		InstConcept instVertexVAR = new InstConcept("nmVariable",
 				infraMetaMetaConcept, semVariable);
 
 		OpersExpr t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
@@ -2456,9 +2454,9 @@ public class DefaultOpersMM {
 		// simsceExecOperLabeling1.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
-		refas.getVariabilityVertex().put("Variable", instVertexVAR);
+		refas.getVariabilityVertex().put("nmVariable", instVertexVAR);
 
-		OpersElement semContextGroup = new OpersElement("ConcernLevel");
+		OpersElement semContextGroup = new OpersElement("nmConcernLevel");
 
 		semContextGroup.putSemanticAttribute("name", new ElemAttribute("name",
 				"String", AttributeType.OPERATION, false, "Group Name", "",
@@ -2505,9 +2503,9 @@ public class DefaultOpersMM {
 		semContextGroup.addPropEditableAttribute("09#" + "ExtControl");
 		semContextGroup.addPropVisibleAttribute("09#" + "ExtControl");
 
-		InstConcept instVertexCG = new InstConcept("ConcernLevel",
+		InstConcept instVertexCG = new InstConcept("nmConcernLevel",
 				infraMetaMetaConcept, semContextGroup);
-		refas.getVariabilityVertex().put("ConcernLevel", instVertexCG);
+		refas.getVariabilityVertex().put("nmConcernLevel", instVertexCG);
 
 		// Start Concept's definition
 		// -------------------------------------------------------

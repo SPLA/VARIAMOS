@@ -42,26 +42,28 @@ public class InfraSyntaxOpersMMM {
 
 		SyntaxElement infraSyntaxOpersM2InfraConcept = new SyntaxElement(
 				'C',
-				"OMInfConcept",
+				"OMnmConcept",
 				false,
 				false,
-				"OMInfConcept",
+				"OMnmConcept",
 				"infrasyntaxm2biggrayconcept",
-				"Operations Infra MetaMetaConcept: Define Infrastructure (fixed) MMConcepts for the operations",
+				"Operations Non-Modifiable MetaMetaConcept: Defines an element "
+						+ "with  the attributes for meta-concepts to support the visual "
+						+ "representation of states and operation results",
 				100, 250, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2InfraConcept.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4,
-				"<<OMInfConcept>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#\n" + "<<non-editable>>" + "\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMnmConcept>>\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n"
+						+ "<<non-modifiable>>" + "\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2InfraConcept = new InstConcept(
-				"OMInfConcept", basicOpersSyntaxM3Concept,
+				"OMnmConcept", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2InfraConcept);
 
-		variabilityInstVertex.put("OMInfConcept",
+		variabilityInstVertex.put("OMnmConcept",
 				instInfraSyntaxOpersM2InfraConcept);
 
 		SyntaxElement infraSyntaxOpersM2Concept = new SyntaxElement(
@@ -103,22 +105,19 @@ public class InfraSyntaxOpersMMM {
 		// rel.setTargetRelation(instBasicOpersM2Concept, true);
 		// rel.setSourceRelation(instBasicOpersM2PWRel, true);
 
-		SyntaxElement infraSyntaxOpersM2PWRel = new SyntaxElement(
-				'P',
-				"OMInfraPWRel",
-				false,
-				false,
-				"OMInfraPWRel",
+		SyntaxElement infraSyntaxOpersM2PWRel = new SyntaxElement('P',
+				"OMnmPWRel", false, false, "OMnmPWRel",
 				"infrasyntaxm2minigrayconcept",
-				"Operations Infrastructure (fixed) MMPairWise Relation: Defines a direct relation for the operations meta-model",
-				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, null, true);
+				"Operations Non-Modifiable MMPairWise Relation: Defines a "
+						+ "type attribute for meta-pairwise-relations.", 150,
+				150, "/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMInfraRel>>\n"
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMnmRel>>\n"
 						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n"
-						+ "<<non-editable>>" + "\n\n", "");
+						+ "<<non-modifiable>>" + "\n\n", "");
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				"relTypesAttr",
@@ -135,11 +134,10 @@ public class InfraSyntaxOpersMMM {
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		InstConcept instInfraSyntaxOpersM2PWRel = new InstConcept(
-				"OMInfraPWRel", basicOpersSyntaxM3Concept,
-				infraSyntaxOpersM2PWRel);
+		InstConcept instInfraSyntaxOpersM2PWRel = new InstConcept("OMnmPWRel",
+				basicOpersSyntaxM3Concept, infraSyntaxOpersM2PWRel);
 		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
-		variabilityInstVertex.put("OMInfraPWRel", instInfraSyntaxOpersM2PWRel);
+		variabilityInstVertex.put("OMnmPWRel", instInfraSyntaxOpersM2PWRel);
 
 		SyntaxElement metaMetaPairwiseRel = new SyntaxElement(
 				'P',
@@ -210,9 +208,11 @@ public class InfraSyntaxOpersMMM {
 		// enumeration.addPropVisibleAttribute("01#" + "value");
 
 		SyntaxElement infraSyntaxOpersM2InfraOTRel = new SyntaxElement('T',
-				"OMInfraOTRel", false, false, "OMInfraOTRel",
-				"infrasyntaxm2biggrayconcept", "Over Two Relation", 100, 150,
-				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				"OMnmOTRel", false, false, "OMnmOTRel",
+				"infrasyntaxm2biggrayconcept",
+				"Operations Non-Modifiable MMOverTwo Relation: Defines a "
+						+ "type attribute for meta-pairwise-relations", 100,
+				150, "/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
@@ -233,15 +233,15 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4,
-				"<<OMInfraOTRel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#\n" + "<<non-editable>>" + "\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMnmOTRel>>\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n"
+						+ "<<non-modifiable>>" + "\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2InfraOTRel = new InstConcept(
-				"OMInfraOTRel", basicOpersSyntaxM3Concept,
+				"OMnmOTRel", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2InfraOTRel);
-		variabilityInstVertex.put("OMInfraOTRel",
-				instInfraSyntaxOpersM2InfraOTRel);
+		variabilityInstVertex
+				.put("OMnmOTRel", instInfraSyntaxOpersM2InfraOTRel);
 
 		SyntaxElement infraSyntaxOpersM2OTRel = new SyntaxElement('O',
 				"OMOTRel", true, true, "OMOTRel",
@@ -281,17 +281,15 @@ public class InfraSyntaxOpersMMM {
 
 		OpersConcept basicOpersM2AsoRel = new OpersConcept("AsoRel");
 
-		InstConcept instBasicOpersM2AsoRel = new InstConcept(
-				"AssociationRelation", basicOpersSyntaxM3Concept,
-				basicOpersM2AsoRel);
+		InstConcept instBasicOpersM2AsoRel = new InstConcept("OMAsoEdge",
+				basicOpersSyntaxM3Concept, basicOpersM2AsoRel);
 
 		// variabilityInstVertex.put("TypeEnumeration", new InstConcept(
 		// "TypeEnumeration", metaBasicConcept, enumeration));
 
 		SyntaxElement infraSyntaxOpersM2AsoRel = new SyntaxElement('P',
-				"InfraSyntaxOpersM2AsoRel", false, true,
-				"Association Relation", "defaultAsso",
-				"Association Relation: ", 50, 50,
+				"OMAsoEdge", false, true, "Association Relation",
+				"defaultAsso", "Association Relation: ", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				instBasicOpersM2AsoRel);
 
@@ -300,8 +298,8 @@ public class InfraSyntaxOpersMMM {
 				"User Identifier", "", "", 0, 4, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
 
-		constraintInstEdges.put("InfraSyntaxOpersM2AsoRel",
-				new InstPairwiseRel(infraSyntaxOpersM2AsoRel));
+		constraintInstEdges.put("OMAsoEdge", new InstPairwiseRel(
+				infraSyntaxOpersM2AsoRel));
 
 		SyntaxElement infraSyntaxOpersM2ExtRel = new SyntaxElement(
 				'P',
@@ -321,10 +319,10 @@ public class InfraSyntaxOpersMMM {
 
 		InstPairwiseRel rel = new InstPairwiseRel(basicOpersM2ExtRel);
 		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
-		rel.setIdentifier("ExtendsCCRel");
+		rel.setIdentifier("OMExtCEdge");
 		rel.setTargetRelation(instInfraSyntaxOpersM2Concept, true);
 		rel.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
-		constraintInstEdges.put("ExtendsCCRel", rel);
+		constraintInstEdges.put("OMExtCEdge", rel);
 
 		rel = new InstPairwiseRel(basicOpersM2ExtRel);
 		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
@@ -335,10 +333,10 @@ public class InfraSyntaxOpersMMM {
 
 		rel = new InstPairwiseRel(basicOpersM2ExtRel);
 		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
-		rel.setIdentifier("ExtendsOCRel");
+		rel.setIdentifier("OMExtOTEdge");
 		rel.setTargetRelation(instInfraSyntaxOpersM2Concept, true);
 		rel.setSourceRelation(instInfraSyntaxOpersM2OTRel, true);
-		constraintInstEdges.put("ExtendsOCRel", rel);
+		constraintInstEdges.put("OMExtOTEdge", rel);
 
 		rel = new InstPairwiseRel(basicOpersM2ExtRel);
 		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);

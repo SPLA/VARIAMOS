@@ -1665,7 +1665,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Context", instViewC);
 		// syntaxMetaView.addConcept(syntaxVariable);
 		InstConcept semContextGroup = ((InstConcept) refas
-				.getOperationalModel().getVertex("ConcernLevel"));
+				.getOperationalModel().getVertex("nmConcernLevel"));
 		SyntaxElement syntaxContextGroup = new SyntaxElement('C', "CG", true,
 				true, "ConcernLevel", "refascontextgrp", " A Concern Level"
 						+ " is defined to associate variables with common"
@@ -1716,7 +1716,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semVariable = ((InstConcept) refas.getOperationalModel()
-				.getVertex("Variable"));
+				.getVertex("nmVariable"));
 		SyntaxElement syntaxAbsVariable = new SyntaxElement(
 				'C',
 				"Variable",
