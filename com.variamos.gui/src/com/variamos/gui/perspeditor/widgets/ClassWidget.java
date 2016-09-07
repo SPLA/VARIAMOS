@@ -51,7 +51,6 @@ public class ClassWidget extends WidgetR {
 
 		setLayout(new BorderLayout());
 		txtValue = new JComboBox<String>();
-		txtValue.addItem("");
 		add(txtValue, BorderLayout.CENTER);
 		revalidate();
 	}
@@ -259,6 +258,9 @@ public class ClassWidget extends WidgetR {
 			txtValue.setSelectedIndex(0);
 			instAttribute.setValue((String) txtValue.getSelectedItem());
 		}
+		// FIX ME: empty only for some lists such as the OMM types in SMM
+		// elements
+		txtValue.addItem("");
 		pushValue(v);
 	}
 
