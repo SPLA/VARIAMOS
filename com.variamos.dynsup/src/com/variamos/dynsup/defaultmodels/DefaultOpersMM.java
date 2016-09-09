@@ -5292,8 +5292,8 @@ public class DefaultOpersMM {
 			OpersConcept directSGSGSemEdge = new OpersConcept("SgSgPWAsso");
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "#sourceLevel#",
-					"");
+					new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
+					"SL: #sourceLevel# - ", "");
 			directSGSGSemEdge.putSemanticAttribute("sourceLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5314,8 +5314,8 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("targetLevel", "Integer",
 					AttributeType.OPERATION, "Target Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, 9, "", "", 9, "#targetLevel#",
-					"");
+					new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
+					"TL: #targetLevel#", "");
 			directSGSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5338,7 +5338,8 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 7, "", "", 7, "[#" + "AggregationLow" + "#..", "");
+					0, 7, "", "", 7, "[#" + "AggregationLow" + "#..",
+					"AggregationHigh" + "#!=#" + "0");
 			directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5367,7 +5368,8 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 8, "", "", 8, "#" + "AggregationHigh" + "#]\n", "");
+					0, 8, "", "", 8, "#" + "AggregationHigh" + "#]\n",
+					"AggregationHigh" + "#!=#" + "0");
 			directSGSGSemEdge
 					.putSemanticAttribute("AggregationHigh", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
