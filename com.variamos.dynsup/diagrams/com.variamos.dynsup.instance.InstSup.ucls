@@ -77,68 +77,88 @@
     </display>  
   </class>  
   <association id="9">    
-    <bendpoint x="401" y="506"/>    
-    <bendpoint x="329" y="506"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="10" name="supInstElement"/>      
-      <multiplicity id="11" minimum="0" maximum="1"/>    
+    <bendpoint x="323" y="441"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="10" name="volatileInstElement">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="12">    
-    <bendpoint x="606" y="519"/>    
-    <bendpoint x="681" y="502"/>    
-    <bendpoint x="679" y="384"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="13" name="volatileSourceRelations"/>      
-      <multiplicity id="14" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="15">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="16">    
+  <generalization id="12">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
-  <association id="17">    
-    <bendpoint x="323" y="441"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="18" name="volatileInstElement"/>      
-      <multiplicity id="19" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="20">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <generalization id="21">    
-    <bendpoint x="234" y="317"/>    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <association id="22">    
-    <bendpoint x="300" y="372"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="23" name="originalInstElement"/>      
-      <multiplicity id="24" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="25">    
+  <association id="13">    
     <bendpoint x="595" y="448"/>    
     <bendpoint x="600" y="509"/>    
     <bendpoint x="550" y="508"/>    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="26" name="volatileTargetRelations"/>      
-      <multiplicity id="27" minimum="0" maximum="2147483647"/>    
+      <attribute id="14" name="volatileTargetRelations">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="15" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="16">    
+    <bendpoint x="606" y="519"/>    
+    <bendpoint x="681" y="502"/>    
+    <bendpoint x="679" y="384"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="17" name="volatileSourceRelations">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="19">    
+    <bendpoint x="234" y="317"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="20">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="21">    
+    <bendpoint x="300" y="372"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="22" name="originalInstElement">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <association id="25">    
+    <bendpoint x="401" y="506"/>    
+    <bendpoint x="329" y="506"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="26" name="supInstElement">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="27" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

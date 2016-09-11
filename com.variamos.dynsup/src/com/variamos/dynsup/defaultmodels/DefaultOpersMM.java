@@ -18,6 +18,7 @@ import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.OpersVariable;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.statictypes.SatisficingType;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ExpressionVertexType;
@@ -2156,6 +2157,13 @@ public class DefaultOpersMM {
 		InstConcept instInfraPair = new InstConcept("nmMetaPWRel",
 				infraMetaMetaPairwiseRelation, semGeneralPair);
 
+		semGeneralPair.putSemanticAttribute(InstPairwiseRel.VAR_METAPAIRWISE,
+				new ElemAttribute(InstPairwiseRel.VAR_METAPAIRWISE, "Class",
+						AttributeType.OPERATION, true,
+						InstPairwiseRel.VAR_METAPAIRWISE_NAME, "",
+						InstPairwiseRel.VAR_METAPAIRWISE_CLASS,
+						new SyntaxElement('P'), 0, 2, "", "", -1, "", ""));
+
 		semGeneralPair.putSemanticAttribute("relationType", new ElemAttribute(
 				"relationType", "Class", AttributeType.OPERATION, true,
 				"Relation Type", "Type of pairwise relation",
@@ -3139,7 +3147,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("satType", "Enumeration",
 					AttributeType.OPERATION, false, "satType", "",
 					"com.variamos.dynsup.statictypes.SatisfactionType",
-					"achieve", "", 0, -1, "", "", 1, "<#" + "satType" + "#>\n",
+					"achieve", "", 0, 1, "", "", 1, "<#" + "satType" + "#>\n",
 					"");
 			semGoal.putSemanticAttribute("satType", attribute);
 			// semGoal.addPanelVisibleAttribute("01#" + "satType");
@@ -6051,7 +6059,8 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 7, "", "", 7, "[#" + "AggregationLow" + "#..", "");
+					0, 7, "", "", 7, "[#" + "AggregationLow" + "#..",
+					"AggregationHigh" + "#!=#" + "0");
 			directSGGRSemEdge.putSemanticAttribute("AggregationLow", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
@@ -6074,7 +6083,8 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 8, "", "", 8, "#" + "AggregationHigh" + "#]\n", "");
+					0, 8, "", "", 8, "#" + "AggregationHigh" + "#]\n",
+					"AggregationHigh" + "#!=#" + "0");
 			directSGGRSemEdge
 					.putSemanticAttribute("AggregationHigh", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(

@@ -983,13 +983,32 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
 				JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
 
-				List<InstAttribute> editables = finalEditElm
-						.getEditableVariables(refasModel
-								.getParentSMMSyntaxElement((InstElement) finalEditElm));
-
 				List<InstAttribute> visible = finalEditElm
-						.getVisibleVariables(refasModel
+						.getVisibleAttributes(refasModel
 								.getParentSMMSyntaxElement(finalEditElm));
+
+				for (InstAttribute instAttribute : visible) {
+					Map<String, InstElement> mapElements = null;
+					if (finalEditElm instanceof InstPairwiseRel) {
+						InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
+						mapElements = refasModel.getSyntaxModel()
+								.getValidPairwiseRelations(
+										instPairwise.getSourceRelations()
+												.get(0),
+										instPairwise.getTargetRelations()
+												.get(0));
+					}
+					instAttribute.updateValidationList(finalEditElm,
+							mapElements);
+				}
+				visible = finalEditElm.getVisibleAttributes(refasModel
+						.getParentSMMSyntaxElement(finalEditElm));
+
+				List<InstAttribute> editables = finalEditElm
+						.getEditableAttributes(visible);
+				// finalEditElm
+				// .getEditableVariables(refasModel
+				// .getParentSMMSyntaxElement((InstElement) finalEditElm));
 
 				RefasWidgetFactory factory = new RefasWidgetFactory(this);
 

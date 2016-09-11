@@ -322,7 +322,7 @@ public class SyntaxElement implements Serializable {
 	public void createSyntaxAttributes() {
 		this.modelingAttributes.put(VAR_AUTOIDENTIFIER, new ElemAttribute(
 				VAR_AUTOIDENTIFIER, "String", AttributeType.SYNTAX, false,
-				"Auto Identifier", "", null, 0, 1, "", "", -1, "", ""));
+				"Auto Identifier", "", null, 0, 1, "false", "", -1, "", ""));
 		this.modelingAttributes.put(VAR_USERIDENTIFIER, new ElemAttribute(
 				VAR_USERIDENTIFIER, "String", AttributeType.SYNTAX, false,
 				"UserIdentifier", "", null, 0, 1, "", "", -1, "", ""));

@@ -560,6 +560,168 @@ public abstract class InstElement implements Serializable, Cloneable,
 		}
 	}
 
+	public List<InstAttribute> getEditableAttributes(
+			Collection<InstAttribute> visibleAttributes) {
+		return getFiltEditableAttributes(visibleAttributes);
+	}
+
+	public List<InstAttribute> getFiltEditableAttributes(
+			Collection<InstAttribute> instAttributes) {
+
+		List<InstAttribute> listEditableAttribs = new ArrayList<InstAttribute>();
+		for (InstAttribute instAttribute : instAttributes) {
+			String attribute = instAttribute.getAttribute()
+					.getPropTabEditionCondition();
+			if (attribute.equals("false"))
+				continue;
+			int varEnd = attribute.indexOf("#", 0);
+			int condEnd = attribute.indexOf("#", varEnd + 1);
+			int valueEnd = attribute.indexOf("#", condEnd + 1);
+			if (varEnd != -1) {
+				String name = instAttribute.getName();
+				String type = null;
+				String variable = null;
+				String condition = null;
+				String value = null;
+				String defvalue = null;
+				variable = attribute.substring(0, varEnd);
+				condition = attribute.substring(varEnd + 1, condEnd);
+				if (valueEnd != -1) {
+					value = attribute.substring(condEnd + 1, valueEnd);
+					type = getInstAttributes().get(name).getType();
+					defvalue = attribute.substring(valueEnd + 1);
+				} else
+					value = attribute.substring(condEnd + 1);
+				InstAttribute varValue = getInstAttributes().get(variable);
+				if (varValue == null || varValue.getValue() == null) {
+					if (valueEnd != -1)
+						getInstAttributes().get(name).setValue(
+								createValue(type, defvalue));
+					continue;
+					// FIXME use transformation of names _ for spaces
+				} else if (varValue.getValue().toString().trim()
+						.equals(value.toString())) {
+					if (condition.equals("!=")) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
+						continue;
+					}
+				} else {
+					if (condition.equals("==")) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
+						continue;
+					}
+				}
+				listEditableAttribs.add(instAttribute);
+
+			} else
+				listEditableAttribs.add(instAttribute);
+		}
+		return listEditableAttribs;
+	}
+
+	public List<InstAttribute> getVisibleAttributes(
+			List<InstElement> syntaxParents) {
+
+		createInstAttributes(syntaxParents);
+		SyntaxElement supportElement = getTransSupportMetaElement();
+
+		List<InstAttribute> visibleAttributes = new ArrayList<InstAttribute>();
+
+		if (supportElement != null) {
+			Set<String> attributes = supportElement
+					.getAllAttributesNames(syntaxParents);
+			List<String> visibleAttributesNames = new ArrayList<String>();
+
+			for (String attributeName : attributes) {
+				ElemAttribute attribute = supportElement.getAbstractAttribute(
+						attributeName, syntaxParents, null);
+
+				if (attribute.getPropTabPosition() != -1)
+					visibleAttributesNames.add(attribute
+							.getPropTabPositionStr() + attribute.getName());
+			}
+			Collections.sort(visibleAttributesNames);
+			for (String attributeName : visibleAttributesNames) {
+				InstAttribute attribute = getInstAttribute(attributeName
+						.substring(2));
+
+				if (attribute != null)
+					visibleAttributes.add(attribute);
+			}
+		}
+		return getFiltVisibleAttributes(visibleAttributes);
+	}
+
+	public List<InstAttribute> getVisibleVariables(
+			List<InstElement> syntaxParents) {
+		createInstAttributes(syntaxParents);
+		if (getTransSupportMetaElement() == null)
+			return null;
+		Set<String> attributesNames = getTransSupportMetaElement()
+				.getPropVisibleAttributesSet(syntaxParents);
+		return getFilteredInstAttributes(attributesNames, null);
+	}
+
+	public List<InstAttribute> getFiltVisibleAttributes(
+			List<InstAttribute> instAttributes) {
+
+		List<InstAttribute> listEditableAttribs = new ArrayList<InstAttribute>();
+		for (InstAttribute instAttribute : instAttributes) {
+			String attribute = instAttribute.getAttribute()
+					.getPropTabVisualCondition();
+			int varEnd = attribute.indexOf("#", 0);
+			int condEnd = attribute.indexOf("#", varEnd + 1);
+			int valueEnd = attribute.indexOf("#", condEnd + 1);
+			if (varEnd != -1) {
+				String name = instAttribute.getName();
+				String type = null;
+				String variable = null;
+				String condition = null;
+				String value = null;
+				String defvalue = null;
+				variable = attribute.substring(0, varEnd);
+				condition = attribute.substring(varEnd + 1, condEnd);
+				if (valueEnd != -1) {
+					value = attribute.substring(condEnd + 1, valueEnd);
+					type = getInstAttributes().get(name).getType();
+					defvalue = attribute.substring(valueEnd + 1);
+				} else
+					value = attribute.substring(condEnd + 1);
+				InstAttribute varValue = getInstAttributes().get(variable);
+				if (varValue == null || varValue.getValue() == null) {
+					if (valueEnd != -1)
+						getInstAttributes().get(name).setValue(
+								createValue(type, defvalue));
+					continue;
+					// FIXME use transformation of names _ for spaces
+				} else if (varValue.getValue().toString().trim()
+						.equals(value.toString())) {
+					if (condition.equals("!=")) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
+						continue;
+					}
+				} else {
+					if (condition.equals("==")) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
+						continue;
+					}
+				}
+				listEditableAttribs.add(instAttribute);
+
+			} else
+				listEditableAttribs.add(instAttribute);
+		}
+		return listEditableAttribs;
+	}
+
 	protected String panelVisible(List<InstElement> syntaxParents,
 			SyntaxElement supportElement) {
 		String out = "";
@@ -998,19 +1160,6 @@ public abstract class InstElement implements Serializable, Cloneable,
 			return getEdOperEle().getAllAttributesNames(syntaxParents,
 					this.getParentOpersConcept());
 		return new HashSet<String>();
-	}
-
-	public List<InstAttribute> getVisibleVariables(
-			List<InstElement> syntaxParents) { // TODO
-		// move
-		// to
-		// superclass
-		createInstAttributes(syntaxParents);
-		if (getTransSupportMetaElement() == null)
-			return null;
-		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributesSet(syntaxParents);
-		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public List<InstAttribute> getFilteredInstAttributes(

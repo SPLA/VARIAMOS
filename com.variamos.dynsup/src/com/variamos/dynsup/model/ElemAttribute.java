@@ -838,6 +838,13 @@ public class ElemAttribute implements Serializable {
 			return elementDisplayPosition + "";
 	}
 
+	public String getPropTabPositionStr() {
+		if (propTabPosition < 10)
+			return "0" + propTabPosition;
+		else
+			return propTabPosition + "";
+	}
+
 	public String getElementDisplaySpacers() {
 		return elementDisplaySpacers;
 	}
