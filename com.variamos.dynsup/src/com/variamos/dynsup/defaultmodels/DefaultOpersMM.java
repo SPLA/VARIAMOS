@@ -3169,7 +3169,8 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("attributeValue", "Set",
 					AttributeType.SYNTAX, false, "values", "",
 					InstAttribute.class.getCanonicalName(),
-					new ArrayList<InstAttribute>(), 0, 6, "", "", -1, "", "");
+					new ArrayList<InstAttribute>(), 0, 6, "", "", 6,
+					"#attributeValue#2#\n", "");
 			semOperationalization.putSemanticAttribute("attributeValue",
 					attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -3723,7 +3724,7 @@ public class DefaultOpersMM {
 					false,
 					"Conditional Expression",
 					"Claim activation expression (in addition to operationalizations/left features)",
-					null, 0, 3, "", "", 3, "#ConditionalExpression#", "");
+					null, 0, 3, "", "", 3, "#ConditionalExpression#all#", "");
 			semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 			semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
 			semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
@@ -3835,7 +3836,7 @@ public class DefaultOpersMM {
 					ModelExpr.class.getCanonicalName(),
 					AttributeType.OPERATION, false, "Conditional Expression",
 					"Soft dependency activation expression", null, 0, 3, "",
-					"", 3, "#ConditionalExpression#", "");
+					"", 3, "#ConditionalExpression#all#", "");
 			semSoftDependency.putSemanticAttribute("ConditionalExpression",
 					attribute);
 			semSoftDependency.addPropEditableAttribute("03#"
@@ -3859,7 +3860,7 @@ public class DefaultOpersMM {
 					false,
 					"SD Expression Text",
 					"Textual representation of the conditional expression (only to display)",
-					"", 2, 4, "", "", 10, "#SDExpression#", "");
+					"", 2, 4, "", "", 10, "#SDExpression#all#", "");
 			semSoftDependency.putSemanticAttribute("SDExpression", attribute);
 			semSoftDependency.addPropEditableAttribute("04#" + "SDExpression");
 			semSoftDependency.addPropVisibleAttribute("04#" + "SDExpression");
@@ -4181,7 +4182,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 4, "", "", 4, "#" + "AggregationHigh" + "#]\n",
+					0, 4, "", "", 4, "#" + "AggregationHigh" + "#all#]\n",
 					"AggregationHigh" + "#!=#" + "0");
 			directHardHardSemanticEdge.putSemanticAttribute("AggregationHigh",
 					attribute);
@@ -4198,7 +4199,8 @@ public class DefaultOpersMM {
 					new ElemAttribute("relationType", "Class",
 							AttributeType.OPERATION, true, "Relation Type", "",
 							InstAttribute.class.getCanonicalName(), null, "",
-							0, 6, "", "", 6, "#" + "relationType" + "#\n", ""));
+							0, 6, "", "", 6, "#" + "relationType" + "#all#\n",
+							""));
 			directHardHardSemanticEdge.addPropEditableAttribute("06#"
 					+ "relationType");
 			directHardHardSemanticEdge.addPropVisibleAttribute("06#"
@@ -4379,7 +4381,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 3, "", "", 3, "[#" + "AggregationLow" + "#..",
+					0, 3, "", "", 3, "[#" + "AggregationLow" + "#all#..",
 					"AggregationHigh" + "#!=#" + "0");
 			directStructHardHardSemanticEdge.putSemanticAttribute(
 					"AggregationLow", attribute);
@@ -4390,7 +4392,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 4, "", "", 4, "#" + "AggregationHigh" + "#]\n",
+					0, 4, "", "", 4, "#" + "AggregationHigh" + "#all#]\n",
 					"AggregationHigh" + "#!=#" + "0");
 			directStructHardHardSemanticEdge.putSemanticAttribute(
 					"AggregationHigh", attribute);
@@ -5301,7 +5303,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
 					new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
-					"SL: #sourceLevel# - ", "");
+					"SL: #sourceLevel#all# - ", "");
 			directSGSGSemEdge.putSemanticAttribute("sourceLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5323,7 +5325,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("targetLevel", "Integer",
 					AttributeType.OPERATION, "Target Level", "", 1, false,
 					new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
-					"TL: #targetLevel#", "");
+					"TL: #targetLevel#all#", "");
 			directSGSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5346,7 +5348,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 7, "", "", 7, "[#" + "AggregationLow" + "#..",
+					0, 7, "", "", 7, "[#" + "AggregationLow" + "#all#..",
 					"AggregationHigh" + "#!=#" + "0");
 			directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5376,7 +5378,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 8, "", "", 8, "#" + "AggregationHigh" + "#]\n",
+					0, 8, "", "", 8, "#" + "AggregationHigh" + "#all#\n",
 					"AggregationHigh" + "#!=#" + "0");
 			directSGSGSemEdge
 					.putSemanticAttribute("AggregationHigh", attribute);
@@ -5728,7 +5730,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("targetLevel", "Integer",
 					AttributeType.OPERATION, "Target Level", "", 1, false,
 					new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
-					":#targetLevel#", "");
+					":#targetLevel#all#", "");
 			directGRSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directGRSGSemEdge.getIdentifier(), attribute.getName(),
@@ -6037,8 +6039,8 @@ public class DefaultOpersMM {
 			OpersConcept directSGGRSemEdge = new OpersConcept("SgFromOT");
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "#sourceLevel#",
-					"");
+					new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
+					"#sourceLevel#all#", "");
 			directSGGRSemEdge.putSemanticAttribute("sourceLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
@@ -6059,7 +6061,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 7, "", "", 7, "[#" + "AggregationLow" + "#..",
+					0, 7, "", "", 7, "[#" + "AggregationLow" + "#all#..",
 					"AggregationHigh" + "#!=#" + "0");
 			directSGGRSemEdge.putSemanticAttribute("AggregationLow", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -6083,7 +6085,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 8, "", "", 8, "#" + "AggregationHigh" + "#]\n",
+					0, 8, "", "", 8, "#" + "AggregationHigh" + "#all#]\n",
 					"AggregationHigh" + "#!=#" + "0");
 			directSGGRSemEdge
 					.putSemanticAttribute("AggregationHigh", attribute);
@@ -6349,7 +6351,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 3, "", "", 3, "[#" + "AggregationLow" + "#..",
+					0, 3, "", "", 3, "[#" + "AggregationLow" + "#all#..",
 					"AggregationHigh" + "#!=#" + "0");
 			semanticOperClaimGroupRelation.putSemanticAttribute(
 					"AggregationLow", attribute);
@@ -6360,7 +6362,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 4, "", "", 4, "#" + "AggregationHigh" + "#]\n",
+					0, 4, "", "", 4, "#" + "AggregationHigh" + "#all#]\n",
 					"AggregationHigh" + "#!=#" + "0");
 			semanticOperClaimGroupRelation.putSemanticAttribute(
 					"AggregationHigh", attribute);
@@ -6991,7 +6993,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("level", "Integer",
 					AttributeType.OPERATION, "Level",
 					"Required level for the SD (0..4)", 1, false,
-					new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "level", "");
+					new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "level#all#", "");
 			directSDSGSemanticEdge.putSemanticAttribute("level", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSDSGSemanticEdge.getIdentifier(),
@@ -7135,7 +7137,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 3, "", "", 3, "[#" + "AggregationLow" + "#..",
+					0, 3, "", "", 3, "[#" + "AggregationLow" + "#all#..",
 					"AggregationHigh" + "#!=#" + "0");
 			semanticAssetAssetOvertwoRel.putSemanticAttribute("AggregationLow",
 					attribute);
@@ -7146,7 +7148,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
 					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 4, "", "", 4, "#" + "AggregationHigh" + "#]\n",
+					0, 4, "", "", 4, "#" + "AggregationHigh" + "#all#]\n",
 					"AggregationHigh" + "#!=#" + "0");
 			semanticAssetAssetOvertwoRel.putSemanticAttribute(
 					"AggregationHigh", attribute);

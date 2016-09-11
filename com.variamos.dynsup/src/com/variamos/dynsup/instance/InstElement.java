@@ -666,6 +666,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
+	@Deprecated
 	public List<InstAttribute> getFiltVisibleAttributes(
 			List<InstAttribute> instAttributes) {
 
@@ -748,6 +749,9 @@ public abstract class InstElement implements Serializable, Cloneable,
 			String visibleAttribute = attribute.getElementDisplayCondition();
 			int varEnd = visibleAttribute.indexOf("#");
 			int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
+			int valueEnd = visibleAttribute.indexOf("#", condEnd + 1);
+			if (valueEnd == -1)
+				valueEnd = visibleAttribute.length() - 1;
 			String variable = null;
 			String condition = null;
 			String value = null;
@@ -757,7 +761,10 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 				variable = visibleAttribute.substring(0, varEnd);
 				condition = visibleAttribute.substring(varEnd + 1, condEnd);
-				value = visibleAttribute.substring(condEnd + 1);
+				if (condEnd < valueEnd)
+					value = visibleAttribute.substring(condEnd + 1, valueEnd);
+				else
+					value = "";
 				InstAttribute varValue = getInstAttributes().get(variable);
 				if (varValue == null || varValue.getValue() == null)
 					validCondition = false;
@@ -776,6 +783,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					nvar = true;
 					int sp1 = spacer.indexOf("#");
 					int sp2 = spacer.indexOf("#", sp1 + 1);
+					int sp3 = spacer.indexOf("#", sp2 + 1);
 
 					out += spacer.substring(0, sp1);
 					if (name.equals("name")
@@ -798,9 +806,32 @@ public abstract class InstElement implements Serializable, Cloneable,
 						if (instAttribute != null) {
 							if (instAttribute.getType() != null
 									&& instAttribute.getType().equals("Set")) {
+
+								String attribVal = "all";
+								if (sp3 != -1 && sp3 > sp2)
+									attribVal = spacer.substring(sp2 + 1, sp3);
 								for (InstAttribute e : (Collection<InstAttribute>) instAttribute
 										.getValue())
-									out += e.toString().trim() + "\n";
+									if (attribVal.equals("all"))
+										out += e.toString().trim() + "\n";
+									else {
+										String val = (String) e
+												.getInstAttributeAttribute("Value");
+										int i = 1;
+										int index = val.indexOf("#");
+										int pos = Integer.parseInt(attribVal);
+										String sValue = val.substring(0, index);
+										while (i < pos) {
+											int newIndex = val.indexOf("#",
+													index + 1);
+											if (newIndex != -1)
+												sValue = val.substring(
+														index + 1, newIndex);
+											i++;
+										}
+
+										out += sValue.toString().trim() + "\n";
+									}
 
 								// out = out.substring(0, out.length() - 2);
 							}
@@ -809,15 +840,15 @@ public abstract class InstElement implements Serializable, Cloneable,
 								out += instAttribute.toString().trim();
 						}
 					}
-					while (sp2 != spacer.length()) {
-						int sp3 = spacer.indexOf("#", sp2 + 1);
-						if (sp3 == -1) {
-							out += spacer.substring(sp2 + 1);
+					while (sp3 != spacer.length()) {
+						int sp4 = spacer.indexOf("#", sp3 + 1);
+						if (sp4 == -1) {
+							out += spacer.substring(sp3 + 1);
 							break;
 						}
-						out += spacer.substring(sp2 + 1, sp3);
+						out += spacer.substring(sp3 + 1, sp4);
 
-						sp2 = sp3;
+						sp3 = sp4;
 					}
 				}
 
