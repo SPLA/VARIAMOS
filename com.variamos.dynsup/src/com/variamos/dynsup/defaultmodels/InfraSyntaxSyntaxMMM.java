@@ -35,7 +35,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2Concept.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 3, "#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		// infraSyntaxM2Concept.addPanelVisibleAttribute("03#"
 		// + SyntaxElement.VAR_USERIDENTIFIER);
@@ -129,7 +129,7 @@ public class InfraSyntaxSyntaxMMM {
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
 						0, -1, "", "", 1, "<<MetaConcept>>\n{OperType:\"#"
-								+ "OperationsMMType" + "#\"}\n", ""));
+								+ "OperationsMMType" + "#all#\"}\n", ""));
 
 		infraSyntaxM2Concept
 				.addPropVisibleAttribute("00#" + "OperationsMMType");
@@ -516,7 +516,7 @@ public class InfraSyntaxSyntaxMMM {
 				new ElemAttribute("PaletteNames", "String",
 						AttributeType.SYNTAX, false, "Palette Name", "", "", 0,
 						-1, "", "", 5, "{Palettes:#" + "PaletteNames"
-								+ "#}\n\n", "PaletteNames" + "#!=#" + ""));
+								+ "#all#}\n\n", "PaletteNames" + "#!=#" + ""));
 
 		infraSyntaxM2View.addPropEditableAttribute("03#" + "PaletteNames");
 		infraSyntaxM2View.addPropVisibleAttribute("03#" + "PaletteNames");
@@ -552,7 +552,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2View.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		// infraSyntaxM2View.addPanelVisibleAttribute("04#"
 		// + SyntaxElement.VAR_USERIDENTIFIER);
@@ -657,7 +657,7 @@ public class InfraSyntaxSyntaxMMM {
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "O", null, "",
 						0, -1, "", "", 1, "<<MetaOverTwoAsso>>\n{OperType:\"#"
-								+ "OperationsMMType" + "#\"}\n", ""));
+								+ "OperationsMMType" + "#all#\"}\n", ""));
 
 		// infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "MetaType");
 		infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "OperationsMMType");
@@ -711,7 +711,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2ExtendsRelation.addModelingAttribute("Name",
 				new ElemAttribute("Name", "String", AttributeType.SYNTAX,
 						false, "Concept Name", "", "", 0, -1, "", "", 1,
-						"<<MetaExtendsAsso>>\n#Name#\n\n", ""));
+						"<<MetaExtendsAsso>>\n#Name#all#\n\n", ""));
 		infraSyntaxM2ExtendsRelation.addModelingAttribute("value",
 				new ElemAttribute("value", "Set", AttributeType.SYNTAX, false,
 						"values", "", "", 0, -1, "", "", -1, "", ""));
@@ -792,7 +792,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("dummy",
 				new ElemAttribute("dummy", "String", AttributeType.SYNTAX,
 						false, "dummy", "", "", 0, -1, "", "", 1,
-						"<<MetaViewConceptAsso>>#dummy#\n", ""));
+						"<<MetaViewConceptAsso>>#dummy#all#\n", ""));
 
 		infraSyntaxM2ViewConceptAsso
 				.addPropVisibleAttribute("00#" + "MetaType");
@@ -813,8 +813,8 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("Palette",
 				new ElemAttribute("Palette", "String", AttributeType.SYNTAX,
 						false, "Palette Name", "", "", 0, -1, "", "", 2,
-						"{Palette:#" + "Palette" + "#}\n", "Palette" + "#!=#"
-								+ ""));
+						"{Palette:#" + "Palette" + "#all#}\n", "Palette"
+								+ "#!=#" + ""));
 
 		infraSyntaxM2ViewConceptAsso
 				.addPropEditableAttribute("02#" + "Palette");
@@ -888,7 +888,7 @@ public class InfraSyntaxSyntaxMMM {
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "P", null, "",
 						0, -1, "", "", 1, "<<MetaPairwiseAsso>>\n{OperType:\"#"
-								+ "OperationsMMType" + "#\",\n", ""));
+								+ "OperationsMMType" + "#all#\",\n", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("Identifier",
 				new ElemAttribute("Identifier", "String", AttributeType.SYNTAX,
 						false, "Association Identifier", "", "", 0, -1, "", "",
@@ -968,7 +968,7 @@ public class InfraSyntaxSyntaxMMM {
 				new ElemAttribute("SourceCardinality", "String",
 						AttributeType.SYNTAX, false, "Source Cardinality", "",
 						"String", "[]", "", 0, -1, "", "", 4, "{SourCard:#"
-								+ "SourceCardinality" + "#,", ""));
+								+ "SourceCardinality" + "#all#,", ""));
 
 		infraSyntaxM2PWRel
 				.addPropEditableAttribute("04#" + "SourceCardinality");
@@ -983,7 +983,7 @@ public class InfraSyntaxSyntaxMMM {
 				new ElemAttribute("TargetCardinality", "String",
 						AttributeType.SYNTAX, false, "Target Cardinality", "",
 						"String", "[]", "", 0, 5, "", "", 5,
-						"TargCard:#TargetCardinality#}\n", ""));
+						"TargCard:#TargetCardinality#all#}\n", ""));
 
 		infraSyntaxM2PWRel
 				.addPropEditableAttribute("05#" + "TargetCardinality");

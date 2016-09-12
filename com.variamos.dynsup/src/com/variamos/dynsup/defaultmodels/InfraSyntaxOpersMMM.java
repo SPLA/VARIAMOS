@@ -80,7 +80,8 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2Concept.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMConcept>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
+				"");
 
 		InstConcept instInfraSyntaxOpersM2Concept = new InstConcept(
 				"OMConcept", basicOpersSyntaxM3Concept,
@@ -116,7 +117,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMnmRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n"
 						+ "<<non-modifiable>>" + "\n\n", "");
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
@@ -168,7 +169,8 @@ public class InfraSyntaxOpersMMM {
 		metaMetaPairwiseRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMPWRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
+				"");
 
 		InstConcept instPairWiseRelation = new InstConcept("OMPWRel",
 				basicOpersSyntaxM3Concept, metaMetaPairwiseRel);
@@ -234,7 +236,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMnmOTRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n"
 						+ "<<non-modifiable>>" + "\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2InfraOTRel = new InstConcept(
@@ -268,7 +270,8 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMOTRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
+				"");
 
 		InstConcept instInfraSyntaxOpersM2OTRel = new InstConcept("OMOTRel",
 				basicOpersSyntaxM3Concept, infraSyntaxOpersM2OTRel);
@@ -296,7 +299,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2AsoRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		constraintInstEdges.put("OMAsoEdge", new InstPairwiseRel(
 				infraSyntaxOpersM2AsoRel));
@@ -315,7 +318,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2ExtRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		InstPairwiseRel rel = new InstPairwiseRel(basicOpersM2ExtRel);
 		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
@@ -442,11 +445,11 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#" + "Index");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#" + "Index");
 
-		infraSyntaxOpersM2OperGroup
-				.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-						"String", false, "User Identifier", "", "", 0, 4, "",
-						"", 4, "<<OMOperGroup>>\n#"
-								+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
+		infraSyntaxOpersM2OperGroup.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4,
+				"<<OMOperGroup>>\n#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n", "");
 
 		InstConcept instInfraSyntaxOpersM2OperGroup = new InstConcept(
 				"OMOperGroup", basicOpersSyntaxM3Concept,
@@ -469,7 +472,8 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperGroup.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMModel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
+				"");
 
 		InstConcept instInfraSyntaxOpersM2MetaModel = new InstConcept(
 				"OMModel", basicOpersSyntaxM3Concept,
@@ -530,11 +534,11 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("10#"
 				+ "prevSpacer");
 
-		infraSyntaxOpersM2OperAction
-				.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-						"String", false, "User Identifier", "", "", 0, 4, "",
-						"", 4, "<<OMOperation>>\n#"
-								+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
+		infraSyntaxOpersM2OperAction.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4,
+				"<<OMOperation>>\n#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n", "");
 
 		InstConcept instInfraSyntaxOpersM2OperAction = new InstConcept(
 				"OMOperation", basicOpersSyntaxM3Concept,
@@ -593,7 +597,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMSubOper>>\n#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
 
 		InstConcept instInfraSyntaxOpersM2OperSubAction = new InstConcept(
 				"OMSubOper", basicOpersSyntaxM3Concept,
@@ -648,7 +652,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMLabeling>>\n#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n", "");
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
 
 		InstConcept instInfraSyntaxOpersM2OperLabeling = new InstConcept(
 				"OMLabeling", basicOpersSyntaxM3Concept,
