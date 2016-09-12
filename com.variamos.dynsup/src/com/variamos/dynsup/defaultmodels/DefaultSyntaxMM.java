@@ -219,7 +219,7 @@ public class DefaultSyntaxMM {
 
 		syntaxVertexLF.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
 				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n", "");
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		InstConcept instVertexLF = new InstConcept("LeafFeature",
 				supportMetaElementConcept, syntaxVertexLF);
@@ -441,8 +441,8 @@ public class DefaultSyntaxMM {
 				.getVertex("altFeatPW");
 
 		SyntaxElement metaFeatVertPairwiseRel = new SyntaxElement('P',
-				"Feature Child Relation", true, true, "Feature Child Relation",
-				"", "Direct relation between two"
+				"Structural", true, true, "Feature Child Relation", "",
+				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
 						+ " relations", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
@@ -455,7 +455,7 @@ public class DefaultSyntaxMM {
 		// instFeatVertPairWiseRel);
 
 		SyntaxElement metaFeatSidePairwiseRel = new SyntaxElement('P',
-				"DirSideRelation", true, true, "Feature Side Relation", "",
+				"TraversalF", true, true, "Traversal", "",
 				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
 						+ " relations", 70, 50,
@@ -468,15 +468,14 @@ public class DefaultSyntaxMM {
 		// refas.getVariabilityVertex().put("Feature Side Relation",
 		// instFeatSidePairWiseRel);
 
-		InstConcept instDirSideRelation = new InstConcept("DirSideRelation",
+		InstConcept instDirSideRelation = new InstConcept("TraversalF",
 				supportMetaElementPairwise, metaFeatSidePairwiseRel);
-		instDirSideRelation.setInstAttribute("Type", "DirSideRelation");
+		instDirSideRelation.setInstAttribute("Type", "TraversalF");
 		instDirSideRelation.getInstAttribute("SourceCardinality").setValue(
 				"[0..1]");
 		instDirSideRelation.getInstAttribute("TargetCardinality").setValue(
 				"[0..1]");
-		refas.getVariabilityVertex()
-				.put("DirSideRelation", instDirSideRelation);
+		refas.getVariabilityVertex().put("TraversalF", instDirSideRelation);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("variab-fPRst-pwrf", instEdge);
@@ -492,15 +491,14 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instVertexF, true);
 		instEdge.setSourceRelation(instDirSideRelation, true);
 
-		InstConcept instDirStructureRFRelation = new InstConcept(
-				"DirStructureRFRelation", supportMetaElementPairwise,
-				metaFeatVertPairwiseRel);
+		InstConcept instDirStructureRFRelation = new InstConcept("Structural",
+				supportMetaElementPairwise, metaFeatVertPairwiseRel);
 		instDirStructureRFRelation.setInstAttribute("Type", "Structure");
 		instDirStructureRFRelation.getInstAttribute("SourceCardinality")
 				.setValue("[0..1]");
 		instDirStructureRFRelation.getInstAttribute("TargetCardinality")
 				.setValue("[0..1]");
-		refas.getVariabilityVertex().put("DirStructureRFRelation",
+		refas.getVariabilityVertex().put("Structural",
 				instDirStructureRFRelation);
 
 		instEdge = new InstPairwiseRel();
@@ -985,24 +983,23 @@ public class DefaultSyntaxMM {
 				.getOperationalModel().getVertex("meansHardPW");
 
 		SyntaxElement metaGrpStructHardPairwiseRel = new SyntaxElement('P',
-				"MeansEnds", true, true, "Means Ends Relation", "",
+				"MeansEndsG", true, true, "Means Ends Relation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directStructHardHardSemanticEdge);
 
-		InstConcept instGrpMeansEndsRelation = new InstConcept(
-				"GrpMeansEndsRelation", supportMetaElementPairwise,
-				metaGrpStructHardPairwiseRel);
+		InstConcept instGrpMeansEndsRelation = new InstConcept("MeansEndsG",
+				supportMetaElementPairwise, metaGrpStructHardPairwiseRel);
 
 		instGrpMeansEndsRelation.setInstAttribute("Type", "Mandatory");
 		instGrpMeansEndsRelation
 				.setInstAttribute("SourceCardinality", "[1..1]");
 		instGrpMeansEndsRelation
 				.setInstAttribute("TargetCardinality", "[0..1]");
-		refas.getVariabilityVertex().put("GrpMeansEndsRelation",
-				instGrpMeansEndsRelation);
+		refas.getVariabilityVertex()
+				.put("MeansEndsG", instGrpMeansEndsRelation);
 
 		SyntaxElement metaDirStructHardPairwiseRel = new SyntaxElement('P',
 				"MeansEnds", true, true, "Means Ends Relation", "",
@@ -1050,22 +1047,20 @@ public class DefaultSyntaxMM {
 		// + "AggregationHigh" + "#]\n");
 
 		// TODO create another meta element
-		InstConcept instDirMeansEndsRelation = new InstConcept(
-				"DirMeansEndsRelation", supportMetaElementPairwise,
-				metaDirStructHardPairwiseRel);
+		InstConcept instDirMeansEndsRelation = new InstConcept("MeansEnds",
+				supportMetaElementPairwise, metaDirStructHardPairwiseRel);
 		instDirMeansEndsRelation.setInstAttribute("Type", "MeansEnds");
 		instDirMeansEndsRelation.getInstAttribute("SourceCardinality")
 				.setValue("[0..1]");
 		instDirMeansEndsRelation.getInstAttribute("TargetCardinality")
 				.setValue("[0..1]");
-		refas.getVariabilityVertex().put("DirMeansEndsRelation",
-				instDirMeansEndsRelation);
+		refas.getVariabilityVertex().put("MeansEnds", instDirMeansEndsRelation);
 
 		InstElement directSideHardHardSemanticEdge = refas
 				.getOperationalModel().getVertex("travHardPW");
 
 		SyntaxElement metaGrpSideHardPairwiseRel = new SyntaxElement('P',
-				"Traversal", true, true, "Traversal Relation", "",
+				"TraversalHG", true, true, "Traversal Relation", "",
 				"Direct relation between more than two"
 
 				+ " hard concepts. Defines different types of"
@@ -1074,19 +1069,18 @@ public class DefaultSyntaxMM {
 				directSideHardHardSemanticEdge);
 
 		InstConcept instGrpSideHardHardPairWiseRel = new InstConcept(
-				"GrpSideHardRelation", supportMetaElementPairwise,
+				"TraversalHG", supportMetaElementPairwise,
 				metaGrpSideHardPairwiseRel);
-		instGrpSideHardHardPairWiseRel.setInstAttribute("Type",
-				"MeansEndsRelations");
+		instGrpSideHardHardPairWiseRel.setInstAttribute("Type", "TraversalHG");
 		instGrpSideHardHardPairWiseRel.setInstAttribute("SourceCardinality",
 				"[0..*]");
 		instGrpSideHardHardPairWiseRel.setInstAttribute("TargetCardinality",
 				"[0..*]");
-		refas.getVariabilityVertex().put("GrpSideHardRelation",
+		refas.getVariabilityVertex().put("TraversalHG",
 				instGrpSideHardHardPairWiseRel);
 
 		SyntaxElement metaDirSideHardPairwiseRel = new SyntaxElement('P',
-				"Traversal", true, true, "TraversalRelation", "",
+				"TraversalH", true, true, "TraversalRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
@@ -1121,15 +1115,14 @@ public class DefaultSyntaxMM {
 
 		// TODO create another
 		InstConcept instDirSideHardHardPairWiseRel = new InstConcept(
-				"DirSideHardRelation", supportMetaElementPairwise,
+				"TraversalH", supportMetaElementPairwise,
 				metaDirSideHardPairwiseRel);
-		instDirSideHardHardPairWiseRel
-				.setInstAttribute("Type", "SideRelations");
+		instDirSideHardHardPairWiseRel.setInstAttribute("Type", "TraversalH");
 		instDirSideHardHardPairWiseRel.setInstAttribute("SourceCardinality",
 				"[0..*]");
 		instDirSideHardHardPairWiseRel.setInstAttribute("TargetCardinality",
 				"[0..*]");
-		refas.getVariabilityVertex().put("DirSideHardRelation",
+		refas.getVariabilityVertex().put("TraversalH",
 				instDirSideHardHardPairWiseRel);
 
 		instEdge = new InstPairwiseRel();
