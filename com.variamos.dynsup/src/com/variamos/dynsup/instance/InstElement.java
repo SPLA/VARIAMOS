@@ -423,6 +423,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
+						&& !attributeName.equals("userId")
 						&& !attributeName.equals("Description")) {
 					ElemAttribute i = getEdSyntaxEle().getModelingAttribute(
 							attributeName, syntaxParents);
@@ -445,6 +446,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
+						&& !attributeName.equals("userId")
 						&& !attributeName.equals("Description"))
 					out2 += attributeName + "\n";
 			}
@@ -751,7 +753,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 			int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
 			int valueEnd = visibleAttribute.indexOf("#", condEnd + 1);
 			if (valueEnd == -1)
-				valueEnd = visibleAttribute.length() - 1;
+				valueEnd = visibleAttribute.length();
 			String variable = null;
 			String condition = null;
 			String value = null;

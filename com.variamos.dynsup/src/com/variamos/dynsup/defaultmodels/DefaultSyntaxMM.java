@@ -985,7 +985,7 @@ public class DefaultSyntaxMM {
 				.getOperationalModel().getVertex("meansHardPW");
 
 		SyntaxElement metaGrpStructHardPairwiseRel = new SyntaxElement('P',
-				"HardRelation", true, true, "HardRelation", "",
+				"MeansEnds", true, true, "Means Ends Relation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
@@ -996,7 +996,7 @@ public class DefaultSyntaxMM {
 				"GrpMeansEndsRelation", supportMetaElementPairwise,
 				metaGrpStructHardPairwiseRel);
 
-		instGrpMeansEndsRelation.setInstAttribute("Type", "MeansEnds");
+		instGrpMeansEndsRelation.setInstAttribute("Type", "Mandatory");
 		instGrpMeansEndsRelation
 				.setInstAttribute("SourceCardinality", "[1..1]");
 		instGrpMeansEndsRelation
@@ -1005,7 +1005,7 @@ public class DefaultSyntaxMM {
 				instGrpMeansEndsRelation);
 
 		SyntaxElement metaDirStructHardPairwiseRel = new SyntaxElement('P',
-				"HardRelation", true, true, "HardRelation", "",
+				"MeansEnds", true, true, "Means Ends Relation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
@@ -1065,7 +1065,7 @@ public class DefaultSyntaxMM {
 				.getOperationalModel().getVertex("travHardPW");
 
 		SyntaxElement metaGrpSideHardPairwiseRel = new SyntaxElement('P',
-				"SideRelation", true, true, "SideRelation", "",
+				"Traversal", true, true, "Traversal Relation", "",
 				"Direct relation between more than two"
 
 				+ " hard concepts. Defines different types of"
@@ -1076,8 +1076,8 @@ public class DefaultSyntaxMM {
 		InstConcept instGrpSideHardHardPairWiseRel = new InstConcept(
 				"GrpSideHardRelation", supportMetaElementPairwise,
 				metaGrpSideHardPairwiseRel);
-		instGrpSideHardHardPairWiseRel
-				.setInstAttribute("Type", "SideRelations");
+		instGrpSideHardHardPairWiseRel.setInstAttribute("Type",
+				"MeansEndsRelations");
 		instGrpSideHardHardPairWiseRel.setInstAttribute("SourceCardinality",
 				"[0..*]");
 		instGrpSideHardHardPairWiseRel.setInstAttribute("TargetCardinality",
@@ -1086,7 +1086,7 @@ public class DefaultSyntaxMM {
 				instGrpSideHardHardPairWiseRel);
 
 		SyntaxElement metaDirSideHardPairwiseRel = new SyntaxElement('P',
-				"SideHardRelation", true, true, "SideHardRelation", "",
+				"Traversal", true, true, "TraversalRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
@@ -2242,13 +2242,11 @@ public class DefaultSyntaxMM {
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
 				"", 0, 3, "", "", -1, "", "");
 
-		syntaxClaim.addModelingAttribute("conditionalExpression",
-				new ElemAttribute("conditionalExpression", "String",
-						AttributeType.SYNTAX, false, "Cond. Expression Text",
-						"", "", 0, 10, "", "", 10,
-						"#conditionalExpression#all#", ""));
+		syntaxClaim.addModelingAttribute("condExpText", new ElemAttribute(
+				"condExpText", "String", AttributeType.SYNTAX, false,
+				"Cond. Expression Text", "", "", 0, 4, "", "", 10,
+				"#condExpText#all#", ""));
 
-		// syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
 		// syntaxClaim.addPanelVisibleAttribute("03#" + "name");
@@ -2260,11 +2258,11 @@ public class DefaultSyntaxMM {
 		// syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
 		// syntaxClaim.addPanelVisibleAttribute("10#" +
-		// "conditionalExpression");
+		// "condExpText");
 
-		syntaxClaim.addPropEditableAttribute("10#" + "conditionalExpression");
+		syntaxClaim.addPropEditableAttribute("10#" + "condExpText");
 
-		syntaxClaim.addPropVisibleAttribute("10#" + "conditionalExpression");
+		syntaxClaim.addPropVisibleAttribute("10#" + "condExpText");
 
 		InstConcept instVertexCL = new InstConcept("CL",
 				supportMetaElementOverTwo, syntaxClaim);
@@ -2319,11 +2317,10 @@ public class DefaultSyntaxMM {
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
 				"Name", "", "", 0, 3, "", "", -1, "", "");
 
-		// syntaxSoftDependency
-		// .addModelingAttribute("conditionalExpression",
-		// new SemanticAttribute("conditionalExpression",
-		// "String", false, "Cond. Expression Text", "",
-		// 0, -1, "", "", -1, "", ""));
+		syntaxSoftDependency.addModelingAttribute("condExpText",
+				new ElemAttribute("condExpText", "String",
+						AttributeType.SYNTAX, false, "Cond. Expression Text",
+						"", "", 0, 4, "", "", 10, "#condExpText#", ""));
 
 		// syntaxSoftDependency.addModelingAttribute("concern", "ConcernLevel",
 		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -2337,13 +2334,13 @@ public class DefaultSyntaxMM {
 		// syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
 		// syntaxSoftDependency.addPanelVisibleAttribute("10#"
-		// + "conditionalExpression");
+		// + "condExpText");
 
 		// syntaxSoftDependency.addPropEditableAttribute("10#"
-		// + "conditionalExpression");
+		// + "condExpText");
 
 		// syntaxSoftDependency.addPropVisibleAttribute("10#"
-		// + "conditionalExpression");
+		// + "condExpText");
 
 		InstConcept instVertexSD = new InstConcept("SoftDependency",
 				supportMetaElementConcept, syntaxSoftDependency);

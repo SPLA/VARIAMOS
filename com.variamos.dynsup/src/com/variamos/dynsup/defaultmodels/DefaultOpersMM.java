@@ -2094,7 +2094,7 @@ public class DefaultOpersMM {
 				"relationType", "Class", AttributeType.OPERATION, true,
 				"Relation Type", "Type of over two relation",
 				InstAttribute.class.getCanonicalName(), null, null, 0, 6, "",
-				"", 6, "#relationType#", ""));
+				"", 6, "#relationType#all#", ""));
 		semInfraOTRel.addPropEditableAttribute("06#" + "relationType");
 		semInfraOTRel.addPropVisibleAttribute("06#" + "relationType");
 		// semInfraOTRel.addPanelVisibleAttribute("06#" + "relationType");
@@ -2104,7 +2104,7 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, "Low Range",
 				"Low value for range relation type", 1, false, new RangeDomain(
 						0, 50, 0), 0, 8, "", "relationType" + "#==#" + "range"
-						+ "#" + "1", 8, " [#" + "LowRange" + "#",
+						+ "#" + "1", 8, " [#" + "LowRange" + "#all#",
 				"relationType" + "#==#" + "range");
 
 		semInfraOTRel.putSemanticAttribute("LowRange", attribute);
@@ -2130,8 +2130,9 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, "High Range",
 				"High value for range relation type", 1, false,
 				new RangeDomain(0, 50, 0), 0, 9, "", "relationType" + "#==#"
-						+ "range" + "#" + "1", 9, "-#" + "HighRange" + "#]",
-				"relationType" + "#==#" + "range");
+						+ "range" + "#" + "1", 9,
+				"-#" + "HighRange" + "#all#]", "relationType" + "#==#"
+						+ "range");
 
 		semInfraOTRel.putSemanticAttribute("HighRange", attribute);
 		semInfraOTRel.addPropEditableAttribute("09#" + "HighRange");
@@ -2168,7 +2169,7 @@ public class DefaultOpersMM {
 				"relationType", "Class", AttributeType.OPERATION, true,
 				"Relation Type", "Type of pairwise relation",
 				InstAttribute.class.getCanonicalName(), null, "", 0, 6, "", "",
-				6, "#" + "relationType" + "#\n", ""));
+				6, "#" + "relationType" + "#all#\n", ""));
 		semGeneralPair.addPropEditableAttribute("06#" + "relationType");
 		semGeneralPair.addPropVisibleAttribute("06#" + "relationType");
 		// semGeneralPair.addPanelVisibleAttribute("06#" + "relationType");
@@ -3147,8 +3148,8 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("satType", "Enumeration",
 					AttributeType.OPERATION, false, "satType", "",
 					"com.variamos.dynsup.statictypes.SatisfactionType",
-					"achieve", "", 0, 1, "", "", 1, "<#" + "satType" + "#>\n",
-					"");
+					"achieve", "", 0, 1, "", "", 1, "<#" + "satType"
+							+ "#all#>\n", "");
 			semGoal.putSemanticAttribute("satType", attribute);
 			// semGoal.addPanelVisibleAttribute("01#" + "satType");
 			// semGoal.addPanelSpacersAttribute("<#" + "satType" + "#>\n");
@@ -3767,19 +3768,16 @@ public class DefaultOpersMM {
 			 * semClaim.putSemanticAttribute("ClaimSelected", attribute); //
 			 * simulationExecOperUniqueLabeling.addAttribute(attribute);
 			 */
-			attribute = new ElemAttribute(
-					"ClaimExpression",
-					"String",
-					AttributeType.OPERATION,
-					false,
-					"Claim Expression Text",
-					"Textual representation of the conditional expression (only to display)",
-					"", 0, 4, "", "", 10, "#ClaimExpression#", "");
-			semClaim.putSemanticAttribute("ClaimExpression", attribute);
-
-			semClaim.addPropEditableAttribute("04#" + "ClaimExpression");
-			semClaim.addPropVisibleAttribute("04#" + "ClaimExpression");
-
+			/*
+			 * attribute = new ElemAttribute( "ClaimExpression", "String",
+			 * AttributeType.OPERATION, false, "Claim Expression Text",
+			 * "Textual representation of the conditional expression (only to display)"
+			 * , "", 0, 4, "", "", 10, "#ClaimExpression#", "");
+			 * semClaim.putSemanticAttribute("ClaimExpression", attribute);
+			 * 
+			 * semClaim.addPropEditableAttribute("04#" + "ClaimExpression");
+			 * semClaim.addPropVisibleAttribute("04#" + "ClaimExpression");
+			 */
 			// semClaim.addPanelVisibleAttribute("10#" + "ClaimExpression");
 
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -3853,17 +3851,16 @@ public class DefaultOpersMM {
 			// semSoftDependency.addPanelVisibleAttribute("03#"
 			// + "ConditionalExpression");
 
-			attribute = new ElemAttribute(
-					"SDExpression",
-					"String",
-					AttributeType.OPERATION,
-					false,
-					"SD Expression Text",
-					"Textual representation of the conditional expression (only to display)",
-					"", 2, 4, "", "", 10, "#SDExpression#all#", "");
-			semSoftDependency.putSemanticAttribute("SDExpression", attribute);
-			semSoftDependency.addPropEditableAttribute("04#" + "SDExpression");
-			semSoftDependency.addPropVisibleAttribute("04#" + "SDExpression");
+			/*
+			 * attribute = new ElemAttribute( "SDExpression", "String",
+			 * AttributeType.OPERATION, false, "SD Expression Text",
+			 * "Textual representation of the conditional expression (only to display)"
+			 * , "", 2, 4, "", "", 10, "#SDExpression#all#", "");
+			 * semSoftDependency.putSemanticAttribute("SDExpression",
+			 * attribute); semSoftDependency.addPropEditableAttribute("04#" +
+			 * "SDExpression"); semSoftDependency.addPropVisibleAttribute("04#"
+			 * + "SDExpression");
+			 */
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// semSoftDependency.addPanelVisibleAttribute("10#" +
 			// "SDExpression");
@@ -4171,7 +4168,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 3, "", "", 3, "[#" + "AggregationLow" + "#..",
+					0, 3, "", "", 3, "[#" + "AggregationLow" + "#all#..",
 					"AggregationHigh" + "#!=#" + "0");
 			directHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
 					attribute);
@@ -4415,15 +4412,15 @@ public class DefaultOpersMM {
 			ia = instDirStructHardHardSemanticEdge
 					.getInstAttribute("relTypesAttr");
 			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("means_ends", new ElemAttribute(
-					"means_ends", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "means_ends", "", "", 1, -1, "", "", -1, "", ""),
-					"means_ends#means-ends#true#true#true#1#-1#1#1"));
+			ias.add(new InstAttribute("mandatory", new ElemAttribute(
+					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
+					"mandatory#mandatory#true#true#true#1#-1#1#1"));
 
-			ias.add(new InstAttribute("implication", new ElemAttribute(
-					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
-					"implication#implication#false#true#true#1#-1#1#1"));
+			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"optional", "", "", 1, -1, "", "", -1, "", ""),
+					"optional#optional#false#true#true#1#-1#1#1"));
 
 			ia = instDirStructHardHardSemanticEdge
 					.getInstAttribute("opersExprs");
@@ -4449,9 +4446,9 @@ public class DefaultOpersMM {
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-			ias.add(new InstAttribute("means_ends", new ElemAttribute(
-					"means_ends", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "means_ends", "", "", 1, -1, "", "", -1, "", ""),
+			ias.add(new InstAttribute("mandatory", new ElemAttribute(
+					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4462,16 +4459,16 @@ public class DefaultOpersMM {
 					true, 1);
 
 			t1 = new OpersExpr("Sel", refas.getSemanticExpressionTypes().get(
-					"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					"LessOrEq"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 					instVertexHC, "Sel", true, t1);
 
 			semanticExpressions.add(t1);
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-			ias.add(new InstAttribute("implication", new ElemAttribute(
-					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
+			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"optional", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			refas.getVariabilityVertex().put("meansHardPW",
@@ -4885,21 +4882,17 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instInfraPair, true);
 			instEdge.setSourceRelation(instSemAssetOperPairwiseRel, true);
 
-			ia = instDirStructHardHardSemanticEdge
-					.getInstAttribute("relTypesAttr");
+			ia = instSemAssetOperPairwiseRel.getInstAttribute("relTypesAttr");
 			ias = (List<InstAttribute>) ia.getValue();
 
-			ias.add(new InstAttribute("implementation", new ElemAttribute(
-					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", "", 1,
-					-1, "", "", -1, "", ""),
-					"implementation#implementation#false#true#true#1#-1#1#1"));
+			ias.add(new InstAttribute("mandatory", new ElemAttribute(
+					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
+					"mandatory#mandatory#false#true#true#1#-1#1#1"));
 
 			ia = instDirStructHardHardSemanticEdge
 					.getInstAttribute("opersExprs");
 			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -4923,10 +4916,10 @@ public class DefaultOpersMM {
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-			ias.add(new InstAttribute("implementation", new ElemAttribute(
-					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", "", 1,
-					-1, "", "", -1, "", ""), semanticExpressions));
+			ias.add(new InstAttribute("mandatory", new ElemAttribute(
+					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
 
 			refas.getVariabilityVertex().put("AssetOperPW",
 					instSemAssetOperPairwiseRel);
@@ -7638,11 +7631,10 @@ public class DefaultOpersMM {
 
 			ia = instAssetOperGRAO.getInstAttribute("relTypesAttr");
 			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("implementation", new ElemAttribute(
-					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", "", 1,
-					-1, "", "", -1, "", ""),
-					"implementation#implementation#true#true#true#1#-1#1#1"));
+			ias.add(new InstAttribute("mandatory", new ElemAttribute(
+					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
+					"mandatory#mandatory#true#true#true#1#-1#1#1"));
 
 			ia = instAssetOperGRAO.getInstAttribute("opersExprs");
 			ias = (List<InstAttribute>) ia.getValue();
@@ -7669,10 +7661,10 @@ public class DefaultOpersMM {
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-			ias.add(new InstAttribute("implementation", new ElemAttribute(
-					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", "", 1,
-					-1, "", "", -1, "", ""), semanticExpressions));
+			ias.add(new InstAttribute("mandatory", new ElemAttribute(
+					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
 
 			refas.getVariabilityVertex().put("AssetOperFromOT",
 					instAssetOperGRAO);
@@ -7706,11 +7698,10 @@ public class DefaultOpersMM {
 
 			ia = instDirAssetOperSemanticEdge.getInstAttribute("relTypesAttr");
 			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("implementation", new ElemAttribute(
-					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", "", 1,
-					-1, "", "", -1, "", ""),
-					"implementation#implementation#true#true#true#1#-1#1#1"));
+			ias.add(new InstAttribute("mandatory", new ElemAttribute(
+					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
+					"mandatory#mandatory#true#true#true#1#-1#1#1"));
 
 			ia = instDirAssetOperSemanticEdge.getInstAttribute("opersExprs");
 			ias = (List<InstAttribute>) ia.getValue();
@@ -7737,10 +7728,10 @@ public class DefaultOpersMM {
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-			ias.add(new InstAttribute("implementation", new ElemAttribute(
-					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", "", 1,
-					-1, "", "", -1, "", ""), semanticExpressions));
+			ias.add(new InstAttribute("mandatory", new ElemAttribute(
+					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
 
 			refas.getVariabilityVertex().put("AssetOperPW",
 					instDirAssetOperSemanticEdge);
