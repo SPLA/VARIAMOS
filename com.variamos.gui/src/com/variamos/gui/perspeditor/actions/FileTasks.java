@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingWorker;
 
@@ -170,6 +171,17 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			// System.out.println(stringBuilder.toString());
 			// endTime = System.currentTimeMillis();
 			// System.out.println("read version " + (endTime - iniTime));
+		} else {
+			JOptionPane
+					.showMessageDialog(
+							variamosEditor,
+							"VariaMos keeped the compatibility of models until Version Beta 18. \n"
+									+ " Nevertheless, models created in version Beta 18 and older are not\n"
+									+ " compatible with this version of VariaMos. The model you are trying \n"
+									+ "to load seems to be from an old version, please check again. \n"
+									+ "The process will continue but the model will be broken.",
+							"Model Incompatibility Message",
+							JOptionPane.INFORMATION_MESSAGE, null);
 		}
 		// Read file version
 		PLGReader.loadPLG(file, graph, variamosEditor);
