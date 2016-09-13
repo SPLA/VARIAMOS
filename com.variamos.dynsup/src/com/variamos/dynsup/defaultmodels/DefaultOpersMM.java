@@ -1787,7 +1787,7 @@ public class DefaultOpersMM {
 				AttributeType.GLOBALCONFIG, true, "Configuration Selected",
 				"Manually/Implication selected for this configuration", false,
 				2, 15, "Active" + "#==#" + "true" + "#" + "false", "Core"
-						+ "#==#" + "false#false" + "#" + "false", -1, "", "");
+						+ "#==#" + "false#false", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("ConfSel", attribute);
 		semInfraMConcept.addPropVisibleAttribute("15#" + "ConfSel" + "#"
 				+ "Active" + "#==#" + "true" + "#" + "false");
@@ -2253,7 +2253,8 @@ public class DefaultOpersMM {
 
 				InstConcept.class.getCanonicalName(), "CG", null, "", 0, 6, "",
 				"Scope" + "#==#" + "false" + "#" + "", 0, "<<#"
-						+ "ConcernLevel" + "#>>\n", "Scope" + "#==#" + "false");
+						+ "ConcernLevel" + "#all#>>\n", "Scope" + "#==#"
+						+ "false");
 
 		semVariable.putSemanticAttribute("ConcernLevel", attribute);
 		semVariable.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
@@ -2279,8 +2280,8 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("variableType", "Enumeration",
 				AttributeType.OPERATION, true, "Variable Type",
 				"Type of variable", VariableType.class.getCanonicalName(),
-				"String", "", 0, 2, "", "", 5, "{#" + "variableType" + "#} ",
-				"variableType" + "#!=#" + "Enumeration");
+				"String", "", 0, 2, "", "", 5, "{#" + "variableType"
+						+ "#all#} ", "variableType" + "#!=#" + "Enumeration");
 		semVariable.putSemanticAttribute("variableType", attribute);
 		semVariable.addPropEditableAttribute("02#" + "variableType");
 		semVariable.addPropVisibleAttribute("02#" + "variableType");
@@ -2293,8 +2294,8 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, false, "Variable Domain",
 				"Defined domain {n..m,o,p..r} (no spaces)", "0,1", 0, 3,
 				"variableType" + "#==#" + "Integer", "variableType" + "#==#"
-						+ "Integer", 7, "{#" + "varDom" + "#} ", "variableType"
-						+ "#==#" + "Integer");
+						+ "Integer", 7, "{#" + "varDom" + "#all#} ",
+				"variableType" + "#==#" + "Integer");
 		semVariable.putSemanticAttribute("varDom", attribute);
 		semVariable.addPropEditableAttribute("03#" + "varDom");
 		semVariable.addPropVisibleAttribute("03#" + "varDom" + "#"
@@ -2308,8 +2309,8 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, false, "Float Domain",
 				"Defined domain {n..m,o,p..r} (no spaces)", "0,1", 0, 3,
 				"variableType" + "#==#" + "Float", "variableType" + "#==#"
-						+ "Float", 7, "{#" + "floatDom" + "#} ", "variableType"
-						+ "#==#" + "Float");
+						+ "Float", 7, "{#" + "floatDom" + "#all#} ",
+				"variableType" + "#==#" + "Float");
 		semVariable.putSemanticAttribute("floatDom", attribute);
 
 		semVariable.addPropEditableAttribute("03#" + "floatDom");
@@ -2324,8 +2325,8 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, false, "Float Precision",
 				"Number of decimal for float precision", 2, 0, 3,
 				"variableType" + "#==#" + "Float", "variableType" + "#==#"
-						+ "Float", 7, "#" + "floatPrec" + "#", "variableType"
-						+ "#==#" + "Float");
+						+ "Float", 7, "#" + "floatPrec" + "#all#",
+				"variableType" + "#==#" + "Float");
 		semVariable.putSemanticAttribute("floatPrec", attribute);
 
 		semVariable.addPropEditableAttribute("03#" + "floatPrec");
@@ -2340,9 +2341,8 @@ public class DefaultOpersMM {
 				"Enumeration type from the context view",
 				InstConcept.class.getCanonicalName(), "ME", "String", "", 0, 4,
 				"variableType" + "#==#" + "Enumeration", "variableType"
-						+ "#==#" + "Enumeration", 6,
-				"#" + "variableType" + "#", "variableType" + "#==#"
-						+ "Enumeration");
+						+ "#==#" + "Enumeration", 6, "#" + "variableType"
+						+ "#all#", "variableType" + "#==#" + "Enumeration");
 		semVariable.putSemanticAttribute("enumType", attribute);
 		semVariable.addPropEditableAttribute("04#" + "enumType");
 		semVariable.addPropVisibleAttribute("04#" + "enumType" + "#"
@@ -2391,8 +2391,8 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("isConfDom", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configure Domain",
 				"Configured value", 0, 0, 1, "", "variableType" + "#==#"
-						+ "Integer" + "||" + "variableType" + "#==#"
-						+ "Enumeration" + "||" + "variableType" + "#==#"
+						+ "Integer" + "$" + "variableType" + "#==#"
+						+ "Enumeration" + "$" + "variableType" + "#==#"
 						+ "Boolean", -1, "", "", "varConfDom", "", null);
 
 		// TODO define multiple conditions
@@ -2418,7 +2418,7 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("varConfValue", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "Configured Value",
-				"Configured value", 0, 0, -1, "", "", -1, "", "", "varConfDom",
+				"Configured value", 0, 0, 8, "", "", -1, "", "", "varConfDom",
 				"", null);
 
 		// semVariable.addPropVisibleAttribute("08#" + "varConfValue");
@@ -2433,8 +2433,8 @@ public class DefaultOpersMM {
 				AttributeType.GLOBALCONFIG, false, "Configured Domain",
 				"Configured domain {n..m,o,p..r} (no spaces)"
 						+ " (not used by dynamic operations)", "", 0, 2, "",
-				"variableType" + "#==#" + "Integer" + "||" + "variableType"
-						+ "#==#" + "Enumeration" + "||" + "variableType"
+				"variableType" + "#==#" + "Integer" + "$" + "variableType"
+						+ "#==#" + "Enumeration" + "$" + "variableType"
 						+ "#==#" + "Boolean", -1, "", "");
 		semVariable.putSemanticAttribute("varConfDom", attribute);
 		semVariable.addPropEditableAttribute("02#" + "varConfDom");
@@ -2834,7 +2834,7 @@ public class DefaultOpersMM {
 
 					InstConcept.class.getCanonicalName(), "CG", null, "", 2, 6,
 					"", "Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
-							+ "#>>\n", "Scope" + "#==#" + "false");
+							+ "#all#>>\n", "Scope" + "#==#" + "false");
 
 			semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
 
@@ -6844,8 +6844,8 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("CLSGLevel", "Integer",
 					AttributeType.OPERATION, "Relation Level",
 					"Required level for the Claim (0..4)", 2, false,
-					new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "#CLSGLevel#",
-					"");
+					new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
+					"#CLSGLevel#all#", "");
 			directClaimSGSemanticEdge.putSemanticAttribute("CLSGLevel",
 					attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(

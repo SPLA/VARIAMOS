@@ -166,7 +166,7 @@ public class ElementDesignPanel extends JPanel {
 							.getTransSupportMetaElement().getDescription();
 			}
 			int count = 0;
-			while (count < 3) {
+			while (count < 4) {
 				designPanelElements = 0;
 
 				// Warning: Fix for Mac, do not delete it

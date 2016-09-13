@@ -1144,8 +1144,8 @@ public class DefaultSyntaxMM {
 		InstConcept semanticHardHardGroupRelation = ((InstConcept) refas
 				.getOperationalModel().getVertex("GoalOT"));
 
-		SyntaxElement hardMetaOverTwoRel = new SyntaxElement('O',
-				"HardOverTwoRel", true, true, "HardOverTwoRel", "plgroup",
+		SyntaxElement hardMetaOverTwoRel = new SyntaxElement('O', "HardOT",
+				true, true, "HardOverTwoRel", "plgroup",
 				"Group relation between"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 20, 20,
@@ -1165,10 +1165,10 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Hard Group Relation",
 				instGroupHardPairWiseRel);
 
-		InstConcept instVertexHOTR = new InstConcept("HardOverTwoRel",
+		InstConcept instVertexHOTR = new InstConcept("HardOT",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexHOTR.getInstAttribute("Type").setValue("Group");
-		refas.getVariabilityVertex().put("HardOverTwoRel", instVertexHOTR);
+		refas.getVariabilityVertex().put("HardOT", instVertexHOTR);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("strvariab-otr-pwrme", instEdge);
@@ -1560,9 +1560,8 @@ public class DefaultSyntaxMM {
 
 		// Group soft relation
 
-		hardMetaOverTwoRel = new SyntaxElement('O', "SoftgoalOTAsso", true,
-				true, "SoftgoalOTAsso", "plgroup",
-				"Direct relation between soft"
+		hardMetaOverTwoRel = new SyntaxElement('O', "SoftgoalOT", true, true,
+				"SoftgoalOTAsso", "plgroup", "Direct relation between soft"
 						+ " concepts. Defines different types of relations"
 						+ " and cardinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
@@ -1594,10 +1593,10 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("GroupSoftToRelation",
 				instGrpSoftToPairWiseRel);
 
-		InstConcept instVertexSGOTR = new InstConcept("SoftgoalOTAsso",
+		InstConcept instVertexSGOTR = new InstConcept("SoftgoalOT",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexSGOTR.getInstAttribute("Type").setValue("Group");
-		refas.getVariabilityVertex().put("SoftgoalOTAsso", instVertexSGOTR);
+		refas.getVariabilityVertex().put("SoftgoalOT", instVertexSGOTR);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sg-sg-pwrg", instEdge);
@@ -2362,7 +2361,7 @@ public class DefaultSyntaxMM {
 
 		hardMetaOverTwoRel = new SyntaxElement(
 				'O',
-				"OperClaimOverTwoRel",
+				"OperClaimOT",
 				true,
 				true,
 				"OperClaimOverTwoRel",
@@ -2476,12 +2475,11 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("DirLFClaimRelation",
 				instDirLFClaimPairWiseRel);
 
-		InstConcept instVertexOCOTR = new InstConcept("OperClaimOverTwoRel",
+		InstConcept instVertexOCOTR = new InstConcept("OperClaimOT",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexOCOTR.getInstAttribute("Type").setValue("Group");
 
-		refas.getVariabilityVertex()
-				.put("OperClaimOverTwoRel", instVertexOCOTR);
+		refas.getVariabilityVertex().put("OperClaimOT", instVertexOCOTR);
 
 		InstConcept instViewOCOTR = new InstConcept("View OC Group Relation",
 				supportMetaViewPairwise, metaViewRel);
@@ -2798,29 +2796,26 @@ public class DefaultSyntaxMM {
 		InstElement directAssetSemanticEdge = refas.getOperationalModel()
 				.getVertex("AssetPW");
 
-		hardMetaOverTwoRel = new SyntaxElement('O', "AssetOperGroupDep", true,
-				true, "AssetOperGroupDep", "plgroup",
+		hardMetaOverTwoRel = new SyntaxElement('O', "AssetOperOT", true, true,
+				"AssetOperGroupDep", "plgroup",
 				"Represents the implementation "
 						+ "of an operationalization by a group of assets", 20,
 				20, "/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, semanticAssetOperGroupRelation, false);
-		InstConcept instVertexAssetOper = new InstConcept("AssetOperGroupDep",
+		InstConcept instVertexAssetOper = new InstConcept("AssetOperOT",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexAssetOper.getInstAttribute("Type").setValue("Group");
-		refas.getVariabilityVertex().put("AssetOperGroupDep",
-				instVertexAssetOper);
+		refas.getVariabilityVertex().put("AssetOperOT", instVertexAssetOper);
 
-		hardMetaOverTwoRel = new SyntaxElement('O', "AssetFeatGroupDep", true,
-				true, "AssetFeatGroupDep", "plgroup",
-				"Represents the implementation "
+		hardMetaOverTwoRel = new SyntaxElement('O', "AssetFeatOT", true, true,
+				"AssetFeatOT", "plgroup", "Represents the implementation "
 						+ "of a feautre by a group of assets", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, semanticAssetOperGroupRelation, false);
-		InstConcept instVertexAssetFeat = new InstConcept("AssetFeatGroupDep",
+		InstConcept instVertexAssetFeat = new InstConcept("AssetFeatOT",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexAssetFeat.getInstAttribute("Type").setValue("Group");
-		refas.getVariabilityVertex().put("AssetFeatGroupDep",
-				instVertexAssetFeat);
+		refas.getVariabilityVertex().put("AssetFeatOT", instVertexAssetFeat);
 
 		hardMetaOverTwoRel = new SyntaxElement('O', "AssetAssetOTAsso", true,
 				true, "AssetAssetOTAsso", "plgroup", "Represents the relation "

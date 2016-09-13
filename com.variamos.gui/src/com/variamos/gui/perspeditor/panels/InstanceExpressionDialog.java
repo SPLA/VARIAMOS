@@ -680,7 +680,7 @@ public class InstanceExpressionDialog extends JDialog {
 			OpersElement semElement2 = ((SyntaxElement) instVertex
 					.getTransSupportMetaElement()).getTransSemanticConcept();
 			if (semElement2 != null
-					&& semElement2.getIdentifier().equals("Variable")) {
+					&& semElement2.getIdentifier().equals("nmVariable")) {
 				String variableType = (String) instVertex.getInstAttribute(
 						"variableType").getValue();
 				switch (variableType) {
@@ -772,7 +772,7 @@ public class InstanceExpressionDialog extends JDialog {
 						.getTransSupportMetaElement())
 						.getTransSemanticConcept();
 				if (semElement2 != null
-						&& semElement2.getIdentifier().equals("Variable")) {
+						&& semElement2.getIdentifier().equals("nmVariable")) {
 					String instVertexId = null;
 					if (displayVariableName)
 						instVertexId = instVertex.getInstAttribute("name")

@@ -167,8 +167,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		final InstAttribute instVariableConfigValue = new InstAttribute(
 				"varConfValue", new ElemAttribute("varConfValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Configured Value", "", 1, 1, -1, "", "", -1, "", ""),
-				1);
+						"Configured Value", "", 0, 1, 8, "", "", -1, "", ""), 1);
 		final InstAttribute instVariableConfigDomain = new InstAttribute(
 				"varConfDom",
 				new ElemAttribute("varConfDom", StringType.IDENTIFIER,

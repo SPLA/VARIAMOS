@@ -551,7 +551,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			Set<Identifier> identifiers = new HashSet<Identifier>();
 
 			for (String freeIndentifier : freeIdentifiers) {
-				if (!freeIndentifier.startsWith("FeatOverTwo"))
+				if (!freeIndentifier.startsWith("FeatOT"))
 					identifiers.add(f.newIdentifier(freeIndentifier));
 			}
 
@@ -599,7 +599,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					// relations
 					{
 						for (String freeIndentifier : freeIdentifiers) {
-							if (!freeIndentifier.startsWith("FeatOverTwo"))
+							if (!freeIndentifier.startsWith("FeatOT"))
 								identDeadElements.add(f
 										.newIdentifier(freeIndentifier));
 						}

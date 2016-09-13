@@ -301,7 +301,8 @@ public class InstOverTwoRel extends InstVertex {
 		;
 	}
 
-	public Set<String> getDisPropVisibleAttributes(
+	@Deprecated
+	private Set<String> getDisPropVisibleAttributes(
 			List<InstElement> syntaxParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
