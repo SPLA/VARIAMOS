@@ -540,12 +540,12 @@ public class PerspEditorGraph extends AbstractGraph {
 				Object value = c.getValue();
 				if (value instanceof InstCell) {
 
-					try {
-						c.setValue(((InstCell) c.getValue()).clone());
-					} catch (CloneNotSupportedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					// try {
+					// c.setValue(((InstCell) c.getValue()).clone());
+					// } catch (CloneNotSupportedException e) {
+					// // TODO Auto-generated catch block
+					// e.printStackTrace();
+					// }
 				}
 			}
 		return out;

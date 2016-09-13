@@ -9,7 +9,6 @@ import java.awt.event.FocusListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -167,7 +166,7 @@ public class ElementDesignPanel extends JPanel {
 							.getTransSupportMetaElement().getDescription();
 			}
 			int count = 0;
-			while (count < 2) {
+			while (count < 4) {
 				designPanelElements = 0;
 
 				// Warning: Fix for Mac, do not delete it
@@ -175,8 +174,7 @@ public class ElementDesignPanel extends JPanel {
 					designPanelElements++;
 
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
-				Collection<InstAttribute> visible = editElm
-						.getVisibleVariables(syntaxParent);
+
 				if (((InstElement) editElm).getEdOperEle() != null
 						&& !((InstElement) editElm)
 								.getTransSupportMetaElement().getName()
@@ -274,6 +272,31 @@ public class ElementDesignPanel extends JPanel {
 					elementDesPropSubPanel.add(new JPanel());
 					designPanelElements++;
 				}
+
+				List<InstAttribute> visible = finalEditElm
+						.getVisibleVariables(syntaxParent);
+
+				for (InstAttribute instAttribute : visible) {
+					Map<String, InstElement> mapElements = null;
+					if (finalEditElm instanceof InstPairwiseRel) {
+						InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
+						mapElements = editor
+								.getEditedModel()
+								.getSyntaxModel()
+								.getValidPairwiseRelations(
+										instPairwise.getSourceRelations()
+												.get(0),
+										instPairwise.getTargetRelations()
+												.get(0));
+						final WidgetR widget = factory
+								.getWidgetFor(instAttribute);
+					}
+					instAttribute.updateValidationList(finalEditElm,
+							mapElements);
+				}
+				visible = editElm.getVisibleAttributes(syntaxParent);
+				List<InstAttribute> editables = editElm
+						.getEditableAttributes(visible);
 				if (visible != null)
 					for (InstAttribute instAttribute : visible) {
 						if (instAttribute != null
@@ -660,8 +683,6 @@ public class ElementDesignPanel extends JPanel {
 									System.out.println("REE "
 											+ instAttribute.getIdentifier());
 								}
-								List<InstAttribute> editables = editElm
-										.getEditableVariables(syntaxParent);
 
 								if (!editables.contains(instAttribute)
 										|| editor.getPerspective() == 4
@@ -813,8 +834,10 @@ public class ElementDesignPanel extends JPanel {
 					attPanel.add(new JScrollPane(attList));
 				} else if (((InstElement) editElm).getSupInstEleId().equals(
 						"OPER")) {
+					// FIXME generalize with the dynamic attribute - Find how to
+					// show more than one.
 					VariableAttributeList attList = new VariableAttributeList(
-							editor, instCell);
+							editor, instCell, "attributeValue");
 					attPanel.add(new JScrollPane(attList));
 				} else {
 					EnumerationTypeAttributeList attList = new EnumerationTypeAttributeList(

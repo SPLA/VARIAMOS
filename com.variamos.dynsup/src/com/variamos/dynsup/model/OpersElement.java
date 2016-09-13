@@ -68,10 +68,12 @@ public class OpersElement implements Serializable {
 		this.propEditableAttributes = disPropEditableAttributes;
 	}
 
+	@Deprecated
 	public void setPanelVisibleAttributes(List<String> disPanelVisibleAttributes) {
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
 	}
 
+	@Deprecated
 	public void setPanelSpacersAttributes(List<String> disPanelSpacersAttributes) {
 		this.panelSpacersAttributes = disPanelSpacersAttributes;
 	}
@@ -145,12 +147,14 @@ public class OpersElement implements Serializable {
 		propEditableAttributes.add(editableAttribute);
 	}
 
+	@Deprecated
 	public List<String> getDeclaredPanelVisibleAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		modelingAttributesNames.addAll(panelVisibleAttributes);
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public List<String> getPanelVisibleAttributes(
 			List<InstElement> opersDirectParents) {
 		List<String> modelingAttributesNames = new ArrayList<String>();
@@ -162,16 +166,19 @@ public class OpersElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public void addPanelVisibleAttribute(String visibleAttribute) {
 		panelVisibleAttributes.add(visibleAttribute);
 	}
 
+	@Deprecated
 	public List<String> getDeclaredPanelSpacersAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		modelingAttributesNames.addAll(panelSpacersAttributes);
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public List<String> getPanelSpacersAttributes(List<InstElement> opersParents) {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		if (opersParents != null)

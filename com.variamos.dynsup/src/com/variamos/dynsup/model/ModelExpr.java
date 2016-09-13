@@ -753,8 +753,9 @@ public class ModelExpr implements Serializable {
 			for (String filter : filters) {
 				if (((InstConcept) instVertex).getInstAttribute(filter)
 						.toString().length() != 0) {
-					values.add(((InstConcept) instVertex).getInstAttribute(
-							filter).getAsInteger());
+					InstAttribute obj = ((InstConcept) instVertex)
+							.getInstAttribute(filter);
+					values.add(obj.getAsInteger());
 				}
 			}
 

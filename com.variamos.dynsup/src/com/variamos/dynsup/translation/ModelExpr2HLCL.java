@@ -304,7 +304,7 @@ public class ModelExpr2HLCL {
 	private void fillHlclProgram(String element, String subOperation,
 			OperationSubActionExecType operExecType, HlclProgram hlclProgram,
 			Map<String, ElementExpressionSet> constraintGroups) {
-		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
+		List<AbstractExpression> staticTransformations = new ArrayList<AbstractExpression>();
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
 
 		// Static call without TranslationExpressionSet
@@ -326,22 +326,22 @@ public class ModelExpr2HLCL {
 				}
 			} else {
 				if (constraintGroup.getVerificationExpressionsList(element) != null)
-					transformations.addAll(constraintGroup
+					staticTransformations.addAll(constraintGroup
 							.getVerificationExpressionsList(element));
 				if (constraintGroup.getRelaxableExpressionList(element) != null)
-					transformations.addAll(constraintGroup
+					staticTransformations.addAll(constraintGroup
 							.getRelaxableExpressionList(element));
 				if (constraintGroup.getCompulsoryExpressionList(element) != null)
-					transformations.addAll(constraintGroup
+					staticTransformations.addAll(constraintGroup
 							.getCompulsoryExpressionList(element));
 				if (element.equals("") || element.equals("Simul"))
-					transformations.addAll(constraintGroup
+					staticTransformations.addAll(constraintGroup
 							.getElementExpressions());
 			}
 		}
 
-		for (BooleanExpression transformation : modelExpressions) {
-			hlclProgram.add(transformation);
+		for (BooleanExpression modelExpression : modelExpressions) {
+			hlclProgram.add(modelExpression);
 		}
 
 		// Dynamic call with TranslationExpressionSet
@@ -355,25 +355,28 @@ public class ModelExpr2HLCL {
 				}
 			}
 		}
-		for (AbstractExpression transformation : transformations) {
+		for (AbstractExpression staticTransformation : staticTransformations) {
 			// System.out.println(transformation.expressionStructure());
-			idMap.putAll(transformation.getIdentifiers(f));
-			if (transformation instanceof AbstractBooleanExpression) {
-				hlclProgram.add(((AbstractBooleanExpression) transformation)
-						.transform(f, idMap));
+			idMap.putAll(staticTransformation.getIdentifiers(f));
+			if (staticTransformation instanceof AbstractBooleanExpression) {
+				hlclProgram
+						.add(((AbstractBooleanExpression) staticTransformation)
+								.transform(f, idMap));
 				// For negation testing
 				// prog.add(((AbstractBooleanTransformation) transformation)
 				// .transformNegation(f, idMap, true, false));
-			} else if (transformation instanceof AbstractComparisonExpression) {
-				hlclProgram.add(((AbstractComparisonExpression) transformation)
-						.transform(f, idMap));
+			} else if (staticTransformation instanceof AbstractComparisonExpression) {
+				hlclProgram
+						.add(((AbstractComparisonExpression) staticTransformation)
+								.transform(f, idMap));
 				// For negation testing
 				// prog.add(((AbstractComparisonTransformation)
 				// transformation)
 				// .transformNegation(f, idMap));
 			} else {
-				hlclProgram.add(((AbstractComparisonExpression) transformation)
-						.transform(f, idMap));
+				hlclProgram
+						.add(((AbstractComparisonExpression) staticTransformation)
+								.transform(f, idMap));
 			}
 
 		}
@@ -1145,15 +1148,15 @@ public class ModelExpr2HLCL {
 			if ((!target.getInstAttribute("Sel").getAsBoolean()
 					&& !target.getInstAttribute("Core").getAsBoolean() && !target
 					.getInstAttribute("Exclu").getAsBoolean())
-					|| target.getIdentifier().startsWith("FeatOverTwo")
-					|| target.getIdentifier().startsWith("HardOverTwo")
-					|| target.getIdentifier().startsWith("SoftgoalOverTwo")
-					|| target.getIdentifier().startsWith("OperClaimOverTwo")
-					|| target.getIdentifier().startsWith("AssetOperGroupDep")
-					|| target.getIdentifier().startsWith("AssetFeatGroupDep")) {
+					|| target.getIdentifier().startsWith("FeatOT")
+					|| target.getIdentifier().startsWith("HardOT")
+					|| target.getIdentifier().startsWith("SoftgoalOT")
+					|| target.getIdentifier().startsWith("OperClaimOT")
+					|| target.getIdentifier().startsWith("AssetOperOT")
+					|| target.getIdentifier().startsWith("AssetFeatOT")) {
 				if (!target.getInstAttribute("Sel").getAsBoolean()
 						&& !target.getInstAttribute("Exclu").getAsBoolean()
-						&& !target.getIdentifier().startsWith("FeatOverTwo"))
+						&& !target.getIdentifier().startsWith("FeatOT"))
 					if (!calc)
 						freeIdentifiers.add(f.newIdentifier(target
 								.getIdentifier() + "_" + "Sel"));

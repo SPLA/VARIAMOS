@@ -47,8 +47,8 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20160903-2120";
-	private String downloadId = "465";
+	private String variamosBuild = "20160913-1500";
+	private String downloadId = "499";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
 
@@ -344,10 +344,10 @@ public class MainFrame extends JFrame {
 			java.util.Scanner s = new java.util.Scanner(input)
 					.useDelimiter(":");
 			String newVersion = s.hasNext() ? s.next() : null;
-			if (newVersion != null
-					&& !variamosVersionNumber.equals(newVersion)
-					&& (!newVersion.equals("1.0.1.18") && !variamosVersionNumber
-							.equalsIgnoreCase("1.0.1.19")))
+			if (newVersion != null && !variamosVersionNumber.equals(newVersion))
+				// && (!newVersion.equals("1.0.1.18"))
+				// && !variamosVersionNumber
+				// .equalsIgnoreCase("1.0.1.19")))
 				JOptionPane.showMessageDialog(this, "Your current version is "
 						+ variamosVersionNumber + ". The latest version is: "
 						+ newVersion + ". Please visit variamos.com.",
@@ -360,17 +360,21 @@ public class MainFrame extends JFrame {
 										+ variamosVersionNumber
 										+ "  is up to date.", "Update Message",
 								JOptionPane.INFORMATION_MESSAGE, null);
-			else if (variamosVersionNumber.equalsIgnoreCase("1.0.1.19"))
-				JOptionPane
-						.showMessageDialog(
-								this,
-								"VariaMos keeped the compatibility of models until Version Beta 18. \n"
-										+ " Nevertheless, models created in version Beta 18 and older are not\n"
-										+ " compatible with this unstable compilation of Beta 19. Also, models created in this\n"
-										+ " compilation may have small compatibility issues in the stable compilation of Beta 19. If you \n"
-										+ " already defined models, we suggest you to continue using version Beta 18.",
-								"Update Message",
-								JOptionPane.INFORMATION_MESSAGE, null);
+			// else if (variamosVersionNumber.equalsIgnoreCase("1.0.1.19"))
+			// JOptionPane
+			// .showMessageDialog(
+			// this,
+			// "VariaMos keeped the compatibility of models until Version Beta 18. \n"
+			// +
+			// " Nevertheless, models created in version Beta 18 and older are not\n"
+			// +
+			// " compatible with this unstable compilation of Beta 19. Also, models created in this\n"
+			// +
+			// " compilation may have small compatibility issues in the stable compilation of Beta 19. If you \n"
+			// +
+			// " already defined models, we suggest you to continue using version Beta 18.",
+			// "Update Message",
+			// JOptionPane.INFORMATION_MESSAGE, null);
 			input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId)
 					.openStream();
 			s.close();

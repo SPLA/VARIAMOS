@@ -322,7 +322,7 @@ public class SyntaxElement implements Serializable {
 	public void createSyntaxAttributes() {
 		this.modelingAttributes.put(VAR_AUTOIDENTIFIER, new ElemAttribute(
 				VAR_AUTOIDENTIFIER, "String", AttributeType.SYNTAX, false,
-				"Auto Identifier", "", null, 0, 1, "", "", -1, "", ""));
+				"Auto Identifier", "", null, 0, 1, "false", "", -1, "", ""));
 		this.modelingAttributes.put(VAR_USERIDENTIFIER, new ElemAttribute(
 				VAR_USERIDENTIFIER, "String", AttributeType.SYNTAX, false,
 				"UserIdentifier", "", null, 0, 1, "", "", -1, "", ""));
@@ -469,10 +469,12 @@ public class SyntaxElement implements Serializable {
 		this.propEditableAttributes = disPropEditableAttributes;
 	}
 
+	@Deprecated
 	public void setPanelVisibleAttributes(List<String> disPanelVisibleAttributes) {
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
 	}
 
+	@Deprecated
 	public void setPanelSpacersAttributes(List<String> disPanelSpacersAttributes) {
 		this.panelSpacersAttributes = disPanelSpacersAttributes;
 	}
@@ -555,6 +557,7 @@ public class SyntaxElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public Set<String> getPanelVisibleAttributesSet(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
@@ -627,30 +630,36 @@ public class SyntaxElement implements Serializable {
 		propEditableAttributes.add(editableAttribute);
 	}
 
+	@Deprecated
 	public List<String> getPanelVisibleAttributes() {
 		return panelVisibleAttributes;
 	}
 
+	@Deprecated
 	protected Set<String> getPanelVisibleAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(panelVisibleAttributes);
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public void addPanelVisibleAttribute(String visibleAttribute) {
 		panelVisibleAttributes.add(visibleAttribute);
 	}
 
+	@Deprecated
 	public List<String> getPanelSpacersAttributes() {
 		return panelSpacersAttributes;
 	}
 
+	@Deprecated
 	protected Set<String> getPanelSpacersAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(panelSpacersAttributes);
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public void addPanelSpacersAttribute(String spacerAttribute) {
 		panelSpacersAttributes.add(spacerAttribute);
 	}

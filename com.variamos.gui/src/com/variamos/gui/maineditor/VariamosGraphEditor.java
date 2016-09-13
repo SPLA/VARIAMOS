@@ -983,13 +983,32 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
 				JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
 
-				List<InstAttribute> editables = finalEditElm
-						.getEditableVariables(refasModel
-								.getParentSMMSyntaxElement((InstElement) finalEditElm));
-
 				List<InstAttribute> visible = finalEditElm
-						.getVisibleVariables(refasModel
+						.getVisibleAttributes(refasModel
 								.getParentSMMSyntaxElement(finalEditElm));
+
+				for (InstAttribute instAttribute : visible) {
+					Map<String, InstElement> mapElements = null;
+					if (finalEditElm instanceof InstPairwiseRel) {
+						InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
+						mapElements = refasModel.getSyntaxModel()
+								.getValidPairwiseRelations(
+										instPairwise.getSourceRelations()
+												.get(0),
+										instPairwise.getTargetRelations()
+												.get(0));
+					}
+					instAttribute.updateValidationList(finalEditElm,
+							mapElements);
+				}
+				visible = finalEditElm.getVisibleAttributes(refasModel
+						.getParentSMMSyntaxElement(finalEditElm));
+
+				List<InstAttribute> editables = finalEditElm
+						.getEditableAttributes(visible);
+				// finalEditElm
+				// .getEditableVariables(refasModel
+				// .getParentSMMSyntaxElement((InstElement) finalEditElm));
 
 				RefasWidgetFactory factory = new RefasWidgetFactory(this);
 
@@ -1288,6 +1307,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				}
 
+				if (simulationPanelElements == ((simulationPanelElements / 2 * 2))) {
+					elementSimPropSubPanel.add(new JPanel());
+					elementSimPropSubPanel.add(new JPanel());
+					elementSimPropSubPanel.add(new JPanel());
+				}
+
 				SpringUtilities.makeCompactGrid(elementSimPropSubPanel,
 						simulationPanelElements / 2, 6, 4, 4, 4, 4);
 				elementConfPropSubPanel.setMinimumSize(new Dimension(350,
@@ -1311,6 +1336,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			((MainFrame) getFrame()).waitingCursor(false);
 
 		} catch (Exception e) {
+
+			ConsoleTextArea.addText(e.getMessage());
 			ConsoleTextArea.addText(e.getStackTrace());
 		} finally {
 			recursiveCall = false;

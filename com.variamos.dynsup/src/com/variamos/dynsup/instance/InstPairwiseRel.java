@@ -3,6 +3,7 @@ package com.variamos.dynsup.instance;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class InstPairwiseRel extends InstElement {
 	 * Name of the MetaPairwiseRelation object for both semantic and instance
 	 * objects
 	 */
-	VAR_METAPAIRWISE_NAME = "Type of Relation",
+	VAR_METAPAIRWISE_NAME = "Meta Relation",
 	/**
 	 * Canonical class name of MetaPairwiseRelation
 	 */
@@ -165,7 +166,7 @@ public class InstPairwiseRel extends InstElement {
 	public ElemAttribute getSemanticAttribute() {
 		return new ElemAttribute(VAR_METAPAIRWISE, "Class",
 				AttributeType.OPERATION, true, VAR_METAPAIRWISE_NAME, "",
-				VAR_METAPAIRWISE_CLASS, new SyntaxElement('P'), 0, -1, "", "",
+				VAR_METAPAIRWISE_CLASS, new SyntaxElement('P'), 0, 2, "", "",
 				-1, "", "");
 	}
 
@@ -174,7 +175,7 @@ public class InstPairwiseRel extends InstElement {
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
 		ElemAttribute semAttribute = getSemanticAttribute();
 		// Add the semanticAttribute
-		dynamicAttributesMap.put(VAR_METAPAIRWISE, semAttribute);
+		// dynamicAttributesMap.put(VAR_METAPAIRWISE, semAttribute);
 		dynamicAttributesMap.put(VAR_METAPAIRWISE_IDEN, "");
 		addInstAttribute(VAR_METAPAIRWISE, semAttribute, "");
 
@@ -393,6 +394,8 @@ public class InstPairwiseRel extends InstElement {
 	}
 
 	public Set<String> getDisPropEditableAttributes(List<InstElement> parents) {
+		if (getMetaPairwiseRelation() == null)
+			return new HashSet<String>();
 		Set<String> editableAttributes = getMetaPairwiseRelation()
 				.getPropEditableAttributesSet(parents);
 
@@ -437,6 +440,37 @@ public class InstPairwiseRel extends InstElement {
 		return editableAttributes;
 	}
 
+	public List<InstAttribute> getVisibleAttributes(
+			List<InstElement> syntaxParents) {
+		SyntaxElement supportElement = getMetaPairwiseRelation();
+		List<InstAttribute> visibleAttributes = new ArrayList<InstAttribute>();
+
+		if (supportElement != null) {
+			Set<String> attributes = supportElement
+					.getAllAttributesNames(syntaxParents);
+			List<String> visibleAttributesNames = new ArrayList<String>();
+
+			for (String attributeName : attributes) {
+				ElemAttribute attribute = supportElement.getAbstractAttribute(
+						attributeName, syntaxParents, null);
+
+				if (attribute.getPropTabPosition() != -1)
+					visibleAttributesNames.add(attribute
+							.getPropTabPositionStr() + attribute.getName());
+			}
+			Collections.sort(visibleAttributesNames);
+			for (String attributeName : visibleAttributesNames) {
+				InstAttribute attribute = getInstAttribute(attributeName
+						.substring(2));
+
+				if (attribute != null)
+					visibleAttributes.add(attribute);
+			}
+		}
+		return visibleAttributes;
+	}
+
+	@Deprecated
 	public Set<String> getDisPanelVisibleAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
 				.getPanelVisibleAttributesSet(parents);
@@ -451,6 +485,7 @@ public class InstPairwiseRel extends InstElement {
 		return editableAttributes;
 	}
 
+	@Deprecated
 	public Set<String> getDisPanelSpacersAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
 				.getPanelSpacersAttributesSet(parents);

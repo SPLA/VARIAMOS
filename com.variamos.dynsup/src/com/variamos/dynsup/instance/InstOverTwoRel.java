@@ -301,7 +301,8 @@ public class InstOverTwoRel extends InstVertex {
 		;
 	}
 
-	public Set<String> getDisPropVisibleAttributes(
+	@Deprecated
+	private Set<String> getDisPropVisibleAttributes(
 			List<InstElement> syntaxParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
@@ -331,6 +332,7 @@ public class InstOverTwoRel extends InstVertex {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public Set<String> getDisPanelVisibleAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
@@ -346,6 +348,7 @@ public class InstOverTwoRel extends InstVertex {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public Set<String> getDisPanelSpacersAttributes(
 			List<InstElement> syntaxParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();

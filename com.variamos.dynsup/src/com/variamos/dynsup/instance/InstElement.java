@@ -423,6 +423,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
+						&& !attributeName.equals("userId")
 						&& !attributeName.equals("Description")) {
 					ElemAttribute i = getEdSyntaxEle().getModelingAttribute(
 							attributeName, syntaxParents);
@@ -445,6 +446,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
+						&& !attributeName.equals("userId")
 						&& !attributeName.equals("Description"))
 					out2 += attributeName + "\n";
 			}
@@ -560,6 +562,175 @@ public abstract class InstElement implements Serializable, Cloneable,
 		}
 	}
 
+	public List<InstAttribute> getEditableAttributes(
+			Collection<InstAttribute> visibleAttributes) {
+		return getFiltEditableAttributes(visibleAttributes);
+	}
+
+	public List<InstAttribute> getFiltEditableAttributes(
+			Collection<InstAttribute> instAttributes) {
+
+		List<InstAttribute> listEditableAttribs = new ArrayList<InstAttribute>();
+		for (InstAttribute instAttribute : instAttributes) {
+			String attri = instAttribute.getAttribute()
+					.getPropTabEditionCondition();
+			if (attri.equals("false"))
+				continue;
+
+			String[] split = attri.split("\\$");
+			for (String attribute : split) {
+				int varEnd = attribute.indexOf("#", 0);
+				int condEnd = attribute.indexOf("#", varEnd + 1);
+				int valueEnd = attribute.indexOf("#", condEnd + 1);
+				if (varEnd != -1) {
+					String name = instAttribute.getName();
+					String type = null;
+					String variable = null;
+					String condition = null;
+					String value = null;
+					String defvalue = null;
+					variable = attribute.substring(0, varEnd);
+					condition = attribute.substring(varEnd + 1, condEnd);
+					if (valueEnd != -1) {
+						value = attribute.substring(condEnd + 1, valueEnd);
+						type = getInstAttributes().get(name).getType();
+						defvalue = attribute.substring(valueEnd + 1);
+					} else
+						value = attribute.substring(condEnd + 1);
+					InstAttribute varValue = getInstAttributes().get(variable);
+					if (varValue == null || varValue.getValue() == null) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
+						continue;
+						// FIXME use transformation of names _ for spaces
+					} else if (varValue.getValue().toString().trim()
+							.equals(value.toString())) {
+						if (condition.equals("!=")) {
+							if (valueEnd != -1)
+								getInstAttributes().get(name).setValue(
+										createValue(type, defvalue));
+							continue;
+						}
+					} else {
+						if (condition.equals("==")) {
+							if (valueEnd != -1)
+								getInstAttributes().get(name).setValue(
+										createValue(type, defvalue));
+							continue;
+						}
+					}
+					listEditableAttribs.add(instAttribute);
+
+				} else
+					listEditableAttribs.add(instAttribute);
+			}
+		}
+		return listEditableAttribs;
+	}
+
+	public List<InstAttribute> getVisibleAttributes(
+			List<InstElement> syntaxParents) {
+
+		createInstAttributes(syntaxParents);
+		SyntaxElement supportElement = getTransSupportMetaElement();
+
+		List<InstAttribute> visibleAttributes = new ArrayList<InstAttribute>();
+
+		if (supportElement != null) {
+			Set<String> attributes = supportElement
+					.getAllAttributesNames(syntaxParents);
+			List<String> visibleAttributesNames = new ArrayList<String>();
+
+			for (String attributeName : attributes) {
+				ElemAttribute attribute = supportElement.getAbstractAttribute(
+						attributeName, syntaxParents, null);
+
+				if (attribute.getPropTabPosition() != -1)
+					visibleAttributesNames.add(attribute
+							.getPropTabPositionStr() + attribute.getName());
+			}
+			Collections.sort(visibleAttributesNames);
+			for (String attributeName : visibleAttributesNames) {
+				InstAttribute attribute = getInstAttribute(attributeName
+						.substring(2));
+
+				if (attribute != null)
+					visibleAttributes.add(attribute);
+			}
+		}
+		return getFiltVisibleAttributes(visibleAttributes);
+	}
+
+	public List<InstAttribute> getVisibleVariables(
+			List<InstElement> syntaxParents) {
+		createInstAttributes(syntaxParents);
+		if (getTransSupportMetaElement() == null)
+			return null;
+		Set<String> attributesNames = getTransSupportMetaElement()
+				.getPropVisibleAttributesSet(syntaxParents);
+		return getFilteredInstAttributes(attributesNames, null);
+	}
+
+	public List<InstAttribute> getFiltVisibleAttributes(
+			List<InstAttribute> instAttributes) {
+
+		List<InstAttribute> listEditableAttribs = new ArrayList<InstAttribute>();
+		for (InstAttribute instAttribute : instAttributes) {
+			String attri = instAttribute.getAttribute()
+					.getPropTabVisualCondition();
+			String[] split = attri.split("\\$");
+			for (String attribute : split) {
+				int varEnd = attribute.indexOf("#", 0);
+				int condEnd = attribute.indexOf("#", varEnd + 1);
+				int valueEnd = attribute.indexOf("#", condEnd + 1);
+				if (varEnd != -1) {
+					String name = instAttribute.getName();
+					String type = null;
+					String variable = null;
+					String condition = null;
+					String value = null;
+					String defvalue = null;
+					variable = attribute.substring(0, varEnd);
+					condition = attribute.substring(varEnd + 1, condEnd);
+					if (valueEnd != -1) {
+						value = attribute.substring(condEnd + 1, valueEnd);
+						type = getInstAttributes().get(name).getType();
+						defvalue = attribute.substring(valueEnd + 1);
+					} else
+						value = attribute.substring(condEnd + 1);
+					InstAttribute varValue = getInstAttributes().get(variable);
+					if (varValue == null || varValue.getValue() == null) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
+						continue;
+						// FIXME use transformation of names _ for spaces
+					} else if (varValue.getValue().toString().trim()
+							.equals(value.toString())) {
+						if (condition.equals("!=")) {
+							if (valueEnd != -1)
+								getInstAttributes().get(name).setValue(
+										createValue(type, defvalue));
+							continue;
+						}
+					} else {
+						if (condition.equals("==")) {
+							if (valueEnd != -1)
+								getInstAttributes().get(name).setValue(
+										createValue(type, defvalue));
+							continue;
+						}
+					}
+					listEditableAttribs.add(instAttribute);
+
+				} else
+					listEditableAttribs.add(instAttribute);
+			}
+		}
+		return listEditableAttribs;
+	}
+
 	protected String panelVisible(List<InstElement> syntaxParents,
 			SyntaxElement supportElement) {
 		String out = "";
@@ -586,6 +757,9 @@ public abstract class InstElement implements Serializable, Cloneable,
 			String visibleAttribute = attribute.getElementDisplayCondition();
 			int varEnd = visibleAttribute.indexOf("#");
 			int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
+			int valueEnd = visibleAttribute.indexOf("#", condEnd + 1);
+			if (valueEnd == -1)
+				valueEnd = visibleAttribute.length();
 			String variable = null;
 			String condition = null;
 			String value = null;
@@ -595,7 +769,10 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 				variable = visibleAttribute.substring(0, varEnd);
 				condition = visibleAttribute.substring(varEnd + 1, condEnd);
-				value = visibleAttribute.substring(condEnd + 1);
+				if (condEnd < valueEnd)
+					value = visibleAttribute.substring(condEnd + 1, valueEnd);
+				else
+					value = "";
 				InstAttribute varValue = getInstAttributes().get(variable);
 				if (varValue == null || varValue.getValue() == null)
 					validCondition = false;
@@ -614,6 +791,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					nvar = true;
 					int sp1 = spacer.indexOf("#");
 					int sp2 = spacer.indexOf("#", sp1 + 1);
+					int sp3 = spacer.indexOf("#", sp2 + 1);
 
 					out += spacer.substring(0, sp1);
 					if (name.equals("name")
@@ -636,9 +814,32 @@ public abstract class InstElement implements Serializable, Cloneable,
 						if (instAttribute != null) {
 							if (instAttribute.getType() != null
 									&& instAttribute.getType().equals("Set")) {
+
+								String attribVal = "all";
+								if (sp3 != -1 && sp3 > sp2)
+									attribVal = spacer.substring(sp2 + 1, sp3);
 								for (InstAttribute e : (Collection<InstAttribute>) instAttribute
 										.getValue())
-									out += e.toString().trim() + "\n";
+									if (attribVal.equals("all"))
+										out += e.toString().trim() + "\n";
+									else {
+										String val = (String) e
+												.getInstAttributeAttribute("Value");
+										int i = 1;
+										int index = val.indexOf("#");
+										int pos = Integer.parseInt(attribVal);
+										String sValue = val.substring(0, index);
+										while (i < pos) {
+											int newIndex = val.indexOf("#",
+													index + 1);
+											if (newIndex != -1)
+												sValue = val.substring(
+														index + 1, newIndex);
+											i++;
+										}
+
+										out += sValue.toString().trim() + "\n";
+									}
 
 								// out = out.substring(0, out.length() - 2);
 							}
@@ -647,15 +848,15 @@ public abstract class InstElement implements Serializable, Cloneable,
 								out += instAttribute.toString().trim();
 						}
 					}
-					while (sp2 != spacer.length()) {
-						int sp3 = spacer.indexOf("#", sp2 + 1);
-						if (sp3 == -1) {
-							out += spacer.substring(sp2 + 1);
+					while (sp3 != spacer.length()) {
+						int sp4 = spacer.indexOf("#", sp3 + 1);
+						if (sp4 == -1) {
+							out += spacer.substring(sp3 + 1);
 							break;
 						}
-						out += spacer.substring(sp2 + 1, sp3);
+						out += spacer.substring(sp3 + 1, sp4);
 
-						sp2 = sp3;
+						sp3 = sp4;
 					}
 				}
 
@@ -976,6 +1177,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return new HashSet<String>();
 	}
 
+	@Deprecated
 	public Collection<String> getPanelSpacersAttributes() {
 		if (getEdOperEle() != null)
 			return getEdOperEle().getPanelSpacersAttributes(
@@ -983,6 +1185,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return new HashSet<String>();
 	}
 
+	@Deprecated
 	public Collection<String> getPanelVisibleAttributes() {
 		if (getEdOperEle() != null)
 			return getEdOperEle().getPanelVisibleAttributes(
@@ -998,19 +1201,6 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return new HashSet<String>();
 	}
 
-	public List<InstAttribute> getVisibleVariables(
-			List<InstElement> syntaxParents) { // TODO
-		// move
-		// to
-		// superclass
-		createInstAttributes(syntaxParents);
-		if (getTransSupportMetaElement() == null)
-			return null;
-		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributesSet(syntaxParents);
-		return getFilteredInstAttributes(attributesNames, null);
-	}
-
 	public List<InstAttribute> getFilteredInstAttributes(
 			Set<String> attributesNames, List<InstAttribute> instAttributes) {
 		List<String> listEditableAttributes = new ArrayList<String>();
@@ -1018,56 +1208,59 @@ public abstract class InstElement implements Serializable, Cloneable,
 		Collections.sort(listEditableAttributes);
 
 		List<String> listEditableAttribNames = new ArrayList<String>();
-		for (String attribute : listEditableAttributes) {
-			int nameEnd = attribute.indexOf("#", 3);
-			int varEnd = attribute.indexOf("#", nameEnd + 1);
-			int condEnd = attribute.indexOf("#", varEnd + 1);
-			int valueEnd = attribute.indexOf("#", condEnd + 1);
+		for (String attri : listEditableAttributes) {
+			int nameEnd = attri.indexOf("#", 3);
+			String name = null;
 			if (nameEnd != -1) {
-				String name = null;
-				String type = null;
-				String variable = null;
-				String condition = null;
-				String value = null;
-				String defvalue = null;
-				name = attribute.substring(3, nameEnd);
-				variable = attribute.substring(nameEnd + 1, varEnd);
-				condition = attribute.substring(varEnd + 1, condEnd);
-				if (valueEnd != -1) {
-					value = attribute.substring(condEnd + 1, valueEnd);
-					type = getInstAttributes().get(name).getType();
-					defvalue = attribute.substring(valueEnd + 1);
-				} else
-					value = attribute.substring(condEnd + 1);
-				InstAttribute varValue = getInstAttributes().get(variable);
-				if (varValue == null || varValue.getValue() == null) {
-					if (valueEnd != -1)
-						getInstAttributes().get(name).setValue(
-								createValue(type, defvalue));
-					continue;
-					// FIXME use transformation of names _ for spaces
-				} else if (varValue.getValue().toString().trim()
-						.equals(value.toString())) {
-					if (condition.equals("!=")) {
+				name = attri.substring(3, nameEnd);
+
+				attri = attri.substring(nameEnd + 1);
+				String[] split = attri.split("\\$");
+				for (String attribute : split) {
+					int varEnd = attribute.indexOf("#");
+					int condEnd = attribute.indexOf("#", varEnd + 1);
+					int valueEnd = attribute.indexOf("#", condEnd + 1);
+					String type = null;
+					String variable = null;
+					String condition = null;
+					String value = null;
+					String defvalue = null;
+					variable = attribute.substring(0, varEnd);
+					condition = attribute.substring(varEnd + 1, condEnd);
+					if (valueEnd != -1) {
+						value = attribute.substring(condEnd + 1, valueEnd);
+						type = getInstAttributes().get(name).getType();
+						defvalue = attribute.substring(valueEnd + 1);
+					} else
+						value = attribute.substring(condEnd + 1);
+					InstAttribute varValue = getInstAttributes().get(variable);
+					if (varValue == null || varValue.getValue() == null) {
 						if (valueEnd != -1)
 							getInstAttributes().get(name).setValue(
 									createValue(type, defvalue));
 						continue;
+						// FIXME use transformation of names _ for spaces
+					} else if (varValue.getValue().toString().trim()
+							.equals(value.toString())) {
+						if (condition.equals("!=")) {
+							if (valueEnd != -1)
+								getInstAttributes().get(name).setValue(
+										createValue(type, defvalue));
+							continue;
+						}
+					} else {
+						if (condition.equals("==")) {
+							if (valueEnd != -1)
+								getInstAttributes().get(name).setValue(
+										createValue(type, defvalue));
+							continue;
+						}
 					}
-				} else {
-					if (condition.equals("==")) {
-						if (valueEnd != -1)
-							getInstAttributes().get(name).setValue(
-									createValue(type, defvalue));
-						continue;
-					}
+					listEditableAttribNames.add(name);
 				}
-				listEditableAttribNames.add(attribute.substring(3, nameEnd));
-
 			} else
-				listEditableAttribNames.add(attribute.substring(3));
+				listEditableAttribNames.add(attri.substring(3));
 		}
-
 		List<InstAttribute> editableInstAttributes = new ArrayList<InstAttribute>();
 		for (String attributeName : listEditableAttribNames) {
 			editableInstAttributes.add(getInstAttribute(attributeName));
