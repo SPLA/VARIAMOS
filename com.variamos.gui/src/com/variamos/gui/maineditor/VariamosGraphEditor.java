@@ -1542,6 +1542,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			// Different from null, to display simulation colors
 			this.refresh();
 		} else if (perspective == 2) {
+			clearElementState(ModelExpr2HLCL.DESIGN_EXEC);
 			mxGraph target = graphComponent.getGraph();
 			SharedActions.afterOpenCloneGraph(target, this);
 		}

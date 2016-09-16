@@ -133,6 +133,28 @@ public abstract class AbstractExpression {
 		}
 	}
 
+	public AbstractExpression(NumericExpression numericExpression1,
+			boolean replaceTarget, NumericExpression numericExpression2) {
+		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
+		expressionConnectors = new ArrayList<String>();
+
+		if (replaceTarget) {
+			this.leftNumericExpression = numericExpression1;
+			this.expressionVertexTypes
+					.add(ExpressionVertexType.LEFTNUMERICVALUE);
+			this.expressionVertexTypes
+					.add(ExpressionVertexType.RIGHTNUMERICVALUE);
+			this.rightNumericExpression = numericExpression2;
+		} else {
+			this.rightNumericExpression = numericExpression1;
+			this.expressionVertexTypes
+					.add(ExpressionVertexType.LEFTNUMERICVALUE);
+			this.expressionVertexTypes
+					.add(ExpressionVertexType.RIGHTNUMERICVALUE);
+			this.leftNumericExpression = numericExpression2;
+		}
+	}
+
 	public AbstractExpression(AbstractExpression leftSubExpression,
 			AbstractExpression rightSubExpression) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();

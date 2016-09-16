@@ -639,12 +639,28 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											getHlclFactory().number(
 													attributeValue)));
 						}
-						/*
-						 * if (instAttribute.getIdentifier().equals("Required"))
-						 * { getElementExpressions().add( new
-						 * EqualsComparisonExpression(instVertex, "Required",
-						 * getHlclFactory() .number(attributeValue))); }
-						 */
+
+						// if (instAttribute.getIdentifier().equals("Core")) {
+						// EqualsComparisonExpression t5 = new
+						// EqualsComparisonExpression(
+						// getHlclFactory().number(1), true,
+						// getHlclFactory().number(attributeValue));
+						// OrBooleanExpression transformation6 = new
+						// OrBooleanExpression(
+						// instVertex, "Required", true, t5);
+						// getElementExpressions().add(
+						// new EqualsComparisonExpression(instVertex,
+						// instAttribute.getIdentifier(),
+						// true, transformation6));
+						// }
+
+						if (instAttribute.getIdentifier().equals("Required")) {
+							getElementExpressions().add(
+									new EqualsComparisonExpression(instVertex,
+											"Required", getHlclFactory()
+													.number(attributeValue)));
+						}
+
 						// identifierId_SimInitialRequiredLevel #=
 						// identifierId_RequiredLevel
 						/*

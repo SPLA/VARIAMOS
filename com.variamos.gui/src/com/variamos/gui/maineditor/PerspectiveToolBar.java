@@ -11,8 +11,8 @@ import javax.swing.border.EmptyBorder;
 import com.mxgraph.util.mxResources;
 
 /**
- * A class to support perspectives buttons on mainframe. Part of PhD work
- * at University of Paris 1
+ * A class to support perspectives buttons on mainframe. Part of PhD work at
+ * University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -61,7 +61,7 @@ public class PerspectiveToolBar extends JToolBar {
 		// buttons[2].setEnabled(false);
 		add(buttons[4]);
 		buttons[4].addActionListener(new PerspectiveAction(this));
-		
+
 		// buttons[0] = new JButton(mxResources.get("plPerspButton"));
 		// add (buttons[0]);
 		// buttons[0].addActionListener(new PerspectiveAction(this,false));
@@ -112,17 +112,17 @@ public class PerspectiveToolBar extends JToolBar {
 		buttons[2].addActionListener(new PerspectiveAction(this));
 
 		buttons[4] = new JButton(mxResources.get("simulationPerspButton"));
+		buttons[4]
+				.setToolTipText("Remember to execute the Core Update after changing the model");
 		buttons[4].setBorder(new EmptyBorder(3, 7, 3, 7));
 		add(buttons[4]);
 		buttons[4].addActionListener(new PerspectiveAction(this));
-
-	
 
 		// buttons[0] = new JButton(mxResources.get("plPerspButton"));
 		// add (buttons[0]);
 		// buttons[0].addActionListener(new PerspectiveAction(this));
 		if (buttons[perspective] != null)
-		buttons[perspective].setSelected(true);
+			buttons[perspective].setSelected(true);
 
 	}
 

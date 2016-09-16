@@ -21,8 +21,7 @@ import com.variamos.hlcl.NumericIdentifier;
  * @version 1.1
  * @since 2014-12-14
  */
-public class EqualsComparisonExpression extends
-		AbstractComparisonExpression {
+public class EqualsComparisonExpression extends AbstractComparisonExpression {
 	public static final String TRANSFORMATION = "#=";
 
 	public EqualsComparisonExpression(InstElement left, InstElement right,
@@ -32,39 +31,42 @@ public class EqualsComparisonExpression extends
 		operation = TRANSFORMATION;
 	}
 
-	public EqualsComparisonExpression(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			AbstractExpression subExpression) {
+	public EqualsComparisonExpression(InstElement vertex, String attributeName,
+			boolean replaceRight, AbstractExpression subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
 	}
 
-	public EqualsComparisonExpression(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			BooleanExpression simpleExpression) {
+	public EqualsComparisonExpression(InstElement vertex, String attributeName,
+			boolean replaceRight, BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
 	}
 
-	public EqualsComparisonExpression(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			NumericIdentifier numericIdentifier) {
+	public EqualsComparisonExpression(InstElement vertex, String attributeName,
+			boolean replaceRight, NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
 	}
 
-	public EqualsComparisonExpression(InstElement left,
-			String attributeName, NumericExpression numericExpression) {
+	public EqualsComparisonExpression(InstElement left, String attributeName,
+			NumericExpression numericExpression) {
 		super(left, attributeName, true, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
 	}
 
-	public EqualsComparisonExpression(
-			AbstractExpression leftSubExpression,
+	public EqualsComparisonExpression(NumericExpression numericExpression1,
+			boolean replaceRight, NumericExpression numericExpression2) {
+		super(numericExpression1, replaceRight, numericExpression2);
+		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
+	}
+
+	public EqualsComparisonExpression(AbstractExpression leftSubExpression,
 			AbstractExpression rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
