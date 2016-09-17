@@ -53,7 +53,8 @@ public class SetWidget extends WidgetR {
 
 	@Override
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
+			ModelInstance semanticModel,
+			boolean showSimulationCustomizationBox, int perspective) {
 	}
 
 	@Override

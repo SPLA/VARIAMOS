@@ -44,7 +44,8 @@ public abstract class WidgetR extends JPanel {
 	}
 
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
+			ModelInstance semanticModel,
+			boolean showSimulationCustomizationBox, int perspective) {
 		affectProperties = v.isAffectProperties();
 		if (showSimulationCustomizationBox)
 			add(group, BorderLayout.EAST);

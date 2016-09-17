@@ -33,6 +33,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
@@ -43,6 +44,7 @@ import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
+import com.variamos.gui.perspeditor.panels.LowExpressionDialog.LowExpressionButtonAction;
 import com.variamos.gui.perspeditor.panels.SemanticExpressionDialog.SemanticExpressionButtonAction;
 import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
@@ -458,6 +460,62 @@ public class ElementDesignPanel extends JPanel {
 										instAttribute.getDisplayName()));
 								elementDesPropSubPanel.add(button);
 								elementDesPropSubPanel.add(new JPanel());
+							} else if (instAttribute.getType().equals(
+									"com.variamos.dynsup.model.LowExpr")) {
+								JButton button = new JButton(
+										instAttribute.getDisplayName()
+												+ " Editor");
+
+								button.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										boolean editable = true;
+										if (editor.getPerspective() == 4)
+											editable = false;
+										List<LowExpr> ie = new ArrayList<LowExpr>();
+										;
+										if ((LowExpr) finalInstAttribute
+												.getValue() != null)
+											ie.add((LowExpr) finalInstAttribute
+													.getValue());
+										else
+											ie.add(new LowExpr());
+										final LowExpressionDialog dialog = new LowExpressionDialog(
+												finalEditor, finalEditElm,
+												false, ie, editable);
+										dialog.center();
+										dialog.setOnAccept(new LowExpressionButtonAction() {
+											@Override
+											public boolean onAction() {
+												finalInstAttribute
+														.setValue(dialog
+																.getExpressions()
+																.get(0));
+
+												// afterAction();
+												return true;
+											}
+										});
+										dialog.setOnCancel(new LowExpressionButtonAction() {
+											@Override
+											public boolean onAction() {
+												return true;
+											}
+										});
+										dialog.setOnDelete(new LowExpressionButtonAction() {
+											@Override
+											public boolean onAction() {
+												finalInstAttribute
+														.setValue(null);
+												return true;
+											}
+										});
+									}
+								});
+								elementDesPropSubPanel.add(new JLabel(
+										instAttribute.getDisplayName()));
+								elementDesPropSubPanel.add(button);
+								elementDesPropSubPanel.add(new JPanel());
+
 							} else {
 								final WidgetR widget = factory
 										.getWidgetFor(instAttribute);

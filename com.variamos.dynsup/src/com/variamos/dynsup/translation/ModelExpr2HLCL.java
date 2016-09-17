@@ -355,6 +355,10 @@ public class ModelExpr2HLCL {
 				}
 			}
 		}
+		// Add Literal Expressions from low level Expressions
+		// hlclProgram.add(new LiteralBooleanExpression(
+		// " Rs #= 10,   Alpha #= 10, Rns is ((1 - Alpha) * Rs)"));
+
 		for (AbstractExpression staticTransformation : staticTransformations) {
 			// System.out.println(transformation.expressionStructure());
 			idMap.putAll(staticTransformation.getIdentifiers(f));

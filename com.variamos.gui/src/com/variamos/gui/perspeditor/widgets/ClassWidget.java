@@ -57,8 +57,10 @@ public class ClassWidget extends WidgetR {
 
 	@Override
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
-		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
+			ModelInstance semanticModel,
+			boolean showSimulationCustomizationBox, int perspective) {
+		super.configure(v, graph, semanticModel,
+				showSimulationCustomizationBox, perspective);
 
 		ClassLoader classLoader = ClassSingleSelectionType.class
 				.getClassLoader();
@@ -226,13 +228,20 @@ public class ClassWidget extends WidgetR {
 							.getVariabilityVertexCollection();
 
 					for (InstElement concept : list) {
-						if (instAttribute
+						if ((instAttribute
 								.getAttribute()
 								.getMetaConceptInstanceType()
 								.equals(""
 										+ ((SyntaxElement) concept
 												.getTransSupportMetaElement())
-												.getType())) {
+												.getType()) && perspective == 3)
+								|| (concept.getEdOperEle() != null
+										&& instAttribute
+												.getAttribute()
+												.getMetaConceptInstanceType()
+												.equals(""
+														+ concept
+																.getSupInstEleId()) && perspective == 2)) {
 							instVertex.put(
 									concept.getInstAttribute("identifier")
 											.toString(), concept);
