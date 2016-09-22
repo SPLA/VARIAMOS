@@ -73,8 +73,8 @@ public abstract class AbstractGraph extends mxGraph {
 
 		addListener(mxEvent.CELL_CONNECTED, new mxIEventListener() {
 			public void invoke(Object sender, mxEventObject evt) {
-				Object edge = ((mxCell) evt.getProperty("terminal"))
-						.getEdgeAt(0);
+				mxCell cellC = (mxCell) evt.getProperty("terminal");
+				Object edge = cellC.getEdgeAt(cellC.getEdgeCount() - 1);
 				mxCell parentCell = (mxCell) evt.getProperty("parent");
 				int indexCell = 0;
 				Object obj = edge;

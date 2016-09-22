@@ -33,12 +33,14 @@ public class RefasWidgetFactory {
 	mxGraph graph;
 	ModelInstance semanticModel;
 	boolean showSimulationCustomizationBox;
+	private int perspective;
 
 	private Map<String, Class<? extends WidgetR>> widgetReg;
 
 	public RefasWidgetFactory(VariamosGraphEditor editor) {
 		// this.register = editor.getDomainRegister();
 		this.graph = editor.getGraphComponent().getGraph();
+		perspective = editor.getPerspective();
 		this.semanticModel = editor.getEditedModel().getOperationalModel();
 		this.showSimulationCustomizationBox = editor
 				.isShowSimulationCustomizationBox();
@@ -82,7 +84,8 @@ public class RefasWidgetFactory {
 		WidgetR w = null;
 		try {
 			w = c.newInstance();
-			w.configure(v, graph, semanticModel, showSimulationCustomizationBox);
+			w.configure(v, graph, semanticModel,
+					showSimulationCustomizationBox, perspective);
 		} catch (InstantiationException e) {
 			ConsoleTextArea.addText(e.getStackTrace());
 		} catch (IllegalAccessException e) {

@@ -8,6 +8,7 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
@@ -2441,16 +2442,27 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("02#" + "varConfDom" + "#"
 				+ "isConfDom" + "#==#" + "true");
 
-		attribute = new ElemAttribute("LowLevelExpression",
-				ModelExpr.class.getCanonicalName(), AttributeType.OPERATION,
-				false, "Low-Level Expression",
+		attribute = new ElemAttribute("LowLevelExpressionText",
+				LowExpr.class.getCanonicalName(), AttributeType.OPERATION,
+				false, "Low-Level Expression Text",
 				"Expression at the solver level (language independent)", null,
-				0, 3, "", "variableType" + "#==#" + "LowLevel_Expression", -1,
+				0, 3, "", "variableType" + "#==#" + "LowLevel expression", -1,
 				"", "");
-		semVariable.putSemanticAttribute("LowLevelExpression", attribute);
-		semVariable.addPropEditableAttribute("03#" + "LowLevelExpression");
-		semVariable.addPropVisibleAttribute("03#" + "LowLevelExpression" + "#"
-				+ "variableType" + "#==#" + "LowLevel expression");
+		semVariable.putSemanticAttribute("LowLevelExpressionText", attribute);
+		semVariable.addPropEditableAttribute("03#" + "LowLevelExpressionText");
+		semVariable.addPropVisibleAttribute("03#" + "LowLevelExpressionText"
+				+ "#" + "variableType" + "#==#" + "LowLevel expression");
+
+		attribute = new ElemAttribute("LowLevelExpressionOper", "Class",
+				AttributeType.OPERATION, false, "SubOper for Low-Level Expr.",
+				"Sub Operation to include this low-level expressions",
+				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				0, 3, "", "variableType" + "#==#" + "LowLevel expression", -1,
+				"", "");
+		semVariable.putSemanticAttribute("LowLevelExpressionOper", attribute);
+		semVariable.addPropEditableAttribute("03#" + "LowLevelExpressionOper");
+		semVariable.addPropVisibleAttribute("03#" + "LowLevelExpressionOper"
+				+ "#" + "variableType" + "#==#" + "LowLevel expression");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(new
@@ -3567,7 +3579,7 @@ public class DefaultOpersMM {
 			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-					"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+					"OperToClaim##true#true#true#1#-1#1#1"));
 
 			ia = instDirOperClaimSemanticEdge.getInstAttribute("opersExprs");
 			ias = (List<InstAttribute>) ia.getValue();

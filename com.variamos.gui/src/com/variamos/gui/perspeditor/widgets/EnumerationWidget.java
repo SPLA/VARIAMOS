@@ -40,8 +40,10 @@ public class EnumerationWidget extends WidgetR {
 
 	@Override
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
-		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
+			ModelInstance semanticModel,
+			boolean showSimulationCustomizationBox, int perspective) {
+		super.configure(v, graph, semanticModel,
+				showSimulationCustomizationBox, perspective);
 		ClassLoader classLoader = EnumerationSingleSelectionType.class
 				.getClassLoader();
 		@SuppressWarnings("rawtypes")

@@ -2,9 +2,6 @@ package com.variamos.dynsup.staticexprsup;
 
 import java.util.Map;
 
-
-
-
 import com.variamos.dynsup.instance.InstElement;
 /**
  * Abstract  Class to group the ComparisonTranformation. Part of PhD
@@ -30,15 +27,13 @@ import com.variamos.hlcl.NumericExpression;
  * @version 1.1
  * @since 2014-12-15
  */
-public abstract class AbstractComparisonExpression extends
-		AbstractExpression {
+public abstract class AbstractComparisonExpression extends AbstractExpression {
 
 	public AbstractComparisonExpression() {
 		super();
 	}
 
-	public AbstractComparisonExpression(
-			AbstractExpression leftSubExpression,
+	public AbstractComparisonExpression(AbstractExpression leftSubExpression,
 			AbstractExpression rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 	}
@@ -64,6 +59,11 @@ public abstract class AbstractComparisonExpression extends
 			String attributeName, boolean replaceTarget,
 			NumericExpression numericExpression) {
 		super(vertex, attributeName, replaceTarget, numericExpression);
+	}
+
+	public AbstractComparisonExpression(NumericExpression numericExpression1,
+			boolean replaceTarget, NumericExpression numericExpression2) {
+		super(numericExpression1, replaceTarget, numericExpression2);
 	}
 
 	public abstract BooleanExpression transform(HlclFactory f,

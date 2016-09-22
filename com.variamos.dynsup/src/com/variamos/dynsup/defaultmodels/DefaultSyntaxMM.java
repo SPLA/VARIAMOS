@@ -2312,7 +2312,7 @@ public class DefaultSyntaxMM {
 		syntaxSoftDependency.addModelingAttribute("condExpText",
 				new ElemAttribute("condExpText", "String",
 						AttributeType.SYNTAX, false, "Cond. Expression Text",
-						"", "", 0, 4, "", "", 10, "#condExpText#", ""));
+						"", "", 0, 4, "", "", 10, "#condExpText#all#", ""));
 
 		// syntaxSoftDependency.addModelingAttribute("concern", "ConcernLevel",
 		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
