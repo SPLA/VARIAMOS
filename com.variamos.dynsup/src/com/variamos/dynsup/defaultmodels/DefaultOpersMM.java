@@ -3579,7 +3579,7 @@ public class DefaultOpersMM {
 			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-					"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+					"OperToClaim##true#true#true#1#-1#1#1"));
 
 			ia = instDirOperClaimSemanticEdge.getInstAttribute("opersExprs");
 			ias = (List<InstAttribute>) ia.getValue();
