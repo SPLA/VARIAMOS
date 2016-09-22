@@ -754,7 +754,17 @@ public class ElementDesignPanel extends JPanel {
 
 								}
 
-								widget.getInstAttribute();
+								IntInstAttribute elementAttribute = widget
+										.getInstAttribute();
+								if (elementAttribute.getType().equals("String")
+										&& !elementAttribute.getIdentifier()
+												.equals("Description")) {
+									elementAttribute
+											.setValue(AbstractElement.multiLine(
+													elementAttribute.toString(),
+													(int) instCell.getWidth() / 8));
+
+								}
 								// GARA
 								// variablesPanel.add(new JLabel(v.getName() +
 								// ":: "));
