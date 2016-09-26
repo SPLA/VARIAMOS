@@ -175,19 +175,17 @@ public class MainFrame extends JFrame {
 		this.add(graphEditors.get(1));
 		this.setJMenuBar(editorsMenu.get(1));
 		this.setVisible(true);
+		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
+			this.checkUpdates(false);
+		}
+		if (args != null
+				&& (args.length > 0 && args[0].equals("debug") || (args.length == 2 && args[1]
+						.equals("debug")))) {
+			ConsoleTextArea.setDebug(true);
+		}
 		try {
 			if (args == null || args.length == 0 || !args[0].equals("nosolver"))
 				verifySolver();
-			if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
-				this.checkUpdates(false);
-			}
-
-			if (args != null
-					&& (args.length > 0 && args[0].equals("debug") || (args.length == 2 && args[1]
-							.equals("debug")))) {
-
-				ConsoleTextArea.setDebug(true);
-			}
 		} catch (UnsatisfiedLinkError e) {
 			ConsoleTextArea.addText(e.getStackTrace());
 			JOptionPane
