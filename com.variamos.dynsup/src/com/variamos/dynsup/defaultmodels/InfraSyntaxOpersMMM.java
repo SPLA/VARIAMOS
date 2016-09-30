@@ -56,7 +56,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2InfraConcept.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4, "<<OMnmConcept>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n"
 						+ "<<non-modifiable>>" + "\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2InfraConcept = new InstConcept(

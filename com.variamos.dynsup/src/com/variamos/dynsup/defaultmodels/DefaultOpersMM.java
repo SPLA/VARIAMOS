@@ -1763,24 +1763,25 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("Description", "String",
 				AttributeType.OPERATION, false, "Description", "", "", 0, -1,
 				"", "", -1, "", "");
+		//TODO move to syntax 
 
 		attribute = new ElemAttribute("Active", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Is Active",
-				"Ignored for operations", true, 0, 1, "false", "", -1, "", "");
+				"Currently not used by dynamic operations", true, 0, 1, "false", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Active", attribute);
 		semInfraMConcept.addPropVisibleAttribute("01#" + "Active");
 
-		attribute = new ElemAttribute("Visibility", "Boolean",
-				AttributeType.GLOBALCONFIG, false, "Is Visible", "", true, 0,
-				2, "false", "", -1, "", "");
-		semInfraMConcept.putSemanticAttribute("Visibility", attribute);
-		semInfraMConcept.addPropVisibleAttribute("02#" + "Visibility");
+//		attribute = new ElemAttribute("Visibility", "Boolean",
+//				AttributeType.GLOBALCONFIG, false, "Is Visible", "", true, 0,
+//				2, "false", "", -1, "", "");
+//		semInfraMConcept.putSemanticAttribute("Visibility", attribute);
+//		semInfraMConcept.addPropVisibleAttribute("02#" + "Visibility");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("Allowed", "Boolean",
-				AttributeType.GLOBALCONFIG, true, "Is Allowed", "", true, 0,
-				-1, "", "", -1, "", "");
-		semInfraMConcept.putSemanticAttribute("Allowed", attribute);
+//		attribute = new ElemAttribute("Allowed", "Boolean",
+//				AttributeType.GLOBALCONFIG, true, "Is Allowed", "", true, 0,
+//				-1, "", "", -1, "", "");
+//		semInfraMConcept.putSemanticAttribute("Allowed", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
@@ -1963,7 +1964,7 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("DBVis", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
-				"Element displayed on simulation dashboard", true, 0, 3, "",
+				"Display element on simulation dashboard", true, 0, 3, "",
 				"", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("DBVis", attribute);
 		semInfraMConcept.addPropEditableAttribute("03#" + "DBVis");
@@ -1973,7 +1974,7 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Include in XLS export",
-				"Element exported in XLS solutions file", true, 0, 4, "", "",
+				"Export element in XLS solutions file", true, 0, 4, "", "",
 				-1, "", "");
 		semInfraMConcept.putSemanticAttribute("ExportOnConfig", attribute);
 		semInfraMConcept.addPropEditableAttribute("04#" + "ExportOnConfig");

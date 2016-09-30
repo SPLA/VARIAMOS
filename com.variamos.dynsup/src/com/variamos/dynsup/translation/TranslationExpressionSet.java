@@ -168,6 +168,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									instanceExpression.setLeftElement(instE);
 									instanceExpression.setLeftAttributeName(att
 											.getIdentifier());
+									System.out.println(att.getIdentifier());
 									instanceExpression
 											.setRightInstanceExpression((ModelExpr) att
 													.getValue());

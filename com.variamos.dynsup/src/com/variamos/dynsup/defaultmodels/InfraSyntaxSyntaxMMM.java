@@ -761,8 +761,8 @@ public class InfraSyntaxSyntaxMMM {
 
 		SyntaxElement infraSyntaxM2ViewConceptAsso = new SyntaxElement('I',
 				"SMMViewConceptAsso", true, true, "SMMViewConceptAsso",
-				"infrasyntaxm2miniconcept", "View-Concept Association", 150,
-				70, "/com/variamos/gui/perspeditor/images/concept.png", true,
+				"infrasyntaxm2miniconcept", "View-Concept Association", 160,
+				40, "/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("MetaType",
@@ -782,7 +782,7 @@ public class InfraSyntaxSyntaxMMM {
 						"", "", 0, 3, "", "", -1, "", ""));
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("value",
 				new ElemAttribute("value", "Set", AttributeType.SYNTAX, false,
-						"values", "", "", 0, -1, "", "", 6, "", ""));
+						"values", "", "", 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("dummy",
 				new ElemAttribute("dummy", "String", AttributeType.SYNTAX,
 						false, "dummy", "", "", 0, -1, "", "", 1,

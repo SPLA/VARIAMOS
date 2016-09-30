@@ -350,7 +350,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									editor.updateView();
 									center.setDividerLocation(25);
 									center.setMaximumSize(center.getSize());
-									center.setMinimumSize(center.getSize());
+									//center.setMinimumSize(center.getSize());
 									center.setPreferredSize(center.getSize());
 									center.setResizeWeight(0);
 									// }

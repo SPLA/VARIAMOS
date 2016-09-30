@@ -89,14 +89,14 @@ public class ElementDesignPanel extends JPanel {
 
 		rootPanel2.add(contentPanel2);
 		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(300, 300));
+		dummyP.setMinimumSize(new Dimension(0, 0));
 		dummyP.setMaximumSize(new Dimension(300, 300));
 		rootPanel2.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel2, 2, 1, 4, 4, 4, 4);
 
 		rootPanel3.add(contentPanel3);
 		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(200, 0));
+		dummyP.setMinimumSize(new Dimension(0, 0));
 		dummyP.setPreferredSize(new Dimension(200, 0));
 		dummyP.setMaximumSize(new Dimension(500, 300));
 		rootPanel3.add(dummyP);
@@ -114,7 +114,7 @@ public class ElementDesignPanel extends JPanel {
 		add(mainPanel);
 		dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMinimumSize(new Dimension(500, 0));
+		dummyP.setMaximumSize(new Dimension(500, 0));
 		add(dummyP);
 		/*
 		 * dummyP = new JPanel(); dummyP.setMinimumSize(new Dimension(0, 0));
@@ -805,17 +805,17 @@ public class ElementDesignPanel extends JPanel {
 			// variablesPanel.setPreferredSize(new Dimension(250, 25 *
 			// editables.length));
 			JPanel dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(100, 0));
+			dummy.setMinimumSize(new Dimension(0, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(100, 0));
+			dummy.setMinimumSize(new Dimension(0, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(100, 0));
+			dummy.setMinimumSize(new Dimension(300, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(350, 200));
 			elementDesPropSubPanel.add(dummy);
@@ -827,13 +827,13 @@ public class ElementDesignPanel extends JPanel {
 			// e.add(contentPanel1);
 			// e.setVisible(true);
 			contentPanel1.add(elementDesPropSubPanel);
-			elementDesPropSubPanel.setPreferredSize(new Dimension(350,
+			elementDesPropSubPanel.setPreferredSize(new Dimension(300,
 					designPanelElements * 28));
-			elementDesPropSubPanel.setMaximumSize(new Dimension(350,
+			elementDesPropSubPanel.setMaximumSize(new Dimension(300,
 					designPanelElements * 28));
-			contentPanel1.setMaximumSize(new Dimension(350, 450));
-			contentPanel1.setPreferredSize(new Dimension(350, 450));
-			contentPanel1.setMinimumSize(new Dimension(350, 450));
+			contentPanel1.setMaximumSize(new Dimension(300, 450));
+			contentPanel1.setPreferredSize(new Dimension(300, 450));
+			contentPanel1.setMinimumSize(new Dimension(300, 450));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -1000,7 +1000,7 @@ public class ElementDesignPanel extends JPanel {
 				mainPanel.add(rootPanel3);
 			} else {
 				JPanel dummy3 = new JPanel();
-				dummy3.setMinimumSize(new Dimension(300, 250));
+				dummy3.setMinimumSize(new Dimension(0, 250));
 				dummy3.setPreferredSize(new Dimension(300, 250));
 				dummy3.setMaximumSize(new Dimension(650, 250));
 				mainPanel.add(dummy3);

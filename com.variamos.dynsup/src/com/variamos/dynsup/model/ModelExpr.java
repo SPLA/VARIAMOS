@@ -297,8 +297,8 @@ public class ModelExpr implements Serializable {
 				factoryMethod = hlclFactoryClass.getMethod(
 						semanticExpressionType.getMethod(), parameter1,
 						parameter2);
-				System.out.println(expressionTerms.get(0) + " "
-						+ expressionTerms.get(1) + factoryMethod.getName());
+				// System.out.println(expressionTerms.get(0) + " "
+				// + expressionTerms.get(1) + factoryMethod.getName());
 				return (Expression) factoryMethod.invoke(hlclFactory,
 						parameter1.cast(expressionTerms.get(0)),
 						parameter2.cast(expressionTerms.get(1)));
@@ -1733,7 +1733,7 @@ public class ModelExpr implements Serializable {
 
 		type = volatileSemanticExpression.getRightExpressionType();
 		if (type == null) {
-			System.out.println("d");
+			System.out.println("null right type");
 		}
 
 		switch (type) {

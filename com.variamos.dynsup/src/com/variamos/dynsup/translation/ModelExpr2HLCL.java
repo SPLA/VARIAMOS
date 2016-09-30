@@ -1190,6 +1190,7 @@ public class ModelExpr2HLCL {
 		return out;
 	}
 
+	//Static implementation to export
 	public Map<String, Map<String, Integer>> execCompleteSimul(
 			ProgressMonitor progressMonitor) throws InterruptedException {
 		int iter = 0;
