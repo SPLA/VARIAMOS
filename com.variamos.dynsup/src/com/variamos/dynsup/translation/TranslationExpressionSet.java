@@ -10,6 +10,7 @@ import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
@@ -27,6 +28,7 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.Labeling;
 import com.variamos.hlcl.LabelingOrder;
+import com.variamos.hlcl.LiteralBooleanExpression;
 import com.variamos.hlcl.NumericExpression;
 
 /**
@@ -47,6 +49,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	/* 
 	 */
 	private Map<String, List<ModelExpr>> instanceExpressions;
+	/* 
+	 */
+	private Map<String, List<LiteralBooleanExpression>> literalExpressions;
 
 	/**
 	 * must be obtained from UI
@@ -76,6 +81,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				idMap, hlclFactory);
 		this.refas = refas;
 		instanceExpressions = new HashMap<String, List<ModelExpr>>();
+		literalExpressions = new HashMap<String, List<LiteralBooleanExpression>>();
 		this.idMap = idMap;
 		this.hlclFactory = hlclFactory;
 		this.operation = operation;
@@ -85,6 +91,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			String subAction, OperationSubActionExecType expressionType) {
 
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
+
+		List<LiteralBooleanExpression> outLiteral = new ArrayList<LiteralBooleanExpression>();
 
 		// List<InstElement> semModel =
 		// refas.getVariabilityVertex("OMModel");
@@ -151,6 +159,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						if (out.size() == 0) {
 							continue;
 						}
+						if (instE.getSupInstEleId().equals("Variable"))
+						{
+							System.out.println(instE.getInstAttribute("type"));
+							if(instE.getInstAttribute("variableType").getValue().equals("LowLevel expression") &&
+									instE.getInstAttribute("LowLevelExpressionOper").getValue().equals(subAction))
+							{
+								outLiteral.add(new LiteralBooleanExpression(((LowExpr)instE.getInstAttribute("LowLevelExpressionText").getValue()).getLowExpressions()));							}
+						}
 
 						for (InstAttribute att : instE.getInstAttributes()
 								.values()) {
@@ -190,7 +206,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									instanceExpression.setRightNumber(1);
 									out.add(instanceExpression);
 								}
-							}
+							}							
 						}
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
@@ -298,6 +314,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			}
 		}
 		instanceExpressions.put(subAction + "-" + expressionType, out);
+		literalExpressions.put(subAction + "-" + expressionType, outLiteral);
 
 	}
 
@@ -566,6 +583,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				prog.add(newExp);
 		}
 		return prog;
+	}
+
+	public HlclProgram getLiteralExpressions(String string) {
+		HlclProgram out = new HlclProgram();
+		for (List<LiteralBooleanExpression> litExps : literalExpressions.values())
+			for (LiteralBooleanExpression lit : litExps)
+			out.add(lit);
+		return out;
 	}
 
 }

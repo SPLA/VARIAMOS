@@ -98,7 +98,7 @@ public class MainFrame extends JFrame {
 		String perspTitle = "";
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
-			case 0: // operations
+			case 0: // operations 1
 				abstractModel = new ModelInstance(metaExpressionTypes,
 						operationsInfrastructure);
 				semanticSuperstructure = abstractModel;
@@ -113,7 +113,7 @@ public class MainFrame extends JFrame {
 						.println("Creating Operations Meta-Model Perspective...");
 				break;
 
-			case 1:// modeling
+			case 1:// modeling 2
 				abstractModel = new ModelInstance(PerspectiveType.MODELING,
 						metaExpressionTypes, syntaxSuperstructure,
 						semanticSuperstructure);
@@ -126,7 +126,7 @@ public class MainFrame extends JFrame {
 				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
-			case 2:// syntax
+			case 2:// syntax 3
 				abstractModel = syntaxSuperstructure;
 
 				bgColor = new Color(255, 255, 245);
@@ -135,7 +135,7 @@ public class MainFrame extends JFrame {
 				System.out.println("Creating Syntax Meta-Model Perspective...");
 				break;
 
-			case 3:// simulation
+			case 3:// simulation 4
 				abstractModel = new ModelInstance(
 						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
 						syntaxSuperstructure, semanticSuperstructure);

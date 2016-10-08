@@ -146,6 +146,7 @@ public class SWIPrologSolver implements Solver {
 
 		if (options.getProgramName() == null) {
 			List<Compound> parts = new ArrayList<>();
+			//Default labeling (L) uses the list of used variables
 			if (labelVars == null) {
 				Term[] varTermsArray = new Term[vars.size()];
 				int count = 0;
@@ -169,7 +170,9 @@ public class SWIPrologSolver implements Solver {
 				parts.add(new Compound(PARTIAL_INVOCATION_NAME,
 						new Term[] { L }));
 
-			} else {
+			}
+			//Single/Multiple labeling ignores used variables and considers the list
+			else {
 				Term[] terms = new Term[labelVars.size()];
 				int ii = 0;
 				for (Labeling l : options.getLabelings()) {
@@ -203,7 +206,7 @@ public class SWIPrologSolver implements Solver {
 			long initTime = System.nanoTime();
 			qr = new Query(query);
 			lastExecutionTime += System.nanoTime() - initTime;
-		} else {
+		} else { //Only user for a test class
 			long initTime = System.nanoTime();
 			qr = new Query(options.programName + "(L)");
 			lastExecutionTime += System.nanoTime() - initTime;

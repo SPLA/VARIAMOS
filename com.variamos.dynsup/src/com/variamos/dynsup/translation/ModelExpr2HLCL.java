@@ -131,23 +131,24 @@ public class ModelExpr2HLCL {
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createGroupExpressions(null, 4, element, constraintGroups);
 
-		List<AbstractExpression> transformations2 = new ArrayList<AbstractExpression>();
+	/*	List<AbstractExpression> transformations2 = new ArrayList<AbstractExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			List<AbstractExpression> relaxableExpressions = constraintGroup
 					.getRelaxableExpressionList(element);
 			if (relaxableExpressions != null)
 				transformations2.addAll(relaxableExpressions);
 		}
+		*/
 
 		for (AbstractExpression transformation : transformations) {
 			idMap.putAll(transformation.getIdentifiers(f));
 			if (transformation instanceof AbstractBooleanExpression) {
 				hlclProgram.add(((AbstractBooleanExpression) transformation)
 						.transform(f, idMap));
-			} else if (transformation instanceof AbstractComparisonExpression) {
+			} else/* if (transformation instanceof AbstractComparisonExpression) {
 				hlclProgram.add(((AbstractComparisonExpression) transformation)
 						.transform(f, idMap));
-			} else {
+			} else */{
 				hlclProgram.add(((AbstractComparisonExpression) transformation)
 						.transform(f, idMap));
 			}
@@ -327,7 +328,7 @@ public class ModelExpr2HLCL {
 			} else {
 				if (constraintGroup.getVerificationExpressionsList(element) != null)
 					staticTransformations.addAll(constraintGroup
-							.getVerificationExpressionsList(element));
+							.getVerificationExpressionsList(element)); //Not used
 				if (constraintGroup.getRelaxableExpressionList(element) != null)
 					staticTransformations.addAll(constraintGroup
 							.getRelaxableExpressionList(element));
@@ -349,6 +350,12 @@ public class ModelExpr2HLCL {
 			if (constraintGroup instanceof TranslationExpressionSet) {
 				HlclProgram ts = ((TranslationExpressionSet) constraintGroup)
 						.getHlCLProgramExpressions(subOperation + "-"
+								+ operExecType);
+				if (ts != null) {
+					hlclProgram.addAll(ts);
+				}
+				ts = ((TranslationExpressionSet) constraintGroup)
+						.getLiteralExpressions(subOperation + "-"
 								+ operExecType);
 				if (ts != null) {
 					hlclProgram.addAll(ts);
@@ -1216,8 +1223,8 @@ public class ModelExpr2HLCL {
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
 				for (InstElement instVertex : refas
 						.getVariabilityVertexCollection()) {
-					if (instVertex.getInstAttribute("ExportOnConfig") != null
-							&& instVertex.getInstAttribute("ExportOnConfig")
+					if (instVertex.getInstAttribute("exportOnConfig") != null
+							&& instVertex.getInstAttribute("exportOnConfig")
 									.getAsBoolean()) {
 						String instId = instVertex.getIdentifier();
 						if (instVertex.getIdentifier().contains("Variable")) {

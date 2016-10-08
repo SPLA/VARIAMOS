@@ -155,9 +155,9 @@ public class ModelExpressionSet extends ElementExpressionSet {
 				rootList.add(this.getHlclFactory().lessOrEqualsThan(
 						this.getHlclFactory().newIdentifier("amodel_roots"),
 						getHlclFactory().number(0)));
-				booleanExpressions.put("Root", rootList);
-			} else
-				booleanExpressions.put("Root", rootList);
+			}
+			booleanExpressions.put("Root", rootList);
+			
 			if (parentOutExp != null) {
 				AbstractBooleanExpression transformation51 = new LessBooleanExpression(
 						parentOutExp, new NumberNumericExpression(1));
@@ -170,9 +170,8 @@ public class ModelExpressionSet extends ElementExpressionSet {
 				parentList.add(this.getHlclFactory().lessOrEqualsThan(
 						this.getHlclFactory().newIdentifier("amodel_parents"),
 						getHlclFactory().number(0)));
-				booleanExpressions.put("Parent", parentList);
-			} else
-				booleanExpressions.put("Parent", parentList);
+			}
+			booleanExpressions.put("Parent", parentList);
 
 			if (coreOutExp != null) {
 				Map<String, Identifier> idMap = new HashMap<String, Identifier>();
@@ -188,9 +187,8 @@ public class ModelExpressionSet extends ElementExpressionSet {
 				 * this.getHlclFactory().newIdentifier("model_parents"),
 				 * getHlclFactory().number(0)));
 				 */
-				booleanExpressions.put("Core", coreList);
-			} else
-				booleanExpressions.put("Core", coreList);
+			}
+			booleanExpressions.put("Core", coreList);
 
 			/*
 			 * if (reqOutExp != null) { LessOrEqualsBooleanExpression
@@ -228,10 +226,8 @@ public class ModelExpressionSet extends ElementExpressionSet {
 				simulList.add(this.getHlclFactory().lessOrEqualsThan(
 						this.getHlclFactory().newIdentifier("amodel_pref"),
 						getHlclFactory().number(1)));
-
-				booleanExpressions.put("Simul", simulList);
-			} else
-				booleanExpressions.put("Simul", simulList);
+			}
+			booleanExpressions.put("Simul", simulList);
 
 		}
 	}
