@@ -130,7 +130,7 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute("opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
-						false, "Operations Meta-Model Expressions",
+						false, "Operations Meta-Model Expr.",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -161,7 +161,7 @@ public class InfraSyntaxOpersMMM {
 
 		metaMetaPairwiseRel.addModelingAttribute("opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
-						false, "Operations Meta-Model Expressions",
+						false, "Operations Meta-Model Expr.",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -569,9 +569,8 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",
-						AttributeType.OPERATION, false,
-						"Iterate Sub-Operation", "", false, 0, 6, "", "", -1,
-						"", ""));
+						AttributeType.OPERATION, false, "Iterate Sub-Oper", "",
+						false, 0, 6, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
 				+ "iteration");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
@@ -613,11 +612,27 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("labelId",
 				new ElemAttribute("labelId", "String", AttributeType.OPERATION,
-						false, "Label ID", "", null, 0, 6, "", "", -1, "", ""));
+						false, "Label ID", "", null, 0, 5, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("05#"
+				+ "labelId");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("05#"
+				+ "labelId");
+
+		infraSyntaxOpersM2OperLabeling
+				.addModelingAttribute(
+						"outputSet",
+						new ElemAttribute(
+								"outputSet",
+								"Boolean",
+								AttributeType.OPERATION,
+								false,
+								"Output Set",
+								"Include set of variables in the constraint program call to obtain the variables",
+								true, 0, 6, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("06#"
-				+ "labelId");
+				+ "outputSet");
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("06#"
-				+ "labelId");
+				+ "outputSet");
 
 		infraSyntaxOpersM2OperLabeling
 				.addModelingAttribute(
@@ -626,18 +641,19 @@ public class InfraSyntaxOpersMMM {
 								"includeLabel",
 								"Boolean",
 								AttributeType.OPERATION,
-								false,
+								true,
+								"Include Label",
 								"Include label in the constraint program (or only define the set of variables)",
-								"", 1, 0, 7, "", "", -1, "", ""));
+								true, 0, 7, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("07#"
-				+ "position");
+				+ "includeLabel");
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("07#"
-				+ "position");
+				+ "includeLabel");
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("position",
 				new ElemAttribute("position", "Integer",
 						AttributeType.OPERATION, false, "Position", "", 1, 0,
-						8, "", "", -1, "", ""));
+						8, "includeLabel" + "#==#" + "true", "", -1, "", ""));
 		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#"
 				+ "position");
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#"
@@ -645,13 +661,15 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("once",
 				new ElemAttribute("once", "Boolean", AttributeType.OPERATION,
-						false, "Once", "", false, 0, 8, "", "", -1, "", ""));
+						false, "Once", "", false, 0, 8, "includeLabel" + "#==#"
+								+ "true", "", -1, "", ""));
 		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#" + "once");
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#" + "once");
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("order",
 				new ElemAttribute("order", "Boolean", AttributeType.OPERATION,
-						false, "Order", "", false, 0, 9, "", "", -1, "", ""));
+						false, "Order", "", false, 0, 9, "includeLabel"
+								+ "#==#" + "true", "", -1, "", ""));
 		infraSyntaxOpersM2OperLabeling
 				.addPropEditableAttribute("09#" + "order");
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("09#" + "order");
@@ -661,7 +679,7 @@ public class InfraSyntaxOpersMMM {
 				new ElemAttribute("sortorder", "Set", AttributeType.SYNTAX,
 						false, "sortorder", InstAttribute.class
 								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, 2, "", "", -1,
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1,
 						"#\n", ""));
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute(

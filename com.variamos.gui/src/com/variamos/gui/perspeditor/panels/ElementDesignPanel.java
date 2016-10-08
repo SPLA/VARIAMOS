@@ -226,10 +226,8 @@ public class ElementDesignPanel extends JPanel {
 				if (editElm.getEdOperEle() != null
 						&& editElm.getTransSupportMetaElement().getName()
 								.equals("OMLabeling")) {
-					elementDesPropSubPanel.add(new JLabel(
-							"Order Meta-Expressions"));
-					JButton button = new JButton(
-							"Open Order Meta-Expressions Editor");
+					elementDesPropSubPanel.add(new JLabel("Order Meta-Expr."));
+					JButton button = new JButton("Open Order Meta-Expr. Editor");
 					if (editor.getPerspective() == 4)
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
