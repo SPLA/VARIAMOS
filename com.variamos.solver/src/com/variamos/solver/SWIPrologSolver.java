@@ -36,6 +36,7 @@ public class SWIPrologSolver implements Solver {
 	private Query qr;
 	boolean sucessfullLoad;
 	private Map<String, Variable> vars;
+	private int outLabels = 0;
 	private List<Map<String, Variable>> labelVars;
 
 	private long lastExecutionTime;
@@ -91,7 +92,10 @@ public class SWIPrologSolver implements Solver {
 					labelVars = null;
 				} else {
 					labelVars = new ArrayList<Map<String, Variable>>();
+					outLabels = 0;
 					for (Labeling lab : options.getLabelings()) {
+						if (lab.isOutputSet())
+							outLabels++;
 						TreeMap<String, Variable> tree = new TreeMap<String, Variable>();
 						for (Identifier id : lab.getVariables()) {
 							tree.put(id.getId(), new Variable(id.getId()));
@@ -174,9 +178,11 @@ public class SWIPrologSolver implements Solver {
 			// Single/Multiple labeling ignores used variables and considers the
 			// list
 			else {
-				Term[] terms = new Term[labelVars.size()];
+				Term[] terms = new Term[outLabels];
 				int ii = 0;
 				for (Labeling l : options.getLabelings()) {
+					if (!l.isOutputSet())
+						continue;
 					Map<String, Variable> varmap = labelVars.get(ii);
 					Term[] varTermsArray = new Term[varmap.size()];
 					int count = 0;

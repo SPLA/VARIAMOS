@@ -206,7 +206,9 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 			StringBuilder domains = new StringBuilder();
 
 			for (PrologTransformParameters ptp : paramList) {
-				labids.append(ptp.getLabelId() + ",");
+				if (ptp.isOutputSet()) {
+					labids.append(ptp.getLabelId() + ",");
+				}
 				variables.append(makeVariables(ptp.getLabelId(),
 						ptp.getIdentifiers()));
 				domains.append(makeDomains(ptp.getIdentifiers()));
