@@ -1972,13 +1972,13 @@ public class DefaultOpersMM {
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
+		attribute = new ElemAttribute("exportOnConfig", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Include in XLS export",
 				"Export element in XLS solutions file", true, 0, 4, "", "",
 				-1, "", "");
-		semInfraMConcept.putSemanticAttribute("ExportOnConfig", attribute);
-		semInfraMConcept.addPropEditableAttribute("04#" + "ExportOnConfig");
-		semInfraMConcept.addPropVisibleAttribute("04#" + "ExportOnConfig");
+		semInfraMConcept.putSemanticAttribute("exportOnConfig", attribute);
+		semInfraMConcept.addPropEditableAttribute("04#" + "exportOnConfig");
+		semInfraMConcept.addPropVisibleAttribute("04#" + "exportOnConfig");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		refas.getVariabilityVertex().put("nmMetaConcept", instVertexIE);
@@ -2216,12 +2216,12 @@ public class DefaultOpersMM {
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
+		attribute = new ElemAttribute("exportOnConfig", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Export on Configuration",
 				"", true, 0, 4, "", "", -1, "", "");
-		semVariable.putSemanticAttribute("ExportOnConfig", attribute);
-		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
-		semVariable.addPropVisibleAttribute("04#" + "ExportOnConfig");
+		semVariable.putSemanticAttribute("exportOnConfig", attribute);
+		semVariable.addPropEditableAttribute("04#" + "exportOnConfig");
+		semVariable.addPropVisibleAttribute("04#" + "exportOnConfig");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("Scope", "Boolean",
@@ -2368,27 +2368,27 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("isContext", "Boolean",
 				AttributeType.OPERATION, false, "Context Defined",
-				"(Ignored for operations)", false, 0, 5, "", "", -1, "", "");
+				"(Ignored for operations)", false, 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("isContext", attribute);
 		semVariable.addPropEditableAttribute("05#" + "isContext");
 		semVariable.addPropVisibleAttribute("05#" + "isContext");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("ExtVisible", "Boolean",
+		attribute = new ElemAttribute("extVisible", "Boolean",
 				AttributeType.OPERATION, false, "Externally Visible",
 				"(Ignored by operations)", false, 0, 8, "", "", -1, "", "");
-		semVariable.putSemanticAttribute("ExtVisible", attribute);
-		semVariable.addPropEditableAttribute("08#" + "ExtVisible");
-		semVariable.addPropVisibleAttribute("08#" + "ExtVisible");
+		semVariable.putSemanticAttribute("extVisible", attribute);
+		semVariable.addPropEditableAttribute("08#" + "extVisible");
+		semVariable.addPropVisibleAttribute("08#" + "extVisible");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("ExtControl", "Boolean",
+		attribute = new ElemAttribute("extControl", "Boolean",
 				AttributeType.OPERATION, false, "Externally Controlled",
-				"(Ignored by operations)", false, 0, 9, "", "", -1, "", "");
-		semVariable.putSemanticAttribute("ExtControl", attribute);
+				"(Ignored by operations)", false, 0, -1, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("extControl", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		semVariable.addPropEditableAttribute("09#" + "ExtControl");
-		semVariable.addPropVisibleAttribute("09#" + "ExtControl");
+		semVariable.addPropEditableAttribute("09#" + "extControl");
+		semVariable.addPropVisibleAttribute("09#" + "extControl");
 
 		attribute = new ElemAttribute("isConfDom", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configure Domain",
@@ -2455,7 +2455,7 @@ public class DefaultOpersMM {
 				+ "#" + "variableType" + "#==#" + "LowLevel expression");
 
 		attribute = new ElemAttribute("LowLevelExpressionOper", "Class",
-				AttributeType.OPERATION, false, "SubOper for Low-Level Expr.",
+				AttributeType.OPERATION, false, "SubOper",
 				"Sub Operation to include this low-level expressions",
 				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
 				0, 3, "", "variableType" + "#==#" + "LowLevel expression", -1,
@@ -2465,6 +2465,41 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("03#" + "LowLevelExpressionOper"
 				+ "#" + "variableType" + "#==#" + "LowLevel expression");
 
+		
+		attribute = new ElemAttribute("LowLevelVarOper", "Class",
+				AttributeType.OPERATION, false, "SubOper",
+				"Sub Operation to include this low-level variable",
+				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				0, 4, "", "variableType" + "#==#" + "LowLevel variable", -1,
+				"", "");
+		semVariable.putSemanticAttribute("LowLevelVarOper", attribute);
+		semVariable.addPropEditableAttribute("04#" + "LowLevelVarOper");
+		semVariable.addPropVisibleAttribute("04#" + "LowLevelVarOper"
+				+ "#" + "variableType" + "#==#" + "LowLevel variable");
+		
+		attribute = new ElemAttribute("LowLevelVarLabel", "Class",
+				AttributeType.OPERATION, false, "Labeling",
+				"Labeling with only a set of variables",
+				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
+				0, 5, "", "variableType" + "#==#" + "LowLevel variable", -1,
+				"", "");
+		semVariable.putSemanticAttribute("LowLevelVarLabel", attribute);
+		semVariable.addPropEditableAttribute("05#" + "LowLevelVarLabel");
+		semVariable.addPropVisibleAttribute("05#" + "LowLevelVarLabel"
+				+ "#" + "variableType" + "#==#" + "LowLevel variable");
+		
+		
+		attribute = new ElemAttribute("LowLevelVarValue", "String",
+				AttributeType.GLOBALCONFIG, false, "Input Value",
+				"Value defined for input variable",  "",
+				0, 5, "", "variableType" + "#==#" + "LowLevel variable", -1,
+				"", "");
+		semVariable.putSemanticAttribute("LowLevelVarValue", attribute);
+		semVariable.addPropEditableAttribute("05#" + "LowLevelVarValue");
+		semVariable.addPropVisibleAttribute("05#" + "LowLevelVarValue"
+				+ "#" + "variableType" + "#==#" + "LowLevel variable");
+
+		
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(new
 		// OpersIOAttribute(

@@ -1,6 +1,7 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
+import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
 import com.variamos.io.ConsoleTextArea;
@@ -51,7 +53,10 @@ public class ClassWidget extends WidgetR {
 
 		setLayout(new BorderLayout());
 		txtValue = new JComboBox<String>();
+	//	txtValue.setSize(new Dimension(200,130));
 		add(txtValue, BorderLayout.CENTER);
+	//	this.setMinimumSize(new Dimension(150,130));
+	//	this.setMaximumSize(new Dimension(150,130));
 		revalidate();
 	}
 
@@ -221,7 +226,7 @@ public class ClassWidget extends WidgetR {
 					}
 				}
 			}
-			if (aClass != null && aClass.equals(OpersConcept.class)) {
+			if (aClass != null && (aClass.equals(OpersConcept.class)||aClass.equals(OpersLabeling.class))) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
 					Collection<InstElement> list = semanticModel
@@ -234,7 +239,7 @@ public class ClassWidget extends WidgetR {
 								.equals(""
 										+ ((SyntaxElement) concept
 												.getTransSupportMetaElement())
-												.getType()) && perspective == 3)
+												.getType()) && (perspective == 3||perspective == 4))
 								|| (concept.getEdOperEle() != null
 										&& instAttribute
 												.getAttribute()

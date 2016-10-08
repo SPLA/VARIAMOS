@@ -10,5 +10,5 @@ package com.variamos.dynsup.types;
  * @since 2014-12-06
  */
 public enum VariableType {
-	String, Integer, Float, LowLevel_Value, LowLevel_Expression, Boolean, Enumeration
+	String, Integer, Float, LowLevel_Variable, LowLevel_Expression, Boolean, Enumeration
 }
