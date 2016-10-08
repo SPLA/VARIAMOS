@@ -405,6 +405,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					Labeling lab = new Labeling(operLab.getIdentifier(),
 							(String) operLab.getInstAttributeValue("labelId"),
 							(int) operLab.getInstAttributeValue("position"),
+							(boolean) operLab
+									.getInstAttributeValue("outputSet"),
+							(boolean) operLab
+									.getInstAttributeValue("includeLabel"),
 							(boolean) operLab.getInstAttributeValue("once"),
 							(boolean) operLab.getInstAttributeValue("order"),
 							laborder, explist);

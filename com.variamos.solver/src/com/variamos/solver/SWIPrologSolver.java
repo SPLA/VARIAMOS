@@ -467,6 +467,8 @@ public class SWIPrologSolver implements Solver {
 			params.setFdLabeling(options.getMode() == ConfigurationMode.FULL);
 			params.setFf(options.isFf());
 			params.setOnceLabeling(lab.isOnce());
+			params.setIncludeLabel(lab.isIncludeLabel());
+			params.setOutputSet(lab.isOutputSet());
 			params.setOrder(lab.isOrder());
 			params.setLabelingOrder(lab.getLabelingOrderList());
 			params.setOrderExpressions(lab.getOrderExpressionList());

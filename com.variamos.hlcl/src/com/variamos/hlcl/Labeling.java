@@ -18,11 +18,12 @@ public class Labeling {
 
 	private String name;
 	private String labelId;
-	private boolean once, order;
+	private boolean once, order, includeLabel, outputSet;
 	private int position;
 	private List<Identifier> variables;
 
-	public Labeling(String name, String labelId, int position, boolean once,
+	public Labeling(String name, String labelId, int position,
+			boolean outputSet, boolean includeLabel, boolean once,
 			boolean order, List<LabelingOrder> labelingOrderList,
 			List<NumericExpression> orderExpressionList
 
@@ -30,6 +31,8 @@ public class Labeling {
 		super();
 		this.name = name;
 		this.labelId = labelId;
+		this.includeLabel = includeLabel;
+		this.outputSet = outputSet;
 		this.orderExpressionList = orderExpressionList;
 		this.labelingOrderList = labelingOrderList;
 		this.position = position;
@@ -77,6 +80,22 @@ public class Labeling {
 
 	public List<Identifier> getVariables() {
 		return variables;
+	}
+
+	public boolean isIncludeLabel() {
+		return includeLabel;
+	}
+
+	public void setIncludeLabel(boolean includeLabel) {
+		this.includeLabel = includeLabel;
+	}
+
+	public boolean isOutputSet() {
+		return outputSet;
+	}
+
+	public void setOutputSet(boolean outputSet) {
+		this.outputSet = outputSet;
 	}
 
 	public void setVariables(List<Identifier> variables) {

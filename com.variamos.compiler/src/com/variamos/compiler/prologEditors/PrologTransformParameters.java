@@ -17,7 +17,23 @@ public class PrologTransformParameters {
 	// order to detect infeasibility early. This is often a good strategy.
 	private boolean ff;
 	// The solutions order is influenced by min or max expressions
-	private boolean order;
+	private boolean order, outputSet, includeLabel;
+
+	public boolean isOutputSet() {
+		return outputSet;
+	}
+
+	public void setOutputSet(boolean outputSet) {
+		this.outputSet = outputSet;
+	}
+
+	public boolean isIncludeLabel() {
+		return includeLabel;
+	}
+
+	public void setIncludeLabel(boolean includeLabel) {
+		this.includeLabel = includeLabel;
+	}
 
 	private List<LabelingOrder> labelingOrder;
 	private List<NumericExpression> orderExpressions;

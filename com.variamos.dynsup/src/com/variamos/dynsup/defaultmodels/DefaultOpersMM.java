@@ -418,21 +418,32 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("BasSim-Execution-lab",
 					instLabeling);
 
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("bassim-execution-lab",
+					instEdgeOper);
+			instEdgeOper.setIdentifier("bassim-execution-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			OpersLabeling simulationExecOperLowLabeling = null;
+			simulationExecOperLowLabeling = new OpersLabeling("lowlab");
+
 			instLabeling = new InstConcept("BasSim-Execution-lowLab",
-					metaLabeling, simulationExecOperUniqueLabeling);
+					metaLabeling, simulationExecOperLowLabeling);
 			instLabeling.getInstAttribute("includeLabel").setValue(false);
 			instLabeling.getInstAttribute("labelId").setValue("L2");
 			instLabeling.getInstAttribute("position").setValue(1);
 			instLabeling.getInstAttribute("once").setValue(false);
 			instLabeling.getInstAttribute("order").setValue(false);
 
-			refas.getVariabilityVertex().put("BasSim-Execution-lab",
+			refas.getVariabilityVertex().put("BasSim-Execution-lowLab",
 					instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("bassim-execution-lab",
+			refas.getConstraintInstEdges().put("bassim-execution-lowlab",
 					instEdgeOper);
-			instEdgeOper.setIdentifier("bassim-execution-lab");
+			instEdgeOper.setIdentifier("bassim-execution-lowlab");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);

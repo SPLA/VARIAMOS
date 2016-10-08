@@ -88,6 +88,9 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 			for (PrologTransformParameters ptp : paramList) {
 
 				StringBuilder insideLabeling = new StringBuilder();
+				// jcmunoz validation to exclude labeling without label
+				if (!ptp.isIncludeLabel())
+					continue;
 				if (ptp.isOnceLabeling()) {
 					footerExpression.append(ONCE);
 					footerExpression.append(OPEN_PARENTHESIS);
