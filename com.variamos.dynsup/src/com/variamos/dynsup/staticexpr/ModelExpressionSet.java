@@ -42,8 +42,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 	public boolean validateConceptType(InstElement instElement, String element) {
 		if (instElement == null)// || !(instElement instanceof InstVertex))
 			return false;
-		SyntaxElement metaElement = ((SyntaxElement) instElement
-				.getTransSupportMetaElement());
+		SyntaxElement metaElement = (instElement.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
 		InstElement semElement = metaElement.getTransInstSemanticElement();
@@ -79,8 +78,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 		AbstractNumericExpression prefOutExp = null;
 
 		for (InstElement vertex : refas.getVariabilityVertexCollection()) {
-			SyntaxElement metaElement = ((SyntaxElement) vertex
-					.getTransSupportMetaElement());
+			SyntaxElement metaElement = (vertex.getTransSupportMetaElement());
 			if (validateConceptType(vertex, "GeneralConcept"))
 				if (vertex.getInstAttribute("Active").getAsBoolean()) {
 					switch (execType) {
@@ -157,7 +155,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 						getHlclFactory().number(0)));
 			}
 			booleanExpressions.put("Root", rootList);
-			
+
 			if (parentOutExp != null) {
 				AbstractBooleanExpression transformation51 = new LessBooleanExpression(
 						parentOutExp, new NumberNumericExpression(1));

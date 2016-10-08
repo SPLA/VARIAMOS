@@ -799,8 +799,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2ViewConceptAsso.addPropVisibleAttribute("03#" + "Name");
 		infraSyntaxM2ViewConceptAsso.addPropEditableAttribute("06#" + "value");
 		infraSyntaxM2ViewConceptAsso.addPropVisibleAttribute("06#" + "value");
-		infraSyntaxM2ViewConceptAsso.addPanelSpacersAttribute("#" + "value"
-				+ "#\n\n");
+
 		// infraSyntaxM2ViewConceptAsso.addPanelVisibleAttribute("01#dummy");
 		// infraSyntaxM2ViewConceptAsso
 		// .addPanelSpacersAttribute("<<MetaViewConceptAsso>>#dummy#\n");

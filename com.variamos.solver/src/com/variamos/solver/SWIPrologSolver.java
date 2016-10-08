@@ -146,7 +146,7 @@ public class SWIPrologSolver implements Solver {
 
 		if (options.getProgramName() == null) {
 			List<Compound> parts = new ArrayList<>();
-			//Default labeling (L) uses the list of used variables
+			// Default labeling (L) uses the list of used variables
 			if (labelVars == null) {
 				Term[] varTermsArray = new Term[vars.size()];
 				int count = 0;
@@ -171,7 +171,8 @@ public class SWIPrologSolver implements Solver {
 						new Term[] { L }));
 
 			}
-			//Single/Multiple labeling ignores used variables and considers the list
+			// Single/Multiple labeling ignores used variables and considers the
+			// list
 			else {
 				Term[] terms = new Term[labelVars.size()];
 				int ii = 0;
@@ -206,7 +207,7 @@ public class SWIPrologSolver implements Solver {
 			long initTime = System.nanoTime();
 			qr = new Query(query);
 			lastExecutionTime += System.nanoTime() - initTime;
-		} else { //Only user for a test class
+		} else { // Only user for a test class
 			long initTime = System.nanoTime();
 			qr = new Query(options.programName + "(L)");
 			lastExecutionTime += System.nanoTime() - initTime;
@@ -275,7 +276,7 @@ public class SWIPrologSolver implements Solver {
 			Map<String, Term> configurationResultMap) {
 
 		// FIXME: puede ser mejorado para quitar esta L quemada
-		Term invocationTerm = (Term) configurationResultMap.get("L");
+		Term invocationTerm = configurationResultMap.get("L");
 		Configuration configuration = new Configuration();
 		// A predefined list of variables was sent
 		if (invocationTerm != null) {

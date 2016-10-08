@@ -159,13 +159,19 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						if (out.size() == 0) {
 							continue;
 						}
-						if (instE.getSupInstEleId().equals("Variable"))
-						{
+						if (instE.getSupInstEleId().equals("Variable")) {
 							System.out.println(instE.getInstAttribute("type"));
-							if(instE.getInstAttribute("variableType").getValue().equals("LowLevel expression") &&
-									instE.getInstAttribute("LowLevelExpressionOper").getValue().equals(subAction))
-							{
-								outLiteral.add(new LiteralBooleanExpression(((LowExpr)instE.getInstAttribute("LowLevelExpressionText").getValue()).getLowExpressions()));							}
+							if (instE.getInstAttribute("variableType")
+									.getValue().equals("LowLevel expression")
+									&& instE.getInstAttribute(
+											"LowLevelExpressionOper")
+											.getValue().equals(subAction)) {
+								outLiteral.add(new LiteralBooleanExpression(
+										((LowExpr) instE.getInstAttribute(
+												"LowLevelExpressionText")
+												.getValue())
+												.getLowExpressions()));
+							}
 						}
 
 						for (InstAttribute att : instE.getInstAttributes()
@@ -206,7 +212,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									instanceExpression.setRightNumber(1);
 									out.add(instanceExpression);
 								}
-							}							
+							}
 						}
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
@@ -216,7 +222,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									.getTransSupportMetaElement()
 									.getTransInstSemanticElement(), var
 									.getAttributeName(), true) == 1) {
-								String type = (String) var.getType();
+								String type = var.getType();
 								if (type.equals("Integer")
 										|| type.equals("Boolean")) {
 									if (var.getValue() instanceof Boolean)
@@ -396,8 +402,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					List<ModelExpr> instexp = createElementInstanceExpressions(
 							oper2, semExps, true);
 					List<NumericExpression> explist = getNumericExpressions(instexp);
-					Labeling lab = new Labeling(
-							(String) operLab.getIdentifier(),
+					Labeling lab = new Labeling(operLab.getIdentifier(),
 							(String) operLab.getInstAttributeValue("labelId"),
 							(int) operLab.getInstAttributeValue("position"),
 							(boolean) operLab.getInstAttributeValue("once"),
@@ -443,7 +448,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				if (semanticElement
 						|| semanticExpressions.contains(semExpression)) {
 					ModelExpr instanceExpression = new ModelExpr(refas, false,
-							(OpersExpr) semExpression);
+							semExpression);
 					instanceExpression.createFromSemanticExpression(
 							instElement, 0);
 					out.add(instanceExpression);
@@ -468,8 +473,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										|| semanticExpressions
 												.contains(semExpression)) {
 									ModelExpr instanceExpression = new ModelExpr(
-											refas, false,
-											(OpersExpr) semExpression);
+											refas, false, semExpression);
 									instanceExpression
 											.createFromSemanticExpression(
 													instElement, 0);
@@ -499,7 +503,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			for (OpersExpr semExpression : semElement
 					.getAllSemanticExpressions(opersParents)) {
 				ModelExpr instanceExpression = new ModelExpr(refas, false,
-						(OpersExpr) semExpression);
+						semExpression);
 				instanceExpression.createFromSemanticExpression(instElement, 0);
 				out.add(instanceExpression);
 			}
@@ -522,18 +526,22 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	// return out;
 	// }
 
+	@Override
 	protected void setOptional(boolean optional) {
 		this.optional = optional;
 	}
 
+	@Override
 	protected Map<String, Identifier> getIdMap() {
 		return idMap;
 	}
 
+	@Override
 	protected HlclFactory getHlclFactory() {
 		return hlclFactory;
 	}
 
+	@Override
 	public boolean isOptional() {
 		return optional;
 	}
@@ -587,9 +595,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	public HlclProgram getLiteralExpressions(String string) {
 		HlclProgram out = new HlclProgram();
-		for (List<LiteralBooleanExpression> litExps : literalExpressions.values())
+		for (List<LiteralBooleanExpression> litExps : literalExpressions
+				.values())
 			for (LiteralBooleanExpression lit : litExps)
-			out.add(lit);
+				out.add(lit);
 		return out;
 	}
 

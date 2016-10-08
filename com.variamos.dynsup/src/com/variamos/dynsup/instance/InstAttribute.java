@@ -10,7 +10,6 @@ import java.util.Map;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersConcept;
-import com.variamos.dynsup.model.SyntaxElement;
 
 /**
  * A class to represented modeling instances of attributes from meta model and
@@ -142,6 +141,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		volatileAttribute.setAffectProperties(affectProperties);
 	}
 
+	@Override
 	public boolean isAffectProperties() {
 		return volatileAttribute.isAffectProperties();
 	}
@@ -150,6 +150,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		volatileAttribute.setDisplayName(displayName);
 	}
 
+	@Override
 	public String getDisplayName() {
 		return volatileAttribute.getDisplayName();
 	}
@@ -203,6 +204,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					modelingAttribute.getName());
 	}
 
+	@Override
 	public String getIdentifier() {
 		return (String) getInstAttributeAttribute(VAR_IDENTIFIER);
 		// return identifier;
@@ -220,11 +222,13 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		setInstAttributeAttribute(VAR_ATTRIBUTE_IDEN, name);
 	}
 
+	@Override
 	public Object getValue() {
 		return getInstAttributeAttribute(VAR_VALUE);
 		// return value;
 	}
 
+	@Override
 	public Object getGroup() {
 		return getInstAttributeAttribute(VAR_GROUP);
 		// return value;
@@ -238,16 +242,19 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		// return value;
 	}
 
+	@Override
 	public void setValue(Object value) {
 		setInstAttributeAttribute(VAR_VALUE, value);
 		// this.value = value;
 	}
 
+	@Override
 	public void setGroup(Object value) {
 		setInstAttributeAttribute(VAR_GROUP, value);
 		// this.value = value;
 	}
 
+	@Override
 	public String getType() {
 		if (volatileAttribute != null)
 			return volatileAttribute.getType();
@@ -260,12 +267,14 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		return volatileAttribute.getClassCanonicalName();
 	}
 
+	@Override
 	public void setType(String selectedItem) {
 		// TODO Auto-generated method stub
 
 	}
 
 	// Method from com.cfm.productline.Variable class
+	@Override
 	public Float getAsFloat() {
 		Object val = getValue();
 		if (val == null)
@@ -281,6 +290,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	}
 
 	// Method from com.cfm.productline.Variable class
+	@Override
 	public Integer getAsInteger() {
 		Object val = getValue();
 		if (val == null)
@@ -296,6 +306,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	}
 
 	// Method from com.cfm.productline.Variable class
+	@Override
 	public Boolean getAsBoolean() {
 		Object val = getValue();
 		if (val == null)
@@ -322,6 +333,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		return true;
 	}
 
+	@Override
 	public String toString() {
 		Object val = this.getDisplayValue();// .getDisplayName();
 		if (val == null)
@@ -400,8 +412,8 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					&& getEnumType() != null
 					&& getEnumType().equals(
 							InstAttribute.class.getCanonicalName())) {
-				List<InstAttribute> semanticRelationTypes = ((SyntaxElement) instElement
-						.getTransSupportMetaElement()).getOpersRelationTypes();
+				List<InstAttribute> semanticRelationTypes = instElement
+						.getTransSupportMetaElement().getOpersRelationTypes();
 				this.setOpersOverTwoRelList(semanticRelationTypes);
 			}
 			if (this.getAttribute() != null
@@ -415,8 +427,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					while (elementNames.hasNext()) {
 						String elementName = elementNames.next();
 						if (mapElements.get(elementName) instanceof InstElement) // TODO
-							metaGD.add((InstElement) mapElements
-									.get(elementName));
+							metaGD.add(mapElements.get(elementName));
 					}
 					setValidationMEList(metaGD);
 				}
@@ -426,8 +437,8 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					&& getEnumType() != null
 					&& getEnumType().equals(
 							InstAttribute.class.getCanonicalName())) {
-				List<InstAttribute> semanticRelationTypes = ((SyntaxElement) instElement
-						.getTransSupportMetaElement()).getOpersRelationTypes();
+				List<InstAttribute> semanticRelationTypes = instElement
+						.getTransSupportMetaElement().getOpersRelationTypes();
 				setOpersOverTwoRelList(semanticRelationTypes);
 			}
 		}

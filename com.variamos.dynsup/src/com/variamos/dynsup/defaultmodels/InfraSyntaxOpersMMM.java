@@ -619,24 +619,39 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("06#"
 				+ "labelId");
 
-		infraSyntaxOpersM2OperLabeling.addModelingAttribute("position",
-				new ElemAttribute("position", "Integer",
-						AttributeType.OPERATION, false, "Position", "", 1, 0,
-						-1, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperLabeling
+				.addModelingAttribute(
+						"includeLabel",
+						new ElemAttribute(
+								"includeLabel",
+								"Boolean",
+								AttributeType.OPERATION,
+								false,
+								"Include label in the constraint program (or only define the set of variables)",
+								"", 1, 0, 7, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("07#"
 				+ "position");
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("07#"
 				+ "position");
 
+		infraSyntaxOpersM2OperLabeling.addModelingAttribute("position",
+				new ElemAttribute("position", "Integer",
+						AttributeType.OPERATION, false, "Position", "", 1, 0,
+						8, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#"
+				+ "position");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#"
+				+ "position");
+
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("once",
 				new ElemAttribute("once", "Boolean", AttributeType.OPERATION,
-						false, "Once", "", false, 0, 6, "", "", -1, "", ""));
+						false, "Once", "", false, 0, 8, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#" + "once");
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#" + "once");
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("order",
 				new ElemAttribute("order", "Boolean", AttributeType.OPERATION,
-						false, "Order", "", false, 0, 6, "", "", -1, "", ""));
+						false, "Order", "", false, 0, 9, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperLabeling
 				.addPropEditableAttribute("09#" + "order");
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("09#" + "order");

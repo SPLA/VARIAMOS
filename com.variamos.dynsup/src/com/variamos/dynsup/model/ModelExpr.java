@@ -836,8 +836,8 @@ public class ModelExpr implements Serializable {
 			configdomain = configdomain.substring(0, configdomain.length() - 1);
 			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 		} else if (attribute.getName().equals("varConfValue")) {
-			String configdomain = (String) (instVertex.getInstAttribute(
-					"varConfDom").getValue() + "");
+			String configdomain = instVertex.getInstAttribute("varConfDom")
+					.getValue() + "";
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 			else
@@ -864,8 +864,8 @@ public class ModelExpr implements Serializable {
 				String domain = "";
 				if (object != null) {
 					@SuppressWarnings("unchecked")
-					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstElement) object)
+							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE)
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("#");
@@ -1436,6 +1436,7 @@ public class ModelExpr implements Serializable {
 		return getSemanticExpression().isSingleInExpression();
 	}
 
+	@Override
 	public String toString() {
 		return "";// expressionStructure();
 	}

@@ -90,8 +90,7 @@ public class LowExpressionDialog extends JDialog {
 
 				@Override
 				public void focusLost(FocusEvent event) {
-					String item = (String) ((JTextArea) event.getSource())
-							.getText();
+					String item = ((JTextArea) event.getSource()).getText();
 					if (item != null && !cancel) {
 						instanceExpression.setLowExpressions(item);
 					}

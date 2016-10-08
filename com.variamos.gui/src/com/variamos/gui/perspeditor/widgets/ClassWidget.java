@@ -1,7 +1,6 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -43,7 +42,6 @@ import com.variamos.io.ConsoleTextArea;
 public class ClassWidget extends WidgetR {
 
 	private JComboBox<String> txtValue;
-	private Map<String, OpersElement> semanticElements;
 	private Map<String, InstAttribute> opersElements;
 	private Map<String, SyntaxElement> syntaxElements;
 	private Map<String, InstElement> instVertex;
@@ -53,10 +51,10 @@ public class ClassWidget extends WidgetR {
 
 		setLayout(new BorderLayout());
 		txtValue = new JComboBox<String>();
-	//	txtValue.setSize(new Dimension(200,130));
+		// txtValue.setSize(new Dimension(200,130));
 		add(txtValue, BorderLayout.CENTER);
-	//	this.setMinimumSize(new Dimension(150,130));
-	//	this.setMaximumSize(new Dimension(150,130));
+		// this.setMinimumSize(new Dimension(150,130));
+		// this.setMaximumSize(new Dimension(150,130));
 		revalidate();
 	}
 
@@ -88,8 +86,8 @@ public class ClassWidget extends WidgetR {
 			for (InstElement groupDependency : list) {
 				if (groupDependency != null) {
 					syntaxElements.put(groupDependency.getEdSyntaxEle()
-							.getAutoIdentifier(),
-							((InstElement) groupDependency).getEdSyntaxEle());
+							.getAutoIdentifier(), groupDependency
+							.getEdSyntaxEle());
 					String out = groupDependency.getEdSyntaxEle()
 							.getAutoIdentifier();
 					txtValue.addItem(out);
@@ -162,8 +160,8 @@ public class ClassWidget extends WidgetR {
 			if (aClass != null
 					&& (aClass.isInterface() || aClass.getSuperclass().equals(
 							OpersElement.class))) {
-				semanticElements = new HashMap<String, OpersElement>();
-				System.out.println("ClassWidget old semanticSyntax");
+				// semanticElements = new HashMap<String, OpersElement>();
+				// System.out.println("ClassWidget old semanticSyntax");
 				/*
 				 * Collection<IntSemanticElement> list = semanticSyntaxObject
 				 * .getSemanticConcepts().values();
@@ -226,7 +224,9 @@ public class ClassWidget extends WidgetR {
 					}
 				}
 			}
-			if (aClass != null && (aClass.equals(OpersConcept.class)||aClass.equals(OpersLabeling.class))) {
+			if (aClass != null
+					&& (aClass.equals(OpersConcept.class) || aClass
+							.equals(OpersLabeling.class))) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
 					Collection<InstElement> list = semanticModel
@@ -237,9 +237,8 @@ public class ClassWidget extends WidgetR {
 								.getAttribute()
 								.getMetaConceptInstanceType()
 								.equals(""
-										+ ((SyntaxElement) concept
-												.getTransSupportMetaElement())
-												.getType()) && (perspective == 3||perspective == 4))
+										+ concept.getTransSupportMetaElement()
+												.getType()) && (perspective == 3 || perspective == 4))
 								|| (concept.getEdOperEle() != null
 										&& instAttribute
 												.getAttribute()
@@ -247,6 +246,15 @@ public class ClassWidget extends WidgetR {
 												.equals(""
 														+ concept
 																.getSupInstEleId()) && perspective == 2)) {
+							// System.out.println(concept.getEdOperEle());
+							if (instAttribute.getAttribute()
+									.getMetaConceptInstanceType()
+									.equals("OMLabeling")
+									&& concept.getEdOperEle() instanceof OpersLabeling) {
+								// OpersLabeling.validateSubOper()
+								// instAttribute.
+								continue;
+							}
 							instVertex.put(
 									concept.getInstAttribute("identifier")
 											.toString(), concept);
@@ -270,7 +278,7 @@ public class ClassWidget extends WidgetR {
 		}
 		if (instAttribute.getValue() == null && txtValue.getItemCount() > 0) {
 			txtValue.setSelectedIndex(0);
-			instAttribute.setValue((String) txtValue.getSelectedItem());
+			instAttribute.setValue(txtValue.getSelectedItem());
 		}
 		// FIX ME: empty only for some lists such as the OMM types in SMM
 		// elements
@@ -331,14 +339,14 @@ public class ClassWidget extends WidgetR {
 		InstAttribute instAttribute = (InstAttribute) v;
 		if (instAttribute.getValueObject() != null) {
 			if (instAttribute.getValueObject() instanceof OpersElement)
-				txtValue.setSelectedItem((String) ((OpersElement) instAttribute
+				txtValue.setSelectedItem(((OpersElement) instAttribute
 						.getValueObject()).getIdentifier());
 			else if (instAttribute.getValueObject() instanceof SyntaxElement)
-				txtValue.setSelectedItem((String) ((SyntaxElement) instAttribute
+				txtValue.setSelectedItem(((SyntaxElement) instAttribute
 						.getValueObject()).getAutoIdentifier());
 		}
 		if (instVertex != null) {
-			Object set = instVertex.get((String) txtValue.getSelectedItem());
+			Object set = instVertex.get(txtValue.getSelectedItem());
 			if ((instAttribute.getValueObject() == null && set != null)
 					|| (instAttribute.getValueObject() != null && !instAttribute
 							.getValueObject().equals(set))) {
@@ -383,16 +391,16 @@ public class ClassWidget extends WidgetR {
 	protected void pullValue(IntInstAttribute v) {
 
 		InstAttribute instAttribute = (InstAttribute) v;
-		v.setValue((String) txtValue.getSelectedItem());
+		v.setValue(txtValue.getSelectedItem());
 		if (instVertex != null)
-			instAttribute.setValueObject(instVertex.get((String) txtValue
+			instAttribute.setValueObject(instVertex.get(txtValue
 					.getSelectedItem()));
 		if (opersElements != null && txtValue.getItemCount() > 0) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
 				instAttribute.setValueObject(opersElements.get(s));
 			} else {
-				String s = ((String) txtValue.getItemAt(0)).trim();
+				String s = txtValue.getItemAt(0).trim();
 				instAttribute.setValueObject(opersElements.get(s));
 			}
 		}
@@ -401,7 +409,7 @@ public class ClassWidget extends WidgetR {
 				String s = ((String) txtValue.getSelectedItem()).trim();
 				instAttribute.setValueObject(syntaxElements.get(s));
 			} else {
-				String s = ((String) txtValue.getItemAt(0)).trim();
+				String s = txtValue.getItemAt(0).trim();
 				instAttribute.setValueObject(syntaxElements.get(s));
 			}
 		}
