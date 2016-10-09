@@ -233,19 +233,24 @@ public class ClassWidget extends WidgetR {
 							.getVariabilityVertexCollection();
 
 					for (InstElement concept : list) {
+						// System.out.println(instAttribute.getAttribute()
+						// .getMetaConceptInstanceType()
+						// + "-"
+						// + concept.getTransSupportMetaElement()
+						// .getType() + "-" + perspective);
 						if ((instAttribute
 								.getAttribute()
 								.getMetaConceptInstanceType()
 								.equals(""
 										+ concept.getTransSupportMetaElement()
-												.getType()) && (perspective == 3 || perspective == 4))
+												.getType()) && perspective == 3)
 								|| (concept.getEdOperEle() != null
 										&& instAttribute
 												.getAttribute()
 												.getMetaConceptInstanceType()
 												.equals(""
 														+ concept
-																.getSupInstEleId()) && perspective == 2)) {
+																.getSupInstEleId()) && (perspective == 2 || perspective == 4))) {
 							// System.out.println(concept.getEdOperEle());
 							if (instAttribute.getAttribute()
 									.getMetaConceptInstanceType()
@@ -290,6 +295,7 @@ public class ClassWidget extends WidgetR {
 		pushValue(v);
 	}
 
+	// Only for InstVertex and InstConcepts
 	public List<InstVertex> getInstElements(String object, mxGraph graph) {
 		List<InstVertex> out = new ArrayList<InstVertex>();
 		mxIGraphModel refasGraph = graph.getModel();
@@ -348,6 +354,9 @@ public class ClassWidget extends WidgetR {
 			else if (instAttribute.getValueObject() instanceof SyntaxElement)
 				txtValue.setSelectedItem(((SyntaxElement) instAttribute
 						.getValueObject()).getAutoIdentifier());
+			else if (instAttribute.getValueObject() instanceof InstElement)
+				txtValue.setSelectedItem(((InstElement) instAttribute
+						.getValueObject()).getIdentifier());
 		}
 		if (instVertex != null) {
 			Object set = instVertex.get(txtValue.getSelectedItem());

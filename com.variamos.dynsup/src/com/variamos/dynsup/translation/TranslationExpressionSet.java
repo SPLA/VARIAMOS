@@ -159,8 +159,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						if (out.size() == 0) {
 							continue;
 						}
-						if (instE.getSupInstEleId().equals("Variable")) {
-							System.out.println(instE.getInstAttribute("type"));
+						if (instE.getTransSupInstElement().getEdSyntaxEle()
+								.getInstSemanticElementId() != null
+								&& instE.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId()
+										.equals("nmVariable")) {
+							// System.out.println(instE.getInstAttribute("type"));
 							if (instE.getInstAttribute("variableType")
 									.getValue().equals("LowLevel expression")
 									&& instE.getInstAttribute(
@@ -171,6 +176,35 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 												"LowLevelExpressionText")
 												.getValue())
 												.getLowExpressions()));
+							}
+							if (instE.getInstAttribute("variableType")
+									.getValue().equals("LowLevel variable")
+									&& instE.getInstAttribute("LowLevelVarOper")
+											.getValue().equals(subAction)) {
+								if (instE.getInstAttribute("LowLevelVarValue")
+										.getValue() != null
+										&& !instE
+												.getInstAttribute(
+														"LowLevelVarValue")
+												.getValue().equals("")) {
+									ModelExpr instanceExpression = new ModelExpr(
+											true, "cond", true);
+									instanceExpression
+											.setSemanticExpressionType(refas
+													.getSemanticExpressionTypes()
+													.get("Equals"));
+									instanceExpression.setLeftElement(instE);
+									instanceExpression
+											.setLeftAttributeName("value");
+									instanceExpression
+											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+									instanceExpression.setRightNumber(Integer
+											.parseInt((String) instE
+													.getInstAttribute(
+															"LowLevelVarValue")
+													.getValue()));
+									out.add(instanceExpression);
+								}
 							}
 						}
 
@@ -361,13 +395,29 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			if (operExpType != null) {
 				List<Labeling> out = new ArrayList<Labeling>();
 				for (InstElement rel : instOperSubAction.getTargetRelations()) {
-					InstElement instOperLab = rel.getTargetRelations().get(0);
-					InstElement operLab = instOperLab;
+					InstElement operLab = rel.getTargetRelations().get(0);
 					// for (OperationLabeling operLab :
 					// operSubAction.getOperLabels()) {
 
 					List<Identifier> ident = new ArrayList<Identifier>();
 					for (InstElement instE : refas.getElements()) {
+						if (instE.getTransSupInstElement().getEdSyntaxEle()
+								.getInstSemanticElementId()
+								.equals("nmVariable")
+								&& instE.getInstAttribute("variableType")
+										.getValue().equals("LowLevel variable")
+								&& instE.getInstAttribute("LowLevelVarLabel")
+										.getValue()
+										.equals(instOperSubAction
+												.getDynamicAttribute("userId"))
+								&& instE.getInstAttribute("LowLevelVarOper")
+										.getValue()
+										.equals(operLab
+												.getDynamicAttribute("userId"))) {
+							Identifier id = f.newIdentifier(instE
+									.getIdentifier() + "_value");
+							ident.add(id);
+						}
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
 							if (((OpersLabeling) operLab.getEdOperEle())
@@ -375,14 +425,25 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 											.getTransSupportMetaElement()
 											.getTransInstSemanticElement(), var
 											.getAttributeName()) == 1) {
-								Identifier id = f.newIdentifier(instE
-										.getIdentifier()
-										+ "_"
-										+ var.getAttributeName());
-								// id.setDomain();
-								ModelExpr.updateDomain(var.getAttribute(),
-										instE, id);
-								ident.add(id);
+								if (instE.getInstAttribute("variableType") == null
+										|| (!instE
+												.getInstAttribute(
+														"variableType")
+												.getValue()
+												.equals("LowLevel variable") && !instE
+												.getInstAttribute(
+														"variableType")
+												.getValue()
+												.equals("LowLevel expression"))) {
+									Identifier id = f.newIdentifier(instE
+											.getIdentifier()
+											+ "_"
+											+ var.getAttributeName());
+									// id.setDomain();
+									ModelExpr.updateDomain(var.getAttribute(),
+											instE, id);
+									ident.add(id);
+								}
 							}
 						}
 					}

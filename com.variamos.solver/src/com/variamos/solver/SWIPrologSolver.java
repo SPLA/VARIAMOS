@@ -336,7 +336,7 @@ public class SWIPrologSolver implements Solver {
 
 				} else {
 					throw new TechnicalException(
-							"Swi prolog API only supports integer values, please check ");
+							"Swi prolog API error, please check ");
 				}
 			}
 		}
