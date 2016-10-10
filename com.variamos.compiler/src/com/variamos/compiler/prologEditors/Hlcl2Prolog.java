@@ -19,6 +19,7 @@ import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LiteralBooleanExpression;
 import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.NumericFloatIdentifier;
 import com.variamos.hlcl.NumericIdentifier;
 import com.variamos.hlcl.NumericOperation;
 import com.variamos.hlcl.SymbolicExpression;
@@ -203,11 +204,22 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 	private void transformAssign(AssignExpression e, StringBuilder out) {
 		transformIdentifier(e.getIdentifier(), out);
 		out.append(SPACE);
-		out.append(ASSIGN_VARIABLE);
-		out.append(SPACE);
-		// transformListExpression(
-		// (ListDefinitionExpression)e.getRightExpression(), out );
-		out.append(transformExpressionToProlog(e.getRightExpression()));
+		switch (e.getType()) {
+		case Assign:
+			out.append(ASSIGN_VARIABLE);
+			out.append(SPACE);
+			// transformListExpression(
+			// (ListDefinitionExpression)e.getRightExpression(), out );
+			out.append(transformExpressionToProlog(e.getRightExpression()));
+			break;
+		case Is:
+			out.append(IS);
+			out.append(SPACE);
+			transformNumericExpression(
+					(NumericExpression) e.getRightExpression(), out);
+			break;
+
+		}
 
 	}
 
@@ -242,6 +254,11 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		out.append(e.getValue());
 	}
 
+	protected void transformNumericFloatIdentifier(NumericFloatIdentifier e,
+			StringBuilder out) {
+		out.append(e.getValue());
+	}
+
 	protected void transformSymbolic(SymbolicExpression e, StringBuilder out) {
 		out.append(e.getName()).append(OPEN_PARENTHESIS);
 		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(e);
@@ -257,6 +274,10 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 
 		if (e instanceof NumericIdentifier)
 			transformNumericIdentifier((NumericIdentifier) e, out);
+
+		// jcmunoz added for float support
+		if (e instanceof NumericFloatIdentifier)
+			transformNumericFloatIdentifier((NumericFloatIdentifier) e, out);
 
 		if (e instanceof NumericOperation) {
 			transformNumericOperation((NumericOperation) e, out);

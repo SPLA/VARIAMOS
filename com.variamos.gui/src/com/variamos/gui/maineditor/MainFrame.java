@@ -217,6 +217,9 @@ public class MainFrame extends JFrame {
 		out.put("Assign", new OpersExprType("Assign", "=", "=", "assign",
 				OpersExprType.IDEN, OpersExprType.EXP, OpersExprType.NONE,
 				false, false));
+		out.put("Is", new OpersExprType("Is", "is", "is", "is",
+				OpersExprType.IDEN, OpersExprType.EXP, OpersExprType.NONE,
+				false, false));
 		out.put("Subtraction", new OpersExprType("Subtraction", "-", "-",
 				"diff", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
 				OpersExprType.NUMEXP, false, false));

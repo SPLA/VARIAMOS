@@ -1033,6 +1033,19 @@ public class ModelExpr implements Serializable {
 							.getLeftSemanticExpression().getRightNumber()));
 
 				break;
+			case RIGHTNUMERICFLOATVALUE:
+				if (iter)
+					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 || !iter)
+					out.add(hlclFactory.floatNumber(getSemanticExpression()
+							.getRightFloatNumber()));
+				if (pos == -1 && !iter)
+					// FIXME support other types of default values for iter
+					// expressions
+					out.add(hlclFactory.floatNumber(getSemanticExpression()
+							.getLeftSemanticExpression().getRightFloatNumber()));
+
+				break;
 			case RIGHTVARIABLEVALUE:
 			case RIGHTSTRINGVALUE:
 				if (iter)
@@ -1174,6 +1187,9 @@ public class ModelExpr implements Serializable {
 		if (type == ExpressionVertexType.RIGHTNUMERICVALUE)
 			this.rightInstanceExpression = new ModelExpr(refas, true,
 					new OpersExpr(id, semanticExpressionType));
+		if (type == ExpressionVertexType.RIGHTNUMERICFLOATVALUE)
+			this.rightInstanceExpression = new ModelExpr(refas, true,
+					new OpersExpr(id, semanticExpressionType));
 		getSemanticExpression().setRightExpressionType(type);
 	}
 
@@ -1184,11 +1200,11 @@ public class ModelExpr implements Serializable {
 		getSemanticExpression().setRightAttributeName(attribute);
 	}
 
-	public int getLeftNumber() {
+	public float getLeftNumber() {
 		return getSemanticExpression().getLeftNumber();
 	}
 
-	public int getRightNumber() {
+	public float getRightNumber() {
 		return getSemanticExpression().getRightNumber();
 	}
 
@@ -1197,6 +1213,10 @@ public class ModelExpr implements Serializable {
 	}
 
 	public void setRightNumber(int number) {
+		getSemanticExpression().setRightNumber(number);
+	}
+
+	public void setRightNumber(float number) {
 		getSemanticExpression().setRightNumber(number);
 	}
 
@@ -1748,6 +1768,11 @@ public class ModelExpr implements Serializable {
 
 		case RIGHTNUMERICVALUE:
 			this.rightValue = volatileSemanticExpression.getRightNumber() + "";
+			this.volatileRightInstElement = instElement;
+			break;
+		case RIGHTNUMERICFLOATVALUE:
+			this.rightValue = volatileSemanticExpression.getRightFloatNumber()
+					+ "";
 			this.volatileRightInstElement = instElement;
 			break;
 		case RIGHTVARIABLEVALUE:

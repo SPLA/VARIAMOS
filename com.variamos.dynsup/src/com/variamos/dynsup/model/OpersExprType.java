@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
+import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.NumericExpression;
 
 /**
@@ -42,11 +43,10 @@ public class OpersExprType implements Serializable {
 
 	}
 
-	public OpersExprType(String textConnector,
-			String gnuPrologConnector, String swiPrologConnector,
-			String method, int leftExpression, int rightExpression,
-			int resultExpression, boolean singleInExpression,
-			boolean arrayParameters) {
+	public OpersExprType(String textConnector, String gnuPrologConnector,
+			String swiPrologConnector, String method, int leftExpression,
+			int rightExpression, int resultExpression,
+			boolean singleInExpression, boolean arrayParameters) {
 		super();
 		this.gnuPrologConnector = gnuPrologConnector;
 		this.swiPrologConnector = swiPrologConnector;
@@ -68,6 +68,8 @@ public class OpersExprType implements Serializable {
 			return NumericExpression.class;
 		case EXP:
 			return Expression.class;
+		case IDEN:
+			return Identifier.class;
 		default:
 			return null;
 		}
@@ -172,8 +174,7 @@ public class OpersExprType implements Serializable {
 			int evaluated = semanticExpressionType.getResultExpressions();
 			if (evaluated == valid)
 				out.add(semanticExpressionType);
-			if (valid == OpersExprType.EXP
-					|| valid == OpersExprType.NUMEXP)
+			if (valid == OpersExprType.EXP || valid == OpersExprType.NUMEXP)
 				if (evaluated == OpersExprType.BOOLEXP
 						|| evaluated == OpersExprType.NUMEXP)
 					out.add(semanticExpressionType);

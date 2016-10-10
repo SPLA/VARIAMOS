@@ -193,14 +193,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									instanceExpression
 											.setSemanticExpressionType(refas
 													.getSemanticExpressionTypes()
-													.get("Equals"));
+													.get("Is"));
 									instanceExpression.setLeftElement(instE);
 									instanceExpression
 											.setLeftAttributeName("value");
 									instanceExpression
-											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
-									instanceExpression.setRightNumber(Integer
-											.parseInt((String) instE
+											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICFLOATVALUE);
+									instanceExpression.setRightNumber(Float
+											.parseFloat((String) instE
 													.getInstAttribute(
 															"LowLevelVarValue")
 													.getValue()));

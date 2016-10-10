@@ -30,6 +30,7 @@ public class OpersExpr implements Serializable {
 	private String lastRight = null;
 
 	private int leftNumber, rightNumber;
+	private float rightFloatNumber;
 	private String leftString, rightString;
 	private boolean recursiveExpression;
 
@@ -734,6 +735,10 @@ public class OpersExpr implements Serializable {
 		this.rightNumber = rightNumber;
 	}
 
+	public void setRightNumber(float rightNumber) {
+		this.rightFloatNumber = rightNumber;
+	}
+
 	public void setLeftString(String leftString) {
 		this.leftString = leftString;
 	}
@@ -835,6 +840,9 @@ public class OpersExpr implements Serializable {
 		if (type == ExpressionVertexType.RIGHTNUMERICVALUE)
 			this.rightSemanticExpression = new OpersExpr(id,
 					semanticExpressionType);
+		if (type == ExpressionVertexType.RIGHTNUMERICFLOATVALUE)
+			this.rightSemanticExpression = new OpersExpr(id,
+					semanticExpressionType);
 		setRightExpressionType(type);
 	}
 
@@ -908,6 +916,10 @@ public class OpersExpr implements Serializable {
 
 	public int getRightNumber() {
 		return rightNumber;
+	}
+
+	public float getRightFloatNumber() {
+		return rightFloatNumber;
 	}
 
 	public String getLeftString() {
