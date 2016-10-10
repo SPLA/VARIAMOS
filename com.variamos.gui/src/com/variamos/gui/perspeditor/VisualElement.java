@@ -25,8 +25,8 @@ public class VisualElement implements Comparable<VisualElement> {
 	public VisualElement(InstElement instElement) {
 		defineColors();
 		this.instElement = instElement;
-		this.opersElement = ((SyntaxElement) instElement
-				.getTransSupportMetaElement()).getTransSemanticConcept();
+		this.opersElement = instElement.getTransSupportMetaElement()
+				.getTransSemanticConcept();
 		updateValues();
 		this.updated = false;
 
@@ -89,8 +89,8 @@ public class VisualElement implements Comparable<VisualElement> {
 						.getValueObject();
 				if (object != null) {
 					@SuppressWarnings("unchecked")
-					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstElement) object)
+							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE)
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("#");
@@ -110,6 +110,11 @@ public class VisualElement implements Comparable<VisualElement> {
 					.equals("Boolean")) {
 				out += "bool : "
 						+ instElement.getInstAttribute("value").getAsBoolean()
+						+ "";
+			} else if (instElement.getInstAttribute("variableType").getValue()
+					.equals("LowLevel variable")) {
+				out += "float : "
+						+ instElement.getInstAttribute("value").getAsFloat()
 						+ "";
 			} else
 				out += "Other type";

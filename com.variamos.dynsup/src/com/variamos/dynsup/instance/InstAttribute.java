@@ -280,6 +280,9 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		if (val == null)
 			return null;
 
+		if (val instanceof Integer)
+			return ((Integer) val).floatValue();
+
 		if (val instanceof Float)
 			return (Float) val;
 

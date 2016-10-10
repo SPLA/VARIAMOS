@@ -2388,6 +2388,8 @@ public class DefaultOpersMM {
 				semVariable.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
+		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("isContext", "Boolean",
 				AttributeType.OPERATION, false, "Context Defined",

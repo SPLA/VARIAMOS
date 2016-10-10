@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.instance.InstAttribute;
@@ -400,17 +401,18 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					// operSubAction.getOperLabels()) {
 
 					List<Identifier> ident = new ArrayList<Identifier>();
+					Set<InstElement> e = refas.getElements();
 					for (InstElement instE : refas.getElements()) {
 						if (instE.getTransSupInstElement().getEdSyntaxEle()
 								.getInstSemanticElementId()
 								.equals("nmVariable")
 								&& instE.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable")
-								&& instE.getInstAttribute("LowLevelVarLabel")
+								&& instE.getInstAttribute("LowLevelVarOper")
 										.getValue()
 										.equals(instOperSubAction
 												.getDynamicAttribute("userId"))
-								&& instE.getInstAttribute("LowLevelVarOper")
+								&& instE.getInstAttribute("LowLevelVarLabel")
 										.getValue()
 										.equals(operLab
 												.getDynamicAttribute("userId"))) {
@@ -418,23 +420,20 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									.getIdentifier() + "_value");
 							ident.add(id);
 						}
-						for (InstAttribute var : instE.getInstAttributes()
-								.values()) {
-							if (((OpersLabeling) operLab.getEdOperEle())
-									.validateAttribute(instE
-											.getTransSupportMetaElement()
-											.getTransInstSemanticElement(), var
-											.getAttributeName()) == 1) {
-								if (instE.getInstAttribute("variableType") == null
-										|| (!instE
-												.getInstAttribute(
-														"variableType")
-												.getValue()
-												.equals("LowLevel variable") && !instE
-												.getInstAttribute(
-														"variableType")
-												.getValue()
-												.equals("LowLevel expression"))) {
+						if (instE.getInstAttribute("variableType") == null
+								|| (!instE.getInstAttribute("variableType")
+										.getValue().equals("LowLevel variable") && !instE
+										.getInstAttribute("variableType")
+										.getValue()
+										.equals("LowLevel expression"))) {
+							for (InstAttribute var : instE.getInstAttributes()
+									.values()) {
+								if (((OpersLabeling) operLab.getEdOperEle())
+										.validateAttribute(instE
+												.getTransSupportMetaElement()
+												.getTransInstSemanticElement(),
+												var.getAttributeName()) == 1) {
+
 									Identifier id = f.newIdentifier(instE
 											.getIdentifier()
 											+ "_"
