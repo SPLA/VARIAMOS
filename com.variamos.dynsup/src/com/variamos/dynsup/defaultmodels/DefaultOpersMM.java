@@ -2470,7 +2470,7 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("LowLevelExpressionText",
 				LowExpr.class.getCanonicalName(), AttributeType.OPERATION,
-				false, "Low-Level Expression Text",
+				false, "Low-Level Expr. Text",
 				"Expression at the solver level (language independent)", null,
 				0, 3, "", "variableType" + "#==#" + "LowLevel expression", -1,
 				"", "");

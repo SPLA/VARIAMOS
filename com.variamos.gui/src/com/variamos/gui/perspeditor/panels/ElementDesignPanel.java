@@ -178,10 +178,8 @@ public class ElementDesignPanel extends JPanel {
 				if (editElm.getEdOperEle() != null
 						&& !editElm.getTransSupportMetaElement().getName()
 								.equals("OMLabeling")) {
-					elementDesPropSubPanel.add(new JLabel(
-							"Meta-Model-Expressions"));
-					JButton button = new JButton(
-							"Open Meta-Model-Expressions Editor");
+					elementDesPropSubPanel.add(new JLabel("Meta-Model-Expr."));
+					JButton button = new JButton("Meta-Model-Expr. Editor...");
 					if (editor.getPerspective() == 4)
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
@@ -227,7 +225,7 @@ public class ElementDesignPanel extends JPanel {
 						&& editElm.getTransSupportMetaElement().getName()
 								.equals("OMLabeling")) {
 					elementDesPropSubPanel.add(new JLabel("Order Meta-Expr."));
-					JButton button = new JButton("Open Order Meta-Expr. Editor");
+					JButton button = new JButton("Order Meta-Expr. Editor...");
 					if (editor.getPerspective() == 4)
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
