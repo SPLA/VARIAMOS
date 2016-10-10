@@ -47,9 +47,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * Identifier of the operation
 	 */
 	private String operation;
-	/* 
+	/*
+	 * Normal instance Expressions
 	 */
 	private Map<String, List<ModelExpr>> instanceExpressions;
+	/*
+	 * LowLevel instance Expressions
+	 */
+	private Map<String, List<ModelExpr>> instanceLowExpr;
 	/* 
 	 */
 	private Map<String, List<LiteralBooleanExpression>> literalExpressions;
@@ -82,6 +87,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				idMap, hlclFactory);
 		this.refas = refas;
 		instanceExpressions = new HashMap<String, List<ModelExpr>>();
+		instanceLowExpr = new HashMap<String, List<ModelExpr>>();
 		literalExpressions = new HashMap<String, List<LiteralBooleanExpression>>();
 		this.idMap = idMap;
 		this.hlclFactory = hlclFactory;
@@ -92,6 +98,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			String subAction, OperationSubActionExecType expressionType) {
 
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
+		List<ModelExpr> outLow = new ArrayList<ModelExpr>();
 
 		List<LiteralBooleanExpression> outLiteral = new ArrayList<LiteralBooleanExpression>();
 
@@ -153,13 +160,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 				if (instElement == null)
 					for (InstElement instE : refas.getElements()) {
-						out.addAll(createElementInstanceExpressions(instE,
-								semExp, false));
-						// FIXME better validate to create conditional
-						// expressions
-						if (out.size() == 0) {
-							continue;
-						}
 						if (instE.getTransSupInstElement().getEdSyntaxEle()
 								.getInstSemanticElementId() != null
 								&& instE.getTransSupInstElement()
@@ -204,9 +204,23 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 													.getInstAttribute(
 															"LowLevelVarValue")
 													.getValue()));
-									out.add(instanceExpression);
+									outLow.add(instanceExpression);
 								}
 							}
+						}
+						if (instE.getInstAttribute("variableType") == null
+								|| (!instE.getInstAttribute("variableType")
+										.getValue().equals("LowLevel variable") && !instE
+										.getInstAttribute("variableType")
+										.getValue()
+										.equals("LowLevel expression")))
+							out.addAll(createElementInstanceExpressions(instE,
+									semExp, false));
+
+						// FIXME better validate to create conditional
+						// expressions
+						if (out.size() == 0) {
+							continue;
 						}
 
 						for (InstAttribute att : instE.getInstAttributes()
@@ -355,6 +369,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			}
 		}
 		instanceExpressions.put(subAction + "-" + expressionType, out);
+		instanceLowExpr.put(subAction + "-" + expressionType, outLow);
 		literalExpressions.put(subAction + "-" + expressionType, outLiteral);
 
 	}
@@ -635,6 +650,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		HlclProgram prog = new HlclProgram();
 		String i = "";
 		for (ModelExpr expression : instanceExpressions.get(column)) {
+			BooleanExpression newExp = (BooleanExpression) expression
+					.createSGSExpression();
+
+			if (newExp != null)
+				prog.add(newExp);
+		}
+		for (ModelExpr expression : instanceLowExpr.get(column)) {
 			BooleanExpression newExp = (BooleanExpression) expression
 					.createSGSExpression();
 
