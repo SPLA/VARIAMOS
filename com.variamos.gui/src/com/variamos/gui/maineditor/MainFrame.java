@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20160922-1700";
+	private String variamosBuild = "20161011-1600";
 	private String downloadId = "499";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -98,7 +98,7 @@ public class MainFrame extends JFrame {
 		String perspTitle = "";
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
-			case 0: // operations
+			case 0: // operations 1
 				abstractModel = new ModelInstance(metaExpressionTypes,
 						operationsInfrastructure);
 				semanticSuperstructure = abstractModel;
@@ -113,7 +113,7 @@ public class MainFrame extends JFrame {
 						.println("Creating Operations Meta-Model Perspective...");
 				break;
 
-			case 1:// modeling
+			case 1:// modeling 2
 				abstractModel = new ModelInstance(PerspectiveType.MODELING,
 						metaExpressionTypes, syntaxSuperstructure,
 						semanticSuperstructure);
@@ -126,7 +126,7 @@ public class MainFrame extends JFrame {
 				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
-			case 2:// syntax
+			case 2:// syntax 3
 				abstractModel = syntaxSuperstructure;
 
 				bgColor = new Color(255, 255, 245);
@@ -135,7 +135,7 @@ public class MainFrame extends JFrame {
 				System.out.println("Creating Syntax Meta-Model Perspective...");
 				break;
 
-			case 3:// simulation
+			case 3:// simulation 4
 				abstractModel = new ModelInstance(
 						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
 						syntaxSuperstructure, semanticSuperstructure);
@@ -175,19 +175,17 @@ public class MainFrame extends JFrame {
 		this.add(graphEditors.get(1));
 		this.setJMenuBar(editorsMenu.get(1));
 		this.setVisible(true);
+		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
+			this.checkUpdates(false);
+		}
+		if (args != null
+				&& (args.length > 0 && args[0].equals("debug") || (args.length == 2 && args[1]
+						.equals("debug")))) {
+			ConsoleTextArea.setDebug(true);
+		}
 		try {
 			if (args == null || args.length == 0 || !args[0].equals("nosolver"))
 				verifySolver();
-			if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
-				this.checkUpdates(false);
-			}
-
-			if (args != null
-					&& (args.length > 0 && args[0].equals("debug") || (args.length == 2 && args[1]
-							.equals("debug")))) {
-
-				ConsoleTextArea.setDebug(true);
-			}
 		} catch (UnsatisfiedLinkError e) {
 			ConsoleTextArea.addText(e.getStackTrace());
 			JOptionPane
@@ -217,6 +215,9 @@ public class MainFrame extends JFrame {
 				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
 				OpersExprType.BOOLEXP, false, false));
 		out.put("Assign", new OpersExprType("Assign", "=", "=", "assign",
+				OpersExprType.IDEN, OpersExprType.EXP, OpersExprType.NONE,
+				false, false));
+		out.put("Is", new OpersExprType("Is", "is", "is", "is",
 				OpersExprType.IDEN, OpersExprType.EXP, OpersExprType.NONE,
 				false, false));
 		out.put("Subtraction", new OpersExprType("Subtraction", "-", "-",

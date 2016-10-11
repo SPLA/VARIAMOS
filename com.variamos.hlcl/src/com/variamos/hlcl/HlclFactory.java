@@ -7,11 +7,15 @@ public class HlclFactory {
 		return new BooleanOperation(left, right, BooleanOperator.And);
 	}
 
-	public AssignExpression assign(Identifier identifier, Expression expression){
+	public AssignExpression assign(Identifier identifier, Expression expression) {
 		return new AssignExpression(identifier, expression);
 	}
 
-	public FunctionDeclarationExpression declare(SymbolicExpression exp){
+	public AssignExpression is(Identifier identifier, Expression expression) {
+		return new AssignExpression(identifier, expression, AssignType.Is);
+	}
+
+	public FunctionDeclarationExpression declare(SymbolicExpression exp) {
 		return new FunctionDeclarationExpression(exp);
 	}
 
@@ -25,8 +29,7 @@ public class HlclFactory {
 		return new BooleanOperation(left, right, BooleanOperator.DoubleImplies);
 	}
 
-	public ComparisonExpression equals(Expression left,
-			Expression right) {
+	public ComparisonExpression equals(Expression left, Expression right) {
 		return new ComparisonExpression(left, right, ComparisonType.Equals);
 	}
 
@@ -61,11 +64,11 @@ public class HlclFactory {
 		return new ComparisonExpression(left, right, ComparisonType.LessThan);
 	}
 
-	public LiteralBooleanExpression literalBooleanExpression(String expression){
+	public LiteralBooleanExpression literalBooleanExpression(String expression) {
 		return new LiteralBooleanExpression(expression);
 	}
-	
-	public HlclFunction newFunction(FunctionDeclarationExpression fde){
+
+	public HlclFunction newFunction(FunctionDeclarationExpression fde) {
 		return new HlclFunction(fde);
 	}
 
@@ -77,7 +80,7 @@ public class HlclFactory {
 		return new Identifier(id);
 	}
 
-	public ListDefinitionExpression newList(List<Identifier> values){
+	public ListDefinitionExpression newList(List<Identifier> values) {
 		return new ListDefinitionExpression(values);
 	}
 
@@ -91,17 +94,22 @@ public class HlclFactory {
 
 	public ComparisonExpression notEquals(Expression expression,
 			Expression expression2) {
-		return new ComparisonExpression(expression, expression2, ComparisonType.NotEquals);
+		return new ComparisonExpression(expression, expression2,
+				ComparisonType.NotEquals);
 	}
-	
+
 	public NumericIdentifier number(int value) {
 		return new NumericIdentifier(value);
 	}
-	
+
+	public NumericFloatIdentifier floatNumber(float value) {
+		return new NumericFloatIdentifier(value);
+	}
+
 	public BooleanExpression or(BooleanExpression left, BooleanExpression right) {
 		return new BooleanOperation(left, right, BooleanOperator.Or);
 	}
-	
+
 	public NumericExpression prod(NumericExpression... p) {
 		if (p == null || p.length == 0)
 			return new NumericIdentifier(0);
@@ -113,20 +121,20 @@ public class HlclFactory {
 		}
 		return prod;
 	}
-	
+
 	public NumericExpression sum(List<NumericExpression> expressionsList) {
 		if (expressionsList == null || expressionsList.isEmpty())
 			return new NumericIdentifier(0);
 
 		NumericExpression sum = null;
 		sum = expressionsList.get(0);
-		for (int i=1; i<expressionsList.size();i++) {
-			sum = new NumericOperation(sum,expressionsList.get(i), NumericOperator.Sum);
+		for (int i = 1; i < expressionsList.size(); i++) {
+			sum = new NumericOperation(sum, expressionsList.get(i),
+					NumericOperator.Sum);
 		}
 		return sum;
 	}
 
-	
 	public NumericExpression sum(NumericExpression... s) {
 		if (s == null || s.length == 0)
 			return new NumericIdentifier(0);

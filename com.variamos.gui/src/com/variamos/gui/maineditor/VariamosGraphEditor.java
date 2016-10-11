@@ -165,7 +165,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private ElementsOperationAssociationDialog eoad;
 
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
-			(ModelInstance) getEditedModel());
+			getEditedModel());
 
 	private FileTasks fileTask;
 
@@ -309,6 +309,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					scrollPane
 							.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 					modelsTabPane.addChangeListener(new ChangeListener() {
+						@Override
 						public void stateChanged(ChangeEvent e) {
 							// System.out.println("Tab: "
 							// + modelsTabPane.getTitleAt(modelsTabPane
@@ -350,7 +351,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									editor.updateView();
 									center.setDividerLocation(25);
 									center.setMaximumSize(center.getSize());
-									center.setMinimumSize(center.getSize());
+									// center.setMinimumSize(center.getSize());
 									center.setPreferredSize(center.getSize());
 									center.setResizeWeight(0);
 									// }
@@ -434,12 +435,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void updateEditor() {
 		validElements = ((PerspEditorGraph) getGraphComponent().getGraph())
 				.getValidElements(modelViewIndex, modelSubViewIndex);
-		dashBoardFrame = new VariamosDashBoardFrame(
-				(ModelInstance) getEditedModel());
+		dashBoardFrame = new VariamosDashBoardFrame(getEditedModel());
 		graphEditorFunctions.updateEditor(this.validElements,
 				getGraphComponent(), modelViewIndex);
 	}
 
+	@Override
 	public void updateTitle() {
 		if (perspective == 4 && modelEditor != null)
 			currentFile = modelEditor.getCurrentFile();
@@ -1173,9 +1174,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					// GARA
 					// variablesPanel.add(new JLabel(v.getName() + ":: "));
 					if (instAttribute.getAttribute() instanceof ElemAttribute
-							&& ((ElemAttribute) instAttribute.getAttribute())
-									.getAttributeType().equals(
-											AttributeType.EXECCURRENTSTATE)) {
+							&& instAttribute.getAttribute().getAttributeType()
+									.equals(AttributeType.EXECCURRENTSTATE)) {
 						JLabel label = new JLabel(
 								instAttribute.getDisplayName() + ": ");
 						elementSimPropSubPanel.add(label);
@@ -1196,6 +1196,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 										});
 							JButton button = new JButton("Validate");
 							button.addActionListener(new ActionListener() {
+								@Override
 								public void actionPerformed(ActionEvent e) {
 									if (!recursiveCall) {
 										clearNotificationBar();
@@ -1212,9 +1213,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 						simulationPanelElements++;
 					} else if (instAttribute.getAttribute() instanceof ElemAttribute
-							&& ((ElemAttribute) instAttribute.getAttribute())
-									.getAttributeType().equals(
-											AttributeType.GLOBALCONFIG)) {
+							&& instAttribute.getAttribute().getAttributeType()
+									.equals(AttributeType.GLOBALCONFIG)) {
 						JLabel label = new JLabel(
 								instAttribute.getDisplayName() + ": ");
 						elementConfPropSubPanel.add(label);
@@ -1248,6 +1248,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									.startsWith("Conf")) {
 								JButton button = new JButton("Test");
 								button.addActionListener(new ActionListener() {
+									@Override
 									public void actionPerformed(ActionEvent e) {
 										// new Thread() {
 										// public void run() {
@@ -1267,6 +1268,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								elementConfPropSubPanel.add(button);
 								button = new JButton("Configure");
 								button.addActionListener(new ActionListener() {
+									@Override
 									public void actionPerformed(ActionEvent e) {
 										// new Thread() {
 										// public void run() {
@@ -1287,6 +1289,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							} else {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
+									@Override
 									public void actionPerformed(ActionEvent e) {
 										modelEditor.clearNotificationBar();
 										editPropertiesRefas(instCell);
@@ -1344,6 +1347,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (updateTabs)
@@ -1373,7 +1377,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void refreshElement(InstElement elm) {
 		List<InstAttribute> visible = elm.getVisibleVariables(refasModel
-				.getParentSMMSyntaxElement((InstElement) elm));
+				.getParentSMMSyntaxElement(elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		for (InstAttribute v : visible) {
 			Map<String, InstElement> mapElements = null;
@@ -1389,7 +1393,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					ConsoleTextArea.addText(e.getStackTrace());
 				}
 			}
-			v.updateValidationList((InstElement) elm, mapElements);
+			v.updateValidationList(elm, mapElements);
 			final WidgetR w = factory.getWidgetFor(v);
 			if (w == null) {
 				return;
@@ -1416,7 +1420,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									.getValue());
 				if (instAttribute.getIdentifier().equals("OperationsMMType"))
 					editableMetaElement
-							.setTransInstSemanticElement((InstElement) this.refasModel
+							.setTransInstSemanticElement(this.refasModel
 									.getOperationalModel().getElement(
 											(String) instAttribute.getValue()));
 				// if (instAttribute.getIdentifier().equals("Visible"))
@@ -1429,8 +1433,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					editableMetaElement.setStyle((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("PaletteName"))
-					((SyntaxElement) editableMetaElement)
-							.setPaletteName((String) instAttribute.getValue());
+					editableMetaElement.setPaletteName((String) instAttribute
+							.getValue());
 
 				if (instAttribute.getIdentifier().equals("Description"))
 					editableMetaElement.setDescription((String) instAttribute
@@ -1445,18 +1449,18 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					editableMetaElement.setImage((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("TopConcept"))
-					((SyntaxElement) editableMetaElement)
-							.setTopConcept((boolean) instAttribute.getValue());
+					editableMetaElement.setTopConcept((boolean) instAttribute
+							.getValue());
 				if (instAttribute.getIdentifier().equals("BackgroundColor"))
-					((SyntaxElement) editableMetaElement)
+					editableMetaElement
 							.setBackgroundColor((String) instAttribute
 									.getValue());
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					editableMetaElement.setBorderStroke((int) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Resizable"))
-					((SyntaxElement) editableMetaElement)
-							.setResizable((boolean) instAttribute.getValue());
+					editableMetaElement.setResizable((boolean) instAttribute
+							.getValue());
 				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
 							.setModelingAttributes((Map<String, ElemAttribute>) instAttribute
@@ -1474,6 +1478,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		refresh();
 	}
 
+	@Override
 	protected PerspectiveToolBar installToolBar(MainFrame mainFrame,
 			int perspective) {
 		if (perspectiveToolBarPanel == null) {
@@ -1573,6 +1578,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	protected void installRepaintListener() {
 		graphComponent.getGraph().addListener(mxEvent.REPAINT,
 				new mxIEventListener() {
+					@Override
 					public void invoke(Object source, mxEventObject evt) {
 						String solver = "";
 						String buffer = (graphComponent.getTripleBuffer() != null) ? ""
@@ -1818,6 +1824,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	 * lastConfig.keySet()) if (lastConfig.get(solution) !=
 	 * currentConfig.get(solution)) out.add(solution); return out; }
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if ("progress" == evt.getPropertyName()) {
 			int progress = (Integer) evt.getNewValue();

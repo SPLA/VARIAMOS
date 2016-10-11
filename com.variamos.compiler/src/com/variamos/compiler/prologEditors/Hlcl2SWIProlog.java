@@ -88,6 +88,9 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 			for (PrologTransformParameters ptp : paramList) {
 
 				StringBuilder insideLabeling = new StringBuilder();
+				// jcmunoz validation to exclude labeling without label
+				if (!ptp.isIncludeLabel())
+					continue;
 				if (ptp.isOnceLabeling()) {
 					footerExpression.append(ONCE);
 					footerExpression.append(OPEN_PARENTHESIS);
@@ -203,10 +206,13 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 			StringBuilder domains = new StringBuilder();
 
 			for (PrologTransformParameters ptp : paramList) {
-				labids.append(ptp.getLabelId() + ",");
+				if (ptp.isOutputSet()) {
+					labids.append(ptp.getLabelId() + ",");
+				}
 				variables.append(makeVariables(ptp.getLabelId(),
 						ptp.getIdentifiers()));
-				domains.append(makeDomains(ptp.getIdentifiers()));
+				if (ptp.isIncludeLabel())
+					domains.append(makeDomains(ptp.getIdentifiers()));
 			}
 			// System.out.println(labids);
 			labids.deleteCharAt(labids.length() - 1);

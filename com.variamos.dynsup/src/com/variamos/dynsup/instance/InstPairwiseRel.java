@@ -225,7 +225,7 @@ public class InstPairwiseRel extends InstElement {
 			if (getTransSupportMetaElement() instanceof SyntaxElement
 					&& getTransSupportMetaElement()
 							.getTransInstSemanticElement() != null) {
-				InstElement instElement = (InstElement) getTransSupportMetaElement()
+				InstElement instElement = getTransSupportMetaElement()
 						.getTransInstSemanticElement();
 				Iterator<String> semanticAttributes = instElement
 						.getAllAttributesNames(null).iterator();
@@ -243,18 +243,22 @@ public class InstPairwiseRel extends InstElement {
 
 	}
 
+	@Override
 	public void setSourceRelation(InstElement sourceRelation, boolean firstCall) {
 		super.setSourceRelation(sourceRelation, firstCall);
 	}
 
+	@Override
 	public void setTargetRelation(InstElement targetRelation, boolean firstCall) {
 		super.setTargetRelation(targetRelation, firstCall);
 	}
 
+	@Override
 	public String getIdentifier() {
 		return identifier;
 	}
 
+	@Override
 	public void addInstAttribute(String name, ElemAttribute modelingAttribute,
 			Object value) {
 		if (getInstAttribute(name) == null) {
@@ -266,10 +270,12 @@ public class InstPairwiseRel extends InstElement {
 		}
 	}
 
+	@Override
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
 
+	@Override
 	public InstElement getTransSupInstElement() {
 		return new InstPairwiseRel(getMetaPairwiseRelation());
 	}
@@ -295,7 +301,7 @@ public class InstPairwiseRel extends InstElement {
 		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
 				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
 			Object o = getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject();
-			String semGroupDep = (String) ((OpersConcept) o).getIdentifier();
+			String semGroupDep = ((OpersConcept) o).getIdentifier();
 
 			if (!semPairwiseDepOld.equals(semGroupDep)) {
 				semPairwiseDepOld = semGroupDep;
@@ -339,6 +345,7 @@ public class InstPairwiseRel extends InstElement {
 		return visibleInstAttributes;
 	}
 
+	@Override
 	public List<InstAttribute> getFilteredInstAttributes(
 			Set<String> attributesNames, List<InstAttribute> instAttributes) {
 		List<String> listEditableAttributes = new ArrayList<String>();
@@ -386,6 +393,7 @@ public class InstPairwiseRel extends InstElement {
 		return (Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public InstAttribute getInstAttribute(String name) {
 		return ((Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES))
@@ -440,6 +448,7 @@ public class InstPairwiseRel extends InstElement {
 		return editableAttributes;
 	}
 
+	@Override
 	public List<InstAttribute> getVisibleAttributes(
 			List<InstElement> syntaxParents) {
 		SyntaxElement supportElement = getMetaPairwiseRelation();
@@ -500,10 +509,12 @@ public class InstPairwiseRel extends InstElement {
 		return editableAttributes;
 	}
 
+	@Override
 	public String toString() {
 		return getText(null);
 	}
 
+	@Override
 	public String getText(List<InstElement> parents) {// TODO move to superclass
 		return panelVisible(parents, getMetaPairwiseRelation());
 

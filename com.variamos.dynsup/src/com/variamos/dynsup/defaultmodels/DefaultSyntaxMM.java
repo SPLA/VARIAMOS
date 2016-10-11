@@ -33,8 +33,8 @@ public class DefaultSyntaxMM {
 		InstElement supportMetaViewPairwise = refas.getSyntaxModel().getVertex(
 				"SMMViewConceptAsso");
 
-		InstPairwiseRel metaPairwiseRelNormal = ((InstPairwiseRel) refas
-				.getSyntaxModel().getConstraintInstEdge("SMMNormalRelation"));
+		InstPairwiseRel metaPairwiseRelNormal = (refas.getSyntaxModel()
+				.getConstraintInstEdge("SMMNormalRelation"));
 
 		// Model concept
 

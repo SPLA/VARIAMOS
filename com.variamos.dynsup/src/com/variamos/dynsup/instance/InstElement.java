@@ -206,25 +206,20 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 				if (edSyntaxEle instanceof SyntaxElement) {
 					if (instAttribute.getIdentifier().equals("TopConcept"))
-						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
-								.isTopConcept());
+						instAttribute.setValue(edSyntaxEle.isTopConcept());
 					if (instAttribute.getIdentifier().equals("BackgroundColor"))
-						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
-								.getBackgroundColor());
+						instAttribute
+								.setValue(edSyntaxEle.getBackgroundColor());
 					if (instAttribute.getIdentifier().equals("Resizable"))
-						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
-								.isResizable());
+						instAttribute.setValue(edSyntaxEle.isResizable());
 				}
 				if (instAttribute.getIdentifier().equals("Index"))
-					instAttribute.setValue(((SyntaxElement) edSyntaxEle)
-							.getIndex());
+					instAttribute.setValue(edSyntaxEle.getIndex());
 				if (instAttribute.getIdentifier().equals("PaletteNames"))
-					instAttribute.setValue(((SyntaxElement) edSyntaxEle)
-							.getPaletteName());
+					instAttribute.setValue(edSyntaxEle.getPaletteName());
 
 				if (instAttribute.getIdentifier().equals("Palette")) {
-					instAttribute.setValue(((SyntaxElement) edSyntaxEle)
-							.getPalette());
+					instAttribute.setValue(edSyntaxEle.getPalette());
 				}
 
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
@@ -323,7 +318,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 	public void setTransSupInstElement(InstElement supInstElement) {
 		this.setSupInstEleId(supInstElement.getIdentifier());
-		this.supInstElement = (InstElement) supInstElement;
+		this.supInstElement = supInstElement;
 	}
 
 	public void setIdentifier(String identifier) {
@@ -405,6 +400,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 		// return identifier;
 	}
 
+	@Override
 	public String toString() {
 		return getText(null);
 	}
@@ -522,7 +518,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 			if (getTransSupportMetaElement() instanceof SyntaxElement
 					&& getTransSupportMetaElement()
 							.getTransInstSemanticElement() != null) {
-				InstElement instElement = (InstElement) getTransSupportMetaElement()
+				InstElement instElement = getTransSupportMetaElement()
 						.getTransInstSemanticElement();
 				Iterator<String> semanticAttributes = instElement
 						.getAllAttributesNames(syntaxParents).iterator();

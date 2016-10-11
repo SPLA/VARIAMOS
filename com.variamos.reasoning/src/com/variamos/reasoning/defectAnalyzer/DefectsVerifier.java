@@ -40,7 +40,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	// Variables usadas para almacenar información que es útil cuando se hacen
 	// otras operaciones de verificación
-	private Map<Identifier, Set<Integer>> verifiedValuesMap;
+	private Map<Identifier, Set<Number>> verifiedValuesMap;
 	private SolverOperationsUtil solver;
 	private HlclProgram model;
 	// Hlcl program identifiers
@@ -51,7 +51,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	private long totalTime = 0;
 
 	public DefectsVerifier(HlclProgram model, SolverEditorType solverEditorType) {
-		verifiedValuesMap = new HashMap<Identifier, Set<Integer>>();
+		verifiedValuesMap = new HashMap<Identifier, Set<Number>>();
 		solver = new SolverOperationsUtil(solverEditorType);
 		this.model = model;
 		identifiersList = HlclUtil.getUsedIdentifiers(model);
@@ -60,7 +60,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	public DefectsVerifier(HlclProgram model,
 			SolverEditorType solverEditorType, Component parentComponent,
 			String progressDisplay) {
-		verifiedValuesMap = new HashMap<Identifier, Set<Integer>>();
+		verifiedValuesMap = new HashMap<Identifier, Set<Number>>();
 		solver = new SolverOperationsUtil(solverEditorType);
 		this.model = model;
 		identifiersList = HlclUtil.getUsedIdentifiers(model);
@@ -68,6 +68,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		this.progressDisplay = progressDisplay;
 	}
 
+	@Override
 	public void resetTime() {
 		solverTime = 0;
 		totalTime = 0;
@@ -98,7 +99,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	private boolean existValue(Identifier identifier, int valueToTest) {
 		// Cada vez que se hace una configuración se bloquean valores no tener
 		// que verificar luego estos valores
-		Set<Integer> attainableDomains = verifiedValuesMap.get(identifier);
+		Set<Number> attainableDomains = verifiedValuesMap.get(identifier);
 		if (attainableDomains == null
 				|| (attainableDomains != null && !attainableDomains
 						.contains(valueToTest))) {
@@ -109,6 +110,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	}
 
+	@Override
 	public List<Defect> getNonAttainableDomains(Identifier identifier)
 			throws FunctionalException {
 
@@ -173,10 +175,10 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	private void updateEvaluatedDomainsMap(Configuration configuration) {
 
-		TreeMap<String, Integer> configurationValues = configuration
+		TreeMap<String, Number> configurationValues = configuration
 				.getConfiguration();
 
-		Integer number = null;
+		Number number = null;
 
 		for (Identifier identifier : identifiersList) {
 
@@ -192,7 +194,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				} else {
 					// Si el mapa no contiene el identifier se adiciona
 					// al mapa de dominios
-					Set<Integer> attainableDomainValuesSet = new HashSet<Integer>();
+					Set<Number> attainableDomainValuesSet = new HashSet<Number>();
 					attainableDomainValuesSet.add(number);
 					verifiedValuesMap
 							.put(identifier, attainableDomainValuesSet);
@@ -244,7 +246,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				if (!existValue(identifier, definedDomainValue)) {
 
 					Configuration copy = new Configuration();
-					TreeMap<String, Integer> configurationValues = new TreeMap<String, Integer>();
+					TreeMap<String, Number> configurationValues = new TreeMap<String, Number>();
 					configurationValues
 							.putAll(configuration.getConfiguration());
 					copy.setConfiguration(configurationValues);
@@ -455,7 +457,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		if (!existValue(identifier, 0)) {
 
 			Configuration copy = new Configuration();
-			TreeMap<String, Integer> configurationValues = new TreeMap<String, Integer>();
+			TreeMap<String, Number> configurationValues = new TreeMap<String, Number>();
 			configurationValues.putAll(configuration.getConfiguration());
 			copy.setConfiguration(configurationValues);
 			copy.ban(identifier.getId());
@@ -598,7 +600,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		List<Defect> deadElementsList = new ArrayList<Defect>();
 
 		for (Identifier identifier : elementsToVerify) {
-			if (progressMonitor!= null && progressMonitor.isCanceled())
+			if (progressMonitor != null && progressMonitor.isCanceled())
 				throw (new InterruptedException());
 			DeadElement deadElement = (DeadElement) isDeadElement(identifier,
 					options, configuration);
@@ -620,7 +622,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	@Override
 	public List<Defect> getFalseOptionalElements(
-			Set<Identifier> elementsToVerify) throws FunctionalException, InterruptedException {
+			Set<Identifier> elementsToVerify) throws FunctionalException,
+			InterruptedException {
 
 		return getFalseOptionalElements(elementsToVerify, null, null);
 	}
@@ -628,7 +631,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	@Override
 	public List<Defect> getFalseOptionalElements(
 			Set<Identifier> elementsToVerify, ConfigurationOptions options,
-			Configuration configuration) throws FunctionalException, InterruptedException {
+			Configuration configuration) throws FunctionalException,
+			InterruptedException {
 		long initTotal = System.currentTimeMillis();
 		List<Defect> falseOptionalList = new ArrayList<Defect>();
 		ProgressMonitor progressMonitor = null;
@@ -642,7 +646,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		}
 		int i = 0;
 		for (Identifier identifier : elementsToVerify) {
-			if (progressMonitor!= null && progressMonitor.isCanceled())
+			if (progressMonitor != null && progressMonitor.isCanceled())
 				throw (new InterruptedException());
 			FalseOptionalElement falseOptionalElement = (FalseOptionalElement) isFalseOptionalElement(
 					identifier, options, configuration);
@@ -662,10 +666,12 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		return falseOptionalList;
 	}
 
+	@Override
 	public long getSolverTime() {
 		return solverTime;
 	}
 
+	@Override
 	public long getTotalTime() {
 		return totalTime;
 	}
@@ -689,6 +695,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	}
 
+	@Override
 	public List<Defect> getAllNonAttainableDomains(
 			Set<Identifier> elementsToVerify) throws FunctionalException {
 		List<Defect> nonAttainableDomainsList = new ArrayList<Defect>();
@@ -706,7 +713,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	@Override
 	public VerificationResult getDefects(Set<Identifier> optionalElements,
 			Set<Identifier> deadElementsToVerify,
-			List<BooleanExpression> constraintsToVerifyRedundancies) throws InterruptedException {
+			List<BooleanExpression> constraintsToVerifyRedundancies)
+			throws InterruptedException {
 
 		VerificationResult verificationResult = new VerificationResult();
 		List<Defect> defectsList = new ArrayList<Defect>();

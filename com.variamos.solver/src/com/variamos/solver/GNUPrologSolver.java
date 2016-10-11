@@ -248,7 +248,7 @@ public class GNUPrologSolver implements Solver {
 		// Generate the assigns for the not ignored variables
 		for (String id : config.getNotIgnored()) {
 			// Create the atom
-			IntegerTerm i = ptf.newInteger(config.stateOf(id));
+			IntegerTerm i = ptf.newInteger((int) config.stateOf(id));
 			// Create the compound for the assign.
 			CompoundTerm assign = ptf.newCompound("=", vars.get(id), i);
 			parts.add(assign);
@@ -260,7 +260,7 @@ public class GNUPrologSolver implements Solver {
 		System.out.println(query.toString());
 		long initTime = System.currentTimeMillis();
 		qr = prolog.runQuery(query);
-		lastExecutionTime = System.currentTimeMillis()- initTime;
+		lastExecutionTime = System.currentTimeMillis() - initTime;
 
 	}
 
@@ -436,7 +436,7 @@ public class GNUPrologSolver implements Solver {
 	@Override
 	public void clearQueryMonitor() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

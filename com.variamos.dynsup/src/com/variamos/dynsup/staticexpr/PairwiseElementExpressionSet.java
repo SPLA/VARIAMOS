@@ -355,9 +355,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				// relId_level #= <<level>>
 				EqualsComparisonExpression out21 = new EqualsComparisonExpression(
 						instPairwiseRelation, "CLSGLevel", getHlclFactory()
-								.number((Integer) instPairwiseRelation
-										.getInstAttribute("CLSGLevel")
-										.getAsInteger()));
+								.number(instPairwiseRelation.getInstAttribute(
+										"CLSGLevel").getAsInteger()));
 				getElementExpressions().add(out21);
 				allList.add(out21);
 				InstElement softgoal = instPairwiseRelation
@@ -404,9 +403,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 					EqualsComparisonExpression out21p = new EqualsComparisonExpression(
 							instPairwiseRelation, "sourceLevel",
 							getHlclFactory().number(
-									(Integer) instPairwiseRelation
-											.getInstAttribute("sourceLevel")
-											.getAsInteger()));
+									instPairwiseRelation.getInstAttribute(
+											"sourceLevel").getAsInteger()));
 					getElementExpressions().add(out21p);
 					allList.add(out21p);
 					/*
@@ -438,9 +436,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				// relId_Targetlevel #= <<Targetlevel>>
 				EqualsComparisonExpression out22p = new EqualsComparisonExpression(
 						instPairwiseRelation, "targetLevel", getHlclFactory()
-								.number((Integer) instPairwiseRelation
-										.getInstAttribute("targetLevel")
-										.getAsInteger()));
+								.number(instPairwiseRelation.getInstAttribute(
+										"targetLevel").getAsInteger()));
 				getElementExpressions().add(out22p);
 				allList.add(out22p);
 
@@ -482,8 +479,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				// relId_level #= <<level>>
 				EqualsComparisonExpression out24 = new EqualsComparisonExpression(
 						instPairwiseRelation, "level", getHlclFactory().number(
-								(Integer) instPairwiseRelation
-										.getInstAttribute("level")
+								instPairwiseRelation.getInstAttribute("level")
 										.getAsInteger()));
 				getElementExpressions().add(out24);
 				allList.add(out24);
@@ -539,9 +535,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				.equals("Softgoal")) {
 			EqualsComparisonExpression out21p = new EqualsComparisonExpression(
 					instPairwiseRelation, "sourceLevel", getHlclFactory()
-							.number((Integer) instPairwiseRelation
-									.getInstAttribute("sourceLevel")
-									.getAsInteger()));
+							.number(instPairwiseRelation.getInstAttribute(
+									"sourceLevel").getAsInteger()));
 			getElementExpressions().add(out21p);
 			allList.add(out21p);
 

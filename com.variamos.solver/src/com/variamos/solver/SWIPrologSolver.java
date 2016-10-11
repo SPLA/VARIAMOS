@@ -36,6 +36,7 @@ public class SWIPrologSolver implements Solver {
 	private Query qr;
 	boolean sucessfullLoad;
 	private Map<String, Variable> vars;
+	private int outLabels = 0;
 	private List<Map<String, Variable>> labelVars;
 
 	private long lastExecutionTime;
@@ -91,7 +92,10 @@ public class SWIPrologSolver implements Solver {
 					labelVars = null;
 				} else {
 					labelVars = new ArrayList<Map<String, Variable>>();
+					outLabels = 0;
 					for (Labeling lab : options.getLabelings()) {
+						if (lab.isOutputSet())
+							outLabels++;
 						TreeMap<String, Variable> tree = new TreeMap<String, Variable>();
 						for (Identifier id : lab.getVariables()) {
 							tree.put(id.getId(), new Variable(id.getId()));
@@ -146,6 +150,7 @@ public class SWIPrologSolver implements Solver {
 
 		if (options.getProgramName() == null) {
 			List<Compound> parts = new ArrayList<>();
+			// Default labeling (L) uses the list of used variables
 			if (labelVars == null) {
 				Term[] varTermsArray = new Term[vars.size()];
 				int count = 0;
@@ -159,20 +164,34 @@ public class SWIPrologSolver implements Solver {
 				// Generate the assigns for the not ignored variables
 				for (String id : config.getNotIgnored()) {
 					// Create the atom
-					org.jpl7.Integer i = new org.jpl7.Integer(
-							config.stateOf(id));
-					// Create the compound for the assign.
-					Compound assign = new Compound("=", new Term[] {
-							vars.get(id), i });
-					parts.add(assign);
+					if (config.stateOf(id) == (int) config.stateOf(id)) {
+						org.jpl7.Integer i = new org.jpl7.Integer(
+								(int) config.stateOf(id));
+						Compound assign = new Compound("=", new Term[] {
+								vars.get(id), i });
+						parts.add(assign);
+					} else {
+						org.jpl7.Float i = new org.jpl7.Float(
+								config.stateOf(id));
+						// Create the compound for the assign.
+						Compound assign = new Compound("=", new Term[] {
+								vars.get(id), i });
+						parts.add(assign);
+					}
+
 				}
 				parts.add(new Compound(PARTIAL_INVOCATION_NAME,
 						new Term[] { L }));
 
-			} else {
-				Term[] terms = new Term[labelVars.size()];
+			}
+			// Single/Multiple labeling ignores used variables and considers the
+			// list
+			else {
+				Term[] terms = new Term[outLabels];
 				int ii = 0;
 				for (Labeling l : options.getLabelings()) {
+					if (!l.isOutputSet())
+						continue;
 					Map<String, Variable> varmap = labelVars.get(ii);
 					Term[] varTermsArray = new Term[varmap.size()];
 					int count = 0;
@@ -185,7 +204,7 @@ public class SWIPrologSolver implements Solver {
 					// Generate the assigns for the not ignored variables
 					for (String id : config.getNotIgnored()) { // Create the
 																// atom
-						org.jpl7.Integer i = new org.jpl7.Integer(
+						org.jpl7.Float i = new org.jpl7.Float(
 								config.stateOf(id));
 						// Create the compound for the assign.
 						Compound assign = new Compound("=", new Term[] {
@@ -203,7 +222,7 @@ public class SWIPrologSolver implements Solver {
 			long initTime = System.nanoTime();
 			qr = new Query(query);
 			lastExecutionTime += System.nanoTime() - initTime;
-		} else {
+		} else { // Only user for a test class
 			long initTime = System.nanoTime();
 			qr = new Query(options.programName + "(L)");
 			lastExecutionTime += System.nanoTime() - initTime;
@@ -272,7 +291,7 @@ public class SWIPrologSolver implements Solver {
 			Map<String, Term> configurationResultMap) {
 
 		// FIXME: puede ser mejorado para quitar esta L quemada
-		Term invocationTerm = (Term) configurationResultMap.get("L");
+		Term invocationTerm = configurationResultMap.get("L");
 		Configuration configuration = new Configuration();
 		// A predefined list of variables was sent
 		if (invocationTerm != null) {
@@ -314,20 +333,20 @@ public class SWIPrologSolver implements Solver {
 				variable = iterator.next();
 				term = configurationResultMap.get(variable);
 
-				if (term.isInteger()) {
-					Integer termValue = term.intValue();
-					if (termValue == 0) {
-						configuration.ban(variable);
-					} else if (termValue == 1) {
-						configuration.enforce(variable);
-					} else {
-						configuration.set(variable, termValue);
-					}
-
+				// if (term.isNumber()) {
+				Float termValue = term.floatValue();
+				if (termValue == 0) {
+					configuration.ban(variable);
+				} else if (termValue == 1) {
+					configuration.enforce(variable);
 				} else {
-					throw new TechnicalException(
-							"Swi prolog API only supports integer values, please check ");
+					configuration.set(variable, termValue);
 				}
+
+				// } else {
+				// throw new TechnicalException(
+				// "Swi prolog API error, please check ");
+				// }
 			}
 		}
 		return configuration;
@@ -463,6 +482,8 @@ public class SWIPrologSolver implements Solver {
 			params.setFdLabeling(options.getMode() == ConfigurationMode.FULL);
 			params.setFf(options.isFf());
 			params.setOnceLabeling(lab.isOnce());
+			params.setIncludeLabel(lab.isIncludeLabel());
+			params.setOutputSet(lab.isOutputSet());
 			params.setOrder(lab.isOrder());
 			params.setLabelingOrder(lab.getLabelingOrderList());
 			params.setOrderExpressions(lab.getOrderExpressionList());

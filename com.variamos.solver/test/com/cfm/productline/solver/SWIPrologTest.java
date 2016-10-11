@@ -64,11 +64,10 @@ public class SWIPrologTest {
 		HlclProgram hlclProgram = new HlclProgram();
 		hlclProgram.add(numericExpression);
 		Solver swiSolver = new SWIPrologSolver(hlclProgram);
-	
+
 		swiSolver.solve(new Configuration(), new ConfigurationOptions());
 		Configuration configurationObtained = swiSolver.getSolution();
 		assertTrue(configurationObtained != null);
-		
 
 	}
 
@@ -91,10 +90,11 @@ public class SWIPrologTest {
 		Configuration configurationObtained = swiSolver.getSolution();
 		System.out.println("configuration: " + configuration.toString());
 		assertTrue(configurationObtained != null);
-		assertTrue(configurationObtained.getConfiguration().get("A") == 1);
+		assertTrue(configurationObtained.getConfiguration().get("A")
+				.floatValue() == 1);
 
 	}
-	
+
 	@Test
 	public void allConfigurationsTest() {
 
@@ -125,8 +125,6 @@ public class SWIPrologTest {
 		assertTrue(solFound == 2);
 
 	}
-	
-
 
 	@Test
 	public void loadMethod() {
@@ -137,7 +135,6 @@ public class SWIPrologTest {
 		String productLineName = "productline";
 		long startTime = System.currentTimeMillis();
 		for (int i = 0; i < 10; i++) {
-
 			options.setProgramName(productLineName + (i + 1));
 			swiSolver.solve(new Configuration(), options);
 			swiSolver.getSolution();

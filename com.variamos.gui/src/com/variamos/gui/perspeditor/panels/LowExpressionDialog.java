@@ -90,8 +90,7 @@ public class LowExpressionDialog extends JDialog {
 
 				@Override
 				public void focusLost(FocusEvent event) {
-					String item = (String) ((JTextArea) event.getSource())
-							.getText();
+					String item = ((JTextArea) event.getSource()).getText();
 					if (item != null && !cancel) {
 						instanceExpression.setLowExpressions(item);
 					}
@@ -180,7 +179,7 @@ public class LowExpressionDialog extends JDialog {
 
 		buttonsPanel.add(btnDelete);
 
-		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 3, 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 2, 4, 4, 4, 4);
 
 		parentPane.add(buttonsPanel);// , BorderLayout.SOUTH);
 

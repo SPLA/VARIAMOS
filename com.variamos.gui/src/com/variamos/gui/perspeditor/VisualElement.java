@@ -25,8 +25,8 @@ public class VisualElement implements Comparable<VisualElement> {
 	public VisualElement(InstElement instElement) {
 		defineColors();
 		this.instElement = instElement;
-		this.opersElement = ((SyntaxElement) instElement
-				.getTransSupportMetaElement()).getTransSemanticConcept();
+		this.opersElement = instElement.getTransSupportMetaElement()
+				.getTransSemanticConcept();
 		updateValues();
 		this.updated = false;
 
@@ -89,8 +89,8 @@ public class VisualElement implements Comparable<VisualElement> {
 						.getValueObject();
 				if (object != null) {
 					@SuppressWarnings("unchecked")
-					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstElement) object)
+							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE)
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("#");
@@ -98,8 +98,12 @@ public class VisualElement implements Comparable<VisualElement> {
 						if (instElement.getInstAttribute("value").getValue() instanceof Integer)
 							val = ((Integer) instElement.getInstAttribute(
 									"value").getValue()).toString();
+						else if (instElement.getInstAttribute("value")
+								.getValue() instanceof Float)
+							val = ((Float) instElement
+									.getInstAttribute("value").getValue())
+									.toString();
 						else
-
 							val = (String) instElement
 									.getInstAttribute("value").getValue();
 						if (split[0].equals(val))
@@ -110,6 +114,11 @@ public class VisualElement implements Comparable<VisualElement> {
 					.equals("Boolean")) {
 				out += "bool : "
 						+ instElement.getInstAttribute("value").getAsBoolean()
+						+ "";
+			} else if (instElement.getInstAttribute("variableType").getValue()
+					.equals("LowLevel variable")) {
+				out += "float : "
+						+ instElement.getInstAttribute("value").getAsFloat()
 						+ "";
 			} else
 				out += "Other type";
@@ -135,7 +144,8 @@ public class VisualElement implements Comparable<VisualElement> {
 			updateValues();
 		JPanel row = new JPanel();
 		JLabel label = null;
-		if (showNames && instElement.getInstAttribute("name") != null)
+		if (showNames && instElement.getInstAttribute("name") != null
+				&& !instElement.getInstAttribute("name").getValue().equals(""))
 			label = new JLabel((String) instElement.getInstAttribute("name")
 					.getValue());
 		else

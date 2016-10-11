@@ -297,8 +297,8 @@ public class ModelExpr implements Serializable {
 				factoryMethod = hlclFactoryClass.getMethod(
 						semanticExpressionType.getMethod(), parameter1,
 						parameter2);
-				System.out.println(expressionTerms.get(0) + " "
-						+ expressionTerms.get(1) + factoryMethod.getName());
+				// System.out.println(expressionTerms.get(0) + " "
+				// + expressionTerms.get(1) + factoryMethod.getName());
 				return (Expression) factoryMethod.invoke(hlclFactory,
 						parameter1.cast(expressionTerms.get(0)),
 						parameter2.cast(expressionTerms.get(1)));
@@ -836,8 +836,8 @@ public class ModelExpr implements Serializable {
 			configdomain = configdomain.substring(0, configdomain.length() - 1);
 			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 		} else if (attribute.getName().equals("varConfValue")) {
-			String configdomain = (String) (instVertex.getInstAttribute(
-					"varConfDom").getValue() + "");
+			String configdomain = instVertex.getInstAttribute("varConfDom")
+					.getValue() + "";
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 			else
@@ -864,8 +864,8 @@ public class ModelExpr implements Serializable {
 				String domain = "";
 				if (object != null) {
 					@SuppressWarnings("unchecked")
-					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstElement) object)
+							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE)
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("#");
@@ -1033,6 +1033,19 @@ public class ModelExpr implements Serializable {
 							.getLeftSemanticExpression().getRightNumber()));
 
 				break;
+			case RIGHTNUMERICFLOATVALUE:
+				if (iter)
+					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 || !iter)
+					out.add(hlclFactory.floatNumber(getSemanticExpression()
+							.getRightFloatNumber()));
+				if (pos == -1 && !iter)
+					// FIXME support other types of default values for iter
+					// expressions
+					out.add(hlclFactory.floatNumber(getSemanticExpression()
+							.getLeftSemanticExpression().getRightFloatNumber()));
+
+				break;
 			case RIGHTVARIABLEVALUE:
 			case RIGHTSTRINGVALUE:
 				if (iter)
@@ -1174,6 +1187,9 @@ public class ModelExpr implements Serializable {
 		if (type == ExpressionVertexType.RIGHTNUMERICVALUE)
 			this.rightInstanceExpression = new ModelExpr(refas, true,
 					new OpersExpr(id, semanticExpressionType));
+		if (type == ExpressionVertexType.RIGHTNUMERICFLOATVALUE)
+			this.rightInstanceExpression = new ModelExpr(refas, true,
+					new OpersExpr(id, semanticExpressionType));
 		getSemanticExpression().setRightExpressionType(type);
 	}
 
@@ -1184,11 +1200,11 @@ public class ModelExpr implements Serializable {
 		getSemanticExpression().setRightAttributeName(attribute);
 	}
 
-	public int getLeftNumber() {
+	public float getLeftNumber() {
 		return getSemanticExpression().getLeftNumber();
 	}
 
-	public int getRightNumber() {
+	public float getRightNumber() {
 		return getSemanticExpression().getRightNumber();
 	}
 
@@ -1197,6 +1213,10 @@ public class ModelExpr implements Serializable {
 	}
 
 	public void setRightNumber(int number) {
+		getSemanticExpression().setRightNumber(number);
+	}
+
+	public void setRightNumber(float number) {
 		getSemanticExpression().setRightNumber(number);
 	}
 
@@ -1436,6 +1456,7 @@ public class ModelExpr implements Serializable {
 		return getSemanticExpression().isSingleInExpression();
 	}
 
+	@Override
 	public String toString() {
 		return "";// expressionStructure();
 	}
@@ -1733,7 +1754,7 @@ public class ModelExpr implements Serializable {
 
 		type = volatileSemanticExpression.getRightExpressionType();
 		if (type == null) {
-			System.out.println("d");
+			System.out.println("null right type");
 		}
 
 		switch (type) {
@@ -1747,6 +1768,11 @@ public class ModelExpr implements Serializable {
 
 		case RIGHTNUMERICVALUE:
 			this.rightValue = volatileSemanticExpression.getRightNumber() + "";
+			this.volatileRightInstElement = instElement;
+			break;
+		case RIGHTNUMERICFLOATVALUE:
+			this.rightValue = volatileSemanticExpression.getRightFloatNumber()
+					+ "";
 			this.volatileRightInstElement = instElement;
 			break;
 		case RIGHTVARIABLEVALUE:

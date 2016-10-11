@@ -1,15 +1,10 @@
 package com.variamos.hlcl;
 
-public class NumericIdentifier implements NumericExpression {
-	protected int intValue;
+// jcmunoz added class to support floats
+public class NumericFloatIdentifier implements NumericExpression {
 	protected float floatValue;
 
-	protected NumericIdentifier(int value) {
-		super();
-		this.intValue = value;
-	}
-
-	protected NumericIdentifier(float value) {
+	protected NumericFloatIdentifier(float value) {
 		super();
 		this.floatValue = value;
 	}
@@ -24,11 +19,7 @@ public class NumericIdentifier implements NumericExpression {
 		return true;
 	};
 
-	public int getValue() {
-		return intValue;
-	}
-
-	public float getFloatValue() {
+	public float getValue() {
 		return floatValue;
 	}
 
@@ -39,11 +30,6 @@ public class NumericIdentifier implements NumericExpression {
 	 */
 	@Override
 	public String toString() {
-		return "NumericIdentifier [value=" + intValue + "]";
-	}
-
-	public String toFloatString() {
 		return "NumericIdentifier [value=" + floatValue + "]";
 	}
-
 }

@@ -14,13 +14,13 @@ public class Configuration {
 
 	public static final int IGNORED = -1, ENFORCED = 1, BANNED = 0;
 
-	protected TreeMap<String, Integer> configuration;
+	protected TreeMap<String, Number> configuration;
 
 	public Configuration() {
-		configuration = new TreeMap<String, Integer>();
+		configuration = new TreeMap<String, Number>();
 	}
 
-	public Configuration set(String id, Integer value) {
+	public Configuration set(String id, Number value) {
 		if (value == null)
 			ignore(id);
 		else
@@ -57,11 +57,11 @@ public class Configuration {
 		return configuration.keySet();
 	}
 
-	public int stateOf(String id) {
+	public float stateOf(String id) {
 		if (!configuration.containsKey(id))
 			return IGNORED;
 
-		return configuration.get(id);
+		return configuration.get(id).floatValue();
 	}
 
 	public void debugPrint() {
@@ -93,11 +93,11 @@ public class Configuration {
 		return super.equals(obj);
 	}
 
-	public TreeMap<String, Integer> getConfiguration() {
+	public TreeMap<String, Number> getConfiguration() {
 		return configuration;
 	}
 
-	public void setConfiguration(TreeMap<String, Integer> configuration) {
+	public void setConfiguration(TreeMap<String, Number> configuration) {
 		this.configuration = configuration;
 	}
 
@@ -105,7 +105,7 @@ public class Configuration {
 	public String toString() {
 		StringBuilder text = new StringBuilder();
 		if (configuration != null) {
-			
+
 			for (String key : configuration.keySet()) {
 				text.append(key);
 				text.append(": ");

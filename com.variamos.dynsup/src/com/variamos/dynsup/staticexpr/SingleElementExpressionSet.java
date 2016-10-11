@@ -87,8 +87,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	public boolean validateConceptType(InstElement instElement, String element) {
 		if (instElement == null)// || !(instElement instanceof InstVertex))
 			return false;
-		SyntaxElement metaElement = ((SyntaxElement) instElement
-				.getTransSupportMetaElement());
+		SyntaxElement metaElement = (instElement.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
 		InstElement semElement = metaElement.getTransInstSemanticElement();
@@ -128,12 +127,12 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						|| ((boolean) validAttribute.getValue()) == true) {
 					List<AbstractExpression> coreAndFalseOptList = new ArrayList<AbstractExpression>();
 
-					for (InstAttribute instAttribute : ((InstElement) instVertex)
+					for (InstAttribute instAttribute : instVertex
 							.getInstAttributesCollection()) {
 						// System.out.println(instVertex.getIdentifier() + " "
 						// + instAttribute.getIdentifier());
 						int attributeValue = 0;
-						String type = (String) instAttribute.getType();
+						String type = instAttribute.getType();
 						if (type.equals("Integer") || type.equals("Boolean")) {
 							if (instAttribute.getValue() instanceof Boolean)
 								attributeValue = ((boolean) instAttribute
@@ -142,6 +141,9 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 								attributeValue = Integer
 										.valueOf((String) instAttribute
 												.getValue());
+							else if (instAttribute.getValue() instanceof Float)
+								attributeValue = ((Float) instAttribute
+										.getValue()).intValue();
 							else
 								attributeValue = (Integer) instAttribute
 										.getValue();
@@ -197,7 +199,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							if (instAttribute.getIdentifier().equals(
 									"HasParent")) {
-								SyntaxElement element = (SyntaxElement) instVertex
+								SyntaxElement element = instVertex
 										.getTransSupportMetaElement();
 
 								List<AbstractExpression> parentList = new ArrayList<AbstractExpression>();
@@ -356,18 +358,18 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									} else
 										dr = true;
 								}
-								if (dr)
-
-									booleanExpressions
-											.put("Simul",
-													(BooleanExpression) getHlclFactory()
-															.equals(getHlclFactory()
-																	.newIdentifier(
-																			instVertex
-																					.getIdentifier()
-																					+ "_CompExp"),
-																	getHlclFactory()
-																			.number(1)));
+								// if (dr)
+								//
+								// booleanExpressions
+								// .put("Simul",
+								// (BooleanExpression) getHlclFactory()
+								// .equals(getHlclFactory()
+								// .newIdentifier(
+								// instVertex
+								// .getIdentifier()
+								// + "_CompExp"),
+								// getHlclFactory()
+								// .number(1)));
 							}
 
 							if (instAttribute.getIdentifier().equals(
@@ -812,8 +814,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							.getInstAttribute("Active").getAsBoolean())
 						out++;
 				} else if (type == null || (type.equals("Group"))) {
-					InstElement grouprel = (InstElement) target
-							.getTargetRelations().get(0);
+					InstElement grouprel = target.getTargetRelations().get(0);
 					if (grouprel.getTargetRelations().size() > 0) {
 						String relType = ((InstPairwiseRel) grouprel
 								.getTargetRelations().get(0))

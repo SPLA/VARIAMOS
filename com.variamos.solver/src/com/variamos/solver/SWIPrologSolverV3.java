@@ -25,6 +25,7 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LiteralBooleanExpression;
+
 @Deprecated
 public class SWIPrologSolverV3 implements Solver {
 
@@ -91,7 +92,8 @@ public class SWIPrologSolverV3 implements Solver {
 						qr.rewind();// Cierra las consultas que no se hayan
 									// explorado
 						qr.close();
-						Thread.sleep(10); //To make safer the new call, reduce FATAL ERROR
+						Thread.sleep(10); // To make safer the new call, reduce
+											// FATAL ERROR
 					} catch (Exception e) {
 					}
 
@@ -137,42 +139,42 @@ public class SWIPrologSolverV3 implements Solver {
 	private void consultProgram(Configuration config,
 			ConfigurationOptions options) {
 
-//		synchronized (monitor) {
-			if (options.getProgramName() == null) {
-				List<Compound> parts = new ArrayList<>();
-				Term[] varTermsArray = new Term[vars.size()];
-				int count = 0;
-				for (String id : vars.keySet()) {
-					varTermsArray[count] = vars.get(id);
-					count++;
-				}
-				// Generate the list of variables Ejm L={A,B,C}
-				Term L = Util.termArrayToList(varTermsArray);
-
-				// Generate the assigns for the not ignored variables
-				for (String id : config.getNotIgnored()) {
-					// Create the atom
-					jpl.Integer i = new jpl.Integer(config.stateOf(id));
-					// Create the compound for the assign.
-					Compound assign = new Compound("=", new Term[] {
-							vars.get(id), i });
-					parts.add(assign);
-				}
-
-				parts.add(new Compound("productline", new Term[] { L }));
-
-				// Add all additional configuration options
-				Compound query = addSubQueries(parts);
-				// System.out.println(query.toString());
-				long initTime = System.nanoTime();
-				qr = new Query(query);
-				lastExecutionTime += System.nanoTime() - initTime;
-			} else {
-				long initTime = System.nanoTime();
-				qr = new Query(options.programName + "(L)");
-				lastExecutionTime += System.nanoTime() - initTime;
+		// synchronized (monitor) {
+		if (options.getProgramName() == null) {
+			List<Compound> parts = new ArrayList<>();
+			Term[] varTermsArray = new Term[vars.size()];
+			int count = 0;
+			for (String id : vars.keySet()) {
+				varTermsArray[count] = vars.get(id);
+				count++;
 			}
-//		}
+			// Generate the list of variables Ejm L={A,B,C}
+			Term L = Util.termArrayToList(varTermsArray);
+
+			// Generate the assigns for the not ignored variables
+			for (String id : config.getNotIgnored()) {
+				// Create the atom
+				jpl.Float i = new jpl.Float(config.stateOf(id));
+				// Create the compound for the assign.
+				Compound assign = new Compound("=", new Term[] { vars.get(id),
+						i });
+				parts.add(assign);
+			}
+
+			parts.add(new Compound("productline", new Term[] { L }));
+
+			// Add all additional configuration options
+			Compound query = addSubQueries(parts);
+			// System.out.println(query.toString());
+			long initTime = System.nanoTime();
+			qr = new Query(query);
+			lastExecutionTime += System.nanoTime() - initTime;
+		} else {
+			long initTime = System.nanoTime();
+			qr = new Query(options.programName + "(L)");
+			lastExecutionTime += System.nanoTime() - initTime;
+		}
+		// }
 	}
 
 	private static Compound addSubQueries(List<Compound> parts) {
@@ -229,7 +231,7 @@ public class SWIPrologSolverV3 implements Solver {
 			Hashtable<Variable, Term> configurationHashSet) {
 
 		// FIXME: puede ser mejorado para quitar esta L quemada
-		Term invocationTerm = (Term) configurationHashSet.get("L");
+		Term invocationTerm = configurationHashSet.get("L");
 		Configuration configuration = new Configuration();
 		if (invocationTerm != null) {
 			List<Integer> configurationValues = new ArrayList<Integer>();
@@ -442,7 +444,7 @@ public class SWIPrologSolverV3 implements Solver {
 		}
 		qr = null;
 		monitor = new Object();
-		
+
 	}
 
 }

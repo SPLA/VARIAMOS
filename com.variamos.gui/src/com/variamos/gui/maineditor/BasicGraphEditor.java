@@ -213,6 +213,7 @@ public class BasicGraphEditor extends JPanel {
 	}
 
 	protected mxIEventListener undoHandler = new mxIEventListener() {
+		@Override
 		public void invoke(Object source, mxEventObject evt) {
 			undoManager.undoableEditHappened((mxUndoableEdit) evt
 					.getProperty("edit"));
@@ -223,6 +224,7 @@ public class BasicGraphEditor extends JPanel {
 	 * 
 	 */
 	protected mxIEventListener changeTracker = new mxIEventListener() {
+		@Override
 		public void invoke(Object source, mxEventObject evt) {
 			setModified(true);
 		}
@@ -361,6 +363,7 @@ public class BasicGraphEditor extends JPanel {
 
 		// Keeps the selection in sync with the command history
 		mxIEventListener undoHandler = new mxIEventListener() {
+			@Override
 			public void invoke(Object source, mxEventObject evt) {
 				List<mxUndoableChange> changes = ((mxUndoableEdit) evt
 						.getProperty("edit")).getChanges();
@@ -421,6 +424,7 @@ public class BasicGraphEditor extends JPanel {
 	protected void installRepaintListener() {
 		graphComponent.getGraph().addListener(mxEvent.REPAINT,
 				new mxIEventListener() {
+					@Override
 					public void invoke(Object source, mxEventObject evt) {
 						String buffer = (graphComponent.getTripleBuffer() != null) ? ""
 								: " (unbuffered)";
@@ -459,6 +463,7 @@ public class BasicGraphEditor extends JPanel {
 				/**
 			 * 
 			 */
+				@Override
 				public void componentResized(ComponentEvent e) {
 					int w = scrollPane.getWidth()
 							- scrollPane.getVerticalScrollBar().getWidth();
@@ -489,6 +494,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 			 * 
 			 */
+			@Override
 			public void componentResized(ComponentEvent e) {
 				int w = scrollPane.getWidth()
 						- scrollPane.getVerticalScrollBar().getWidth();
@@ -533,6 +539,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 			 * 
 			 */
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				graphOutline.setFitPage(!graphOutline.isFitPage());
 				graphOutline.repaint();
@@ -547,6 +554,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 			 * 
 			 */
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				graphOutline.setDrawLabels(!graphOutline.isDrawLabels());
 				graphOutline.repaint();
@@ -561,6 +569,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 			 * 
 			 */
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				graphOutline.setTripleBuffered(!graphOutline.isTripleBuffered());
 				graphOutline.repaint();
@@ -613,6 +622,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 			 * 
 			 */
+			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				if (e.getSource() instanceof mxGraphOutline
 						|| e.isControlDown()) {
@@ -632,6 +642,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 			 * 
 			 */
+			@Override
 			public void mousePressed(MouseEvent e) {
 				// Handles context menu on the Mac where the trigger is on
 				// mousepressed
@@ -641,6 +652,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 			 * 
 			 */
+			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (e.isPopupTrigger()) {
 					showOutlinePopupMenu(e);
@@ -656,6 +668,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 		 * 
 		 */
+			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				if (e.getSource() instanceof mxGraphOutline
 						|| e.isControlDown()) {
@@ -673,6 +686,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 			 * 
 			 */
+			@Override
 			public void mousePressed(MouseEvent e) {
 				// Handles context menu on the Mac where the trigger is on
 				// mousepressed
@@ -682,6 +696,7 @@ public class BasicGraphEditor extends JPanel {
 			/**
 			 * 
 			 */
+			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (e.isPopupTrigger()) {
 					showGraphPopupMenu(e);
@@ -701,6 +716,7 @@ public class BasicGraphEditor extends JPanel {
 					 * java.awt.event.MouseMotionListener#mouseDragged(java.
 					 * awt.event.MouseEvent)
 					 */
+					@Override
 					public void mouseDragged(MouseEvent e) {
 						mouseLocationChanged(e);
 					}
@@ -712,6 +728,7 @@ public class BasicGraphEditor extends JPanel {
 					 * java.awt.event.MouseMotionListener#mouseMoved(java.awt
 					 * .event.MouseEvent)
 					 */
+					@Override
 					public void mouseMoved(MouseEvent e) {
 						mouseDragged(e);
 					}
@@ -812,6 +829,7 @@ public class BasicGraphEditor extends JPanel {
 							 */
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				action.actionPerformed(new ActionEvent(menuItem, e.getID(), e
 						.getActionCommand()));
@@ -833,6 +851,7 @@ public class BasicGraphEditor extends JPanel {
 							 */
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				action.actionPerformed(new ActionEvent(getGraphComponent(), e
 						.getID(), e.getActionCommand()));
@@ -860,6 +879,7 @@ public class BasicGraphEditor extends JPanel {
 							 */
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				action.actionPerformed(new ActionEvent(getGraphComponent(), e
 						.getID(), e.getActionCommand()));
@@ -996,6 +1016,7 @@ public class BasicGraphEditor extends JPanel {
 				 */
 				private static final long serialVersionUID = 1L;
 
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					final mxGraph graph = graphComponent.getGraph();
 					Object cell = graph.getSelectionCell();
@@ -1016,6 +1037,7 @@ public class BasicGraphEditor extends JPanel {
 								1.2, 20);
 
 						morph.addListener(mxEvent.DONE, new mxIEventListener() {
+							@Override
 							public void invoke(Object sender, mxEventObject evt) {
 								graph.getModel().endUpdate();
 							}
@@ -1036,6 +1058,7 @@ public class BasicGraphEditor extends JPanel {
 				 */
 				private static final long serialVersionUID = 1L;
 
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					JOptionPane.showMessageDialog(graphComponent,
 							mxResources.get("noLayout"));
@@ -1075,6 +1098,7 @@ public class BasicGraphEditor extends JPanel {
 					 * Overrides the empty implementation to return the size of
 					 * the graph control.
 					 */
+					@Override
 					public mxRectangle getContainerSize() {
 						return graphComponent.getLayoutAreaSize();
 					}
@@ -1085,6 +1109,7 @@ public class BasicGraphEditor extends JPanel {
 					 * Overrides the empty implementation to return the size of
 					 * the graph control.
 					 */
+					@Override
 					public mxRectangle getContainerSize() {
 						return graphComponent.getLayoutAreaSize();
 					}
@@ -1095,6 +1120,7 @@ public class BasicGraphEditor extends JPanel {
 					 * Overrides the empty implementation to return the size of
 					 * the graph control.
 					 */
+					@Override
 					public mxRectangle getContainerSize() {
 						return graphComponent.getLayoutAreaSize();
 					}
@@ -1105,6 +1131,7 @@ public class BasicGraphEditor extends JPanel {
 					 * Overrides the empty implementation to return the size of
 					 * the graph control.
 					 */
+					@Override
 					public mxRectangle getContainerSize() {
 						return graphComponent.getLayoutAreaSize();
 					}

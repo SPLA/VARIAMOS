@@ -131,23 +131,25 @@ public class ModelExpr2HLCL {
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createGroupExpressions(null, 4, element, constraintGroups);
 
-		List<AbstractExpression> transformations2 = new ArrayList<AbstractExpression>();
-		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
-			List<AbstractExpression> relaxableExpressions = constraintGroup
-					.getRelaxableExpressionList(element);
-			if (relaxableExpressions != null)
-				transformations2.addAll(relaxableExpressions);
-		}
+		/*
+		 * List<AbstractExpression> transformations2 = new
+		 * ArrayList<AbstractExpression>(); for (ElementExpressionSet
+		 * constraintGroup : constraintGroups.values()) {
+		 * List<AbstractExpression> relaxableExpressions = constraintGroup
+		 * .getRelaxableExpressionList(element); if (relaxableExpressions !=
+		 * null) transformations2.addAll(relaxableExpressions); }
+		 */
 
 		for (AbstractExpression transformation : transformations) {
 			idMap.putAll(transformation.getIdentifiers(f));
 			if (transformation instanceof AbstractBooleanExpression) {
 				hlclProgram.add(((AbstractBooleanExpression) transformation)
 						.transform(f, idMap));
-			} else if (transformation instanceof AbstractComparisonExpression) {
-				hlclProgram.add(((AbstractComparisonExpression) transformation)
-						.transform(f, idMap));
-			} else {
+			} else/*
+				 * if (transformation instanceof AbstractComparisonExpression) {
+				 * hlclProgram.add(((AbstractComparisonExpression)
+				 * transformation) .transform(f, idMap)); } else
+				 */{
 				hlclProgram.add(((AbstractComparisonExpression) transformation)
 						.transform(f, idMap));
 			}
@@ -267,7 +269,6 @@ public class ModelExpr2HLCL {
 		constraintGroups.put(element, transExpSet);
 		fillHlclProgram(element, subOperation, operExecType, hlclProgram,
 				constraintGroups);
-
 		return hlclProgram;
 	}
 
@@ -327,7 +328,8 @@ public class ModelExpr2HLCL {
 			} else {
 				if (constraintGroup.getVerificationExpressionsList(element) != null)
 					staticTransformations.addAll(constraintGroup
-							.getVerificationExpressionsList(element));
+							.getVerificationExpressionsList(element)); // Not
+																		// used
 				if (constraintGroup.getRelaxableExpressionList(element) != null)
 					staticTransformations.addAll(constraintGroup
 							.getRelaxableExpressionList(element));
@@ -349,6 +351,12 @@ public class ModelExpr2HLCL {
 			if (constraintGroup instanceof TranslationExpressionSet) {
 				HlclProgram ts = ((TranslationExpressionSet) constraintGroup)
 						.getHlCLProgramExpressions(subOperation + "-"
+								+ operExecType);
+				if (ts != null) {
+					hlclProgram.addAll(ts);
+				}
+				ts = ((TranslationExpressionSet) constraintGroup)
+						.getLiteralExpressions(subOperation + "-"
 								+ operExecType);
 				if (ts != null) {
 					hlclProgram.addAll(ts);
@@ -603,9 +611,8 @@ public class ModelExpr2HLCL {
 						.getInstAttributes().values()) {
 					// System.out.println(vertexId + " " + attribute);
 					if (instAttribute.getAttribute() instanceof ElemAttribute
-							&& ((ElemAttribute) instAttribute.getAttribute())
-									.getAttributeType().equals(
-											AttributeType.EXECCURRENTSTATE)
+							&& instAttribute.getAttribute().getAttributeType()
+									.equals(AttributeType.EXECCURRENTSTATE)
 							&& instAttribute.getType().equals("Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
@@ -643,7 +650,7 @@ public class ModelExpr2HLCL {
 		}
 	}
 
-	public Map<String, Integer> getResult() {
+	public Map<String, Number> getResult() {
 		return configuration.getConfiguration();
 	}
 
@@ -668,10 +675,10 @@ public class ModelExpr2HLCL {
 	 */
 	public void updateGUIElements(List<String> selectedAttributes,
 			List<String> notAvailableAttributes, List<String> conceptTypes,
-			List<String> outVariables, Map<String, Integer> config) {
+			List<String> outVariables, Map<String, Number> config) {
 		// Call the SWIProlog and obtain the result
 		if (configuration != null) {
-			Map<String, Integer> prologOut;
+			Map<String, Number> prologOut;
 			if (config == null)
 				prologOut = configuration.getConfiguration();
 			else
@@ -707,9 +714,8 @@ public class ModelExpr2HLCL {
 							else if (val == 0)
 								instAttribute.setValue(false);
 						} else if (instAttribute != null)
-							instAttribute
-									.setValue((int) Float.parseFloat(prologOut
-											.get(identifier) + ""));
+							instAttribute.setValue(Float.parseFloat(prologOut
+									.get(identifier) + ""));
 					} else if (attribute.equals("Sel"))
 						for (String attTarget : selectedAttributes) {
 							InstAttribute instTarget = vertex
@@ -729,7 +735,7 @@ public class ModelExpr2HLCL {
 							if (instTarget != null
 									&& (instTarget.getType().equals("Integer") || instTarget
 											.getType().equals("Float"))) {
-								int val = (int) Float.parseFloat(prologOut
+								float val = Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);
 
@@ -754,7 +760,7 @@ public class ModelExpr2HLCL {
 							if (instTarget != null
 									&& (instTarget.getType().equals("Integer") || instTarget
 											.getType().equals("Float"))) {
-								int val = (int) Float.parseFloat(prologOut
+								float val = Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);
 
@@ -1036,9 +1042,9 @@ public class ModelExpr2HLCL {
 		}
 	}
 
-	public TreeMap<String, Integer> getConfiguredIdentifier(
+	public TreeMap<String, Number> getConfiguredIdentifier(
 			Set<InstElement> elementSubSet) {
-		TreeMap<String, Integer> out = new TreeMap<String, Integer>();
+		TreeMap<String, Number> out = new TreeMap<String, Number>();
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "GeneralConcept")
 					&& (elementSubSet == null || elementSubSet
@@ -1090,8 +1096,7 @@ public class ModelExpr2HLCL {
 	public boolean validateConceptType(InstElement instElement, String element) {
 		if (instElement == null)// || !(instElement instanceof InstVertex))
 			return false;
-		SyntaxElement metaElement = ((SyntaxElement) instElement
-				.getTransSupportMetaElement());
+		SyntaxElement metaElement = (instElement.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
 		InstElement semElement = metaElement.getTransInstSemanticElement();
@@ -1190,6 +1195,7 @@ public class ModelExpr2HLCL {
 		return out;
 	}
 
+	// Static implementation to export
 	public Map<String, Map<String, Integer>> execCompleteSimul(
 			ProgressMonitor progressMonitor) throws InterruptedException {
 		int iter = 0;
@@ -1215,8 +1221,8 @@ public class ModelExpr2HLCL {
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
 				for (InstElement instVertex : refas
 						.getVariabilityVertexCollection()) {
-					if (instVertex.getInstAttribute("ExportOnConfig") != null
-							&& instVertex.getInstAttribute("ExportOnConfig")
+					if (instVertex.getInstAttribute("exportOnConfig") != null
+							&& instVertex.getInstAttribute("exportOnConfig")
 									.getAsBoolean()) {
 						String instId = instVertex.getIdentifier();
 						if (instVertex.getIdentifier().contains("Variable")) {

@@ -35,7 +35,6 @@ import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -89,14 +88,14 @@ public class ElementDesignPanel extends JPanel {
 
 		rootPanel2.add(contentPanel2);
 		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(300, 300));
+		dummyP.setMinimumSize(new Dimension(0, 0));
 		dummyP.setMaximumSize(new Dimension(300, 300));
 		rootPanel2.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel2, 2, 1, 4, 4, 4, 4);
 
 		rootPanel3.add(contentPanel3);
 		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(200, 0));
+		dummyP.setMinimumSize(new Dimension(0, 0));
 		dummyP.setPreferredSize(new Dimension(200, 0));
 		dummyP.setMaximumSize(new Dimension(500, 300));
 		rootPanel3.add(dummyP);
@@ -114,7 +113,7 @@ public class ElementDesignPanel extends JPanel {
 		add(mainPanel);
 		dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMinimumSize(new Dimension(500, 0));
+		dummyP.setMaximumSize(new Dimension(500, 0));
 		add(dummyP);
 		/*
 		 * dummyP = new JPanel(); dummyP.setMinimumSize(new Dimension(0, 0));
@@ -146,12 +145,11 @@ public class ElementDesignPanel extends JPanel {
 			return;
 		} else {
 			InstElement editElm = instCell.getInstElement();
-			List<InstElement> syntaxParent = ((ModelInstance) editor
-					.getEditedModel())
-					.getParentSMMSyntaxElement((InstElement) editElm);
+			List<InstElement> syntaxParent = editor.getEditedModel()
+					.getParentSMMSyntaxElement(editElm);
 
 			editElm.getInstAttributes();
-			final InstElement finalEditElm = (InstElement) editElm;
+			final InstElement finalEditElm = editElm;
 			RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 
 			String description = null;
@@ -163,9 +161,9 @@ public class ElementDesignPanel extends JPanel {
 					return;
 			}
 			if (editElm instanceof InstElement) {
-				if (((InstElement) editElm).getTransSupportMetaElement() != null)
-					description = ((InstElement) editElm)
-							.getTransSupportMetaElement().getDescription();
+				if (editElm.getTransSupportMetaElement() != null)
+					description = editElm.getTransSupportMetaElement()
+							.getDescription();
 			}
 			int count = 0;
 			while (count < 4) {
@@ -177,20 +175,17 @@ public class ElementDesignPanel extends JPanel {
 
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 
-				if (((InstElement) editElm).getEdOperEle() != null
-						&& !((InstElement) editElm)
-								.getTransSupportMetaElement().getName()
+				if (editElm.getEdOperEle() != null
+						&& !editElm.getTransSupportMetaElement().getName()
 								.equals("OMLabeling")) {
-					elementDesPropSubPanel.add(new JLabel(
-							"Meta-Model-Expressions"));
-					JButton button = new JButton(
-							"Open Meta-Model-Expressions Editor");
+					elementDesPropSubPanel.add(new JLabel("Meta-Model-Expr."));
+					JButton button = new JButton("Meta-Model-Expr. Editor...");
 					if (editor.getPerspective() == 4)
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
+						@Override
 						public void actionPerformed(ActionEvent e) {
-							List<OpersExpr> ie = ((InstElement) finalEditElm)
-									.getEdOperEle()
+							List<OpersExpr> ie = finalEditElm.getEdOperEle()
 									.getDeclaredSemanticExpressions();
 							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
 									finalEditor, finalEditElm, ie);
@@ -226,19 +221,17 @@ public class ElementDesignPanel extends JPanel {
 					elementDesPropSubPanel.add(new JPanel());
 					designPanelElements++;
 				}
-				if (((InstElement) editElm).getEdOperEle() != null
-						&& ((InstElement) editElm).getTransSupportMetaElement()
-								.getName().equals("OMLabeling")) {
-					elementDesPropSubPanel.add(new JLabel(
-							"Order Meta-Expressions"));
-					JButton button = new JButton(
-							"Open Order Meta-Expressions Editor");
+				if (editElm.getEdOperEle() != null
+						&& editElm.getTransSupportMetaElement().getName()
+								.equals("OMLabeling")) {
+					elementDesPropSubPanel.add(new JLabel("Order Meta-Expr."));
+					JButton button = new JButton("Order Meta-Expr. Editor...");
 					if (editor.getPerspective() == 4)
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
+						@Override
 						public void actionPerformed(ActionEvent e) {
-							List<OpersExpr> ie = ((InstElement) finalEditElm)
-									.getEdOperEle()
+							List<OpersExpr> ie = finalEditElm.getEdOperEle()
 									.getDeclaredSemanticExpressions();
 							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
 									finalEditor, finalEditElm, ie);
@@ -303,10 +296,10 @@ public class ElementDesignPanel extends JPanel {
 					for (InstAttribute instAttribute : visible) {
 						if (instAttribute != null
 								&& instAttribute.getAttribute() instanceof ElemAttribute
-								&& (((ElemAttribute) instAttribute
-										.getAttribute()).getAttributeType()
-										.equals(AttributeType.SYNTAX) || ((ElemAttribute) instAttribute
-										.getAttribute()).getAttributeType()
+								&& (instAttribute.getAttribute()
+										.getAttributeType()
+										.equals(AttributeType.SYNTAX) || instAttribute
+										.getAttribute().getAttributeType()
 										.equals(AttributeType.OPERATION))) {
 							if (instAttribute.getIdentifier().equals(
 									SyntaxElement.VAR_USERIDENTIFIER)
@@ -334,8 +327,9 @@ public class ElementDesignPanel extends JPanel {
 							Map<String, InstElement> mapElements = null;
 							if (editElm instanceof InstPairwiseRel) {
 								InstPairwiseRel instPairwise = (InstPairwiseRel) editElm;
-								mapElements = ((ModelInstance) editor
-										.getEditedModel()).getSyntaxModel()
+								mapElements = editor
+										.getEditedModel()
+										.getSyntaxModel()
 										.getValidPairwiseRelations(
 												instPairwise
 														.getSourceRelations()
@@ -344,8 +338,8 @@ public class ElementDesignPanel extends JPanel {
 														.getTargetRelations()
 														.get(0));
 							}
-							instAttribute.updateValidationList(
-									((InstElement) editElm), mapElements);
+							instAttribute.updateValidationList((editElm),
+									mapElements);
 
 							if (instAttribute.getType().equals(
 									"com.variamos.dynsup.model.ModelExpr")) {
@@ -354,6 +348,7 @@ public class ElementDesignPanel extends JPanel {
 												+ " Editor");
 
 								button.addActionListener(new ActionListener() {
+									@Override
 									public void actionPerformed(ActionEvent e) {
 										boolean editable = true;
 										if (editor.getPerspective() == 4)
@@ -467,6 +462,7 @@ public class ElementDesignPanel extends JPanel {
 												+ " Editor");
 
 								button.addActionListener(new ActionListener() {
+									@Override
 									public void actionPerformed(ActionEvent e) {
 										boolean editable = true;
 										if (editor.getPerspective() == 4)
@@ -643,6 +639,7 @@ public class ElementDesignPanel extends JPanel {
 								if (widget.getEditor() instanceof JCheckBox)
 									((JCheckBox) widget.getEditor())
 											.addActionListener(new ActionListener() {
+												@Override
 												public void actionPerformed(
 														ActionEvent e) {
 													finalEditor
@@ -655,6 +652,7 @@ public class ElementDesignPanel extends JPanel {
 															instCell.getInstElement(),
 															widget.getInstAttribute());
 													new Thread() {
+														@Override
 														public void run() {
 															editorProperties(
 																	finalEditor,
@@ -666,6 +664,7 @@ public class ElementDesignPanel extends JPanel {
 								if (widget.getEditor() instanceof JTextField)
 									((JTextField) widget.getEditor())
 											.addActionListener(new ActionListener() {
+												@Override
 												public void actionPerformed(
 														ActionEvent e) {
 													onVariableEdited(
@@ -673,6 +672,7 @@ public class ElementDesignPanel extends JPanel {
 															instCell.getInstElement(),
 															widget.getInstAttribute());
 													new Thread() {
+														@Override
 														public void run() {
 															editorProperties(
 																	finalEditor,
@@ -683,6 +683,7 @@ public class ElementDesignPanel extends JPanel {
 											});
 								((JTextField) widget.getGroup())
 										.addActionListener(new ActionListener() {
+											@Override
 											public void actionPerformed(
 													ActionEvent e) {
 												onVariableEdited(
@@ -690,6 +691,7 @@ public class ElementDesignPanel extends JPanel {
 														instCell.getInstElement(),
 														widget.getInstAttribute());
 												new Thread() {
+													@Override
 													public void run() {
 														editorProperties(
 																finalEditor,
@@ -782,6 +784,7 @@ public class ElementDesignPanel extends JPanel {
 											&& !(widget.getEditor() instanceof JCheckBox)) {
 										JButton button = new JButton("Validate");
 										button.addActionListener(new ActionListener() {
+											@Override
 											public void actionPerformed(
 													ActionEvent e) {
 												finalEditor
@@ -805,17 +808,17 @@ public class ElementDesignPanel extends JPanel {
 			// variablesPanel.setPreferredSize(new Dimension(250, 25 *
 			// editables.length));
 			JPanel dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(100, 0));
+			dummy.setMinimumSize(new Dimension(0, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(100, 0));
+			dummy.setMinimumSize(new Dimension(0, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(100, 0));
+			dummy.setMinimumSize(new Dimension(300, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(350, 200));
 			elementDesPropSubPanel.add(dummy);
@@ -827,13 +830,13 @@ public class ElementDesignPanel extends JPanel {
 			// e.add(contentPanel1);
 			// e.setVisible(true);
 			contentPanel1.add(elementDesPropSubPanel);
-			elementDesPropSubPanel.setPreferredSize(new Dimension(350,
+			elementDesPropSubPanel.setPreferredSize(new Dimension(300,
 					designPanelElements * 28));
-			elementDesPropSubPanel.setMaximumSize(new Dimension(350,
+			elementDesPropSubPanel.setMaximumSize(new Dimension(300,
 					designPanelElements * 28));
-			contentPanel1.setMaximumSize(new Dimension(350, 450));
-			contentPanel1.setPreferredSize(new Dimension(350, 450));
-			contentPanel1.setMinimumSize(new Dimension(350, 450));
+			contentPanel1.setMaximumSize(new Dimension(300, 450));
+			contentPanel1.setPreferredSize(new Dimension(300, 450));
+			contentPanel1.setMinimumSize(new Dimension(300, 450));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -875,9 +878,8 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setPreferredSize(new Dimension(200, 100));
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
-			if (((InstElement) editElm).getSupInstEleId() != null
-					&& ((((InstElement) editElm).getSupInstEleId().equals(
-							"OPER") || (((InstElement) editElm)
+			if (editElm.getSupInstEleId() != null
+					&& ((editElm.getSupInstEleId().equals("OPER") || (editElm
 							.getSupInstEleId().equals("ME"))))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
@@ -896,12 +898,11 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setPreferredSize(new Dimension(150, 150));
 				attPanel.setMaximumSize(new Dimension(150, 180));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
-				if (((InstElement) editElm).getSupInstEleId().equals("ME")) {
+				if (editElm.getSupInstEleId().equals("ME")) {
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
-				} else if (((InstElement) editElm).getSupInstEleId().equals(
-						"OPER")) {
+				} else if (editElm.getSupInstEleId().equals("OPER")) {
 					// FIXME generalize with the dynamic attribute - Find how to
 					// show more than one.
 					VariableAttributeList attList = new VariableAttributeList(
@@ -953,8 +954,8 @@ public class ElementDesignPanel extends JPanel {
 							instCell,
 							"exptype",
 							OperationSubActionExecType.class.getCanonicalName(),
-							((ModelInstance) editor.getEditedModel())
-									.getSyntaxModel().getVertex("OMExpType"));
+							editor.getEditedModel().getSyntaxModel()
+									.getVertex("OMExpType"));
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
 				} else if (editElm.getTransSupportMetaElement().getName()
@@ -1000,15 +1001,14 @@ public class ElementDesignPanel extends JPanel {
 				mainPanel.add(rootPanel3);
 			} else {
 				JPanel dummy3 = new JPanel();
-				dummy3.setMinimumSize(new Dimension(300, 250));
+				dummy3.setMinimumSize(new Dimension(0, 250));
 				dummy3.setPreferredSize(new Dimension(300, 250));
 				dummy3.setMaximumSize(new Dimension(650, 250));
 				mainPanel.add(dummy3);
 
 			}
-			if (((InstElement) editElm).getSupInstEleId() != null
-					&& (((InstElement) editElm).getSupInstEleId().equals(
-							"OMPWRel") || ((InstElement) editElm)
+			if (editElm.getSupInstEleId() != null
+					&& (editElm.getSupInstEleId().equals("OMPWRel") || editElm
 							.getSupInstEleId().equals("OMOTRel"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
@@ -1078,11 +1078,9 @@ public class ElementDesignPanel extends JPanel {
 							.setAutoIdentifier((String) instAttribute
 									.getValue());
 				if (instAttribute.getIdentifier().equals("OperationsMMType"))
-					editableMetaElement
-							.setTransInstSemanticElement((InstElement) ((ModelInstance) editor
-									.getEditedModel()).getOperationalModel()
-									.getElement(
-											(String) instAttribute.getValue()));
+					editableMetaElement.setTransInstSemanticElement(editor
+							.getEditedModel().getOperationalModel()
+							.getElement((String) instAttribute.getValue()));
 				// if (instAttribute.getIdentifier().equals("Visible"))
 				// editableMetaElement.setVisible((boolean) instAttribute
 				// .getValue());
@@ -1094,7 +1092,7 @@ public class ElementDesignPanel extends JPanel {
 							.getValue());
 				if (instAttribute.getIdentifier().equals("PaletteNames")) {
 					if (instAttribute.getIdentifier().equals("PaletteNames"))
-						((SyntaxElement) editableMetaElement)
+						editableMetaElement
 								.setPaletteName((String) instAttribute
 										.getValue());
 				}
@@ -1111,21 +1109,21 @@ public class ElementDesignPanel extends JPanel {
 					editableMetaElement.setImage((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("TopConcept"))
-					((SyntaxElement) editableMetaElement)
-							.setTopConcept((boolean) instAttribute.getValue());
+					editableMetaElement.setTopConcept((boolean) instAttribute
+							.getValue());
 				if (instAttribute.getIdentifier().equals("BackgroundColor"))
-					((SyntaxElement) editableMetaElement)
+					editableMetaElement
 							.setBackgroundColor((String) instAttribute
 									.getValue());
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					editableMetaElement.setBorderStroke((int) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Resizable"))
-					((SyntaxElement) editableMetaElement)
-							.setResizable((boolean) instAttribute.getValue());
+					editableMetaElement.setResizable((boolean) instAttribute
+							.getValue());
 				if (instAttribute.getIdentifier().equals("Palette"))
-					((SyntaxElement) editableMetaElement)
-							.setPalette((String) instAttribute.getValue());
+					editableMetaElement.setPalette((String) instAttribute
+							.getValue());
 				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
 							.setModelingAttributes((HashSet<ElemAttribute>) instAttribute
