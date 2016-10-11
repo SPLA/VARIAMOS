@@ -71,17 +71,17 @@ public class SharedActions {
 			mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0); // Null Root
 			for (int i = 0; i < o1.getChildCount(); i++) {
 				mxCell mv = (mxCell) refasGraph.getChildAt(o1, i);
-				InstElement value3 = (InstElement) ((InstCell) mv.getValue())
+				InstElement value3 = ((InstCell) mv.getValue())
 						.getInstElement();
 				for (int j = 0; j < mv.getChildCount(); j++) {
 					mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
-					InstElement value = (InstElement) ((InstCell) concept
-							.getValue()).getInstElement();
+					InstElement value = ((InstCell) concept.getValue())
+							.getInstElement();
 					for (int k = 0; k < concept.getChildCount(); k++) {
 						mxCell concept2 = (mxCell) refasGraph.getChildAt(
 								concept, k);
-						InstElement value2 = (InstElement) ((InstCell) concept2
-								.getValue()).getInstElement();
+						InstElement value2 = ((InstCell) concept2.getValue())
+								.getInstElement();
 						updateIdAndObjects(value2, beforeSave, true);
 
 					}
@@ -136,7 +136,7 @@ public class SharedActions {
 				InstOverTwoRel ic = (InstOverTwoRel) value;
 				String str = null;
 				ic.setSemanticOverTwoRelationIden(str);
-				str = (String) ic.getSupInstEleId();
+				str = ic.getSupInstEleId();
 				ic.setMetaOverTwoRelationIden(str);
 			}
 			if (value instanceof InstPairwiseRel) {
@@ -240,19 +240,18 @@ public class SharedActions {
 							editor.getFrame(),
 							"The model loaded contains a set concept attributes "
 									+ instAttributesToDelete.toString()
-									+ "\n that are not supported by the current version of VariaMos."
-									+ "\n If you save this model, all the non supported attributes will be permanently lost.",
-							"Incompatible Model Message",
+									+ "\n that are not required by the current version of VariaMos."
+									+ "\n If you save this model, all the non-required attributes will be permanently lost.",
+							"Model Upgrade Message",
 							JOptionPane.INFORMATION_MESSAGE, null);
 
 		if (additionAttributes)
 			JOptionPane
 					.showMessageDialog(
 							editor.getFrame(),
-							"New concept attributes to make the model compatible with the current \n"
-									+ "version of VariaMos were added. Saving this file will make it incompatible"
-									+ "\n with older versions of the tool.",
-							"Incompatible Model Message",
+							"New concept attributes added to make the model fully compatible with the current \n"
+									+ "version of VariaMos. Verify the default values of attributes.",
+							"Model Upgrade Message",
 							JOptionPane.INFORMATION_MESSAGE, null);
 		return graph;
 	}
@@ -451,7 +450,8 @@ public class SharedActions {
 			}
 			viewsParent = (mxCell) refasGraph.getChildAt(rootCell, 0);
 			// Null Root
-			if (((ModelInstance) editor.getEditedModel())
+			if (editor
+					.getEditedModel()
 					.getSyntaxModel()
 					.elementsValidation(name, modelViewIndex, modelViewSubIndex)) {
 				if ((refasGraph.getCell(modelViewIndex + id + "-"
@@ -519,8 +519,7 @@ public class SharedActions {
 			if (semElement != null) {
 				List<OpersExpr> semExp = semElement.getSemanticExpressions();
 				for (OpersExpr exp : semExp) {
-					((OpersExpr) exp).loadVolatileElements(refas
-							.getVariabilityVertex());
+					exp.loadVolatileElements(refas.getVariabilityVertex());
 				}
 			}
 		}
@@ -542,15 +541,15 @@ public class SharedActions {
 					.getInstAttributes().values().iterator();
 			// System.out.println(instOverTwoRelation.getInstAttributes().size());
 			while (ias.hasNext()) {
-				InstAttribute ia = (InstAttribute) ias.next();
+				InstAttribute ia = ias.next();
 				ElemAttribute attribute = instOverTwoRelation
 						.getAbstractAttribute(ia.getAttributeName(),
 								opersParents);
 				if (attribute != null) {
 					ia.setAttribute(attribute);
 
-					List<InstAttribute> semGD = ((SyntaxElement) instOverTwoRelation
-							.getTransSupportMetaElement())
+					List<InstAttribute> semGD = instOverTwoRelation
+							.getTransSupportMetaElement()
 							.getOpersRelationTypes();
 					ia.setOpersOverTwoRelList(semGD);
 					if (ia.getType().equals("Boolean")
@@ -603,7 +602,7 @@ public class SharedActions {
 			if (refas.getSyntaxModel().getVertex(instVertex.getSupInstEleId()) != null) {
 				instSupVertex = refas.getSyntaxModel().getVertex(
 						instVertex.getSupInstEleId());
-				metaVertex = (SyntaxElement) instSupVertex.getEdSyntaxEle();
+				metaVertex = instSupVertex.getEdSyntaxEle();
 			}
 			if (metaVertex == null)
 				System.err.println("Concept w " + instVertex.getSupInstEleId());
@@ -613,7 +612,7 @@ public class SharedActions {
 				Iterator<InstAttribute> ias = instVertex.getInstAttributes()
 						.values().iterator();
 				while (ias.hasNext()) {
-					InstAttribute ia = (InstAttribute) ias.next();
+					InstAttribute ia = ias.next();
 					ElemAttribute attribute = metaVertex.getAbstractAttribute(
 							ia.getIdentifier(), syntaxParents, opersParents);
 					if (attribute != null) {
@@ -709,10 +708,10 @@ public class SharedActions {
 				if (source.getTarget() == null) {
 					System.out.println(source.getId());
 				}
-				InstElement sourceVertex = (InstElement) ((InstCell) source
-						.getSource().getValue()).getInstElement();
-				InstElement targetVertex = (InstElement) ((InstCell) source
-						.getTarget().getValue()).getInstElement();
+				InstElement sourceVertex = ((InstCell) source.getSource()
+						.getValue()).getInstElement();
+				InstElement targetVertex = ((InstCell) source.getTarget()
+						.getValue()).getInstElement();
 				if (sourceVertex == null || targetVertex == null) {
 					System.out.println("Error load" + source.getId());
 					return;
@@ -744,7 +743,7 @@ public class SharedActions {
 					while (instAttributesIter.hasNext()) {
 						try {
 
-							InstAttribute instAttribute = (InstAttribute) instAttributesIter
+							InstAttribute instAttribute = instAttributesIter
 									.next();
 
 							ElemAttribute absAttribute = metaPairwiseRelation
@@ -772,8 +771,8 @@ public class SharedActions {
 									instAttribute.setValue(instPairwiseRelation
 											.getSemanticPairwiseRelType());
 								try {
-									List<InstAttribute> semGD = ((SyntaxElement) instPairwiseRelation
-											.getMetaPairwiseRelation())
+									List<InstAttribute> semGD = instPairwiseRelation
+											.getMetaPairwiseRelation()
 											.getOpersRelationTypes();
 									instAttribute.setOpersOverTwoRelList(semGD);
 								} catch (Exception e) {
@@ -885,8 +884,7 @@ public class SharedActions {
 			String element) {
 		if (instElement == null)// || !(instElement instanceof InstVertex))
 			return false;
-		SyntaxElement metaElement = ((SyntaxElement) instElement
-				.getTransSupportMetaElement());
+		SyntaxElement metaElement = (instElement.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
 		InstElement semElement = metaElement.getTransInstSemanticElement();
