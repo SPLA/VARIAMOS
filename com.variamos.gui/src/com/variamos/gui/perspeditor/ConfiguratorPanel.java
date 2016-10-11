@@ -275,6 +275,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			addToConfiguration(n, conf);
 	}
 
+	@Override
 	public void clearProducts() {
 		solutionPanel.clearSolutions();
 	}
@@ -290,10 +291,12 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	 * solNode.add(new DefaultMutableTreeNode(ve.getName())); } return solNode;
 	 * }
 	 */
+	@Override
 	public void addSolution(Configuration solution) {
 		configurator.addSolution(solution);
 	}
 
+	@Override
 	public void taskCompleted(ConfigurationTask task, long timeMillis) {
 		float secs = timeMillis / 1000f;
 		// productsTree.expandRow(0);
@@ -319,11 +322,13 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		return this.refas;
 	}
 
+	@Override
 	public void setStatus(String string) {
 		lblStatus.setText(string);
 	}
 
 	// todo: change to refas
+	@Override
 	public void configure(AbstractModel am) {
 		ModelInstance pl = (ModelInstance) am;
 		this.removeAll();
@@ -411,6 +416,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 				listener, refas);
 	}
 
+	@Override
 	public void setValueToVariable(Variable variable, Integer value, int index) {
 		ConfigurationNode node = findConfigurationNodeFor(variable.getName());
 
@@ -420,6 +426,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		this.repaint();
 	}
 
+	@Override
 	public void resizeColumns() {
 		// table.resizeColumns();
 	}
@@ -511,7 +518,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	public void setConfiguration(ConfigurationDTO dto) {
-		TreeMap<String, Integer> values = dto.getValues().getConfiguration();
+		TreeMap<String, Number> values = dto.getValues().getConfiguration();
 		for (String varName : values.keySet()) {
 			ConfigurationNode node = getConfigurationNode(varName);
 			if (node == null)

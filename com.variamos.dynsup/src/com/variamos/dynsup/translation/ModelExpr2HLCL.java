@@ -650,7 +650,7 @@ public class ModelExpr2HLCL {
 		}
 	}
 
-	public Map<String, Integer> getResult() {
+	public Map<String, Number> getResult() {
 		return configuration.getConfiguration();
 	}
 
@@ -675,10 +675,10 @@ public class ModelExpr2HLCL {
 	 */
 	public void updateGUIElements(List<String> selectedAttributes,
 			List<String> notAvailableAttributes, List<String> conceptTypes,
-			List<String> outVariables, Map<String, Integer> config) {
+			List<String> outVariables, Map<String, Number> config) {
 		// Call the SWIProlog and obtain the result
 		if (configuration != null) {
-			Map<String, Integer> prologOut;
+			Map<String, Number> prologOut;
 			if (config == null)
 				prologOut = configuration.getConfiguration();
 			else
@@ -714,9 +714,8 @@ public class ModelExpr2HLCL {
 							else if (val == 0)
 								instAttribute.setValue(false);
 						} else if (instAttribute != null)
-							instAttribute
-									.setValue((int) Float.parseFloat(prologOut
-											.get(identifier) + ""));
+							instAttribute.setValue(Float.parseFloat(prologOut
+									.get(identifier) + ""));
 					} else if (attribute.equals("Sel"))
 						for (String attTarget : selectedAttributes) {
 							InstAttribute instTarget = vertex
@@ -736,7 +735,7 @@ public class ModelExpr2HLCL {
 							if (instTarget != null
 									&& (instTarget.getType().equals("Integer") || instTarget
 											.getType().equals("Float"))) {
-								int val = (int) Float.parseFloat(prologOut
+								float val = Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);
 
@@ -761,7 +760,7 @@ public class ModelExpr2HLCL {
 							if (instTarget != null
 									&& (instTarget.getType().equals("Integer") || instTarget
 											.getType().equals("Float"))) {
-								int val = (int) Float.parseFloat(prologOut
+								float val = Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);
 
@@ -1043,9 +1042,9 @@ public class ModelExpr2HLCL {
 		}
 	}
 
-	public TreeMap<String, Integer> getConfiguredIdentifier(
+	public TreeMap<String, Number> getConfiguredIdentifier(
 			Set<InstElement> elementSubSet) {
-		TreeMap<String, Integer> out = new TreeMap<String, Integer>();
+		TreeMap<String, Number> out = new TreeMap<String, Number>();
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "GeneralConcept")
 					&& (elementSubSet == null || elementSubSet

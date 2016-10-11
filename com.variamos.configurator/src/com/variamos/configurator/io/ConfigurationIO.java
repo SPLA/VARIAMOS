@@ -23,7 +23,7 @@ public class ConfigurationIO {
 		writer.close();
 	}
 
-	public static void saveMapToFile(Map<String, Integer> config,
+	public static void saveMapToFile(Map<String, Number> config,
 			String fileAbsPath) throws IOException {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -40,13 +40,13 @@ public class ConfigurationIO {
 		return gson.fromJson(fr, ConfigurationDTO.class);
 	}
 
-	public static Map<String, Integer> loadMapFromFile(String fileAbsPath)
+	public static Map<String, Number> loadMapFromFile(String fileAbsPath)
 			throws FileNotFoundException {
 		Gson gson = new GsonBuilder().create();
 
 		FileReader fr = new FileReader(fileAbsPath);
 		@SuppressWarnings("unchecked")
-		Map<String, Integer> out = gson.fromJson(fr, Map.class);
+		Map<String, Number> out = gson.fromJson(fr, Map.class);
 		try {
 			fr.close();
 		} catch (IOException e) {

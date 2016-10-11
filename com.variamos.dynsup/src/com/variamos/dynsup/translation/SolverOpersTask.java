@@ -226,7 +226,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		}
 
 		invalidConfigHlclProgram = false;
-		TreeMap<String, Integer> configuredIdentNames = refas2hlcl
+		TreeMap<String, Number> configuredIdentNames = refas2hlcl
 				.getConfiguredIdentifier(elementSubSet);
 		Configuration config = new Configuration();
 
@@ -560,7 +560,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		if (result) {
 
 			refas2hlcl.updateGUIElements(attributes);
-			Map<String, Integer> currentResult = refas2hlcl.getResult();
+			Map<String, Number> currentResult = refas2hlcl.getResult();
 			// System.out.println(currentResult);
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
 					refas2hlcl.getResult());
@@ -774,24 +774,24 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return outMessage;
 	}
 
-	private List<String> getFreeIdentifiers(Map<String, Integer> currentResult) {
+	private List<String> getFreeIdentifiers(Map<String, Number> currentResult) {
 		List<String> out = new ArrayList<String>();
 		for (String id : currentResult.keySet()) {
 			String[] o = id.split("_");
-			if (o[1].equals("Sel") && currentResult.get(id) == 0)
+			if (o[1].equals("Sel") && currentResult.get(id).floatValue() == 0)
 				out.add(id);
 
 		}
 		return out;
 	}
 
-	private List<String> getNewIdentifiers(Map<String, Integer> currentResult,
-			Map<String, Integer> lastResult) {
+	private List<String> getNewIdentifiers(Map<String, Number> currentResult,
+			Map<String, Number> lastResult) {
 		List<String> out = new ArrayList<String>();
 		for (String id : currentResult.keySet()) {
 			String[] o = id.split("_");
-			if (o[1].equals("Sel") && lastResult.get(id) == 0
-					&& currentResult.get(id) == 1)
+			if (o[1].equals("Sel") && lastResult.get(id).floatValue() == 0
+					&& currentResult.get(id).floatValue() == 1)
 				out.add(o[0]);
 
 		}

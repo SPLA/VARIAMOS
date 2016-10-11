@@ -98,8 +98,12 @@ public class VisualElement implements Comparable<VisualElement> {
 						if (instElement.getInstAttribute("value").getValue() instanceof Integer)
 							val = ((Integer) instElement.getInstAttribute(
 									"value").getValue()).toString();
+						else if (instElement.getInstAttribute("value")
+								.getValue() instanceof Float)
+							val = ((Float) instElement
+									.getInstAttribute("value").getValue())
+									.toString();
 						else
-
 							val = (String) instElement
 									.getInstAttribute("value").getValue();
 						if (split[0].equals(val))

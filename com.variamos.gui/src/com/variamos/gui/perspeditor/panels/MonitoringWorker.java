@@ -76,7 +76,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 			long lastModifiedFile = 0;
 
 			File monitoredFile = initialConfigFileObject;
-			Map<String, Integer> lastConfig = null;
+			Map<String, Number> lastConfig = null;
 			while (!canceled) {
 				if (iterative)
 					monitoredFile = monitoredFiles[filePosition];
@@ -88,7 +88,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 							results,
 							results + "ConfigFile loaded: "
 									+ monitoredFile.getAbsolutePath() + "\n");
-					Map<String, Integer> config = ConfigurationIO
+					Map<String, Number> config = ConfigurationIO
 							.loadMapFromFile(monitoredFile.getAbsolutePath());
 					List<String> selectedAttributes = new ArrayList<String>();
 					selectedAttributes.add("ConfSel");

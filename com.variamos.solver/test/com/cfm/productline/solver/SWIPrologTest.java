@@ -90,7 +90,8 @@ public class SWIPrologTest {
 		Configuration configurationObtained = swiSolver.getSolution();
 		System.out.println("configuration: " + configuration.toString());
 		assertTrue(configurationObtained != null);
-		assertTrue(configurationObtained.getConfiguration().get("A") == 1);
+		assertTrue(configurationObtained.getConfiguration().get("A")
+				.floatValue() == 1);
 
 	}
 

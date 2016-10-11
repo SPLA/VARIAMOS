@@ -35,7 +35,7 @@ public class SWIPrologTestV3 {
 	/**
 	 * Little example to test the program load in SWI Prolog.
 	 */
-	
+
 	public void isSatisfiableTest() {
 
 		Identifier A = f.newIdentifier("A", "A");
@@ -53,7 +53,6 @@ public class SWIPrologTestV3 {
 
 	}
 
-	
 	public void oneConfigurationTest() {
 
 		Identifier A = f.newIdentifier("A", "A");
@@ -65,11 +64,10 @@ public class SWIPrologTestV3 {
 		HlclProgram hlclProgram = new HlclProgram();
 		hlclProgram.add(numericExpression);
 		Solver swiSolver = new SWIPrologSolver(hlclProgram);
-	
+
 		swiSolver.solve(new Configuration(), new ConfigurationOptions());
 		Configuration configurationObtained = swiSolver.getSolution();
 		assertTrue(configurationObtained != null);
-		
 
 	}
 
@@ -92,11 +90,11 @@ public class SWIPrologTestV3 {
 		Configuration configurationObtained = swiSolver.getSolution();
 		System.out.println("configuration: " + configuration.toString());
 		assertTrue(configurationObtained != null);
-		assertTrue(configurationObtained.getConfiguration().get("A") == 1);
+		assertTrue(configurationObtained.getConfiguration().get("A")
+				.floatValue() == 1);
 
 	}
-	
-	
+
 	public void allConfigurationsTest() {
 
 		Identifier A = f.newIdentifier("A", "A");

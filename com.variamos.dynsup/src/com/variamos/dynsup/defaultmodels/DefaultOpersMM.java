@@ -23,6 +23,7 @@ import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.statictypes.SatisficingType;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ExpressionVertexType;
+import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.dynsup.types.VariableType;
 import com.variamos.hlcl.LabelingOrder;
@@ -1110,7 +1111,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType.addInstAttribute(
 					"suboperexptype",
 					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "RELAXABLE");
+							"suboperexptype", null, null),
+					OperationSubActionExecType.RELAXABLE);
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(

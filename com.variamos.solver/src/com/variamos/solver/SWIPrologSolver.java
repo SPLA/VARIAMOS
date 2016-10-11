@@ -164,12 +164,21 @@ public class SWIPrologSolver implements Solver {
 				// Generate the assigns for the not ignored variables
 				for (String id : config.getNotIgnored()) {
 					// Create the atom
-					org.jpl7.Integer i = new org.jpl7.Integer(
-							config.stateOf(id));
-					// Create the compound for the assign.
-					Compound assign = new Compound("=", new Term[] {
-							vars.get(id), i });
-					parts.add(assign);
+					if (config.stateOf(id) == (int) config.stateOf(id)) {
+						org.jpl7.Integer i = new org.jpl7.Integer(
+								(int) config.stateOf(id));
+						Compound assign = new Compound("=", new Term[] {
+								vars.get(id), i });
+						parts.add(assign);
+					} else {
+						org.jpl7.Float i = new org.jpl7.Float(
+								config.stateOf(id));
+						// Create the compound for the assign.
+						Compound assign = new Compound("=", new Term[] {
+								vars.get(id), i });
+						parts.add(assign);
+					}
+
 				}
 				parts.add(new Compound(PARTIAL_INVOCATION_NAME,
 						new Term[] { L }));
@@ -195,7 +204,7 @@ public class SWIPrologSolver implements Solver {
 					// Generate the assigns for the not ignored variables
 					for (String id : config.getNotIgnored()) { // Create the
 																// atom
-						org.jpl7.Integer i = new org.jpl7.Integer(
+						org.jpl7.Float i = new org.jpl7.Float(
 								config.stateOf(id));
 						// Create the compound for the assign.
 						Compound assign = new Compound("=", new Term[] {
@@ -324,20 +333,20 @@ public class SWIPrologSolver implements Solver {
 				variable = iterator.next();
 				term = configurationResultMap.get(variable);
 
-				if (term.isInteger()) {
-					Integer termValue = term.intValue();
-					if (termValue == 0) {
-						configuration.ban(variable);
-					} else if (termValue == 1) {
-						configuration.enforce(variable);
-					} else {
-						configuration.set(variable, termValue);
-					}
-
+				// if (term.isNumber()) {
+				Float termValue = term.floatValue();
+				if (termValue == 0) {
+					configuration.ban(variable);
+				} else if (termValue == 1) {
+					configuration.enforce(variable);
 				} else {
-					throw new TechnicalException(
-							"Swi prolog API error, please check ");
+					configuration.set(variable, termValue);
 				}
+
+				// } else {
+				// throw new TechnicalException(
+				// "Swi prolog API error, please check ");
+				// }
 			}
 		}
 		return configuration;

@@ -421,14 +421,15 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	private boolean processConfiguration(Configuration configuration) {
-		TreeMap<String, Integer> configSet = configuration.getConfiguration();
+		TreeMap<String, Number> configSet = configuration.getConfiguration();
 		StringBuilder sb = new StringBuilder();
 		for (String identifier : configSet.keySet()) {
 			String[] split = identifier.split("_");
 			String vertexId = split[0];
 			String attribute = split[1];
 			if ("Sel".equals(attribute)) {
-				if (configSet.get(identifier) == 1) {// variable seleccionada
+				if (configSet.get(identifier).floatValue() == 1) {// variable
+																	// seleccionada
 					String var = refas2hlcl.getRefas().getVertex(vertexId)
 							.toString();
 					if (!var.contains("mutex") && !var.contains("and")
@@ -536,10 +537,12 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			addToConfiguration(n, conf);
 	}
 
+	@Override
 	public void addSolution(Configuration solution) {
 		configurator.addSolution(solution);
 	}
 
+	@Override
 	public void taskCompleted(ConfigurationTask task, long timeMillis) {
 		float secs = timeMillis / 1000f;
 		// productsTree.expandRow(0);
@@ -565,10 +568,12 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		return this.productLine;
 	}
 
+	@Override
 	public void setStatus(String string) {
 		lblStatus.setText(string);
 	}
 
+	@Override
 	public void configure(AbstractModel am) {
 		ProductLine pl = (ProductLine) am;
 		this.removeAll();
@@ -646,6 +651,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		// performConfiguration();
 	}
 
+	@Override
 	public void setValueToVariable(Variable variable, Integer value, int index) {
 		ConfigurationNode node = findConfigurationNodeFor(variable.getName());
 
@@ -655,6 +661,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		this.repaint();
 	}
 
+	@Override
 	public void resizeColumns() {
 		// table.resizeColumns();
 	}
@@ -730,7 +737,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	public void setConfiguration(ConfigurationDTO dto) {
-		TreeMap<String, Integer> values = dto.getValues().getConfiguration();
+		TreeMap<String, Number> values = dto.getValues().getConfiguration();
 		for (String varName : values.keySet()) {
 			ConfigurationNode node = getConfigurationNode(varName);
 			if (node == null)
