@@ -210,6 +210,43 @@
 	<!-- End REFAS Infra Syntax Meta-Meta-Model styles in use -->
 	
 		<!-- Begin REFAS Infra Syntax Opers Meta-Meta-Model styles in use -->
+	<add as="sinfrasyntaxopersm2opergroup">
+		<add as="shape" value="opergroup"/>
+		<add as="fillColor" value="white" />
+		<add as="strokeWidth" value="5" />
+		<add as="fontSize" value="10"/>
+		<add as="fontColor" value="black"/>				
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>	
+	</add>
+		<add as="sinfrasyntaxopersm2oper">
+		<add as="shape" value="operation"/>
+		<add as="fillColor" value="white" />
+		<add as="strokeWidth" value="5" />
+		<add as="fontSize" value="10"/>
+		<add as="fontColor" value="black"/>				
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>	
+	</add>
+		<add as="sinfrasyntaxopersm2suboper">
+		<add as="shape" value="suboper"/>
+		<add as="fillColor" value="white" />
+		<add as="strokeWidth" value="5" />
+		<add as="fontSize" value="10"/>
+		<add as="fontColor" value="black"/>				
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>	
+	</add>
+		<add as="sinfrasyntaxopersm2label">
+		<add as="shape" value="labeling"/>
+		<add as="fillColor" value="white" />
+		<add as="strokeWidth" value="5" />
+		<add as="fontSize" value="10"/>
+		<add as="fontColor" value="black"/>				
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>	
+	</add>
+
 	<add as="sinfrasyntaxopersm2viewrel">
 		<!-- <add as="shape" value="connector"/> -->
 		<add as="endArrow" value="classic"/>

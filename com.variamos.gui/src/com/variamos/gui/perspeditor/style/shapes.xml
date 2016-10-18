@@ -1,4 +1,105 @@
 <shapes>
+<shape name="opergroup" aspect="variable">
+	<background>
+			<fillstroke color="#FFFFFF"/>
+		<strokewidth width="1"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<strokewidth width="5"/>
+		<path>
+			<move x="30" y="0"/>
+			<line x="85" y="0"/>			
+			<quad x1="100" y1="0" x2="100" y2="30"/>
+			<line x="100" y="80"/>
+			<quad x1="100" y1="100" x2="85" y2="100"/>
+			<line x="15" y="100"/>
+			<quad x1="0" y1="100" x2="0" y2="70"/>
+			<line x="0" y="30"/>			
+			<quad x1="0" y1="0" x2="15" y2="0"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+<shape name="operation" aspect="variable">
+	<background>
+			<fillstroke color="#FFFFFF"/>
+		<strokewidth width="1"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<strokewidth width="2"/>
+		<path>
+			<move x="30" y="0"/>
+			<line x="85" y="0"/>			
+			<quad x1="100" y1="0" x2="100" y2="30"/>
+			<line x="100" y="80"/>
+			<quad x1="100" y1="100" x2="85" y2="100"/>
+			<line x="15" y="100"/>
+			<quad x1="0" y1="100" x2="0" y2="70"/>
+			<line x="0" y="30"/>			
+			<quad x1="0" y1="0" x2="15" y2="0"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+<shape name="suboper" aspect="variable">
+	<background>
+			<fillstroke color="#5F5F5F"/>
+		<strokewidth width="1"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<strokewidth width="5"/>
+		<path>
+			<move x="10" y="0"/>
+			<line x="95" y="0"/>			
+			<quad x1="100" y1="0" x2="100" y2="10"/>
+			<line x="100" y="90"/>
+			<quad x1="100" y1="100" x2="95" y2="100"/>
+			<line x="5" y="100"/>
+			<quad x1="0" y1="100" x2="0" y2="90"/>
+			<line x="0" y="10"/>			
+			<quad x1="0" y1="0" x2="5" y2="0"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+<shape name="labeling" aspect="variable">
+	<background>
+			<fillstroke color="#5F5F5F"/>
+		<strokewidth width="1"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<strokewidth width="2"/>
+		<path>
+			<move x="10" y="0"/>
+			<line x="95" y="0"/>			
+			<quad x1="100" y1="0" x2="100" y2="10"/>
+			<line x="100" y="90"/>
+			<quad x1="100" y1="100" x2="95" y2="100"/>
+			<line x="5" y="100"/>
+			<quad x1="0" y1="100" x2="0" y2="90"/>
+			<line x="0" y="10"/>			
+			<quad x1="0" y1="0" x2="5" y2="0"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+
 <shape name="refas-goal" aspect="variable">
 	<background>		
 		<fillstroke color="#FFFFFF"/>

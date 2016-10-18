@@ -115,7 +115,10 @@ public class DefaultOpersMM {
 		InstPairwiseRel metaPairwRelCCExt = (refas.getSyntaxModel()
 				.getConstraintInstEdge("OMExtCEdge"));
 		InstPairwiseRel metaPairwRelOCExt = (refas.getSyntaxModel()
-				.getConstraintInstEdge("OMExtOTEdge"));
+				.getConstraintInstEdge("OMExtOTCEdge")); // FIXME separate OT
+															// from OT and OT
+															// from C.
+															// OMExtOTOTEdge
 		InstPairwiseRel metaPairwRelAso = (refas.getSyntaxModel()
 				.getConstraintInstEdge("OMAsoEdge"));
 

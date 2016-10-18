@@ -177,7 +177,13 @@ public class ElementDesignPanel extends JPanel {
 
 				if (editElm.getEdOperEle() != null
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMLabeling")) {
+								.equals("OMLabeling")
+						&& !editElm.getTransSupportMetaElement().getName()
+								.equals("OMSubOper")
+						&& !editElm.getTransSupportMetaElement().getName()
+								.equals("OMOperation")
+						&& !editElm.getTransSupportMetaElement().getName()
+								.equals("OMOperGroup")) {
 					elementDesPropSubPanel.add(new JLabel("Meta-Model-Expr."));
 					JButton button = new JButton("Meta-Model-Expr. Editor...");
 					if (editor.getPerspective() == 4)
