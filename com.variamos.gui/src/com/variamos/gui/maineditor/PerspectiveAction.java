@@ -32,6 +32,7 @@ public class PerspectiveAction extends AbstractEditorAction {
 		 * 
 		 */
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		newActionPerformed(e);
 	}
@@ -54,7 +55,7 @@ public class PerspectiveAction extends AbstractEditorAction {
 			mainFrame.setPerspective(2);
 			VariamosGraphEditor ed = mainFrame.getEditor(2);
 			List<InstElement> views = ed.getEditedModel().getSyntaxModel()
-					.getVariabilityVertex("SMMView");
+					.getVariabilityVertex("SMView");
 			if (views.size() == 0) {
 				JOptionPane.showMessageDialog(editor,
 						mxResources.get("nometamodelerror"),

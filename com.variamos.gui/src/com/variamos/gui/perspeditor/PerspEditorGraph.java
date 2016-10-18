@@ -108,7 +108,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		List<InstElement> views = null;
 		if (modelInstance.getSyntaxModel() != null)
 			views = modelInstance.getSyntaxModel().getVariabilityVertex(
-					"SMMView");
+					"SMView");
 		int pos = 0;
 		if (views != null && views.size() == 0) {
 			// Load Syntax and Semantic
@@ -134,7 +134,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			}
 			/*
 			 * for (InstView instView :
-			 * refasModel.getVariabilityVertex("SMMView")) { if
+			 * refasModel.getVariabilityVertex("SMView")) { if
 			 * (instView.getChildViews().size() == 0) { mxCell child = new
 			 * mxCell(instView.getIdentifier()); child.setValue(new
 			 * InstCell(child, instView, false)); addCell(child); String id =
@@ -247,6 +247,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		return result.toString();
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		// Loads the defalt stylesheet from an external file
@@ -265,17 +266,19 @@ public class PerspEditorGraph extends AbstractGraph {
 	public void loadStencil() {
 		Document doc;
 		doc = mxUtils.loadDocument(MainFrame.getFilesUrl() + "shapes.xml");
-		Element shapes = (Element) doc.getDocumentElement();
+		Element shapes = doc.getDocumentElement();
 		NodeList list = shapes.getElementsByTagName("shape");
 
 		for (int i = 0; i < list.getLength(); i++) {
 			Element shape = (Element) list.item(i);
 			mxStencilRegistry.addStencil(shape.getAttribute("name"),
 					new mxStencil(shape) {
+						@Override
 						protected mxGraphicsCanvas2D createCanvas(
 								final mxGraphics2DCanvas gc) {
 							// Redirects image loading to graphics canvas
 							return new mxGraphicsCanvas2D(gc.getGraphics()) {
+								@Override
 								protected Image loadImage(String src) {
 									// Adds image base path to relative
 									// image URLs
@@ -344,6 +347,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		return true;
 	}
 
+	@Override
 	protected boolean connectingEdge(mxCell cell, mxCell parent, int index) {
 		InstElement source = ((InstCell) cell.getSource().getValue())
 				.getInstElement();
@@ -392,6 +396,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		return true;
 	}
 
+	@Override
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
 		InstElement source = ((InstCell) cell.getSource().getValue())
 				.getInstElement();
@@ -472,7 +477,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			InstCell value = (InstCell) topLevelView.getValue();
 			iTop++;
 			if (value != null && value.getInstElement() != null) {
-				return (InstCell) value;
+				return value;
 			}
 			int iMed = 0;
 			while ((instCell == null || instCell.getInstElement() != null)
@@ -484,7 +489,7 @@ public class PerspEditorGraph extends AbstractGraph {
 						&& iMed == modelViewIndex) {
 					// modelViewIndex = iMed;
 					// modelViewSubIndex = -1;
-					return (InstCell) value2;
+					return value2;
 				}
 				iMed++;
 				int iLow = 0;
@@ -497,7 +502,7 @@ public class PerspEditorGraph extends AbstractGraph {
 							&& iLow == modelViewSubIndex) {
 						// modelViewIndex = iMed;
 						// modelViewSubIndex = iLow;
-						return (InstCell) element;
+						return element;
 					}
 					iLow++;
 				}
@@ -509,6 +514,7 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	// TODO review from here for requirements
 
+	@Override
 	protected void removingVertex(mxCell cell, mxCell parent) {
 		((InstCell) cell.getValue()).setMxCell(cell);
 		InstElement value = ((InstCell) cell.getValue()).getInstElement();
@@ -530,6 +536,7 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	}
 
+	@Override
 	public Object[] moveCells(Object[] cells, double dx, double dy,
 			boolean clone, Object target, Point location) {
 		Object[] out = super.moveCells(cells, dx, dy, clone, target, location);
@@ -551,6 +558,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		return out;
 	}
 
+	@Override
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
 		((InstCell) cell.getValue()).setMxCell(cell);
 		InstElement value = ((InstCell) cell.getValue()).getInstElement();
@@ -572,7 +580,7 @@ public class PerspEditorGraph extends AbstractGraph {
 						else
 							try {
 
-								instElement = (InstElement) value.clone();
+								instElement = value.clone();
 								InstCell instCell = new InstCell(cell,
 										instElement,
 										((InstCell) cell.getValue()).isCloned());
@@ -743,6 +751,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		return true;
 	}
 
+	@Override
 	protected void removingRefaElements(mxCell cell) {
 		InstElement instElement = ((InstCell) cell.getValue()).getInstElement();
 		if (instElement != null) {
@@ -756,6 +765,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 	}
 
+	@Override
 	protected void removingClones(mxCell cell) {
 		mxIGraphModel refasGraph = getModel();
 
@@ -797,6 +807,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 	}
 
+	@Override
 	public void setModelInstance(AbstractModel pl) {
 		modelInstance = (ModelInstance) pl;
 		defineInitialGraph();
@@ -816,18 +827,22 @@ public class PerspEditorGraph extends AbstractGraph {
 		return modelInstance;
 	}
 
+	@Override
 	public mxCell getCellById(String id) {
 		return (mxCell) ((mxGraphModel) getModel()).getCell(id);
 	}
 
+	@Override
 	public ConstraintMode getConsMode() {
 		return constraintAddingMode;
 	}
 
+	@Override
 	public void setConsMode(ConstraintMode consMode) {
 		this.constraintAddingMode = consMode;
 	}
 
+	@Override
 	public void connectDefaultConstraint(mxCell source, mxCell target) {
 		Constraint c = newConstraint(source.getId(), target.getId());
 
@@ -846,6 +861,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		insertEdge(null, "", "", constraintCell, target);
 	}
 
+	@Override
 	protected Constraint newConstraint(String idSource, String idTarget) {
 		Constraint c = new GenericConstraint();
 

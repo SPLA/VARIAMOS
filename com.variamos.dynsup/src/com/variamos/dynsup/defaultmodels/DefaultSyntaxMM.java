@@ -17,24 +17,24 @@ public class DefaultSyntaxMM {
 
 		SyntaxElement syntaxMetaView = null;
 
-		InstElement metaView = refas.getSyntaxModel().getVertex("SMMView");
+		InstElement metaView = refas.getSyntaxModel().getVertex("SMView");
 
 		InstElement supportMetaElementConcept = refas.getSyntaxModel()
-				.getVertex("SMMConcept");
+				.getVertex("SMNode");
 		InstElement supportMetaElementOverTwo = refas.getSyntaxModel()
-				.getVertex("SMMOverTwoRelation");
+				.getVertex("SMOverTwo");
 
 		InstElement supportMetaElementPairwise = refas.getSyntaxModel()
-				.getVertex("SMMPairwiseRelation");
+				.getVertex("SMPairwise");
 
 		InstElement supportMetaExtendsPairwise = refas.getSyntaxModel()
-				.getVertex("SMMExtendRelation");
+				.getVertex("SMExtend");
 
 		InstElement supportMetaViewPairwise = refas.getSyntaxModel().getVertex(
-				"SMMViewConceptAsso");
+				"SMViewNode");
 
 		InstPairwiseRel metaPairwiseRelNormal = (refas.getSyntaxModel()
-				.getConstraintInstEdge("SMMNormalRelation"));
+				.getConstraintInstEdge("SMAso"));
 
 		// Model concept
 

@@ -236,7 +236,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		List<InstElement> instViews = null;
 		if (refasModel.getSyntaxModel() != null)
 			instViews = refasModel.getSyntaxModel().getVariabilityVertex(
-					"SMMView");
+					"SMView");
 		if (instViews != null)
 			if (instViews.size() == 0) {
 				center.setDividerLocation(0);
@@ -250,7 +250,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				mxCell parent = (mxCell) root.getChildAt(0);
 				for (InstElement instElement : instViews) {
 
-					if (instElement.getSupInstEleId().equals("SMMView")) {
+					if (instElement.getSupInstEleId().equals("SMView")) {
 						if (parent.getChildCount() <= i
 								&& parent.getId().equals("1")) {
 							mxCell child = new mxCell(new InstCell(null, null,
@@ -318,7 +318,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							// TODO change to RefasModel
 							List<InstElement> finalInstViews = refasModel
 									.getSyntaxModel().getVariabilityVertex(
-											"SMMView");
+											"SMView");
 							VariamosGraphEditor editor = getEditor();
 							((MainFrame) editor.getFrame()).waitingCursor(true);
 							int modelInd = getModelViewIndex();
@@ -2024,7 +2024,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public List<InstElement> getInstViews() {
-		return refasModel.getSyntaxModel().getVariabilityVertex("SMMView");
+		return refasModel.getSyntaxModel().getVariabilityVertex("SMView");
 	}
 
 	public void setProgressMonitor(ProgressMonitor progressMonitor) {

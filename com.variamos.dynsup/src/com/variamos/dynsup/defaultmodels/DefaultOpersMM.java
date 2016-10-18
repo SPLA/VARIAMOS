@@ -3988,8 +3988,7 @@ public class DefaultOpersMM {
 			// ArrayList<AbstractSemanticVertex>();
 			// semSDElements.add(semSoftDependency);
 
-			OpersConcept semHardOverTwoRelation = new OpersConcept(
-					"SMMOverTwoRelation");// hardSemOverTwoRelList);
+			OpersConcept semHardOverTwoRelation = new OpersConcept("SMOverTwo");// hardSemOverTwoRelList);
 
 			InstConcept instVertexHHGR = new InstConcept("GoalOT",
 					semHardOverTwoRelation, metaMetaInstOverTwoRel);
