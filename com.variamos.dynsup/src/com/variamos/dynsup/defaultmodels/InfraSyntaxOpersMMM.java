@@ -300,6 +300,14 @@ public class InfraSyntaxOpersMMM {
 				"User Identifier", "", "", 0, 4, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
+		infraSyntaxOpersM2AsoRel.addModelingAttribute(
+				InstPairwiseRel.VAR_METAPAIRWISE, new ElemAttribute(
+						InstPairwiseRel.VAR_METAPAIRWISE, "Class",
+						AttributeType.OPERATION, true,
+						InstPairwiseRel.VAR_METAPAIRWISE_NAME, "",
+						InstPairwiseRel.VAR_METAPAIRWISE_CLASS,
+						new SyntaxElement('P'), 0, 2, "", "", -1, "", ""));
+
 		constraintInstEdges.put("OMAsoEdge", new InstPairwiseRel(
 				infraSyntaxOpersM2AsoRel));
 
@@ -325,6 +333,14 @@ public class InfraSyntaxOpersMMM {
 		rel.setTargetRelation(instInfraSyntaxOpersM2Concept, true);
 		rel.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
 		constraintInstEdges.put("OMExtCEdge", rel);
+
+		infraSyntaxOpersM2ExtRel.addModelingAttribute(
+				InstPairwiseRel.VAR_METAPAIRWISE, new ElemAttribute(
+						InstPairwiseRel.VAR_METAPAIRWISE, "Class",
+						AttributeType.OPERATION, true,
+						InstPairwiseRel.VAR_METAPAIRWISE_NAME, "",
+						InstPairwiseRel.VAR_METAPAIRWISE_CLASS,
+						new SyntaxElement('P'), 0, 2, "", "", -1, "", ""));
 
 		rel = new InstPairwiseRel(basicOpersM2ExtRel);
 		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);

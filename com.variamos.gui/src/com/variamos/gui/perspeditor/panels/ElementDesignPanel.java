@@ -95,7 +95,7 @@ public class ElementDesignPanel extends JPanel {
 
 		rootPanel3.add(contentPanel3);
 		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(0, 0));
+		dummyP.setMinimumSize(new Dimension(200, 0));
 		dummyP.setPreferredSize(new Dimension(200, 0));
 		dummyP.setMaximumSize(new Dimension(500, 300));
 		rootPanel3.add(dummyP);
@@ -113,7 +113,7 @@ public class ElementDesignPanel extends JPanel {
 		add(mainPanel);
 		dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMaximumSize(new Dimension(500, 0));
+		dummyP.setMinimumSize(new Dimension(500, 0));
 		add(dummyP);
 		/*
 		 * dummyP = new JPanel(); dummyP.setMinimumSize(new Dimension(0, 0));
@@ -814,17 +814,17 @@ public class ElementDesignPanel extends JPanel {
 			// variablesPanel.setPreferredSize(new Dimension(250, 25 *
 			// editables.length));
 			JPanel dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(0, 0));
+			dummy.setMinimumSize(new Dimension(100, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(0, 0));
+			dummy.setMinimumSize(new Dimension(100, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(300, 0));
+			dummy.setMinimumSize(new Dimension(100, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(350, 200));
 			elementDesPropSubPanel.add(dummy);
@@ -953,8 +953,9 @@ public class ElementDesignPanel extends JPanel {
 				}
 
 				JList attList = null;
-				if (editElm.getTransSupportMetaElement().getName()
-						.equals("OMSubOper")) {
+				if (editElm.getTransSupportMetaElement() != null
+						&& editElm.getTransSupportMetaElement().getName()
+								.equals("OMSubOper")) {
 					attList = new MetaEnumTypeAttributeList(
 							editor,
 							instCell,
@@ -964,8 +965,9 @@ public class ElementDesignPanel extends JPanel {
 									.getVertex("OMExpType"));
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
-				} else if (editElm.getTransSupportMetaElement().getName()
-						.equals("OMLabeling")) {
+				} else if (editElm.getTransSupportMetaElement() != null
+						&& editElm.getTransSupportMetaElement().getName()
+								.equals("OMLabeling")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"sortorder",
 							LabelingOrder.class.getCanonicalName(), null);
@@ -1007,7 +1009,7 @@ public class ElementDesignPanel extends JPanel {
 				mainPanel.add(rootPanel3);
 			} else {
 				JPanel dummy3 = new JPanel();
-				dummy3.setMinimumSize(new Dimension(0, 250));
+				dummy3.setMinimumSize(new Dimension(200, 250));
 				dummy3.setPreferredSize(new Dimension(300, 250));
 				dummy3.setMaximumSize(new Dimension(650, 250));
 				mainPanel.add(dummy3);
