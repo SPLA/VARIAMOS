@@ -23,7 +23,7 @@ public class SetStringValueAction extends ChangeAction<String> {
 	@Override
 	protected void executeSetValue(
 			ElementsOperationAssociationPanel configurator, String value,
-			int column) {
-		configurator.setValueToVariable(variable, value, column);
+			int column, Object source) {
+		configurator.setValueToVariable(variable, value, column, source);
 	}
 }

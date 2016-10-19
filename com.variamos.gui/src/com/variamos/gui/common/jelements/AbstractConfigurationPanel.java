@@ -26,5 +26,5 @@ public abstract class AbstractConfigurationPanel extends JPanel {
 	public abstract void resizeColumns();
 
 	public abstract void setValueToVariable(Variable variable, Integer value,
-			int index);
+			int index, Object source);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cfm.productline.Variable;
 import com.variamos.configurator.DomainAnnotation;
+import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.types.ElementVariable;
 import com.variamos.dynsup.types.IntegerVariable;
 import com.variamos.hlcl.BinaryDomain;
@@ -26,16 +27,19 @@ public class AssociationRow {
 
 	// private Variable variable;
 	private List<Variable> variables;
+	private InstElement element;
 	private String name;
 	private int stepEdited;
 	private boolean leaf;
 	private List<DomainAnnotation> domainAnnotations = new ArrayList<>();
+	private Object source = null;
 
 	protected List<AssociationRow> children;
 
 	public AssociationRow(String name, int size, boolean leaf,
-			List<Domain> domains, List<Integer> values) {
+			List<Domain> domains, List<Integer> values, Object source) {
 		this.leaf = leaf;
+		this.source = source;
 		children = new ArrayList<>();
 		variables = new ArrayList<Variable>();
 		for (int i = 0; i < size; i++) {
@@ -130,6 +134,10 @@ public class AssociationRow {
 
 	public boolean isLeaf() {
 		return leaf;
+	}
+
+	public Object getSource() {
+		return source;
 	}
 
 	// public Domain getDomain(){

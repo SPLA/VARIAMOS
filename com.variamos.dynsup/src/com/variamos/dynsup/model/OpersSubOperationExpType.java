@@ -16,12 +16,18 @@ public class OpersSubOperationExpType extends OpersElement {
 		semanticExpressions = new ArrayList<OpersExpr>();
 	}
 
+	@Override
 	public List<OpersExpr> getSemanticExpressions() {
 		return semanticExpressions;
 	}
 
+	@Override
 	public void setSemanticExpressions(List<OpersExpr> semanticExpressions) {
 		this.semanticExpressions = semanticExpressions;
+	}
+
+	public void removeSemanticExpression(OpersExpr semanticExpression) {
+		this.semanticExpressions.remove(semanticExpression);
 	}
 
 	public void addSemanticExpression(OpersExpr semanticExpression) {

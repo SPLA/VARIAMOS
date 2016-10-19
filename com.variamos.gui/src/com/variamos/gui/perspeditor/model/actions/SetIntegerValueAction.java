@@ -23,7 +23,7 @@ public class SetIntegerValueAction extends ChangeAction<Integer> {
 	@Override
 	protected void executeSetValue(
 			ElementsOperationAssociationPanel configurator, Integer value,
-			int column) {
-		configurator.setValueToVariable(variable, value, column);
+			int column, Object source) {
+		configurator.setValueToVariable(variable, value, column, source);
 	}
 }
