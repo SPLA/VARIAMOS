@@ -89,8 +89,26 @@ public class OpersSubOperation extends OpersElement implements
 		inAttributes.add(attribute);
 	}
 
+	public void removeInAttribute(OpersIOAttribute attribute) {
+		for (OpersIOAttribute s : inAttributes)
+			if (s.getConceptId().equals(attribute.getConceptId())
+					&& s.getAttributeId().equals(attribute.getAttributeId())) {
+				inAttributes.remove(s);
+				return;
+			}
+	}
+
 	public void addOutAttribute(OpersIOAttribute attribute) {
 		outAttributes.add(attribute);
+	}
+
+	public void removeOutAttribute(OpersIOAttribute attribute) {
+		for (OpersIOAttribute s : outAttributes)
+			if (s.getConceptId().equals(attribute.getConceptId())
+					&& s.getAttributeId().equals(attribute.getAttributeId())) {
+				outAttributes.remove(s);
+				return;
+			}
 	}
 
 	// 1 include, -1 exclude, 0 unknown
