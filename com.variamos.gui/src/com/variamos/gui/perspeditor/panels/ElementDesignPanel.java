@@ -177,7 +177,14 @@ public class ElementDesignPanel extends JPanel {
 
 				if (editElm.getEdOperEle() != null
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMLabeling")) {
+								.equals("OMLabeling")
+						&& !editElm.getTransSupportMetaElement().getName()
+								.equals("OMSubOper")
+						&& !editElm.getTransSupportMetaElement().getName()
+								.equals("OMOperation")
+						&& !editElm.getTransSupportMetaElement().getName()
+								.equals("OMOperGroup")) {
+
 					elementDesPropSubPanel.add(new JLabel("Meta-Model-Expr."));
 					JButton button = new JButton("Meta-Model-Expr. Editor...");
 					if (editor.getPerspective() == 4)
@@ -947,8 +954,9 @@ public class ElementDesignPanel extends JPanel {
 				}
 
 				JList attList = null;
-				if (editElm.getTransSupportMetaElement().getName()
-						.equals("OMSubOper")) {
+				if (editElm.getTransSupportMetaElement() != null
+						&& editElm.getTransSupportMetaElement().getName()
+								.equals("OMSubOper")) {
 					attList = new MetaEnumTypeAttributeList(
 							editor,
 							instCell,
@@ -958,8 +966,9 @@ public class ElementDesignPanel extends JPanel {
 									.getVertex("OMExpType"));
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
-				} else if (editElm.getTransSupportMetaElement().getName()
-						.equals("OMLabeling")) {
+				} else if (editElm.getTransSupportMetaElement() != null
+						&& editElm.getTransSupportMetaElement().getName()
+								.equals("OMLabeling")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"sortorder",
 							LabelingOrder.class.getCanonicalName(), null);
@@ -1001,7 +1010,7 @@ public class ElementDesignPanel extends JPanel {
 				mainPanel.add(rootPanel3);
 			} else {
 				JPanel dummy3 = new JPanel();
-				dummy3.setMinimumSize(new Dimension(0, 250));
+				dummy3.setMinimumSize(new Dimension(200, 250));
 				dummy3.setPreferredSize(new Dimension(300, 250));
 				dummy3.setMaximumSize(new Dimension(650, 250));
 				mainPanel.add(dummy3);

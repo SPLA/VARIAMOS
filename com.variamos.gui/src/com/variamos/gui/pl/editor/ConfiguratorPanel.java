@@ -652,7 +652,8 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	@Override
-	public void setValueToVariable(Variable variable, Integer value, int index) {
+	public void setValueToVariable(Variable variable, Integer value, int index,
+			Object source) {
 		ConfigurationNode node = findConfigurationNodeFor(variable.getName());
 
 		node.getVariable().setValue(value);

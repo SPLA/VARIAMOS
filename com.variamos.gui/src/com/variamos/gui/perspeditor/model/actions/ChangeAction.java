@@ -24,17 +24,20 @@ public abstract class ChangeAction<T> extends AssociationAction {
 	}
 
 	@Override
-	public void undo(ElementsOperationAssociationPanel configurator) {
-		executeSetValue(configurator, oldValue, column);
+	public void undo(ElementsOperationAssociationPanel configurator,
+			Object source) {
+		executeSetValue(configurator, oldValue, column, source);
 	}
 
 	protected abstract void executeSetValue(
-			ElementsOperationAssociationPanel configurator, T value, int column);
+			ElementsOperationAssociationPanel configurator, T value,
+			int column, Object source);
 
 	@Override
-	public void execute(ElementsOperationAssociationPanel configurator) {
+	public void execute(ElementsOperationAssociationPanel configurator,
+			Object source) {
 		// oldValue = (T)variable.getValue();
-		executeSetValue(configurator, newValue, column);
+		executeSetValue(configurator, newValue, column, source);
 	}
 
 }

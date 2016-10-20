@@ -150,7 +150,7 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 		if (aValue instanceof ChoiceBoolean)
 			ca = newSetIntegerAction(n.getValue(column),
 					((ChoiceBoolean) aValue).ordinal(), column);
-		ca.execute(configurator);
+		ca.execute(configurator, ((AssociationRow) node).getSource());
 
 	}
 

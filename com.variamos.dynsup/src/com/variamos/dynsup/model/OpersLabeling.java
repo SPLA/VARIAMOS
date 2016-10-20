@@ -43,6 +43,15 @@ public class OpersLabeling extends OpersElement {
 		attributes.add(attribute);
 	}
 
+	public void removeAttribute(OpersIOAttribute attribute) {
+		for (OpersIOAttribute s : attributes)
+			if (s.getConceptId().equals(attribute.getConceptId())
+					&& s.getAttributeId().equals(attribute.getAttributeId())) {
+				attributes.remove(s);
+				return;
+			}
+	}
+
 	// 1 include, -1 exclude, 0 unknown
 	public int validateAttribute(InstElement instElement, String attribute) {
 		int include = 99999;

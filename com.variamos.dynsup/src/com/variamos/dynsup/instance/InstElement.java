@@ -442,6 +442,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
+						&& !attributeName.equals("True")
+						&& !attributeName.equals("False")
 						&& !attributeName.equals("userId")
 						&& !attributeName.equals("Description"))
 					out2 += attributeName + "\n";
@@ -470,7 +472,16 @@ public abstract class InstElement implements Serializable, Cloneable,
 					value == null ? modelingAttribute.getDefaultValue() : value);
 			getInstAttributes().put(name, instAttribute);
 			// instAttributes.put(name, instAttribute);
-		}
+		}// else {
+			// getInstAttribute(name).setValue(value);
+			// System.out.println("The attribute " + name
+			// + " already exists, value assigned");
+			// try {
+			// throw (new Exception());
+			// } catch (Exception e) {
+			// e.printStackTrace();
+		// }
+		// }
 	}
 
 	public void createInstAttributes(List<InstElement> syntaxParents) {
@@ -507,6 +518,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 							.getModelingAttribute(name, syntaxParents),
 							new ArrayList<OpersSubOperationExpType>());
 				} else if (name.equals("sortorder")) {
+
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, syntaxParents),
 							new ArrayList<LabelingOrder>());

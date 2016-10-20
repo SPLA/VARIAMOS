@@ -48,9 +48,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	private void loadPaletteElements() {
 		paletteElements = new ArrayList<PaletteElement>();
 		Collection<InstElement> instElements = new HashSet<InstElement>();
-		if (((ModelInstance) editor.getEditedModel()).getSyntaxModel() != null)
-			for (InstElement instVertex : ((ModelInstance) editor
-					.getEditedModel()).getSyntaxModel().getVertices()) {
+		if (editor.getEditedModel().getSyntaxModel() != null)
+			for (InstElement instVertex : editor.getEditedModel()
+					.getSyntaxModel().getVertices()) {
 				instElements.add(instVertex);
 			}
 		for (InstElement instElement : instElements) {
@@ -63,6 +63,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 		}
 	}
 
+	@Override
 	public void updateEditor(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		// editor.setPerspective(2);
@@ -71,6 +72,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 		updateView(validElements, graphComponent, modelViewIndex);
 	}
 
+	@Override
 	public void updateView(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.reloadMenus();
@@ -117,8 +119,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 													InstElement.class,
 													SyntaxElement.class);
 
-									switch (((SyntaxElement) metaVertex)
-											.getType()) {
+									switch (metaVertex.getType()) {
 									case 'V':
 										obj = (InstElement) c.newInstance("",
 												instElement, new SyntaxElement(
@@ -137,9 +138,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												String.class,
 												SyntaxElement.class,
 												SyntaxElement.class);
-										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
-												new SyntaxElement());
+										obj = (InstElement) c
+												.newInstance("", metaVertex,
+														new SyntaxElement());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
@@ -156,8 +157,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 											.getConstructor(String.class,
 													InstElement.class,
 													OpersElement.class);
-									switch (((SyntaxElement) metaVertex)
-											.getType()) {
+									switch (metaVertex.getType()) {
 									case 'M':
 										obj = (InstElement) c
 												.newInstance("", instElement,
@@ -200,8 +200,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 									}
 								} else {
 									Constructor<?> c = null;
-									switch (((SyntaxElement) metaVertex)
-											.getType()) {
+									switch (metaVertex.getType()) {
 									case 'O':
 										o = new InstOverTwoRel();
 										c = o.getClass().getConstructor(
@@ -282,8 +281,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 											.getSourceRelations().get(0);
 									if (pairwiseRelation.getSupInstEleId() == null
 											|| !pairwiseRelation
-													.getSupInstEleId()
-													.equals("SMMViewConceptAsso")
+													.getSupInstEleId().equals(
+															"SMViewNode")
 											|| pairwiseRelation
 													.getSourceRelations()
 													.size() == 0
@@ -358,6 +357,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
 		for (EditorPalette palette : palettes) {
 			palette.addListener(mxEvent.SELECT, new mxIEventListener() {
+				@Override
 				public void invoke(Object sender, mxEventObject evt) {
 					Object tmp = evt.getProperty("transferable");
 					graph.setConsMode(ConstraintMode.None);
@@ -379,6 +379,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
 	}
 
+	@Override
 	public void showGraphPopupMenu(MouseEvent e,
 			mxGraphComponent graphComponent, BasicGraphEditor editor) {
 		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),

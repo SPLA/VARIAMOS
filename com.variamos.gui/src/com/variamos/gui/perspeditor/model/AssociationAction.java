@@ -32,8 +32,10 @@ public abstract class AssociationAction {
 		return column;
 	}
 
-	public abstract void undo(ElementsOperationAssociationPanel configurator);
+	public abstract void undo(ElementsOperationAssociationPanel configurator,
+			Object source);
 
-	public abstract void execute(ElementsOperationAssociationPanel configurator);
+	public abstract void execute(
+			ElementsOperationAssociationPanel configurator, Object source);
 
 }

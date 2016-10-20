@@ -19,8 +19,10 @@ import com.cfm.common.AbstractModel;
 import com.cfm.productline.Variable;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersExpr;
+import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
@@ -57,6 +59,9 @@ public class ElementsOperationAssociationPanel extends
 	private int height = 500;
 	List<InstElement> operActions = null;
 	private AssociationTreeTable table = null;
+	private List<OpersSubOperationExpType> subOpersTypesColumns = null;
+	private List<OpersLabeling> operLabels = null;
+	private List<OpersSubOperation> subOpers = null;
 
 	static interface DialogButtonAction {
 		public boolean onAction();
@@ -80,7 +85,7 @@ public class ElementsOperationAssociationPanel extends
 		for (InstElement operAction : operActions) {
 			combo.addItem(operAction.getEdOperEle().getIdentifier());
 		}
-		combo.setSelectedItem("BasicSimulOper");
+		combo.setSelectedItem(combo.getItemAt(0));
 		JPanel topPanel = new JPanel();
 		topPanel.add(new JLabel("Operation"));
 		topPanel.add(combo);
@@ -126,11 +131,11 @@ public class ElementsOperationAssociationPanel extends
 			InstElement operAction) {
 		OpersSubOperation operSubAction = null;
 		List<String> subOperTypesColumnsNames = new ArrayList<String>();
-		List<OpersSubOperationExpType> subOperTypesColumns = new ArrayList<OpersSubOperationExpType>();
+		subOpersTypesColumns = new ArrayList<OpersSubOperationExpType>();
 		List<String> subOperColumnsNames = new ArrayList<String>();
-		List<OpersSubOperation> subOperColumns = new ArrayList<OpersSubOperation>();
+		subOpers = new ArrayList<OpersSubOperation>();
 		List<String> operLabelNames = new ArrayList<String>();
-		List<OpersLabeling> operLabels = new ArrayList<OpersLabeling>();
+		operLabels = new ArrayList<OpersLabeling>();
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 
@@ -145,13 +150,13 @@ public class ElementsOperationAssociationPanel extends
 						+ "-"
 						+ (String) ((InstElement) instatt.getValue())
 								.getInstAttributeValue("suboperexptype"));
-				subOperTypesColumns
+				subOpersTypesColumns
 						.add((OpersSubOperationExpType) ((InstElement) instatt
 								.getValue()).getEdOperEle());
 			}
 
 			subOperColumnsNames.add(operSubAction.getIdentifier());
-			subOperColumns.add(operSubAction);
+			subOpers.add(operSubAction);
 			// operLabelNames.addAll(operSubAction.getOperLabelNames());
 			// operLabels.addAll(operSubAction.getOperLabels());
 			List<OpersLabeling> operLabs = new ArrayList<OpersLabeling>();
@@ -193,118 +198,129 @@ public class ElementsOperationAssociationPanel extends
 		AssociationDataModel dataModel = null;
 
 		if (dialog == 0)
-			root = new AssociationRow("", subOperTypesColumns.size(), false,
-					domainOperColumns, null);
+			root = new AssociationRow("", subOpersTypesColumns.size(), false,
+					domainOperColumns, null, null);
 		if (dialog == 1)
 			root = new AssociationRow("", operIO.size(), false, domainOperIO,
-					null);
+					null, null);
 		if (dialog == 2)
 			root = new AssociationRow("", operLabelNames.size(), false,
-					domainOperLabels, null);
+					domainOperLabels, null, null);
 
 		for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 			InstElement et = el.getTransSupInstElement();
 			if (et.getIdentifier().equals("OMSubOper")
 					|| et.getIdentifier().equals("OMLabeling")
-					|| et.getIdentifier().equals("OMOperation"))
+					|| et.getIdentifier().equals("OMOperation")
+					|| et.getIdentifier().equals("OMOperGroup"))
 				continue;
 			AssociationRow node = null;
 
 			if (dialog == 0)
 				node = new AssociationRow(el.getIdentifier(),
-						subOperTypesColumns.size(), false, domainOperColumns,
-						null);
+						subOpersTypesColumns.size(), false, domainOperColumns,
+						null, el);
 			if (dialog == 1)
 				node = new AssociationRow(el.getIdentifier(), operIO.size(),
-						false, domainOperIO, null);
+						false, domainOperIO, null, el);
 			if (dialog == 2)
 				node = new AssociationRow(el.getIdentifier(),
-						operLabelNames.size(), false, domainOperLabels, null);
+						operLabelNames.size(), false, domainOperLabels, null,
+						el);
 			// node.setVariable(var);
 
 			List<InstElement> opersParent = null;
 			if (el.getTransSupportMetaElement().getTransInstSemanticElement() != null)
 				opersParent = el.getTransSupportMetaElement()
 						.getTransInstSemanticElement().getParentOpersConcept();
-			// Add Attributes
+			// Add Semantic Expressions - normal concepts
 			if (dialog == 0
 					&& el.getEdOperEle() != null
 					&& el.getEdOperEle().getAllSemanticExpressions(opersParent) != null)
 				for (OpersExpr v : el.getEdOperEle().getSemanticExpressions()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
-					for (OpersSubOperationExpType operColumn : subOperTypesColumns)
-						if (operColumn.hasSemanticExpression(v.getIdentifier()))
+					for (OpersSubOperationExpType subOperExpType : subOpersTypesColumns)
+						if (subOperExpType.hasSemanticExpression(v
+								.getIdentifier()))
 							valuesOperColumns.add(1);
 						else
 							valuesOperColumns.add(0);
 
 					AssociationRow attNode = new AssociationRow(
-							v.getIdentifier(), subOperTypesColumns.size(),
-							true, domainOperColumns, valuesOperColumns);
+							v.getIdentifier(), subOpersTypesColumns.size(),
+							true, domainOperColumns, valuesOperColumns, v);
 
 					node.getChildren().add(attNode);
 
 				}
-
+			// Add Semantic Expressions - operExprs of OT and PW
 			if (dialog == 0 && el.getInstAttribute("opersExprs") != null)
 				for (InstAttribute v : (List<InstAttribute>) el
 						.getInstAttribute("opersExprs").getValue()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
 
+					// Relation Type
 					AssociationRow attNode = new AssociationRow(
-							v.getIdentifier(), subOperTypesColumns.size(),
-							false, domainOperColumns, null);
+							v.getIdentifier(), subOpersTypesColumns.size(),
+							false, domainOperColumns, null, v);
 
 					node.getChildren().add(attNode);
 					for (OpersExpr e : (List<OpersExpr>) v.getValue()) {
-						for (OpersSubOperationExpType operColumn : subOperTypesColumns)
+						for (OpersSubOperationExpType operColumn : subOpersTypesColumns)
 							if (operColumn.hasSemanticExpression(e
 									.getIdentifier()))
 								valuesOperColumns.add(1);
 							else
 								valuesOperColumns.add(0);
 
+						// Expression row
 						AssociationRow att2Node = new AssociationRow(
-								e.getIdentifier(), subOperTypesColumns.size(),
-								true, domainOperColumns, valuesOperColumns);
+								e.getIdentifier(), subOpersTypesColumns.size(),
+								true, domainOperColumns, valuesOperColumns, e);
 
 						attNode.getChildren().add(att2Node);
 					}
 				}
+			// Add attributes
 			if (dialog == 1 && el.getEdOperEle() != null)
-				for (String v : el.getEdOperEle()
-						.getDeclaredSemanticAttributesNames()) {
+				for (ElemAttribute v : el.getEdOperEle()
+						.getDeclaredSemanticAttributes().values()) {
 
 					List<Integer> valuesVarColumns = new ArrayList<Integer>();
-					for (OpersSubOperation operColumn : subOperColumns) {
-						if (operColumn.hasInVariable(el.getIdentifier(), v))
+					for (OpersSubOperation operColumn : subOpers) {
+						if (operColumn.hasInVariable(el.getIdentifier(),
+								v.getName()))
 							valuesVarColumns.add(1);
 						else
 							valuesVarColumns.add(0);
-						if (operColumn.hasOutVariable(el.getIdentifier(), v))
+						if (operColumn.hasOutVariable(el.getIdentifier(),
+								v.getName()))
 							valuesVarColumns.add(1);
 						else
 							valuesVarColumns.add(0);
 					}
-					AssociationRow attNode = new AssociationRow(v,
-							operIO.size(), true, domainOperIO, valuesVarColumns);
+					AssociationRow attNode = new AssociationRow(v.getName(),
+							operIO.size(), true, domainOperIO,
+							valuesVarColumns, el);
 					node.getChildren().add(attNode);
 
 				}
 
+			// Add labels
 			if (dialog == 2 && el.getEdOperEle() != null)
-				for (String v : el.getEdOperEle()
-						.getDeclaredSemanticAttributesNames()) {
+				for (ElemAttribute v : el.getEdOperEle()
+						.getDeclaredSemanticAttributes().values()) {
 					List<Integer> valuesVarColums = new ArrayList<Integer>();
 
 					for (OpersLabeling operColumn : operLabels)
-						if (operColumn.hasAttribute(el.getIdentifier(), v))
+						if (operColumn.hasAttribute(el.getIdentifier(),
+								v.getName()))
 							valuesVarColums.add(1);
 						else
 							valuesVarColums.add(0);
-					AssociationRow attNode = new AssociationRow(v,
+					AssociationRow attNode = new AssociationRow(v.getName(),
 							operLabelNames.size(), true, domainOperLabels,
-							valuesVarColums);
+							valuesVarColums, el);
 					node.getChildren().add(attNode);
 				}
 
@@ -385,16 +401,60 @@ public class ElementsOperationAssociationPanel extends
 
 	}
 
-	public void setValueToVariable(Variable variable, Integer value, int column) {
+	@Override
+	public void setValueToVariable(Variable variable, Integer value,
+			int column, Object source) {
 		AssociationRow node = findConfigurationNodeFor(variable.getName());
 
 		node.setValue(value, column);
+		if (dialog == 0) {
+			OpersSubOperationExpType subOper = subOpersTypesColumns
+					.get(column - 1);
+			if (value == 1)
+				subOper.addSemanticExpression((OpersExpr) source);
+			else
+				subOper.removeSemanticExpression((OpersExpr) source);
+		}
+
+		if (dialog == 1) {
+			OpersSubOperation subOper = subOpers.get((column - 1) / 2);
+			if (value == 1)
+				if (column % 2 != 0)
+					subOper.addInAttribute(new OpersIOAttribute(
+							((InstElement) source).getIdentifier(), variable
+									.getName(), true));
+				else
+					subOper.addOutAttribute(new OpersIOAttribute(
+							((InstElement) source).getIdentifier(), variable
+									.getName(), true));
+			else if (column % 2 != 0)
+				subOper.removeInAttribute(new OpersIOAttribute(
+						((InstElement) source).getIdentifier(), variable
+								.getName(), true));
+			else
+				subOper.removeOutAttribute(new OpersIOAttribute(
+						((InstElement) source).getIdentifier(), variable
+								.getName(), true));
+		}
+		if (dialog == 2) {
+			OpersLabeling operLabeling = operLabels.get(column - 1);
+			if (value == 1)
+				operLabeling.addAttribute(new OpersIOAttribute(
+						((InstElement) source).getIdentifier(), variable
+								.getName(), true));
+			else
+				operLabeling.removeAttribute(new OpersIOAttribute(
+						((InstElement) source).getIdentifier(), variable
+								.getName(), true));
+		}
+
 		// node.setStepEdited(index);
 		// resizeColumns();
 		this.repaint();
 	}
 
-	public void setValueToVariable(Variable variable, String value, int column) {
+	public void setValueToVariable(Variable variable, String value, int column,
+			Object source) {
 		AssociationRow node = findConfigurationNodeFor(variable.getName());
 
 		node.setValue(value, column);

@@ -10,9 +10,9 @@ public class SetValueAction extends ChangeAction<Integer> {
 	}
 
 	@Override
-	protected void executeSetValue(AbstractConfigurationPanel configurator, Integer value) {
-		configurator.setValueToVariable(variable, value, getIndex());
+	protected void executeSetValue(AbstractConfigurationPanel configurator,
+			Integer value, Object source) {
+		configurator.setValueToVariable(variable, value, getIndex(), source);
 	}
-	
-	
+
 }
