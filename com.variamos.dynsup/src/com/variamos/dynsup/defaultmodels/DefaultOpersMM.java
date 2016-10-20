@@ -23,7 +23,6 @@ import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.statictypes.SatisficingType;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ExpressionVertexType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.dynsup.types.VariableType;
 import com.variamos.hlcl.LabelingOrder;
@@ -234,10 +233,8 @@ public class DefaultOpersMM {
 					"exptype", metaExpType,
 					simulationPreValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -296,10 +293,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulationPreUpdOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -385,10 +380,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulationExecOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -480,10 +473,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulationPosValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -535,10 +526,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulationPostUpdOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -641,10 +630,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenPreValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -704,10 +691,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenPreValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -766,10 +751,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenExecOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -854,10 +837,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenPosValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -916,10 +897,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenPostUpdOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1010,10 +989,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, updateCoreOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1094,10 +1071,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifDeadElemOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1111,11 +1086,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifDeadElemOperSubActionRelaxable);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null),
-					OperationSubActionExecType.RELAXABLE);
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1129,10 +1101,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifDeadElemOperSubActionVerification);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "VERIFICATION");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("VERIFICATION");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1211,10 +1181,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifParentsOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1228,10 +1196,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifParentsOperSubActionRelaxable);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "RELAXABLE");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1245,10 +1211,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifParentsOperSubActionVerification);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "VERIFICATION");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("VERIFICATION");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1326,10 +1290,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifRootOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1343,10 +1305,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifRootOperSubActionRelaxable);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "RELAXABLE");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1360,10 +1320,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifRootOperSubActionVerification);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "VERIFICATION");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("VERIFICATION");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1449,10 +1407,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifFalseOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1466,10 +1422,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifFalseOptOperSubActionRelaxable);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "RELAXABLE");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1483,10 +1437,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifFalseOptOperSubActionVerification);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "VERIFICATION");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("VERIFICATION");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1582,10 +1534,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, configTemporalOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1666,10 +1616,8 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, configPermanentOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute(
-					"suboperexptype",
-					metaExpType.getEdSyntaxEle().getAbstractAttribute(
-							"suboperexptype", null, null), "NORMAL");
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(

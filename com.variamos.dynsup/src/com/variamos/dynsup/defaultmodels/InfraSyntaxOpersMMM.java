@@ -714,11 +714,18 @@ public class InfraSyntaxOpersMMM {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxOpersM2ExpType.addModelingAttribute("suboperexptype",
+		infraSyntaxOpersM2ExpType.addModelingAttribute(
+				"suboperexptype",
 				new ElemAttribute("suboperexptype", "Enumeration",
 						AttributeType.OPERATION, false, "Expression Type", "",
 						OperationSubActionExecType.class.getCanonicalName(),
-						"NORMAL", "", 0, 6, "", "", 7, "", ""));
+						new InstAttribute("enumName", new ElemAttribute(
+								"EnumNameValue", "Enumeration",
+								AttributeType.SYNTAX, false, "Value Name", "",
+								OperationSubActionExecType.class
+										.getCanonicalName(), "", "RELAXABLE",
+								1, -1, "", "", -1, "", ""), ""), "", 0, 6, "",
+						"", 7, "", ""));
 
 		InstConcept instInfraSyntaxOpersM2ExpType = new InstConcept(
 				"OMExpType", basicOpersSyntaxM3Concept,
