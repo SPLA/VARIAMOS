@@ -114,10 +114,12 @@ public class DefaultOpersMM {
 		InstPairwiseRel metaPairwRelCCExt = (refas.getSyntaxModel()
 				.getConstraintInstEdge("OMExtCEdge"));
 		InstPairwiseRel metaPairwRelOCExt = (refas.getSyntaxModel()
-				.getConstraintInstEdge("OMExtOTCEdge")); // FIXME separate OT
-															// from OT and OT
-															// from C.
-															// OMExtOTOTEdge
+
+		.getConstraintInstEdge("OMExtOTCEdge")); // FIXME separate OT
+													// from OT and OT
+													// from C.
+													// OMExtOTOTEdge
+
 		InstPairwiseRel metaPairwRelAso = (refas.getSyntaxModel()
 				.getConstraintInstEdge("OMAsoEdge"));
 
@@ -424,6 +426,27 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			OpersLabeling simulationExecOperLowLabeling = null;
+			simulationExecOperLowLabeling = new OpersLabeling("lowlab");
+
+			instLabeling = new InstConcept("BasSim-Execution-lowLab",
+					metaLabeling, simulationExecOperLowLabeling);
+			instLabeling.getInstAttribute("includeLabel").setValue(false);
+			instLabeling.getInstAttribute("labelId").setValue("L2");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("BasSim-Execution-lowLab",
+					instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("bassim-execution-lowlab",
+					instEdgeOper);
+			instEdgeOper.setIdentifier("bassim-execution-lowlab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
 			simulationExecOperLowLabeling = new OpersLabeling("lowlab");
 
 			instLabeling = new InstConcept("BasSim-Execution-lowLab",
@@ -2442,6 +2465,37 @@ public class DefaultOpersMM {
 		semVariable.addPropEditableAttribute("03#" + "LowLevelExpressionOper");
 		semVariable.addPropVisibleAttribute("03#" + "LowLevelExpressionOper"
 				+ "#" + "variableType" + "#==#" + "LowLevel expression");
+
+		attribute = new ElemAttribute("LowLevelVarOper", "Class",
+				AttributeType.OPERATION, false, "SubOper",
+				"Sub Operation to include this low-level variable",
+				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				0, 4, "", "variableType" + "#==#" + "LowLevel variable", -1,
+				"", "");
+		semVariable.putSemanticAttribute("LowLevelVarOper", attribute);
+		semVariable.addPropEditableAttribute("04#" + "LowLevelVarOper");
+		semVariable.addPropVisibleAttribute("04#" + "LowLevelVarOper" + "#"
+				+ "variableType" + "#==#" + "LowLevel variable");
+
+		attribute = new ElemAttribute("LowLevelVarLabel", "Class",
+				AttributeType.OPERATION, false, "Labeling",
+				"Labeling with only a set of variables",
+				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
+				0, 5, "", "variableType" + "#==#" + "LowLevel variable", -1,
+				"", "");
+		semVariable.putSemanticAttribute("LowLevelVarLabel", attribute);
+		semVariable.addPropEditableAttribute("05#" + "LowLevelVarLabel");
+		semVariable.addPropVisibleAttribute("05#" + "LowLevelVarLabel" + "#"
+				+ "variableType" + "#==#" + "LowLevel variable");
+
+		attribute = new ElemAttribute("LowLevelVarValue", "String",
+				AttributeType.GLOBALCONFIG, false, "Input Value",
+				"Value defined for input variable", "", 0, 5, "",
+				"variableType" + "#==#" + "LowLevel variable", -1, "", "");
+		semVariable.putSemanticAttribute("LowLevelVarValue", attribute);
+		semVariable.addPropEditableAttribute("05#" + "LowLevelVarValue");
+		semVariable.addPropVisibleAttribute("05#" + "LowLevelVarValue" + "#"
+				+ "variableType" + "#==#" + "LowLevel variable");
 
 		attribute = new ElemAttribute("LowLevelVarOper", "Class",
 				AttributeType.OPERATION, false, "SubOper",

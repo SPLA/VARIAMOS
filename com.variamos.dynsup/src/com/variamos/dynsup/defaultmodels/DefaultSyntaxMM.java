@@ -35,7 +35,6 @@ public class DefaultSyntaxMM {
 
 		InstPairwiseRel metaPairwiseRelNormal = (refas.getSyntaxModel()
 				.getConstraintInstEdge("SMAso"));
-
 		// Model concept
 
 		InstConcept semREFAS = ((InstConcept) refas.getOperationalModel()

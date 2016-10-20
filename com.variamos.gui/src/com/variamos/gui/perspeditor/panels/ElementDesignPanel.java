@@ -95,7 +95,7 @@ public class ElementDesignPanel extends JPanel {
 
 		rootPanel3.add(contentPanel3);
 		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(200, 0));
+		dummyP.setMinimumSize(new Dimension(0, 0));
 		dummyP.setPreferredSize(new Dimension(200, 0));
 		dummyP.setMaximumSize(new Dimension(500, 300));
 		rootPanel3.add(dummyP);
@@ -113,7 +113,7 @@ public class ElementDesignPanel extends JPanel {
 		add(mainPanel);
 		dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMinimumSize(new Dimension(500, 0));
+		dummyP.setMaximumSize(new Dimension(500, 0));
 		add(dummyP);
 		/*
 		 * dummyP = new JPanel(); dummyP.setMinimumSize(new Dimension(0, 0));
@@ -184,6 +184,7 @@ public class ElementDesignPanel extends JPanel {
 								.equals("OMOperation")
 						&& !editElm.getTransSupportMetaElement().getName()
 								.equals("OMOperGroup")) {
+
 					elementDesPropSubPanel.add(new JLabel("Meta-Model-Expr."));
 					JButton button = new JButton("Meta-Model-Expr. Editor...");
 					if (editor.getPerspective() == 4)
@@ -814,17 +815,17 @@ public class ElementDesignPanel extends JPanel {
 			// variablesPanel.setPreferredSize(new Dimension(250, 25 *
 			// editables.length));
 			JPanel dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(100, 0));
+			dummy.setMinimumSize(new Dimension(0, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(100, 0));
+			dummy.setMinimumSize(new Dimension(0, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(100, 0));
+			dummy.setMinimumSize(new Dimension(300, 0));
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(350, 200));
 			elementDesPropSubPanel.add(dummy);
