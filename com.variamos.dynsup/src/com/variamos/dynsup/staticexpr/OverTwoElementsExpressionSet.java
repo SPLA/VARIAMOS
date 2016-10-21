@@ -97,8 +97,8 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					.getTargetRelations().get(0)).getTargetRelations().get(0)
 					.getInstAttribute("Active").getValue();
 		if (targetActiveAttribute && metaGroupDep != null) {
-			List<InstAttribute> semGD = ((SyntaxElement) instOverTwoRelation
-					.getTransSupportMetaElement()).getOpersRelationTypes();
+			List<InstAttribute> semGD = instOverTwoRelation
+					.getTransSupportMetaElement().getOpersRelationTypes();
 			relationType = (String) instOverTwoRelation.getInstAttribute(
 					"relationType").getValue();
 			for (InstAttribute att : semGD) {
@@ -152,13 +152,12 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					i = (int) att.getValue();
 
 				AbstractExpression r = new EqualsComparisonExpression(
-						instOverTwoRelation, instOverTwoRelation
-								.getInstAttribute("LowRange").getIdentifier(),
+						instOverTwoRelation, att.getIdentifier(),
 						getHlclFactory().number(i));
 				getElementExpressions().add(r);
 				allList.add(r);
 
-				att = instOverTwoRelation.getInstAttribute("LowRange");
+				att = instOverTwoRelation.getInstAttribute("HighRange");
 				obj = att.getValue();
 				if (obj instanceof String)
 					i = Integer.parseInt((String) obj);
@@ -166,8 +165,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					i = (int) att.getValue();
 
 				r = new EqualsComparisonExpression(instOverTwoRelation,
-						instOverTwoRelation.getInstAttribute("HighRange")
-								.getIdentifier(), getHlclFactory().number(i));
+						att.getIdentifier(), getHlclFactory().number(i));
 				getElementExpressions().add(r);
 				allList.add(r);
 			}
