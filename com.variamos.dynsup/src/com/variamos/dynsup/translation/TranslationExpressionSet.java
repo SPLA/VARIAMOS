@@ -402,8 +402,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.getInstAttributeValue("exptype"));
 			OpersSubOperationExpType operExpType = null;
 			for (InstAttribute att : listatt) {
-				if (((InstConcept) att.getValue()).getInstAttributeValue(
-						"suboperexptype").equals(expressionType.toString())) {
+				if (expressionType == null
+						|| ((InstConcept) att.getValue())
+								.getInstAttributeValue("suboperexptype")
+								.equals(expressionType.toString())) {
 					operExpType = (OpersSubOperationExpType) ((InstConcept) att
 							.getValue()).getEdOperEle();
 				}
@@ -419,8 +421,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					Set<InstElement> e = refas.getElements();
 					for (InstElement instE : refas.getElements()) {
 						if (instE.getTransSupInstElement().getEdSyntaxEle()
-								.getInstSemanticElementId()
-								.equals("nmVariable")
+								.getInstSemanticElementId() != null
+								&& instE.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId()
+										.equals("nmVariable")
 								&& instE.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable")
 								&& instE.getInstAttribute("LowLevelVarOper")

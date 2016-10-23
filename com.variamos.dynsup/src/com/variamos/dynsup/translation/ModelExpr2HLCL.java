@@ -272,6 +272,7 @@ public class ModelExpr2HLCL {
 		return hlclProgram;
 	}
 
+	// Static call
 	public HlclProgram getHlclProgram(String element, int execType,
 			InstElement instElement) {
 		HlclProgram hlclProgram = new HlclProgram();
@@ -302,6 +303,7 @@ public class ModelExpr2HLCL {
 		return hlclProgram;
 	}
 
+	// Static and Dynamic calls
 	private void fillHlclProgram(String element, String subOperation,
 			OperationSubActionExecType operExecType, HlclProgram hlclProgram,
 			Map<String, ElementExpressionSet> constraintGroups) {
@@ -469,8 +471,7 @@ public class ModelExpr2HLCL {
 					}
 					// FIXME support types other than normal
 					configurationOptions.setLabelings(transExpSet.getLabelings(
-							refas, suboper.getIdentifier(),
-							OperationSubActionExecType.NORMAL));
+							refas, suboper.getIdentifier(), null));
 					configurationOptions.setOrder(true);
 
 					configurationOptions.setStartFromZero(true);

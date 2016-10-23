@@ -35,7 +35,7 @@ import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
 import com.variamos.solver.Configuration;
 
 /**
- * A class to support SwingWorkers for solver execution tasks for static
+ * A class to support SwingWorkers of solver execution tasks for static
  * operations. Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
