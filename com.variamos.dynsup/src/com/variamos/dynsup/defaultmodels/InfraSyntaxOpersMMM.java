@@ -633,50 +633,87 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				"defectsVerifierMethod",
 				new ElemAttribute("defectsVerifierMethod", "Enumeration",
-						AttributeType.OPERATION, false,
-						"DefecsVerifier Method", "",
-						OperationSubActionDefectsVerifierMethodType.class
+						AttributeType.OPERATION, false, "DefectsVerif. Method",
+						"", OperationSubActionDefectsVerifierMethodType.class
 								.getCanonicalName(), "", "", 0, 11,
 						"type#==#Defects verifier#\"\"", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "defectsVerifierMethod");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
 				+ "defectsVerifierMethod");
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"reuseFreeIds",
+						new ElemAttribute(
+								"reuseFreeIds",
+								"Boolean",
+								AttributeType.OPERATION,
+								false,
+								"Reuse Free Identif.",
+								"Update Free Identifiers to optimize execution "
+										+ "of consecutive verifications using the"
+										+ " DefectsVerifier (all verification "
+										+ "must share the same set of free identifiers) ",
+								false, 0, 12, "type#==#Defects verifier#false",
+								"", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("12#"
+				+ "reuseFreeIds");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("12#"
+				+ "reuseFreeIds");
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"updateFreeIds",
+						new ElemAttribute(
+								"updateFreeIds",
+								"Boolean",
+								AttributeType.OPERATION,
+								false,
+								"Update Free Identif.",
+								"Update Free Identifiers to optimize execution "
+										+ "of consecutive verifications using the"
+										+ " DefectsVerifier (all verification "
+										+ "must share the same set of free identifiers) ",
+								false, 0, 13, "type#==#Defects verifier#false",
+								"", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("13#"
+				+ "updateFreeIds");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("13#"
+				+ "updateFreeIds");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorTitle",
 				new ElemAttribute("errorTitle", "String",
 						AttributeType.OPERATION, false, "Error title", "", "",
-						0, 11, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
+						0, 14, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("14#"
 				+ "errorTitle");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("14#"
 				+ "errorTitle");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorText",
 				new ElemAttribute("errorText", "String",
 						AttributeType.OPERATION, false, "Error general text",
-						"", "", 0, 12, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("12#"
+						"", "", 0, 15, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("15#"
 				+ "errorText");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("12#"
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("15#"
 				+ "errorText");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorHint",
 				new ElemAttribute("errorHint", "String",
 						AttributeType.OPERATION, false, "Error Hint", "", "",
-						0, 13, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("13#"
+						0, 16, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("16#"
 				+ "errorHint");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("13#"
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("16#"
 				+ "errorHint");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorMsg",
 				new ElemAttribute("errorMsg", "String",
 						AttributeType.OPERATION, false, "Error Message", "",
-						"", 0, 14, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("14#"
+						"", 0, 17, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("17#"
 				+ "errorMsg");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("14#"
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("17#"
 				+ "errorMsg");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
