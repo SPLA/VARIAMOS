@@ -353,8 +353,7 @@ public class ElementDesignPanel extends JPanel {
 							if (instAttribute.getType().equals(
 									"com.variamos.dynsup.model.ModelExpr")) {
 								JButton button = new JButton(
-										instAttribute.getDisplayName()
-												+ " Editor");
+										" Edit Expression...");
 
 								button.addActionListener(new ActionListener() {
 									@Override

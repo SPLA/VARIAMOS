@@ -437,9 +437,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				try {
 					// Validation operations
 					if (((String) suboper.getInstAttributeValue("type"))
-							.equals(OperationSubActionType.Single_Update)
+							.equals(OperationSubActionType.Single_Update
+									.toString())
 							|| ((String) suboper.getInstAttributeValue("type"))
-									.equals(OperationSubActionType.Iterative_Update))
+									.equals(OperationSubActionType.Iterative_Update
+											.toString()))
 						if (lastConfiguration == null) {
 							result = refas2hlcl.execute(progressMonitor,
 									operation, ModelExpr2HLCL.ONE_SOLUTION,
@@ -458,12 +460,14 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						}
 					// Verification operations with CauCos
 					else if (((String) suboper.getInstAttributeValue("type"))
-							.equals(OperationSubActionType.Multi_Verification)) {
+							.equals(OperationSubActionType.Multi_Verification
+									.toString())) {
 						// TODO Implement like the verifyDefect methos of
 						// SolverTask
 					} // Verification operations with DefectsVerifier
 					else if (((String) suboper.getInstAttributeValue("type"))
-							.equals(OperationSubActionType.Defects_Verifier)) {
+							.equals(OperationSubActionType.Defects_Verifier
+									.toString())) {
 						// TODO Implement like the verifyDefect methos of
 						// SolverTask
 					}
