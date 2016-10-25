@@ -155,6 +155,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				AbstractBooleanExpression out10 = new GreaterOrEqualsBooleanExpression(
 						transformation7, new NumberNumericExpression(1));
 				getElementExpressions().add(out10);
+				structureList.add(out10);
 				allList.add(out10);
 
 				/*
@@ -258,6 +259,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 						instPairwiseRelation.getSourceRelations().get(0),
 						"Sel", true, transformation161);
 				getElementExpressions().add(out8);
+				structureList.add(out8);
 				allList.add(out8);
 
 				break;

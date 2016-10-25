@@ -77,15 +77,15 @@ public abstract class AbstractExpression {
 					.add(ExpressionVertexType.RIGHTSUBEXPRESSION);
 			this.rightSubExpression = subExpression;
 		} else {
+			this.expressionVertexTypes
+					.add(ExpressionVertexType.LEFTSUBEXPRESSION);
+			this.leftSubExpression = subExpression;
 			if (vertex != null) {
 				this.rightVertex = vertex;
 				this.rightAttributeName = attributeName;
 				this.expressionVertexTypes
 						.add(ExpressionVertexType.RIGHTVARIABLE);
 			}
-			this.expressionVertexTypes
-					.add(ExpressionVertexType.LEFTSUBEXPRESSION);
-			this.leftSubExpression = subExpression;
 		}
 	}
 
@@ -297,8 +297,8 @@ public abstract class AbstractExpression {
 				String domain = "";
 				if (object != null) {
 					@SuppressWarnings("unchecked")
-					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstElement) object)
+							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE)
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("#");
