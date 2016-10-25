@@ -714,7 +714,12 @@ public class ModelExpr2HLCL {
 								instAttribute.setValue(true);
 							else if (val == 0)
 								instAttribute.setValue(false);
-						} else if (instAttribute != null)
+						} else if (instAttribute != null
+								&& instAttribute.getType().equals("Integer"))
+							instAttribute
+									.setValue((int) Float.parseFloat(prologOut
+											.get(identifier) + ""));
+						else if (instAttribute != null)
 							instAttribute.setValue(Float.parseFloat(prologOut
 									.get(identifier) + ""));
 					} else if (attribute.equals("Sel"))
@@ -734,13 +739,17 @@ public class ModelExpr2HLCL {
 											.get(identifier));
 							}
 							if (instTarget != null
-									&& (instTarget.getType().equals("Integer") || instTarget
-											.getType().equals("Float"))) {
+									&& instTarget.getType().equals("Float")) {
 								float val = Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);
-
+							} else if (instTarget != null
+									&& instTarget.getType().equals("Integer")) {
+								int val = (int) Float.parseFloat(prologOut
+										.get(identifier) + "");
+								instTarget.setValue(val);
 							}
+
 						}
 					else if (attribute.equals("Exclu"))
 						for (String attTarget : notAvailableAttributes) {
