@@ -1376,28 +1376,28 @@ public class ModelExpr implements Serializable {
 		case LEFTVARIABLE:
 			if (getLeftElement() != null)
 				return (displayName ? (String) getLeftElement()
-						.getInstAttribute("name").getValue() : getLeftElement()
-						.getIdentifier())
+						.getInstAttribute("userId").getValue()
+						: getLeftElement().getIdentifier())
 						+ "_" + getLeftAttributeName();
 			break;
 		case RIGHTVARIABLE:
 			if (getRightElement() != null)
 				return (displayName ? (String) getRightElement()
-						.getInstAttribute("name").getValue()
+						.getInstAttribute("userId").getValue()
 						: getRightElement().getIdentifier())
 						+ "_" + getRightAttributeName();
 			break;
 		case LEFTVARIABLEVALUE:
 			if (getLeftElement() != null)
 				return (displayName ? (String) getLeftElement()
-						.getInstAttribute("name").getValue() : getLeftElement()
-						.getIdentifier())
+						.getInstAttribute("userId").getValue()
+						: getLeftElement().getIdentifier())
 						+ "_" + leftValue;
 			break;
 		case RIGHTVARIABLEVALUE:
 			if (getRightElement() != null)
 				return (displayName ? (String) getRightElement()
-						.getInstAttribute("name").getValue()
+						.getInstAttribute("userId").getValue()
 						: getRightElement().getIdentifier())
 						+ "_" + rightValue;
 			break;

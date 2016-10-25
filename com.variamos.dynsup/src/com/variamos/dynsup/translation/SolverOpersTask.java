@@ -17,6 +17,7 @@ import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.types.OperationSubActionType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
@@ -358,7 +359,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					String verifMessage = verifMessageList.get(posList);
 					String verifHint = verifMessageList.get(posList);
 					if (actionList.get(posList).equals("Err")) {
-
 						outMessageList.add(verifyDefects(verifElement,
 								verifMessage, verifHint));
 					} else {
@@ -423,7 +423,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					.getOperationalModel().getElement(operation);
 			Set<InstElement> suboperations = new TreeSet<InstElement>();
 			Map<String, InstElement> instsuboperations = new HashMap<String, InstElement>();
-
+			// Auto sorting with treeset
 			for (InstElement operpair : oper.getTargetRelations()) {
 				InstElement suboper = operpair.getTargetRelations().get(0);
 				instsuboperations.put(suboper.getIdentifier(), suboper);
@@ -435,19 +435,41 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					break;
 
 				try {
-					if (lastConfiguration == null) {
-						result = refas2hlcl.execute(progressMonitor, operation,
-								ModelExpr2HLCL.ONE_SOLUTION, operation,
-								instsuboperations.get(suboper.getIdentifier())); // type
-					} else {
-						if ((boolean) suboper
-								.getInstAttributeValue("iteration")) {
+					// Validation operations
+					if (((String) suboper.getInstAttributeValue("type"))
+							.equals(OperationSubActionType.Single_Update
+									.toString())
+							|| ((String) suboper.getInstAttributeValue("type"))
+									.equals(OperationSubActionType.Iterative_Update
+											.toString()))
+						if (lastConfiguration == null) {
 							result = refas2hlcl.execute(progressMonitor,
-									operation, ModelExpr2HLCL.NEXT_SOLUTION,
+									operation, ModelExpr2HLCL.ONE_SOLUTION,
 									operation, instsuboperations.get(suboper
 											.getIdentifier())); // type
-						} else
-							continue;
+						} else {
+							if ((boolean) suboper
+									.getInstAttributeValue("iteration")) {
+								result = refas2hlcl.execute(progressMonitor,
+										operation,
+										ModelExpr2HLCL.NEXT_SOLUTION,
+										operation, instsuboperations
+												.get(suboper.getIdentifier())); // type
+							} else
+								continue;
+						}
+					// Verification operations with CauCos
+					else if (((String) suboper.getInstAttributeValue("type"))
+							.equals(OperationSubActionType.Multi_Verification
+									.toString())) {
+						// TODO Implement like the verifyDefect methos of
+						// SolverTask
+					} // Verification operations with DefectsVerifier
+					else if (((String) suboper.getInstAttributeValue("type"))
+							.equals(OperationSubActionType.Defects_Verifier
+									.toString())) {
+						// TODO Implement like the verifyDefect methos of
+						// SolverTask
 					}
 					if (result == 1) {
 						outVariables = refas2hlcl.getOutVariables(operation,
@@ -469,37 +491,18 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					} else {
 						if (result == -1)
 							if (firstSimulExec && lastConfiguration == null) {
-								switch (operationIdentifier) {
-								case "simulation":
-								case "BasicSimulOper":
-									errorMessage = "Last changes on the model makes it inconsistent."
-											+ " \n Please review the restrictions defined and "
-											+ "try again. \nModel visual representation was not updated.";
-									errorTitle = "Model Simulation Error";
-									correctExecution = false;
-									break;
-								case "a":
-									errorMessage = "Last change on the configuration makes the model "
-											+ "\n inconsistent. Please review the selection and "
-											+ "try again. \nAttributes values were not updated.";
-									errorTitle = "Model Configuration Error";
-									correctExecution = false;
-									break;
-								case "d":
-								case "SimulSceOper":
-									errorMessage = "No solution found for this model configuration."
-											+ " \n Please review the restrictions defined and "
-											+ "try again.";
-									errorTitle = "Model Simulation Error";
-									correctExecution = false;
-									break;
-								}
+								errorMessage = (String) suboper
+										.getInstAttributeValue("errorText");
+								errorTitle = (String) suboper
+										.getInstAttributeValue("errorTitle");
+								correctExecution = false;
 								terminated = true;
 							} else {
 								errorMessage = "No more solutions found";
 								errorTitle = "Simulation Message";
 								correctExecution = false;
 							}
+						terminated = true;
 					}
 
 				} catch (Exception e) {

@@ -1194,7 +1194,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 												updateExpressions = true;
 											}
 										});
-							JButton button = new JButton("Validate");
+							ImageIcon icon = new ImageIcon(
+									BasicGraphEditor.class
+											.getResource("/com/variamos/gui/perspeditor/images/www.iconfinder.com/refresh.png"));
+							JButton button = new JButton(icon);
 							button.addActionListener(new ActionListener() {
 								@Override
 								public void actionPerformed(ActionEvent e) {

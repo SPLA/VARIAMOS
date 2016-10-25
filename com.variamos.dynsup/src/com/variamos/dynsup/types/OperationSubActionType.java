@@ -1,5 +1,5 @@
 package com.variamos.dynsup.types;
 
 public enum OperationSubActionType {
-	VERIFICATION, SINGLEUPDATE, ITERATIVEUPDATE, MUTIVERIFICATION
+	Single_Verification, Single_Update, Iterative_Update, Defects_Verifier, Multi_Verification
 }

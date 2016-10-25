@@ -53,6 +53,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 
 		// Installs automatic validation
 		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener() {
+			@Override
 			public void invoke(Object sender, mxEventObject evt) {
 				// ArrayList list = ((ArrayList) evt.getProperty("changes"));
 				/*
@@ -80,6 +81,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		final mxGraph finalGraph = graph;
 		// Installs automatic validation
 		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener() {
+			@Override
 			public void invoke(Object sender, mxEventObject evt) {
 				clearCellOverlays();
 				validateGraph();
@@ -185,7 +187,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 			// For simulation perspective
 			if (childCell.getGeometry() != null && val != null
 					&& val instanceof InstConcept
-					&& ((mxCell) parentCell).getValue() != null) {
+					&& parentCell.getValue() != null) {
 				try {
 					InstConcept instConcept = (InstConcept) val;
 					String backtophint = "", backbottomhint = "";
@@ -358,7 +360,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 
 			// For design perspective
 			if (childCell.getGeometry() != null && val != null
-					&& ((mxCell) parentCell).getValue() == null
+					&& parentCell.getValue() == null
 					&& val instanceof InstConcept) {
 				String design_required = imagesBasePath + "design_required.png";
 				String design_normal = imagesBasePath + "design_normal.png";
@@ -412,12 +414,10 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				&& childValue instanceof InstConcept) {
 			try {
 				InstConcept instConcept = (InstConcept) childValue;
-				String error = "/com/mxgraph/examples/swing/images/x-red.gif";
-				int pos = 0;
+				String error = "/com/variamos/gui/perspeditor/images/test/design_dead.png";
 				for (String defect : instConcept.getDefects().values()) {
 					mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
-							mxGraphComponent.class.getResource(redx.get(pos))),
-							defect);
+							mxGraphComponent.class.getResource(error)), defect);
 					over3.setVerticalAlign(mxConstants.ALIGN_MIDDLE);
 					over3.setAlign(mxConstants.ALIGN_RIGHT);
 					addCellOverlay(childCell, over3);

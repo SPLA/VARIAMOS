@@ -79,7 +79,7 @@ public class InstanceExpressionDialog extends JDialog {
 		super(editor.getFrame(), "Expressions Editor");
 		this.multiExpressions = multiExpression;
 		this.editable = editable;
-		refasModel = (ModelInstance) editor.getEditedModel();
+		refasModel = editor.getEditedModel();
 		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, instanceExpressions);
 	}
@@ -168,6 +168,7 @@ public class InstanceExpressionDialog extends JDialog {
 				// TODO Auto-generated method stub
 				displayTextExpression = !displayTextExpression;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(element, null);
 					}
@@ -177,7 +178,7 @@ public class InstanceExpressionDialog extends JDialog {
 			}
 		});
 		JCheckBox varNamesCheck = new JCheckBox(
-				"Display Variable Names (not identifiers)");
+				"Display Variable User Identifiers (not Auto Identifiers)");
 		// varNamesCheck.setEnabled(false);
 		if (displayVariableName)
 			varNamesCheck.setSelected(true);
@@ -190,6 +191,7 @@ public class InstanceExpressionDialog extends JDialog {
 				displayVariableName = !displayVariableName;
 
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(element, null);
 					}
@@ -209,6 +211,7 @@ public class InstanceExpressionDialog extends JDialog {
 					finalInstanceExpressions.add(new ModelExpr());
 
 					new Thread() {
+						@Override
 						public void run() {
 							initialize(element, null);
 						}
@@ -307,6 +310,7 @@ public class InstanceExpressionDialog extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(ele, null);
 					}
@@ -340,6 +344,7 @@ public class InstanceExpressionDialog extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(ele, null);
 					}
@@ -453,6 +458,7 @@ public class InstanceExpressionDialog extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(ele, null);
 					}
@@ -490,6 +496,7 @@ public class InstanceExpressionDialog extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(ele, null);
 					}
@@ -591,8 +598,7 @@ public class InstanceExpressionDialog extends JDialog {
 			@Override
 			public void focusLost(FocusEvent event) {
 				selectedExpression = instanceExpression;
-				String item = (String) ((JTextField) event.getSource())
-						.getText();
+				String item = ((JTextField) event.getSource()).getText();
 				if (item != null) {
 					if (expressionVertexType
 							.equals(ExpressionVertexType.LEFTNUMERICVALUE))
@@ -645,6 +651,7 @@ public class InstanceExpressionDialog extends JDialog {
 						instanceExpression.setAttributeName(itemName[1],
 								expressionVertexType);
 						new Thread() {
+							@Override
 							public void run() {
 								initialize(element, null);
 							}
@@ -666,8 +673,8 @@ public class InstanceExpressionDialog extends JDialog {
 				.getVariabilityVertexCollection()) {
 			String instElementId = null;
 			if (displayVariableName) {
-				if (instVertex.getInstAttribute("name") != null)
-					instElementId = instVertex.getInstAttribute("name")
+				if (instVertex.getInstAttribute("userId") != null)
+					instElementId = instVertex.getInstAttribute("userId")
 							.toString();
 				else
 					instElementId = instVertex.getIdentifier();
@@ -677,8 +684,8 @@ public class InstanceExpressionDialog extends JDialog {
 
 			}
 
-			OpersElement semElement2 = ((SyntaxElement) instVertex
-					.getTransSupportMetaElement()).getTransSemanticConcept();
+			OpersElement semElement2 = instVertex.getTransSupportMetaElement()
+					.getTransSemanticConcept();
 			if (semElement2 != null
 					&& semElement2.getIdentifier().equals("nmVariable")) {
 				String variableType = (String) instVertex.getInstAttribute(
@@ -716,8 +723,9 @@ public class InstanceExpressionDialog extends JDialog {
 							.getValueObject();
 					if (object != null) {
 						@SuppressWarnings("unchecked")
-						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-								.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
+						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstElement) object)
+								.getInstAttribute(
+										SyntaxElement.VAR_METAENUMVALUE)
 								.getValue();
 						for (InstAttribute value : values)
 							combo.addItem(instElementId + "_"
@@ -739,17 +747,17 @@ public class InstanceExpressionDialog extends JDialog {
 		JComboBox<String> combo = new JComboBox<String>();
 		String instElementId = null, instRelElementId = null;
 		if (displayVariableName) {
-			instElementId = element.getInstAttribute("name").toString();
+			instElementId = element.getInstAttribute("userId").toString();
 			if (element instanceof InstPairwiseRel
 					|| element.getTransSupportMetaElement().getType() == 'P')
 				instRelElementId = ((InstPairwiseRel) element)
-						.getSourceRelations().get(0).getInstAttribute("name")
+						.getSourceRelations().get(0).getInstAttribute("userId")
 						.toString();
 			if (element instanceof InstOverTwoRel
 					|| element.getTransSupportMetaElement().getType() == 'O')
 				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
-						.get(0).getInstAttribute("name").toString();
+						.get(0).getInstAttribute("userId").toString();
 		} else {
 			instElementId = element.getIdentifier();
 			if (element instanceof InstPairwiseRel
@@ -768,14 +776,13 @@ public class InstanceExpressionDialog extends JDialog {
 				|| type == ExpressionVertexType.RIGHTVARIABLE) {
 			for (InstElement instVertex : refasModel
 					.getVariabilityVertexCollection()) {
-				OpersElement semElement2 = ((SyntaxElement) instVertex
-						.getTransSupportMetaElement())
-						.getTransSemanticConcept();
+				OpersElement semElement2 = instVertex
+						.getTransSupportMetaElement().getTransSemanticConcept();
 				if (semElement2 != null
 						&& semElement2.getIdentifier().equals("nmVariable")) {
 					String instVertexId = null;
 					if (displayVariableName)
-						instVertexId = instVertex.getInstAttribute("name")
+						instVertexId = instVertex.getInstAttribute("userId")
 								.toString();
 					else
 						instVertexId = instVertex.getIdentifier();
@@ -823,7 +830,7 @@ public class InstanceExpressionDialog extends JDialog {
 						if (displayVariableName)
 							combo.addItem(((InstPairwiseRel) sourceRelation)
 									.getSourceRelations().get(0)
-									.getInstAttribute("name").toString()
+									.getInstAttribute("userId").toString()
 									+ "_" + attributeName);
 						else
 							combo.addItem(((InstPairwiseRel) sourceRelation)
@@ -869,6 +876,7 @@ public class InstanceExpressionDialog extends JDialog {
 								.getSemanticExpressionTypes().get(item));
 					}
 					new Thread() {
+						@Override
 						public void run() {
 							initialize(element, null);
 						}
@@ -935,6 +943,7 @@ public class InstanceExpressionDialog extends JDialog {
 							break;
 						}
 						new Thread() {
+							@Override
 							public void run() {
 								initialize(element, null);
 							}

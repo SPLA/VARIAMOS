@@ -272,6 +272,7 @@ public class ModelExpr2HLCL {
 		return hlclProgram;
 	}
 
+	// Static call
 	public HlclProgram getHlclProgram(String element, int execType,
 			InstElement instElement) {
 		HlclProgram hlclProgram = new HlclProgram();
@@ -302,6 +303,7 @@ public class ModelExpr2HLCL {
 		return hlclProgram;
 	}
 
+	// Static and Dynamic calls
 	private void fillHlclProgram(String element, String subOperation,
 			OperationSubActionExecType operExecType, HlclProgram hlclProgram,
 			Map<String, ElementExpressionSet> constraintGroups) {
@@ -469,8 +471,7 @@ public class ModelExpr2HLCL {
 					}
 					// FIXME support types other than normal
 					configurationOptions.setLabelings(transExpSet.getLabelings(
-							refas, suboper.getIdentifier(),
-							OperationSubActionExecType.NORMAL));
+							refas, suboper.getIdentifier(), null));
 					configurationOptions.setOrder(true);
 
 					configurationOptions.setStartFromZero(true);
@@ -713,7 +714,12 @@ public class ModelExpr2HLCL {
 								instAttribute.setValue(true);
 							else if (val == 0)
 								instAttribute.setValue(false);
-						} else if (instAttribute != null)
+						} else if (instAttribute != null
+								&& instAttribute.getType().equals("Integer"))
+							instAttribute
+									.setValue((int) Float.parseFloat(prologOut
+											.get(identifier) + ""));
+						else if (instAttribute != null)
 							instAttribute.setValue(Float.parseFloat(prologOut
 									.get(identifier) + ""));
 					} else if (attribute.equals("Sel"))
@@ -733,13 +739,17 @@ public class ModelExpr2HLCL {
 											.get(identifier));
 							}
 							if (instTarget != null
-									&& (instTarget.getType().equals("Integer") || instTarget
-											.getType().equals("Float"))) {
+									&& instTarget.getType().equals("Float")) {
 								float val = Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);
-
+							} else if (instTarget != null
+									&& instTarget.getType().equals("Integer")) {
+								int val = (int) Float.parseFloat(prologOut
+										.get(identifier) + "");
+								instTarget.setValue(val);
 							}
+
 						}
 					else if (attribute.equals("Exclu"))
 						for (String attTarget : notAvailableAttributes) {

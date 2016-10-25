@@ -266,13 +266,18 @@ public class PerspEditorMenuBar extends JMenuBar {
 					.getVariabilityVertex("OMOperGroup");
 			int cantMenu = 1;
 			String pre1 = "", pre2 = "";
-			if (editor.getPerspective() == 2) {
-				cantMenu = 2;
-				pre1 = "Individual ";
-				pre2 = "Group ";
-			}
-			for (int i = 0; i < cantMenu; i++)
-				for (InstElement menuElement : menus) {
+
+			for (InstElement menuElement : menus) {
+				if ((boolean) menuElement.getInstAttribute("execAll")
+						.getValue() == false) {
+					cantMenu = 1;
+					pre1 = "";
+				} else if (editor.getPerspective() == 2) {
+					cantMenu = 2;
+					pre1 = "Individual ";
+					pre2 = "Group ";
+				}
+				for (int i = 0; i < cantMenu; i++) {
 					if ((boolean) menuElement.getInstAttribute("visible")
 							.getValue() == true
 							&& ((String) menuElement.getInstAttribute(
@@ -341,9 +346,25 @@ public class PerspEditorMenuBar extends JMenuBar {
 								menu.add(item);
 							}
 						}
+						if ((boolean) menuElement.getInstAttribute("execAll")
+								.getValue() == true && i == 1) {
+							menu.add(editor.bind(
+									mxResources.get("verifyElements"),
+									new VerificationAction())); // FIXME use a
+																// dynamic
+																// implementation
+						}
+						if ((boolean) menuElement.getInstAttribute(
+								"clearButton").getValue() == true) {
+							menu.addSeparator();
+							menu.add(editor.bind(
+									mxResources.get("clearElements"),
+									new ClearVerificationAction()));
+						}
 						add(menu);
 					}
 				}
+			}
 		}
 		if (editor.getPerspective() == 1) {
 			menu = (JMenu) menu.add(new JMenu(mxResources

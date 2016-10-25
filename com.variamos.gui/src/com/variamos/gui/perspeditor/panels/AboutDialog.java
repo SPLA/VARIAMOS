@@ -106,8 +106,8 @@ public class AboutDialog extends JDialog {
 		panel.add(new JLabel("Some icons art from:"));
 		panel.add(newButton("(Highlightmarker) ", "Icon Archive",
 				"https://iconarchive.com"));
-		panel.add(newButton("(player, dead and false) ", "Icon Finder",
-				"https://www.iconfinder.com"));
+		panel.add(newButton("(player, dead, false and refresh) ",
+				"Icon Finder", "https://www.iconfinder.com"));
 		panel.add(newButton("(hand for required) ", "Flat Icon",
 				"http://www.flaticon.com/free-icon/pointer_108787#term=hand&page=1&position=66"));
 		panel.add(newButton(

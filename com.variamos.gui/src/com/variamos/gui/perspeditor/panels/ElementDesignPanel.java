@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -40,6 +41,7 @@ import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
@@ -351,8 +353,7 @@ public class ElementDesignPanel extends JPanel {
 							if (instAttribute.getType().equals(
 									"com.variamos.dynsup.model.ModelExpr")) {
 								JButton button = new JButton(
-										instAttribute.getDisplayName()
-												+ " Editor");
+										" Edit Expression...");
 
 								button.addActionListener(new ActionListener() {
 									@Override
@@ -742,7 +743,7 @@ public class ElementDesignPanel extends JPanel {
 									widget.getEditor().setPreferredSize(
 											new Dimension(200, 20));
 									widget.getEditor().setMaximumSize(
-											new Dimension(200, 20));
+											new Dimension(300, 20));
 								}
 								if (widget.editVariable(instAttribute)) {
 									widget.editVariable(instAttribute);
@@ -789,7 +790,10 @@ public class ElementDesignPanel extends JPanel {
 									if (instAttribute.isAffectProperties()
 											&& editor.getPerspective() != 4
 											&& !(widget.getEditor() instanceof JCheckBox)) {
-										JButton button = new JButton("Validate");
+										ImageIcon icon = new ImageIcon(
+												BasicGraphEditor.class
+														.getResource("/com/variamos/gui/perspeditor/images/www.iconfinder.com/refresh.png"));
+										JButton button = new JButton(icon);
 										button.addActionListener(new ActionListener() {
 											@Override
 											public void actionPerformed(
@@ -816,17 +820,17 @@ public class ElementDesignPanel extends JPanel {
 			// editables.length));
 			JPanel dummy = new JPanel();
 			dummy.setMinimumSize(new Dimension(0, 0));
-			dummy.setPreferredSize(new Dimension(100, 20));
+			dummy.setPreferredSize(new Dimension(0, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
 			dummy.setMinimumSize(new Dimension(0, 0));
-			dummy.setPreferredSize(new Dimension(100, 20));
+			dummy.setPreferredSize(new Dimension(0, 20));
 			dummy.setMaximumSize(new Dimension(100, 200));
 			elementDesPropSubPanel.add(dummy);
 			dummy = new JPanel();
-			dummy.setMinimumSize(new Dimension(300, 0));
-			dummy.setPreferredSize(new Dimension(100, 20));
+			dummy.setMinimumSize(new Dimension(0, 0));
+			dummy.setPreferredSize(new Dimension(0, 20));
 			dummy.setMaximumSize(new Dimension(350, 200));
 			elementDesPropSubPanel.add(dummy);
 
@@ -839,11 +843,11 @@ public class ElementDesignPanel extends JPanel {
 			contentPanel1.add(elementDesPropSubPanel);
 			elementDesPropSubPanel.setPreferredSize(new Dimension(300,
 					designPanelElements * 28));
-			elementDesPropSubPanel.setMaximumSize(new Dimension(300,
+			elementDesPropSubPanel.setMaximumSize(new Dimension(400,
 					designPanelElements * 28));
-			contentPanel1.setMaximumSize(new Dimension(300, 450));
+			contentPanel1.setMaximumSize(new Dimension(400, 450));
 			contentPanel1.setPreferredSize(new Dimension(300, 450));
-			contentPanel1.setMinimumSize(new Dimension(300, 450));
+			contentPanel1.setMinimumSize(new Dimension(200, 450));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -929,8 +933,9 @@ public class ElementDesignPanel extends JPanel {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 350;
-				rootPanel3.setPreferredSize(new Dimension(350, 450));
-				contentPanel3.setPreferredSize(new Dimension(350, 450));
+				rootPanel3.setPreferredSize(new Dimension(650, 450));
+				contentPanel3.setPreferredSize(new Dimension(650, 450));
+				contentPanel3.setMaximumSize(new Dimension(650, 450));
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
@@ -994,8 +999,8 @@ public class ElementDesignPanel extends JPanel {
 								attributeEdition);
 				}
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(450, 250));
-				attPanel.setMaximumSize(new Dimension(550, 250));
+				attPanel.setPreferredSize(new Dimension(350, 250));
+				attPanel.setMaximumSize(new Dimension(650, 250));
 				JScrollPane jj = new JScrollPane(attList);
 				jj.setAutoscrolls(true);
 				attPanel.add(jj);
@@ -1011,8 +1016,8 @@ public class ElementDesignPanel extends JPanel {
 			} else {
 				JPanel dummy3 = new JPanel();
 				dummy3.setMinimumSize(new Dimension(200, 250));
-				dummy3.setPreferredSize(new Dimension(300, 250));
-				dummy3.setMaximumSize(new Dimension(650, 250));
+				dummy3.setPreferredSize(new Dimension(200, 250));
+				dummy3.setMaximumSize(new Dimension(350, 250));
 				mainPanel.add(dummy3);
 
 			}
@@ -1041,7 +1046,7 @@ public class ElementDesignPanel extends JPanel {
 						instCell);
 				attPanel.add(new JScrollPane(attList));
 				SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
-				contentPanel4.setPreferredSize(new Dimension(100, 200));
+				contentPanel4.setPreferredSize(new Dimension(0, 200));
 				contentPanel4.add(attPanel);
 				mainPanel.add(rootPanel4);
 				extra++;
