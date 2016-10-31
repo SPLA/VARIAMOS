@@ -337,6 +337,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										ModelExpr2HLCL.ONE_SOLUTION,
 										operationObj, instsuboperations
 												.get(suboper.getIdentifier())); // type
+
 							} else {
 								if ((boolean) suboper
 										.getInstAttributeValue("iteration")) {
@@ -349,6 +350,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								} else
 									continue;
 							}
+
 						// Verification operations with CauCos
 						else if (((String) suboper
 								.getInstAttributeValue("type"))

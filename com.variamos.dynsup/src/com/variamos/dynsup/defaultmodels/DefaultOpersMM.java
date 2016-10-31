@@ -170,6 +170,7 @@ public class DefaultOpersMM {
 		OpersSubOperation simSceOperationSubAction = null;
 		OpersSubOperation updateCoreOperationSubAction = null;
 		OpersSubOperation verifRootSubOperationAction = null;
+
 		InstConcept instRefasModel = null;
 
 		if (!empty) {
