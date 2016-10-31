@@ -86,6 +86,15 @@ public class DefaultSyntaxMM {
 		InstConcept semFeature = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Feature"));
 
+		InstConcept semRFeature = ((InstConcept) refas.getOperationalModel()
+				.getVertex("RootFeature"));
+
+		InstConcept semGFeature = ((InstConcept) refas.getOperationalModel()
+				.getVertex("GeneralFeature"));
+
+		InstConcept semLFeature = ((InstConcept) refas.getOperationalModel()
+				.getVertex("LeafFeature"));
+
 		InstConcept semHardConcept = ((InstConcept) refas.getOperationalModel()
 				.getVertex("HardConcept"));
 
@@ -185,7 +194,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement syntaxRootFeature = new SyntaxElement('C', "RootFeature",
 				true, true, "RootFeature", "plnode", "Defines a root feature",
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
-				Color.BLUE.toString(), 3, semFeature, true);
+				Color.BLUE.toString(), 3, semRFeature, true);
 
 		syntaxRootFeature.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -200,7 +209,7 @@ public class DefaultSyntaxMM {
 				"GeneralFeature", true, true, "GeneralFeature", "plnode",
 				"Defines a general feature", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
-				Color.BLUE.toString(), 3, semFeature, true);
+				Color.BLUE.toString(), 3, semGFeature, true);
 
 		syntaxGeneralFeature.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -214,7 +223,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement syntaxVertexLF = new SyntaxElement('C', "LeafFeature",
 				true, true, "LeafFeature", "plnode", "Defines a leaf feature",
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
-				Color.BLUE.toString(), 3, semFeature, true);
+				Color.BLUE.toString(), 3, semLFeature, true);
 
 		syntaxVertexLF.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
 				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,

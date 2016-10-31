@@ -639,7 +639,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			}
 
 			if (defect == null || defect.contains("Core"))
-				refas2hlcl.updateCoreConcepts(uniqueIdentifiers, false);
+				;
+			// refas2hlcl.updateCoreConcepts(uniqueIdentifiers, false);
 
 			if (defect == null || defect.contains("Dead"))
 				refas2hlcl.updateDeadConcepts(deadIdentifiers);

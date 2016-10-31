@@ -136,97 +136,97 @@ public class ModelExpressionSet extends ElementExpressionSet {
 									"NPrefSel", true, prefOutExp);
 					}
 				}
-
-			List<BooleanExpression> rootList = new ArrayList<BooleanExpression>();
-			List<BooleanExpression> parentList = new ArrayList<BooleanExpression>();
-			List<BooleanExpression> coreList = new ArrayList<BooleanExpression>();
-			List<BooleanExpression> simulList = new ArrayList<BooleanExpression>();
-			if (rootOutExp != null) {
-				AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
-						rootOutExp, new NumberNumericExpression(2));
-				Map<String, Identifier> idMap = new HashMap<String, Identifier>();
-
-				idMap.putAll(transformation51.getIdentifiers(getHlclFactory()));
-				rootList.add(this.getHlclFactory().doubleImplies(
-						this.getHlclFactory().newIdentifier("amodel_roots"),
-						transformation51.transform(getHlclFactory(), idMap)));
-				rootList.add(this.getHlclFactory().lessOrEqualsThan(
-						this.getHlclFactory().newIdentifier("amodel_roots"),
-						getHlclFactory().number(0)));
-			}
-			booleanExpressions.put("Root", rootList);
-
-			if (parentOutExp != null) {
-				AbstractBooleanExpression transformation51 = new LessBooleanExpression(
-						parentOutExp, new NumberNumericExpression(1));
-				Map<String, Identifier> idMap = new HashMap<String, Identifier>();
-
-				idMap.putAll(transformation51.getIdentifiers(getHlclFactory()));
-				parentList.add(this.getHlclFactory().doubleImplies(
-						this.getHlclFactory().newIdentifier("amodel_parents"),
-						transformation51.transform(getHlclFactory(), idMap)));
-				parentList.add(this.getHlclFactory().lessOrEqualsThan(
-						this.getHlclFactory().newIdentifier("amodel_parents"),
-						getHlclFactory().number(0)));
-			}
-			booleanExpressions.put("Parent", parentList);
-
-			if (coreOutExp != null) {
-				Map<String, Identifier> idMap = new HashMap<String, Identifier>();
-
-				idMap.putAll(coreOutExp.getIdentifiers(getHlclFactory()));
-				Identifier identifier = this.getHlclFactory().newIdentifier(
-						"amodel_order");
-				identifier.setDomain(new RangeDomain(0, 200, 0));
-				coreList.add(this.getHlclFactory().equals(identifier,
-						coreOutExp.transform(getHlclFactory(), idMap)));
-				/*
-				 * coreList.add(this.getHlclFactory().lessOrEqualsThan(
-				 * this.getHlclFactory().newIdentifier("model_parents"),
-				 * getHlclFactory().number(0)));
-				 */
-			}
-			booleanExpressions.put("Core", coreList);
-
-			/*
-			 * if (reqOutExp != null) { LessOrEqualsBooleanExpression
-			 * compPrefOutExp = new LessOrEqualsBooleanExpression( prefOutExp,
-			 * new NumberNumericExpression(0)); LessOrEqualsBooleanExpression
-			 * compReqOutExp = new LessOrEqualsBooleanExpression( reqOutExp, new
-			 * NumberNumericExpression(0)); Map<String, Identifier> idMap = new
-			 * HashMap<String, Identifier>();
-			 * 
-			 * idMap.putAll(reqOutExp.getIdentifiers(getHlclFactory()));
-			 * Identifier identifier1 = this.getHlclFactory().newIdentifier(
-			 * "amodel_req"); identifier1.setDomain(new RangeDomain(0, 200));
-			 * idMap.putAll(prefOutExp.getIdentifiers(getHlclFactory()));
-			 * 
-			 * simulList.add(this.getHlclFactory().equals(identifier1,
-			 * reqOutExp.transform(getHlclFactory(), idMap)));
-			 * 
-			 * simulList.add(this.getHlclFactory().implies(
-			 * compPrefOutExp.transform(getHlclFactory(), idMap),
-			 * compReqOutExp.transform(getHlclFactory(), idMap)));
-			 * 
-			 * }
-			 */
-			if (prefOutExp != null) {
-				Map<String, Identifier> idMap = new HashMap<String, Identifier>();
-
-				idMap.putAll(prefOutExp.getIdentifiers(getHlclFactory()));
-				Identifier identifier = this.getHlclFactory().newIdentifier(
-						"amodel_pref");
-				identifier.setDomain(new RangeDomain(0, 200, 0));
-				simulList.add(this.getHlclFactory().equals(
-						this.getHlclFactory().newIdentifier("amodel_pref"),
-						prefOutExp.transform(getHlclFactory(), idMap)));
-
-				simulList.add(this.getHlclFactory().lessOrEqualsThan(
-						this.getHlclFactory().newIdentifier("amodel_pref"),
-						getHlclFactory().number(1)));
-			}
-			booleanExpressions.put("Simul", simulList);
-
 		}
+
+		List<BooleanExpression> rootList = new ArrayList<BooleanExpression>();
+		List<BooleanExpression> parentList = new ArrayList<BooleanExpression>();
+		List<BooleanExpression> coreList = new ArrayList<BooleanExpression>();
+		List<BooleanExpression> simulList = new ArrayList<BooleanExpression>();
+		if (rootOutExp != null) {
+			AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
+					rootOutExp, new NumberNumericExpression(2));
+			Map<String, Identifier> idMap = new HashMap<String, Identifier>();
+
+			idMap.putAll(transformation51.getIdentifiers(getHlclFactory()));
+			rootList.add(this.getHlclFactory().doubleImplies(
+					this.getHlclFactory().newIdentifier("amodel_roots"),
+					transformation51.transform(getHlclFactory(), idMap)));
+			rootList.add(this.getHlclFactory().lessOrEqualsThan(
+					this.getHlclFactory().newIdentifier("amodel_roots"),
+					getHlclFactory().number(0)));
+		}
+		booleanExpressions.put("Root", rootList);
+
+		if (parentOutExp != null) {
+			AbstractBooleanExpression transformation51 = new LessBooleanExpression(
+					parentOutExp, new NumberNumericExpression(1));
+			Map<String, Identifier> idMap = new HashMap<String, Identifier>();
+
+			idMap.putAll(transformation51.getIdentifiers(getHlclFactory()));
+			parentList.add(this.getHlclFactory().doubleImplies(
+					this.getHlclFactory().newIdentifier("amodel_parents"),
+					transformation51.transform(getHlclFactory(), idMap)));
+			parentList.add(this.getHlclFactory().lessOrEqualsThan(
+					this.getHlclFactory().newIdentifier("amodel_parents"),
+					getHlclFactory().number(0)));
+		}
+		booleanExpressions.put("Parent", parentList);
+
+		if (coreOutExp != null) {
+			Map<String, Identifier> idMap = new HashMap<String, Identifier>();
+
+			idMap.putAll(coreOutExp.getIdentifiers(getHlclFactory()));
+			Identifier identifier = this.getHlclFactory().newIdentifier(
+					"amodel_order");
+			identifier.setDomain(new RangeDomain(0, 200, 0));
+			coreList.add(this.getHlclFactory().equals(identifier,
+					coreOutExp.transform(getHlclFactory(), idMap)));
+			/*
+			 * coreList.add(this.getHlclFactory().lessOrEqualsThan(
+			 * this.getHlclFactory().newIdentifier("model_parents"),
+			 * getHlclFactory().number(0)));
+			 */
+		}
+		booleanExpressions.put("Core", coreList);
+
+		/*
+		 * if (reqOutExp != null) { LessOrEqualsBooleanExpression compPrefOutExp
+		 * = new LessOrEqualsBooleanExpression( prefOutExp, new
+		 * NumberNumericExpression(0)); LessOrEqualsBooleanExpression
+		 * compReqOutExp = new LessOrEqualsBooleanExpression( reqOutExp, new
+		 * NumberNumericExpression(0)); Map<String, Identifier> idMap = new
+		 * HashMap<String, Identifier>();
+		 * 
+		 * idMap.putAll(reqOutExp.getIdentifiers(getHlclFactory())); Identifier
+		 * identifier1 = this.getHlclFactory().newIdentifier( "amodel_req");
+		 * identifier1.setDomain(new RangeDomain(0, 200));
+		 * idMap.putAll(prefOutExp.getIdentifiers(getHlclFactory()));
+		 * 
+		 * simulList.add(this.getHlclFactory().equals(identifier1,
+		 * reqOutExp.transform(getHlclFactory(), idMap)));
+		 * 
+		 * simulList.add(this.getHlclFactory().implies(
+		 * compPrefOutExp.transform(getHlclFactory(), idMap),
+		 * compReqOutExp.transform(getHlclFactory(), idMap)));
+		 * 
+		 * }
+		 */
+		if (prefOutExp != null) {
+			Map<String, Identifier> idMap = new HashMap<String, Identifier>();
+
+			idMap.putAll(prefOutExp.getIdentifiers(getHlclFactory()));
+			Identifier identifier = this.getHlclFactory().newIdentifier(
+					"amodel_pref");
+			identifier.setDomain(new RangeDomain(0, 200, 0));
+			simulList.add(this.getHlclFactory().equals(
+					this.getHlclFactory().newIdentifier("amodel_pref"),
+					prefOutExp.transform(getHlclFactory(), idMap)));
+
+			simulList.add(this.getHlclFactory().lessOrEqualsThan(
+					this.getHlclFactory().newIdentifier("amodel_pref"),
+					getHlclFactory().number(1)));
+		}
+		booleanExpressions.put("Simul", simulList);
+
 	}
 }

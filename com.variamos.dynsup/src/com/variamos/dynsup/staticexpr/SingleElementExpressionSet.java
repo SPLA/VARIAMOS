@@ -753,7 +753,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							.getCompulsoryExpressionList("FalseOpt");
 					if (falseList != null)
 						falseList.addAll(coreAndFalseOptList);
-					this.getCompulsoryExpressions().put("FalseOpt",
+					this.getCompulsoryExpressions().put("FalseOpt", // FIXME not
+																	// used
 							coreAndFalseOptList);
 
 					List<AbstractExpression> falseList2 = this

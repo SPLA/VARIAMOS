@@ -383,7 +383,9 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					.getCompulsoryExpressionList("FalseOpt");
 			if (falseList != null)
 				falseList.addAll(coreList);
-			this.getCompulsoryExpressions().put("FalseOpt", coreList);
+			this.getCompulsoryExpressions().put("FalseOpt", coreList); // FIXME
+																		// not
+																		// used?
 
 			List<AbstractExpression> falseList2 = this
 					.getCompulsoryExpressionList("FalseOpt2");
