@@ -208,8 +208,9 @@ public class ModelExpr implements Serializable {
 	}
 
 	public Expression createSGSExpression() {
-		System.out.println(this.getSemanticExpressionId() + " "
-				+ this.expressionStructure());
+		// System.out.println("PNT Struc: " + this.getSemanticExpressionId() +
+		// " "
+		// + this.expressionStructure());
 		return createExpression(0);
 	}
 

@@ -453,7 +453,7 @@ public class ModelExpr2HLCL {
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new Configuration();
-			// FIXME: execute for all sub-operations
+			// FIXME: execute for all sub-operations exp types?
 
 			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
 					refas, operation, null, null);
@@ -647,6 +647,8 @@ public class ModelExpr2HLCL {
 				instVertex.getInstAttribute("Dead").setValue(false);
 			if (instVertex.getInstAttribute("Core") != null)
 				instVertex.getInstAttribute("Core").setValue(false);
+			if (instVertex.getInstAttribute("Sel") != null)
+				instVertex.getInstAttribute("Sel").setValue(false);
 		}
 	}
 

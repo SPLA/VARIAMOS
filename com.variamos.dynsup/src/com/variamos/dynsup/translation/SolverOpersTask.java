@@ -393,7 +393,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									.getInstAttributeValue("updateFreeIds");
 							String coreOperName = (String) suboper
 									.getInstAttributeValue("coreOper");
-							if (coreOperName == null) // FIXME temporal for PL
+							if (coreOperName == null) // FIXME temporal for PL &
+														// REFAS
 														// opers
 							{
 								coreOperName = "UpdateCoreOper";

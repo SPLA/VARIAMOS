@@ -423,14 +423,16 @@ public class OpersExpr implements Serializable {
 	}
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
-			OpersExpr semanticExpression,
-			ExpressionVertexType rightExpressionType,
-			InstElement rightSemanticElement, String rightAttribute) {
+
+	ExpressionVertexType leftExpressionType, InstElement leftSemanticElement,
+			OpersExpr semanticExpression, InstElement rightSemanticElement,
+			String rightAttribute) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		this.leftSemanticExpression = semanticExpression;
-		setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
-		setRightExpressionType(rightExpressionType);
+		setLeftExpressionType(leftExpressionType);
+		this.setLeftSemanticElement(leftSemanticElement);
+		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
 		this.setRightSemanticElement(rightSemanticElement);
 		this.rightAttributeName = rightAttribute;
 	}

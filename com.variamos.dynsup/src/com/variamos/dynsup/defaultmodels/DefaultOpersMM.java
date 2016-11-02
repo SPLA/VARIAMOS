@@ -5319,18 +5319,18 @@ public class DefaultOpersMM {
 					instVertexFFGR, instVertexHC, null, "Sel", "False", true);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"), t1,
-					ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHC,
-					"LowRange");
+					"GreaterOrEq"),
+					ExpressionVertexType.LEFTITERINCCONVARIABLE,
+					instVertexFFGR, t1, instVertexHC, "LowRange");
 
 			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
 					instVertexFFGR, instVertexHC, null, "Sel", "False", true);
 
 			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"), t2,
-					ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHC,
-					"HighRange");
+					"LessOrEquals"),
+					ExpressionVertexType.LEFTITERINCCONVARIABLE,
+					instVertexFFGR, t2, instVertexHC, "HighRange");
 
 			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
 					"And"), t1, t2);
@@ -7181,18 +7181,18 @@ public class DefaultOpersMM {
 					instVertexCLGR, instVertexOper, null, "Sel", "False", true);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"), t2,
+					"GreaterOrEq"),
 					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexCLGR, "LowRange");
+					instVertexOper, t2, instVertexCLGR, "LowRange");
 
 			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
 					instVertexCLGR, instVertexOper, null, "Sel", "False", true);
 
 			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"), t2,
+					"LessOrEquals"),
 					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexCLGR, "HighRange");
+					instVertexOper, t2, instVertexCLGR, "HighRange");
 
 			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
 					"And"), t1, t2);
@@ -8150,9 +8150,9 @@ public class DefaultOpersMM {
 					true);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"), t1,
+					"GreaterOrEq"),
 					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexAsset, "LowRange");
+					instVertexOPERGR, t1, instVertexAsset, "LowRange");
 
 			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
@@ -8160,9 +8160,9 @@ public class DefaultOpersMM {
 					true);
 
 			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"), t2,
+					"LessOrEquals"),
 					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexAsset, "HighRange");
+					instVertexOPERGR, t2, instVertexAsset, "HighRange");
 
 			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
 					"And"), t1, t2);
@@ -8389,9 +8389,9 @@ public class DefaultOpersMM {
 					true);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"), t2,
+					"GreaterOrEq"),
 					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexAsset, "LowRange");
+					instVertexOPERGR, t2, instVertexAsset, "LowRange");
 
 			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
@@ -8399,9 +8399,9 @@ public class DefaultOpersMM {
 					true);
 
 			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"), t2,
+					"LessOrEquals"),
 					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexAsset, "HighRange");
+					instVertexOPERGR, t2, instVertexAsset, "HighRange");
 
 			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
 					"And"), t1, t3);
