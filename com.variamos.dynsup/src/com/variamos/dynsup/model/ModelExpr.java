@@ -208,10 +208,15 @@ public class ModelExpr implements Serializable {
 	}
 
 	public Expression createSGSExpression() {
+		// System.out.println("PNT Struc: " + this.getSemanticExpressionId() +
+		// " "
+		// + this.expressionStructure());
 		return createExpression(0);
 	}
 
 	public Expression createExpression(int pos) {
+		// System.out.println(expressionTerms.get(0) + " "
+		// + expressionTerms.get(1) + factoryMethod.getName());
 		List<Expression> expressionTerms = expressionTerms(pos);
 		Class<? extends HlclFactory> hlclFactoryClass = hlclFactory.getClass();
 		OpersExprType semanticExpressionType = getSemanticExpression()
@@ -1475,6 +1480,7 @@ public class ModelExpr implements Serializable {
 				out += rightValue;
 				break;
 			case LEFTVARIABLE:
+				out += this.getLeftInstElementId();
 				out += getLeftAttributeName();
 				break;
 			case RIGHTVARIABLE:

@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20161025-1630";
+	private String variamosBuild = "20161031-1600";
 	private String downloadId = "499";
 	private static boolean solverError = false;
 	private static String filesUrl = "";

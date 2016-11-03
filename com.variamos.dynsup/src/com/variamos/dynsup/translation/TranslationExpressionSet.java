@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.instance.InstAttribute;
@@ -46,7 +45,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	/**
 	 * Identifier of the operation
 	 */
-	private String operation;
+	private InstElement operation;
 	/*
 	 * Normal instance Expressions
 	 */
@@ -81,10 +80,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * @param operation
 	 * @param column
 	 */
-	public TranslationExpressionSet(ModelInstance refas, String operation,
+	public TranslationExpressionSet(ModelInstance refas, InstElement operation,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
-		super(operation, mxResources.get("defect-concepts") + " " + operation,
-				idMap, hlclFactory);
+		super(operation.getIdentifier(), mxResources.get("defect-concepts")
+				+ " " + operation, idMap, hlclFactory);
 		this.refas = refas;
 		instanceExpressions = new HashMap<String, List<ModelExpr>>();
 		instanceLowExpr = new HashMap<String, List<ModelExpr>>();
@@ -118,15 +117,15 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 		List<InstElement> operActions = refas.getOperationalModel()
 				.getVariabilityVertex("OMOperation");
-		InstElement operAction = null;
+		// InstElement operAction = null;
 		InstElement operSubAction = null;
-		for (InstElement oper : operActions) {
-			if (oper.getIdentifier().equals(operation)) {
-				operAction = oper;
-				break;
-			}
-		}
-		for (InstElement rel : operAction.getTargetRelations()) {
+		// for (InstElement oper : operActions) {
+		// if (oper.getIdentifier().equals(operation)) {
+		// operAction = oper;
+		// break;
+		// }
+		// }
+		for (InstElement rel : operation.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction)) {
 				operSubAction = subOper;
@@ -147,12 +146,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			List<InstAttribute> listatt = ((List<InstAttribute>) operSubAction
 					.getInstAttributeValue("exptype"));
 			OpersSubOperationExpType operExpType = null;
+			String subOperExpTypeName = null;
 			for (InstAttribute att : listatt) {
-				Object attval = ((InstConcept) att.getValue())
+				String attObj = (String) ((InstConcept) att.getValue())
 						.getInstAttributeValue("suboperexptype");
-				if (attval.equals(expressionType.toString())) {
+				if (attObj.equals(expressionType.toString())) {
 					operExpType = (OpersSubOperationExpType) ((InstConcept) att
 							.getValue()).getEdOperEle();
+					subOperExpTypeName = attObj;
 				}
 			}
 			if (operExpType != null) {
@@ -220,7 +221,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						// FIXME better validate to create conditional
 						// expressions
 						if (out.size() == 0) {
-							continue;
+							// continue;
 						}
 
 						for (InstAttribute att : instE.getInstAttributes()
@@ -266,11 +267,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
 							int attributeValue = 0;
-							if (((OpersSubOperation) operSubAction
-									.getEdOperEle()).validateAttribute(instE
-									.getTransSupportMetaElement()
-									.getTransInstSemanticElement(), var
-									.getAttributeName(), true) == 1) {
+							if (subOperExpTypeName.equals("NORMAL")
+									&& ((OpersSubOperation) operSubAction
+											.getEdOperEle())
+											.validateAttribute(
+													instE.getTransSupportMetaElement()
+															.getTransInstSemanticElement(),
+													var.getAttributeName(),
+													true) == 1) {
 								String type = var.getType();
 								if (type.equals("Integer")
 										|| type.equals("Boolean")) {
@@ -379,16 +383,16 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 		List<InstElement> operActions = refas.getOperationalModel()
 				.getVariabilityVertex("OMOperation");
-		InstElement operAction = null;
+		// InstElement operAction = null;
 		OpersSubOperation operSubAction = null;
 		InstElement instOperSubAction = null;
-		for (InstElement oper : operActions) {
-			if (oper.getIdentifier().equals(operation)) {
-				operAction = oper;
-				break;
-			}
-		}
-		for (InstElement rel : operAction.getTargetRelations()) {
+		// for (InstElement oper : operActions) {
+		// if (oper.getIdentifier().equals(operation)) {
+		// operAction = oper;
+		// break;
+		// }
+		// }
+		for (InstElement rel : operation.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction)) {
 				instOperSubAction = subOper;
@@ -418,7 +422,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					// operSubAction.getOperLabels()) {
 
 					List<Identifier> ident = new ArrayList<Identifier>();
-					Set<InstElement> e = refas.getElements();
 					for (InstElement instE : refas.getElements()) {
 						if (instE.getTransSupInstElement().getEdSyntaxEle()
 								.getInstSemanticElementId() != null
@@ -653,7 +656,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	// Dynamic call
 	public HlclProgram getHlCLProgramExpressions(String column) {
 		HlclProgram prog = new HlclProgram();
-		String i = "";
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			BooleanExpression newExp = (BooleanExpression) expression
 					.createSGSExpression();

@@ -837,14 +837,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						new JScrollPane(elementConfigPropPanel));
 				// extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 				// new JScrollPane(elementExpressionPanel));
-				extensionTabs.addTab(mxResources.get("elementSimPropTab"),
-						new JScrollPane(elementSimPropPanel));
 
 			}
 
 			if (perspective == 2 || perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 						new JScrollPane(consoleTextArea));
+
+				extensionTabs.addTab(mxResources.get("elementSimPropTab"),
+						new JScrollPane(elementSimPropPanel));
 			}
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));
@@ -1649,24 +1650,23 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	// TODO support all operations dynamically
-	public void executeOperation(String operation) {
-		// TODO support multiple models selected from the menu
+	public void callOperations(List<String> operations) {
+		// FIXME support multiple models selected from the menu not only REFAS
 		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
 		InstConcept element = new InstConcept("REFAS1", refas);
 		element.createInstAttributes(null);
 		this.refasModel.getVariabilityVertex().put("REFAS1", element);
-		System.out.println(operation);
+		System.out.println(operations);
 		boolean first = true;
-		if (operation.startsWith("N:"))
+		if (operations.get(0).startsWith("N:"))
 			first = false;
-		executeSimulation(first, true, operation, true, operation);
+		executeOperationsThead(first, true, true, operations);
 
 	}
 
 	// Dynamic operation's definition
-	public SolverOpersTask executeSimulation(boolean firstSimulExecution,
-			boolean reloadDashboard, String type, boolean update,
-			String operation) {
+	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution,
+			boolean reloadDashboard, boolean update, List<String> operations) {
 
 		if (!firstSimulExecution && semTask != null) {
 			semTask.setFirstSimulExec(false);
@@ -1679,9 +1679,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
-			semTask = new SolverOpersTask(progressMonitor, type, refas2hlcl,
-					configHlclProgram, firstSimulExecution, reloadDashboard,
-					update, operation, lastConfiguration);
+			semTask = new SolverOpersTask(progressMonitor, refasModel,
+					refas2hlcl, configHlclProgram, firstSimulExecution,
+					reloadDashboard, update, operations, lastConfiguration);
 			semTask.addPropertyChangeListener(this);
 			semTask.execute();
 		}

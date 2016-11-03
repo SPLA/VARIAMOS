@@ -19,6 +19,7 @@ import com.variamos.dynsup.staticexprsup.AndBooleanExpression;
 import com.variamos.dynsup.staticexprsup.DoubleImplicationBooleanExpression;
 import com.variamos.dynsup.staticexprsup.EqualsComparisonExpression;
 import com.variamos.dynsup.staticexprsup.GreaterOrEqualsBooleanExpression;
+import com.variamos.dynsup.staticexprsup.ImplicationBooleanExpression;
 import com.variamos.dynsup.staticexprsup.LessOrEqualsBooleanExpression;
 import com.variamos.dynsup.staticexprsup.NotBooleanExpression;
 import com.variamos.dynsup.staticexprsup.NumberNumericExpression;
@@ -334,12 +335,22 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 
 							AbstractExpression transformation5 = new AndBooleanExpression(
 									transformation3, transformation4);
-							AbstractBooleanExpression out0 = new DoubleImplicationBooleanExpression(
-									instOverTwoRelation/*
-														 * .getTargetRelations
-														 * ().get(0)
-														 * .getToRelation()
-														 */, sourceName, true,
+							AbstractBooleanExpression out0 = new ImplicationBooleanExpression(
+									instOverTwoRelation, sourceName, true,
+									transformation5);
+							getElementExpressions().add(out0);
+							if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
+									.getInstAttribute("LowRange")
+									.getAsInteger())
+								coreList.add(out0);
+							allList.add(out0);
+
+							transformation5 = new GreaterOrEqualsBooleanExpression(
+									iterativeExpression1,
+									new NumberNumericExpression(1));
+
+							out0 = new ImplicationBooleanExpression(
+									instOverTwoRelation, sourceName, false,
 									transformation5);
 							getElementExpressions().add(out0);
 							if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
@@ -372,7 +383,9 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					.getCompulsoryExpressionList("FalseOpt");
 			if (falseList != null)
 				falseList.addAll(coreList);
-			this.getCompulsoryExpressions().put("FalseOpt", coreList);
+			this.getCompulsoryExpressions().put("FalseOpt", coreList); // FIXME
+																		// not
+																		// used?
 
 			List<AbstractExpression> falseList2 = this
 					.getCompulsoryExpressionList("FalseOpt2");

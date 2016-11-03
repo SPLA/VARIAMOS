@@ -442,7 +442,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
-						&& !attributeName.equals("True")
+						&& !attributeName.equals("TrueVal")
 						&& !attributeName.equals("False")
 						&& !attributeName.equals("userId")
 						&& !attributeName.equals("Description"))

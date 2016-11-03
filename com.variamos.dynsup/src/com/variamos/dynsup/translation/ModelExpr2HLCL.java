@@ -99,6 +99,7 @@ public class ModelExpr2HLCL {
 		 */
 	}
 
+	// Static implementation
 	public List<BooleanExpression> verityTest(String element) {
 		// HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
@@ -115,6 +116,7 @@ public class ModelExpr2HLCL {
 		 */
 	}
 
+	// Static implementation
 	public HlclProgram relaxedTest(String element) {
 		HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
@@ -158,6 +160,7 @@ public class ModelExpr2HLCL {
 		return hlclProgram;
 	}
 
+	// Static implementation
 	public HlclProgram compulsoryTest(String element) {
 		HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
@@ -250,11 +253,15 @@ public class ModelExpr2HLCL {
 	}
 
 	// Dynamic call with TranslationExpressionSet
-	public HlclProgram getHlclProgram(String element, String operation,
+	public HlclProgram getHlclProgram(InstElement operation,
 			String subOperation, OperationSubActionExecType operExecType,
 			TranslationExpressionSet transExpSet) {
+		if (transExpSet == null)
+			transExpSet = new TranslationExpressionSet(refas, operation, null,
+					null);
 
 		HlclProgram hlclProgram = new HlclProgram();
+		String operationName = operation.getIdentifier();
 
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 
@@ -266,8 +273,8 @@ public class ModelExpr2HLCL {
 		// }
 		// List<Labeling> labelings =
 		// transExpSet.getLabelings(refas, subOperation, operExecType);
-		constraintGroups.put(element, transExpSet);
-		fillHlclProgram(element, subOperation, operExecType, hlclProgram,
+		constraintGroups.put(operationName, transExpSet);
+		fillHlclProgram(operationName, subOperation, operExecType, hlclProgram,
 				constraintGroups);
 		return hlclProgram;
 	}
@@ -439,18 +446,18 @@ public class ModelExpr2HLCL {
 	}
 
 	// dynamic call implementation
-	public int execute(ProgressMonitor progressMonitor, String element,
-			int solutions, String operation, InstElement suboper)
+	public int execute(ProgressMonitor progressMonitor, int solutions,
+			InstElement operation, InstElement suboper)
 			throws InterruptedException {
 		lastExecutionTime = 0;
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new Configuration();
-			// FIXME: execute for all sub-operations
+			// FIXME: execute for all sub-operations exp types?
 
 			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
 					refas, operation, null, null);
-			HlclProgram exp = getHlclProgram(element, operation,
+			HlclProgram exp = getHlclProgram(operation,
 					suboper.getIdentifier(), OperationSubActionExecType.NORMAL,
 					transExpSet);
 			if (exp.size() > 1) {
@@ -461,14 +468,6 @@ public class ModelExpr2HLCL {
 					throw (new InterruptedException());
 				try {
 					ConfigurationOptions configurationOptions = new ConfigurationOptions();
-					switch (operation) {
-					case "Simulation":/*
-									 * Refas2Hlcl.SIMUL_EXEC: case
-									 * Refas2Hlcl.SIMUL_EXPORT: case
-									 * Refas2Hlcl.SIMUL_MAPE:
-									 */
-
-					}
 					// FIXME support types other than normal
 					configurationOptions.setLabelings(transExpSet.getLabelings(
 							refas, suboper.getIdentifier(), null));
@@ -587,6 +586,10 @@ public class ModelExpr2HLCL {
 
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (this.validateConceptType(instVertex, "GeneralConcept")) {
+				if (instVertex.getInstAttribute("TrueVal").getAsBoolean()
+						|| instVertex.getInstAttribute("FalseVal")
+								.getAsBoolean())
+					continue;
 				/*
 				 * if (instVertex.getInstAttribute("Core").getAsBoolean() ||
 				 * instVertex.getInstAttribute("Dead").getAsBoolean()) continue;
@@ -648,6 +651,8 @@ public class ModelExpr2HLCL {
 				instVertex.getInstAttribute("Dead").setValue(false);
 			if (instVertex.getInstAttribute("Core") != null)
 				instVertex.getInstAttribute("Core").setValue(false);
+			if (instVertex.getInstAttribute("Sel") != null)
+				instVertex.getInstAttribute("Sel").setValue(false);
 		}
 	}
 
@@ -800,6 +805,97 @@ public class ModelExpr2HLCL {
 						// .setValue(null);
 					// }
 					// }
+				}
+			}
+		}
+	}
+
+	/**
+	 * Updates the GUI with the configuration
+	 */
+	public void updateGUIElements(List<OpersIOAttribute> selectedAttributes,
+			Map<String, Number> config) {
+		// Call the SWIProlog and obtain the result
+		if (configuration != null) {
+			Map<String, Number> prologOut;
+			if (config == null)
+				prologOut = configuration.getConfiguration();
+			else
+				prologOut = config;
+
+			for (String identifier : prologOut.keySet()) {
+				String[] split = identifier.split("_");
+				String vertexId = split[0];
+				String attribute = split[1];
+				// System.out.println(vertexId + " " + attribute + " "
+				// + prologOut.get(identifier));
+				if (!vertexId.equals("Amodel")) {
+					InstElement vertex = refas.getElement(vertexId);
+					InstAttribute instAttribute = vertex
+							.getInstAttribute(attribute);
+					boolean exists = false;
+					for (OpersIOAttribute attTarget : selectedAttributes) {
+						List<InstElement> opersParents = null;
+						if (vertex.getTransSupportMetaElement() != null
+								&& vertex.getTransSupportMetaElement()
+										.getTransInstSemanticElement() != null) {
+							opersParents = vertex.getTransSupportMetaElement()
+									.getTransInstSemanticElement()
+									.getParentOpersConcept();
+							if (vertex.getTransSupportMetaElement()
+									.getTransInstSemanticElement()
+									.getIdentifier()
+									.equals(attTarget.getConceptId())
+									&& attribute.equals(attTarget
+											.getAttributeId()))
+								exists = true;
+							if (opersParents != null)
+								for (InstElement parent : opersParents)
+									if (parent.getIdentifier().equals(
+											attTarget.getConceptId())
+											&& attribute.equals(attTarget
+													.getAttributeId()))
+										exists = true;
+						}
+						if (!exists)
+							continue;
+
+						InstAttribute instTarget = vertex
+								.getInstAttribute(attTarget.getAttributeId());
+						if (instTarget != null
+								&& instTarget.getType().equals("Boolean")) {
+							int val = (int) Float.parseFloat(prologOut
+									.get(identifier) + "");
+							if (val == 1)
+								instTarget.setValue(true);
+							else if (val == 0)
+								instTarget.setValue(false);
+							else
+								instTarget.setValue(prologOut.get(identifier));
+						}
+						if (instTarget != null
+								&& instTarget.getType().equals("Float")) {
+							float val = Float.parseFloat(prologOut
+									.get(identifier) + "");
+							instTarget.setValue(val);
+						} else if (instTarget != null
+								&& instTarget.getType().equals("Integer")) {
+							int val = (int) Float.parseFloat(prologOut
+									.get(identifier) + "");
+							instTarget.setValue(val);
+						}
+						if (attTarget.getAttributeId().equals("value"))
+							// for (String attTarget : selectedAttributes) {
+							// if (attTarget.equals("varConfValue")) {
+							if (prologOut.get(identifier) != null) {
+								int val = (int) Float.parseFloat(prologOut
+										.get(identifier) + "");
+								vertex.getInstAttribute("varConfDom").setValue(
+										val + "");
+								vertex.getInstAttribute("value").setValue(
+										val + "");
+							}
+					}
 				}
 			}
 		}

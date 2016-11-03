@@ -2,6 +2,8 @@ package com.variamos.gui.perspeditor.actions;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JMenuItem;
 
@@ -19,6 +21,7 @@ public class OperationAction extends AbstractEditorAction {
 	/**
 		 * 
 		 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Component editor = getComponentEditor(e);
 		VariamosGraphEditor vg = null;
@@ -28,12 +31,23 @@ public class OperationAction extends AbstractEditorAction {
 			int i = ((MainFrame) editor).getPerspective();
 			vg = ((MainFrame) editor).getEditor(i);
 		}
-		String operation = (String) ((JMenuItem) e.getSource()).getName();
+		String operation = ((JMenuItem) e.getSource()).getName();
+		List<String> operations = new ArrayList<String>();
+
+		// FIXME review why this is needed for verification operations
+		vg.updateObjects();
+
+		if (operation.startsWith("exec-all-ver-")) {
+			// FIXME get all operations to execute
+			// for ()
+			// operations.add (oper);
+		} else
+			operations.add(operation);
 
 		// FIXME only for simulation
 		((VariamosGraphComponent) vg.getGraphComponent())
 				.setSimulationStarted(true);
-		vg.executeOperation(operation);
+		vg.callOperations(operations);
 
 		if (operation.startsWith("N:")) {
 			vg.editPropertiesRefas();

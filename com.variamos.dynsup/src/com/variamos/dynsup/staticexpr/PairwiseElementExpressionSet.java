@@ -155,6 +155,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				AbstractBooleanExpression out10 = new GreaterOrEqualsBooleanExpression(
 						transformation7, new NumberNumericExpression(1));
 				getElementExpressions().add(out10);
+				// structureList.add(out10);
 				allList.add(out10);
 
 				/*
@@ -258,6 +259,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 						instPairwiseRelation.getSourceRelations().get(0),
 						"Sel", true, transformation161);
 				getElementExpressions().add(out8);
+				structureList.add(out8);
 				allList.add(out8);
 
 				break;
@@ -479,7 +481,10 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				// relId_level #= <<level>>
 				EqualsComparisonExpression out24 = new EqualsComparisonExpression(
 						instPairwiseRelation, "level", getHlclFactory().number(
-								instPairwiseRelation.getInstAttribute("level")
+								instPairwiseRelation.getInstAttribute("level") // FIXME
+																				// not
+																				// level
+																				// but?
 										.getAsInteger()));
 				getElementExpressions().add(out24);
 				allList.add(out24);
@@ -551,7 +556,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				.getCompulsoryExpressionList("FalseOpt");
 		if (falseList != null)
 			falseList.addAll(allList);
-		this.getCompulsoryExpressions().put("FalseOpt", allList);
+		this.getCompulsoryExpressions().put("FalseOpt", allList); // FIXME not
+																	// used
 
 		List<AbstractExpression> falseList2 = this
 				.getCompulsoryExpressionList("FalseOpt2");
