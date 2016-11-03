@@ -837,14 +837,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						new JScrollPane(elementConfigPropPanel));
 				// extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 				// new JScrollPane(elementExpressionPanel));
-				extensionTabs.addTab(mxResources.get("elementSimPropTab"),
-						new JScrollPane(elementSimPropPanel));
 
 			}
 
 			if (perspective == 2 || perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 						new JScrollPane(consoleTextArea));
+
+				extensionTabs.addTab(mxResources.get("elementSimPropTab"),
+						new JScrollPane(elementSimPropPanel));
 			}
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));

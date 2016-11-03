@@ -432,7 +432,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											} else {
 												out22a = new EqualsComparisonExpression(
 														instVertex,
-														"ClaimExpLevel",
+														"SDReqLevel",
 														true,
 														getHlclFactory()
 																.number(confLevel));

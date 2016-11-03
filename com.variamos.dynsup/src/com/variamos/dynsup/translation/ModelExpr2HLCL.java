@@ -586,6 +586,10 @@ public class ModelExpr2HLCL {
 
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (this.validateConceptType(instVertex, "GeneralConcept")) {
+				if (instVertex.getInstAttribute("TrueVal").getAsBoolean()
+						|| instVertex.getInstAttribute("FalseVal")
+								.getAsBoolean())
+					continue;
 				/*
 				 * if (instVertex.getInstAttribute("Core").getAsBoolean() ||
 				 * instVertex.getInstAttribute("Dead").getAsBoolean()) continue;

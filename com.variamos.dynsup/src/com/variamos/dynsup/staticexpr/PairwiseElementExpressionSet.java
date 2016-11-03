@@ -500,11 +500,11 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				if (satisficingTypeSD.contains("high")) {
 					out25 = new GreaterOrEqualsBooleanExpression(
 							instPairwiseRelation.getTargetRelations().get(0),
-							instPairwiseRelation, "SDReqLevel", "ClaimExpLevel");
+							instPairwiseRelation, "SDReqLevel", "level");
 				} else if (satisficingTypeSD.contains("low")) {
 					out25 = new LessOrEqualsBooleanExpression(
 							instPairwiseRelation.getTargetRelations().get(0),
-							instPairwiseRelation, "SDReqLevel", "ClaimExpLevel");
+							instPairwiseRelation, "SDReqLevel", "level");
 				} else// (satisficingTypeSD.contains("close"))
 				{
 					out25 = new EqualsComparisonExpression(instPairwiseRelation

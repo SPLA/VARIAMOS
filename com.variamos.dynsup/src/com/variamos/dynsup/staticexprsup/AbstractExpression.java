@@ -198,8 +198,8 @@ public abstract class AbstractExpression {
 			updateDomain(attribute, leftVertex, identifier);
 		}
 		if (rightVertex != null) {
-			// System.out
-			// .println(rightVertex.getIdentifier() + rightAttributeName);
+			// System.out.println("GET ID" + rightVertex.getIdentifier()
+			// + rightAttributeName);
 			Identifier identifier = f.newIdentifier(rightVertex
 					.getInstAttributeFullIdentifier(rightAttributeName),
 					rightAttributeName);
