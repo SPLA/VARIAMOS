@@ -1678,7 +1678,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					"Executing Simulation", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
-			progressMonitor.setProgress(0);
+			progressMonitor.setProgress(1);
 			semTask = new SolverOpersTask(progressMonitor, refasModel,
 					refas2hlcl, configHlclProgram, firstSimulExecution,
 					reloadDashboard, update, operations, lastConfiguration);

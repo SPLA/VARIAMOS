@@ -4066,13 +4066,6 @@ public class DefaultOpersMM {
 					semClaim.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semClaim
 					.getIdentifier(), attribute.getName(), true));
-			// simulOperationSubAction.addInVariable(attribute);
-
-			// semClaim.addPanelVisibleAttribute("03#" +
-			// "ConditionalExpression");
-
-			// semClaim.addPanelVisibleAttribute("03#" +
-			// "ConditionalExpression");
 
 			attribute = new ElemAttribute("CompExp", "Boolean",
 					AttributeType.GLOBALCONFIG, false,
@@ -4091,41 +4084,6 @@ public class DefaultOpersMM {
 			semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
 			semClaim.addPropEditableAttribute("05#" + "ConfidenceLevel");
 			semClaim.addPropVisibleAttribute("05#" + "ConfidenceLevel");
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// simulOperationSubAction.addInVariable(attribute);
-
-			/*
-			 * attribute = new ElemAttribute("ClaimSelected", "Boolean",
-			 * AttributeType.GLOBALCONFIG, false, "Claim Selected", "", false,
-			 * 0, -1, "", "", -1, "", "");
-			 * semClaim.putSemanticAttribute("ClaimSelected", attribute); //
-			 * simulationExecOperUniqueLabeling.addAttribute(attribute);
-			 */
-			/*
-			 * attribute = new ElemAttribute( "ClaimExpression", "String",
-			 * AttributeType.OPERATION, false, "Claim Expression Text",
-			 * "Textual representation of the conditional expression (only to display)"
-			 * , "", 0, 4, "", "", 10, "#ClaimExpression#", "");
-			 * semClaim.putSemanticAttribute("ClaimExpression", attribute);
-			 * 
-			 * semClaim.addPropEditableAttribute("04#" + "ClaimExpression");
-			 * semClaim.addPropVisibleAttribute("04#" + "ClaimExpression");
-			 */
-			// semClaim.addPanelVisibleAttribute("10#" + "ClaimExpression");
-
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// simulOperationSubAction.addInVariable(attribute);
-
-			// semClaim.addPanelVisibleAttribute("01#" + "Operationalizations");
-
-			// semClaim.addPropEditableAttribute("01#" + "Operationalizations");
-
-			// semClaim.addPropVisibleAttribute("01#" + "Operationalizations");
-
-			// semClaim.addPropVisibleAttribute("02#" + "ClaimSelected");
-
-			// semClaim.addPanelSpacersAttribute("#" + "Operationalizations" +
-			// "#\n#");
 
 			OpersConcept semSoftDependency = new OpersConcept("SoftDependency");
 
@@ -4180,23 +4138,6 @@ public class DefaultOpersMM {
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
 					semSoftDependency.getIdentifier(), attribute.getName(),
 					true));
-			// simulOperationSubAction.addInVariable(attribute);
-			// semSoftDependency.addPanelVisibleAttribute("03#"
-			// + "ConditionalExpression");
-
-			/*
-			 * attribute = new ElemAttribute( "SDExpression", "String",
-			 * AttributeType.OPERATION, false, "SD Expression Text",
-			 * "Textual representation of the conditional expression (only to display)"
-			 * , "", 2, 4, "", "", 10, "#SDExpression#all#", "");
-			 * semSoftDependency.putSemanticAttribute("SDExpression",
-			 * attribute); semSoftDependency.addPropEditableAttribute("04#" +
-			 * "SDExpression"); semSoftDependency.addPropVisibleAttribute("04#"
-			 * + "SDExpression");
-			 */
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// semSoftDependency.addPanelVisibleAttribute("10#" +
-			// "SDExpression");
 
 			attribute = new ElemAttribute("CompExp", "Boolean",
 					AttributeType.GLOBALCONFIG, false,

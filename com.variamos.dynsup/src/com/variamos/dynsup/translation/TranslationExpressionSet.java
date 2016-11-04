@@ -218,10 +218,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							out.addAll(createElementInstanceExpressions(instE,
 									semExp, false));
 
-						// FIXME better validate to create conditional
+						// FIXME validate better the creation of conditional
 						// expressions
 						if (out.size() == 0) {
-							// continue;
+							continue;
 						}
 
 						for (InstAttribute att : instE.getInstAttributes()
