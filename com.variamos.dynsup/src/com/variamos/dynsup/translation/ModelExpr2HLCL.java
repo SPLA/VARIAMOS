@@ -12,6 +12,8 @@ import java.util.TreeMap;
 
 import javax.swing.ProgressMonitor;
 
+import org.jpl7.PrologException;
+
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -492,7 +494,15 @@ public class ModelExpr2HLCL {
 
 		if (solutions == 0 || solutions == 1) {
 			if (configuration != null) {
-				configuration = swiSolver.getSolution();
+				try {
+					configuration = swiSolver.getSolution();
+				} catch (PrologException e) {
+
+					ConsoleTextArea
+							.addText("Prolog Exception" + e.getMessage());
+					ConsoleTextArea.addText(e.getStackTrace());
+					return -1;
+				}
 				lastExecutionTime += swiSolver.getLastExecutionTime();
 				if (configuration == null)
 					return -1;

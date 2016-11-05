@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="/com.variamos.gui/lib/jgraphx.jar"/>
 	<classpathentry kind="src" path="/com.variamos.io"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/com.variamos.reasoning/lib/SWIProlog/jpl723.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

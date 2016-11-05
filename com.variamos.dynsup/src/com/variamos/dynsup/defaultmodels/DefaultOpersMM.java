@@ -25,7 +25,6 @@ import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.dynsup.types.OperationActionType;
 import com.variamos.dynsup.types.OperationSubActionDefectsVerifierMethodType;
-import com.variamos.dynsup.types.OperationSubActionType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.dynsup.types.VariableType;
 import com.variamos.hlcl.LabelingOrder;
@@ -75,7 +74,29 @@ public class DefaultOpersMM {
 
 	static OpersConcept updateCoreOperationAction = null;
 
+	static OpersConcept sasverSDallOperationAction = null;
+	static OpersConcept sasverClallOperationAction = null;
+	static OpersConcept sasverSDneverOperationAction = null;
+	static OpersConcept sasverClneverOperationAction = null;
+	static OpersConcept sasverAllOpersOperationAction = null;
+	static OpersConcept sasverNoLoopsOperationAction = null;
+	static OpersConcept sasverSGConflperationAction = null;
+	static OpersConcept sasverConflClSDOperationAction = null;
+	static OpersConcept sasverConflClOperationAction = null;
+	static OpersConcept sasverConflSDOperationAction = null;
+
 	static OpersSubOperationExpType updateCoreOptOperSubActionNormal = null;
+
+	static OpersSubOperationExpType sasverSDallOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverClallOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverSDneverOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverClneverOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverAllOpersOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverNoLoopsOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverSGConflOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverConflClSDOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverConflClOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverConflSDOperSubActionNormal = null;
 
 	@SuppressWarnings("unchecked")
 	public static void createOpersMetaModel(ModelInstance refas, boolean empty) {
@@ -122,23 +143,52 @@ public class DefaultOpersMM {
 		InstPairwiseRel metaPairwRelAso = (refas.getSyntaxModel()
 				.getConstraintInstEdge("OMAsoEdge"));
 
-		OpersLabeling simulationExecOperUniqueLabeling = null;
-		simulationExecOperUniqueLabeling = new OpersLabeling("unique");
+		OpersLabeling simulationExecOperUniqueLabeling = new OpersLabeling(
+				"unique");
 
-		OpersLabeling simsceExecOperLabeling1 = null;
-		simsceExecOperLabeling1 = new OpersLabeling("all");
+		OpersLabeling simsceExecOperLabeling1 = new OpersLabeling("all");
 
-		OpersLabeling simsceExecOperLabeling2 = null;
-		simsceExecOperLabeling2 = new OpersLabeling("once"); // TODO define max
-																// for SG
-		OpersLabeling updateCoreOperUniqueLabeling = null;
-		updateCoreOperUniqueLabeling = new OpersLabeling("unique");
+		OpersLabeling simsceExecOperLabeling2 = new OpersLabeling("once"); // TODO
+																			// define
+																			// max
+		// for SG
+		OpersLabeling updateCoreOperUniqueLabeling = new OpersLabeling("unique");
 
-		OpersLabeling verifDeadElemOperUniqueLabeling = null;
-		verifDeadElemOperUniqueLabeling = new OpersLabeling("unique");
+		OpersLabeling verifDeadElemOperUniqueLabeling = new OpersLabeling(
+				"unique");
 
-		OpersLabeling verifFalseOptElemOperUniqueLabeling = null;
-		verifFalseOptElemOperUniqueLabeling = new OpersLabeling("unique");
+		OpersLabeling verifFalseOptElemOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverSDallOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverClallOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverSDneverOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverClneverOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverAllOpersOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverNoLoopsOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverSGConflOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverConflClSDOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverConflClOperUniqueLabeling = new OpersLabeling(
+				"unique");
+
+		OpersLabeling sasverConflSDOperUniqueLabeling = new OpersLabeling(
+				"unique");
 
 		OpersConcept refasModel = new OpersConcept("REFAS");
 
@@ -168,8 +218,19 @@ public class DefaultOpersMM {
 		 */
 		OpersSubOperation simulOperationSubAction = null;
 		OpersSubOperation simSceOperationSubAction = null;
-		OpersSubOperation updateCoreOperationSubAction = null;
 		OpersSubOperation verifRootSubOperationAction = null;
+		OpersSubOperation updateCoreOperationSubAction = null;
+
+		OpersSubOperation sasverSDallOperationSubAction = null;
+		OpersSubOperation sasverClallOperationSubAction = null;
+		OpersSubOperation sasverSDneverOperationSubAction = null;
+		OpersSubOperation sasverClneverOperationSubAction = null;
+		OpersSubOperation sasverAllOpersOperationSubAction = null;
+		OpersSubOperation sasverNoLoopsOperationSubAction = null;
+		OpersSubOperation sasverSGConflOperationSubAction = null;
+		OpersSubOperation sasverConflClSDOperationSubAction = null;
+		OpersSubOperation sasverConflSDOperationSubAction = null;
+		OpersSubOperation sasverConflClOperationSubAction = null;
 
 		InstConcept instRefasModel = null;
 
@@ -227,7 +288,7 @@ public class DefaultOpersMM {
 					operationSubAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Verification.toString());
+					"Single verification");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("Index").setValue(1);
@@ -288,7 +349,7 @@ public class DefaultOpersMM {
 					metaOperationSubAction, operationSubAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Update.toString());
+					"Single update");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("Index").setValue(2);
@@ -385,7 +446,7 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Iterative_Update.toString());
+					"Iterative update");
 			instOperationSubAction.getInstAttribute("iteration").setValue(true);
 			instOperationSubAction.getInstAttribute("Index").setValue(3);
 
@@ -499,7 +560,7 @@ public class DefaultOpersMM {
 					metaOperationSubAction, operationSubAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Verification.toString());
+					"Single verification");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			refas.getVariabilityVertex().put("BasSim-Post-Validation",
@@ -558,7 +619,7 @@ public class DefaultOpersMM {
 					metaOperationSubAction, operationSubAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Update.toString());
+					"Single update");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("Index").setValue(5);
@@ -656,7 +717,7 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Verification.toString());
+					"Single verification");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("Index").setValue(1);
@@ -717,7 +778,7 @@ public class DefaultOpersMM {
 					metaOperationSubAction, operationSubAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Update.toString());
+					"Single update");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("Index").setValue(2);
@@ -786,7 +847,7 @@ public class DefaultOpersMM {
 									+ "\n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Iterative_Update.toString());
+					"Iterative update");
 			instOperationSubAction.getInstAttribute("iteration").setValue(true);
 			instOperationSubAction.getInstAttribute("Index").setValue(3);
 
@@ -871,7 +932,7 @@ public class DefaultOpersMM {
 					metaOperationSubAction, operationSubAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Verification.toString());
+					"Single verification");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("Index").setValue(4);
@@ -931,7 +992,7 @@ public class DefaultOpersMM {
 					metaOperationSubAction, operationSubAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Update.toString());
+					"Single update");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("Index").setValue(5);
@@ -983,6 +1044,988 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
+			// ------------------------------------------------------
+			operationMenu = new OpersConcept("SAS Verification");
+
+			instOperationGroup = new InstConcept("SAS Verification",
+					metaOperationMenu, operationMenu);
+			refas.getVariabilityVertex().put("SAS Verification",
+					instOperationGroup);
+
+			instOperationGroup.getInstAttribute("visible").setValue(true);
+			instOperationGroup.getInstAttribute("menuType").setValue("2");
+			instOperationGroup.getInstAttribute("name").setValue(
+					"SAS Verification");
+			instOperationGroup.getInstAttribute("shortcut").setValue("A");
+
+			sasverSDallOperationAction = new OpersConcept("SDAlwaysActivated");
+
+			instOperationAction = new InstConcept("SDAlwaysActivated",
+					metaOperationAction, sasverSDallOperationAction);
+			refas.getVariabilityVertex().put("SDAlwaysActivated",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"SDs Always Activated");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-sd-all", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-sd-all");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverSDallOperationSubAction = new OpersSubOperation(1,
+					"SDAlwaysActivatedSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept(
+					"SDAlwaysActivatedSubOper", metaOperationSubAction,
+					sasverSDallOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("SDAlwaysActivatedSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sd-all", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-all");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverSDallOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverSDallOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverSDallOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("sd-all-lab", metaLabeling,
+					sasverSDallOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("sd-all-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sd-all-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-all-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverClallOperationAction = new OpersConcept("ClAlwaysActivated");
+
+			instOperationAction = new InstConcept("ClAlwaysActivated",
+					metaOperationAction, sasverClallOperationAction);
+			refas.getVariabilityVertex().put("ClAlwaysActivated",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Claims Always Activated");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-cl-all", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-cl-all");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverClallOperationSubAction = new OpersSubOperation(1,
+					"ClAlwaysActivatedSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept(
+					"ClAlwaysActivatedSubOper", metaOperationSubAction,
+					sasverClallOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("ClAlwaysActivatedSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("cl-all", instEdgeOper);
+			instEdgeOper.setIdentifier("cl-all");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverClallOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverClallOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverClallOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("cl-all-lab", metaLabeling,
+					sasverClallOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("cl-all-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("cl-all-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("cl-all-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverSDneverOperationAction = new OpersConcept("SDneverActivated");
+
+			instOperationAction = new InstConcept("SDneverActivated",
+					metaOperationAction, sasverSDneverOperationAction);
+			refas.getVariabilityVertex().put("SDneverActivated",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"SDs Never Activated");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-sd-never", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-sd-never");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverSDneverOperationSubAction = new OpersSubOperation(1,
+					"SDneverActivatedSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("SDneverActivatedSubOper",
+					metaOperationSubAction, sasverSDneverOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("SDneverActivatedSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sd-never", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-never");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverSDneverOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverSDneverOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverSDneverOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("cl-all-lab", metaLabeling,
+					sasverSDneverOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("sd-never-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sd-never-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-never-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverClneverOperationAction = new OpersConcept("ClneverActivated");
+
+			instOperationAction = new InstConcept("ClneverActivated",
+					metaOperationAction, sasverClneverOperationAction);
+			refas.getVariabilityVertex().put("ClneverActivated",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Claims Never Activated");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-cl-never", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-cl-never");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverClneverOperationSubAction = new OpersSubOperation(1,
+					"ClneverActivatedSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("ClneverActivatedSubOper",
+					metaOperationSubAction, sasverClneverOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("ClneverActivatedSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("cl-never", instEdgeOper);
+			instEdgeOper.setIdentifier("cl-never");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverClneverOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverClneverOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverClneverOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("cl-all-lab", metaLabeling,
+					sasverClneverOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("cl-never-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("cl-never-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("cl-never-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverAllOpersOperationAction = new OpersConcept(
+					"AllOpersActivated");
+
+			instOperationAction = new InstConcept("AllOpersActivated",
+					metaOperationAction, sasverAllOpersOperationAction);
+			refas.getVariabilityVertex().put("AllOpersActivated",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"All Operationalizations Activated");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges()
+					.put("sasver-all-opers", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-all-opers");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverAllOpersOperationSubAction = new OpersSubOperation(1,
+					"AllOpersActivatedSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept(
+					"AllOpersActivatedSubOper", metaOperationSubAction,
+					sasverAllOpersOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("AllOpersActivatedSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("all-opers", instEdgeOper);
+			instEdgeOper.setIdentifier("all-opers");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverAllOpersOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverAllOpersOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverAllOpersOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("cl-all-lab", metaLabeling,
+					sasverAllOpersOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("all-opers-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("all-opers-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("all-opers-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverNoLoopsOperationAction = new OpersConcept(
+					"NoLoopsStructuralRelations");
+
+			instOperationAction = new InstConcept("NoLoopsStructuralRelations",
+					metaOperationAction, sasverNoLoopsOperationAction);
+			refas.getVariabilityVertex().put("NoLoopsStructuralRelations",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"No Loops in Struct. Rel.");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-no-loops", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-no-loops");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverNoLoopsOperationSubAction = new OpersSubOperation(1,
+					"NoLoopsStructuralRelationsSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept(
+					"NoLoopsStructuralRelationsSubOper",
+					metaOperationSubAction, sasverNoLoopsOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex()
+					.put("NoLoopsStructuralRelationsSubOper",
+							instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("no-loops", instEdgeOper);
+			instEdgeOper.setIdentifier("no-loops");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverNoLoopsOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverNoLoopsOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverNoLoopsOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("no-loops-lab", metaLabeling,
+					sasverNoLoopsOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("no-loops-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("no-loops-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("no-loops-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverSGConflperationAction = new OpersConcept("SGConflicts");
+
+			instOperationAction = new InstConcept("SGConflicts",
+					metaOperationAction, sasverSGConflperationAction);
+			refas.getVariabilityVertex()
+					.put("SGConflicts", instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Softgoals Contribution Conflicts");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-sg-confl", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-sg-confl");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverSGConflOperationSubAction = new OpersSubOperation(1,
+					"SGConflictsSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("SGConflictsSubOper",
+					metaOperationSubAction, sasverSGConflOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("SGConflictsSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sg-confl", instEdgeOper);
+			instEdgeOper.setIdentifier("sg-confl");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverSGConflOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverSGConflOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverSGConflOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("confl-cl-sd-lab", metaLabeling,
+					sasverSGConflOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("confl-cl-sd-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("confl-cl-sd-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("confl-cl-sd-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverConflClOperationAction = new OpersConcept("ConflictCl");
+
+			instOperationAction = new InstConcept("ConflictCl",
+					metaOperationAction, sasverConflClSDOperationAction);
+			refas.getVariabilityVertex().put("ConflictCl", instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Conflicts with Claims");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-confl-cl", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-confl-cl");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverConflClOperationSubAction = new OpersSubOperation(1,
+					"ConflictClSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("ConflictClSubOper",
+					metaOperationSubAction, sasverConflClOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("ConflictClSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("confl-cld", instEdgeOper);
+			instEdgeOper.setIdentifier("confl-cl");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverConflClOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverConflClOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverConflClOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("confl-cl-lab", metaLabeling,
+					sasverConflClOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("confl-cl-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("confl-cl-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("confl-cl-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverConflClSDOperationAction = new OpersConcept("ConflictClSD");
+
+			instOperationAction = new InstConcept("ConflictClSD",
+					metaOperationAction, sasverConflClSDOperationAction);
+			refas.getVariabilityVertex().put("ConflictClSD",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Conflicts with Claims & SDs");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-confl-clsd",
+					instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-confl-clsd");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverConflClSDOperationSubAction = new OpersSubOperation(1,
+					"ConflictClSDSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("ConflictClSDSubOper",
+					metaOperationSubAction, sasverConflClSDOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("ConflictClSDSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("confl-cl-sd", instEdgeOper);
+			instEdgeOper.setIdentifier("confl-cl-sd");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverConflClSDOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverConflClSDOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverConflClSDOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("sg-confl-lab", metaLabeling,
+					sasverConflClSDOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("confl-cl-sd-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("confl-cl-sd-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("confl-cl-sd-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverConflSDOperationAction = new OpersConcept("ConflictSD");
+
+			instOperationAction = new InstConcept("ConflictSD",
+					metaOperationAction, sasverConflSDOperationAction);
+			refas.getVariabilityVertex().put("ConflictSD", instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Conflicts with SDs");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-confl-sd", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-confl-sd");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverConflSDOperationSubAction = new OpersSubOperation(1,
+					"ConflictSDSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("ConflictSDSubOper",
+					metaOperationSubAction, sasverConflSDOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("ConflictSDSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("confl-sd", instEdgeOper);
+			instEdgeOper.setIdentifier("confl-sd");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverConflSDOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverConflSDOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverConflSDOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("confl-sd-lab", metaLabeling,
+					sasverConflSDOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("confl-sd-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("confl-sd-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("confl-sd-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ------------------------------------------------------
+
 			operationMenu = new OpersConcept("Verification");
 
 			instOperationGroup = new InstConcept("Verification",
@@ -990,7 +2033,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex()
 					.put("Verification", instOperationGroup);
 
-			instOperationGroup.getInstAttribute("visible").setValue(false);
+			instOperationGroup.getInstAttribute("visible").setValue(true);
 			instOperationGroup.getInstAttribute("menuType").setValue("2");
 			instOperationGroup.getInstAttribute("name")
 					.setValue("Verification");
@@ -1033,7 +2076,7 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Defects_Verifier.toString());
+					"Defects verifier");
 			instOperationSubAction
 					.getInstAttribute("defectsVerifierMethod")
 					.setValue(
@@ -1133,7 +2176,7 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("errorMsg").setValue(
 					" #number# dead elements identified.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Multi_Verification.toString());
+					"Multi verification");
 			instOperationSubAction
 					.getInstAttribute("defectsVerifierMethod")
 					.setValue(
@@ -1229,7 +2272,7 @@ public class DefaultOpersMM {
 					.setValue(
 							"#number# concepts without a parent or with more than one parent identified.\n Please add/remove appropiated relations.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Multi_Verification.toString());
+					"Multi verification");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 
@@ -1356,7 +2399,7 @@ public class DefaultOpersMM {
 					.setValue(
 							"#number# roots identified.\n Please keep only one of them.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Multi_Verification.toString());
+					"Multi verification");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 
@@ -1482,7 +2525,7 @@ public class DefaultOpersMM {
 					.setValue(
 							"Please review required attributes and relations. #number# false optional concept(s) identified.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Multi_Verification.toString());
+					"Multi verification");
 			instOperationSubAction
 					.getInstAttribute("defectsVerifierMethod")
 					.setValue(
@@ -1597,7 +2640,7 @@ public class DefaultOpersMM {
 									+ "\n inconsistent. Please review the selection and "
 									+ "try again. \nAttributes values were not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Update.toString());
+					"Single update");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 
@@ -1688,7 +2731,7 @@ public class DefaultOpersMM {
 									+ "\n inconsistent. Please review the selection and "
 									+ "try again. \nAttributes values were not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					OperationSubActionType.Single_Update.toString());
+					"Single update");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 

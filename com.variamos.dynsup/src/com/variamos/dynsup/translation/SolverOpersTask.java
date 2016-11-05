@@ -356,8 +356,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								.getInstAttributeValue("type"))
 								.equals(OperationSubActionType.Multi_Verification
 										.toString())) {
-							String method = (String) suboper
-									.getInstAttributeValue("defectsVerifierMethod");
 							String errorTitle = (String) suboper
 									.getInstAttributeValue("errorTitle");
 							String errorText = (String) suboper
@@ -368,7 +366,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									.getInstAttributeValue("errorHint");
 							List<OpersIOAttribute> outAttributes = ((OpersSubOperation) suboper
 									.getEdOperEle()).getOutAttributes();
-							cauCos(operationObj, suboper, method, errorHint,
+							cauCos(0, operationObj, suboper, errorHint,
 									errorMsg, outAttributes,
 									operationsNames.size());
 							terminated = true;
@@ -392,7 +390,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							boolean updateFreeIds = (boolean) suboper
 									.getInstAttributeValue("updateFreeIds");
 							String coreOperName = (String) suboper
-									.getInstAttributeValue("coreOper");
+									.getInstAttributeValue("defectsCoreOper");
 							if (coreOperName == null) // FIXME temporal for PL &
 														// REFAS
 														// opers
@@ -496,15 +494,15 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return true;
 	}
 
-	private boolean cauCos(InstElement operation, InstElement subOper,
-			String method, String verifMessage, String verifHint,
+	private boolean cauCos(int type, InstElement operation,
+			InstElement subOper, String verifMessage, String verifHint,
 			List<OpersIOAttribute> outAttributes, int numberOperations)
 			throws InterruptedException {
 
 		executionTime = "";
 
 		List<String> outMessageList = new ArrayList<String>();
-		outMessageList.add(caucosExecution(operation, subOper, method,
+		outMessageList.add(caucosExecution(type, operation, subOper,
 				verifMessage, verifHint, outAttributes, numberOperations));
 
 		if (progressMonitor.isCanceled())
@@ -688,10 +686,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	}
 
 	// TODO Modify for dynamic operations
-	private String caucosExecution(InstElement operation, InstElement subOper,
-			String method, String verifMessage, String verifHint,
+	private String caucosExecution(int type, InstElement operation,
+			InstElement subOper, String verifMessage, String verifHint,
 			List<OpersIOAttribute> outAttributes, int numberOperations)
 			throws InterruptedException {
+		// type: for future variations on the execution
 		String verifElement = operation.getIdentifier();
 		String outMessage = null;
 		long iniTime = System.currentTimeMillis();

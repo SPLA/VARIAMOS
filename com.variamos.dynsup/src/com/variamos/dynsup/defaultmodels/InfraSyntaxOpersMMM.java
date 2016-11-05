@@ -625,8 +625,7 @@ public class InfraSyntaxOpersMMM {
 				new ElemAttribute("type", "Enumeration",
 						AttributeType.OPERATION, true, "Type", "",
 						OperationSubActionType.class.getCanonicalName(),
-						OperationSubActionType.Single_Update, "", 0, 10, "",
-						"", -1, "", ""));
+						"Single update", "", 0, 10, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addPropEditableAttribute("10#" + "type");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
@@ -641,6 +640,20 @@ public class InfraSyntaxOpersMMM {
 				+ "defectsVerifierMethod");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
 				+ "defectsVerifierMethod");
+
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"defectsCoreOper",
+				new ElemAttribute("defectsCoreOper", "Class",
+						AttributeType.OPERATION, false,
+						"DefectsVerif. Core Oper", "", InstConcept.class
+								.getCanonicalName(), "OpersOperation",
+						"defectsCoreOper", "", 0, 11,
+						"type#==#Defects verifier#\"\"", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
+				+ "defectsCoreOper");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
+				+ "defectsCoreOper");
+
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
 						"reuseFreeIds",
