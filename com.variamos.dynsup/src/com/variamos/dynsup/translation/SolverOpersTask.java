@@ -15,6 +15,7 @@ import javax.swing.SwingWorker;
 
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.core.util.StringUtils;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
@@ -325,13 +326,21 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 					try {
 						// Validation operations
+						System.out.println(((String) suboper
+								.getInstAttributeValue("type")));
+						System.out
+								.println((StringUtils
+										.formatEnumValue(OperationSubActionType.Multi_Verification
+												.toString())));
 						if (((String) suboper.getInstAttributeValue("type"))
-								.equals(OperationSubActionType.Single_Update
-										.toString())
+								.equals(StringUtils
+										.formatEnumValue(OperationSubActionType.Single_Update
+												.toString()))
 								|| ((String) suboper
 										.getInstAttributeValue("type"))
-										.equals(OperationSubActionType.Iterative_Update
-												.toString()))
+										.equals(StringUtils
+												.formatEnumValue(OperationSubActionType.Iterative_Update
+														.toString())))
 							if (lastConfiguration == null) {
 								result = refas2hlcl.execute(progressMonitor,
 										ModelExpr2HLCL.ONE_SOLUTION,
@@ -354,8 +363,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						// Verification operations with CauCos
 						else if (((String) suboper
 								.getInstAttributeValue("type"))
-								.equals(OperationSubActionType.Multi_Verification
-										.toString())) {
+								.equals(StringUtils
+										.formatEnumValue(OperationSubActionType.Multi_Verification
+												.toString()))) {
 							String errorTitle = (String) suboper
 									.getInstAttributeValue("errorTitle");
 							String errorText = (String) suboper
@@ -373,8 +383,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						} // Verification operations with DefectsVerifier
 						else if (((String) suboper
 								.getInstAttributeValue("type"))
-								.equals(OperationSubActionType.Defects_Verifier
-										.toString())) {
+								.equals(StringUtils
+										.formatEnumValue(OperationSubActionType.Defects_Verifier
+												.toString()))) {
 							String method = (String) suboper
 									.getInstAttributeValue("defectsVerifierMethod");
 							String errorTitle = (String) suboper
@@ -408,6 +419,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									operationsNames.size(), reuseFreeIds,
 									updateFreeIds, coreOperation);
 							terminated = true;
+						} else {
+							result = -1;
 						}
 						if (result == 1) {
 							outVariables = refas2hlcl.getOutVariables(
