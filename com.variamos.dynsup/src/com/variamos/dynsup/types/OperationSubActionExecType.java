@@ -1,6 +1,6 @@
 package com.variamos.dynsup.types;
 
 public enum OperationSubActionExecType {
-	VERIFICATION, RELAXABLE, NORMAL
+	VERIFICATION, RELAXABLE, NORMAL, TOVERIFY
 
 }

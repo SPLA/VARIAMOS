@@ -937,11 +937,19 @@ public class ModelExpr2HLCL {
 			String defectId, String defectDescription) {
 		// Call the SWIProlog and obtain the result
 
+		String description = null;
+
+		if (defectDescription.contains("#number#"))
+			description = defectDescription.replace("#number#",
+					identifiers.size() + "");
+		else
+			description = defectDescription;
+
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 
 			if (identifiers != null
 					&& identifiers.contains(instVertex.getIdentifier()))
-				instVertex.putDefect(defectId, defectDescription);
+				instVertex.putDefect(defectId, description);
 			else
 				instVertex.removeDefect(defectId);
 		}

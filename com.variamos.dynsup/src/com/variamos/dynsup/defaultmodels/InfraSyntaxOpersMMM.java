@@ -647,12 +647,32 @@ public class InfraSyntaxOpersMMM {
 						AttributeType.OPERATION, false,
 						"DefectsVerif. Core Oper", "", InstConcept.class
 								.getCanonicalName(), "OpersOperation",
-						"defectsCoreOper", "", 0, 11,
+						"UpdateCoreOper", "", 0, 11,
 						"type#==#Defects verifier#\"\"", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "defectsCoreOper");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
 				+ "defectsCoreOper");
+
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("outAttribute",
+				new ElemAttribute("outAttribute", "String",
+						AttributeType.OPERATION, false,
+						"Out Attribute for validation", "", "", "Sel", "", 0,
+						11, "type#==#Defects verifier#\"\"", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
+				+ "outAttribute");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
+				+ "outAttribute");
+
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"updateOutAttributes", new ElemAttribute("updateOutAttributes",
+						"Boolean", AttributeType.OPERATION, false,
+						"Update Out Att. on model", "", "", false, "", 0, 11,
+						"type#==#Defects verifier#\"\"", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
+				+ "updateOutAttributes");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
+				+ "updateOutAttributes");
 
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(

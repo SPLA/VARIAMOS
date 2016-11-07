@@ -811,6 +811,8 @@ public class OpersExpr implements Serializable {
 	public void setLeftSemanticExpression(ExpressionVertexType type,
 			OpersExprType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION
+				|| type == ExpressionVertexType.LEFTITERINCSUBEXP
+				|| type == ExpressionVertexType.LEFTITEROUTSUBEXP
 				|| type == ExpressionVertexType.LEFTITERINCFIXEDSUBEXP
 				|| type == ExpressionVertexType.LEFTITEROUTFIXEDSUBEXP
 				|| type == ExpressionVertexType.LEFTITERCONCEPTVARIABLE

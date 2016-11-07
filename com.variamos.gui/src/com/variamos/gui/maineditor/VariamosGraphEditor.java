@@ -2056,4 +2056,51 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		eoad.center();
 	}
 
+	public void updatePespectiveMenuTab(String buttonText) {
+		MainFrame mainFrame = this.getMainFrame();
+		int perspectiveInd = mainFrame.getPerspective();
+		PerspectiveToolBar perspective = this.installToolBar(mainFrame,
+				perspectiveInd);
+
+		if (perspectiveInd != 1
+				&& buttonText.equals(mxResources.get("semanticPerspButton"))) {
+			// System.out.println("semanticPerspButton");
+			mainFrame.setPerspective(1);
+		}
+		if (perspectiveInd != 2
+				&& buttonText.equals(mxResources.get("modelingPerspButton"))) {
+			mainFrame.setPerspective(2);
+			VariamosGraphEditor ed = mainFrame.getEditor(2);
+			List<InstElement> views = ed.getEditedModel().getSyntaxModel()
+					.getVariabilityVertex("SMView");
+			if (views.size() == 0) {
+				JOptionPane.showMessageDialog(this,
+						mxResources.get("nometamodelerror"),
+						"Not a valid MetaModel",
+						JOptionPane.INFORMATION_MESSAGE, null);
+				mainFrame.setPerspective(3);
+			} else {
+				ed.updateEditor();
+				ed.setVisibleModel(0, -1);
+				ed.defineViewTabs();
+				// System.out.println("modelingPerspButton");
+			}
+		}
+		if (perspectiveInd != 3
+				&& buttonText.equals(mxResources.get("syntaxPerspButton"))) {
+			mainFrame.setPerspective(3);
+			// System.out.println("syntaxPerspButton");
+		}
+
+		if (perspectiveInd != 4
+				&& buttonText.equals(mxResources.get("simulationPerspButton"))) {
+			mainFrame.setPerspective(4);
+			// System.out.println("simulationPerspButton");
+		}
+		perspective.updatePerspective(mainFrame.getPerspective());
+		mainFrame.validate();
+		mainFrame.repaint();
+
+	}
+
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.mxgraph.util.mxResources;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersExprType;
@@ -172,8 +173,10 @@ public class MainFrame extends JFrame {
 		}
 
 		System.out.println("GUI creation complete");
-		this.add(graphEditors.get(1));
-		this.setJMenuBar(editorsMenu.get(1));
+		this.add(graphEditors.get(2));
+		this.setJMenuBar(editorsMenu.get(2));
+		graphEditors.get(2).updatePespectiveMenuTab(
+				mxResources.get("modelingPerspButton"));
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 			this.checkUpdates(false);

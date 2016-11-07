@@ -415,9 +415,13 @@ public class VariamosGraphComponent extends mxGraphComponent {
 			try {
 				InstConcept instConcept = (InstConcept) childValue;
 				String error = "/com/variamos/gui/perspeditor/images/test/design_dead.png";
+				String defects = "";
 				for (String defect : instConcept.getDefects().values()) {
+					defects = defects + " * " + defect;
+				}
+				if (!defects.equals("")) {
 					mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
-							mxGraphComponent.class.getResource(error)), defect);
+							mxGraphComponent.class.getResource(error)), defects);
 					over3.setVerticalAlign(mxConstants.ALIGN_MIDDLE);
 					over3.setAlign(mxConstants.ALIGN_RIGHT);
 					addCellOverlay(childCell, over3);

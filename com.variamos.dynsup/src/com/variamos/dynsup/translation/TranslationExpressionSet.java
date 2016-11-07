@@ -218,52 +218,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							out.addAll(createElementInstanceExpressions(instE,
 									semExp, false));
 
-						// FIXME validate better the creation of conditional
-						// expressions
-						if (out.size() == 0) {
-							continue;
-						}
-
-						for (InstAttribute att : instE.getInstAttributes()
-								.values()) {
-							// create instance expressions for conditional
-							// expressions
-							if (att.getType().equals(
-									ModelExpr.class.getCanonicalName())) {
-								if (att.getValue() != null) {
-									ModelExpr instanceExpression = new ModelExpr(
-											true, "cond", true);
-									instanceExpression
-											.setSemanticExpressionType(refas
-													.getSemanticExpressionTypes()
-													.get("DoubleImplies"));
-									instanceExpression.setLeftElement(instE);
-									instanceExpression.setLeftAttributeName(att
-											.getIdentifier());
-									System.out.println(att.getIdentifier());
-									instanceExpression
-											.setRightInstanceExpression((ModelExpr) att
-													.getValue());
-									instanceExpression
-											.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-									out.add(instanceExpression);
-								} else {
-									ModelExpr instanceExpression = new ModelExpr(
-											true, "cond", true);
-									instanceExpression
-											.setSemanticExpressionType(refas
-													.getSemanticExpressionTypes()
-													.get("Equals"));
-									instanceExpression.setLeftElement(instE);
-									instanceExpression.setLeftAttributeName(att
-											.getIdentifier());
-									instanceExpression
-											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
-									instanceExpression.setRightNumber(1);
-									out.add(instanceExpression);
-								}
-							}
-						}
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
 							int attributeValue = 0;
@@ -313,6 +267,53 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								out.add(instanceExpression);
 							}
 						}
+						// FIXME validate better the creation of conditional
+						// expressions
+						if (out.size() == 0) {
+							continue;
+						}
+
+						for (InstAttribute att : instE.getInstAttributes()
+								.values()) {
+							// create instance expressions for conditional
+							// expressions
+							if (att.getType().equals(
+									ModelExpr.class.getCanonicalName())) {
+								if (att.getValue() != null) {
+									ModelExpr instanceExpression = new ModelExpr(
+											true, "cond", true);
+									instanceExpression
+											.setSemanticExpressionType(refas
+													.getSemanticExpressionTypes()
+													.get("DoubleImplies"));
+									instanceExpression.setLeftElement(instE);
+									instanceExpression.setLeftAttributeName(att
+											.getIdentifier());
+									// System.out.println(att.getIdentifier());
+									instanceExpression
+											.setRightInstanceExpression((ModelExpr) att
+													.getValue());
+									instanceExpression
+											.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+									out.add(instanceExpression);
+								} else {
+									ModelExpr instanceExpression = new ModelExpr(
+											true, "cond", true);
+									instanceExpression
+											.setSemanticExpressionType(refas
+													.getSemanticExpressionTypes()
+													.get("Equals"));
+									instanceExpression.setLeftElement(instE);
+									instanceExpression.setLeftAttributeName(att
+											.getIdentifier());
+									instanceExpression
+											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+									instanceExpression.setRightNumber(1);
+									out.add(instanceExpression);
+								}
+							}
+						}
+
 						// for (AbstractAttribute var : operSubAction
 						// .getInVariables()) {
 						// int attributeValue = 0;
