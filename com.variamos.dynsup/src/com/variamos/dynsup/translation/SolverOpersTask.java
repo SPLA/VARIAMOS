@@ -187,7 +187,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	// TODO Modify for dynamic operations
 	@Deprecated
-	private void configModel() throws InterruptedException {
+	public void configModel() throws InterruptedException {
 		// this.clearNotificationBar();
 		refas2hlcl.cleanGUIElements(ModelExpr2HLCL.CONF_EXEC);
 		Set<Identifier> freeIdentifiers = null;
@@ -845,8 +845,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					task += 100 / numberOperations;
 					setProgress((int) task);
 
-					Set<Identifier> identDeadElements = new HashSet<Identifier>();
-
 					refas2hlcl.updateErrorMark(defectsNames,
 							operation.getIdentifier(), verifHint);
 				} catch (FunctionalException e) {
@@ -901,17 +899,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return result;
 	}
 
-	private List<String> getFreeIdentifiers(Map<String, Number> currentResult) {
-		List<String> out = new ArrayList<String>();
-		for (String id : currentResult.keySet()) {
-			String[] o = id.split("_");
-			if (o[1].equals("Sel") && currentResult.get(id).floatValue() == 0)
-				out.add(id);
-
-		}
-		return out;
-	}
-
 	private List<String> getFreeIdentifiers(Map<String, Number> currentResult,
 			String coreOutAttribute, String operOutAttribute) {
 		List<String> out = new ArrayList<String>();
@@ -922,19 +909,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				String outId = id.replace(coreOutAttribute, operOutAttribute);
 				out.add(outId);
 			}
-
-		}
-		return out;
-	}
-
-	private List<String> getNewIdentifiers(Map<String, Number> currentResult,
-			Map<String, Number> lastResult) {
-		List<String> out = new ArrayList<String>();
-		for (String id : currentResult.keySet()) {
-			String[] o = id.split("_");
-			if (o[1].equals("Sel") && lastResult.get(id).floatValue() == 0
-					&& currentResult.get(id).floatValue() == 1)
-				out.add(o[0]);
 
 		}
 		return out;

@@ -179,12 +179,13 @@ public class DefaultOpersMM {
 	static InstPairwiseRel metaPairwRelOCExt = null;
 	static InstPairwiseRel metaPairwRelAso = null;
 
-	@SuppressWarnings("unchecked")
 	public static void createOpersMetaModel(ModelInstance refas, boolean empty) {
 		createOpersMetaModelOpers(refas, empty);
+		createOpersMetaModelnmElements(refas, empty);
 		createOpersMetaModelElements(refas, empty);
 	}
 
+	@SuppressWarnings("unchecked")
 	private static void createOpersMetaModelOpers(ModelInstance refas,
 			boolean empty) {
 		metaMetaModel = (refas.getSyntaxModel().getVertex("OMModel"));
@@ -222,8 +223,6 @@ public class DefaultOpersMM {
 		metaPairwRelAso = (refas.getSyntaxModel()
 				.getConstraintInstEdge("OMAsoEdge"));
 
-		ElemAttribute attribute = null;
-
 		/*
 		 * attribute = new ElemAttribute("TotalOpt", "Integer",
 		 * AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0, new
@@ -241,9 +240,6 @@ public class DefaultOpersMM {
 		 */
 
 		if (!empty) {
-
-			InstAttribute ia = null;
-			List<InstAttribute> ias = null;
 
 			OpersConcept operationMenu = new OpersConcept("SimulationGroup");
 
@@ -413,7 +409,6 @@ public class DefaultOpersMM {
 			simulationExecOperUniqueLabeling
 					.setSemanticExpressions(semanticExpressions);
 
-			OpersExpr t1;
 			/*
 			 * = new SemanticExpression("sub", refas
 			 * .getSemanticExpressionTypes().get("Sum"),
@@ -429,10 +424,6 @@ public class DefaultOpersMM {
 			 * 
 			 * semanticExpressions.add(t1);
 			 */
-
-			OpersExpr t2;
-
-			OpersExpr t3;
 
 			// simulationOperationAction
 			// .addExpressionSubAction(simulOperationSubAction);
@@ -2846,16 +2837,21 @@ public class DefaultOpersMM {
 		// --------------------------------------------------------------
 	}
 
-	private static void createOpersMetaModelElements(ModelInstance refas,
-			boolean empty) {
+	private static InstConcept instVertexIE = null;
+	private static InstConcept instInfraPair = null;
+	private static InstConcept instVertexGR = null;
+	private static InstConcept instVertexVAR = null;
+	private static InstConcept instVertexCG = null;
 
+	private static void createOpersMetaModelnmElements(ModelInstance refas,
+			boolean empty) {
 		// FIXED concept's definition
 		ElemAttribute attribute = null;
 
 		OpersConcept semInfraMConcept = new OpersConcept("nmMetaConcept");
 
-		InstConcept instVertexIE = new InstConcept("nmMetaConcept",
-				infraMetaMetaConcept, semInfraMConcept);
+		instVertexIE = new InstConcept("nmMetaConcept", infraMetaMetaConcept,
+				semInfraMConcept);
 
 		attribute = new ElemAttribute("TrueVal", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***True***", "", true,
@@ -3248,7 +3244,7 @@ public class DefaultOpersMM {
 		 * AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***", false,
 		 * 2, -1, "", "", -1, "", ""));
 		 */
-		InstConcept instVertexGR = new InstConcept("nmMetaOTRel",
+		instVertexGR = new InstConcept("nmMetaOTRel",
 				infraMetaMetaOverTwoRelation, semInfraOTRel);
 
 		refas.getVariabilityVertex().put("nmMetaOTRel", instVertexGR);
@@ -3442,7 +3438,7 @@ public class DefaultOpersMM {
 		}
 
 		OpersConcept semGeneralPair = new OpersConcept("nmMetaPWRel");
-		InstConcept instInfraPair = new InstConcept("nmMetaPWRel",
+		instInfraPair = new InstConcept("nmMetaPWRel",
 				infraMetaMetaPairwiseRelation, semGeneralPair);
 
 		attribute = new ElemAttribute(InstPairwiseRel.VAR_METAPAIRWISE,
@@ -3479,14 +3475,13 @@ public class DefaultOpersMM {
 
 		semVariable.setSemanticExpressions(semanticExpressions);
 
-		InstConcept instVertexVAR = new InstConcept("nmVariable",
-				infraMetaMetaConcept, semVariable);
+		instVertexVAR = new InstConcept("nmVariable", infraMetaMetaConcept,
+				semVariable);
 
 		OpersExpr t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), instVertexVAR, instVertexVAR, "varConfValue",
 				"value");
 
-		OpersExpr t3 = null;
 		OpersExpr t2 = new OpersExpr("3", refas.getSemanticExpressionTypes()
 				.get("Equals"), instVertexVAR, "isConfDom", true, 1);
 
@@ -3882,9 +3877,18 @@ public class DefaultOpersMM {
 		semContextGroup.addPropEditableAttribute("09#" + "ExtControl");
 		semContextGroup.addPropVisibleAttribute("09#" + "ExtControl");
 
-		InstConcept instVertexCG = new InstConcept("nmConcernLevel",
-				infraMetaMetaConcept, semContextGroup);
+		instVertexCG = new InstConcept("nmConcernLevel", infraMetaMetaConcept,
+				semContextGroup);
 		refas.getVariabilityVertex().put("nmConcernLevel", instVertexCG);
+	}
+
+	@SuppressWarnings("unchecked")
+	private static void createOpersMetaModelElements(ModelInstance refas,
+			boolean empty) {
+
+		ArrayList<OpersExpr> semanticExpressions = new ArrayList<OpersExpr>();
+
+		ElemAttribute attribute = null;
 
 		// Start Concept's definition
 		// -------------------------------------------------------
@@ -4015,7 +4019,7 @@ public class DefaultOpersMM {
 
 			semGeneralElement.setSemanticExpressions(semanticExpressions);
 
-			t1 = new OpersExpr("Req Implies Selected", refas
+			OpersExpr t1 = new OpersExpr("Req Implies Selected", refas
 					.getSemanticExpressionTypes().get("Implies"), instVertexGE,
 					instVertexGE, "Required", "Sel");
 
@@ -4069,8 +4073,9 @@ public class DefaultOpersMM {
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Equals"), instVertexGE, "Core", true, 1);
 
-			t2 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexGE, "FeatureType", "Root");
+			OpersExpr t2 = new OpersExpr("2", refas
+					.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+					"FeatureType", "Root");
 
 			t1 = new OpersExpr("NoLFet & NoGFet Implies hasParent", refas
 					.getSemanticExpressionTypes().get("Implies"), t2, t1);
@@ -4085,8 +4090,9 @@ public class DefaultOpersMM {
 			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
 					"Product"), instVertexGE, "NPrefSel", true, t1);
 
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, instVertexGE, "NPrefSel", "ConfSel");
+			OpersExpr t3 = new OpersExpr("3", refas
+					.getSemanticExpressionTypes().get("Sum"), instVertexGE,
+					instVertexGE, "NPrefSel", "ConfSel");
 
 			t3 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
 					"Product"), instVertexGE, "NReqSel", true, t3);
