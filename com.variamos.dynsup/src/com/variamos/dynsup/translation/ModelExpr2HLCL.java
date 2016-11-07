@@ -447,7 +447,8 @@ public class ModelExpr2HLCL {
 		return out;
 	}
 
-	// dynamic call implementation
+	// dynamic call implementation 0 OK, -1 General Error +1 Specific Error
+	// (general)
 	public int execute(ProgressMonitor progressMonitor, int solutions,
 			InstElement operation, InstElement suboper)
 			throws InterruptedException {
@@ -486,7 +487,7 @@ public class ModelExpr2HLCL {
 					return -1;
 				}
 			} else
-				return 0;
+				return 1;
 		}
 
 		if (progressMonitor != null && progressMonitor.isCanceled())
@@ -511,7 +512,7 @@ public class ModelExpr2HLCL {
 			throw new RuntimeException("Solution parameter not supported");
 		// System.out.println("configuration: " + configuration.toString());
 
-		return 1;
+		return 0;
 	}
 
 	// static call implementation
