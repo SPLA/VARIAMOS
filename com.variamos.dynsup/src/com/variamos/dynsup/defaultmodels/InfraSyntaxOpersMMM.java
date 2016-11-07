@@ -552,6 +552,14 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("08#" + "Index");
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("08#" + "Index");
 
+		infraSyntaxOpersM2OperAction.addModelingAttribute("visible",
+				new ElemAttribute("visible", "Boolean",
+						AttributeType.OPERATION, false, "Visible Operation",
+						"", true, 0, 9, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperAction
+				.addPropEditableAttribute("09#" + "visible");
+		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("09#" + "visible");
+
 		infraSyntaxOpersM2OperAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",
 						AttributeType.OPERATION, false, "Iterate Button", "",

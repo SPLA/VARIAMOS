@@ -73,9 +73,11 @@ public class DefaultOpersMM {
 
 	static OpersConcept updateCoreOperationAction = null;
 
+	static OpersConcept sasverSDCoreOperationAction = null;
 	static OpersConcept sasverSDallOperationAction = null;
-	static OpersConcept sasverClallOperationAction = null;
 	static OpersConcept sasverSDneverOperationAction = null;
+	static OpersConcept sasverClCoreOperationAction = null;
+	static OpersConcept sasverClallOperationAction = null;
 	static OpersConcept sasverClneverOperationAction = null;
 	static OpersConcept sasverAllOpersOperationAction = null;
 	static OpersConcept sasverNoLoopsOperationAction = null;
@@ -86,9 +88,11 @@ public class DefaultOpersMM {
 
 	static OpersSubOperationExpType updateCoreOptOperSubActionNormal = null;
 
+	static OpersSubOperationExpType sasverSDCoreOperSubActionNormal = null;
 	static OpersSubOperationExpType sasverSDallOperSubActionNormal = null;
-	static OpersSubOperationExpType sasverClallOperSubActionNormal = null;
 	static OpersSubOperationExpType sasverSDneverOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverClCoreOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverClallOperSubActionNormal = null;
 	static OpersSubOperationExpType sasverClneverOperSubActionNormal = null;
 	static OpersSubOperationExpType sasverAllOpersOperSubActionNormal = null;
 	static OpersSubOperationExpType sasverNoLoopsOperSubActionNormal = null;
@@ -105,9 +109,11 @@ public class DefaultOpersMM {
 	static OpersSubOperation verifFalseOptSubOperationAction = null;
 	static OpersSubOperation verifDeadElemSubOperationAction = null;
 
+	static OpersSubOperation sasverSDCoreOperationSubAction = null;
 	static OpersSubOperation sasverSDallOperationSubAction = null;
-	static OpersSubOperation sasverClallOperationSubAction = null;
 	static OpersSubOperation sasverSDneverOperationSubAction = null;
+	static OpersSubOperation sasverClCoreOperationSubAction = null;
+	static OpersSubOperation sasverClallOperationSubAction = null;
 	static OpersSubOperation sasverClneverOperationSubAction = null;
 	static OpersSubOperation sasverAllOpersOperationSubAction = null;
 	static OpersSubOperation sasverNoLoopsOperationSubAction = null;
@@ -134,33 +140,28 @@ public class DefaultOpersMM {
 	static OpersLabeling verifFalseOptElemOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
+	static OpersLabeling sasverSDCoreOperUniqueLabeling = new OpersLabeling(
+			"unique");
 	static OpersLabeling sasverSDallOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
-	static OpersLabeling sasverClallOperUniqueLabeling = new OpersLabeling(
-			"unique");
-
 	static OpersLabeling sasverSDneverOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
+	static OpersLabeling sasverClCoreOperUniqueLabeling = new OpersLabeling(
+			"unique");
+	static OpersLabeling sasverClallOperUniqueLabeling = new OpersLabeling(
+			"unique");
 	static OpersLabeling sasverClneverOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
 	static OpersLabeling sasverAllOpersOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
 	static OpersLabeling sasverNoLoopsOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
 	static OpersLabeling sasverSGConflOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
 	static OpersLabeling sasverConflClSDOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
 	static OpersLabeling sasverConflClOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
 	static OpersLabeling sasverConflSDOperUniqueLabeling = new OpersLabeling(
 			"unique");
 	static InstElement metaMetaModel = null;
@@ -2286,6 +2287,7 @@ public class DefaultOpersMM {
 					"Verify Parents Operation");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 
 			instEdgeOper = new InstPairwiseRel();
