@@ -48,7 +48,6 @@ public class DefaultOpersMM {
 	static OpersSubOperationExpType verifRootOperSubActionVerification = null;
 
 	static OpersConcept simulationOperationAction = null;
-
 	static OpersSubOperationExpType simulationExecOptOperSubActionNormal = null;
 	static OpersSubOperationExpType simulationPreValOptOperSubActionNormal = null;
 	static OpersSubOperationExpType simulationPreUpdOptOperSubActionNormal = null;
@@ -56,7 +55,6 @@ public class DefaultOpersMM {
 	static OpersSubOperationExpType simulationPostUpdOptOperSubActionNormal = null;
 
 	static OpersConcept simulScenOperationAction = null;
-
 	static OpersSubOperationExpType simulScenExecOptOperSubActionNormal = null;
 	static OpersSubOperationExpType simulScenPreValOptOperSubActionNormal = null;
 	static OpersSubOperationExpType simulScenPreUpdOptOperSubActionNormal = null;
@@ -72,34 +70,51 @@ public class DefaultOpersMM {
 	static OpersSubOperationExpType configPermanentOptOperSubActionNormal = null;
 
 	static OpersConcept updateCoreOperationAction = null;
-
-	static OpersConcept sasverSDCoreOperationAction = null;
-	static OpersConcept sasverSDallOperationAction = null;
-	static OpersConcept sasverSDneverOperationAction = null;
-	static OpersConcept sasverClCoreOperationAction = null;
-	static OpersConcept sasverClallOperationAction = null;
-	static OpersConcept sasverClneverOperationAction = null;
-	static OpersConcept sasverAllOpersOperationAction = null;
-	static OpersConcept sasverNoLoopsOperationAction = null;
-	static OpersConcept sasverSGConflperationAction = null;
-	static OpersConcept sasverConflClSDOperationAction = null;
-	static OpersConcept sasverConflClOperationAction = null;
-	static OpersConcept sasverConflSDOperationAction = null;
-
 	static OpersSubOperationExpType updateCoreOptOperSubActionNormal = null;
 
-	static OpersSubOperationExpType sasverSDCoreOperSubActionNormal = null;
+	static OpersConcept sasverSDallOperationAction = null;
 	static OpersSubOperationExpType sasverSDallOperSubActionNormal = null;
+
+	static OpersConcept sasverSDCoreOperationAction = null;
+	static OpersSubOperationExpType sasverSDCoreOperSubActionNormal = null;
+
+	static OpersConcept sasverSDneverOperationAction = null;
 	static OpersSubOperationExpType sasverSDneverOperSubActionNormal = null;
+
+	static OpersConcept sasverClCoreOperationAction = null;
 	static OpersSubOperationExpType sasverClCoreOperSubActionNormal = null;
+
+	static OpersConcept sasverClallOperationAction = null;
 	static OpersSubOperationExpType sasverClallOperSubActionNormal = null;
+
+	static OpersConcept sasverClneverOperationAction = null;
 	static OpersSubOperationExpType sasverClneverOperSubActionNormal = null;
+
+	static OpersConcept sasverCoreOpersOperationAction = null;
+	static OpersSubOperationExpType sasverCoreOpersOperSubActionNormal = null;
+
+	static OpersConcept sasverAllOpersOperationAction = null;
 	static OpersSubOperationExpType sasverAllOpersOperSubActionNormal = null;
+
+	static OpersConcept sasverNoLoopsOperationAction = null;
 	static OpersSubOperationExpType sasverNoLoopsOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverNoLoopsOperSubActionRelaxable = null;
+
+	static OpersConcept sasverSGConflperationAction = null;
 	static OpersSubOperationExpType sasverSGConflOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverSGConflOperSubActionRelaxable = null;
+
+	static OpersConcept sasverConflClSDOperationAction = null;
 	static OpersSubOperationExpType sasverConflClSDOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverConflClSDOperSubActionRelaxable = null;
+
+	static OpersConcept sasverConflClOperationAction = null;
 	static OpersSubOperationExpType sasverConflClOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverConflClOperSubActionRelaxable = null;
+
+	static OpersConcept sasverConflSDOperationAction = null;
 	static OpersSubOperationExpType sasverConflSDOperSubActionNormal = null;
+	static OpersSubOperationExpType sasverConflSDOperSubActionRelaxable = null;
 
 	static OpersSubOperation simulSubOperationAction = null;
 	static OpersSubOperation simSceSubOperationAction = null;
@@ -115,6 +130,7 @@ public class DefaultOpersMM {
 	static OpersSubOperation sasverClCoreOperationSubAction = null;
 	static OpersSubOperation sasverClallOperationSubAction = null;
 	static OpersSubOperation sasverClneverOperationSubAction = null;
+	static OpersSubOperation sasverCoreOpersOperationSubAction = null;
 	static OpersSubOperation sasverAllOpersOperationSubAction = null;
 	static OpersSubOperation sasverNoLoopsOperationSubAction = null;
 	static OpersSubOperation sasverSGConflOperationSubAction = null;
@@ -1054,6 +1070,105 @@ public class DefaultOpersMM {
 					"SAS Verification");
 			instOperationGroup.getInstAttribute("shortcut").setValue("A");
 
+			// ---
+			sasverSDCoreOperationAction = new OpersConcept("SDCoreOper");
+
+			instOperationAction = new InstConcept("SDCoreOper",
+					metaOperationAction, sasverSDCoreOperationAction);
+			refas.getVariabilityVertex().put("SDCoreOper", instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Core Operation for SDs");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ver-menu-sd", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-sd");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverSDCoreOperationSubAction = new OpersSubOperation(1,
+					"SDCoreSubOper");
+			// updateCoreOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("SDCoreSubOper",
+					metaOperationSubAction, sasverSDCoreOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Update Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier update");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"Sel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("SDCoreSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sd-core", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-core");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverSDCoreOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverSDCoreOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverSDCoreOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("sd-core-lab", metaLabeling,
+					sasverSDCoreOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("sd-core-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sd-core-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-core-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
 			sasverSDallOperationAction = new OpersConcept("SDAlwaysActivated");
 
 			instOperationAction = new InstConcept("SDAlwaysActivated",
@@ -1100,6 +1215,8 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
 									.toString());
 
+			instOperationSubAction.getInstAttribute("defectsCoreOper")
+					.setValue("SDCoreOper");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"Sel");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -1155,6 +1272,207 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			// ---
+			sasverSDneverOperationAction = new OpersConcept("SDneverActivated");
+
+			instOperationAction = new InstConcept("SDneverActivated",
+					metaOperationAction, sasverSDneverOperationAction);
+			refas.getVariabilityVertex().put("SDneverActivated",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"SDs Never Activated");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sasver-sd-never", instEdgeOper);
+			instEdgeOper.setIdentifier("sasver-sd-never");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverSDneverOperationSubAction = new OpersSubOperation(1,
+					"SDneverActivatedSubOper");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("SDneverActivatedSubOper",
+					metaOperationSubAction, sasverSDneverOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("defectsCoreOper")
+					.setValue("SDCoreOper");
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"Sel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("SDneverActivatedSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sd-never", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-never");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverSDneverOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverSDneverOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverSDneverOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("sd-never-lab", metaLabeling,
+					sasverSDneverOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("sd-never-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sd-never-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-never-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverClCoreOperationAction = new OpersConcept("CLCoreOper");
+
+			instOperationAction = new InstConcept("CLCoreOper",
+					metaOperationAction, sasverClCoreOperationAction);
+			refas.getVariabilityVertex().put("CLCoreOper", instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Core Operation for Claims");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("visible").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ver-menu-cl", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-cl");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverClCoreOperationSubAction = new OpersSubOperation(1,
+					"CLCoreSubOper");
+			// updateCoreOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("CLCoreSubOper",
+					metaOperationSubAction, sasverClCoreOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Update Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier update");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"Sel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("CLCoreSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("cl-core", instEdgeOper);
+			instEdgeOper.setIdentifier("cl-core");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverClCoreOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverClCoreOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverClCoreOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("cl-core-lab", metaLabeling,
+					sasverClCoreOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("cl-core-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("cl-core-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("cl-core-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
 			sasverClallOperationAction = new OpersConcept("ClAlwaysActivated");
 
 			instOperationAction = new InstConcept("ClAlwaysActivated",
@@ -1200,7 +1518,8 @@ public class DefaultOpersMM {
 					.setValue(
 							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
 									.toString());
-
+			instOperationSubAction.getInstAttribute("defectsCoreOper")
+					.setValue("CLCoreOper");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"Sel");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -1256,106 +1575,6 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			// ---
-			sasverSDneverOperationAction = new OpersConcept("SDneverActivated");
-
-			instOperationAction = new InstConcept("SDneverActivated",
-					metaOperationAction, sasverSDneverOperationAction);
-			refas.getVariabilityVertex().put("SDneverActivated",
-					instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
-			instOperationAction.getInstAttribute("name").setValue(
-					"SDs Never Activated");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sasver-sd-never", instEdgeOper);
-			instEdgeOper.setIdentifier("sasver-sd-never");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			sasverSDneverOperationSubAction = new OpersSubOperation(1,
-					"SDneverActivatedSubOper");
-			// updateCoreOperationAction
-			// .addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("SDneverActivatedSubOper",
-					metaOperationSubAction, sasverSDneverOperationSubAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verify Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
-
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"Sel");
-			instOperationSubAction.getInstAttribute("updateOutAttributes")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
-
-			refas.getVariabilityVertex().put("SDneverActivatedSubOper",
-					instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sd-never", instEdgeOper);
-			instEdgeOper.setIdentifier("sd-never");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			sasverSDneverOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, sasverSDneverOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			sasverSDneverOperUniqueLabeling = new OpersLabeling("unique");
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("cl-all-lab", metaLabeling,
-					sasverSDneverOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex().put("sd-never-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sd-never-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("sd-never-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			// ---
 			sasverClneverOperationAction = new OpersConcept("ClneverActivated");
 
 			instOperationAction = new InstConcept("ClneverActivated",
@@ -1400,9 +1619,8 @@ public class DefaultOpersMM {
 					.setValue(
 							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
 									.toString());
-
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"Sel");
+			instOperationSubAction.getInstAttribute("defectsCoreOper")
+					.setValue("CLCoreOper");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -1438,7 +1656,7 @@ public class DefaultOpersMM {
 
 			// operationSubAction.addOperationLabeling(operationLabeling);
 
-			instLabeling = new InstConcept("cl-all-lab", metaLabeling,
+			instLabeling = new InstConcept("cl-never-lab", metaLabeling,
 					sasverClneverOperUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
@@ -1451,6 +1669,105 @@ public class DefaultOpersMM {
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("cl-never-lab", instEdgeOper);
 			instEdgeOper.setIdentifier("cl-never-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ---
+			sasverCoreOpersOperationAction = new OpersConcept("OperCoreOper");
+
+			instOperationAction = new InstConcept("OperCoreOper",
+					metaOperationAction, sasverCoreOpersOperationAction);
+			refas.getVariabilityVertex().put("OperCoreOper",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Core Operation for SDs");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ver-menu-sd", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-sd");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			sasverCoreOpersOperationSubAction = new OpersSubOperation(1,
+					"OperCoreSubOper");
+			// updateCoreOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("OperCoreSubOper",
+					metaOperationSubAction, sasverCoreOpersOperationSubAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Update Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier update");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"Sel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+			refas.getVariabilityVertex().put("OperCoreSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("oper-core", instEdgeOper);
+			instEdgeOper.setIdentifier("oper-core");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverCoreOpersOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverCoreOpersOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverSDCoreOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("oper-core-lab", metaLabeling,
+					sasverSDCoreOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("oper-core-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("oper-core-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("oper-core-lab");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -1504,6 +1821,8 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
 									.toString());
 
+			instOperationSubAction.getInstAttribute("defectsCoreOper")
+					.setValue("OperCoreOper");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"Sel");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -1541,7 +1860,7 @@ public class DefaultOpersMM {
 
 			// operationSubAction.addOperationLabeling(operationLabeling);
 
-			instLabeling = new InstConcept("cl-all-lab", metaLabeling,
+			instLabeling = new InstConcept("all-opers-lab", metaLabeling,
 					sasverAllOpersOperUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
@@ -1624,6 +1943,21 @@ public class DefaultOpersMM {
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverNoLoopsOperSubActionRelaxable = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverNoLoopsOperSubActionRelaxable);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			sasverNoLoopsOperSubActionNormal = new OpersSubOperationExpType();
 
@@ -1740,6 +2074,21 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
+			sasverSGConflOperSubActionRelaxable = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverSGConflOperSubActionRelaxable);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
 			sasverSGConflOperUniqueLabeling = new OpersLabeling("unique");
 
 			// operationSubAction.addOperationLabeling(operationLabeling);
@@ -1839,6 +2188,21 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
+			sasverConflClOperSubActionRelaxable = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverConflClOperSubActionRelaxable);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
 			sasverConflClOperUniqueLabeling = new OpersLabeling("unique");
 
 			// operationSubAction.addOperationLabeling(operationLabeling);
@@ -1924,6 +2288,21 @@ public class DefaultOpersMM {
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverConflClSDOperSubActionRelaxable = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverConflClSDOperSubActionRelaxable);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			sasverConflClSDOperSubActionNormal = new OpersSubOperationExpType();
 
@@ -2031,6 +2410,21 @@ public class DefaultOpersMM {
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverConflSDOperSubActionRelaxable = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverConflSDOperSubActionRelaxable);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -2879,6 +3273,19 @@ public class DefaultOpersMM {
 			updateCoreOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+
 			verifDeadElemSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -3065,6 +3472,18 @@ public class DefaultOpersMM {
 			updateCoreOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -3106,6 +3525,18 @@ public class DefaultOpersMM {
 			updateCoreOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -3144,6 +3575,18 @@ public class DefaultOpersMM {
 					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			verifDeadElemSubOperationAction
@@ -3269,6 +3712,14 @@ public class DefaultOpersMM {
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			verifDeadElemSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -3328,6 +3779,16 @@ public class DefaultOpersMM {
 			updateCoreSubOperationAction.addOutAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			verifDeadElemSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
@@ -4035,6 +4496,8 @@ public class DefaultOpersMM {
 
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("Req Implies Core", refas
@@ -4160,6 +4623,8 @@ public class DefaultOpersMM {
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
@@ -4533,6 +4998,8 @@ public class DefaultOpersMM {
 					.getSemanticExpressionTypes().get("Implies"), t1, t3);
 
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -4580,6 +5047,10 @@ public class DefaultOpersMM {
 					semRFeature.getIdentifier(), attribute.getName(), true));
 			updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semRFeature.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+					semRFeature.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+					semRFeature.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semRFeature
 							.getIdentifier(), attribute.getName(), true));
@@ -4612,6 +5083,10 @@ public class DefaultOpersMM {
 			verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semGFeature.getIdentifier(), attribute.getName(), true));
 			updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semGFeature.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+					semGFeature.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
 					semGFeature.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semGFeature
@@ -4646,6 +5121,12 @@ public class DefaultOpersMM {
 					semLFeature.getIdentifier(), attribute.getName(), true));
 			updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semLFeature.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semLFeature
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semLFeature
+							.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semLFeature
 							.getIdentifier(), attribute.getName(), true));
@@ -4830,6 +5311,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -4853,6 +5336,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -4874,6 +5359,8 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
@@ -4898,6 +5385,8 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -4918,6 +5407,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -4938,6 +5429,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -4958,6 +5451,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -5053,6 +5548,8 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -5088,6 +5585,8 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -5137,6 +5636,8 @@ public class DefaultOpersMM {
 			semanticExpressions.add(t1);
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("OPERCLNotAvailable", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -5149,6 +5650,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -5226,6 +5729,8 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -5373,6 +5878,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("ANDhardConcept", refas
@@ -5397,6 +5904,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -5409,7 +5918,6 @@ public class DefaultOpersMM {
 					instVertexHHGR, instVertexHC, t1, "Core");
 
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
@@ -5428,6 +5936,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -5443,6 +5953,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -5473,6 +5985,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -5491,6 +6005,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -5506,6 +6022,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
@@ -5525,6 +6043,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -5556,6 +6076,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
@@ -5661,6 +6183,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -5683,6 +6207,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("alternative", new ElemAttribute(
 					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -5726,6 +6252,8 @@ public class DefaultOpersMM {
 			semanticExpressions.add(t1);
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -5745,6 +6273,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("CONDNotAvailable", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -5757,6 +6287,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("condition", new ElemAttribute(
 					"condition", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -5848,6 +6380,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("MANSelected1", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -5872,6 +6406,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
@@ -5896,6 +6432,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
@@ -5963,6 +6501,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("MANSelected1", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -5988,6 +6528,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
@@ -6008,6 +6550,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("OPTSelected", refas
@@ -6030,6 +6574,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			attribute = new ElemAttribute("optional", StringType.IDENTIFIER,
@@ -6102,6 +6648,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
@@ -6122,6 +6670,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -6189,6 +6739,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("ANDhardConcept", refas
@@ -6215,6 +6767,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -6245,6 +6799,8 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -6260,9 +6816,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -6296,6 +6851,8 @@ public class DefaultOpersMM {
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 			verifRootOperSubActionNormal.addSemanticExpression(t1);
 			verifParentsOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -6313,6 +6870,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
@@ -6344,6 +6903,8 @@ public class DefaultOpersMM {
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 			verifRootOperSubActionNormal.addSemanticExpression(t1);
 			verifParentsOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
@@ -6365,6 +6926,8 @@ public class DefaultOpersMM {
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 			verifRootOperSubActionNormal.addSemanticExpression(t1);
 			verifParentsOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
@@ -6396,9 +6959,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -6411,7 +6973,6 @@ public class DefaultOpersMM {
 					instVertexFFGR, instVertexF, t1, "Core");
 
 			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
@@ -6457,6 +7018,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("manLSelected1", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -6466,8 +7029,7 @@ public class DefaultOpersMM {
 
 			semanticExpressions.add(t1);
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("manLNotAvailable", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -6480,7 +7042,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -6545,7 +7108,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("DELNotAvailable", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -6558,7 +7122,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("delegation", new ElemAttribute(
 					"delegation", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -6577,7 +7142,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("ASSENotAvailable", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -6590,7 +7156,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -6883,7 +7450,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -6912,7 +7480,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -6940,7 +7509,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("contribution", new ElemAttribute(
 					"contribution", StringType.IDENTIFIER,
@@ -6979,7 +7549,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("CLEx SrcLv", refas.getSemanticExpressionTypes()
 					.get("Equals"),
@@ -7009,7 +7580,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("CLEx SrcLv", refas.getSemanticExpressionTypes()
 					.get("Equals"),
@@ -7038,7 +7610,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -7061,7 +7634,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("alternative", new ElemAttribute(
 					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -7127,7 +7701,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("implication", new ElemAttribute(
 					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -7251,7 +7826,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -7279,7 +7855,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -7306,7 +7883,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("contribution", new ElemAttribute(
 					"contribution", StringType.IDENTIFIER,
@@ -7341,7 +7919,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("SG Gr Sel", refas.getSemanticExpressionTypes()
 					.get("Equals"),
@@ -7367,7 +7946,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("SG Gr Sel", refas.getSemanticExpressionTypes()
 					.get("Equals"),
@@ -7392,7 +7972,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -7458,7 +8039,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -7481,7 +8063,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("implication", new ElemAttribute(
 					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -7635,6 +8218,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
@@ -7654,7 +8239,6 @@ public class DefaultOpersMM {
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -7680,10 +8264,10 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			semanticExpressions.add(t1);
 
@@ -7806,6 +8390,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("ANDhardConcept", refas
@@ -7815,8 +8401,6 @@ public class DefaultOpersMM {
 					instVertexHHGR, "Core", "Core");
 
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -7830,6 +8414,10 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
+			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -7840,10 +8428,6 @@ public class DefaultOpersMM {
 					.get("DoubleImplies"),
 					ExpressionVertexType.LEFTITERINCCONVARIABLE,
 					instVertexCLGR, instVertexOper, t1, "Core");
-
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
@@ -7864,9 +8448,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -7882,9 +8465,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
@@ -7903,9 +8485,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -7925,8 +8506,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -7942,8 +8523,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
@@ -7963,9 +8544,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
@@ -7999,9 +8579,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
@@ -8049,12 +8628,13 @@ public class DefaultOpersMM {
 					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 					instVertexCL, "Sel", true, t1);
 
-			semanticExpressions.add(t1);
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("OPERCLNotAvailable", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -8062,12 +8642,13 @@ public class DefaultOpersMM {
 					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 					instVertexCLGR, instVertexCL, "Exclu", "Exclu");
 
-			semanticExpressions.add(t1);
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("operToClaim", new ElemAttribute(
 					"operToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -8199,7 +8780,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("OPERCLNotAvailable", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -8212,7 +8794,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -8381,7 +8964,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"LessOrEquals"),
@@ -8406,7 +8990,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -8430,7 +9015,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("ClaimToSG", new ElemAttribute(
 					"ClaimToSG", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -8528,7 +9114,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"GreaterOrEq"),
@@ -8553,7 +9140,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -8577,7 +9165,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("SDSelected", refas.getSemanticExpressionTypes()
 					.get("Equals"),
@@ -8588,6 +9177,8 @@ public class DefaultOpersMM {
 			semanticExpressions.add(t1);
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("SD", new ElemAttribute("SD",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "SD",
@@ -8771,6 +9362,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("ANDhardConcept", refas
@@ -8795,6 +9388,10 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
+			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -8805,10 +9402,6 @@ public class DefaultOpersMM {
 					.get("DoubleImplies"),
 					ExpressionVertexType.LEFTITERINCCONVARIABLE,
 					instVertexOPERGR, instVertexOper, t1, "Core");
-
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
@@ -8827,11 +9420,10 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -8847,9 +9439,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
@@ -8868,9 +9459,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -8887,6 +9477,8 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -8902,8 +9494,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
@@ -8923,9 +9515,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
@@ -8959,9 +9550,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
@@ -9006,6 +9596,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("ANDhardConcept", refas
@@ -9013,8 +9605,6 @@ public class DefaultOpersMM {
 					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
 					instVertexOPERGR, "Core", "Core");
-
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
@@ -9032,6 +9622,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -9042,8 +9634,6 @@ public class DefaultOpersMM {
 					.get("DoubleImplies"),
 					ExpressionVertexType.LEFTITERINCCONVARIABLE,
 					instVertexOPERGR, instVertexOper, t1, "Core");
-
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
@@ -9064,9 +9654,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -9082,9 +9671,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
@@ -9103,9 +9691,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -9124,8 +9711,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -9141,8 +9728,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
@@ -9162,9 +9749,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
@@ -9198,9 +9784,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
@@ -9244,7 +9829,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("IMPNotAvailable", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -9257,7 +9843,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -9317,7 +9904,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("IMPNotAvailable", refas
 					.getSemanticExpressionTypes().get("Equals"),
@@ -9330,7 +9918,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
