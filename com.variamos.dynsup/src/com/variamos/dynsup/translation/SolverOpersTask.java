@@ -907,6 +907,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			if (o[1].equals(coreOutAttribute)
 					&& currentResult.get(id).floatValue() == 0) {
 				String outId = id.replace(coreOutAttribute, operOutAttribute);
+				// if (currentResult.values().contains(outId))
 				out.add(outId);
 			}
 

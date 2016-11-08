@@ -637,46 +637,91 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction
 				.addPropEditableAttribute("10#" + "type");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
-				"defectsVerifierMethod",
-				new ElemAttribute("defectsVerifierMethod", "Enumeration",
-						AttributeType.OPERATION, false, "DefectsVerif. Method",
-						"", OperationSubActionDefectsVerifierMethodType.class
-								.getCanonicalName(), "", "", 0, 11,
-						"type#==#Defects verifier#\"\"", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"defectsVerifierMethod",
+						new ElemAttribute(
+								"defectsVerifierMethod",
+								"Enumeration",
+								AttributeType.OPERATION,
+								false,
+								"DefectsVerif. Method",
+								"",
+								OperationSubActionDefectsVerifierMethodType.class
+										.getCanonicalName(),
+								"",
+								"",
+								0,
+								11,
+								"type#==#Defects verifier error$type#$#Defects verifier update#\"\"",
+								"", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "defectsVerifierMethod");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
 				+ "defectsVerifierMethod");
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
-				"defectsCoreOper",
-				new ElemAttribute("defectsCoreOper", "Class",
-						AttributeType.OPERATION, false,
-						"DefectsVerif. Core Oper", "", InstConcept.class
-								.getCanonicalName(), "OpersOperation",
-						"UpdateCoreOper", "", 0, 11,
-						"type#==#Defects verifier#\"\"", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"defectsCoreOper",
+						new ElemAttribute(
+								"defectsCoreOper",
+								"Class",
+								AttributeType.OPERATION,
+								false,
+								"DefectsVerif. Core Oper",
+								"",
+								InstConcept.class.getCanonicalName(),
+								"OpersOperation",
+								"UpdateCoreOper",
+								"",
+								0,
+								11,
+								"type#==#Defects verifier error$type#==#Defects verifier update#\"\"",
+								"", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "defectsCoreOper");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
 				+ "defectsCoreOper");
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("outAttribute",
-				new ElemAttribute("outAttribute", "String",
-						AttributeType.OPERATION, false,
-						"Out Attribute for validation", "", "", "Sel", "", 0,
-						11, "type#==#Defects verifier#\"\"", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"outAttribute",
+						new ElemAttribute(
+								"outAttribute",
+								"String",
+								AttributeType.OPERATION,
+								false,
+								"Out Attribute for validation",
+								"",
+								"",
+								"Sel",
+								"",
+								0,
+								11,
+								"type#==#Defects verifier error&type#==#Defects verifier update#\"\"",
+								"", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "outAttribute");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
 				+ "outAttribute");
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
-				"updateOutAttributes", new ElemAttribute("updateOutAttributes",
-						"Boolean", AttributeType.OPERATION, false,
-						"Update Out Att. on model", "", "", false, "", 0, 11,
-						"type#==#Defects verifier#\"\"", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"updateOutAttributes",
+						new ElemAttribute(
+								"updateOutAttributes",
+								"Boolean",
+								AttributeType.OPERATION,
+								false,
+								"Update Out Att. on model",
+								"",
+								"",
+								false,
+								"",
+								0,
+								11,
+								"type#==#Defects verifier error$type#==#Defects verifier update#\"\"",
+								"", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "updateOutAttributes");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
@@ -695,7 +740,10 @@ public class InfraSyntaxOpersMMM {
 										+ "of consecutive verifications using the"
 										+ " DefectsVerifier (all verification "
 										+ "must share the same set of free identifiers) ",
-								false, 0, 12, "type#==#Defects verifier#false",
+								false,
+								0,
+								12,
+								"type#==#Defects verifier error$type#==#Defects verifier update#false",
 								"", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("12#"
 				+ "reuseFreeIds");
@@ -714,7 +762,10 @@ public class InfraSyntaxOpersMMM {
 										+ "of consecutive verifications using the"
 										+ " DefectsVerifier (all verification "
 										+ "must share the same set of free identifiers) ",
-								false, 0, 13, "type#==#Defects verifier#false",
+								false,
+								0,
+								13,
+								"type#==#Defects verifier error$type#==#Defects verifier update#false",
 								"", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("13#"
 				+ "updateFreeIds");
