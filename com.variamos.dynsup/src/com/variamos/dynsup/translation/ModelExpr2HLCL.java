@@ -844,8 +844,8 @@ public class ModelExpr2HLCL {
 					InstElement vertex = refas.getElement(vertexId);
 					InstAttribute instAttribute = vertex
 							.getInstAttribute(attribute);
-					boolean exists = false;
 					for (OpersIOAttribute attTarget : selectedAttributes) {
+						boolean exists = false;
 						List<InstElement> opersParents = null;
 						if (vertex.getTransSupportMetaElement() != null
 								&& vertex.getTransSupportMetaElement()
@@ -947,6 +947,14 @@ public class ModelExpr2HLCL {
 			description = defectDescription;
 
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
+
+			if (identifiers != null
+					&& identifiers.contains(instVertex.getIdentifier()))
+				instVertex.putDefect(defectId, description);
+			else
+				instVertex.removeDefect(defectId);
+		}
+		for (InstElement instVertex : refas.getConstraintInstEdges().values()) {
 
 			if (identifiers != null
 					&& identifiers.contains(instVertex.getIdentifier()))
