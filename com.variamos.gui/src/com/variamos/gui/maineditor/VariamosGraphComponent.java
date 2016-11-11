@@ -395,7 +395,9 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				&& childValue instanceof InstElement) {
 			try {
 				InstElement instConcept = (InstElement) childValue;
-				String error = "/com/variamos/gui/perspeditor/images/test/design_dead.png";
+				String error = "/com/variamos/gui/perspeditor/images/test/design_dead_arrow.png";
+				if (childValue instanceof InstConcept)
+					error = "/com/variamos/gui/perspeditor/images/test/design_dead.png";
 				String defects = "";
 				for (String defect : instConcept.getDefects().values()) {
 					defects = defects + " * " + defect;

@@ -1947,8 +1947,10 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("errorTitle").setValue(
 					"Model Verify Error");
-			instOperationSubAction.getInstAttribute("errorHint").setValue(
-					"This relation creates an structural loop.");
+			instOperationSubAction
+					.getInstAttribute("errorHint")
+					.setValue(
+							"This concepts has incomming relations that creates an structural loop or double structures.");
 			instOperationSubAction
 					.getInstAttribute("errorMsg")
 					.setValue(
@@ -1960,15 +1962,9 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
-
+					"Multi verification");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"Sel");
+					"outStructVal");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -2084,7 +2080,7 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Multi verification");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"Sel");
+					"outConflSG");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -4101,73 +4097,73 @@ public class DefaultOpersMM {
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDallOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDallOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDneverOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverClCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverClCoreOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverClallOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverClallOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverClneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverClneverOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverCoreOpersOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverNoLoopsOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflClSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflClSDOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflClOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflClOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflSDOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
@@ -6219,6 +6215,17 @@ public class DefaultOpersMM {
 					true));
 
 			OpersConcept semHardConcept = new OpersConcept("semHardConcept");
+
+			attribute = new ElemAttribute("structVal", "Integer",
+					AttributeType.EXECCURRENTSTATE, false,
+					"No loops validation", "", 0, new RangeDomain(0, 40, 0), 0,
+					-1, "false", "", -1, "", "");
+			semHardConcept.putSemanticAttribute("structVal", attribute);
+			sasverNoLoopsOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semHardConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semHardConcept.getIdentifier(), attribute.getName(), true));
 
 			attribute = new ElemAttribute("satType", "Enumeration",
 					AttributeType.OPERATION, false, "satType", "",
@@ -8461,6 +8468,20 @@ public class DefaultOpersMM {
 			directStructHardHardSemanticEdge.addPropVisibleAttribute("04#"
 					+ "AggregationHigh");
 
+			attribute = new ElemAttribute("outStructVal", "Boolean",
+					AttributeType.OPERATION, false,
+					"Selected for SD verifications", "", false, 0, -1, "", "",
+					-1, "level#all#", "");
+			directStructHardHardSemanticEdge.putSemanticAttribute(
+					"outStructVal", attribute);
+			sasverNoLoopsOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(
+							directStructHardHardSemanticEdge.getIdentifier(),
+							attribute.getName(), true));
+			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directStructHardHardSemanticEdge.getIdentifier(), attribute
+							.getName(), true));
+
 			InstConcept instDirStructHardHardSemanticEdge = new InstConcept(
 					"meansHardPW", metaMetaPairwiseRelation,
 					directStructHardHardSemanticEdge);
@@ -8554,6 +8575,17 @@ public class DefaultOpersMM {
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 			// verifRootOperSubActionNormal.addSemanticExpression(t1);
 
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instVertexHC, "structVal", 1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexHC, "structVal", true, t1);
+
+			semanticExpressions.add(t1);
+			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
 					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
@@ -8589,7 +8621,17 @@ public class DefaultOpersMM {
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instVertexHC, "structVal", 1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexHC, "structVal", true, t1);
+
+			semanticExpressions.add(t1);
+			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -8617,6 +8659,21 @@ public class DefaultOpersMM {
 
 			OpersConcept directFeaFeatVertSemEdge = new OpersConcept(
 					"parentFeatPW");
+
+			attribute = new ElemAttribute("outStructVal", "Boolean",
+					AttributeType.OPERATION, false,
+					"Selected for SD verifications", "", false, 0, -1, "", "",
+					-1, "level#all#", "");
+			directFeaFeatVertSemEdge.putSemanticAttribute("outStructVal",
+					attribute);
+			sasverNoLoopsOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(
+							directFeaFeatVertSemEdge.getIdentifier(), attribute
+									.getName(), true));
+			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directFeaFeatVertSemEdge.getIdentifier(), attribute
+							.getName(), true));
+
 			InstConcept instDirFeaFeatVertSemEdge = new InstConcept(
 					"parentFeatPW", metaMetaPairwiseRelation,
 					directFeaFeatVertSemEdge);
@@ -8707,7 +8764,17 @@ public class DefaultOpersMM {
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instVertexF, "structVal", 1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexF, "structVal", true, t1);
+
+			semanticExpressions.add(t1);
+			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -8775,7 +8842,17 @@ public class DefaultOpersMM {
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			// verifRootOperSubActionNormal.addSemanticExpression(t1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instVertexF, "structVal", 1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexF, "structVal", true, t1);
+
+			semanticExpressions.add(t1);
+			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
 
 			attribute = new ElemAttribute("optional", StringType.IDENTIFIER,
 					AttributeType.OPTION, false, "optional", "", "", 1, -1, "",
@@ -9302,6 +9379,21 @@ public class DefaultOpersMM {
 
 			OpersConcept semAssetOperPairwiseRel = new OpersConcept(
 					"AssetOperPW");
+
+			attribute = new ElemAttribute("outStructVal", "Boolean",
+					AttributeType.OPERATION, false,
+					"Selected for SD verifications", "", false, 0, -1, "", "",
+					-1, "level#all#", "");
+			semAssetOperPairwiseRel.putSemanticAttribute("outStructVal",
+					attribute);
+			sasverNoLoopsOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(
+							semAssetOperPairwiseRel.getIdentifier(), attribute
+									.getName(), true));
+			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semAssetOperPairwiseRel.getIdentifier(), attribute
+							.getName(), true));
+
 			InstConcept instSemAssetOperPairwiseRel = new InstConcept(
 					"AssetOperPW", metaMetaPairwiseRelation,
 					semAssetOperPairwiseRel);
@@ -9387,6 +9479,17 @@ public class DefaultOpersMM {
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instVertexF, "structVal", 1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexAsset, "structVal", true, t1);
+
+			semanticExpressions.add(t1);
+			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
 					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
@@ -9412,6 +9515,19 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instSemAssetOperPairwiseRel, true);
 
 			OpersConcept semAssetPairwiseRel = new OpersConcept("AssetPW");
+
+			attribute = new ElemAttribute("outStructVal", "Boolean",
+					AttributeType.OPERATION, false,
+					"Selected for SD verifications", "", false, 0, -1, "", "",
+					-1, "level#all#", "");
+			semAssetPairwiseRel.putSemanticAttribute("outStructVal", attribute);
+			sasverNoLoopsOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semAssetPairwiseRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semAssetPairwiseRel.getIdentifier(), attribute.getName(),
+					true));
+
 			InstConcept instSemAssetPairwiseRel = new InstConcept("AssetPW",
 					metaMetaPairwiseRelation, semAssetPairwiseRel);
 
@@ -9489,9 +9605,20 @@ public class DefaultOpersMM {
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
-			ias.add(new InstAttribute("delegation", new ElemAttribute(
-					"delegation", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "delegation", "", "", 1, -1, "", "", -1, "", ""),
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instVertexAsset, "structVal", 1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexAsset, "structVal", true, t1);
+
+			semanticExpressions.add(t1);
+			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
+			ias.add(new InstAttribute("mandatory", new ElemAttribute(
+					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -9664,6 +9791,19 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instVertexFFGR, true);
 
 			OpersConcept directSGSGSemEdge = new OpersConcept("SgSgPWAsso");
+
+			attribute = new ElemAttribute("outConflSG", "Boolean",
+					AttributeType.OPERATION, false,
+					"Selected for SD verifications", "", false, 0, -1, "", "",
+					-1, "level#all#", "");
+			directSGSGSemEdge.putSemanticAttribute("outConflSG", attribute);
+			sasverSGConflOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(directSGSGSemEdge
+							.getIdentifier(), attribute.getName(), true));
+			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directSGSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
+
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
 					new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
@@ -10135,7 +10275,7 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
@@ -10176,7 +10316,7 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
@@ -10216,7 +10356,7 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
@@ -10494,6 +10634,19 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("SgOT", instVertexSGGR);
 
 			OpersConcept directGRSGSemEdge = new OpersConcept("SgToOT");
+
+			attribute = new ElemAttribute("outConflSG", "Boolean",
+					AttributeType.OPERATION, false,
+					"Selected for SD verifications", "", false, 0, -1, "", "",
+					-1, "level#all#", "");
+			directGRSGSemEdge.putSemanticAttribute("outConflSG", attribute);
+			sasverSGConflOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(directGRSGSemEdge
+							.getIdentifier(), attribute.getName(), true));
+			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directGRSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
+
 			attribute = new ElemAttribute("targetLevel", "Integer",
 					AttributeType.OPERATION, "Target Level", "", 1, false,
 					new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
@@ -10671,7 +10824,7 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
@@ -10711,7 +10864,7 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
@@ -10750,7 +10903,7 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
 			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
@@ -13464,6 +13617,34 @@ public class DefaultOpersMM {
 			OpersConcept groupAssetOperSemanticEdge = new OpersConcept(
 					"AssetOperFromOT");
 
+			attribute = new ElemAttribute("outConflSG", "Boolean",
+					AttributeType.OPERATION, false,
+					"Selected for SD verifications", "", false, 0, -1, "", "",
+					-1, "level#all#", "");
+			groupAssetOperSemanticEdge.putSemanticAttribute("outConflSG",
+					attribute);
+			sasverNoLoopsOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(
+							groupAssetOperSemanticEdge.getIdentifier(),
+							attribute.getName(), true));
+			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					groupAssetOperSemanticEdge.getIdentifier(), attribute
+							.getName(), true));
+
+			attribute = new ElemAttribute("outStructVal", "Boolean",
+					AttributeType.OPERATION, false,
+					"Selected for SD verifications", "", false, 0, -1, "", "",
+					-1, "level#all#", "");
+			groupAssetOperSemanticEdge.putSemanticAttribute("outStructVal",
+					attribute);
+			sasverNoLoopsOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(
+							groupAssetOperSemanticEdge.getIdentifier(),
+							attribute.getName(), true));
+			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					groupAssetOperSemanticEdge.getIdentifier(), attribute
+							.getName(), true));
+
 			InstConcept instAssetOperGRAO = new InstConcept("AssetOperFromOT",
 					metaMetaPairwiseRelation, groupAssetOperSemanticEdge);
 
@@ -13536,6 +13717,17 @@ public class DefaultOpersMM {
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instVertexOPERGR, "structVal", 1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexAsset, "structVal", true, t1);
+
+			semanticExpressions.add(t1);
+			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
 					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
@@ -13560,6 +13752,21 @@ public class DefaultOpersMM {
 
 			OpersConcept directAssetOperSemanticEdge = new OpersConcept(
 					"AssetOperPW");
+
+			attribute = new ElemAttribute("outStructVal", "Boolean",
+					AttributeType.OPERATION, false,
+					"Selected for SD verifications", "", false, 0, -1, "", "",
+					-1, "level#all#", "");
+			directAssetOperSemanticEdge.putSemanticAttribute("outStructVal",
+					attribute);
+			sasverNoLoopsOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(
+							directAssetOperSemanticEdge.getIdentifier(),
+							attribute.getName(), true));
+			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directAssetOperSemanticEdge.getIdentifier(), attribute
+							.getName(), true));
+
 			InstConcept instDirAssetOperSemanticEdge = new InstConcept(
 					"AssetOperPW", metaMetaPairwiseRelation,
 					directAssetOperSemanticEdge);
@@ -13632,6 +13839,17 @@ public class DefaultOpersMM {
 			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instVertexOper, "structVal", 1);
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexOPERGR, "structVal", true, t1);
+
+			semanticExpressions.add(t1);
+			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
 
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
