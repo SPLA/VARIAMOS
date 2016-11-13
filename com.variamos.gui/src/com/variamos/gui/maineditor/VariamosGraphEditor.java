@@ -1965,6 +1965,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			JOptionPane.showMessageDialog(frame, semTask.getErrorMessage(),
 					semTask.getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
 					null);
+			semTask.clearErrorMessage();
 
 		}
 	}

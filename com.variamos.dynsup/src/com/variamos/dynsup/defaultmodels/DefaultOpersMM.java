@@ -151,13 +151,12 @@ public class DefaultOpersMM {
 	// for SG
 	private static OpersLabeling updateCoreOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
 	private static OpersLabeling verifDeadElemOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
 	private static OpersLabeling verifFalseOptElemOperUniqueLabeling = new OpersLabeling(
 			"unique");
-
+	private static OpersLabeling verifParentsElemOperUniqueLabeling = new OpersLabeling(
+			"unique");
 	private static OpersLabeling sasverSDCoreOperUniqueLabeling = new OpersLabeling(
 			"unique");
 	private static OpersLabeling sasverSDallOperUniqueLabeling = new OpersLabeling(
@@ -2719,7 +2718,7 @@ public class DefaultOpersMM {
 					"Verify Parents Operation");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("visible").setValue(false);
+			instOperationAction.getInstAttribute("visible").setValue(true);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 
 			instEdgeOper = new InstPairwiseRel();
@@ -2808,12 +2807,12 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			operationLabeling = new OpersLabeling("unique");
+			verifParentsElemOperUniqueLabeling = new OpersLabeling("unique");
 
 			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("Ver-par-lab", metaLabeling,
-					operationLabeling);
+					verifParentsElemOperUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
 			instLabeling.getInstAttribute("position").setValue(1);
@@ -3984,6 +3983,12 @@ public class DefaultOpersMM {
 			updateCoreOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			verifParentsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifParentsElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4600,6 +4605,12 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifParentsElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+
 			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5739,6 +5750,7 @@ public class DefaultOpersMM {
 					instVertexGE, "Required", "Core");
 
 			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			verifParentsOperSubActionNormal.addSemanticExpression(t1);
 			semanticExpressions.add(t1);
 
 			// t1 = new OpersExpr("Req Implies Verification Error", refas

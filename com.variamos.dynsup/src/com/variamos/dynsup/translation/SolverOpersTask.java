@@ -72,6 +72,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return errorMessage;
 	}
 
+	public void clearErrorMessage() {
+		errorMessage = "";
+		errorTitle = "";
+	}
+
 	private boolean test;
 	private long task = 0;
 	private InstElement element;

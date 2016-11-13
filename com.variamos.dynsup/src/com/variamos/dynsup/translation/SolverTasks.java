@@ -306,6 +306,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 	public boolean verify(List<String> defect) throws InterruptedException {
 
+		errorMessage = "";
 		executionTime = "";
 		boolean errors = false;
 
@@ -636,6 +637,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					out.add(uniqueIdentifiers.size() + verifMessage);
 				refas2hlcl.updateErrorMark(uniqueIdentifiers, element,
 						verifHint);
+
 			}
 
 			if (defect == null || defect.contains("Core"))
