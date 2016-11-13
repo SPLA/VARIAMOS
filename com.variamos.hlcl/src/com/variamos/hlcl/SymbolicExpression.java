@@ -25,6 +25,7 @@ public class SymbolicExpression implements BooleanExpression {
 	 * 
 	 * @return true if the expression has all the components
 	 */
+	@Override
 	public boolean isValidExpression() {
 		if (name == null)
 			return false;
@@ -56,6 +57,23 @@ public class SymbolicExpression implements BooleanExpression {
 	@Override
 	public String toString() {
 		return "SymbolicExpression [name=" + name + ", args=" + args + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (obj instanceof SymbolicExpression) {
+			SymbolicExpression bE = (SymbolicExpression) obj;
+			// FIXME include identifiers??
+			if (name.equals(bE.getName()))
+				return true;
+			else
+				return false;
+		} else
+			return false;
 	}
 
 }

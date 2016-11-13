@@ -28,6 +28,7 @@ public class LiteralBooleanExpression implements BooleanExpression {
 	 * 
 	 * @return true if the expression has all the components
 	 */
+	@Override
 	public boolean isValidExpression() {
 		if (prologConstraint == null)
 			return false;
@@ -77,4 +78,19 @@ public class LiteralBooleanExpression implements BooleanExpression {
 		this.identifierExpressionList = identifierExpressionList;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (obj instanceof LiteralBooleanExpression) {
+			LiteralBooleanExpression bE = (LiteralBooleanExpression) obj;
+			if (prologConstraint.equals(bE.getPrologConstraint()))
+				return true;
+			else
+				return false;
+		} else
+			return false;
+	}
 }

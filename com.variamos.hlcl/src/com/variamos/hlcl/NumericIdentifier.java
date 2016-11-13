@@ -42,6 +42,27 @@ public class NumericIdentifier implements NumericExpression {
 		return "NumericIdentifier [value=" + intValue + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (obj instanceof NumericIdentifier) {
+			NumericIdentifier bE = (NumericIdentifier) obj;
+			if (intValue == bE.getValue() && floatValue == bE.getFloatValue())
+				return true;
+			else
+				return false;
+		} else
+			return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return intValue + (int) (floatValue * 1000);
+	}
+
 	public String toFloatString() {
 		return "NumericIdentifier [value=" + floatValue + "]";
 	}

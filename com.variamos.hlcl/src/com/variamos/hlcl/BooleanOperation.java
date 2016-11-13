@@ -21,6 +21,7 @@ public class BooleanOperation implements BooleanExpression {
 	 * 
 	 * @return true if the expression has all the components
 	 */
+	@Override
 	public boolean isValidExpression() {
 		if (left == null || right == null || operator == null)
 			return false;
@@ -64,6 +65,29 @@ public class BooleanOperation implements BooleanExpression {
 	public String toString() {
 		return "BooleanOperation [left=" + left + ", right=" + right
 				+ ", operator=" + operator + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (obj instanceof BooleanOperation) {
+			BooleanOperation bE = (BooleanOperation) obj;
+			if (left.equals(bE.getLeft()) && right.equals(bE.getRight())
+					&& operator.equals(bE.getOperator()))
+				return true;
+			else
+				return false;
+		} else
+			return false;
+	}
+
+	@Override
+	public int hashCode() {
+		String out = (left + "#" + right + "#" + operator);
+		return out.hashCode();
 	}
 
 }

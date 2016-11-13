@@ -64,4 +64,28 @@ public class AssignExpression implements BooleanExpression {
 				+ rightExpression + ", operator=" + "assign" + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (obj instanceof AssignExpression) {
+			AssignExpression bE = (AssignExpression) obj;
+			if (identifier.equals(bE.getIdentifier())
+					&& rightExpression.equals(bE.getRightExpression())
+					&& type.equals(bE.getType()))
+				return true;
+			else
+				return false;
+		} else
+			return false;
+	}
+
+	@Override
+	public int hashCode() {
+		String out = (identifier + "#" + rightExpression + "#" + type);
+		return out.hashCode();
+	}
+
 }

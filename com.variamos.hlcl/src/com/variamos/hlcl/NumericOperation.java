@@ -22,6 +22,7 @@ public class NumericOperation implements NumericExpression {
 	 * 
 	 * @return true if the expression has all the components
 	 */
+	@Override
 	public boolean isValidExpression() {
 		if (left == null || right == null || operator == null)
 			return false;
@@ -65,6 +66,29 @@ public class NumericOperation implements NumericExpression {
 	public String toString() {
 		return "NumericOperation [left=" + left + ", right=" + right
 				+ ", operator=" + operator + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (obj instanceof NumericOperation) {
+			NumericOperation bE = (NumericOperation) obj;
+			if (left.equals(bE.getLeft()) && right.equals(bE.getRight())
+					&& operator.equals(bE.getOperator()))
+				return true;
+			else
+				return false;
+		} else
+			return false;
+	}
+
+	@Override
+	public int hashCode() {
+		String out = (left + "#" + right + "#" + operator);
+		return out.hashCode();
 	}
 
 }
