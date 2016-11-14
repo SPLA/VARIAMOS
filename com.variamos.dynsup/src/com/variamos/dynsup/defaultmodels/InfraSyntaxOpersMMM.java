@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.variamos.core.util.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -19,6 +20,7 @@ import com.variamos.dynsup.types.OperationSubActionDefectsVerifierMethodType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.OperationSubActionType;
 import com.variamos.hlcl.IntervalDomain;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
 
 public class InfraSyntaxOpersMMM {
 
@@ -572,7 +574,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperAction.addModelingAttribute("iterationName",
 				new ElemAttribute("iterationName", "String",
 						AttributeType.OPERATION, false, "Iterate Name", "",
-						null, 0, 6, "", "", -1, "", ""));
+						null, 0, 9, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("09#"
 				+ "iterationName");
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("09#"
@@ -581,7 +583,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperAction.addModelingAttribute("prevSpacer",
 				new ElemAttribute("prevSpacer", "Boolean",
 						AttributeType.OPERATION, false, "Add Previous Spacer",
-						"", false, 0, 9, "", "", -1, "", ""));
+						"", false, 0, -1, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("10#"
 				+ "prevSpacer");
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("10#"
@@ -607,14 +609,14 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", "", null, 0, 6, "", "", -1, "", ""));
+						false, "Name", "", null, 0, -1, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("Index",
 				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", "", 1, 0, 8, "", "", -1, "", ""));
+						false, "Position", "", 1, 0, -1, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("08#"
 				+ "Index");
 		infraSyntaxOpersM2OperSubAction
@@ -623,11 +625,20 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",
 						AttributeType.OPERATION, false, "Iterate Sub-Oper", "",
-						false, 0, 6, "", "", -1, "", ""));
+						false, 0, 9, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
 				+ "iteration");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
 				+ "iteration");
+
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("showDashboard",
+				new ElemAttribute("showDashboard", "Boolean",
+						AttributeType.OPERATION, false, "ShowDashboard", "",
+						false, 0, 9, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
+				+ "showDashboard");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
+				+ "showDashboard");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("type",
 				new ElemAttribute("type", "Enumeration",
@@ -653,53 +664,61 @@ public class InfraSyntaxOpersMMM {
 								"",
 								0,
 								11,
-								"type#==#Defects verifier error$type#$#Defects verifier update#\"\"",
-								"", -1, "", ""));
+								"type#==#Defects verifier error$type#==#Defects verifier update# ",
+								"type#==#Defects verifier error$type#==#Defects verifier update# ",
+								-1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "defectsVerifierMethod");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
 				+ "defectsVerifierMethod");
 
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute(
-						"defectsCoreOper",
-						new ElemAttribute(
-								"defectsCoreOper",
-								"Class",
-								AttributeType.OPERATION,
-								false,
-								"DefectsVerif. Core Oper",
-								"",
-								InstConcept.class.getCanonicalName(),
-								"OpersOperation",
-								"UpdateCoreOper",
-								"",
-								0,
-								11,
-								"type#==#Defects verifier error$type#==#Defects verifier update#\"\"",
-								"", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"defectsCoreOper",
+				new ElemAttribute("defectsCoreOper", "Class",
+						AttributeType.OPERATION, false,
+						"DefectsVerif. Core Oper", "", InstConcept.class
+								.getCanonicalName(), "OpersOperation",
+						"UpdateCoreOper", "", 0, 11,
+						"type#==#Defects verifier error$"
+								+ "type#==#Defects verifier update#\"\"", "",
+						-1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "defectsCoreOper");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
 				+ "defectsCoreOper");
 
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("outAttribute",
+				new ElemAttribute("outAttribute", "String",
+						AttributeType.OPERATION, false,
+						"Out Attrib. for validation", "", "Sel", 0, 11,
+						"type#==#Defects verifier error$"
+								+ "type#==#Defects verifier update$"
+								+ "type#==#Multi verification# ", "", -1, "",
+						""));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
-						"outAttribute",
+						"indivVerExp",
 						new ElemAttribute(
-								"outAttribute",
-								"String",
+								"indivVerExp",
+								"Boolean",
 								AttributeType.OPERATION,
 								false,
-								"Out Attribute for validation",
-								"",
-								"",
-								"Sel",
-								"",
-								0,
-								11,
-								"type#==#Defects verifier error&type#==#Defects verifier update#\"\"",
-								"", -1, "", ""));
+								"Use Verification Expr. Indiv.",
+								"Use Verification Expressions Individually with multiple calls to CauCos",
+								false, 0, 11, "type#==#Multi verification# ",
+								"type#==#Multi verification# ", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"indivRelExp",
+						new ElemAttribute(
+								"indivRelExp",
+								"Boolean",
+								AttributeType.OPERATION,
+								false,
+								"Use Relaxable Expr. Indiv.",
+								"Use Relaxable Expressions Individually with multiple calls to CauCos",
+								false, 0, 11, "type#==#Multi verification# ",
+								"type#==#Multi verification# ", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "outAttribute");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
@@ -798,6 +817,26 @@ public class InfraSyntaxOpersMMM {
 				+ "errorHint");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("16#"
 				+ "errorHint");
+
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"mode",
+						new ElemAttribute(
+								"mode",
+								"Enumeration",
+								AttributeType.OPERATION,
+								false,
+								"Defects Model",
+								"",
+								DefectAnalyzerMode.class.getCanonicalName(),
+								StringUtils
+										.formatEnumValue(DefectAnalyzerMode.INCOMPLETE_FAST
+												.toString()), "", 0, 16, "",
+								"", -1, "", ""));
+
+		infraSyntaxOpersM2OperSubAction
+				.addPropEditableAttribute("16#" + "mode");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("16#" + "mode");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorMsg",
 				new ElemAttribute("errorMsg", "String",

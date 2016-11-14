@@ -359,7 +359,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					if (actionList.get(posList).equals("Err")) {
 
 						outMessageList.add(verifyDefects(verifElement,
-								verifMessage, verifHint));
+								verifMessage, verifHint,
+								DefectAnalyzerMode.INCOMPLETE_SLOW));
 					} else {
 						if (defect == null || defect.contains("Core")
 								|| defect.contains("Dead")
@@ -677,7 +678,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	}
 
 	private String verifyDefects(String verifElement, String verifMessage,
-			String verifHint) throws InterruptedException {
+			String verifHint, DefectAnalyzerMode mode)
+			throws InterruptedException {
 		String outMessage = null;
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
@@ -712,7 +714,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				fixedConstraint.addAll(verify);
 				fixedConstraint.addAll(fixed);
 				Diagnosis result = cauCosAnalyzer.getCauCos(defect, relaxed,
-						fixedConstraint, DefectAnalyzerMode.PARTIAL);
+						fixedConstraint, mode);
 				endSTime = System.currentTimeMillis();
 				String defects = "(";
 				for (CauCos correction : result.getCorrections()) {

@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -82,7 +83,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private InstElement element;
 	private List<String> operationsNames;
 	private boolean firstSimulExec;
-	private boolean reloadDashBoard;
+	private boolean reloadDashBoardConcepts = true;
+	private boolean showDashboard = false;
 	private String executionTime = "";
 	// private List<String> defects;
 	private Configuration lastConfiguration;
@@ -104,15 +106,15 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public SolverOpersTask(ProgressMonitor progressMonitor,
 			ModelInstance refasModel, ModelExpr2HLCL refas2hlcl,
 			HlclProgram configHlclProgram, boolean firstSimulExec,
-			boolean reloadDashBoard, boolean update, List<String> operations,
-			Configuration lastConfiguration) {
+			List<String> operations, Configuration lastConfiguration) {
 		this.refasModel = refasModel;
 		this.progressMonitor = progressMonitor;
 		this.refas2hlcl = refas2hlcl;
 		this.configHlclProgram = configHlclProgram;
 		this.firstSimulExec = firstSimulExec;
-		this.reloadDashBoard = reloadDashBoard;
-		this.update = update;
+		this.reloadDashBoardConcepts = false;
+		this.showDashboard = false;
+		this.update = false;
 		this.operationsNames = operations;
 		this.lastConfiguration = lastConfiguration;
 	}
@@ -130,12 +132,20 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return firstSimulExec;
 	}
 
-	public boolean isReloadDashBoard() {
-		return reloadDashBoard;
+	public boolean isReloadDashBoardConcepts() {
+		return reloadDashBoardConcepts;
 	}
 
-	public void setReloadDashBoard(boolean reloadDashBoard) {
-		this.reloadDashBoard = reloadDashBoard;
+	public void setReloadDashBoardConcepts(boolean reloadDashBoard) {
+		this.reloadDashBoardConcepts = reloadDashBoard;
+	}
+
+	public boolean isShowDashboard() {
+		return showDashboard;
+	}
+
+	public void setShowDashboard(boolean showDashBoard) {
+		this.showDashboard = showDashBoard;
 	}
 
 	public boolean isUpdate() {
@@ -335,6 +345,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						// .getInstAttributeValue("type")));
 						String type = (String) suboper
 								.getInstAttributeValue("type");
+						boolean showDashboard = (boolean) suboper
+								.getInstAttributeValue("showDashboard");
+						if (showDashboard)
+							this.showDashboard = showDashboard;
 						if (type.equals(StringUtils
 								.formatEnumValue(OperationSubActionType.Single_Update
 										.toString()))
@@ -350,6 +364,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							} else {
 								if ((boolean) suboper
 										.getInstAttributeValue("iteration")) {
+									this.reloadDashBoardConcepts = false;
 									result = refas2hlcl.execute(
 											progressMonitor,
 											ModelExpr2HLCL.NEXT_SOLUTION,
@@ -367,11 +382,27 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 												.toString()))) {
 							String errorHint = (String) suboper
 									.getInstAttributeValue("errorHint");
+							String modeStr = suboper.getInstAttributeValue(
+									"mode").toString();
+							DefectAnalyzerMode mode = null;
+							for (DefectAnalyzerMode m : DefectAnalyzerMode
+									.values()) {
+								if (StringUtils.formatEnumValue(m.toString())
+										.equals(modeStr)) {
+									mode = m;
+									break;
+								}
+							}
+							boolean indivRelExp = (boolean) suboper
+									.getInstAttributeValue("indivRelExp");
+							boolean indivVerExp = (boolean) suboper
+									.getInstAttributeValue("indivVerExp");
 							List<OpersIOAttribute> outAttributes = ((OpersSubOperation) suboper
 									.getEdOperEle()).getOutAttributes();
 							result = cauCos(0, operationObj, suboper,
 									errorHint, outAttributes,
-									operationsNames.size());
+									operationsNames.size(), mode, indivVerExp,
+									indivRelExp);
 							terminated = true;
 						} // Verification operations with DefectsVerifier
 						else if (type
@@ -531,7 +562,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	private int cauCos(int type, InstElement operation, InstElement subOper,
 			String verifHint, List<OpersIOAttribute> outAttributes,
-			int numberOperations) throws InterruptedException {
+			int numberOperations, DefectAnalyzerMode mode, boolean indivVerExp,
+			boolean indivRelExp) throws InterruptedException {
 		int outResult = 0;
 		executionTime = "";
 
@@ -544,63 +576,86 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
 					refasModel, operation, null, null);
-			List<BooleanExpression> verify = refas2hlcl.getHlclProgram(
+			List<BooleanExpression> verifyList = refas2hlcl.getHlclProgram(
 					operation, subOper.getIdentifier(),
 					OperationSubActionExecType.VERIFICATION, transExpSet);
-
-			HlclProgram relaxed = refas2hlcl.getHlclProgram(operation,
+			HlclProgram relaxedList = refas2hlcl.getHlclProgram(operation,
 					subOper.getIdentifier(),
 					OperationSubActionExecType.RELAXABLE, transExpSet);
-			HlclProgram fixed = refas2hlcl.getHlclProgram(operation,
+			HlclProgram fixedList = refas2hlcl.getHlclProgram(operation,
 					subOper.getIdentifier(), OperationSubActionExecType.NORMAL,
 					transExpSet);
-			Defect defect = new Defect(verify);
-			defect.setDefectType(DefectType.SEMANTIC_SPECIFIC_DEFECT);
+			Set<String> outIdentifiers = new TreeSet<String>();
 			HlclProgram modelToVerify = new HlclProgram();
-			modelToVerify.addAll(verify);
-			modelToVerify.addAll(relaxed);
-			modelToVerify.addAll(fixed);
-			iniSTime = System.currentTimeMillis();
+			modelToVerify.addAll(verifyList);
+			modelToVerify.addAll(relaxedList);
+			modelToVerify.addAll(fixedList);
 			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify,
 					SolverEditorType.SWI_PROLOG);
 			// The model has two or more roots
 			Defect voidModel = verifier.isVoid();
-			if (progressMonitor.isCanceled())
-				throw (new InterruptedException());
-			Set<String> outIdentifiers = new TreeSet<String>();
+			Iterator<BooleanExpression> verifyIter = verifyList.iterator();
+			Iterator<BooleanExpression> relaxedIter = relaxedList.iterator();
 			if (voidModel != null) {
-
-				IntCauCosAnalyzer cauCosAnalyzer = new CauCosAnayzer(
-						parentComponent, verifElement);
-				HlclProgram fixedConstraint = new HlclProgram();
-				fixedConstraint.addAll(verify);
-				fixedConstraint.addAll(fixed);
-				Diagnosis result = cauCosAnalyzer.getCauCos(defect, relaxed,
-						fixedConstraint, DefectAnalyzerMode.PARTIAL);
-				endSTime = System.currentTimeMillis();
-				String defects = "(";
-				for (CauCos correction : result.getCorrections()) {
-					if (progressMonitor.isCanceled())
-						throw (new InterruptedException());
-					List<BooleanExpression> corr = correction.getElements();
-					for (BooleanExpression expression : corr) {
+				List<BooleanExpression> verify = verifyList;
+				HlclProgram relaxed = relaxedList;
+				HlclProgram fixed = fixedList;
+				do {
+					if (indivVerExp) {
+						verify = new ArrayList<BooleanExpression>();
+						if (verifyIter.hasNext())
+							verify.add(verifyIter.next());
+					}
+					do {
+						if (indivRelExp) {
+							relaxed = new HlclProgram();
+							fixed = new HlclProgram();
+							fixed.addAll(fixedList);
+							if (relaxedIter.hasNext()) {
+								fixed.addAll(relaxedList);
+								relaxed.add(relaxedIter.next());
+								fixed.removeAll(relaxed);
+							}
+						}
+						Defect defect = new Defect(verify);
+						defect.setDefectType(DefectType.SEMANTIC_SPECIFIC_DEFECT);
+						iniSTime = System.currentTimeMillis();
 						if (progressMonitor.isCanceled())
 							throw (new InterruptedException());
-						Set<Identifier> iden = HlclUtil
-								.getUsedIdentifiers(expression);
-						Identifier firsIden = iden.iterator().next();
-						String[] o = firsIden.getId().split("_");
 
-						if (outIdentifiers.add(o[0]))
-							defects += o[0] + ", ";
-					}
-				}
-				// There are more than one root.
-				if (!outIdentifiers.isEmpty()) {
+						IntCauCosAnalyzer cauCosAnalyzer = new CauCosAnayzer(
+								parentComponent, verifElement);
+						HlclProgram fixedConstraint = new HlclProgram();
+						fixedConstraint.addAll(verify);
+						fixedConstraint.addAll(fixed);
+						Diagnosis result = cauCosAnalyzer.getCauCos(defect,
+								relaxed, fixedConstraint, mode);
+						endSTime = System.currentTimeMillis();
+						String defects = "(";
+						for (CauCos correction : result.getCorrections()) {
+							if (progressMonitor.isCanceled())
+								throw (new InterruptedException());
+							List<BooleanExpression> corr = correction
+									.getElements();
+							for (BooleanExpression expression : corr) {
+								if (progressMonitor.isCanceled())
+									throw (new InterruptedException());
+								Set<Identifier> iden = HlclUtil
+										.getUsedIdentifiers(expression);
+								Identifier firsIden = iden.iterator().next();
+								String[] o = firsIden.getId().split("_");
 
-					defects = defects.substring(0, defects.length() - 2) + ")";
-					outResult = outIdentifiers.size();
-				}
+								if (outIdentifiers.add(o[0]))
+									defects += o[0] + ", ";
+							}
+						}
+						if (!outIdentifiers.isEmpty()) {
+							defects = defects
+									.substring(0, defects.length() - 2) + ")";
+							outResult = outIdentifiers.size();
+						}
+					} while (indivRelExp && relaxedIter.hasNext());
+				} while (indivVerExp && verifyIter.hasNext());
 			} else {
 				endSTime = System.currentTimeMillis();
 			}

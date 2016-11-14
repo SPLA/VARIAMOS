@@ -193,6 +193,16 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 						advance = Boolean.FALSE;
 					}
 				}
+
+				// Se verifica el modo
+				if (!unsatisfiableSets.isEmpty()
+						&& ((mode.equals(DefectAnalyzerMode.INCOMPLETE_FAST) && r > 1))
+						|| (mode.equals(DefectAnalyzerMode.INCOMPLETE_MED) && r > 3)
+						|| (mode.equals(DefectAnalyzerMode.INCOMPLETE_SLOW) && r > 5)) {
+					advance = Boolean.FALSE;
+					allMCSes = unsatisfiableSets;
+
+				}
 				// Se incrementa el tamaño del nivel de búsqueda
 				r++;
 			}
@@ -361,7 +371,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 		while (min != max) {
 			subsetOriginalSetOfClauses.clear();
-			center = (int) (min + max) / 2;
+			center = (min + max) / 2;
 			// Se verifica de la lista desde el 1 hasta el centro si es o no
 			// satisfiable
 			subsetOriginalSetOfClauses.addAll(originalSetOfClauses.subList(0,
@@ -492,9 +502,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			modelToTestCopy.clear();
 			modelToTestCopy.addAll(modelToTest);
 			newUnsatisfiableSetComplement.clear();
-			newUnsatisfiableSetComplement
-					.addAll((List<BooleanExpression>) SetUtil.difference(
-							modelToTestCopy, newUnsatisfiableSet));
+			newUnsatisfiableSetComplement.addAll(SetUtil.difference(
+					modelToTestCopy, newUnsatisfiableSet));
 
 			// Se adiciona al conjunto de cláusulas
 			// insatisfacibles

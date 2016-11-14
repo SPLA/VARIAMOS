@@ -17,6 +17,7 @@ public class NextSimulationAction extends AbstractEditorAction {
 	/**
 		 * 
 		 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
 		editor.clearNotificationBar();
@@ -30,7 +31,7 @@ public class NextSimulationAction extends AbstractEditorAction {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		editor.updateDashBoard(false, true);
+		editor.updateDashBoard(true, false, true);
 		editor.editPropertiesRefas();
 		editor.updateSimulResults();
 	}

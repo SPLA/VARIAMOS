@@ -170,7 +170,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 						}
 
 					} else {
-						editor.updateDashBoard(false, true);
+						editor.updateDashBoard(true, false, true);
 						editor.editPropertiesRefas();
 					}
 

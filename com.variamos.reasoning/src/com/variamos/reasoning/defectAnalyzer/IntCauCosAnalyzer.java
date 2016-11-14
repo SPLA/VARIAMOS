@@ -43,8 +43,8 @@ public interface IntCauCosAnalyzer {
 			HlclProgram model, HlclProgram fixedConstraints,
 			DefectAnalyzerMode mode) throws FunctionalException;
 
-	public List<Diagnosis> getCorrections(List<Defect> defects, HlclProgram model,
-			HlclProgram fixedConstraints, DefectAnalyzerMode mode)
-			throws FunctionalException;
+	public List<Diagnosis> getCorrections(List<Defect> defects,
+			HlclProgram model, HlclProgram fixedConstraints,
+			DefectAnalyzerMode mode) throws FunctionalException;
 
 }

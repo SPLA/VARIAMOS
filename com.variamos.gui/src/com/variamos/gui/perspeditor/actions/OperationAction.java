@@ -51,7 +51,7 @@ public class OperationAction extends AbstractEditorAction {
 
 		if (operation.startsWith("N:")) {
 			vg.editPropertiesRefas();
-			vg.updateDashBoard(false, true);
+			vg.updateDashBoard(true, false, true);
 		}
 
 		vg.updateSimulResults();

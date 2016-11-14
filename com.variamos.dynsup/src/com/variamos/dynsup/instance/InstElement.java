@@ -598,6 +598,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					String value = null;
 					String defvalue = null;
 					variable = attribute.substring(0, varEnd);
+					// System.out.println("ATTPRT: " + attribute);
 					condition = attribute.substring(varEnd + 1, condEnd);
 					if (valueEnd != -1) {
 						value = attribute.substring(condEnd + 1, valueEnd);

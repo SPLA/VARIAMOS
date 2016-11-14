@@ -38,7 +38,6 @@ import com.variamos.reasoning.util.ConstraintRepresentationUtil;
 
 public class CauseAnalyzerTest {
 
-	
 	public void testGetCorrectionsOneDefect() {
 
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
@@ -61,8 +60,8 @@ public class CauseAnalyzerTest {
 
 		DeadElement deadElement;
 		try {
-			deadElement = (DeadElement) verifier.isDeadElement(
-					identifiers.iterator().next());
+			deadElement = (DeadElement) verifier.isDeadElement(identifiers
+					.iterator().next());
 			IntCauCosAnalyzer caucosAnalyzer = new CauCosAnayzer(
 					SolverEditorType.SWI_PROLOG);
 			List<CauCos> corrections = caucosAnalyzer.getCorrections(
@@ -89,7 +88,6 @@ public class CauseAnalyzerTest {
 
 	}
 
-	
 	public void testGetCaucos() {
 
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
@@ -112,8 +110,8 @@ public class CauseAnalyzerTest {
 
 		DeadElement deadElement;
 		try {
-			deadElement = (DeadElement) verifier.isDeadElement(
-					identifiers.iterator().next());
+			deadElement = (DeadElement) verifier.isDeadElement(identifiers
+					.iterator().next());
 			IntCauCosAnalyzer caucosAnalyzer = new CauCosAnayzer(
 					SolverEditorType.SWI_PROLOG);
 			Diagnosis diagnosis = caucosAnalyzer.getCauCos(deadElement, model,
@@ -162,8 +160,8 @@ public class CauseAnalyzerTest {
 					deadElements, model, fixedConstraints,
 					DefectAnalyzerMode.COMPLETE);
 			assertTrue(result.getAllDiagnosis().size() == 10);
-			//assertTrue(result.getClassifiedCorrections().getCommonDiagnosis()
-					//.size() == 11);
+			// assertTrue(result.getClassifiedCorrections().getCommonDiagnosis()
+			// .size() == 11);
 
 			System.out.println("total time : " + result.getTotalTime());
 

@@ -481,10 +481,10 @@ public class PerspEditorMenuBar extends JMenuBar {
 
 					if (selected) {
 						finalEditor.showNames(true);
-						finalEditor.updateDashBoard(false, false);
+						finalEditor.updateDashBoard(true, false, false);
 					} else {
 						finalEditor.showNames(false);
-						finalEditor.updateDashBoard(false, false);
+						finalEditor.updateDashBoard(true, false, false);
 					}
 				}
 			});

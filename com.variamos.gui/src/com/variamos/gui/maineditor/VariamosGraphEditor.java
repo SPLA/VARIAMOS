@@ -169,8 +169,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	private FileTasks fileTask;
 
-	public void updateDashBoard(boolean updateConcepts, boolean updated) {
-		dashBoardFrame.updateDashBoard(refasModel, updateConcepts, updated);
+	public void updateDashBoard(boolean showDashboard, boolean updateConcepts,
+			boolean updated) {
+		dashBoardFrame.updateDashBoard(refasModel, showDashboard,
+				updateConcepts, updated);
 
 	}
 
@@ -1649,7 +1651,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		executeSimulation(firstSimulExecution, reloadDashboard, type, true, "");
 	}
 
-	// TODO support all operations dynamically
+	// TODO support ALL operations dynamically, not only the first
 	public void callOperations(List<String> operations) {
 		// FIXME support multiple models selected from the menu not only REFAS
 		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
@@ -1660,13 +1662,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		boolean first = true;
 		if (operations.get(0).startsWith("N:"))
 			first = false;
-		executeOperationsThead(first, true, true, operations);
+		executeOperationsThead(first, operations);
 
 	}
 
 	// Dynamic operation's definition
 	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution,
-			boolean reloadDashboard, boolean update, List<String> operations) {
+			List<String> operations) {
 
 		if (!firstSimulExecution && semTask != null) {
 			semTask.setFirstSimulExec(false);
@@ -1681,7 +1683,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setProgress(1);
 			semTask = new SolverOpersTask(progressMonitor, refasModel,
 					refas2hlcl, configHlclProgram, firstSimulExecution,
-					reloadDashboard, update, operations, lastConfiguration);
+					operations, lastConfiguration);
 			semTask.addPropertyChangeListener(this);
 			semTask.execute();
 		}
@@ -1839,7 +1841,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						&& (task.getExecType() == ModelExpr2HLCL.SIMUL_EXEC || task
 								.getExecType() == ModelExpr2HLCL.SIMUL_MAPE)) {
 					refas2hlcl.updateGUIElements(null);
-					updateDashBoard(task.isReloadDashBoard(), task.isUpdate());
+					updateDashBoard(true, task.isReloadDashBoard(),
+							task.isUpdate());
 					ConsoleTextArea.addText(refas2hlcl.getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
@@ -1856,7 +1859,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				) {
 					List<String> outVariables = semTask.getOutVariables();
 					refas2hlcl.updateGUIElements(null, outVariables);
-					updateDashBoard(semTask.isReloadDashBoard(),
+					updateDashBoard(semTask.isShowDashboard(),
+							semTask.isReloadDashBoardConcepts(),
 							semTask.isUpdate());
 					ConsoleTextArea.addText(refas2hlcl.getText());
 					updateSimulResults();
@@ -1915,7 +1919,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						refresh();
 						break;
 					case ModelExpr2HLCL.SIMUL_EXEC:
-						updateDashBoard(task.isReloadDashBoard(),
+						updateDashBoard(true, task.isReloadDashBoard(),
 								task.isUpdate());
 					case ModelExpr2HLCL.SIMUL_EXPORT:
 						refresh();
@@ -1944,7 +1948,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					ConsoleTextArea.addText(refas2hlcl.getText());
 					((MainFrame) getFrame()).waitingCursor(false);
 					lastSolverInvocations = semTask.getExecutionTime();
-					updateDashBoard(semTask.isReloadDashBoard(),
+					updateDashBoard(semTask.isShowDashboard(),
+							semTask.isReloadDashBoardConcepts(),
 							semTask.isUpdate());
 				}
 			}
