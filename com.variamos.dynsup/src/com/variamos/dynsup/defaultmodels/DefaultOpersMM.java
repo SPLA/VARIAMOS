@@ -4713,13 +4713,7 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			verifParentsElemOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+			sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
@@ -4728,8 +4722,9 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
@@ -4737,7 +4732,7 @@ public class DefaultOpersMM {
 			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
@@ -4747,7 +4742,7 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
@@ -4757,7 +4752,7 @@ public class DefaultOpersMM {
 			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflClSDOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraOTRel
@@ -4768,7 +4763,7 @@ public class DefaultOpersMM {
 			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
@@ -7483,8 +7478,21 @@ public class DefaultOpersMM {
 			OpersConcept semanticOperClaimGroupRelation = new OpersConcept(
 					"OperClOT");// hardSemOverTwoRelList);
 
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			semanticOperClaimGroupRelation
+					.setSemanticExpressions(semanticExpressions);
+
 			InstConcept instVertexCLGR = new InstConcept("OperClOT",
 					semanticOperClaimGroupRelation, metaMetaInstOverTwoRel);
+
+			t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
+					"Equals"), instVertexCLGR, instVertexCLGR, "Sel", "TrueVal");
+
+			sasverConflClOperSubActionVerification.addSemanticExpression(t1);
+			sasverConflClSDOperSubActionVerification.addSemanticExpression(t1);
+
+			semanticExpressions.add(t1);
 			// ---
 
 			OpersConcept semClaim = new OpersConcept("Claim");
