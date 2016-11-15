@@ -586,6 +586,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					subOper.getIdentifier(), OperationSubActionExecType.NORMAL,
 					transExpSet);
 			Set<String> outIdentifiers = new TreeSet<String>();
+			String defects = "(";
 			HlclProgram modelToVerify = new HlclProgram();
 			modelToVerify.addAll(verifyList);
 			modelToVerify.addAll(relaxedList);
@@ -596,7 +597,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			Defect voidModel = verifier.isVoid();
 			Iterator<BooleanExpression> verifyIter = verifyList.iterator();
 			Iterator<BooleanExpression> relaxedIter = relaxedList.iterator();
-			if (voidModel != null) {
+			if (voidModel != null || true) {
 				List<BooleanExpression> verify = verifyList;
 				HlclProgram relaxed = relaxedList;
 				HlclProgram fixed = fixedList;
@@ -631,7 +632,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						Diagnosis result = cauCosAnalyzer.getCauCos(defect,
 								relaxed, fixedConstraint, mode);
 						endSTime = System.currentTimeMillis();
-						String defects = "(";
+
 						for (CauCos correction : result.getCorrections()) {
 							if (progressMonitor.isCanceled())
 								throw (new InterruptedException());

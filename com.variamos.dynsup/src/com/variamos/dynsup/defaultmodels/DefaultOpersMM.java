@@ -3425,6 +3425,18 @@ public class DefaultOpersMM {
 			sasverClCoreOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			sasverConflClSDOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverConflClSDOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverConflClOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverConflClOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 
 			verifDeadElemSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
@@ -6737,7 +6749,7 @@ public class DefaultOpersMM {
 			semOperationalization.setSemanticExpressions(semanticExpressions);
 
 			t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexOper, "Required", "TrueVal");
+					"Equals"), instVertexOper, instVertexOper, "Sel", "TrueVal");
 
 			sasverConflClOperSubActionVerification.addSemanticExpression(t1);
 			sasverConflClSDOperSubActionVerification.addSemanticExpression(t1);
