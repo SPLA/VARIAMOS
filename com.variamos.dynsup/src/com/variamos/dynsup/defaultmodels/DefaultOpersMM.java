@@ -103,6 +103,7 @@ public class DefaultOpersMM {
 	private static OpersConcept sasverSGConflperationAction = null;
 	private static OpersSubOperationExpType sasverSGConflOperSubActionNormal = null;
 	private static OpersSubOperationExpType sasverSGConflOperSubActionRelaxable = null;
+	private static OpersSubOperationExpType sasverSGConflOperSubActionVerification = null;
 
 	private static OpersConcept sasverConflClSDOperationAction = null;
 	private static OpersSubOperationExpType sasverConflClSDOperSubActionNormal = null;
@@ -2122,6 +2123,8 @@ public class DefaultOpersMM {
 					false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outConflSG");
+			instOperationSubAction.getInstAttribute("indivVerExp").setValue(
+					true);
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -2160,6 +2163,21 @@ public class DefaultOpersMM {
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("RELAXABLE");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverSGConflOperSubActionVerification = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverSGConflOperSubActionVerification);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("VERIFICATION");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -10381,6 +10399,13 @@ public class DefaultOpersMM {
 					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
 					instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
+			semanticExpressions.add(t1);
+			sasverSGConflOperSubActionVerification.addSemanticExpression(t1);
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+					instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
 
 			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"LessOrEquals"),
@@ -10927,6 +10952,13 @@ public class DefaultOpersMM {
 			// Expressions for contribution with OTRel
 
 			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instSgsgGRSG, instVertexSGGR, "Sel", true, 1);
+
+			semanticExpressions.add(t1);
+			sasverSGConflOperSubActionVerification.addSemanticExpression(t1);
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
