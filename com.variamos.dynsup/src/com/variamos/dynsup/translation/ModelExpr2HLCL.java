@@ -39,6 +39,7 @@ import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.Labeling;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 import com.variamos.io.ConsoleTextArea;
@@ -466,14 +467,16 @@ public class ModelExpr2HLCL {
 			if (exp.size() > 1) {
 
 				hlclProgram = exp;
+				List<Labeling> labelings = transExpSet.getLabelings(refas,
+						suboper.getIdentifier(), null);
+				// Start Execution Model
 				swiSolver = new SWIPrologSolver(hlclProgram);
 				if (progressMonitor != null && progressMonitor.isCanceled())
 					throw (new InterruptedException());
 				try {
 					ConfigurationOptions configurationOptions = new ConfigurationOptions();
 					// FIXME support types other than normal
-					configurationOptions.setLabelings(transExpSet.getLabelings(
-							refas, suboper.getIdentifier(), null));
+					configurationOptions.setLabelings(labelings);
 					configurationOptions.setOrder(true);
 
 					configurationOptions.setStartFromZero(true);

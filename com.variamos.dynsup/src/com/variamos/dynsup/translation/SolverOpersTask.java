@@ -353,6 +353,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								.formatEnumValue(OperationSubActionType.Single_Update
 										.toString()))
 								|| type.equals(StringUtils
+										.formatEnumValue(OperationSubActionType.Single_Verification
+												.toString()))
+								|| type.equals(StringUtils
 										.formatEnumValue(OperationSubActionType.Iterative_Update
 												.toString()))) {
 							if (lastConfiguration == null) {
@@ -597,7 +600,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			Defect voidModel = verifier.isVoid();
 			Iterator<BooleanExpression> verifyIter = verifyList.iterator();
 			Iterator<BooleanExpression> relaxedIter = relaxedList.iterator();
-			if (voidModel != null || true) {
+			if (voidModel != null) {
 				List<BooleanExpression> verify = verifyList;
 				HlclProgram relaxed = relaxedList;
 				HlclProgram fixed = fixedList;
