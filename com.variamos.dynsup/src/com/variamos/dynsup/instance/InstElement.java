@@ -763,34 +763,44 @@ public abstract class InstElement implements Serializable, Cloneable,
 		for (String attributeName : visibleAttributesNames) {
 			ElemAttribute attribute = supportElement.getAbstractAttribute(
 					attributeName.substring(2), syntaxParents, null);
-			String visibleAttribute = attribute.getElementDisplayCondition();
-			int varEnd = visibleAttribute.indexOf("#");
-			int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
-			int valueEnd = visibleAttribute.indexOf("#", condEnd + 1);
-			if (valueEnd == -1)
-				valueEnd = visibleAttribute.length();
-			String variable = null;
-			String condition = null;
-			String value = null;
-			String name = attributeName.substring(2);
-			boolean validCondition = true;
-			if (varEnd != -1 && condEnd != -1) {
+			String visibleAttributes = attribute.getElementDisplayCondition();
 
-				variable = visibleAttribute.substring(0, varEnd);
-				condition = visibleAttribute.substring(varEnd + 1, condEnd);
-				if (condEnd < valueEnd)
-					value = visibleAttribute.substring(condEnd + 1, valueEnd);
-				else
-					value = "";
-				InstAttribute varValue = getInstAttributes().get(variable);
-				if (varValue == null || varValue.getValue() == null)
+			String name = null;
+			boolean validCondition = true;
+			String[] split = visibleAttributes.split("\\$");
+			for (String visibleAttribute : split) {
+				int varEnd = visibleAttribute.indexOf("#");
+				int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
+				int valueEnd = visibleAttribute.indexOf("#", condEnd + 1);
+				if (valueEnd == -1)
+					valueEnd = visibleAttribute.length();
+				String variable = null;
+				String condition = null;
+				String value = null;
+				name = attributeName.substring(2);
+				if (varEnd != -1 && condEnd != -1) {
+
+					variable = visibleAttribute.substring(0, varEnd);
+					condition = visibleAttribute.substring(varEnd + 1, condEnd);
+					if (condEnd < valueEnd)
+						value = visibleAttribute.substring(condEnd + 1,
+								valueEnd);
+					else
+						value = "";
 					validCondition = false;
-				else if (varValue.getValue().toString().trim().equals(value)) {
-					if (condition.equals("!="))
-						validCondition = false;
-				} else {
-					if (condition.equals("=="))
-						validCondition = false;
+					InstAttribute varValue = getInstAttributes().get(variable);
+					if (varValue == null || varValue.getValue() == null)
+						continue;
+					else if (varValue.getValue().toString().trim()
+							.equals(value)) {
+						if (condition.equals("!="))
+							continue;
+					} else {
+						if (condition.equals("=="))
+							continue;
+					}
+					validCondition = true;
+					break;
 				}
 			}
 			boolean nvar = false;

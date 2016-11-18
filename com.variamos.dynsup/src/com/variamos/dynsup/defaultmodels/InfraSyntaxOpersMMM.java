@@ -644,7 +644,8 @@ public class InfraSyntaxOpersMMM {
 				new ElemAttribute("type", "Enumeration",
 						AttributeType.OPERATION, true, "Type", "",
 						OperationSubActionType.class.getCanonicalName(),
-						"Single update", "", 0, 10, "", "", -1, "", ""));
+						"Single update", "", 0, 10, "", "", 10, "\ntype: #"
+								+ "type" + "#all#", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addPropEditableAttribute("10#" + "type");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
@@ -666,7 +667,9 @@ public class InfraSyntaxOpersMMM {
 								11,
 								"type#==#Defects verifier error$type#==#Defects verifier update# ",
 								"type#==#Defects verifier error$type#==#Defects verifier update# ",
-								-1, "", ""));
+								11, "\nMethod: #" + "defectsVerifierMethod"
+										+ "#all#",
+								"type#==#Defects verifier error$type#==#Defects verifier update"));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "defectsVerifierMethod");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
@@ -679,9 +682,9 @@ public class InfraSyntaxOpersMMM {
 						"DefectsVerif. Core Oper", "", InstConcept.class
 								.getCanonicalName(), "OpersOperation",
 						"UpdateCoreOper", "", 0, 11,
-						"type#==#Defects verifier error$"
-								+ "type#==#Defects verifier update#\"\"", "",
-						-1, "", ""));
+						"type#==#Defects verifier error#\"\"", "", 12,
+						"\ncoreOper: #" + "defectsCoreOper" + "#all#",
+						"type#==#Defects verifier error"));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
 				+ "defectsCoreOper");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
@@ -693,8 +696,11 @@ public class InfraSyntaxOpersMMM {
 						"Out Attrib. for validation", "", "Sel", 0, 11,
 						"type#==#Defects verifier error$"
 								+ "type#==#Defects verifier update$"
-								+ "type#==#Multi verification# ", "", -1, "",
-						""));
+								+ "type#==#Multi verification# ", "", 13,
+						"outAtt: #" + "outAttribute" + "#all#\n",
+						"type#==#Defects verifier error$"
+								+ "type#==#Defects verifier update$"
+								+ "type#==#Multi verification"));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
 						"indivVerExp",
