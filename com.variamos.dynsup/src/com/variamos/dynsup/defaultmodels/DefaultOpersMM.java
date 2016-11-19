@@ -6589,7 +6589,7 @@ public class DefaultOpersMM {
 			rootTypeDomain.add("Leaf");
 			attribute = new ElemAttribute("FeatureType", "String",
 					AttributeType.OPERATION, "Feature Type", "", "Root", false,
-					rootTypeDomain, 2, -1, "", "", -1, "", "");
+					null, 2, -1, "", "", -1, "", "");
 
 			semRFeature.putSemanticAttribute("FeatureType", attribute);
 			verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
@@ -6627,7 +6627,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("FeatureType", "String",
 					AttributeType.OPERATION, "Feature Type", "", "General",
-					false, rootTypeDomain, 2, -1, "", "", -1, "", "");
+					false, null, 2, -1, "", "", -1, "", "");
 			semGFeature.putSemanticAttribute("FeatureType", attribute);
 			verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semGFeature.getIdentifier(), attribute.getName(), true));
@@ -6664,7 +6664,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("FeatureType", "String",
 					AttributeType.OPERATION, "Feature Type", "", "Leaf", false,
-					rootTypeDomain, 2, -1, "", "", -1, "", "");
+					null, 2, -1, "", "", -1, "", "");
 			semLFeature.putSemanticAttribute("FeatureType", attribute);
 			verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semLFeature.getIdentifier(), attribute.getName(), true));
@@ -6783,14 +6783,10 @@ public class DefaultOpersMM {
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), "Sel", true));
 
-			StringDomain d = new StringDomain();
-			d.add("low");
-			d.add("high");
-			d.add("close");
 			attribute = new ElemAttribute("satisficingLevel", "String",
 					AttributeType.OPERATION, "Satisficing Level",
 					"Satisficing for dynamic operations (low/high/close)",
-					"high", false, d, 0, 11, "", "", -1, "", "");
+					"high", false, null, 0, 11, "", "", -1, "", "");
 
 			semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -14049,11 +14045,12 @@ public class DefaultOpersMM {
 					AttributeType.EXECCURRENTSTATE, "***TotalOrder***", "", 0,
 					false, new RangeDomain(0, 2000, 0), 2, -1, "", "", -1, "",
 					"");
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					refasModel.getIdentifier(), attribute.getName(), true));
+			// simulationExecOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// refasModel.getIdentifier(), attribute.getName(), true));
 			refasModel.putSemanticAttribute("TotalOrder", attribute);
 
-			semanticExpressions = new ArrayList<OpersExpr>(); // FIXME not used
+			semanticExpressions = new ArrayList<OpersExpr>();
 
 			simsceExecOperLabeling2.setSemanticExpressions(semanticExpressions);
 

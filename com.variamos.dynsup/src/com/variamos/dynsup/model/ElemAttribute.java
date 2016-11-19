@@ -7,6 +7,7 @@ import java.util.Map;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.StringDomain;
 
 /**
  * A class to represent semantic and syntax concepts attributes. The attributes
@@ -740,7 +741,10 @@ public class ElemAttribute implements Serializable {
 		this.classCanonicalName = enumType;
 		this.metaConceptInstanceType = metaConceptInstanceType;
 		this.defaultValue = defaultValue;
-		this.domain = domain;
+		if (type.equals("String") && domain == null)
+			this.domain = new StringDomain();
+		else
+			this.domain = domain;
 		this.hint = hint;
 		this.defaultGroup = defaultGroup;
 		this.propTabPosition = propTabPosition;

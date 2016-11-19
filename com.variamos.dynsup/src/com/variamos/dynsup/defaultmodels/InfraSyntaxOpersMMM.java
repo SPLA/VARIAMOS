@@ -675,13 +675,11 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
 				+ "defectsVerifierMethod");
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
-				"defectsCoreOper",
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("defectsCoreOper",
 				new ElemAttribute("defectsCoreOper", "Class",
-						AttributeType.OPERATION, false,
-						"DefectsVerif. Core Oper", "", InstConcept.class
-								.getCanonicalName(), "OpersOperation",
-						"UpdateCoreOper", "", 0, 11,
+						AttributeType.OPERATION, false, "DefVerif. Core Oper",
+						"", InstConcept.class.getCanonicalName(),
+						"OMOperation", "UpdateCoreOper", "", 0, 11,
 						"type#==#Defects verifier error#\"\"", "", 12,
 						"\ncoreOper: #" + "defectsCoreOper" + "#all#",
 						"type#==#Defects verifier error"));
@@ -692,12 +690,11 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("outAttribute",
 				new ElemAttribute("outAttribute", "String",
-						AttributeType.OPERATION, false,
-						"Out Attrib. for validation", "", "Sel", 0, 11,
-						"type#==#Defects verifier error$"
+						AttributeType.OPERATION, false, "Validation Attrib.",
+						"", "Sel", 0, 11, "type#==#Defects verifier error$"
 								+ "type#==#Defects verifier update$"
 								+ "type#==#Multi verification# ", "", 13,
-						"outAtt: #" + "outAttribute" + "#all#\n",
+						"\noutAtt: #" + "outAttribute" + "#all#",
 						"type#==#Defects verifier error$"
 								+ "type#==#Defects verifier update$"
 								+ "type#==#Multi verification"));
@@ -726,9 +723,9 @@ public class InfraSyntaxOpersMMM {
 								false, 0, 11, "type#==#Multi verification# ",
 								"type#==#Multi verification# ", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
-				+ "outAttribute");
+				+ "indivRelExp");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
-				+ "outAttribute");
+				+ "indivRelExp");
 
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
@@ -738,8 +735,8 @@ public class InfraSyntaxOpersMMM {
 								"Boolean",
 								AttributeType.OPERATION,
 								false,
-								"Update Out Att. on model",
-								"",
+								"Update Out Attribs",
+								"Use Update Output Attributes to update the core on the model",
 								"",
 								false,
 								"",
