@@ -301,132 +301,139 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationAction, true);
 			instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-			OpersSubOperation operationSubAction = new OpersSubOperation(1,
-					"BasSim-Pre-Validation");
-
+			// OpersSubOperation operationSubAction = new OpersSubOperation(1,
+			// "BasSim-Pre-Validation");
+			//
+			// //
 			// simulationOperationAction.addExpressionSubAction(operationSubAction);
-
-			InstConcept instOperationSubAction = new InstConcept(
-					"BasSim-Pre-Validation", metaOperationSubAction,
-					operationSubAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single verification");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
-
-			refas.getVariabilityVertex().put("BasSim-Pre-Validation",
-					instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sim-pre-val", instEdgeOper);
-			instEdgeOper.setIdentifier("sim-pre-val");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			simulationPreValOptOperSubActionNormal = new OpersSubOperationExpType();
-
-			InstConcept instOperSubOperationExpType = new InstConcept(
-					"exptype", metaExpType,
-					simulationPreValOptOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			OpersLabeling operationLabeling = new OpersLabeling("unique");
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
-			InstConcept instLabeling = new InstConcept(
-					"BasSim-Pre-Validation-lab", metaLabeling,
-					operationLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex().put("BasSim-Pre-Validation-lab",
-					instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sim-pre-val-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("sim-pre-val-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			operationSubAction = new OpersSubOperation(2, "BasSim-Pre-Update");
+			//
+			// InstConcept instOperationSubAction = new InstConcept(
+			// "BasSim-Pre-Validation", metaOperationSubAction,
+			// operationSubAction);
+			// instOperationSubAction.getInstAttribute("name").setValue(" ");
+			// instOperationSubAction.getInstAttribute("type").setValue(
+			// "Single verification");
+			// instOperationSubAction.getInstAttribute("showDashboard").setValue(
+			// false);
+			// instOperationSubAction.getInstAttribute("iteration")
+			// .setValue(false);
+			// instOperationSubAction.getInstAttribute("Index").setValue(1);
+			//
+			// refas.getVariabilityVertex().put("BasSim-Pre-Validation",
+			// instOperationSubAction);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("sim-pre-val", instEdgeOper);
+			// instEdgeOper.setIdentifier("sim-pre-val");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			// instEdgeOper.setSourceRelation(instOperationAction, true);
+			//
+			// simulationPreValOptOperSubActionNormal = new
+			// OpersSubOperationExpType();
+			//
+			// InstConcept instOperSubOperationExpType = new InstConcept(
+			// "exptype", metaExpType,
+			// simulationPreValOptOperSubActionNormal);
+			//
+			// instOperSubOperationExpType.getInstAttribute("suboperexptype")
+			// .setValue("NORMAL");
+			//
+			// ((List<InstAttribute>) instOperationSubAction
+			// .getInstAttributeValue("exptype")).add(new InstAttribute(
+			// "enum1", new ElemAttribute("EnumValue",
+			// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+			// "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+			// ""), instOperSubOperationExpType));
+			//
+			// OpersLabeling operationLabeling = new OpersLabeling("unique");
+			//
+			// // operationSubAction.addOperationLabeling(operationLabeling);
+			//
+			// InstConcept instLabeling = new InstConcept(
+			// "BasSim-Pre-Validation-lab", metaLabeling,
+			// operationLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			// instLabeling.getInstAttribute("order").setValue(false);
+			//
+			// refas.getVariabilityVertex().put("BasSim-Pre-Validation-lab",
+			// instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("sim-pre-val-lab",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("sim-pre-val-lab");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			//
+			// operationSubAction = new OpersSubOperation(2,
+			// "BasSim-Pre-Update");
+			// //
 			// simulationOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("BasSim-Pre-Update",
-					metaOperationSubAction, operationSubAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(2);
-
-			refas.getVariabilityVertex().put("BasSim-Pre-Update",
-					instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sim-pre-upd", instEdgeOper);
-			instEdgeOper.setIdentifier("sim-pre-upd");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			simulationPreUpdOptOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, simulationPreUpdOptOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			operationLabeling = new OpersLabeling("unique");
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("BasSim-pre-update-lab",
-					metaLabeling, operationLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex().put("BasSim-pre-update-lab",
-					instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sim-pre-upd-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("sim-pre-upd-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			//
+			// instOperationSubAction = new InstConcept("BasSim-Pre-Update",
+			// metaOperationSubAction, operationSubAction);
+			// instOperationSubAction.getInstAttribute("name").setValue(" ");
+			// instOperationSubAction.getInstAttribute("type").setValue(
+			// "Single update");
+			// instOperationSubAction.getInstAttribute("showDashboard").setValue(
+			// false);
+			// instOperationSubAction.getInstAttribute("iteration")
+			// .setValue(false);
+			// instOperationSubAction.getInstAttribute("Index").setValue(2);
+			//
+			// refas.getVariabilityVertex().put("BasSim-Pre-Update",
+			// instOperationSubAction);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("sim-pre-upd", instEdgeOper);
+			// instEdgeOper.setIdentifier("sim-pre-upd");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			// instEdgeOper.setSourceRelation(instOperationAction, true);
+			//
+			// simulationPreUpdOptOperSubActionNormal = new
+			// OpersSubOperationExpType();
+			//
+			// instOperSubOperationExpType = new InstConcept("exptype",
+			// metaExpType, simulationPreUpdOptOperSubActionNormal);
+			//
+			// instOperSubOperationExpType.getInstAttribute("suboperexptype")
+			// .setValue("NORMAL");
+			//
+			// ((List<InstAttribute>) instOperationSubAction
+			// .getInstAttributeValue("exptype")).add(new InstAttribute(
+			// "enum1", new ElemAttribute("EnumValue",
+			// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+			// "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+			// ""), instOperSubOperationExpType));
+			//
+			// operationLabeling = new OpersLabeling("unique");
+			//
+			// // operationSubAction.addOperationLabeling(operationLabeling);
+			//
+			// instLabeling = new InstConcept("BasSim-pre-update-lab",
+			// metaLabeling, operationLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			// instLabeling.getInstAttribute("order").setValue(false);
+			//
+			// refas.getVariabilityVertex().put("BasSim-pre-update-lab",
+			// instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("sim-pre-upd-lab",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("sim-pre-upd-lab");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			simulSubOperationAction = new OpersSubOperation(3,
 					"BasSim-Execution");
@@ -455,8 +462,9 @@ public class DefaultOpersMM {
 			// simulationOperationAction
 			// .addExpressionSubAction(simulOperationSubAction);
 
-			instOperationSubAction = new InstConcept("BasSim-Execution",
-					metaOperationSubAction, simulSubOperationAction);
+			InstConcept instOperationSubAction = new InstConcept(
+					"BasSim-Execution", metaOperationSubAction,
+					simulSubOperationAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("errorTitle").setValue(
 					"Model Simulation Error");
@@ -486,8 +494,9 @@ public class DefaultOpersMM {
 
 			simulationExecOptOperSubActionNormal = new OpersSubOperationExpType();
 
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, simulationExecOptOperSubActionNormal);
+			InstConcept instOperSubOperationExpType = new InstConcept(
+					"exptype", metaExpType,
+					simulationExecOptOperSubActionNormal);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
@@ -499,7 +508,7 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			instLabeling = new InstConcept("BasSim-Execution-lab",
+			InstConcept instLabeling = new InstConcept("BasSim-Execution-lab",
 					metaLabeling, simulationExecOperUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
@@ -572,123 +581,133 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-			operationSubAction = new OpersSubOperation(4,
-					"BasSim-Post-Validation");
-
+			// OpersSubOperation operationSubAction = new OpersSubOperation(4,
+			// "BasSim-Post-Validation");
+			//
+			// //
 			// simulationOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("BasSim-Post-Validation",
-					metaOperationSubAction, operationSubAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single verification");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			refas.getVariabilityVertex().put("BasSim-Post-Validation",
-					instOperationSubAction);
-			instOperationSubAction.getInstAttribute("Index").setValue(4);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sim-pos-val", instEdgeOper);
-			instEdgeOper.setIdentifier("sim-pos-val");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			simulationPosValOptOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, simulationPosValOptOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			operationLabeling = new OpersLabeling("unique");
-
+			//
+			// instOperationSubAction = new
+			// InstConcept("BasSim-Post-Validation",
+			// metaOperationSubAction, operationSubAction);
+			// instOperationSubAction.getInstAttribute("name").setValue(" ");
+			// instOperationSubAction.getInstAttribute("type").setValue(
+			// "Single verification");
+			// instOperationSubAction.getInstAttribute("showDashboard").setValue(
+			// false);
+			// instOperationSubAction.getInstAttribute("iteration")
+			// .setValue(false);
+			// refas.getVariabilityVertex().put("BasSim-Post-Validation",
+			// instOperationSubAction);
+			// instOperationSubAction.getInstAttribute("Index").setValue(4);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("sim-pos-val", instEdgeOper);
+			// instEdgeOper.setIdentifier("sim-pos-val");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			// instEdgeOper.setSourceRelation(instOperationAction, true);
+			//
+			// simulationPosValOptOperSubActionNormal = new
+			// OpersSubOperationExpType();
+			//
+			// instOperSubOperationExpType = new InstConcept("exptype",
+			// metaExpType, simulationPosValOptOperSubActionNormal);
+			//
+			// instOperSubOperationExpType.getInstAttribute("suboperexptype")
+			// .setValue("NORMAL");
+			//
+			// ((List<InstAttribute>) instOperationSubAction
+			// .getInstAttributeValue("exptype")).add(new InstAttribute(
+			// "enum1", new ElemAttribute("EnumValue",
+			// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+			// "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+			// ""), instOperSubOperationExpType));
+			//
+			// operationLabeling = new OpersLabeling("unique");
+			//
+			// //
 			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("BasSim-pos-val-lab", metaLabeling,
-					operationLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex()
-					.put("BasSim-pos-val-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sim-pos-val-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("sim-pos-val-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			operationSubAction = new OpersSubOperation(5, "BasSim-Post-Update");
-
+			//
+			// instLabeling = new InstConcept("BasSim-pos-val-lab",
+			// metaLabeling,
+			// operationLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			// instLabeling.getInstAttribute("order").setValue(false);
+			//
+			// refas.getVariabilityVertex()
+			// .put("BasSim-pos-val-lab", instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("sim-pos-val-lab",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("sim-pos-val-lab");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			//
+			// operationSubAction = new OpersSubOperation(5,
+			// "BasSim-Post-Update");
+			//
+			// //
 			// simulationOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("BasSim-Post-Update",
-					metaOperationSubAction, operationSubAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(5);
-
-			refas.getVariabilityVertex().put("BasSim-Post-Update",
-					instOperationSubAction);
-
-			simulationPostUpdOptOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, simulationPostUpdOptOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			operationLabeling = new OpersLabeling("unique");
-
+			//
+			// instOperationSubAction = new InstConcept("BasSim-Post-Update",
+			// metaOperationSubAction, operationSubAction);
+			// instOperationSubAction.getInstAttribute("name").setValue(" ");
+			// instOperationSubAction.getInstAttribute("type").setValue(
+			// "Single update");
+			// instOperationSubAction.getInstAttribute("showDashboard").setValue(
+			// false);
+			// instOperationSubAction.getInstAttribute("iteration")
+			// .setValue(false);
+			// instOperationSubAction.getInstAttribute("Index").setValue(5);
+			//
+			// refas.getVariabilityVertex().put("BasSim-Post-Update",
+			// instOperationSubAction);
+			//
+			// simulationPostUpdOptOperSubActionNormal = new
+			// OpersSubOperationExpType();
+			//
+			// instOperSubOperationExpType = new InstConcept("exptype",
+			// metaExpType, simulationPostUpdOptOperSubActionNormal);
+			//
+			// instOperSubOperationExpType.getInstAttribute("suboperexptype")
+			// .setValue("NORMAL");
+			//
+			// ((List<InstAttribute>) instOperationSubAction
+			// .getInstAttributeValue("exptype")).add(new InstAttribute(
+			// "enum1", new ElemAttribute("EnumValue",
+			// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+			// "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+			// ""), instOperSubOperationExpType));
+			//
+			// operationLabeling = new OpersLabeling("unique");
+			//
+			// //
 			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("BasSim-Post-Update-lab",
-					metaLabeling, operationLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex().put("BasSim-Post-Update-lab",
-					instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("bassim-post-update-lab",
-					instEdgeOper);
-			instEdgeOper.setIdentifier("bassim-post-update-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			//
+			// instLabeling = new InstConcept("BasSim-Post-Update-lab",
+			// metaLabeling, operationLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			// instLabeling.getInstAttribute("order").setValue(false);
+			//
+			// refas.getVariabilityVertex().put("BasSim-Post-Update-lab",
+			// instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("bassim-post-update-lab",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("bassim-post-update-lab");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			operationMenu = new OpersConcept("SimulSCeOper");
 
@@ -732,133 +751,144 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationAction, true);
 			instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-			operationSubAction = new OpersSubOperation(1,
-					"SimSce-Pre-Validation");
-
+			// operationSubAction = new OpersSubOperation(1,
+			// "SimSce-Pre-Validation");
+			//
+			// //
 			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("SimSce-Pre-Validation",
-					metaOperationSubAction, operationSubAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single verification");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
-
-			refas.getVariabilityVertex().put("SimSce-Pre-Validation",
-					instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("simsce-pre-val", instEdgeOper);
-			instEdgeOper.setIdentifier("simsce-pre-val");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			simulScenPreValOptOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, simulScenPreValOptOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			operationLabeling = new OpersLabeling("unique");
-
+			//
+			// instOperationSubAction = new InstConcept("SimSce-Pre-Validation",
+			// metaOperationSubAction, operationSubAction);
+			// instOperationSubAction.getInstAttribute("name").setValue(" ");
+			//
+			// instOperationSubAction.getInstAttribute("type").setValue(
+			// "Single verification");
+			// instOperationSubAction.getInstAttribute("showDashboard").setValue(
+			// false);
+			// instOperationSubAction.getInstAttribute("iteration")
+			// .setValue(false);
+			// instOperationSubAction.getInstAttribute("Index").setValue(1);
+			//
+			// refas.getVariabilityVertex().put("SimSce-Pre-Validation",
+			// instOperationSubAction);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("simsce-pre-val",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("simsce-pre-val");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			// instEdgeOper.setSourceRelation(instOperationAction, true);
+			//
+			// simulScenPreValOptOperSubActionNormal = new
+			// OpersSubOperationExpType();
+			//
+			// instOperSubOperationExpType = new InstConcept("exptype",
+			// metaExpType, simulScenPreValOptOperSubActionNormal);
+			//
+			// instOperSubOperationExpType.getInstAttribute("suboperexptype")
+			// .setValue("NORMAL");
+			//
+			// ((List<InstAttribute>) instOperationSubAction
+			// .getInstAttributeValue("exptype")).add(new InstAttribute(
+			// "enum1", new ElemAttribute("EnumValue",
+			// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+			// "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+			// ""), instOperSubOperationExpType));
+			//
+			// operationLabeling = new OpersLabeling("unique");
+			//
+			// //
 			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("SimSce-pre-val-lab", metaLabeling,
-					operationLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex()
-					.put("SimSce-pre-val-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("simsce-pre-val-lab",
-					instEdgeOper);
-			instEdgeOper.setIdentifier("simsce-pre-val-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			operationSubAction = new OpersSubOperation(2, "SimSce-Pre-Update");
-
+			//
+			// instLabeling = new InstConcept("SimSce-pre-val-lab",
+			// metaLabeling,
+			// operationLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			// instLabeling.getInstAttribute("order").setValue(false);
+			//
+			// refas.getVariabilityVertex()
+			// .put("SimSce-pre-val-lab", instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("simsce-pre-val-lab",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("simsce-pre-val-lab");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			//
+			// operationSubAction = new OpersSubOperation(2,
+			// "SimSce-Pre-Update");
+			//
+			// //
 			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("SimSce-Pre-Update",
-					metaOperationSubAction, operationSubAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(2);
-
-			refas.getVariabilityVertex().put("SimSce-Pre-Update",
-					instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("simsce-pre-upd", instEdgeOper);
-			instEdgeOper.setIdentifier("simsce-pre-upd");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			simulScenPreValOptOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, simulScenPreValOptOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			operationLabeling = new OpersLabeling("unique");
-
+			//
+			// instOperationSubAction = new InstConcept("SimSce-Pre-Update",
+			// metaOperationSubAction, operationSubAction);
+			// instOperationSubAction.getInstAttribute("name").setValue(" ");
+			// instOperationSubAction.getInstAttribute("type").setValue(
+			// "Single update");
+			// instOperationSubAction.getInstAttribute("showDashboard").setValue(
+			// false);
+			// instOperationSubAction.getInstAttribute("iteration")
+			// .setValue(false);
+			// instOperationSubAction.getInstAttribute("Index").setValue(2);
+			//
+			// refas.getVariabilityVertex().put("SimSce-Pre-Update",
+			// instOperationSubAction);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("simsce-pre-upd",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("simsce-pre-upd");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			// instEdgeOper.setSourceRelation(instOperationAction, true);
+			//
+			// simulScenPreValOptOperSubActionNormal = new
+			// OpersSubOperationExpType();
+			//
+			// instOperSubOperationExpType = new InstConcept("exptype",
+			// metaExpType, simulScenPreValOptOperSubActionNormal);
+			//
+			// instOperSubOperationExpType.getInstAttribute("suboperexptype")
+			// .setValue("NORMAL");
+			//
+			// ((List<InstAttribute>) instOperationSubAction
+			// .getInstAttributeValue("exptype")).add(new InstAttribute(
+			// "enum1", new ElemAttribute("EnumValue",
+			// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+			// "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+			// ""), instOperSubOperationExpType));
+			//
+			// operationLabeling = new OpersLabeling("unique");
+			//
+			// //
 			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("SimSce-pre-upd-lab", metaLabeling,
-					operationLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex()
-					.put("SimSce-pre-upd-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("simsce-pre-upd-lab",
-					instEdgeOper);
-			instEdgeOper.setIdentifier("simsce-pre-upd-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			//
+			// instLabeling = new InstConcept("SimSce-pre-upd-lab",
+			// metaLabeling,
+			// operationLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			// instLabeling.getInstAttribute("order").setValue(false);
+			//
+			// refas.getVariabilityVertex()
+			// .put("SimSce-pre-upd-lab", instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("simsce-pre-upd-lab",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("simsce-pre-upd-lab");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			simSceSubOperationAction = new OpersSubOperation(3,
 					"SimSce-Execution");
@@ -954,130 +984,141 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-			operationSubAction = new OpersSubOperation(4,
-					"SimSce-Post-Validation");
-
+			// operationSubAction = new OpersSubOperation(4,
+			// "SimSce-Post-Validation");
+			//
+			// //
 			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("SimSce-Post-Validation",
-					metaOperationSubAction, operationSubAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single verification");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					true);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(4);
-
-			refas.getVariabilityVertex().put("SimSce-Post-Validation",
-					instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("simsce-pos-val", instEdgeOper);
-			instEdgeOper.setIdentifier("simsce-pos-val");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			simulScenPosValOptOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, simulScenPosValOptOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			operationLabeling = new OpersLabeling("unique");
-
+			//
+			// instOperationSubAction = new
+			// InstConcept("SimSce-Post-Validation",
+			// metaOperationSubAction, operationSubAction);
+			// instOperationSubAction.getInstAttribute("name").setValue(" ");
+			// instOperationSubAction.getInstAttribute("type").setValue(
+			// "Single verification");
+			// instOperationSubAction.getInstAttribute("showDashboard").setValue(
+			// true);
+			// instOperationSubAction.getInstAttribute("iteration")
+			// .setValue(false);
+			// instOperationSubAction.getInstAttribute("Index").setValue(4);
+			//
+			// refas.getVariabilityVertex().put("SimSce-Post-Validation",
+			// instOperationSubAction);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("simsce-pos-val",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("simsce-pos-val");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			// instEdgeOper.setSourceRelation(instOperationAction, true);
+			//
+			// simulScenPosValOptOperSubActionNormal = new
+			// OpersSubOperationExpType();
+			//
+			// instOperSubOperationExpType = new InstConcept("exptype",
+			// metaExpType, simulScenPosValOptOperSubActionNormal);
+			//
+			// instOperSubOperationExpType.getInstAttribute("suboperexptype")
+			// .setValue("NORMAL");
+			//
+			// ((List<InstAttribute>) instOperationSubAction
+			// .getInstAttributeValue("exptype")).add(new InstAttribute(
+			// "enum1", new ElemAttribute("EnumValue",
+			// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+			// "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+			// ""), instOperSubOperationExpType));
+			//
+			// operationLabeling = new OpersLabeling("unique");
+			//
+			// //
 			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("SimSce-pos-val-lab", metaLabeling,
-					operationLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex()
-					.put("SimSce-pos-val-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("simsce-pos-val-lab",
-					instEdgeOper);
-			instEdgeOper.setIdentifier("simsce-pos-val-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			operationSubAction = new OpersSubOperation(5, "SimSce-Post-Update");
+			//
+			// instLabeling = new InstConcept("SimSce-pos-val-lab",
+			// metaLabeling,
+			// operationLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			// instLabeling.getInstAttribute("order").setValue(false);
+			//
+			// refas.getVariabilityVertex()
+			// .put("SimSce-pos-val-lab", instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("simsce-pos-val-lab",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("simsce-pos-val-lab");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			//
+			// operationSubAction = new OpersSubOperation(5,
+			// "SimSce-Post-Update");
+			// //
 			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("SimSce-Post-Update",
-					metaOperationSubAction, operationSubAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(5);
-
-			refas.getVariabilityVertex().put("SimSce-Post-Update",
-					instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("simsce-pos-upd", instEdgeOper);
-			instEdgeOper.setIdentifier("simsce-pos-upd");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			simulScenPostUpdOptOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, simulScenPostUpdOptOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			operationLabeling = new OpersLabeling("unique");
-
+			//
+			// instOperationSubAction = new InstConcept("SimSce-Post-Update",
+			// metaOperationSubAction, operationSubAction);
+			// instOperationSubAction.getInstAttribute("name").setValue(" ");
+			// instOperationSubAction.getInstAttribute("type").setValue(
+			// "Single update");
+			// instOperationSubAction.getInstAttribute("showDashboard").setValue(
+			// false);
+			// instOperationSubAction.getInstAttribute("iteration")
+			// .setValue(false);
+			// instOperationSubAction.getInstAttribute("Index").setValue(5);
+			//
+			// refas.getVariabilityVertex().put("SimSce-Post-Update",
+			// instOperationSubAction);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("simsce-pos-upd",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("simsce-pos-upd");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			// instEdgeOper.setSourceRelation(instOperationAction, true);
+			//
+			// simulScenPostUpdOptOperSubActionNormal = new
+			// OpersSubOperationExpType();
+			//
+			// instOperSubOperationExpType = new InstConcept("exptype",
+			// metaExpType, simulScenPostUpdOptOperSubActionNormal);
+			//
+			// instOperSubOperationExpType.getInstAttribute("suboperexptype")
+			// .setValue("NORMAL");
+			//
+			// ((List<InstAttribute>) instOperationSubAction
+			// .getInstAttributeValue("exptype")).add(new InstAttribute(
+			// "enum1", new ElemAttribute("EnumValue",
+			// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+			// "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+			// ""), instOperSubOperationExpType));
+			//
+			// operationLabeling = new OpersLabeling("unique");
+			//
+			// //
 			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("SimSce-Post-Update-lab",
-					metaLabeling, operationLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-
-			refas.getVariabilityVertex().put("SimSce-Post-Update-lab",
-					instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("simSce-Post-Update-lab",
-					instEdgeOper);
-			instEdgeOper.setIdentifier("simSce-Post-Update-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			//
+			// instLabeling = new InstConcept("SimSce-Post-Update-lab",
+			// metaLabeling, operationLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			//
+			// refas.getVariabilityVertex().put("SimSce-Post-Update-lab",
+			// instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("simSce-Post-Update-lab",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("simSce-Post-Update-lab");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			// ------------------------------------------------------
 			operationMenu = new OpersConcept("SAS Verification");
@@ -2900,7 +2941,7 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			operationLabeling = new OpersLabeling("unique");
+			OpersLabeling operationLabeling = new OpersLabeling("unique");
 
 			// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -3221,7 +3262,7 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationAction, true);
 			instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-			operationSubAction = new OpersSubOperation(1,
+			OpersSubOperation operationSubAction = new OpersSubOperation(1,
 					"ConfigureTemporalSubOper");
 			// operationSubAction.addOperationLabeling(new
 			// OperationLabeling("unique",

@@ -507,7 +507,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									errorTitle = (String) suboper
 											.getInstAttributeValue("errorTitle");
 									correctExecution = false;
-									terminated = true;
+									// terminated = true;
 								} else {
 									errorMessage = "No more solutions found";
 									errorTitle = "Simulation Message";
