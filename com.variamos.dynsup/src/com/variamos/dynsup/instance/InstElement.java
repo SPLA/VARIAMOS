@@ -368,16 +368,14 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return (Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES);
 	}
 
-	public abstract List<InstAttribute> getEditableVariables(
-			List<InstElement> syntaxParents);
-
 	@SuppressWarnings("unchecked")
 	public Collection<InstAttribute> getInstAttributesCollection() {
 		return ((Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES))
 				.values();
 	}
 
-	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
+	public String getInstAttributeFullIdentifier(String insAttributeLocalId,
+			int instance) {
 		if (this.getInstAttribute(insAttributeLocalId) == null) {
 			this.createInstAttributes(null);
 			if (this.getInstAttribute(insAttributeLocalId) == null) {
@@ -386,7 +384,10 @@ public abstract class InstElement implements Serializable, Cloneable,
 				return null;
 			}
 		}
-		return this.getIdentifier() + "_"
+		String addAtt = "";
+		if (instance != -1)
+			addAtt = "_" + instance;
+		return this.getIdentifier() + addAtt + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
 

@@ -295,25 +295,6 @@ public class InstPairwiseRel extends InstElement {
 	// return toRelation;
 	// }
 
-	@Override
-	public List<InstAttribute> getEditableVariables(
-			List<InstElement> syntaxParents) {
-		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
-				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			Object o = getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject();
-			String semGroupDep = ((OpersConcept) o).getIdentifier();
-
-			if (!semPairwiseDepOld.equals(semGroupDep)) {
-				semPairwiseDepOld = semGroupDep;
-				setInstAttribute(VAR_OPERSPAIRWISE_OBJ, semGroupDep);
-				createInstAttributes(syntaxParents);
-			}
-		}
-		Set<String> attributesNames = getDisPropEditableAttributes(syntaxParents);
-		return getFilteredInstAttributes(attributesNames, null);
-
-	}
-
 	/*
 	 * @Override public List<InstAttribute> getEditableVariables(
 	 * List<InstElement> syntaxParents) { createInstAttributes(syntaxParents);

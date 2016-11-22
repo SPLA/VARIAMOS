@@ -187,11 +187,10 @@ public abstract class AbstractExpression {
 			// System.out.println(leftVertex.getIdentifier() + " "
 			// + leftAttributeName);
 			Identifier identifier = f.newIdentifier(leftVertex
-					.getInstAttributeFullIdentifier(leftAttributeName),
+					.getInstAttributeFullIdentifier(leftAttributeName, -1),
 					leftAttributeName);
-			out.put(leftVertex
-					.getInstAttributeFullIdentifier(leftAttributeName),
-					identifier);
+			out.put(leftVertex.getInstAttributeFullIdentifier(
+					leftAttributeName, -1), identifier);
 			ElemAttribute attribute = leftVertex.getInstAttribute(
 					leftAttributeName).getAttribute();
 
@@ -201,12 +200,11 @@ public abstract class AbstractExpression {
 			// System.out.println("GET ID" + rightVertex.getIdentifier()
 			// + rightAttributeName);
 			Identifier identifier = f.newIdentifier(rightVertex
-					.getInstAttributeFullIdentifier(rightAttributeName),
+					.getInstAttributeFullIdentifier(rightAttributeName, -1),
 					rightAttributeName);
 
-			out.put(rightVertex
-					.getInstAttributeFullIdentifier(rightAttributeName),
-					identifier);
+			out.put(rightVertex.getInstAttributeFullIdentifier(
+					rightAttributeName, -1), identifier);
 			ElemAttribute attribute = rightVertex.getInstAttribute(
 					rightAttributeName).getAttribute();
 			updateDomain(attribute, rightVertex, identifier);
@@ -440,11 +438,11 @@ public abstract class AbstractExpression {
 				break;
 			case LEFTVARIABLE:
 				out.add(idMap.get(getLeft().getInstAttributeFullIdentifier(
-						leftAttributeName)));
+						leftAttributeName, -1)));
 				break;
 			case RIGHTVARIABLE:
 				out.add(idMap.get(getRight().getInstAttributeFullIdentifier(
-						rightAttributeName)));
+						rightAttributeName, -1)));
 
 				break;
 			case LEFTSUBEXPRESSION:
@@ -502,20 +500,21 @@ public abstract class AbstractExpression {
 			case LEFTVARIABLE:
 				if (negateLeft)
 					out.add(f.not(idMap.get(getLeft()
-							.getInstAttributeFullIdentifier(leftAttributeName))));
+							.getInstAttributeFullIdentifier(leftAttributeName,
+									-1))));
 				else
 					out.add(idMap.get(getLeft().getInstAttributeFullIdentifier(
-							leftAttributeName)));
+							leftAttributeName, -1)));
 				break;
 			case RIGHTVARIABLE:
 				if (negateRight)
-					out.add(f.not(idMap
-							.get(getRight().getInstAttributeFullIdentifier(
-									rightAttributeName))));
+					out.add(f.not(idMap.get(getRight()
+							.getInstAttributeFullIdentifier(rightAttributeName,
+									-1))));
 				else
-					out.add(idMap
-							.get(getRight().getInstAttributeFullIdentifier(
-									rightAttributeName)));
+					out.add(idMap.get(getRight()
+							.getInstAttributeFullIdentifier(rightAttributeName,
+									-1)));
 				break;
 			case LEFTSUBEXPRESSION:
 				if (negateLeft

@@ -95,6 +95,7 @@ public class ModelExpr implements Serializable {
 
 	private int size = 0;
 	private ModelInstance refas;
+	private int instance = -1;
 
 	public String getLastLeft() {
 		return lastLeft;
@@ -127,17 +128,19 @@ public class ModelExpr implements Serializable {
 			rightInstanceExpression.loadVolatileElements(instVertices);
 	}
 
-	public ModelExpr(boolean customExpression, String id, boolean first) {
+	public ModelExpr(boolean customExpression, String id, boolean first,
+			int instance) {
 		this.customExpression = customExpression;
+		this.instance = instance;
 		if (customExpression) {
 			customSemanticExpression = new OpersExpr(id);
 			semanticExpressionId = id;
 		}
 		if (first) {
 			setLeftInstanceExpression(ExpressionVertexType.LEFTSUBEXPRESSION,
-					null, "id");
+					null, "id", instance);
 			setRightInstanceExpression(ExpressionVertexType.RIGHTSUBEXPRESSION,
-					null, "id");
+					null, "id", instance);
 		}
 		this.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
 		this.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
@@ -725,7 +728,7 @@ public class ModelExpr implements Serializable {
 
 		if (expInstElement != null && expAttributeName != null) {
 			String fullIdentifier = expInstElement
-					.getInstAttributeFullIdentifier(expAttributeName);
+					.getInstAttributeFullIdentifier(expAttributeName, instance);
 			if (fullIdentifier == null) {
 				System.out.println("NUllID: " + expInstElement.getIdentifier()
 						+ " " + expAttributeName);
@@ -733,8 +736,11 @@ public class ModelExpr implements Serializable {
 			}
 			Identifier identifier = hlclFactory.newIdentifier(fullIdentifier,
 					expAttributeName);
-			ElemAttribute attribute = expInstElement.getInstAttribute(
-					expAttributeName).getAttribute();
+			InstAttribute att = expInstElement
+					.getInstAttribute(expAttributeName);
+			if (instance > -1)
+				att = att.getAdditionalAttribute(pos);
+			ElemAttribute attribute = att.getAttribute();
 			// Specifically for Variables
 			updateDomain(attribute, expInstElement, identifier);
 
@@ -1169,9 +1175,10 @@ public class ModelExpr implements Serializable {
 	}
 
 	public void setLeftInstanceExpression(ExpressionVertexType type,
-			OpersExprType semanticExpressionType, String id) {
+			OpersExprType semanticExpressionType, String id, int instance) {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION)
-			this.leftInstanceExpression = new ModelExpr(true, id, false);
+			this.leftInstanceExpression = new ModelExpr(true, id, false,
+					instance);
 		if (type == ExpressionVertexType.LEFTNUMERICVALUE)
 			this.leftInstanceExpression = new ModelExpr(refas, true,
 					new OpersExpr(id, semanticExpressionType));
@@ -1186,9 +1193,10 @@ public class ModelExpr implements Serializable {
 	}
 
 	public void setRightInstanceExpression(ExpressionVertexType type,
-			OpersExprType semanticExpressionType, String id) {
+			OpersExprType semanticExpressionType, String id, int instance) {
 		if (type == ExpressionVertexType.RIGHTSUBEXPRESSION)
-			this.rightInstanceExpression = new ModelExpr(true, id, false);
+			this.rightInstanceExpression = new ModelExpr(true, id, false,
+					instance);
 		if (type == ExpressionVertexType.RIGHTNUMERICVALUE)
 			this.rightInstanceExpression = new ModelExpr(refas, true,
 					new OpersExpr(id, semanticExpressionType));
@@ -1608,7 +1616,9 @@ public class ModelExpr implements Serializable {
 		SemExprSubActions = semExprSubActions;
 	}
 
-	public void createFromSemanticExpression(InstElement instElement, int pos) {
+	public void createFromSemanticExpression(InstElement instElement, int pos,
+			int instances) {
+		this.instance = instances;
 		ExpressionVertexType type = volatileSemanticExpression
 				.getLeftExpressionType();
 
@@ -1617,7 +1627,7 @@ public class ModelExpr implements Serializable {
 			leftInstanceExpression = new ModelExpr(refas, false,
 					volatileSemanticExpression.getLeftSemanticExpression());
 			leftInstanceExpression.createFromSemanticExpression(instElement,
-					pos);
+					pos, instances);
 			break;
 		case LEFTNUMERICVALUE:
 			this.leftValue = volatileSemanticExpression.getLeftNumber() + "";
@@ -1650,7 +1660,7 @@ public class ModelExpr implements Serializable {
 				leftInstanceExpression = new ModelExpr(refas, false, this
 						.getSemanticExpression().getLeftSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
@@ -1661,7 +1671,7 @@ public class ModelExpr implements Serializable {
 				leftInstanceExpression = new ModelExpr(refas, false,
 						this.getSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
@@ -1672,7 +1682,7 @@ public class ModelExpr implements Serializable {
 				leftInstanceExpression = new ModelExpr(refas, false, this
 						.getSemanticExpression().getLeftSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
@@ -1682,7 +1692,7 @@ public class ModelExpr implements Serializable {
 				leftInstanceExpression = new ModelExpr(refas, false,
 						this.getSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
@@ -1691,12 +1701,12 @@ public class ModelExpr implements Serializable {
 				leftInstanceExpression = new ModelExpr(refas, false,
 						volatileSemanticExpression);
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			} else {
 				leftInstanceExpression = new ModelExpr(refas, false,
 						volatileSemanticExpression.getLeftSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
@@ -1705,12 +1715,12 @@ public class ModelExpr implements Serializable {
 				leftInstanceExpression = new ModelExpr(refas, false,
 						volatileSemanticExpression);
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			} else {
 				leftInstanceExpression = new ModelExpr(refas, false,
 						volatileSemanticExpression.getLeftSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
@@ -1721,7 +1731,7 @@ public class ModelExpr implements Serializable {
 				leftInstanceExpression = new ModelExpr(refas, false, this
 						.getSemanticExpression().getLeftSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
@@ -1731,7 +1741,7 @@ public class ModelExpr implements Serializable {
 				leftInstanceExpression = new ModelExpr(refas, false,
 						this.getSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
-						instElement, pos + 1);
+						instElement, pos + 1, instances);
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
@@ -1784,7 +1794,7 @@ public class ModelExpr implements Serializable {
 					volatileSemanticExpression.getRightSemanticExpression());
 			if (instElement != null)
 				rightInstanceExpression.createFromSemanticExpression(
-						instElement, pos);
+						instElement, pos, instances);
 			break;
 
 		case RIGHTNUMERICVALUE:

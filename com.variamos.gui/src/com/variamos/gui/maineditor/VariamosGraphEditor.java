@@ -984,8 +984,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					extensionTabs.setSelectedIndex(tabIndex);
 					extensionTabs.getSelectedComponent().repaint();
 				}
-				JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
-				JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
 
 				List<InstAttribute> visible = finalEditElm
 						.getVisibleAttributes(refasModel
@@ -1013,10 +1011,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// finalEditElm
 				// .getEditableVariables(refasModel
 				// .getParentSMMSyntaxElement((InstElement) finalEditElm));
-
-				RefasWidgetFactory factory = new RefasWidgetFactory(this);
-
-				int configurationPanelElements = 0, simulationPanelElements = 1;
 
 				if (finalEditElm instanceof InstConcept) {
 					String iden = ((InstConcept) finalEditElm)
@@ -1070,267 +1064,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// elm.getIdentifier(), type), (InstElement) elm);
 
 				// TODO split in two new classes, one for each panel
-				for (InstAttribute instAttribute : visible) {
-					Map<String, InstElement> mapElements = null;
-					if (finalEditElm instanceof InstPairwiseRel) {
-						InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
-						mapElements = refasModel.getSyntaxModel()
-								.getValidPairwiseRelations(
-										instPairwise.getSourceRelations()
-												.get(0),
-										instPairwise.getTargetRelations()
-												.get(0));
-					}
-					instAttribute.updateValidationList(finalEditElm,
-							mapElements);
 
-					if (instAttribute.getType().equals(
-							"com.variamos.dynsup.model.ModelExpr")) {
-						continue;
-					}
+				JPanel elementSimPropSubPanel = elementStateTab(visible,
+						editables, finalEditElm, instCell);
 
-					final WidgetR w = factory.getWidgetFor(instAttribute);
+				JPanel elementConfPropSubPanel = elementConfigTab(visible,
+						editables, finalEditElm, instCell);
 
-					if (w == null) {
-						recursiveCall = false;
-						System.err.print(" VGE: No Widget found for "
-								+ instAttribute);
-						continue;
-					}
-					// TODO: Add listeners to w.
-
-					w.getEditor().addFocusListener(new FocusListener() {
-						@Override
-						public void focusLost(FocusEvent arg0) {
-							// Makes it pull the values.
-							IntInstAttribute v = w.getInstAttribute();
-							if (v.getType().equals("String"))
-								v.setValue(AbstractElement.multiLine(
-										v.toString(), 15));
-							// Divide lines every 15 characters (aprox.)
-							onVariableEdited(finalEditElm, v);
-						}
-
-						@Override
-						public void focusGained(FocusEvent arg0) {
-						}
-					});
-
-					w.getGroup().addFocusListener(new FocusListener() {
-						@Override
-						public void focusLost(FocusEvent arg0) {
-							// Makes it pull the values.
-							IntInstAttribute v = w.getInstAttribute();
-							if (v.getType().equals("String"))
-								v.setValue(AbstractElement.multiLine(
-										v.toString(), 15));
-							// Divide lines every 15 characters (aprox.)
-							onVariableEdited(finalEditElm, v);
-						}
-
-						@Override
-						public void focusGained(FocusEvent arg0) {
-						}
-					});
-
-					w.getEditor().addPropertyChangeListener(
-							new PropertyChangeListener() {
-
-								@Override
-								public void propertyChange(
-										PropertyChangeEvent evt) {
-									if (WidgetPL.PROPERTY_VALUE.equals(evt
-											.getPropertyName())) {
-										w.getInstAttribute();
-										updateExpressions = true;
-										onVariableEdited(finalEditElm,
-												w.getInstAttribute());
-									}
-								}
-							});
-					w.getGroup().addPropertyChangeListener(
-							new PropertyChangeListener() {
-
-								@Override
-								public void propertyChange(
-										PropertyChangeEvent evt) {
-									if (WidgetPL.PROPERTY_VALUE.equals(evt
-											.getPropertyName())) {
-										w.getInstAttribute();
-										updateExpressions = true;
-										onVariableEdited(finalEditElm,
-												w.getInstAttribute());
-									}
-								}
-							});
-					if (w instanceof MClassWidget
-							|| w instanceof MEnumerationWidget) {
-						w.getEditor().setPreferredSize(new Dimension(200, 100));
-					} else {
-						w.getEditor().setPreferredSize(new Dimension(200, 20));
-						w.getEditor().setMaximumSize(new Dimension(200, 20));
-					}
-					w.editVariable(instAttribute);
-					if (!editables.contains(instAttribute)) {
-						w.getEditor().setEnabled(false);
-					}
-					// GARA
-					// variablesPanel.add(new JLabel(v.getName() + ":: "));
-					if (instAttribute.getAttribute() instanceof ElemAttribute
-							&& instAttribute.getAttribute().getAttributeType()
-									.equals(AttributeType.EXECCURRENTSTATE)) {
-						JLabel label = new JLabel(
-								instAttribute.getDisplayName() + ": ");
-						elementSimPropSubPanel.add(label);
-						label.setToolTipText(instAttribute.getToolTipText());
-						elementSimPropSubPanel.add(w);
-
-						if (instAttribute.isAffectProperties()) {
-							JComponent wc = w.getEditor();
-							if (wc instanceof ItemSelectable)
-								((ItemSelectable) wc)
-										.addItemListener(new ItemListener() {
-											@Override
-											public void itemStateChanged(
-													ItemEvent e) {
-												editPropertiesRefas(instCell);
-												updateExpressions = true;
-											}
-										});
-							ImageIcon icon = new ImageIcon(
-									BasicGraphEditor.class
-											.getResource("/com/variamos/gui/perspeditor/images/www.iconfinder.com/refresh.png"));
-							JButton button = new JButton(icon);
-							button.addActionListener(new ActionListener() {
-								@Override
-								public void actionPerformed(ActionEvent e) {
-									if (!recursiveCall) {
-										clearNotificationBar();
-										executeSimulation(true, true,
-												ModelExpr2HLCL.CONF_EXEC);
-										editPropertiesRefas(instCell);
-										updateExpressions = true;
-									}
-								}
-							});
-							elementSimPropSubPanel.add(button);
-						} else
-							elementSimPropSubPanel.add(new JPanel());
-
-						simulationPanelElements++;
-					} else if (instAttribute.getAttribute() instanceof ElemAttribute
-							&& instAttribute.getAttribute().getAttributeType()
-									.equals(AttributeType.GLOBALCONFIG)) {
-						JLabel label = new JLabel(
-								instAttribute.getDisplayName() + ": ");
-						elementConfPropSubPanel.add(label);
-						label.setToolTipText(instAttribute.getToolTipText());
-						elementConfPropSubPanel.add(w);
-
-						if (instAttribute.isAffectProperties()) {
-							/*
-							 * if (w.getEditor() instanceof JCheckBox)
-							 * ((JCheckBox) w.getEditor())
-							 * .addActionListener(new ActionListener() { public
-							 * void actionPerformed( ActionEvent e) {
-							 * AbstractButton aButton = (AbstractButton) e
-							 * .getSource();
-							 * 
-							 * // System.out.println(selected); updateTabs =
-							 * true; // ((JCheckBox) w.getEditor()) //
-							 * .repaint(); // repaint();
-							 * 
-							 * new Thread() { public void run() { // try { //
-							 * sleep(1000); // } catch // (InterruptedException
-							 * // e) { // TODO // Auto-generated // catch block
-							 * // ConsoleTextArea.addText(e.getStackTrace()); //
-							 * } // synchronized // (getEditor()) { //
-							 * editPropertiesRefas(elm); // }
-							 * 
-							 * } }.start(); // clearNotificationBar(); //
-							 * configModel((InstElement) elm, // true); } });
-							 */
-							if (instAttribute.getIdentifier()
-									.startsWith("Conf")) {
-								JButton button = new JButton("Test");
-								button.addActionListener(new ActionListener() {
-									@Override
-									public void actionPerformed(ActionEvent e) {
-										// new Thread() {
-										// public void run() {
-										// synchronized (getEditor()) {
-										clearNotificationBar();
-										configModel(finalEditElm, true);
-										// executeSimulation(true,
-										// Refas2Hlcl.CONF_EXEC);
-										editPropertiesRefas(instCell);
-										updateExpressions = true;
-										// }
-
-										// }
-										// }.start();
-									}
-								});
-								elementConfPropSubPanel.add(button);
-								button = new JButton("Configure");
-								button.addActionListener(new ActionListener() {
-									@Override
-									public void actionPerformed(ActionEvent e) {
-										// new Thread() {
-										// public void run() {
-										// synchronized (getEditor()) {
-										clearNotificationBar();
-										configModel(finalEditElm, false);
-										// executeSimulation(true,
-										// Refas2Hlcl.CONF_EXEC);
-										editPropertiesRefas(instCell);
-										updateExpressions = true;
-										// }
-
-										// }
-										// }.start();
-									}
-								});
-								elementConfPropSubPanel.add(button);
-							} else {
-								JButton button = new JButton("Validate");
-								button.addActionListener(new ActionListener() {
-									@Override
-									public void actionPerformed(ActionEvent e) {
-										modelEditor.clearNotificationBar();
-										editPropertiesRefas(instCell);
-									}
-								});
-								elementConfPropSubPanel.add(button);
-
-								elementConfPropSubPanel.add(new JPanel());
-							}
-
-						} else {
-							elementConfPropSubPanel.add(new JPanel());
-							elementConfPropSubPanel.add(new JPanel());
-						}
-
-						configurationPanelElements++;
-					}
-
-				}
-
-				if (simulationPanelElements == ((simulationPanelElements / 2 * 2))) {
-					elementSimPropSubPanel.add(new JPanel());
-					elementSimPropSubPanel.add(new JPanel());
-					elementSimPropSubPanel.add(new JPanel());
-				}
-
-				SpringUtilities.makeCompactGrid(elementSimPropSubPanel,
-						simulationPanelElements / 2, 6, 4, 4, 4, 4);
-				elementConfPropSubPanel.setMinimumSize(new Dimension(350,
-						configurationPanelElements * 20));
-				elementConfPropSubPanel.setMaximumSize(new Dimension(350,
-						configurationPanelElements * 20));
-
-				SpringUtilities.makeCompactGrid(elementConfPropSubPanel,
-						configurationPanelElements, 4, 4, 4, 4, 4);
 				JScrollPane jj = new JScrollPane(elementConfPropSubPanel);
 				jj.setAutoscrolls(true);
 				elementConfigPropPanel.add(jj);
@@ -1351,6 +1091,409 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		} finally {
 			recursiveCall = false;
 		}
+	}
+
+	public JPanel elementConfigTab(List<InstAttribute> visible,
+			List<InstAttribute> editables, final InstElement instElement,
+			final InstCell instCell) {
+		RefasWidgetFactory factory = new RefasWidgetFactory(this);
+		JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
+		int configurationPanelElements = 0;
+		int instances = 1;
+
+		if (instElement.getInstAttribute("Scope") != null) {
+			boolean scope = (boolean) instElement
+					.getInstAttributeValue("Scope");
+			if (!scope) {
+				if (instElement.getInstAttribute("ConcernLevel") != null) {
+					String concernLevel = (String) instElement
+							.getInstAttributeValue("ConcernLevel");
+					InstElement concern = refasModel.getVertex(concernLevel);
+					instances = (int) concern
+							.getInstAttributeValue("instances");
+				}
+			}
+		}
+		int pos = -1;
+		do {
+			for (InstAttribute instAttribute : visible) {
+				if (instances > 1 && pos == -1)
+					instAttribute.updateAdditionalAttributes(instances);
+				if (instances > 1 && pos != -1)
+					instAttribute = instAttribute.getAdditionalAttribute(pos);
+				Map<String, InstElement> mapElements = null;
+				if (instElement instanceof InstPairwiseRel) {
+					InstPairwiseRel instPairwise = (InstPairwiseRel) instElement;
+					mapElements = refasModel.getSyntaxModel()
+							.getValidPairwiseRelations(
+									instPairwise.getSourceRelations().get(0),
+									instPairwise.getTargetRelations().get(0));
+				}
+				instAttribute.updateValidationList(instElement, mapElements);
+
+				if (instAttribute.getType().equals(
+						"com.variamos.dynsup.model.ModelExpr")) {
+					continue;
+				}
+
+				final WidgetR w = factory.getWidgetFor(instAttribute);
+
+				if (w == null) {
+					recursiveCall = false;
+					System.err.print(" VGE: No Widget found for "
+							+ instAttribute);
+					continue;
+				}
+				// TODO: Add listeners to w.
+
+				w.getEditor().addFocusListener(new FocusListener() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						// Makes it pull the values.
+						IntInstAttribute v = w.getInstAttribute();
+						if (v.getType().equals("String"))
+							v.setValue(AbstractElement.multiLine(v.toString(),
+									15));
+						// Divide lines every 15 characters (aprox.)
+						onVariableEdited(instElement, v);
+					}
+
+					@Override
+					public void focusGained(FocusEvent arg0) {
+					}
+				});
+
+				w.getGroup().addFocusListener(new FocusListener() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						// Makes it pull the values.
+						IntInstAttribute v = w.getInstAttribute();
+						if (v.getType().equals("String"))
+							v.setValue(AbstractElement.multiLine(v.toString(),
+									15));
+						// Divide lines every 15 characters (aprox.)
+						onVariableEdited(instElement, v);
+					}
+
+					@Override
+					public void focusGained(FocusEvent arg0) {
+					}
+				});
+
+				w.getEditor().addPropertyChangeListener(
+						new PropertyChangeListener() {
+
+							@Override
+							public void propertyChange(PropertyChangeEvent evt) {
+								if (WidgetPL.PROPERTY_VALUE.equals(evt
+										.getPropertyName())) {
+									w.getInstAttribute();
+									updateExpressions = true;
+									onVariableEdited(instElement,
+											w.getInstAttribute());
+								}
+							}
+						});
+				w.getGroup().addPropertyChangeListener(
+						new PropertyChangeListener() {
+
+							@Override
+							public void propertyChange(PropertyChangeEvent evt) {
+								if (WidgetPL.PROPERTY_VALUE.equals(evt
+										.getPropertyName())) {
+									w.getInstAttribute();
+									updateExpressions = true;
+									onVariableEdited(instElement,
+											w.getInstAttribute());
+								}
+							}
+						});
+				if (w instanceof MClassWidget
+						|| w instanceof MEnumerationWidget) {
+					w.getEditor().setPreferredSize(new Dimension(200, 100));
+				} else {
+					w.getEditor().setPreferredSize(new Dimension(200, 20));
+					w.getEditor().setMaximumSize(new Dimension(200, 20));
+				}
+				w.editVariable(instAttribute);
+				if (!editables.contains(instAttribute)) {
+					w.getEditor().setEnabled(false);
+				}
+				// GARA
+				// variablesPanel.add(new JLabel(v.getName() + ":: "));
+				if (instAttribute.getAttribute() instanceof ElemAttribute
+						&& instAttribute.getAttribute().getAttributeType()
+								.equals(AttributeType.GLOBALCONFIG)) {
+					JLabel label = new JLabel(instAttribute.getDisplayName()
+							+ ": ");
+					elementConfPropSubPanel.add(label);
+					label.setToolTipText(instAttribute.getToolTipText());
+					elementConfPropSubPanel.add(w);
+
+					if (instAttribute.isAffectProperties()) {
+
+						if (instAttribute.getIdentifier().startsWith("Conf")) {
+							JButton button = new JButton("Test");
+							button.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// new Thread() {
+									// public void run() {
+									// synchronized (getEditor()) {
+									clearNotificationBar();
+									configModel(instElement, true);
+									// executeSimulation(true,
+									// Refas2Hlcl.CONF_EXEC);
+									editPropertiesRefas(instCell);
+									updateExpressions = true;
+									// }
+
+									// }
+									// }.start();
+								}
+							});
+							elementConfPropSubPanel.add(button);
+							button = new JButton("Configure");
+							button.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// new Thread() {
+									// public void run() {
+									// synchronized (getEditor()) {
+									clearNotificationBar();
+									configModel(instElement, false);
+									// executeSimulation(true,
+									// Refas2Hlcl.CONF_EXEC);
+									editPropertiesRefas(instCell);
+									updateExpressions = true;
+									// }
+
+									// }
+									// }.start();
+								}
+							});
+							elementConfPropSubPanel.add(button);
+						} else {
+							JButton button = new JButton("Validate");
+							button.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									modelEditor.clearNotificationBar();
+									editPropertiesRefas(instCell);
+								}
+							});
+							elementConfPropSubPanel.add(button);
+
+							elementConfPropSubPanel.add(new JPanel());
+						}
+
+					} else {
+						elementConfPropSubPanel.add(new JPanel());
+						elementConfPropSubPanel.add(new JPanel());
+					}
+
+					configurationPanelElements++;
+				}
+
+			}
+			elementConfPropSubPanel.setMinimumSize(new Dimension(350,
+					configurationPanelElements * 20));
+			elementConfPropSubPanel.setMaximumSize(new Dimension(350,
+					configurationPanelElements * 20));
+
+			SpringUtilities.makeCompactGrid(elementConfPropSubPanel,
+					configurationPanelElements, 4, 4, 4, 4, 4);
+			pos++;
+		} while (pos + 1 < instances);
+
+		return elementConfPropSubPanel;
+	}
+
+	public JPanel elementStateTab(List<InstAttribute> visible,
+			List<InstAttribute> editables, final InstElement instElement,
+			final InstCell instCell) {
+		RefasWidgetFactory factory = new RefasWidgetFactory(this);
+
+		JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
+		int simulationPanelElements = 1;
+
+		int instances = 1;
+
+		if (instElement.getInstAttribute("Scope") != null) {
+			boolean scope = (boolean) instElement
+					.getInstAttributeValue("Scope");
+			if (!scope) {
+				if (instElement.getInstAttribute("ConcernLevel") != null) {
+					String concernLevel = (String) instElement
+							.getInstAttributeValue("ConcernLevel");
+					InstElement concern = refasModel.getVertex(concernLevel);
+					instances = (int) concern
+							.getInstAttributeValue("instances");
+				}
+			}
+		}
+		int pos = -1;
+		do {
+			for (InstAttribute instAttribute : visible) {
+				if (instances > 1 && pos == -1)
+					instAttribute.updateAdditionalAttributes(instances);
+				if (instances > 1 && pos != -1)
+					instAttribute = instAttribute.getAdditionalAttribute(pos);
+				Map<String, InstElement> mapElements = null;
+				if (instElement instanceof InstPairwiseRel) {
+					InstPairwiseRel instPairwise = (InstPairwiseRel) instElement;
+					mapElements = refasModel.getSyntaxModel()
+							.getValidPairwiseRelations(
+									instPairwise.getSourceRelations().get(0),
+									instPairwise.getTargetRelations().get(0));
+				}
+				instAttribute.updateValidationList(instElement, mapElements);
+
+				if (instAttribute.getType().equals(
+						"com.variamos.dynsup.model.ModelExpr")) {
+					continue;
+				}
+
+				final WidgetR w = factory.getWidgetFor(instAttribute);
+
+				if (w == null) {
+					recursiveCall = false;
+					System.err.print(" VGE: No Widget found for "
+							+ instAttribute);
+					continue;
+				}
+				// TODO: Add listeners to w.
+
+				w.getEditor().addFocusListener(new FocusListener() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						// Makes it pull the values.
+						IntInstAttribute v = w.getInstAttribute();
+						if (v.getType().equals("String"))
+							v.setValue(AbstractElement.multiLine(v.toString(),
+									15));
+						// Divide lines every 15 characters (aprox.)
+						onVariableEdited(instElement, v);
+					}
+
+					@Override
+					public void focusGained(FocusEvent arg0) {
+					}
+				});
+
+				w.getGroup().addFocusListener(new FocusListener() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						// Makes it pull the values.
+						IntInstAttribute v = w.getInstAttribute();
+						if (v.getType().equals("String"))
+							v.setValue(AbstractElement.multiLine(v.toString(),
+									15));
+						// Divide lines every 15 characters (aprox.)
+						onVariableEdited(instElement, v);
+					}
+
+					@Override
+					public void focusGained(FocusEvent arg0) {
+					}
+				});
+
+				w.getEditor().addPropertyChangeListener(
+						new PropertyChangeListener() {
+
+							@Override
+							public void propertyChange(PropertyChangeEvent evt) {
+								if (WidgetPL.PROPERTY_VALUE.equals(evt
+										.getPropertyName())) {
+									w.getInstAttribute();
+									updateExpressions = true;
+									onVariableEdited(instElement,
+											w.getInstAttribute());
+								}
+							}
+						});
+				w.getGroup().addPropertyChangeListener(
+						new PropertyChangeListener() {
+
+							@Override
+							public void propertyChange(PropertyChangeEvent evt) {
+								if (WidgetPL.PROPERTY_VALUE.equals(evt
+										.getPropertyName())) {
+									w.getInstAttribute();
+									updateExpressions = true;
+									onVariableEdited(instElement,
+											w.getInstAttribute());
+								}
+							}
+						});
+				if (w instanceof MClassWidget
+						|| w instanceof MEnumerationWidget) {
+					w.getEditor().setPreferredSize(new Dimension(200, 100));
+				} else {
+					w.getEditor().setPreferredSize(new Dimension(200, 20));
+					w.getEditor().setMaximumSize(new Dimension(200, 20));
+				}
+				w.editVariable(instAttribute);
+				if (!editables.contains(instAttribute)) {
+					w.getEditor().setEnabled(false);
+				}
+				// GARA
+				// variablesPanel.add(new JLabel(v.getName() + ":: "));
+				if (instAttribute.getAttribute() instanceof ElemAttribute
+						&& instAttribute.getAttribute().getAttributeType()
+								.equals(AttributeType.EXECCURRENTSTATE)) {
+					JLabel label = new JLabel(instAttribute.getDisplayName()
+							+ ": ");
+					elementSimPropSubPanel.add(label);
+					label.setToolTipText(instAttribute.getToolTipText());
+					elementSimPropSubPanel.add(w);
+
+					if (instAttribute.isAffectProperties()) {
+						JComponent wc = w.getEditor();
+						if (wc instanceof ItemSelectable)
+							((ItemSelectable) wc)
+									.addItemListener(new ItemListener() {
+										@Override
+										public void itemStateChanged(ItemEvent e) {
+											editPropertiesRefas(instCell);
+											updateExpressions = true;
+										}
+									});
+						ImageIcon icon = new ImageIcon(
+								BasicGraphEditor.class
+										.getResource("/com/variamos/gui/perspeditor/images/www.iconfinder.com/refresh.png"));
+						JButton button = new JButton(icon);
+						button.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								if (!recursiveCall) {
+									clearNotificationBar();
+									executeSimulation(true, true,
+											ModelExpr2HLCL.CONF_EXEC);
+									editPropertiesRefas(instCell);
+									updateExpressions = true;
+								}
+							}
+						});
+						elementSimPropSubPanel.add(button);
+					} else
+						elementSimPropSubPanel.add(new JPanel());
+
+					simulationPanelElements++;
+				}
+			}
+			if (simulationPanelElements == ((simulationPanelElements / 2 * 2))) {
+				elementSimPropSubPanel.add(new JPanel());
+				elementSimPropSubPanel.add(new JPanel());
+				elementSimPropSubPanel.add(new JPanel());
+			}
+
+			SpringUtilities.makeCompactGrid(elementSimPropSubPanel,
+					simulationPanelElements / 2, 6, 4, 4, 4, 4);
+			pos++;
+		} while (pos + 1 < instances);
+
+		return elementSimPropSubPanel;
 	}
 
 	@Override

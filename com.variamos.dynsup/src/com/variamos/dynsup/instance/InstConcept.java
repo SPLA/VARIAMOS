@@ -1,9 +1,7 @@
 package com.variamos.dynsup.instance;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -81,15 +79,6 @@ public class InstConcept extends InstVertex {
 		super(identifier, new HashMap<String, InstAttribute>());
 		setTransSupInstElement(supportInstElement);
 		createInstAttributes(null);
-	}
-
-	public List<InstAttribute> getEditableVariables(
-			List<InstElement> syntaxParents) {
-		// superclass
-		createInstAttributes(syntaxParents);
-		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributesSet(syntaxParents);
-		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	@Override

@@ -5701,20 +5701,20 @@ public class DefaultOpersMM {
 				"<<new>>", 0, 1, "", "", 1, "", ""));
 		semContextGroup.addPropVisibleAttribute("01#" + "name");
 		semContextGroup.addPropEditableAttribute("01#" + "name");
-
-		semContextGroup
-				.putSemanticAttribute(
-						"minInstances",
-						new ElemAttribute(
-								"minInstances",
-								"Integer",
-								AttributeType.OPERATION,
-								false,
-								"Min Number of Instances",
-								"Min number of instances allowed of the concern level (Ignored for operations)",
-								"1", 0, 6, "", "", -1, "", ""));
-		semContextGroup.addPropEditableAttribute("06#" + "minInstances");
-		semContextGroup.addPropVisibleAttribute("06#" + "minInstances");
+		//
+		// semContextGroup
+		// .putSemanticAttribute(
+		// "minInstances",
+		// new ElemAttribute(
+		// "minInstances",
+		// "Integer",
+		// AttributeType.OPERATION,
+		// false,
+		// "Min Number of Instances",
+		// "Min number of instances allowed of the concern level (Ignored for operations)",
+		// "1", 0, 6, "", "", -1, "", ""));
+		// semContextGroup.addPropEditableAttribute("06#" + "minInstances");
+		// semContextGroup.addPropVisibleAttribute("06#" + "minInstances");
 		semContextGroup
 				.putSemanticAttribute(
 						"instances",
@@ -5723,8 +5723,8 @@ public class DefaultOpersMM {
 								"Integer",
 								AttributeType.OPERATION,
 								false,
-								"Max Number of Instances",
-								"Max number of instances allowed of the concern level (Ignored for operations)",
+								"Current Instances",
+								"Current active instances of the concepts of this Concern Level",
 								"1", 0, 7, "", "", -1, "", ""));
 		semContextGroup.addPropEditableAttribute("07#" + "instances");
 		semContextGroup.addPropVisibleAttribute("07#" + "instances");

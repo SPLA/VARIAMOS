@@ -369,7 +369,7 @@ public class ElementDesignPanel extends JPanel {
 													.getValue());
 										else
 											ie.add(new ModelExpr(true, "id",
-													true));
+													true, -1));
 										final InstanceExpressionDialog dialog = new InstanceExpressionDialog(
 												finalEditor, finalEditElm,
 												false, ie, editable);

@@ -402,17 +402,15 @@ public class MainFrame extends JFrame {
 		directory.mkdir();
 		if (!directory.exists() || !directory.canRead()
 				|| !directory.canWrite()) {
-			System.out
-					.println("VariaMos needs the folder "
-							+ getFilesUrl()
-							+ " with writing privileges. Please change the privileges or manually create the folder with writing privileges and execute VariaMos againt");
-			JOptionPane
-					.showMessageDialog(
-							this,
-							"VariaMos needs the folder "
-									+ getFilesUrl()
-									+ " with writing privileges. Please change the privileges or manually create the folder with writing privileges",
-							"Fatal Error", JOptionPane.ERROR_MESSAGE, null);
+			System.out.println("VariaMos needs the folder " + getFilesUrl()
+					+ " with writing privileges. Please change the"
+					+ " privileges or manually create the folder "
+					+ "with writing privileges and execute VariaMos againt");
+			JOptionPane.showMessageDialog(this, "VariaMos needs the folder "
+					+ getFilesUrl() + " with writing privileges. Please change"
+					+ " the privileges or manually create the "
+					+ "folder with writing privileges", "Fatal Error",
+					JOptionPane.ERROR_MESSAGE, null);
 		}
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
