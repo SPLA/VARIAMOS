@@ -1099,21 +1099,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
 		int configurationPanelElements = 0;
-		int instances = 1;
-
-		if (instElement.getInstAttribute("Scope") != null) {
-			boolean scope = (boolean) instElement
-					.getInstAttributeValue("Scope");
-			if (!scope) {
-				if (instElement.getInstAttribute("ConcernLevel") != null) {
-					String concernLevel = (String) instElement
-							.getInstAttributeValue("ConcernLevel");
-					InstElement concern = refasModel.getVertex(concernLevel);
-					instances = (int) concern
-							.getInstAttributeValue("instances");
-				}
-			}
-		}
+		int instances = instElement.getInstances(refasModel);
 		int pos = -1;
 		do {
 			for (InstAttribute instAttribute : visible) {
@@ -1317,21 +1303,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
 		int simulationPanelElements = 1;
 
-		int instances = 1;
-
-		if (instElement.getInstAttribute("Scope") != null) {
-			boolean scope = (boolean) instElement
-					.getInstAttributeValue("Scope");
-			if (!scope) {
-				if (instElement.getInstAttribute("ConcernLevel") != null) {
-					String concernLevel = (String) instElement
-							.getInstAttributeValue("ConcernLevel");
-					InstElement concern = refasModel.getVertex(concernLevel);
-					instances = (int) concern
-							.getInstAttributeValue("instances");
-				}
-			}
-		}
+		int instances = instElement.getInstances(refasModel);
 		int pos = -1;
 		do {
 			for (InstAttribute instAttribute : visible) {

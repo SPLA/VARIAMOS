@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import com.cfm.productline.AbstractElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
@@ -1297,5 +1298,42 @@ public abstract class InstElement implements Serializable, Cloneable,
 			return new Float(value);
 		return value;
 
+	}
+
+	public int getInstances(ModelInstance refas) {
+		int out = 1;
+		if (getInstAttribute("Scope") != null) {
+			boolean scope = (boolean) getInstAttributeValue("Scope");
+			if (!scope) {
+				if (getInstAttribute("ConcernLevel") != null) {
+					String concernLevel = (String) getInstAttributeValue("ConcernLevel");
+					InstElement concern = refas.getVertex(concernLevel);
+					out = (int) concern.getInstAttributeValue("instances");
+				}
+			}
+		}
+		if (getTransSupportMetaElement().getTransInstSemanticElement() != null) {
+			InstAttribute ia = getTransSupportMetaElement()
+					.getTransInstSemanticElement().getInstAttribute(
+							"opersExprs");
+			if (ia != null) {
+				InstElement source = getSourceRelations().get(0);
+				if (source.getInstAttribute("Scope") != null) {
+					boolean scope = (boolean) source
+							.getInstAttributeValue("Scope");
+					if (!scope) {
+						if (source.getInstAttribute("ConcernLevel") != null) {
+							String concernLevel = (String) source
+									.getInstAttributeValue("ConcernLevel");
+							InstElement concern = refas.getVertex(concernLevel);
+							out = (int) concern
+									.getInstAttributeValue("instances");
+						}
+					}
+				}
+			}
+		}
+
+		return out;
 	}
 }

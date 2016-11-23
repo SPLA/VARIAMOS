@@ -209,43 +209,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								}
 							}
 						}
-						int instances = 1;
-
-						if (instE.getInstAttribute("Scope") != null) {
-							boolean scope = (boolean) instE
-									.getInstAttributeValue("Scope");
-							if (!scope) {
-								if (instE.getInstAttribute("ConcernLevel") != null) {
-									String concernLevel = (String) instE
-											.getInstAttributeValue("ConcernLevel");
-									InstElement concern = refas
-											.getVertex(concernLevel);
-									instances = (int) concern
-											.getInstAttributeValue("instances");
-								}
-							}
-						}
-						InstAttribute ia = instE.getTransSupportMetaElement()
-								.getTransInstSemanticElement()
-								.getInstAttribute("opersExprs");
-						if (ia != null) {
-							InstElement source = instE.getSourceRelations()
-									.get(0);
-							if (source.getInstAttribute("Scope") != null) {
-								boolean scope = (boolean) source
-										.getInstAttributeValue("Scope");
-								if (!scope) {
-									if (source.getInstAttribute("ConcernLevel") != null) {
-										String concernLevel = (String) source
-												.getInstAttributeValue("ConcernLevel");
-										InstElement concern = refas
-												.getVertex(concernLevel);
-										instances = (int) concern
-												.getInstAttributeValue("instances");
-									}
-								}
-							}
-						}
+						int instances = instE.getInstances(refas);
 
 						if (instE.getInstAttribute("variableType") == null
 								|| (!instE.getInstAttribute("variableType")
@@ -426,43 +390,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						// }
 					}
 				else {
-					int instances = 1;
-
-					if (instElement.getInstAttribute("Scope") != null) {
-						boolean scope = (boolean) instElement
-								.getInstAttributeValue("Scope");
-						if (!scope) {
-							if (instElement.getInstAttribute("ConcernLevel") != null) {
-								String concernLevel = (String) instElement
-										.getInstAttributeValue("ConcernLevel");
-								InstElement concern = refas
-										.getVertex(concernLevel);
-								instances = (int) concern
-										.getInstAttributeValue("instances");
-							}
-						}
-					}
-					InstAttribute ia = instElement.getTransSupportMetaElement()
-							.getTransInstSemanticElement()
-							.getInstAttribute("opersExprs");
-					if (ia != null) {
-						InstElement source = instElement.getSourceRelations()
-								.get(0);
-						if (source.getInstAttribute("Scope") != null) {
-							boolean scope = (boolean) source
-									.getInstAttributeValue("Scope");
-							if (!scope) {
-								if (source.getInstAttribute("ConcernLevel") != null) {
-									String concernLevel = (String) source
-											.getInstAttributeValue("ConcernLevel");
-									InstElement concern = refas
-											.getVertex(concernLevel);
-									instances = (int) concern
-											.getInstAttributeValue("instances");
-								}
-							}
-						}
-					}
+					int instances = instElement.getInstances(refas);
 					out.addAll(createElementInstanceExpressions(instElement,
 							semExp, false, instances));
 				}
@@ -546,45 +474,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										.getInstAttribute("variableType")
 										.getValue()
 										.equals("LowLevel expression"))) {
-							int instances = 1;
-
-							if (instE.getInstAttribute("Scope") != null) {
-								boolean scope = (boolean) instE
-										.getInstAttributeValue("Scope");
-								if (!scope) {
-									if (instE.getInstAttribute("ConcernLevel") != null) {
-										String concernLevel = (String) instE
-												.getInstAttributeValue("ConcernLevel");
-										InstElement concern = refas
-												.getVertex(concernLevel);
-										instances = (int) concern
-												.getInstAttributeValue("instances");
-									}
-								}
-							}
-							InstAttribute ia = instE
-									.getTransSupportMetaElement()
-									.getTransInstSemanticElement()
-									.getInstAttribute("opersExprs");
-							if (ia != null) {
-								InstElement source = instE.getSourceRelations()
-										.get(0);
-								if (source.getInstAttribute("Scope") != null) {
-									boolean scope = (boolean) source
-											.getInstAttributeValue("Scope");
-									if (!scope) {
-										if (source
-												.getInstAttribute("ConcernLevel") != null) {
-											String concernLevel = (String) source
-													.getInstAttributeValue("ConcernLevel");
-											InstElement concern = refas
-													.getVertex(concernLevel);
-											instances = (int) concern
-													.getInstAttributeValue("instances");
-										}
-									}
-								}
-							}
+							int instances = instE.getInstances(refas);
 							int pos = -1;
 							do {
 								for (InstAttribute var : instE
@@ -687,7 +577,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						ModelExpr instanceExpression = new ModelExpr(refas,
 								false, semExpression);
 						instanceExpression.createFromSemanticExpression(
-								instElement, 0, pos);
+								instElement, 0, pos, 0);
 						out.add(instanceExpression);
 						pos++;
 					} while (pos + 1 < instances);
@@ -720,7 +610,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 												refas, false, semExpression);
 										instanceExpression
 												.createFromSemanticExpression(
-														instElement, 0, pos);
+														instElement, 0, pos, 0);
 										out.add(instanceExpression);
 										pos++;
 									} while (pos + 1 < instances);
@@ -751,7 +641,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				ModelExpr instanceExpression = new ModelExpr(refas, false,
 						semExpression);
 				instanceExpression.createFromSemanticExpression(instElement, 0,
-						instance);
+						instance, 0);
 				out.add(instanceExpression);
 			}
 
