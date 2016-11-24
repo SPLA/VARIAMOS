@@ -600,10 +600,7 @@ public class ModelExpr2HLCL {
 
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (this.validateConceptType(instVertex, "GeneralConcept")) {
-				if (instVertex.getInstAttribute("TrueVal").getAsBoolean()
-						|| instVertex.getInstAttribute("FalseVal")
-								.getAsBoolean())
-					continue;
+
 				/*
 				 * if (instVertex.getInstAttribute("Core").getAsBoolean() ||
 				 * instVertex.getInstAttribute("Dead").getAsBoolean()) continue;
@@ -627,6 +624,10 @@ public class ModelExpr2HLCL {
 
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributes().values()) {
+					if (instAttribute.equals("TrueVal")
+							|| instVertex.getInstAttribute("FalseVal")
+									.getAsBoolean())
+						continue;
 					// System.out.println(vertexId + " " + attribute);
 					if (instAttribute.getAttribute() instanceof ElemAttribute
 							&& instAttribute.getAttribute().getAttributeType()
@@ -646,8 +647,12 @@ public class ModelExpr2HLCL {
 					}
 					if (instAttribute.getType().equals("Boolean")
 							&& (instAttribute.getIdentifier()
-									.equals("NPrefSel") || instAttribute
-									.getIdentifier().equals("NNotPrefSel")))
+									.equals("NPrefSel")
+									|| instAttribute.getIdentifier().equals(
+											"NNotPrefSel")
+									|| instAttribute.getIdentifier().equals(
+											"NReqSel") || instAttribute
+									.getIdentifier().equals("NNotSel")))
 						instAttribute.setValue(false);
 				}
 			}
