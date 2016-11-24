@@ -14188,8 +14188,9 @@ public class DefaultOpersMM {
 
 			simsceExecOperLabeling2.setSemanticExpressions(semanticExpressions);
 
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
+			t1 = new OpersExpr("OrderLab...", refas
+					.getSemanticExpressionTypes().get("Sum"),
+					ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
 					instVertexSG, "Sel", 0);
 
 			semanticExpressions.add(t1);
