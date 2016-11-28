@@ -5658,11 +5658,8 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("varConfDom", "String",
 				AttributeType.GLOBALCONFIG, false, "Configured Domain",
-				"Configured domain {n..m,o,p..r} (no spaces)"
-						+ " (not used by dynamic operations)", "", 0, 2, "",
-				"variableType" + "#==#" + "Integer" + "$" + "variableType"
-						+ "#==#" + "Enumeration" + "$" + "variableType"
-						+ "#==#" + "Boolean", -1, "", "");
+				"Configured domain {n..m,o,p..r} (no spaces)", "", 0, 2,
+				"isConfDom" + "#==#" + "true#", "", -1, "", "");
 		semVariable.putSemanticAttribute("varConfDom", attribute);
 		semVariable.addPropEditableAttribute("02#" + "varConfDom");
 		semVariable.addPropVisibleAttribute("02#" + "varConfDom" + "#"
