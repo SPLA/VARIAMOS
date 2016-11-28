@@ -612,11 +612,16 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 												.createFromSemanticExpression(
 														instElement, 0, pos, 0);
 										out.add(instanceExpression);
+
+										// System.out
+										// .println("instExppr: "
+										// + instanceExpression
+										// .getSemanticExpressionId()
+										// + " "
+										// + instanceExpression
+										// .expressionStructure());
 										pos++;
 									} while (pos + 1 < instances);
-									// System.out.println("instExppr: "
-									// + instanceExpression
-									// .expressionStructure());
 								}
 							}
 					}

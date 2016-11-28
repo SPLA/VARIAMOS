@@ -198,6 +198,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				}
 				if (instConcept.getInstAttribute("Core") != null
 						&& instConcept.getInstAttribute("Required") != null) {
+					if (!(instConcept.getInstAttribute("Core").getValue() instanceof Boolean))
+						return;
 					if ((boolean) instConcept.getInstAttribute("Core")
 							.getValue()
 							&& !(boolean) instConcept.getInstAttribute(
@@ -336,7 +338,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				}
 			} catch (Exception e) {
 				System.out.println("Cell draw error");
-				ConsoleTextArea.addText(e.getStackTrace());
+				// ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
 

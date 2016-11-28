@@ -32,50 +32,42 @@ import com.variamos.hlcl.RangeDomain;
 import com.variamos.hlcl.StringDomain;
 
 public class DefaultOpersMM {
-	private static OpersConcept verifDeadElemOperationAction = null;
-	private static OpersSubOperationExpType verifDeadElemOperSubActionNormal = null;
+	private static OpersConcept verifDeadElemOper = null;
+	private static OpersSubOperationExpType verifDeadElemSubOperNormal = null;
 
-	private static OpersConcept verifFalseOptOperationAction = null;
+	private static OpersConcept verifFalseOptOper = null;
 	private static OpersSubOperationExpType verifFalseOptOperSubActionNormal = null;
 
-	private static OpersConcept verifParentsOperationAction = null;
+	private static OpersConcept verifParentsOper = null;
 	private static OpersSubOperationExpType verifParentsOperSubActionNormal = null;
 	private static OpersSubOperationExpType verifParentsOperSubActionToVerify = null;
 
-	private static OpersConcept verifRootOperationAction = null;
+	private static OpersConcept verifRootOper = null;
 	private static OpersSubOperationExpType verifRootOperSubActionNormal = null;
 	private static OpersSubOperationExpType verifRootOperSubActionRelaxable = null;
-	private static OpersSubOperationExpType verifRootOperSubActionVerification = null;
+	private static OpersSubOperationExpType verifRootSubOperVeri = null;
 
-	private static OpersConcept simulationOperationAction = null;
-	private static OpersSubOperationExpType simulationExecOptOperSubActionNormal = null;
-	private static OpersSubOperationExpType simulationPreValOptOperSubActionNormal = null;
-	private static OpersSubOperationExpType simulationPreUpdOptOperSubActionNormal = null;
-	private static OpersSubOperationExpType simulationPosValOptOperSubActionNormal = null;
-	private static OpersSubOperationExpType simulationPostUpdOptOperSubActionNormal = null;
+	private static OpersConcept simulOper = null;
+	private static OpersSubOperationExpType simulExecOptSubOperNormal = null;
 
-	private static OpersConcept simulScenOperationAction = null;
-	private static OpersSubOperationExpType simulScenExecOptOperSubActionNormal = null;
-	private static OpersSubOperationExpType simulScenPreValOptOperSubActionNormal = null;
-	private static OpersSubOperationExpType simulScenPreUpdOptOperSubActionNormal = null;
-	private static OpersSubOperationExpType simulScenPosValOptOperSubActionNormal = null;
-	private static OpersSubOperationExpType simulScenPostUpdOptOperSubActionNormal = null;
+	private static OpersConcept simulScenOper = null;
+	private static OpersSubOperationExpType simulScenExecOptSubOperNormal = null;
 
-	private static OpersConcept configTemporalOperationAction = null;
+	private static OpersConcept configTempOper = null;
 
 	private static OpersSubOperationExpType configTemporalOptOperSubActionNormal = null;
 
-	private static OpersConcept configPermanentOperationAction = null;
+	private static OpersConcept configPermOper = null;
 
 	private static OpersSubOperationExpType configPermanentOptOperSubActionNormal = null;
 
-	private static OpersConcept updateCoreOperationAction = null;
-	private static OpersSubOperationExpType updateCoreOptOperSubActionNormal = null;
+	private static OpersConcept updCoreOper = null;
+	private static OpersSubOperationExpType updCoreOptSubOperNormal = null;
 
-	private static OpersConcept sasverSDallOperationAction = null;
+	private static OpersConcept sasverSDallOper = null;
 	private static OpersSubOperationExpType sasverSDallOperSubActionNormal = null;
 
-	private static OpersConcept sasverSDCoreOperationAction = null;
+	private static OpersConcept sasverSDCoreOper = null;
 	private static OpersSubOperationExpType sasverSDCoreOperSubActionNormal = null;
 
 	private static OpersConcept sasverSDneverOperationAction = null;
@@ -141,14 +133,13 @@ public class DefaultOpersMM {
 	private static OpersSubOperation sasverConflSDOperationSubAction = null;
 	private static OpersSubOperation sasverConflClOperationSubAction = null;
 
-	private static OpersLabeling simulationExecOperUniqueLabeling = new OpersLabeling(
+	private static OpersLabeling simulExecOperUniLab = new OpersLabeling(
 			"unique");
 
 	private static OpersLabeling simsceExecOperLabeling1 = new OpersLabeling(
 			"all");
 
-	private static OpersLabeling simsceExecOperLabeling2 = new OpersLabeling(
-			"once"); // TODO
+	private static OpersLabeling simsceExecOperLab2 = new OpersLabeling("once"); // TODO
 	// define
 	// max
 	// for SG
@@ -202,10 +193,20 @@ public class DefaultOpersMM {
 	private static InstPairwiseRel metaPairwRelOCExt = null;
 	private static InstPairwiseRel metaPairwRelAso = null;
 
+	private static InstConcept instVertexGE = null;
+	private static InstConcept instVertexSG = null;
+	private static InstConcept instVertexF = null;
+	private static InstConcept instVertexHC = null;
+
 	public static void createOpersMetaModel(ModelInstance refas, boolean empty) {
 		createOpersMetaModelOpers(refas, empty);
 		createOpersMetaModelnmElements(refas, empty);
-		createOpersMetaModelElements(refas, empty);
+		if (!empty) {
+			createOpersMetaModelGeneralElement(refas);
+			createOpersMetaModelFeaturesModel(refas);
+			createOpersMetaModelElements(refas);
+			createREFASMetaModelElement(refas);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -278,10 +279,10 @@ public class DefaultOpersMM {
 			instOperationGroup.getInstAttribute("shortcut").setValue("S");
 			instOperationGroup.getInstAttribute("Index").setValue(1);
 
-			simulationOperationAction = new OpersConcept("BasicSimulOper");
+			simulOper = new OpersConcept("BasicSimulOper");
 
 			InstConcept instOperationAction = new InstConcept("BasicSimulOper",
-					metaOperationAction, simulationOperationAction);
+					metaOperationAction, simulOper);
 			refas.getVariabilityVertex().put("BasicSimulOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -440,8 +441,7 @@ public class DefaultOpersMM {
 
 			List<OpersExpr> semanticExpressions = new ArrayList<OpersExpr>();
 
-			simulationExecOperUniqueLabeling
-					.setSemanticExpressions(semanticExpressions);
+			simulExecOperUniLab.setSemanticExpressions(semanticExpressions);
 
 			/*
 			 * = new SemanticExpression("sub", refas
@@ -492,11 +492,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
-			simulationExecOptOperSubActionNormal = new OpersSubOperationExpType();
+			simulExecOptSubOperNormal = new OpersSubOperationExpType();
 
 			InstConcept instOperSubOperationExpType = new InstConcept(
-					"exptype", metaExpType,
-					simulationExecOptOperSubActionNormal);
+					"exptype", metaExpType, simulExecOptSubOperNormal);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
@@ -509,7 +508,7 @@ public class DefaultOpersMM {
 							""), instOperSubOperationExpType));
 
 			InstConcept instLabeling = new InstConcept("BasSim-Execution-lab",
-					metaLabeling, simulationExecOperUniqueLabeling);
+					metaLabeling, simulExecOperUniLab);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
 			instLabeling.getInstAttribute("position").setValue(1);
@@ -723,7 +722,7 @@ public class DefaultOpersMM {
 			instOperationGroup.getInstAttribute("shortcut").setValue("C");
 			instOperationGroup.getInstAttribute("Index").setValue(1);
 
-			simulScenOperationAction = new OpersConcept("SimulSceOper");
+			simulScenOper = new OpersConcept("SimulSceOper");
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sim-pos-upd", instEdgeOper);
@@ -733,7 +732,7 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
 			instOperationAction = new InstConcept("SimulSceOper",
-					metaOperationAction, simulScenOperationAction);
+					metaOperationAction, simulScenOper);
 			refas.getVariabilityVertex().put("SimulSceOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -922,10 +921,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
-			simulScenExecOptOperSubActionNormal = new OpersSubOperationExpType();
+			simulScenExecOptSubOperNormal = new OpersSubOperationExpType();
 
 			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, simulScenExecOptOperSubActionNormal);
+					metaExpType, simulScenExecOptSubOperNormal);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
@@ -960,7 +959,7 @@ public class DefaultOpersMM {
 			// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("SimSce-exec-lab2", metaLabeling,
-					simsceExecOperLabeling2);
+					simsceExecOperLab2);
 
 			instLabeling.getInstAttribute("labelId").setValue("L2");
 			instLabeling.getInstAttribute("position").setValue(2);
@@ -1135,10 +1134,10 @@ public class DefaultOpersMM {
 			instOperationGroup.getInstAttribute("shortcut").setValue("A");
 
 			// ---
-			sasverSDCoreOperationAction = new OpersConcept("SDCoreOper");
+			sasverSDCoreOper = new OpersConcept("SDCoreOper");
 
 			instOperationAction = new InstConcept("SDCoreOper",
-					metaOperationAction, sasverSDCoreOperationAction);
+					metaOperationAction, sasverSDCoreOper);
 			refas.getVariabilityVertex().put("SDCoreOper", instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
@@ -1236,10 +1235,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			// ---
-			sasverSDallOperationAction = new OpersConcept("SDAlwaysActivated");
+			sasverSDallOper = new OpersConcept("SDAlwaysActivated");
 
 			instOperationAction = new InstConcept("SDAlwaysActivated",
-					metaOperationAction, sasverSDallOperationAction);
+					metaOperationAction, sasverSDallOper);
 			refas.getVariabilityVertex().put("SDAlwaysActivated",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -2647,10 +2646,10 @@ public class DefaultOpersMM {
 					"General Verification");
 			instOperationGroup.getInstAttribute("shortcut").setValue("V");
 
-			updateCoreOperationAction = new OpersConcept("UpdateCoreOper");
+			updCoreOper = new OpersConcept("UpdateCoreOper");
 
 			instOperationAction = new InstConcept("UpdateCoreOper",
-					metaOperationAction, updateCoreOperationAction);
+					metaOperationAction, updCoreOper);
 			refas.getVariabilityVertex().put("UpdateCoreOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -2711,10 +2710,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
-			updateCoreOptOperSubActionNormal = new OpersSubOperationExpType();
+			updCoreOptSubOperNormal = new OpersSubOperationExpType();
 
 			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, updateCoreOptOperSubActionNormal);
+					metaExpType, updCoreOptSubOperNormal);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
@@ -2747,11 +2746,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-			verifDeadElemOperationAction = new OpersConcept(
-					"VerifyDeadElementsOper");
+			verifDeadElemOper = new OpersConcept("VerifyDeadElementsOper");
 
 			instOperationAction = new InstConcept("VerifyDeadElementsOper",
-					metaOperationAction, verifDeadElemOperationAction);
+					metaOperationAction, verifDeadElemOper);
 			refas.getVariabilityVertex().put("VerifyDeadElementsOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -2819,10 +2817,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
-			verifDeadElemOperSubActionNormal = new OpersSubOperationExpType();
+			verifDeadElemSubOperNormal = new OpersSubOperationExpType();
 
 			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, verifDeadElemOperSubActionNormal);
+					metaExpType, verifDeadElemSubOperNormal);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
@@ -2851,11 +2849,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-			verifFalseOptOperationAction = new OpersConcept(
-					"VerifyFalseOperations");
+			verifFalseOptOper = new OpersConcept("VerifyFalseOperations");
 
 			instOperationAction = new InstConcept("VerifyFalseOperations",
-					metaOperationAction, verifFalseOptOperationAction);
+					metaOperationAction, verifFalseOptOper);
 			refas.getVariabilityVertex().put("VerifyFalseOperations",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -2976,10 +2973,10 @@ public class DefaultOpersMM {
 					"FM Verification");
 			instOperationGroup.getInstAttribute("shortcut").setValue("V");
 
-			verifParentsOperationAction = new OpersConcept("VerifyParentsOper");
+			verifParentsOper = new OpersConcept("VerifyParentsOper");
 
 			instOperationAction = new InstConcept("VerifyParentsOper",
-					metaOperationAction, verifParentsOperationAction);
+					metaOperationAction, verifParentsOper);
 			refas.getVariabilityVertex().put("VerifyParentsOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -3100,10 +3097,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-			verifRootOperationAction = new OpersConcept("VerifyRootsOper");
+			verifRootOper = new OpersConcept("VerifyRootsOper");
 
 			instOperationAction = new InstConcept("VerifyRootsOper",
-					metaOperationAction, verifRootOperationAction);
+					metaOperationAction, verifRootOper);
 			refas.getVariabilityVertex().put("VerifyRootsOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -3193,10 +3190,10 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			verifRootOperSubActionVerification = new OpersSubOperationExpType();
+			verifRootSubOperVeri = new OpersSubOperationExpType();
 
 			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, verifRootOperSubActionVerification);
+					metaExpType, verifRootSubOperVeri);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("VERIFICATION");
@@ -3240,11 +3237,10 @@ public class DefaultOpersMM {
 					"Configuration");
 			instOperationGroup.getInstAttribute("shortcut").setValue("C");
 
-			configTemporalOperationAction = new OpersConcept(
-					"ConfigureTemporalOper");
+			configTempOper = new OpersConcept("ConfigureTemporalOper");
 
 			instOperationAction = new InstConcept("ConfigureTemporalOper",
-					metaOperationAction, configTemporalOperationAction);
+					metaOperationAction, configTempOper);
 			refas.getVariabilityVertex().put("ConfigureTemporalOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -3341,11 +3337,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-			configPermanentOperationAction = new OpersConcept(
-					"ConfigurePermanentOper");
+			configPermOper = new OpersConcept("ConfigurePermanentOper");
 
 			instOperationAction = new InstConcept("ConfigurePermanentOper",
-					metaOperationAction, configPermanentOperationAction);
+					metaOperationAction, configPermOper);
 			refas.getVariabilityVertex().put("ConfigurePermanentOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
@@ -3467,10 +3462,10 @@ public class DefaultOpersMM {
 		semInfraMConcept.putSemanticAttribute("TrueVal", attribute);
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
+			simsceExecOperLab2
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction
@@ -3529,10 +3524,10 @@ public class DefaultOpersMM {
 		semInfraMConcept.putSemanticAttribute("FalseVal", attribute);
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
+			simsceExecOperLab2
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction
@@ -3618,7 +3613,7 @@ public class DefaultOpersMM {
 		semInfraMConcept.addPropVisibleAttribute("01#" + "Sel");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 					semInfraMConcept.getIdentifier(), attributeSel.getName(),
 					true));
 			simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
@@ -3716,7 +3711,7 @@ public class DefaultOpersMM {
 		semInfraMConcept.addPropVisibleAttribute("02#" + "Exclu");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			// simsceExecOperLabeling2
@@ -3839,7 +3834,7 @@ public class DefaultOpersMM {
 				+ "Core" + "#==#" + "false" + "#" + "false");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			// simsceExecOperLabeling2
@@ -3937,10 +3932,10 @@ public class DefaultOpersMM {
 				+ "Active" + "#==#" + "true" + "#" + "false");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
+			simsceExecOperLab2
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction
@@ -4038,10 +4033,10 @@ public class DefaultOpersMM {
 			simSceSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
+			simsceExecOperLab2
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			updateCoreSubOperationAction
@@ -4151,10 +4146,10 @@ public class DefaultOpersMM {
 			simSceSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
+			simsceExecOperLab2
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			updateCoreSubOperationAction
@@ -4263,10 +4258,10 @@ public class DefaultOpersMM {
 		semInfraMConcept.addPropVisibleAttribute("07#" + "Core");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
+			simsceExecOperLab2
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction
@@ -4376,10 +4371,10 @@ public class DefaultOpersMM {
 		semInfraMConcept.addPropVisibleAttribute("08#" + "Dead");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
+			simsceExecOperLab2
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction
@@ -4472,10 +4467,10 @@ public class DefaultOpersMM {
 		semInfraMConcept.addPropVisibleAttribute("05#" + "NReqSel");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling
+			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
+			simsceExecOperLab2
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction
@@ -4609,10 +4604,10 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("TrueVal", attribute);
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
@@ -4697,10 +4692,10 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("FalseVal", attribute);
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
@@ -4772,10 +4767,10 @@ public class DefaultOpersMM {
 
 		semInfraOTRel.putSemanticAttribute("Sel", attribute);
 		if (!empty) {
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
@@ -4847,10 +4842,10 @@ public class DefaultOpersMM {
 				-1, "", "", -1, "", "");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
 			updateCoreSubOperationAction.addOutAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -4949,10 +4944,10 @@ public class DefaultOpersMM {
 				"Element excluded for this solution (red)", false, 2, -1, "",
 				"", -1, "", "");
 		if (!empty) {
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
 		}
 		semInfraOTRel.putSemanticAttribute("Exclu", attribute);
 
@@ -5054,10 +5049,10 @@ public class DefaultOpersMM {
 		// semInfraOTRel.addPanelSpacersAttribute(" [#" + "LowRange" + "#");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
@@ -5139,10 +5134,10 @@ public class DefaultOpersMM {
 		// semInfraOTRel.addPanelSpacersAttribute("-#" + "HighRange" + "#]");
 
 		if (!empty) {
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
@@ -5222,6 +5217,82 @@ public class DefaultOpersMM {
 		verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semGeneralPair.getIdentifier(), attribute.getName(), true));
 
+		attribute = new ElemAttribute("Sel", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***",
+				"Element selected for this solution (green)", false, 2, -1, "",
+				"", -1, "", "");
+
+		semGeneralPair.putSemanticAttribute("Sel", attribute);
+		if (!empty) {
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semGeneralPair
+					.getIdentifier(), attribute.getName(), true));
+			simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverSDneverOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverClneverOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverNoLoopsOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverSGConflOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverConflClSDOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverConflClSDOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverConflClOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			sasverConflSDOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semGeneralPair.getIdentifier(), attribute.getName(), true));
+		}
+
 		semGeneralPair.putSemanticAttribute("relationType", new ElemAttribute(
 				"relationType", "Class", AttributeType.OPERATION, true,
 				"Relation Type", "Type of pairwise relation",
@@ -5258,8 +5329,8 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Implies"), t2, t1);
 
 		semanticExpressions.add(t1);
-		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 		// verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 
@@ -5417,8 +5488,8 @@ public class DefaultOpersMM {
 		semVariable.putSemanticAttribute("value", attribute);
 		semVariable.addPropVisibleAttribute("07#" + "value");
 		semVariable.addPropVisibleAttribute("07#" + "value");
-		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
 		simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
@@ -5515,9 +5586,9 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
 				+ "variableType" + "#==#" + "Float");
 
-		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semVariable
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
 		simulSubOperationAction.addInAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
@@ -5580,9 +5651,9 @@ public class DefaultOpersMM {
 		// semVariable.addPropVisibleAttribute("08#" + "varConfValue");
 		// semVariable.addPropVisibleAttribute("08#" + "varConfValue");
 		semVariable.putSemanticAttribute("varConfValue", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semVariable
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("varConfDom", "String",
@@ -5746,8454 +5817,8111 @@ public class DefaultOpersMM {
 		refas.getVariabilityVertex().put("nmConcernLevel", instVertexCG);
 	}
 
-	@SuppressWarnings("unchecked")
-	private static void createOpersMetaModelElements(ModelInstance refas,
-			boolean empty) {
-
-		ArrayList<OpersExpr> semanticExpressions = new ArrayList<OpersExpr>();
+	private static void createOpersMetaModelGeneralElement(ModelInstance refas) {
+		ArrayList<OpersExpr> semExpr = new ArrayList<OpersExpr>();
 
 		ElemAttribute attribute = null;
 
-		// Start Concept's definition
-		// -------------------------------------------------------
-
-		if (!empty) {
-			OpersConcept semGeneralElement = new OpersConcept("GeneralConcept");
-			// From refas name depends all the static operations, do not change
-			// it
-
-			/*
-			 * semGeneralElement.putSemanticAttribute("Sel", new
-			 * ElemAttribute("Sel", "Boolean", AttributeType.EXECCURRENTSTATE,
-			 * false, "***Selected***", false, 2, -1, "", "", -1, "", ""));
-			 * semGeneralElement .putSemanticAttribute("Exclu", new
-			 * ElemAttribute("Exclu", "Boolean", AttributeType.EXECCURRENTSTATE,
-			 * false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", ""));
-			 */
-			InstConcept instVertexGE = new InstConcept("GeneralConcept",
-					metaMetaInstConcept, semGeneralElement);
-
-			// t1 = new SemanticExpression("REFAS_pref<=1", refas
-			// .getSemanticExpressionTypes().get("LessOrEquals"),
-			// instRefasModel, "pref", 1);
-			//
-			// simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			//
-			// semanticExpressions.add(t1);
-
-			// InstEnumeration instVertexHStrME = new InstEnumeration(
-			// "HardStructEnumeration", metaEnumeration);
-			// refas.getVariabilityVertex().put("HardStructEnumeration",
-			// instVertexHStrME);
-
-			// ArrayList<InstAttribute> c = (ArrayList<InstAttribute>)
-			// ((InstAttribute) instVertexHStrME
-			// .getInstAttribute("value")).getInstAttributeAttribute("Value");
-			// InstAttribute a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "1-means_ends-means_ends-true-true-true-1-1-1-1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum11");
-			// c.add(a);
-			// a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "12-impl.-Impl.-true-true-true-1-1-1-1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum12");
-			// c.add(a);
-			//
-			// InstEnumeration instVertexHSideME = new InstEnumeration(
-			// "HardSideEnumeration", metaEnumeration);
-			// // refas.getVariabilityVertex().put("HardSideEnumeration",
-			// // instVertexHSideME);
-			//
-			// c = (ArrayList<InstAttribute>) ((InstAttribute) instVertexHSideME
-			// .getInstAttribute("value")).getInstAttributeAttribute("Value");
-			// a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "1-conflict-conflict-false-true-true-1-1-1-1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum1");
-			// c.add(a);
-			// a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "2-altern.-altern.-false-true-true-1-1-1-1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum2");
-			// c.add(a);
-			// a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "3-preferred-pref.-false-true-true-1-1-1-1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum3");
-			// c.add(a);
-			// a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "4-req.-req..-false-true-true-1-1-1-1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum4");
-			// c.add(a);
-			// a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "5-cond.-cond.-false-true-true-1-1-1-1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum5");
-			// c.add(a);
-			//
-			// InstEnumeration instClaimSemOTAsso = new InstEnumeration(
-			// "ClaimSemOTAsso", metaEnumeration);
-			// // refas.getVariabilityVertex().put("ClaimSemOTAsso",
-			// // instClaimSemOTAsso);
-			//
-			// c = (ArrayList<InstAttribute>) ((InstAttribute)
-			// instClaimSemOTAsso
-			// .getInstAttribute("value")).getInstAttributeAttribute("Value");
-			// a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "1#And#And#false#false#false#2#1#1#1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum1");
-			// c.add(a);
-			// a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "2#Or#Or#false#true#true#2#1#1#1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum2");
-			// c.add(a);
-			// a = new InstAttribute();
-			// a.setInstAttributeAttribute("Value",
-			// "3#mutex#mutex#false#true#true#2#1#1#1");
-			// a.setInstAttributeAttribute("DisplayValue", null);
-			// a.setInstAttributeAttribute("attributeIden", "EnumValue");
-			// a.setInstAttributeAttribute("Identifier", "enum3");
-			// c.add(a);
-
-			// Semantic Element
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semGeneralElement.setSemanticExpressions(semanticExpressions);
-
-			OpersExpr t1 = new OpersExpr("Req Implies Selected", refas
-					.getSemanticExpressionTypes().get("Implies"), instVertexGE,
-					instVertexGE, "Required", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("Core Implies Selected", refas
-					.getSemanticExpressionTypes().get("Implies"), instVertexGE,
-					instVertexGE, "Core", "Sel");
-
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("Req Implies Core", refas
-					.getSemanticExpressionTypes().get("Implies"), instVertexGE,
-					instVertexGE, "Required", "Core");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			// t1 = new OpersExpr("Req Implies Verification Error", refas
-			// .getSemanticExpressionTypes().get("Implies"), instVertexGE,
-			// instVertexGE, "Required", "Ver");
-			//
-			// verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			// verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-
-			// semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("NextPrefSel_=_0", refas
-					.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-					"NPrefSel", true, 0);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("NextNotPrefSel_=_0", refas
-					.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-					"NNotPrefSel", true, 0);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexGE, "Core", true, 1);
-
-			OpersExpr t2 = new OpersExpr("2", refas
-					.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-					"FeatureType", "Root");
-
-			t1 = new OpersExpr("NoLFet & NoGFet Implies hasParent", refas
-					.getSemanticExpressionTypes().get("Implies"), t2, t1);
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, instVertexGE, "NReqSel", "ConfSel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, "NPrefSel", true, t1);
-
-			OpersExpr t3 = new OpersExpr("3", refas
-					.getSemanticExpressionTypes().get("Sum"), instVertexGE,
-					instVertexGE, "NPrefSel", "ConfSel");
-
-			t3 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, "NReqSel", true, t3);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Sum"), t1, t3);
-
-			t1 = new OpersExpr("Opt...", refas.getSemanticExpressionTypes()
-					.get("Equals"), instVertexGE, "Opt", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t2 = new OpersExpr("Opt =0", refas.getSemanticExpressionTypes()
-					.get("Equals"), instVertexGE, "Opt", true, 0);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t2);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t2);
-
-			semanticExpressions.add(t2);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, instVertexGE, "ConfSel", "NReqSel");
-
-			t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, "Core", true, t1);
-
-			t1 = new OpersExpr("Core+ConfigSel+NextReqSel <=1", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"), 1,
-					false, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes()
-					.get("Or"), instVertexGE, instVertexGE, "ConfNotSel",
-					"NNotPrefSel");
-
-			t1 = new OpersExpr("5", refas.getSemanticExpressionTypes()
-					.get("Or"), instVertexGE, "Proh", true, t1);
-
-			t1 = new OpersExpr("6", refas.getSemanticExpressionTypes()
-					.get("Or"), instVertexGE, "Dead", true, t1);
-
-			t1 = new OpersExpr("NotAvail (Dead Or Prohibit Or NotSelec)", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexGE, "Exclu", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, instVertexGE, "Sel", "Proh");
-
-			t1 = new OpersExpr("Sel * Proh = 0)", refas
-					.getSemanticExpressionTypes().get("Equals"), t1, 0);
-
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, instVertexGE, "Core", "Proh");
-
-			t1 = new OpersExpr("Core * Proh = 0)", refas
-					.getSemanticExpressionTypes().get("Equals"), t1, 0);
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("5", refas.getSemanticExpressionTypes()
-					.get("Or"), instVertexGE, instVertexGE, "NReqSel",
-					"NPrefSel");
-
-			t2 = new OpersExpr("5", refas.getSemanticExpressionTypes()
-					.get("Or"), instVertexGE, instVertexGE, "Core", "ConfSel");
-
-			t1 = new OpersExpr("5", refas.getSemanticExpressionTypes()
-					.get("Or"), t1, t2);
-
-			t1 = new OpersExpr("Selected (Core, NextReqSel, NextPrefSel)",
-					refas.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexGE, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, instVertexGE, "Sel", "Exclu");
-
-			t1 = new OpersExpr("Selected+NotAvail <=1", refas
-					.getSemanticExpressionTypes().get("Equals"), 0, false, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			refas.getVariabilityVertex().put("GeneralConcept", instVertexGE);
-
-			InstPairwiseRel instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("getobe", instEdge);
-			instEdge.setIdentifier("getobe");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexIE, true);
-			instEdge.setSourceRelation(instVertexGE, true);
-
-			// Design attributes: Do not change identifiers
-
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// semGeneralElement.putSemanticAttribute("Description", attribute);
-
-			attribute = new ElemAttribute("Scope", "Boolean",
-					AttributeType.OPERATION, true, "Global Scope", "", true, 0,
-					5, "", "", -1, "", "");
-			semGeneralElement.addPropEditableAttribute("05#" + "Scope");
-			semGeneralElement.addPropVisibleAttribute("05#" + "Scope");
-			// simulationExecOperUniqueLabeling.addAttribute(new
-			// OpersIOAttribute(
-			// semGeneralElement.getIdentifier(), attribute.getName(),
-			// true));
-			// simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-			// semGeneralElement.getIdentifier(), attribute.getName(),
-			// true));
-			semGeneralElement.putSemanticAttribute("Scope", attribute);
-			// simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-			// semGeneralElement.getIdentifier(), attribute.getName(),
-			// true));
-			// simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-			// semGeneralElement.getIdentifier(), attribute.getName(),
-			// true));
-			// TODO use scope
-
-			attribute = new ElemAttribute("ConcernLevel", "Class",
-					AttributeType.OPERATION, false, "Concern Level",
-					"Concern Level of the element (Ignored for operations)",
-
-					InstConcept.class.getCanonicalName(), "CG", null, "", 2, 6,
-					"", "Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
-							+ "#all#>>\n", "Scope" + "#==#" + "false");
-
-			semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
-
-			semGeneralElement.addPropEditableAttribute("06#" + "ConcernLevel"
-					+ "#" + "Scope" + "#==#" + "false" + "#" + "");
-			semGeneralElement.addPropVisibleAttribute("06#" + "ConcernLevel"
-					+ "#" + "Scope" + "#==#" + "false" + "#" + "");
-
-			// semGeneralElement.addPanelVisibleAttribute("00#" + "ConcernLevel"
-			// + "#" + "Scope" + "#==#" + "false");
-			// semGeneralElement.addPanelSpacersAttribute("<<#" + "ConcernLevel"
-			// + "#>>\n");
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// simulOperationSubAction.addInVariable(attribute);
-			// TODO: use concern level
-
-			// Configuration attributes: do no change identifiers
-			/*
-			 * attribute = new ElemAttribute("ReqLev", "Integer",
-			 * AttributeType.OPERATION, "Required Level", "", 0, false, new
-			 * RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
-			 * semGeneralElement.putSemanticAttribute("ReqLev", attribute); //
-			 * simulationExecOperUniqueLabeling.addAttribute(attribute); //
-			 * simulOperationSubAction.addOutVariable(attribute); // TODO define
-			 * domain or Enum Level
-			 * 
-			 * semGeneralElement.addPropVisibleAttribute("05#" + "ReqLev" + "#"
-			 * + "Core" + "#==#" + "true");
-			 * 
-			 * // Simulation attributes: do not modify identifiers
-			 * 
-			 * attribute = new ElemAttribute("IniReqLev", "Integer",
-			 * AttributeType.EXECCURRENTSTATE, false, "Initial Required Level",
-			 * "", 0, new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
-			 * semGeneralElement.putSemanticAttribute("IniReqLev", attribute);
-			 */
-
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// simulationOperationAction.addInVariable(attribute);
-			/*
-			 * attribute = new ElemAttribute("SimReqLev", "Integer",
-			 * AttributeType.EXECCURRENTSTATE, false, "Required Level", "", 0,
-			 * new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
-			 */
-			// semGeneralElement.putSemanticAttribute("SimReqLev",
-			// attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("HasParent", "Boolean",
-					AttributeType.EXECCURRENTSTATE, false, "Has Parent", "",
-					true, 0, -1, "", "", -1, "", "");
-			semGeneralElement.putSemanticAttribute("HasParent", attribute);
-			// TODO add to verification
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// simulOperationSubAction.addOutVariable(attribute);
-
-			attribute = new ElemAttribute("Opt", "Integer",
-					AttributeType.EXECCURRENTSTATE, false, "FilterVariable",
-					"", 0, new RangeDomain(0, 20, 0), 0, -1, "", "", -1, "", "");
-			semGeneralElement.putSemanticAttribute("Opt", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-
-			attribute = new ElemAttribute("Order", "Integer",
-					AttributeType.EXECCURRENTSTATE, false, "SortVariable", "",
-					0, new RangeDomain(0, 40, 0), 0, -1, "", "", -1, "", "");
-			semGeneralElement.putSemanticAttribute("Order", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			// simulOperationSubAction.addInVariable(attribute);
-
-			attribute = new ElemAttribute("NPrefSel", "Boolean",
-					AttributeType.EXECCURRENTSTATE, false,
-					"Selected by configuration", "", false, 0, 3, "false", "",
-					-1, "", "");
-			semGeneralElement.putSemanticAttribute("NPrefSel", attribute);
-			semGeneralElement.addPropVisibleAttribute("03#" + "NPrefSel");
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-
-			attribute = new ElemAttribute("NNotPrefSel", "Boolean",
-					AttributeType.EXECCURRENTSTATE, false,
-					"Not Selected by configuration", "", false, 0, 6, "false",
-					"", -1, "", "");
-			semGeneralElement.putSemanticAttribute("NNotPrefSel", attribute);
-			semGeneralElement.addPropVisibleAttribute("06#" + "NNotPrefSel");
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semGeneralElement
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralElement.getIdentifier(), attribute.getName(),
-					true));
-
-			OpersConcept semHardConcept = new OpersConcept("semHardConcept");
-
-			attribute = new ElemAttribute("structVal", "Integer",
-					AttributeType.EXECCURRENTSTATE, false,
-					"No loops validation", "", 0, new RangeDomain(0, 40, 0), 0,
-					-1, "false", "", -1, "", "");
-			semHardConcept.putSemanticAttribute("structVal", attribute);
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semHardConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semHardConcept.getIdentifier(), attribute.getName(), true));
-
-			attribute = new ElemAttribute("satType", "Enumeration",
-					AttributeType.OPERATION, false, "satType", "",
-					"com.variamos.dynsup.statictypes.SatisfactionType",
-					"achieve", "", 0, 1, "", "", -1, "", "");
-			semHardConcept.putSemanticAttribute("satType", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			semHardConcept.addPropEditableAttribute("01#" + "satType");
-			semHardConcept.addPropVisibleAttribute("01#" + "satType");
-
-			InstConcept instVertexHC = new InstConcept("HardConcept",
-					metaMetaInstConcept, semHardConcept);
-			refas.getVariabilityVertex().put("HardConcept", instVertexHC);
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semHardConcept.setSemanticExpressions(semanticExpressions);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, "NReqSel", true, 4);
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Sum"), t1, 0);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, "NPrefSel", true, t1);
-
-			t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes()
-					.get("Equals"), instVertexGE, "Order", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("hctoge", instEdge);
-			instEdge.setIdentifier("hctoge");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexGE, true);
-			instEdge.setSourceRelation(instVertexHC, true);
-
-			// Feature concepts
-
-			OpersConcept semFeature = new OpersConcept("Feature");
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semFeature.getIdentifier(), "Sel", true));
-
-			InstConcept instVertexF = new InstConcept("Feature",
-					metaMetaInstConcept, semFeature);
-
-			attribute = new ElemAttribute("IsRootFeature", "Boolean",
-					AttributeType.OPERATION, true, "Is a Root Feature Concept",
-					"", false, 2, -1, "", "", -1, "", "");
-			// simulationExecOperUniqueLabeling.addAttribute(new
-			// OpersIOAttribute(
-			// semFeature.getIdentifier(), attribute.getName(), true));
-			// simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-			// semFeature.getIdentifier(), attribute.getName(), true));
-			// updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-			// semFeature.getIdentifier(), attribute.getName(), true));
-			semFeature.putSemanticAttribute("IsRootFeature", attribute);
-			// simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
-			// semFeature.getIdentifier(), attribute.getName(), true));
-			// simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
-			// semFeature.getIdentifier(), attribute.getName(), true));
-			verifRootSubOperationAction.addOutAttribute(new OpersIOAttribute(
-					semFeature.getIdentifier(), attribute.getName(), true));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semFeature.setSemanticExpressions(semanticExpressions);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, "NReqSel", true, 4);
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Sum"), t1, 0);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, "NPrefSel", true, t1);
-
-			t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes()
-					.get("Equals"), instVertexGE, "Order", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Equals"), instInfraPair, "MetaPaiwise", "mandatory");
-
-			t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Equals"), instInfraPair, "MetaPaiwise", "optional");
-
-			t2 = new OpersExpr("2", refas.getSemanticExpressionTypes()
-					.get("Or"), t1, t2);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITEROUTFIXEDSUBEXP,
-					instInfraPair, instInfraPair, t2, 0);
-
-			t1 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"), ExpressionVertexType.LEFTITEROUTSUBEXP,
-					instInfraPair, instVertexF, t1, 1);
-
-			t1 = new OpersExpr("HasParent", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"), instVertexF, "HasParent", true, t1);
-
-			// verifParentsOperSubActionRelaxable.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("HasParent", refas.getSemanticExpressionTypes()
-					.get("Equals"), instVertexF, "Core", true, 1);
-
-			verifParentsOperSubActionToVerify.addSemanticExpression(t1);
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexGE, "FeatureType", "Root");
-
-			t1 = new OpersExpr("IsRootFeature=...", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexF, "IsRootFeature", true, t1);
-
-			verifRootOperSubActionRelaxable.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
-					"NotEquals"), instVertexGE, "FeatureType", "Root");
-
-			t3 = new OpersExpr("3-", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexF, "IsRootFeature", true, 0);
-
-			t1 = new OpersExpr("IsRootFeature=...", refas
-					.getSemanticExpressionTypes().get("Implies"), t1, t3);
-
-			semanticExpressions.add(t1);
-
-			// t1 = new SemanticExpression("1",
-			// refas.getSemanticExpressionTypes().get(
-			// "Equals"), instVertexGE, "IsRootFeature", 0);
-			//
-			// t3 = new SemanticExpression("3",
-			// refas.getSemanticExpressionTypes().get(
-			// "NotEquals"), instVertexGE, "userId", "Feature");
-			//
-			// t1 = new SemanticExpression("Not Feat Implies NoRoot", refas
-			// .getSemanticExpressionTypes().get("Implies"), t3, t1);
-			//
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-
-			// semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexGE, "FeatureType", "Root");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexGE, "Core", true, 1);
-
-			t1 = new OpersExpr("Root Implies Req", refas
-					.getSemanticExpressionTypes().get("Implies"), t1, t3);
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			// t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-			// "Equals"), instVertexGE, "IsRootFeature", true, 1);
-			//
-			// t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-			// "Equals"), instVertexGE, "Sel", true, 1);
-			//
-			// t1 = new OpersExpr("Root Implies Selected", refas
-			// .getSemanticExpressionTypes().get("Implies"), t1, t3);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-
-			// semanticExpressions.add(t1);
-
-			refas.getVariabilityVertex().put("Feature", instVertexF);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ftoge", instEdge);
-			instEdge.setIdentifier("ftoge");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexGE, true);
-			instEdge.setSourceRelation(instVertexF, true);
-
-			OpersConcept semRFeature = new OpersConcept("RootFeature");
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semRFeature.getIdentifier(), "Sel", true));
-
-			InstConcept instVertexRF = new InstConcept("RootFeature",
-					metaMetaInstConcept, semRFeature);
-
-			StringDomain rootTypeDomain = new StringDomain();
-			rootTypeDomain.add("Root");
-			rootTypeDomain.add("General");
-			rootTypeDomain.add("Leaf");
-			attribute = new ElemAttribute("FeatureType", "String",
-					AttributeType.OPERATION, "Feature Type", "", "Root", false,
-					null, 2, -1, "", "", -1, "", "");
-
-			semRFeature.putSemanticAttribute("FeatureType", attribute);
-			verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semRFeature.getIdentifier(), attribute.getName(), true));
-			verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semRFeature.getIdentifier(), attribute.getName(), true));
-			updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semRFeature.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semRFeature.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semRFeature.getIdentifier(), attribute.getName(), true));
-			verifFalseOptSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semRFeature
-							.getIdentifier(), attribute.getName(), true));
-			verifDeadElemSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semRFeature
-							.getIdentifier(), attribute.getName(), true));
-
-			refas.getVariabilityVertex().put("RootFeature", instVertexRF);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("rftof", instEdge);
-			instEdge.setIdentifier("rftof");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexF, true);
-			instEdge.setSourceRelation(instVertexRF, true);
-
-			OpersConcept semGFeature = new OpersConcept("GeneralFeature");
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semGFeature.getIdentifier(), "Sel", true));
-
-			InstConcept instVertexGF = new InstConcept("GeneralFeature",
-					metaMetaInstConcept, semGFeature);
-
-			attribute = new ElemAttribute("FeatureType", "String",
-					AttributeType.OPERATION, "Feature Type", "", "General",
-					false, null, 2, -1, "", "", -1, "", "");
-			semGFeature.putSemanticAttribute("FeatureType", attribute);
-			verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semGFeature.getIdentifier(), attribute.getName(), true));
-			verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semGFeature.getIdentifier(), attribute.getName(), true));
-			updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semGFeature.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGFeature.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semGFeature.getIdentifier(), attribute.getName(), true));
-			verifFalseOptSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semGFeature
-							.getIdentifier(), attribute.getName(), true));
-			verifDeadElemSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semGFeature
-							.getIdentifier(), attribute.getName(), true));
-
-			refas.getVariabilityVertex().put("GeneralFeature", instVertexGF);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("gftof", instEdge);
-			instEdge.setIdentifier("gftof");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexF, true);
-			instEdge.setSourceRelation(instVertexGF, true);
-
-			OpersConcept semLFeature = new OpersConcept("LeafFeature");
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semLFeature.getIdentifier(), "Sel", true));
-
-			InstConcept instVertexLF = new InstConcept("LeafFeature",
-					metaMetaInstConcept, semLFeature);
-
-			attribute = new ElemAttribute("FeatureType", "String",
-					AttributeType.OPERATION, "Feature Type", "", "Leaf", false,
-					null, 2, -1, "", "", -1, "", "");
-			semLFeature.putSemanticAttribute("FeatureType", attribute);
-			verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semLFeature.getIdentifier(), attribute.getName(), true));
-			verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semLFeature.getIdentifier(), attribute.getName(), true));
-			updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semLFeature.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semLFeature
-							.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semLFeature
-							.getIdentifier(), attribute.getName(), true));
-			verifFalseOptSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semLFeature
-							.getIdentifier(), attribute.getName(), true));
-			verifDeadElemSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semLFeature
-							.getIdentifier(), attribute.getName(), true));
-
-			refas.getVariabilityVertex().put("LeafFeature", instVertexLF);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("lftof", instEdge);
-			instEdge.setIdentifier("lftof");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexF, true);
-			instEdge.setSourceRelation(instVertexLF, true);
-
-			// definition of other concepts
-
-			OpersConcept semAssumption = new OpersConcept("Assumption");
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semAssumption.getIdentifier(), "Sel", true));
-
-			InstConcept instVertexAS = new InstConcept("Assumption",
-					metaMetaInstConcept, semAssumption);
-			refas.getVariabilityVertex().put("Assumption", instVertexAS);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("assutoge", instEdge);
-			instEdge.setIdentifier("assutoge");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexHC, true);
-			instEdge.setSourceRelation(instVertexAS, true);
-
-			OpersConcept semGoal = new OpersConcept("Goal");
-
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semGoal
-					.getIdentifier(), "Sel", true));
-			attribute = new ElemAttribute("satType", "Enumeration",
-					AttributeType.OPERATION, false, "satType", "",
-					"com.variamos.dynsup.statictypes.SatisfactionType",
-					"achieve", "", 0, 1, "", "", 1, "<#" + "satType"
-							+ "#all#>\n", "");
-			semGoal.putSemanticAttribute("satType", attribute);
-			// semGoal.addPanelVisibleAttribute("01#" + "satType");
-			// semGoal.addPanelSpacersAttribute("<#" + "satType" + "#>\n");
-			InstConcept instVertexG = new InstConcept("Goal",
-					metaMetaInstConcept, semGoal);
-			refas.getVariabilityVertex().put("Goal", instVertexG);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("gtoge", instEdge);
-			instEdge.setIdentifier("gtoge");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexHC, true);
-			instEdge.setSourceRelation(instVertexG, true);
-
-			OpersConcept semOperationalization = new OpersConcept(
-					"Operationalization");
-
-			attribute = new ElemAttribute("attributeValue", "Set",
-					AttributeType.SYNTAX, false, "values", "",
-					InstAttribute.class.getCanonicalName(),
-					new ArrayList<InstAttribute>(), 0, 6, "", "", 6,
-					"#attributeValue#2#\n", "");
-			semOperationalization.putSemanticAttribute("attributeValue",
-					attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			semOperationalization.addPropVisibleAttribute("06#"
-					+ "attributeValue");
-			semOperationalization.addPropEditableAttribute("06#"
-					+ "attributeValue");
-
-			simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(
-					semOperationalization.getIdentifier(), "Sel", true));
-
-			InstConcept instVertexOper = new InstConcept("Operationalization",
-					metaMetaInstConcept, semOperationalization);
-			refas.getVariabilityVertex().put("Operationalization",
-					instVertexOper);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("opertoge", instEdge);
-			instEdge.setIdentifier("opertoge");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexHC, true);
-			instEdge.setSourceRelation(instVertexOper, true);
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semOperationalization.setSemanticExpressions(semanticExpressions);
-
-			t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexOper, instVertexOper, "Sel", "TrueVal");
-
-			sasverConflClOperSubActionVerification.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionVerification.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			OpersConcept semSoftgoal = new OpersConcept("Softgoal");
-
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), "Sel", true));
-
-			attribute = new ElemAttribute("satisficingLevel", "String",
-					AttributeType.OPERATION, "Satisficing Level",
-					"Satisficing for dynamic operations (low/high/close)",
-					"high", false, null, 0, 11, "", "", -1, "", "");
-
-			semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-
-			semSoftgoal.addPropEditableAttribute("11#" + "satisficingLevel");
-			semSoftgoal.addPropVisibleAttribute("11#" + "satisficingLevel");
-
-			attribute = new ElemAttribute("satisficingType", "Enumeration",
-					AttributeType.OPERATION, false, "Satisficing Type",
-					"Satisficing for static operations",
-					SatisficingType.class.getCanonicalName(),
-					"Achieve as close as possible", "", 0, 10, "", "", -1, "",
-					"");
-			semSoftgoal.putSemanticAttribute("satisficingType", attribute);
-			semSoftgoal.addPropEditableAttribute("10#" + "satisficingType");
-			semSoftgoal.addPropVisibleAttribute("10#" + "satisficingType");
-
-			attribute = new ElemAttribute("ConfigReqLevel", "Integer",
-					AttributeType.OPERATION, "Config Req Level (5=ignored)",
-					"SG required level (defined: 0..4 ignored: 5) ", 5, false,
-					new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#"
-							+ "true" + "#" + "0", "", -1, "", "");
-			semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
-			semSoftgoal.addPropEditableAttribute("05#" + "ConfigReqLevel" + "#"
-					+ "Required" + "#==#" + "true" + "#" + "5");
-			semSoftgoal.addPropVisibleAttribute("05#" + "ConfigReqLevel");
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-
-			attribute = new ElemAttribute("defaultDomainValue", "Integer",
-					AttributeType.OPERATION, "Default Domain Value",
-					"Default value for the domain when no relation exists", 5,
-					false, new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#"
-							+ "true" + "#" + "0", "", -1, "", "");
-			semSoftgoal.putSemanticAttribute("defaultDomainValue", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semSoftgoal.setSemanticExpressions(semanticExpressions);
-
-			InstConcept instVertexSG = new InstConcept("Softgoal",
-					metaMetaInstConcept, semSoftgoal);
-
-			t3 = new OpersExpr("22", refas.getSemanticExpressionTypes().get(
-					"NotEquals"), instVertexSG, "ConfigReqLevel", true, 5);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, "satisficingLevel", "close");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"And"), t1, t3);
-
-			t1 = new OpersExpr("26", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, instVertexSG, "ConfigReqLevel",
-					"SDReqLevel");
-
-			t1 = new OpersExpr("ConfReqLev...", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t3 = new OpersExpr("23", refas.getSemanticExpressionTypes().get(
-					"NotEquals"), instVertexSG, "ConfigReqLevel", true, 5);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, "satisficingLevel", "low");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"And"), t1, t3);
-
-			t1 = new OpersExpr("21", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"), instVertexSG, instVertexSG,
-					"ConfigReqLevel", "SDReqLevel");
-
-			t1 = new OpersExpr("ConfReqLev...", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t3 = new OpersExpr("25", refas.getSemanticExpressionTypes().get(
-					"NotEquals"), instVertexSG, "ConfigReqLevel", true, 5);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, "satisficingLevel", "high");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"And"), t1, t3);
-
-			t1 = new OpersExpr("20", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"), instVertexSG, instVertexSG,
-					"ConfigReqLevel", "SDReqLevel");
-
-			t1 = new OpersExpr("ConfReqLev...", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Subtraction"), instVertexGE, "Sel", false, 1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Product"), 8, true, t1);
-
-			t3 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, "NReqSel", true, 4);
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Sum"), t1, t3);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, "NPrefSel", true, t1);
-
-			t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes()
-					.get("Equals"), instVertexGE, "Order", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"), instVertexSG, instVertexSG, "SDReqLevel",
-					"ClaimExpLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"DoubleImplies"), instVertexSG, "Sel", true, t1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, "satisficingLevel", "high");
-
-			t1 = new OpersExpr("high: SDReqLevel<=ClaimExpLevel...", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"), instVertexSG, instVertexSG, "SDReqLevel",
-					"ClaimExpLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"DoubleImplies"), instVertexSG, "Sel", true, t1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, "satisficingLevel", "low");
-
-			t1 = new OpersExpr("low: SDReqLevel>=ClaimExpLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, instVertexSG, "SDReqLevel",
-					"ClaimExpLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"DoubleImplies"), instVertexSG, "Sel", true, t1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, "satisficingLevel", "close");
-
-			t1 = new OpersExpr("close: SDReqLevel=ClaimExpLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			refas.getVariabilityVertex().put("Softgoal", instVertexSG);
-
-			attribute = new ElemAttribute("SDReqLevel", "Integer",
-					AttributeType.EXECCURRENTSTATE, false,
-					"Required Level by SD",
-					"Required level (0..4) for the soft dependency relation",
-					0, new RangeDomain(0, 4, 0), 2, 16, "", "", -1, "", "",
-					"ConfigReqLevel",
-					"sourceLevel;targetLevel;level;CLSGLevel",
-					"defaultDomainValue");
-			semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverCoreOpersOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-
-			attribute = new ElemAttribute("ClaimExpLevel", "Integer",
-					AttributeType.EXECCURRENTSTATE, false,
-					"Expected Level by Claim",
-					"Expected level (0..4) for the claim relation", 0,
-					new RangeDomain(0, 4, 0), 2, 18, "", "", -1, "", "",
-					"ConfigReqLevel",
-					"sourceLevel;targetLevel;level;CLSGLevel",
-					"defaultDomainValue");
-			semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverCoreOpersOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftgoal
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), attribute.getName(), true));
-
-			semSoftgoal.addPropVisibleAttribute("16#" + "SDReqLevel");
-			semSoftgoal.addPropVisibleAttribute("18#" + "ClaimExpLevel");
-
-			semSoftgoal.addPropEditableAttribute("16#" + "SDReqLevel");
-			semSoftgoal.addPropEditableAttribute("18#" + "ClaimExpLevel");
-
-			attribute = new ElemAttribute(
-					"defaultDomainValue",
-					"Integer",
-					AttributeType.OPERATION,
-					false,
-					"Default Value (Filtered Attributes)",
-					"Default value for ClaimExpLevel/SDReqLevel when no Claim/SD"
-							+ " constraints the domain (e.j. 4 for maximizing SG)",
-					0, new RangeDomain(0, 4, 0), 2, 19, "", "", -1, "", "");
-			semSoftgoal.putSemanticAttribute("defaultDomainValue", attribute);
-
-			semSoftgoal.addPropVisibleAttribute("19#" + "defaultDomainValue");
-
-			semSoftgoal.addPropEditableAttribute("19#" + "defaultDomainValue");
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sgtoge", instEdge);
-			instEdge.setIdentifier("sgtoge");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexGE, true);
-			instEdge.setSourceRelation(instVertexSG, true);
-
-			OpersConcept semAsset = new OpersConcept("Asset");
-
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semAsset
-					.getIdentifier(), "Sel", true));
-			InstConcept instVertexAsset = new InstConcept("Asset",
-					metaMetaInstConcept, semAsset);
-			refas.getVariabilityVertex().put("Asset", instVertexAsset);
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semAsset.setSemanticExpressions(semanticExpressions);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, "NReqSel", true, 4);
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Sum"), t1, 0);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, "NPrefSel", true, t1);
-
-			t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes()
-					.get("Equals"), instVertexGE, "Order", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("astoge", instEdge);
-			instEdge.setIdentifier("astoge");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexGE, true);
-			instEdge.setSourceRelation(instVertexAsset, true);
-
-			// ---
-			OpersConcept semanticOperClaimGroupRelation = new OpersConcept(
-					"OperClOT");// hardSemOverTwoRelList);
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semanticOperClaimGroupRelation
-					.setSemanticExpressions(semanticExpressions);
-
-			InstConcept instVertexCLGR = new InstConcept("OperClOT",
-					semanticOperClaimGroupRelation, metaMetaInstOverTwoRel);
-
-			t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexCLGR, instVertexCLGR, "Sel", "TrueVal");
-
-			sasverConflClOperSubActionVerification.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionVerification.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-			// ---
-
-			OpersConcept semClaim = new OpersConcept("Claim");
-
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semClaim
-					.getIdentifier(), "Sel", true));
-
-			attribute = new ElemAttribute("outCl", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			semClaim.putSemanticAttribute("outCl", attribute);
-			sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-					semClaim.getIdentifier(), attribute.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semClaim.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semClaim
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semClaim.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semClaim
-							.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semClaim.getIdentifier(), attribute.getName(), true));
-
-			InstConcept instVertexCL = new InstConcept("Claim", semClaim,
-					metaMetaInstOverTwoRel);
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semClaim.setSemanticExpressions(semanticExpressions);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexCL, instVertexOper, "Sel", true, "FalseVal");
-
-			t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes()
-					.get("Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexCL, instVertexOper, t1, "FalseVal");
-
-			t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexCL, instVertexCLGR, "Sel", true, "FalseVal");
-
-			t2 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes()
-					.get("Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexCL, instVertexCLGR, t2, "FalseVal");
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes()
-					.get("Or"), t1, t2);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"DoubleImplies"), instVertexCL, "outCL", false, t1);
-			// FIXME expression not working!
-
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"DoubleImplies"), ExpressionVertexType.LEFTVARIABLE,
-					ExpressionVertexType.RIGHTVARIABLE, instVertexCL,
-					instVertexCL, "Sel", "outCl");
-
-			semanticExpressions.add(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, "NReqSel", true, 4);
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Sum"), t1, 0);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, "NPrefSel", true, t1);
-
-			t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes()
-					.get("Equals"), instVertexGE, "Order", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			OpersConcept directOperClaimSemanticEdge = new OpersConcept(
-					"OperClPW");
-
-			attribute = new ElemAttribute("outCl", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			directOperClaimSemanticEdge
-					.putSemanticAttribute("outCl", attribute);
-			sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-					directOperClaimSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directOperClaimSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directOperClaimSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directOperClaimSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directOperClaimSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directOperClaimSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-
-			InstConcept instDirOperClaimSemanticEdge = new InstConcept(
-					"OperClPW", metaMetaPairwiseRelation,
-					directOperClaimSemanticEdge);
-
-			refas.getVariabilityVertex().put("OperClPW",
-					instDirOperClaimSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("opctoip", instEdge);
-			instEdge.setIdentifier("opctoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirOperClaimSemanticEdge, true);
-
-			instDirOperClaimSemanticEdge.createInstAttributes();
-
-			InstAttribute ia = instDirOperClaimSemanticEdge
-					.getInstAttribute("relTypesAttr");
-			List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
-					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-					"OperToClaim##true#true#true#1#-1#1#1"));
-
-			ia = instDirOperClaimSemanticEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexOper, instVertexCL, "Sel",
-					"ConditionalExpression");
-
-			t1 = new OpersExpr("OPERCLSelected", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					ExpressionVertexType.LEFTVARIABLE,
-					instDirOperClaimSemanticEdge, "outCl", true, t1);
-			semanticExpressions.add(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexOper, instVertexCL, "Sel",
-					"ConditionalExpression");
-
-			t1 = new OpersExpr("OPERCLSelected", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexCL, "Sel", true, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("OPERCLNotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexOper, instVertexCL, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
-					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			refas.getVariabilityVertex().put("Claim", instVertexCL);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("cltoge", instEdge);
-			instEdge.setIdentifier("cltoge");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGE, true);
-			instEdge.setSourceRelation(instVertexCL, true);
-
-			attribute = new ElemAttribute(
-					"ConditionalExpression",
-					ModelExpr.class.getCanonicalName(),
-					AttributeType.OPERATION,
-					false,
-					"Conditional Expression",
-					"Claim activation expression (in addition to operationalizations/left features)",
-					null, 0, 3, "", "", 3, "#ConditionalExpression#all#", "");
-			semClaim.putSemanticAttribute("ConditionalExpression", attribute);
-			semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
-			semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semClaim.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semClaim
-					.getIdentifier(), attribute.getName(), true));
-
-			attribute = new ElemAttribute("CompExp", "Boolean",
-					AttributeType.GLOBALCONFIG, false,
-					"Boolean Comp. Expression", "", true, 0, 1, "", "", -1, "",
-					"");
-			semClaim.putSemanticAttribute("CompExp", attribute);
-			semClaim.addPropEditableAttribute("01#" + "CompExp");
-			semClaim.addPropVisibleAttribute("01#" + "CompExp");
-
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("ConfidenceLevel", "Integer",
-					AttributeType.OPERATION, "Confidence Level",
-					"(Ignored for operations)", 1, false, new RangeDomain(0, 4,
-							0), 0, 5, "", "", -1, "", "");
-			semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
-			semClaim.addPropEditableAttribute("05#" + "ConfidenceLevel");
-			semClaim.addPropVisibleAttribute("05#" + "ConfidenceLevel");
-
-			OpersConcept semSoftDependency = new OpersConcept("SoftDependency");
-
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semSoftDependency.getIdentifier(), "Sel", true));
-			InstConcept instVertexSD = new InstConcept("SoftDependency",
-					semSoftDependency, metaMetaInstConcept);
-			refas.getVariabilityVertex().put("SoftDependency", instVertexSD);
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semSoftDependency.setSemanticExpressions(semanticExpressions);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"DoubleImplies"), ExpressionVertexType.LEFTVARIABLE,
-					ExpressionVertexType.RIGHTVARIABLE, instVertexSD,
-					instVertexSD, "Sel", "outSdSg");
-
-			semanticExpressions.add(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Product"), instVertexGE, "NReqSel", true, 4);
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Sum"), t1, 0);
-
-			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-					"Sum"), instVertexGE, "NPrefSel", true, t1);
-
-			t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes()
-					.get("Equals"), instVertexGE, "Order", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sdtoge", instEdge);
-			instEdge.setIdentifier("sdtoge");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGE, true);
-			instEdge.setSourceRelation(instVertexSD, true);
-
-			attribute = new ElemAttribute("outSdSg", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			semSoftDependency.putSemanticAttribute("outSdSg", attribute);
-			sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-					semSoftDependency.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftDependency.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftDependency
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftDependency.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semSoftDependency
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftDependency.getIdentifier(), attribute.getName(),
-					true));
-
-			attribute = new ElemAttribute("ConditionalExpression",
-					ModelExpr.class.getCanonicalName(),
-					AttributeType.OPERATION, false, "Conditional Expression",
-					"Soft dependency activation expression", null, 0, 3, "",
-					"", 3, "#ConditionalExpression#all#", "");
-			semSoftDependency.putSemanticAttribute("ConditionalExpression",
-					attribute);
-			semSoftDependency.addPropEditableAttribute("03#"
-					+ "ConditionalExpression");
-			semSoftDependency.addPropVisibleAttribute("03#"
-					+ "ConditionalExpression");
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semSoftDependency.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semSoftDependency.getIdentifier(), attribute.getName(),
-					true));
-
-			attribute = new ElemAttribute("CompExp", "Boolean",
-					AttributeType.GLOBALCONFIG, false,
-					"Boolean Comp. Expression", "", true, 2, 1, "", "", -1, "",
-					"");
-			semSoftDependency.putSemanticAttribute("CompExp", attribute);
-			semSoftDependency.addPropEditableAttribute("01#" + "CompExp");
-			semSoftDependency.addPropVisibleAttribute("01#" + "CompExp");
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("SDSelected", "Boolean",
-					AttributeType.GLOBALCONFIG, false, "SD Selected", "",
-					false, 2, 2, "false", "", -1, "", "");
-			semSoftDependency.putSemanticAttribute("SDSelected", attribute);
-			semSoftDependency.addPropVisibleAttribute("02#" + "SDSelected");
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			OpersConcept semHardOverTwoRelation = new OpersConcept("SMOverTwo");// hardSemOverTwoRelList);
-
-			InstConcept instVertexHHGR = new InstConcept("GoalOT",
-					semHardOverTwoRelation, metaMetaInstOverTwoRel);
-			refas.getVariabilityVertex().put("GoalOT", instVertexHHGR);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("hhtoigr", instEdge);
-			instEdge.setIdentifier("hhtoigr");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGR, true);
-			instEdge.setSourceRelation(instVertexHHGR, true);
-
-			InstConcept instHchcHHGRHC = new InstConcept("GoaltoOT",
-					metaMetaPairwiseRelation);
-			refas.getVariabilityVertex().put("GoaltoOT", instHchcHHGRHC);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("hhotfromip", instEdge);
-			instEdge.setIdentifier("hhotfromip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexGR, true);
-			instEdge.setSourceRelation(instHchcHHGRHC, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges()
-					.put("hctoHHGR-HHGR-HHHHGR", instEdge);
-			instEdge.setIdentifier("hctoHHGR-HHGR-HHHHGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instHchcHHGRHC, true);
-			instEdge.setSourceRelation(instVertexHHGR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("hctoHHGR-HHHHGR-H", instEdge);
-			instEdge.setIdentifier("hctoHHGR-HHHHGR-H");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexHC, true);
-			instEdge.setSourceRelation(instHchcHHGRHC, true);
-
-			InstConcept instHchcHHGRGR = new InstConcept("GoalfromOT",
-					metaMetaPairwiseRelation);
-			refas.getVariabilityVertex().put("GoalfromOT", instHchcHHGRGR);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("HHGRtohc-H-HHHHGR", instEdge);
-			instEdge.setIdentifier("HHGRtohc-H-HHHHGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instHchcHHGRGR, true);
-			instEdge.setSourceRelation(instVertexHC, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("HHGRtohc-HHHHGR-H", instEdge);
-			instEdge.setIdentifier("HHGRtohc-H-HHHHGR-H");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexHHGR, true);
-			instEdge.setSourceRelation(instHchcHHGRGR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ogfottoip", instEdge);
-			instEdge.setIdentifier("ogfottoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instHchcHHGRGR, true);
-
-			instHchcHHGRGR.createInstAttributes();
-
-			ia = instVertexHHGR.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"and#and#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"or#or#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", "", 1, -1, "", "", -1, "", ""),
-					"mutex#mutex#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					"range#range#false#true#true#1#-1#1#1"));
-
-			ia = instVertexHHGR.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHHGR, instVertexHC, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHHGR, instVertexHC, "Core", "Core");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHHGR, instVertexHC, "Sel", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHHGR, instVertexHC, "Core", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, t1, "Core");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ORhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHHGR, instVertexHC, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHHGR, instVertexHC, "Sel", true, "FalseVal");
-
-			t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHHGR, instVertexHC, "Core", true, "FalseVal");
-
-			t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, t1, "Core");
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("MUTEXhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHHGR, instVertexHC, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHC, "Sel", 0);
-
-			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, t1, 1);
-
-			t1 = new OpersExpr("MUTEXhardRel", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexHC, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHC, "Sel", 0);
-
-			t1 = new OpersExpr("MUTEXrestric", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, t1, 1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("RANGEhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHHGR, instVertexHC, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHHGR, instVertexHC, "Sel", true, "FalseVal");
-
-			t1 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, t1, "LowRange");
-
-			t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHHGR, instVertexHC, "Sel", true, "FalseVal");
-
-			t2 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexHHGR, instVertexHC, t2, "HighRange");
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"And"), t1, t2);
-
-			t1 = new OpersExpr("RANGEHardRel", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexHHGR, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			OpersConcept directHardHardSemanticEdge = new OpersConcept(
-					"travHardPW");
-
-			attribute = new ElemAttribute("AggregationLow", "Integer",
-					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 3, "", "", 3, "[#" + "AggregationLow" + "#all#..",
-					"AggregationHigh" + "#!=#" + "0");
-			directHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
-					attribute);
-			directHardHardSemanticEdge.addPropEditableAttribute("03#"
-					+ "AggregationLow");
-			directHardHardSemanticEdge.addPropVisibleAttribute("03#"
-					+ "AggregationLow");
-
-			attribute = new ElemAttribute("AggregationHigh", "Integer",
-					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 4, "", "", 4, "#" + "AggregationHigh" + "#all#]\n",
-					"AggregationHigh" + "#!=#" + "0");
-			directHardHardSemanticEdge.putSemanticAttribute("AggregationHigh",
-					attribute);
-			directHardHardSemanticEdge.addPropEditableAttribute("04#"
-					+ "AggregationHigh");
-			directHardHardSemanticEdge.addPropVisibleAttribute("04#"
-					+ "AggregationHigh");
-
-			InstConcept instDirHardHardSemanticEdge = new InstConcept(
-					"travHardPW", metaMetaPairwiseRelation,
-					directHardHardSemanticEdge);
-
-			directHardHardSemanticEdge.putSemanticAttribute("relationType",
-					new ElemAttribute("relationType", "Class",
-							AttributeType.OPERATION, true, "Relation Type", "",
-							InstAttribute.class.getCanonicalName(), null, "",
-							0, 6, "", "", 6, "#" + "relationType" + "#all#\n",
-							""));
-			directHardHardSemanticEdge.addPropEditableAttribute("06#"
-					+ "relationType");
-			directHardHardSemanticEdge.addPropVisibleAttribute("06#"
-					+ "relationType");
-			// directHardHardSemanticEdge.addPanelVisibleAttribute("06#"
-			// + "relationType");
-			// directHardHardSemanticEdge.addPanelSpacersAttribute("#"
-			// + "relationType" + "#\n");
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ggstoip", instEdge);
-			instEdge.setIdentifier("ggstoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirHardHardSemanticEdge, true);
-
-			ia = instDirHardHardSemanticEdge.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", "", 1, -1, "", "", -1, "", ""),
-					"conflict#conflict#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("alternative", new ElemAttribute(
-					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
-					"altern.#altern.#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("preferred", new ElemAttribute(
-					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
-					"preferred#preferred#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("require", new ElemAttribute("require",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", "", 1, -1, "", "", -1, "", ""),
-					"require#require#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("condition", new ElemAttribute(
-					"condition", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "condition", "", "", 1, -1, "", "", -1, "", ""),
-					"condition#condition#false#true#true#1#-1#1#1"));
-
-			ia = instDirHardHardSemanticEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHC, instVertexHC, "Sel", "Sel");
-
-			t1 = new OpersExpr("CONFSelected", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"), 1,
-					false, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexHC, instVertexHC, "Sel", true, 1);
-
-			t1 = new OpersExpr("ALTSelected", refas
-					.getSemanticExpressionTypes().get("Implies"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexHC, "Sel", true, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("alternative", new ElemAttribute(
-					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHC, instVertexHC, "Sel", "Sel");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexHC, "Sel");
-
-			t1 = new OpersExpr("PREFSelected", refas
-					.getSemanticExpressionTypes().get("And"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("preferred", new ElemAttribute(
-					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Subtraction"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirHardHardSemanticEdge, instVertexHC, "Sel", false, 1);
-
-			t1 = new OpersExpr("REQSelected", refas
-					.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false,
-					t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("require", new ElemAttribute("require",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"required", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("CONDSelected", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHC, instVertexHC, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("CONDNotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHC, instVertexHC, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("condition", new ElemAttribute(
-					"condition", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "condition", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("travHardPW",
-					instDirHardHardSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("GoalGoalSidePWAsso-GR",
-					instEdge);
-			instEdge.setIdentifier("GoalGoalSidePWAsso-GR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirHardHardSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexHC, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("GoalGoalSidePW-GR-Asso",
-					instEdge);
-			instEdge.setIdentifier("GoalGoalSidePW-GR-Asso");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexHC, true);
-			instEdge.setSourceRelation(instDirHardHardSemanticEdge, true);
-
-			OpersConcept directStructHardHardSemanticEdge = new OpersConcept(
-					"meansHardPW");
-
-			attribute = new ElemAttribute("AggregationLow", "Integer",
-					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 3, "", "", 3, "[#" + "AggregationLow" + "#all#..",
-					"AggregationHigh" + "#!=#" + "0");
-			directStructHardHardSemanticEdge.putSemanticAttribute(
-					"AggregationLow", attribute);
-			directStructHardHardSemanticEdge.addPropEditableAttribute("03#"
-					+ "AggregationLow");
-			directStructHardHardSemanticEdge.addPropVisibleAttribute("03#"
-					+ "AggregationLow");
-
-			attribute = new ElemAttribute("AggregationHigh", "Integer",
-					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 4, "", "", 4, "#" + "AggregationHigh" + "#all#]\n",
-					"AggregationHigh" + "#!=#" + "0");
-			directStructHardHardSemanticEdge.putSemanticAttribute(
-					"AggregationHigh", attribute);
-			directStructHardHardSemanticEdge.addPropEditableAttribute("04#"
-					+ "AggregationHigh");
-			directStructHardHardSemanticEdge.addPropVisibleAttribute("04#"
-					+ "AggregationHigh");
-
-			attribute = new ElemAttribute("outStructVal", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			directStructHardHardSemanticEdge.putSemanticAttribute(
-					"outStructVal", attribute);
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directStructHardHardSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directStructHardHardSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-
-			InstConcept instDirStructHardHardSemanticEdge = new InstConcept(
-					"meansHardPW", metaMetaPairwiseRelation,
-					directStructHardHardSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("shhtoip", instEdge);
-			instEdge.setIdentifier("shhtoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirStructHardHardSemanticEdge, true);
-
-			ia = instDirStructHardHardSemanticEdge
-					.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					"mandatory#mandatory#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"optional", "", "", 1, -1, "", "", -1, "", ""),
-					"optional#optional#false#true#true#1#-1#1#1"));
-
-			ia = instDirStructHardHardSemanticEdge
-					.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("MANSelected", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHC, instVertexHC, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("MANSelected1", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHC, instVertexHC, "Core", "Core");
-
-			semanticExpressions.add(t1);
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexHC, instVertexHC, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexHC, "structVal", 1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexHC, "structVal", true, t1);
-
-			semanticExpressions.add(t1);
-			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirStructHardHardSemanticEdge, instVertexHC, "Sel",
-					true, 1);
-
-			t1 = new OpersExpr("Sel", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexHC, "Sel", true, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexHC, "structVal", 1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexHC, "structVal", true, t1);
-
-			semanticExpressions.add(t1);
-			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"optional", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("meansHardPW",
-					instDirStructHardHardSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("structHardHardPWAsso-GR",
-					instEdge);
-			instEdge.setIdentifier("structHardHardPWAsso-GR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirStructHardHardSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexHC, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("structHardHardPW-GR-Asso",
-					instEdge);
-			instEdge.setIdentifier("structHardHardPW-GR-Asso");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexHC, true);
-			instEdge.setSourceRelation(instDirStructHardHardSemanticEdge, true);
-
-			OpersConcept directFeaFeatVertSemEdge = new OpersConcept(
-					"parentFeatPW");
-
-			attribute = new ElemAttribute("outStructVal", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			directFeaFeatVertSemEdge.putSemanticAttribute("outStructVal",
-					attribute);
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directFeaFeatVertSemEdge.getIdentifier(), attribute
-									.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directFeaFeatVertSemEdge.getIdentifier(), attribute
-							.getName(), true));
-
-			InstConcept instDirFeaFeatVertSemEdge = new InstConcept(
-					"parentFeatPW", metaMetaPairwiseRelation,
-					directFeaFeatVertSemEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ffptoip", instEdge);
-			instEdge.setIdentifier("ffptoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
-
-			ia = instDirFeaFeatVertSemEdge.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					"mandatory#mandatory#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"optional", "", "", 1, -1, "", "", -1, "", ""),
-					"optional#optional#false#true#true#1#-1#1#1"));
-
-			ia = instDirFeaFeatVertSemEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("MANSelected", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexF, instVertexF, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("MANSelected1", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexF, instVertexF, "Core", "Core");
-
-			semanticExpressions.add(t1);
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("MANNotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexF, instVertexF, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexF, "structVal", 1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexF, "structVal", true, t1);
-
-			semanticExpressions.add(t1);
-			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("OPTSelected", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexF, instVertexF, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("OPTSelected", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexF, instVertexF, "Core", "Core");
-
-			semanticExpressions.add(t1);
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("OPTNotAvailable", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
-					instVertexF, instVertexF, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexF, "structVal", 1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexF, "structVal", true, t1);
-
-			semanticExpressions.add(t1);
-			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
-
-			attribute = new ElemAttribute("optional", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "optional", "", "", 1, -1, "",
-					"", -1, "", "");
-			ias.add(new InstAttribute("optional", attribute,
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("parentFeatPW",
-					instDirFeaFeatVertSemEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("FeatFeatParentPWAsso-GR",
-					instEdge);
-			instEdge.setIdentifier("FeatFeatParentPWAsso-GR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirFeaFeatVertSemEdge, true);
-			instEdge.setSourceRelation(instVertexF, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("FeatFeatParentPW-GR-Asso",
-					instEdge);
-			instEdge.setIdentifier("FeatFeatParentPW-GR-Asso");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexF, true);
-			instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
-
-			OpersConcept directFeatFeatSideSemEdge = new OpersConcept(
-					"altFeatPW");
-			InstConcept instDirFeatFeatSideSemEdge = new InstConcept(
-					"altFeatPW", metaMetaPairwiseRelation,
-					directFeatFeatSideSemEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ffstoip", instEdge);
-			instEdge.setIdentifier("ffstoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirFeatFeatSideSemEdge, true);
-
-			ia = instDirFeatFeatSideSemEdge.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", "", 1, -1, "", "", -1, "", ""),
-					"conflict#conflict#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("require", new ElemAttribute("require",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", "", 1, -1, "", "", -1, "", ""),
-					"require#require#false#true#true#1#-1#1#1"));
-
-			ia = instDirFeatFeatSideSemEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexF, instVertexF, "Sel", "Sel");
-
-			t1 = new OpersExpr("CONFSelected", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"), 1,
-					false, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("requires", refas.getSemanticExpressionTypes()
-					.get("LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexF, instVertexF, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("require", new ElemAttribute("require",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"condition", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("altFeatPW",
-					instDirFeatFeatSideSemEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("FeatFeatSidePWAsso-GR",
-					instEdge);
-			instEdge.setIdentifier("FeatFeatSidePWAsso-GR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirFeatFeatSideSemEdge, true);
-			instEdge.setSourceRelation(instVertexF, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("FeatFeatSidePW-GR-Asso",
-					instEdge);
-			instEdge.setIdentifier("FeatFeatSidePW-GR-Asso");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexF, true);
-			instEdge.setSourceRelation(instDirFeatFeatSideSemEdge, true);
-
-			OpersConcept semFeatOverTwoRelation = new OpersConcept("FeatOT");// featSemOverTwoRelList);
-			InstConcept instVertexFFGR = new InstConcept("FeatOT",
-					semFeatOverTwoRelation, metaMetaInstOverTwoRel);
-			refas.getVariabilityVertex().put("FeatOT", instVertexFFGR);
-
-			ia = instVertexFFGR.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"and#and#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"or#or#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", "", 1, -1, "", "", -1, "", ""),
-					"mutex#mutex#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					"range#range#false#true#true#1#-1#1#1"));
-
-			ia = instVertexFFGR.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
-					instVertexFFGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
-					instVertexFFGR, "Core", "Core");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexFFGR, instVertexF, "Sel", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDFSRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, instVertexF, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexFFGR, instVertexF, "Core", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDFCRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, instVertexF, t1, "Core");
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ORFConcept", refas.getSemanticExpressionTypes()
-					.get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
-					instVertexFFGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexFFGR, instVertexF, "Sel", true, "FalseVal");
-
-			t1 = new OpersExpr("ORFSRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, instVertexF, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexFFGR, instVertexF, "Core", true, "FalseVal");
-
-			t1 = new OpersExpr("ORFCRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, instVertexF, t1, "Core");
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("MUTEXFConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
-					instVertexFFGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexF, "Sel", 0);
-
-			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, instVertexF, t1, 1);
-
-			t1 = new OpersExpr("MUTEXFRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"), instVertexF, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexFFGR, instVertexF, "Core", true, "FalseVal");
-
-			t1 = new OpersExpr("MUTEXFCRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, instVertexF, t1, "Core");
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexF, "Sel", 0);
-
-			t1 = new OpersExpr("MUTEXrestric", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, instVertexF, t1, 1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("RANGEhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-					instVertexFFGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexFFGR, instVertexHC, null, "Sel", "FalseVal", true);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, t1, instVertexHC, "LowRange");
-
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexFFGR, instVertexHC, null, "Sel", "FalseVal", true);
-
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, t2, instVertexHC, "HighRange");
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"And"), t1, t2);
-
-			t1 = new OpersExpr("RANGEHardRel", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexFFGR, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexFFGR, instVertexF, "Core", true, "FalseVal");
-
-			t1 = new OpersExpr("RANGEFCRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexFFGR, instVertexF, t1, "Core");
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			OpersConcept semAssetOperPairwiseRel = new OpersConcept(
-					"AssetOperPW");
-
-			attribute = new ElemAttribute("outStructVal", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			semAssetOperPairwiseRel.putSemanticAttribute("outStructVal",
-					attribute);
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							semAssetOperPairwiseRel.getIdentifier(), attribute
-									.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semAssetOperPairwiseRel.getIdentifier(), attribute
-							.getName(), true));
-
-			InstConcept instSemAssetOperPairwiseRel = new InstConcept(
-					"AssetOperPW", metaMetaPairwiseRelation,
-					semAssetOperPairwiseRel);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("vaptoip", instEdge);
-			instEdge.setIdentifier("vaptoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instSemAssetOperPairwiseRel, true);
-
-			ia = instSemAssetOperPairwiseRel.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					"mandatory#mandatory#false#true#true#1#-1#1#1"));
-
-			ia = instDirStructHardHardSemanticEdge
-					.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("manLSelected1", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexAsset, instVertexHC, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("manLSelected1", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexAsset, instVertexHC, "Core", "Core");
-
-			semanticExpressions.add(t1);
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("manLNotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexAsset, instVertexHC, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexF, "structVal", 1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexAsset, "structVal", true, t1);
-
-			semanticExpressions.add(t1);
-			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("AssetOperPW",
-					instSemAssetOperPairwiseRel);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("varAssetOperPWAsso-GR",
-					instEdge);
-			instEdge.setIdentifier("varAssetOperPWAsso-GR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instSemAssetOperPairwiseRel, true);
-			instEdge.setSourceRelation(instVertexAsset, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("varAssetOperPW-GR-Asso",
-					instEdge);
-			instEdge.setIdentifier("varAssetOperPW-GR-Asso");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexOper, true);
-			instEdge.setSourceRelation(instSemAssetOperPairwiseRel, true);
-
-			OpersConcept semAssetPairwiseRel = new OpersConcept("AssetPW");
-
-			attribute = new ElemAttribute("outStructVal", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			semAssetPairwiseRel.putSemanticAttribute("outStructVal", attribute);
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semAssetPairwiseRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semAssetPairwiseRel.getIdentifier(), attribute.getName(),
-					true));
-
-			InstConcept instSemAssetPairwiseRel = new InstConcept("AssetPW",
-					metaMetaPairwiseRelation, semAssetPairwiseRel);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("vatoip", instEdge);
-			instEdge.setIdentifier("vatoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instSemAssetPairwiseRel, true);
-
-			ia = instSemAssetPairwiseRel.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					"mandatory#mandatory#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"optional", "", "", 1, -1, "", "", -1, "", ""),
-					"optional#optional#false#true#true#1#-1#1#1"));
-
-			ia = instSemAssetPairwiseRel.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("DELSelected", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexAsset, instVertexAsset, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("DELNotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexAsset, instVertexAsset, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexAsset, "structVal", 1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexAsset, "structVal", true, t1);
-
-			semanticExpressions.add(t1);
-			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-			t1 = new OpersExpr("ASSESelected", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexAsset, instVertexAsset, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("ASSENotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexF, instVertexF, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("assembly", new ElemAttribute("assembly",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"assembly", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex()
-					.put("AssetPW", instSemAssetPairwiseRel);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("varAssetPWAsso-GR", instEdge);
-			instEdge.setIdentifier("varAssetPWAsso-GR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instSemAssetPairwiseRel, true);
-			instEdge.setSourceRelation(instVertexAsset, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("varAssetPW-GR-Asso", instEdge);
-			instEdge.setIdentifier("varAssetPW-GR-Asso");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexAsset, true);
-			instEdge.setSourceRelation(instSemAssetPairwiseRel, true);
-
-			OpersConcept semvarcntxPairwiseRel = new OpersConcept("VaClPW");
-
-			InstConcept instSemvarcntxPairwiseRel = new InstConcept("VaClPW",
-					metaMetaPairwiseRelation, semvarcntxPairwiseRel);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("vcxtoip", instEdge);
-			instEdge.setIdentifier("vcxtoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instSemvarcntxPairwiseRel, true);
-
-			ia = instSemvarcntxPairwiseRel.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
-					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "Variable Context", "", "", 1,
-					-1, "", "", -1, "", ""),
-					"Variable Context##false#true#true#1#-1#1#1"));
-
-			ia = instSemvarcntxPairwiseRel.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
-					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "Variable Context", "", "", 1,
-					-1, "", "", -1, "", ""), semanticExpressions));
-
-			refas.getVariabilityVertex().put("VaClPW",
-					instSemvarcntxPairwiseRel);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("varcntxPWAsso-GR", instEdge);
-			instEdge.setIdentifier("varcntxPWAsso-GR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instSemvarcntxPairwiseRel, true);
-			instEdge.setSourceRelation(instVertexVAR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("varcntxPW-GR-Asso", instEdge);
-			instEdge.setIdentifier("varcntxPW-GR-Asso");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexCG, true);
-			instEdge.setSourceRelation(instSemvarcntxPairwiseRel, true);
-
-			// Feature to Feature
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ffgrtogr", instEdge);
-			instEdge.setIdentifier("ffgrtogr");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGR, true);
-			instEdge.setSourceRelation(instVertexFFGR, true);
-
-			InstConcept instFeatFeatFFFGR = new InstConcept("FeatToOT",
-					metaMetaPairwiseRelation);
-			refas.getVariabilityVertex().put("FeatFeatToOTAssoPWAsso",
-					instFeatFeatFFFGR);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("featfeatF-FFFGR", instEdge);
-			instEdge.setIdentifier("featfeatF-FFFGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instFeatFeatFFFGR, true);
-			instEdge.setSourceRelation(instVertexF, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("featfeatFFFGR-FFGR", instEdge);
-			instEdge.setIdentifier("featfeatFFFGR-FFGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexFFGR, true);
-			instEdge.setSourceRelation(instFeatFeatFFFGR, true);
-
-			InstConcept instFeatFeatFGRF = new InstConcept("FeatFromOT",
-					metaMetaPairwiseRelation);
-			refas.getVariabilityVertex().put("FeatFromOT", instFeatFeatFGRF);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("featfeatFFFGR-F", instEdge);
-			instEdge.setIdentifier("featfeatFFFGR-F");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexF, true);
-			instEdge.setSourceRelation(instFeatFeatFGRF, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("featfeatFFGR-FFFGR", instEdge);
-			instEdge.setIdentifier("featfeatFFGR-FFFGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instFeatFeatFGRF, true);
-			instEdge.setSourceRelation(instVertexFFGR, true);
-
-			OpersConcept directSGSGSemEdge = new OpersConcept("SgSgPWAsso");
-
-			attribute = new ElemAttribute("outConflSG", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			directSGSGSemEdge.putSemanticAttribute("outConflSG", attribute);
-			sasverSGConflOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			attribute = new ElemAttribute("sourceLevel", "Integer",
-					AttributeType.OPERATION, "Source Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
-					"SL: #sourceLevel#all# - ", "");
-			directSGSGSemEdge.putSemanticAttribute("sourceLevel", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directSGSGSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
-			directSGSGSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
-
-			attribute = new ElemAttribute("targetLevel", "Integer",
-					AttributeType.OPERATION, "Target Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
-					"TL: #targetLevel#all#", "");
-			directSGSGSemEdge.putSemanticAttribute("targetLevel", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directSGSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel"
-					+ "#");
-			directSGSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
-			directSGSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
-			// directSGSGSemEdge.addPanelVisibleAttribute("09#" +
-			// "targetLevel");
-
-			attribute = new ElemAttribute("AggregationLow", "Integer",
-					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 7, "", "", 7, "[#" + "AggregationLow" + "#all#..",
-					"AggregationHigh" + "#!=#" + "0");
-			directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directSGSGSemEdge
-					.addPropEditableAttribute("07#" + "AggregationLow");
-
-			directSGSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
-
-			attribute = new ElemAttribute("AggregationHigh", "Integer",
-					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 8, "", "", 8, "#" + "AggregationHigh" + "#all#\n",
-					"AggregationHigh" + "#!=#" + "0");
-			directSGSGSemEdge
-					.putSemanticAttribute("AggregationHigh", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directSGSGSemEdge.addPropEditableAttribute("08#"
-					+ "AggregationHigh");
-
-			directSGSGSemEdge
-					.addPropVisibleAttribute("08#" + "AggregationHigh");
-
-			InstConcept instDirSGSGSemanticEdge = new InstConcept("SgSgPWAsso",
-					metaMetaPairwiseRelation, directSGSGSemEdge);
-
-			refas.getVariabilityVertex().put("SgSgPWAsso",
-					instDirSGSGSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sgsgtoip", instEdge);
-			instEdge.setIdentifier("sgsgtoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
-
-			ia = instDirSGSGSemanticEdge.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("contribution", new ElemAttribute(
-					"contribution", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "contribution", "", "", 1, -1,
-					"", "", -1, "", ""),
-					"contribution#contribution#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", "", 1, -1, "", "", -1, "", ""),
-					"conflict#conflict#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("alternative", new ElemAttribute(
-					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
-					"altern.#altern.#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("preferred", new ElemAttribute(
-					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
-					"preferred#preferred#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("require", new ElemAttribute("require",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", "", 1, -1, "", "", -1, "", ""),
-					"require#require#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("implication", new ElemAttribute(
-					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
-					"implication#implication#false#true#true#1#-1#1#1"));
-
-			ia = instDirSGSGSemanticEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			// contribution of direct relations
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
-			semanticExpressions.add(t1);
-			sasverSGConflOperSubActionVerification.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"low");
-
-			t1 = new OpersExpr("low: SGReqLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"high");
-
-			t1 = new OpersExpr("high: SGReqLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"close");
-
-			t1 = new OpersExpr("close: SGReqLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("contribution", new ElemAttribute(
-					"contribution", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "contribution", "", "", 1, -1,
-					"", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			// Wrong expressions - correct for conflict
-
-			t1 = new OpersExpr("CLEx SrcLv", refas.getSemanticExpressionTypes()
-					.get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"low");
-
-			t1 = new OpersExpr("low: source & target", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("CLEx SrcLv", refas.getSemanticExpressionTypes()
-					.get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"high");
-
-			t1 = new OpersExpr("high: source & target", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("CLEx SrcLv", refas.getSemanticExpressionTypes()
-					.get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"close");
-
-			t1 = new OpersExpr("close: source & target", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "Sel", true, 1);
-
-			t1 = new OpersExpr("ALTSelected", refas
-					.getSemanticExpressionTypes().get("Implies"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexSG, "Sel", true, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("alternative", new ElemAttribute(
-					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexSG, instVertexSG, "Sel", "Sel");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexSG, "Sel");
-
-			t1 = new OpersExpr("PREFSelected", refas
-					.getSemanticExpressionTypes().get("And"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("preferred", new ElemAttribute(
-					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Subtraction"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "Sel", false, 1);
-
-			t1 = new OpersExpr("REQSelected", refas
-					.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false,
-					t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("require", new ElemAttribute("require",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "Sel", true, 1);
-
-			t1 = new OpersExpr("IMPSelected", refas
-					.getSemanticExpressionTypes().get("Implies"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexSG, "Sel", true, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("implication", new ElemAttribute(
-					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sgsgPW-sgpwsg", instEdge);
-			instEdge.setIdentifier("sgsgPW-sgpwsg");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirSGSGSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexSG, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sgsgPW-sgsgpw", instEdge);
-			instEdge.setIdentifier("sgsgPW-sgsgpw");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexSG, true);
-			instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
-
-			OpersConcept semanticSGSGGroupRelation = new OpersConcept("SgOT");// hardSemOverTwoRelList);
-
-			InstConcept instVertexSGGR = new InstConcept("SgOT",
-					semanticSGSGGroupRelation, metaMetaInstOverTwoRel);
-			refas.getVariabilityVertex().put("SgOT", instVertexSGGR);
-
-			OpersConcept directGRSGSemEdge = new OpersConcept("SgToOT");
-
-			attribute = new ElemAttribute("outConflSG", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			directGRSGSemEdge.putSemanticAttribute("outConflSG", attribute);
-			sasverSGConflOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(directGRSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directGRSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			attribute = new ElemAttribute("targetLevel", "Integer",
-					AttributeType.OPERATION, "Target Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
-					":#targetLevel#all#", "");
-			directGRSGSemEdge.putSemanticAttribute("targetLevel", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directGRSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directGRSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directGRSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directGRSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directGRSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel"
-					+ "#");
-			directGRSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
-			directGRSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
-			// directGRSGSemEdge.addPanelVisibleAttribute("09#" +
-			// "targetLevel");
-
-			// FIXME remove, use other
-			InstConcept instSgsgGRSG = new InstConcept("SgToOT",
-					metaMetaPairwiseRelation, directGRSGSemEdge);
-
-			refas.getVariabilityVertex().put("SgToOT", instSgsgGRSG);
-
-			ia = instSgsgGRSG.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("contribution", new ElemAttribute(
-					"contribution", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "contribution", "", "", 1, -1,
-					"", "", -1, "", ""),
-					"contribution#contribution#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", "", 1, -1, "", "", -1, "", ""),
-					"conflict#conflict#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("alternative", new ElemAttribute(
-					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
-					"altern.#altern.#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("preferred", new ElemAttribute(
-					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
-					"preferred#preferred#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("require", new ElemAttribute("require",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", "", 1, -1, "", "", -1, "", ""),
-					"require#require#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("implication", new ElemAttribute(
-					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
-					"implication#implication#false#true#true#1#-1#1#1"));
-
-			ia = instSgsgGRSG.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			// Expressions for contribution with OTRel
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instSgsgGRSG, instVertexSGGR, "Sel", true, 1);
-
-			semanticExpressions.add(t1);
-			sasverSGConflOperSubActionVerification.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instSgsgGRSG, instVertexSGGR, "Sel", true, 1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instSgsgGRSG, instVertexSG, "ClaimExpLevel", true,
-					"targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instSgsgGRSG, instVertexSG, "satisficingLevel", "low");
-
-			t1 = new OpersExpr("low: SGReqLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instSgsgGRSG, instVertexSGGR, "Sel", true, 1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instSgsgGRSG, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"high");
-
-			t1 = new OpersExpr("high: SGReqLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instSgsgGRSG, instVertexSGGR, "Sel", true, 1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instSgsgGRSG, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"close");
-
-			t1 = new OpersExpr("close: SGReqLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("contribution", new ElemAttribute(
-					"contribution", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "contribution", "", "", 1, -1,
-					"", "", -1, "", ""), semanticExpressions));
-
-			// FIX me wrong relations or good for conflict
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("SG Gr Sel", refas.getSemanticExpressionTypes()
-					.get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexSG, "Sel", 1);
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instVertexSG, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, "satisficingLevel", "low");
-
-			t1 = new OpersExpr("low: source & target", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("SG Gr Sel", refas.getSemanticExpressionTypes()
-					.get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexSG, "Sel", 1);
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexSG, instVertexSG, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, "satisficingLevel", "high");
-
-			t1 = new OpersExpr("high: source & target", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("SG Gr Sel", refas.getSemanticExpressionTypes()
-					.get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexSG, "Sel", 1);
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexSG, instVertexSG, "ClaimExpLevel", "targetLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), t1, t3);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexSG, "satisficingLevel", "high");
-
-			t1 = new OpersExpr("close: source & target", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "Sel", true, 1);
-
-			t1 = new OpersExpr("ALTSelected", refas
-					.getSemanticExpressionTypes().get("Implies"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexSG, "Sel", true, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("alternative", new ElemAttribute(
-					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexSG, instVertexSG, "Sel", "Sel");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexSG, "Sel");
-
-			t1 = new OpersExpr("PREFSelected", refas
-					.getSemanticExpressionTypes().get("And"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("preferred", new ElemAttribute(
-					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Subtraction"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "Sel", false, 1);
-
-			t1 = new OpersExpr("REQSelected", refas
-					.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false,
-					t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("require", new ElemAttribute("require",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSGSGSemanticEdge, instVertexSG, "Sel", true, 1);
-
-			t1 = new OpersExpr("IMPSelected", refas
-					.getSemanticExpressionTypes().get("Implies"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexSG, "Sel", true, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("implication", new ElemAttribute(
-					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			OpersConcept directSGGRSemEdge = new OpersConcept("SgFromOT");
-			attribute = new ElemAttribute("sourceLevel", "Integer",
-					AttributeType.OPERATION, "Source Level", "", 1, false,
-					new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
-					"#sourceLevel#all#", "");
-			directSGGRSemEdge.putSemanticAttribute("sourceLevel", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directSGGRSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
-			directSGGRSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
-			// directSGGRSemEdge.addPanelVisibleAttribute("08#" +
-			// "sourceLevel");
-
-			attribute = new ElemAttribute("AggregationLow", "Integer",
-					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 7, "", "", 7, "[#" + "AggregationLow" + "#all#..",
-					"AggregationHigh" + "#!=#" + "0");
-			directSGGRSemEdge.putSemanticAttribute("AggregationLow", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directSGGRSemEdge
-					.addPropEditableAttribute("07#" + "AggregationLow");
-
-			directSGGRSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
-
-			attribute = new ElemAttribute("AggregationHigh", "Integer",
-					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 8, "", "", 8, "#" + "AggregationHigh" + "#all#]\n",
-					"AggregationHigh" + "#!=#" + "0");
-			directSGGRSemEdge
-					.putSemanticAttribute("AggregationHigh", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directSGGRSemEdge.addPropEditableAttribute("08#"
-					+ "AggregationHigh");
-
-			directSGGRSemEdge
-					.addPropVisibleAttribute("08#" + "AggregationHigh");
-
-			InstConcept instSgsgSGR = new InstConcept("SgFromOT",
-
-			metaMetaPairwiseRelation, directSGGRSemEdge);
-
-			refas.getVariabilityVertex().put("SgFromOT", instSgsgSGR);
-
-			// extends
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sgsggrtoip", instEdge);
-			instEdge.setIdentifier("sgsggrtoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instSgsgGRSG, true);
-
-			// extends
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sggrtogr", instEdge);
-			instEdge.setIdentifier("sggrtogr");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGR, true);
-			instEdge.setSourceRelation(instVertexSGGR, true);
-
-			// From SG to group
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sgsgSGR-SGsgsg", instEdge);
-			instEdge.setIdentifier("sgsgSGR-SGsgsg");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instSgsgSGR, true);
-			instEdge.setSourceRelation(instVertexSG, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sgsgSGR-sgsgSG", instEdge);
-			instEdge.setIdentifier("sgsgSGR-sgsgSG");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexSGGR, true);
-			instEdge.setSourceRelation(instSgsgSGR, true);
-
-			// From group to SG
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("SGGRtosg-GRsgsgGR", instEdge);
-			instEdge.setIdentifier("SGGRtosg-GRsgsgGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instSgsgGRSG, true);
-			instEdge.setSourceRelation(instVertexSGGR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("SGGRtosg-SGsgsgSG", instEdge);
-			instEdge.setIdentifier("SGGRtosg-SGsgsgSG");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexSG, true);
-			instEdge.setSourceRelation(instSgsgGRSG, true);
-
-			// FIX for SG to SG relations
-			ia = instVertexSGGR.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"and#and#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"or#or#false#true#true#1#-1#1#1"));
-
-			ia = instVertexSGGR.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
-					instVertexSG, instSgsgSGR, "ClaimExpLevel", "sourceLevel");
-
-			t1 = new OpersExpr("sub1", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCFIXEDSUBEXP,
-					instSgsgSGR, instDirSGSGSemanticEdge, t1, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexSGGR, instVertexSG, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
-					instVertexSG, instSgsgSGR, "ClaimExpLevel", "sourceLevel");
-
-			t1 = new OpersExpr("sub1", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCFIXEDSUBEXP,
-					instSgsgSGR, instDirSGSGSemanticEdge, t1, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexSGGR, instVertexSG, t1, "Core");
-
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
-					instVertexSG, instSgsgSGR, "ClaimExpLevel", "sourceLevel");
-
-			t1 = new OpersExpr("sub1", refas.getSemanticExpressionTypes().get(
-					"Or"), ExpressionVertexType.LEFTITERINCFIXEDSUBEXP,
-					instSgsgSGR, instDirSGSGSemanticEdge, t1, "FalseVal");
-
-			t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexSGGR, instVertexSG, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			OpersConcept directCVCGSemanticEdge = new OpersConcept("VaClPW");
-			InstConcept instDirCVCGSemanticEdge = new InstConcept("VaClPW",
-					metaMetaPairwiseRelation, directCVCGSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("svcgtoip", instEdge);
-			instEdge.setIdentifier("svcgtoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirCVCGSemanticEdge, true);
-
-			ia = instDirCVCGSemanticEdge.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
-					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "Variable Context", "", "", 1,
-					-1, "", "", -1, "", ""),
-					"Variable Context##false#true#true#1#-1#1#1"));
-
-			ia = instDirCVCGSemanticEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
-					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "Variable Context", "", "", 1,
-					-1, "", "", -1, "", ""), semanticExpressions));
-
-			refas.getVariabilityVertex().put("VaClPW", instDirCVCGSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("CVCGPWAsso-OOGR", instEdge);
-			instEdge.setIdentifier("CVCGPWAsso-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexCG, true);
-			instEdge.setSourceRelation(instDirCVCGSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("CVCGPWAsso-OGRO", instEdge);
-			instEdge.setIdentifier("CVCGPWAsso-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirCVCGSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexVAR, true);
-
-			// Oper to Claim
-
-			attribute = new ElemAttribute("AggregationLow", "Integer",
-					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 3, "", "", 3, "[#" + "AggregationLow" + "#all#..",
-					"AggregationHigh" + "#!=#" + "0");
-			semanticOperClaimGroupRelation.putSemanticAttribute(
-					"AggregationLow", attribute);
-			semanticOperClaimGroupRelation.addPropEditableAttribute("03#"
-					+ "AggregationLow");
-			semanticOperClaimGroupRelation.addPropVisibleAttribute("03#"
-					+ "AggregationLow");
-
-			attribute = new ElemAttribute("AggregationHigh", "Integer",
-					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 4, "", "", 4, "#" + "AggregationHigh" + "#all#]\n",
-					"AggregationHigh" + "#!=#" + "0");
-			semanticOperClaimGroupRelation.putSemanticAttribute(
-					"AggregationHigh", attribute);
-			semanticOperClaimGroupRelation.addPropEditableAttribute("04#"
-					+ "AggregationHigh");
-			semanticOperClaimGroupRelation.addPropVisibleAttribute("04#"
-					+ "AggregationHigh");
-
-			// semanticVertices = new ArrayList<AbstractSemanticVertex>();
-			// semanticVertices.add(semClaim);
-
-			ia = instVertexCLGR.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"and#and#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"or#or#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", "", 1, -1, "", "", -1, "", ""),
-					"mutex#mutex#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					"range#range#false#true#true#1#-1#1#1"));
-
-			ia = instVertexCLGR.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-					instVertexHHGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-					instVertexHHGR, "Core", "Core");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHHGR, instVertexOper, "Sel", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexCLGR, instVertexOper, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHHGR, instVertexOper, "Core", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexCLGR, instVertexOper, t1, "Core");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ORhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-					instVertexHHGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexHHGR, instVertexOper, "Sel", true, "FalseVal");
-
-			t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexCLGR, instVertexOper, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("MUTEXhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-					instVertexHHGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOper, "Sel", 0);
-
-			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexCLGR, instVertexOper, t1, 1);
-
-			t1 = new OpersExpr("MUTEXhardRel", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexHC, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOper, "Sel", 0);
-
-			t1 = new OpersExpr("MUTEXrestr", refas.getSemanticExpressionTypes()
-					.get("LessEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexCLGR, instVertexOper, t1, 1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("RANGEhardConcept", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-					instVertexHHGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexCLGR, instVertexOper, null, "Sel", "FalseVal",
-					true);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOper, t2, instVertexCLGR, "LowRange");
-
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexCLGR, instVertexOper, null, "Sel", "FalseVal",
-					true);
-
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOper, t2, instVertexCLGR, "HighRange");
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"And"), t1, t2);
-
-			t1 = new OpersExpr("RANGEHardRel", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexCLGR, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("OperClOT", instVertexCLGR);
-
-			OpersConcept directOperClaimToSemanticEdge = new OpersConcept(
-					"OperClToPW");
-
-			attribute = new ElemAttribute("outCl", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			directOperClaimToSemanticEdge.putSemanticAttribute("outCl",
-					attribute);
-			sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-					directOperClaimToSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directOperClaimToSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directOperClaimToSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directOperClaimToSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directOperClaimToSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directOperClaimToSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-
-			InstConcept instDirOperClaimToSemanticEdge = new InstConcept(
-					"OperClToPW", metaMetaPairwiseRelation,
-					directOperClaimToSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ocltoip", instEdge);
-			instEdge.setIdentifier("ocltoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirOperClaimToSemanticEdge, true);
-
-			ia = instDirOperClaimToSemanticEdge
-					.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
-					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-					"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
-
-			ia = instDirOperClaimToSemanticEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexCLGR, instVertexCL, "Sel",
-					"ConditionalExpression");
-
-			t1 = new OpersExpr("OPERCLSelected", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexCL, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("OPERCLNotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexCLGR, instVertexCL, "Exclu", "Exclu");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("operToClaim", new ElemAttribute(
-					"operToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "operToClaim", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("OperClToPW",
-					instDirOperClaimToSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("clgrtogr", instEdge);
-			instEdge.setIdentifier("clgrtogr");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGR, true);
-			instEdge.setSourceRelation(instVertexCLGR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("OperClaimToPWAsso-OOGR",
-					instEdge);
-			instEdge.setIdentifier("OperClaimToPWAsso-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexCL, true);
-			instEdge.setSourceRelation(instDirOperClaimToSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("OperClaimToPWAsso-OGRO",
-					instEdge);
-			instEdge.setIdentifier("OperClaimToPWAsso-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirOperClaimToSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexCLGR, true);
-
-			OpersConcept directOperClaimFromSemanticEdge = new OpersConcept(
-					"OperClFromPW");
-
-			InstConcept instDirOperClaimFromSemanticEdge = new InstConcept(
-					"OperClFromPW", metaMetaPairwiseRelation,
-					directOperClaimFromSemanticEdge);
-			refas.getVariabilityVertex().put("OperClFromPW",
-					instDirOperClaimFromSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("oclftoip", instEdge);
-			instEdge.setIdentifier("oclftoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirOperClaimFromSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("OperClaimFromPWAsso-OOGR",
-					instEdge);
-			instEdge.setIdentifier("OperClaimFromPWAsso-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexCLGR, true);
-			instEdge.setSourceRelation(instDirOperClaimFromSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("OperClaimFromPWAsso-OGRO",
-					instEdge);
-			instEdge.setIdentifier("OperClaimFromPWAsso-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirOperClaimFromSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexOper, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges()
-					.put("OperClaimPWAsso-OOGR", instEdge);
-			instEdge.setIdentifier("OperClaimPWAsso-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexCL, true);
-			instEdge.setSourceRelation(instDirOperClaimSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges()
-					.put("OperClaimPWAsso-OGRO", instEdge);
-			instEdge.setIdentifier("OperClaimPWAsso-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirOperClaimSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexOper, true);
-
-			// LFeat to Claim
-			OpersConcept semanticLFClaimGroupRelation = new OpersConcept(
-					"LFtoClaimOTAsso"); // hardSemOverTwoRelList);
-
-			InstConcept instVertexLFCLGR = new InstConcept("LfClOT",
-					semanticLFClaimGroupRelation, metaMetaInstOverTwoRel);
-
-			refas.getVariabilityVertex().put("LfClOT", instVertexLFCLGR);
-
-			OpersConcept directFClaimToSemanticEdge = new OpersConcept(
-					"FeClToPW");
-
-			InstConcept instDirFClaimToSemanticEdge = new InstConcept(
-					"FeClToPW", metaMetaPairwiseRelation,
-					directFClaimToSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("lftcltoip", instEdge);
-			instEdge.setIdentifier("lftcltoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirFClaimToSemanticEdge, true);
-
-			ia = instDirFClaimToSemanticEdge.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
-					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-					"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
-
-			ia = instDirFClaimToSemanticEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexLFCLGR, instVertexCL, "Sel",
-					"ConditionalExpression");
-
-			t1 = new OpersExpr("OPERCLSelected", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexCL, "Sel", true, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("OPERCLNotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexLFCLGR, instVertexCL, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
-					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("FeClToPW",
-					instDirFClaimToSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("fctogr", instEdge);
-			instEdge.setIdentifier("fctogr");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGR, true);
-			instEdge.setSourceRelation(instVertexLFCLGR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("FClaimToPWAsso-OOGR", instEdge);
-			instEdge.setIdentifier("FClaimToPWAsso-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexCL, true);
-			instEdge.setSourceRelation(instDirFClaimToSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("FClaimToPWAsso-OGRO", instEdge);
-			instEdge.setIdentifier("FClaimToPWAsso-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirFClaimToSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexLFCLGR, true);
-
-			OpersConcept directFClaimFromSemanticEdge = new OpersConcept(
-					"FeClFromPW");
-
-			InstConcept instDirFClaimFromSemanticEdge = new InstConcept(
-					"FeClFromPWo", metaMetaPairwiseRelation,
-					directFClaimFromSemanticEdge);
-			refas.getVariabilityVertex().put("FeClFromPW",
-					instDirFClaimFromSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("fclftoip", instEdge);
-			instEdge.setIdentifier("fclftoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirFClaimFromSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("FClaimFromPWAsso-OOGR",
-					instEdge);
-			instEdge.setIdentifier("FClaimFromPWAsso-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexLFCLGR, true);
-			instEdge.setSourceRelation(instDirFClaimFromSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("FClaimFromPWAsso-OGRO",
-					instEdge);
-			instEdge.setIdentifier("FClaimFromPWAsso-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirFClaimFromSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexCL, true);
-
-			OpersConcept directLFClaimSemanticEdge = new OpersConcept("LfClPW");
-
-			InstConcept instDirLFClaimSemanticEdge = new InstConcept("LfClPW",
-					metaMetaPairwiseRelation, directLFClaimSemanticEdge);
-			refas.getVariabilityVertex().put("LfClPW",
-					instDirLFClaimSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("lfcltoip", instEdge);
-			instEdge.setIdentifier("lfcltoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirLFClaimSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("LFClaimPWAsso-OOGR", instEdge);
-			instEdge.setIdentifier("LFClaimPWAsso-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexCL, true);
-			instEdge.setSourceRelation(instDirLFClaimSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("LFClaimPWAsso-OGRO", instEdge);
-			instEdge.setIdentifier("LFClaimPWAsso-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirLFClaimSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexF, true);
-
-			// Claim to SG
-
-			// semanticVertices = new ArrayList<AbstractSemanticVertex>();
-			// semanticVertices.add(semSoftgoal);
-			OpersConcept directClaimSGSemanticEdge = new OpersConcept(
-					"ClaimSGPWAsso");
-
-			attribute = new ElemAttribute("outConflClSD", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			directClaimSGSemanticEdge.putSemanticAttribute("outConflClSD",
-					attribute);
-			sasverConflSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-
-			attribute = new ElemAttribute("CLSGLevel", "Integer",
-					AttributeType.OPERATION, "Relation Level",
-					"Required level for the Claim (0..4)", 2, false,
-					new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
-					"#CLSGLevel#all#", "");
-			directClaimSGSemanticEdge.putSemanticAttribute("CLSGLevel",
-					attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(
-							directClaimSGSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directClaimSGSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-
-			directClaimSGSemanticEdge.addPropEditableAttribute("08#"
-					+ "CLSGLevel");
-			directClaimSGSemanticEdge.addPropVisibleAttribute("08#"
-					+ "CLSGLevel");
-			// directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
-			// + "CLSGLevel");
-			InstConcept instDirClaimSGSemanticEdge = new InstConcept(
-					"ClaimSGPWAsso", metaMetaPairwiseRelation,
-					directClaimSGSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("clsgtoip", instEdge);
-			instEdge.setIdentifier("clsgtoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirClaimSGSemanticEdge, true);
-
-			ia = instDirClaimSGSemanticEdge.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("ClaimToSG", new ElemAttribute(
-					"ClaimToSG", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "ClaimToSG", "", "", 1, -1, "", "", -1, "", ""),
-					"ClaimToSG##true#true#true#1#-1#1#1"));
-
-			ia = instDirClaimSGSemanticEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirClaimSGSemanticEdge, "ClaimExpLevel", "CLSGLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexCL, "Sel", true, t1);
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirClaimSGSemanticEdge, instVertexSG,
-					"satisficingLevel", "low");
-
-			t1 = new OpersExpr("low: ClaimExpLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirClaimSGSemanticEdge, "ClaimExpLevel", "CLSGLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexCL, "Sel", true, t1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirClaimSGSemanticEdge, instVertexSG,
-					"satisficingLevel", "high");
-
-			t1 = new OpersExpr("high: ClaimExpLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirClaimSGSemanticEdge, "ClaimExpLevel", "CLSGLevel");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexCL, "Sel", true, t1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirClaimSGSemanticEdge, instVertexSG,
-					"satisficingLevel", "close");
-
-			t1 = new OpersExpr("close: ClaimExpLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("ClaimToSG", new ElemAttribute(
-					"ClaimToSG", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "ClaimToSG", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("ClaimSGPWAsso",
-					instDirClaimSGSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("CLSGPWAsso-OOGR", instEdge);
-			instEdge.setIdentifier("CLSGPWAsso-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexSG, true);
-			instEdge.setSourceRelation(instDirClaimSGSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("CLSGPWAsso-OGRO", instEdge);
-			instEdge.setIdentifier("CLSGPWAsso-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirClaimSGSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexCL, true);
-
-			// SD to SG
-
-			// semanticVertices = new ArrayList<AbstractSemanticVertex>();
-			// semanticVertices.add(semSoftgoal);
-
-			OpersConcept directSDSGSemanticEdge = new OpersConcept("SdSgPW");
-			attribute = new ElemAttribute("outConflClSD", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			directSDSGSemanticEdge.putSemanticAttribute("outConflClSD",
-					attribute);
-			sasverConflClOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directSDSGSemanticEdge.getIdentifier(), attribute
-									.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directSDSGSemanticEdge.getIdentifier(), attribute
-									.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-
-			attribute = new ElemAttribute("level", "Integer",
-					AttributeType.OPERATION, "Level",
-					"Required level for the SD (0..4)", 1, false,
-					new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "level#all#", "");
-			directSDSGSemanticEdge.putSemanticAttribute("level", attribute);
-
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverSDneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverClneverOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverCoreOpersOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(directSDSGSemanticEdge
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directSDSGSemanticEdge.getIdentifier(),
-					attribute.getName(), true));
-
-			directSDSGSemanticEdge.addPropEditableAttribute("08#" + "level");
-			directSDSGSemanticEdge.addPropVisibleAttribute("08#" + "level");
-			// directSDSGSemanticEdge.addPanelVisibleAttribute("08#" + "level");
-
-			InstConcept instDirSDSGSemanticEdge = new InstConcept("SdSgPW",
-
-			metaMetaPairwiseRelation, directSDSGSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sdsgtoip", instEdge);
-			instEdge.setIdentifier("sdsgtoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirSDSGSemanticEdge, true);
-
-			ia = instDirSDSGSemanticEdge.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("SD", new ElemAttribute("SD",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "SD",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"SD##true#true#true#1#-1#1#1"));
-
-			ia = instDirSDSGSemanticEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			// t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-			// "DoubleImplies"),
-			// ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-			// ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSD,
-			// instDirSDSGSemanticEdge, "Sel", "outSdSg");
-			//
-			// semanticExpressions.add(t1);
-			// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSDSGSemanticEdge, "SDReqLevel", "level");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexSD, "Sel", true, t1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSDSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"low");
-
-			t1 = new OpersExpr("low: SDReqLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionRelaxable.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSDSGSemanticEdge, "SDReqLevel", "level");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexSD, "Sel", true, t1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSDSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"high");
-
-			t1 = new OpersExpr("high: SDReqLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionRelaxable.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
-					instDirSDSGSemanticEdge, "SDReqLevel", "level");
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexSD, "Sel", true, t1);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instDirSDSGSemanticEdge, instVertexSG, "satisficingLevel",
-					"close");
-
-			t1 = new OpersExpr("close: SDReqLevel", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionRelaxable.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("SDSelected", refas.getSemanticExpressionTypes()
-					.get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
-					instVertexCL, instVertexCL, "Sel", "ConditionalExpression");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("SD", new ElemAttribute("SD",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "SD",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			refas.getVariabilityVertex().put("SdSgPW", instDirSDSGSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("SDSGPWAsso-OOGR", instEdge);
-			instEdge.setIdentifier("SDSGPWAsso-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexSG, true);
-			instEdge.setSourceRelation(instDirSDSGSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("SDSGPWAsso-OGRO", instEdge);
-			instEdge.setIdentifier("SDSGPWAsso-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirSDSGSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexSD, true);
-
-			// Asset to Asset
-
-			OpersConcept semanticAssetAssetOvertwoRel = new OpersConcept(
-					"AssetOT");// hardSemOverTwoRelList);
-
-			attribute = new ElemAttribute("AggregationLow", "Integer",
-					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
-					0, 3, "", "", 3, "[#" + "AggregationLow" + "#all#..",
-					"AggregationHigh" + "#!=#" + "0");
-			semanticAssetAssetOvertwoRel.putSemanticAttribute("AggregationLow",
-					attribute);
-			semanticAssetAssetOvertwoRel.addPropEditableAttribute("03#"
-					+ "AggregationLow");
-			semanticAssetAssetOvertwoRel.addPropVisibleAttribute("03#"
-					+ "AggregationLow");
-
-			attribute = new ElemAttribute("AggregationHigh", "Integer",
-					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
-					0, 4, "", "", 4, "#" + "AggregationHigh" + "#all#]\n",
-					"AggregationHigh" + "#!=#" + "0");
-			semanticAssetAssetOvertwoRel.putSemanticAttribute(
-					"AggregationHigh", attribute);
-			semanticAssetAssetOvertwoRel.addPropEditableAttribute("04#"
-					+ "AggregationHigh");
-			semanticAssetAssetOvertwoRel.addPropVisibleAttribute("04#"
-					+ "AggregationHigh");
-
-			InstConcept instVertexASSETGR = new InstConcept("AssetOT",
-					semanticAssetAssetOvertwoRel, metaMetaInstOverTwoRel);
-
-			refas.getVariabilityVertex().put("AssetOT", instVertexASSETGR);
-
-			InstConcept instAssetassetASGR = new InstConcept("AssetToOT",
-					metaMetaPairwiseRelation);
-			refas.getVariabilityVertex().put("AssetToOT", instAssetassetASGR);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("agrtogr", instEdge);
-			instEdge.setIdentifier("agrtogr");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGR, true);
-			instEdge.setSourceRelation(instVertexASSETGR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ASSETGRtoassetA-AGR", instEdge);
-			instEdge.setIdentifier("ASSETGRtoassetA-AGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexAsset, true);
-			instEdge.setSourceRelation(instAssetassetASGR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges()
-					.put("ASSETGRtoassetAGR-GR", instEdge);
-			instEdge.setIdentifier("ASSETGRtoassetAGR-GR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instAssetassetASGR, true);
-			instEdge.setSourceRelation(instVertexASSETGR, true);
-
-			InstConcept instAssetassetGRAS = new InstConcept("AssetFromOT",
-					metaMetaPairwiseRelation);
-			refas.getVariabilityVertex().put("AssetFromOT", instAssetassetGRAS);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges()
-					.put("assettoAssetGR-AGR-A", instEdge);
-			instEdge.setIdentifier("assettoAssetGR-AGR-A");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instAssetassetGRAS, true);
-			instEdge.setSourceRelation(instVertexAsset, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("assettoAssetGR-GR-AGR",
-					instEdge);
-			instEdge.setIdentifier("assettoAssetGR-GR-AGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexASSETGR, true);
-			instEdge.setSourceRelation(instAssetassetGRAS, true);
-
-			// Asset to Oper
-			// TODO use list of possible relations
-			OpersConcept semanticAssetOperGroupRelation = new OpersConcept(
-					"AssetOperOT");// hardSemOverTwoRelList);
-
-			// semanticVertices = new ArrayList<AbstractSemanticVertex>();
-			// semanticVertices.add(semOperationalization);
-
-			InstConcept instVertexOPERGR = new InstConcept("AssetOperOT",
-					semanticAssetOperGroupRelation, metaMetaInstOverTwoRel);
-
-			refas.getVariabilityVertex().put("AssetOperOT", instVertexOPERGR);
-
-			InstConcept instAssetOperAOGR = new InstConcept("AssetOperToOT",
-					metaMetaPairwiseRelation);
-			refas.getVariabilityVertex()
-					.put("AssetOperToOT", instAssetOperAOGR);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("opgrtogr", instEdge);
-			instEdge.setIdentifier("opgrtogr");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGR, true);
-			instEdge.setSourceRelation(instVertexOPERGR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("aogrtogr", instEdge);
-			instEdge.setIdentifier("aogrtogr");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
-			instEdge.setTargetRelation(instVertexGR, true);
-			instEdge.setSourceRelation(instAssetOperAOGR, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("assettoOperGR-AAOGR", instEdge);
-			instEdge.setIdentifier("assettoOperGR-AAOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instAssetOperAOGR, true);
-			instEdge.setSourceRelation(instVertexAsset, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges()
-					.put("assettoOperGR-AOGRGR", instEdge);
-			instEdge.setIdentifier("assettoOperGR-AOGRGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexOPERGR, true);
-			instEdge.setSourceRelation(instAssetOperAOGR, true);
-
-			ia = instVertexOPERGR.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"and#and#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"or#or#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", "", 1, -1, "", "", -1, "", ""),
-					"mutex#mutex#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					"range#range#false#true#true#1#-1#1#1"));
-
-			ia = instVertexOPERGR.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
-					instVertexOPERGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
-					instVertexOPERGR, "Core", "Core");
-
-			verifParentsOperSubActionNormal.addSemanticExpression(t1);
-
-			// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, "Sel", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexOper, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, "Core", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexOper, t1, "Core");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ORhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
-					instVertexOPERGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, "Sel", true, "FalseVal");
-
-			t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexAsset, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("MUTEXhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
-					instVertexOPERGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexAsset, "Sel", 0);
-
-			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexAsset, t1, 1);
-
-			t1 = new OpersExpr("MUTEXhardRel", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexF, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexAsset, "Sel", 0);
-
-			t1 = new OpersExpr("MUTEXrestric", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexAsset, t1, 1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("RANGEhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
-					instVertexOPERGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
-					true);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, t1, instVertexAsset, "LowRange");
-
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
-					true);
-
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, t2, instVertexAsset, "HighRange");
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"And"), t1, t2);
-
-			t1 = new OpersExpr("RANGEHardRel", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexOPERGR, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			ia = instVertexOPERGR.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"and#and#true#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"or#or#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "XOR",
-					"", "", 1, -1, "", "", -1, "", ""),
-					"mutex#mutex#false#true#true#1#-1#1#1"));
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					"range#range#false#true#true#1#-1#1#1"));
-
-			ia = instVertexOPERGR.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
-					instVertexOPERGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("ANDhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
-					instVertexOPERGR, "Core", "Core");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, "Sel", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexOper, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, "Core", true, "TrueVal");
-
-			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexOper, t1, "Core");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("and", new ElemAttribute("and",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("ORhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
-					instVertexOPERGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, "Sel", true, "False");
-
-			t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes()
-					.get("DoubleImplies"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexAsset, t1, "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("or", new ElemAttribute("or",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("MUTEXhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
-					instVertexOPERGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexAsset, "Sel", 0);
-
-			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexAsset, t1, 1);
-
-			t1 = new OpersExpr("MUTEXhardRel", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexF, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexAsset, "Sel", 0);
-
-			t1 = new OpersExpr("MUTEXrestric", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, instVertexAsset, t1, 1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("RANGEhardConcept", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
-					instVertexOPERGR, "Sel", "Sel");
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
-					true);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"GreaterOrEq"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, t2, instVertexAsset, "LowRange");
-
-			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
-					true);
-
-			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"LessOrEquals"),
-					ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexOPERGR, t2, instVertexAsset, "HighRange");
-
-			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"And"), t1, t3);
-
-			t1 = new OpersExpr("RANGEHardRel", refas
-					.getSemanticExpressionTypes().get("DoubleImplies"),
-					instVertexOPERGR, "Sel", true, t1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-			semanticExpressions.add(t1);
-
-			ias.add(new InstAttribute("range", new ElemAttribute("range",
-					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			OpersConcept groupAssetOperSemanticEdge = new OpersConcept(
-					"AssetOperFromOT");
-
-			attribute = new ElemAttribute("outConflSG", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			groupAssetOperSemanticEdge.putSemanticAttribute("outConflSG",
-					attribute);
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							groupAssetOperSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					groupAssetOperSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-
-			attribute = new ElemAttribute("outStructVal", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			groupAssetOperSemanticEdge.putSemanticAttribute("outStructVal",
-					attribute);
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							groupAssetOperSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					groupAssetOperSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-
-			InstConcept instAssetOperGRAO = new InstConcept("AssetOperFromOT",
-					metaMetaPairwiseRelation, groupAssetOperSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("aofottoip", instEdge);
-			instEdge.setIdentifier("aofottoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instAssetOperGRAO, true);
-
-			ia = instAssetOperGRAO.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					"mandatory#mandatory#true#true#true#1#-1#1#1"));
-
-			ia = instAssetOperGRAO.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("IMPSelected", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexAsset, instVertexOPERGR, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("IMPNotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexAsset, instVertexOPERGR, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexOPERGR, "structVal", 1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexAsset, "structVal", true, t1);
-
-			semanticExpressions.add(t1);
-			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("AssetOperFromOT",
-					instAssetOperGRAO);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("OPERGRtooper-OOGR", instEdge);
-			instEdge.setIdentifier("OPERGRtooper-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexOper, true);
-			instEdge.setSourceRelation(instAssetOperGRAO, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("OPERGRtooper-OGRO", instEdge);
-			instEdge.setIdentifier("OPERGRtooper-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instAssetOperGRAO, true);
-			instEdge.setSourceRelation(instVertexOPERGR, true);
-
-			OpersConcept directAssetOperSemanticEdge = new OpersConcept(
-					"AssetOperPW");
-
-			attribute = new ElemAttribute("outStructVal", "Boolean",
-					AttributeType.OPERATION, false,
-					"Selected for SD verifications", "", false, 0, -1, "", "",
-					-1, "level#all#", "");
-			directAssetOperSemanticEdge.putSemanticAttribute("outStructVal",
-					attribute);
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(
-							directAssetOperSemanticEdge.getIdentifier(),
-							attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directAssetOperSemanticEdge.getIdentifier(), attribute
-							.getName(), true));
-
-			InstConcept instDirAssetOperSemanticEdge = new InstConcept(
-					"AssetOperPW", metaMetaPairwiseRelation,
-					directAssetOperSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("aoptoip", instEdge);
-			instEdge.setIdentifier("aoptoip");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instInfraPair, true);
-			instEdge.setSourceRelation(instDirAssetOperSemanticEdge, true);
-
-			ia = instDirAssetOperSemanticEdge.getInstAttribute("relTypesAttr");
-			ias = (List<InstAttribute>) ia.getValue();
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					"mandatory#mandatory#true#true#true#1#-1#1#1"));
-
-			ia = instDirAssetOperSemanticEdge.getInstAttribute("opersExprs");
-			ias = (List<InstAttribute>) ia.getValue();
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			t1 = new OpersExpr("IMPSelected", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexOPERGR, instVertexOper, "Sel", "Sel");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("IMPNotAvailable", refas
-					.getSemanticExpressionTypes().get("Equals"),
-					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-					instVertexOPERGR, instVertexOper, "Exclu", "Exclu");
-
-			semanticExpressions.add(t1);
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-			verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
-			verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDallOperSubActionNormal.addSemanticExpression(t1);
-			sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
-			sasverClallOperSubActionNormal.addSemanticExpression(t1);
-			sasverClneverOperSubActionNormal.addSemanticExpression(t1);
-			sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-			sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-			sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflClOperSubActionNormal.addSemanticExpression(t1);
-			sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-					instVertexOper, "structVal", 1);
-
-			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-					instVertexOPERGR, "structVal", true, t1);
-
-			semanticExpressions.add(t1);
-			sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
-
-			ias.add(new InstAttribute("mandatory", new ElemAttribute(
-					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
-					semanticExpressions));
-
-			refas.getVariabilityVertex().put("AssetOperPW",
-					instDirAssetOperSemanticEdge);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("AssetOperPW-OOGR", instEdge);
-			instEdge.setIdentifier("AssetOperPW-OOGR");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instVertexOper, true);
-			instEdge.setSourceRelation(instDirAssetOperSemanticEdge, true);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("AssetOperPW-OGRO", instEdge);
-			instEdge.setIdentifier("AssetOperPW-OGRO");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdge.setTargetRelation(instDirAssetOperSemanticEdge, true);
-			instEdge.setSourceRelation(instVertexAsset, true);
-
-			OpersConcept refasModel = new OpersConcept("REFAS");
-
-			attribute = new ElemAttribute("TotalOrder", "Integer",
-					AttributeType.EXECCURRENTSTATE, "***TotalOrder***", "", 0,
-					false, new RangeDomain(0, 2000, 0), 2, -1, "", "", -1, "",
-					"");
-			// simulationExecOperUniqueLabeling.addAttribute(new
-			// OpersIOAttribute(
-			// refasModel.getIdentifier(), attribute.getName(), true));
-			refasModel.putSemanticAttribute("TotalOrder", attribute);
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			simsceExecOperLabeling2.setSemanticExpressions(semanticExpressions);
-
-			InstConcept instRefasModel = null;
-			instRefasModel = new InstConcept("REFAS", metaMetaModel, refasModel);
-			refas.getVariabilityVertex().put("REFAS", instRefasModel);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
-					instVertexSG, "Sel", 0);
-
-			t1 = new OpersExpr("max soft goals", refas
-					.getSemanticExpressionTypes().get("Sum"),
-					ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
-					instRefasModel, instVertexSG, t1, 0);
-
-			semanticExpressions.add(t1); // FIXME not used
-
-			// ----------------------
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			refasModel.setSemanticExpressions(semanticExpressions);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
-					instVertexGE, "NPrefSel", 0);
-
-			t1 = new OpersExpr("prefSel <=1", refas
-					.getSemanticExpressionTypes().get("LessOrEquals"),
-					ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
-					instRefasModel, instVertexGE, t1, 1);
-
-			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
-					instVertexF, "IsRootFeature", 0);
-
-			t1 = new OpersExpr("Roots", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
-					instVertexF, instVertexF, t1, 1);
-
-			verifRootOperSubActionVerification.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Prod"), ExpressionVertexType.LEFTITERANYCONVARIABLE,
-					instVertexF, "HasParent", 1);
-
-			t1 = new OpersExpr("Parents", refas.getSemanticExpressionTypes()
-					.get("Less"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexF, instVertexF, t1, 1);
-
-			// verifParentsOperSubActionVerification.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-					instVertexGE, "Core", 0);
-
-			t1 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-					instVertexGE, instRefasModel, t1, "TotalOrder");
-
-			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
-
-			semanticExpressions.add(t1);
-
-			// --------------------------
-			semanticExpressions = new ArrayList<OpersExpr>(); // FIXME not used
-
-			simulationExecOperUniqueLabeling
-					.setSemanticExpressions(semanticExpressions);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
-					instVertexGE, "Order", 0);
-
-			semanticExpressions.add(t1);
-
-			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
-					"Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
-					instVertexGE, "Opt", 0);
-
-			semanticExpressions.add(t1);
-
-			semanticExpressions = new ArrayList<OpersExpr>(); // FIXME not used
-
-			simsceExecOperLabeling2.setSemanticExpressions(semanticExpressions);
-
-			t1 = new OpersExpr("OrderLab...", refas
-					.getSemanticExpressionTypes().get("Sum"),
-					ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
-					instVertexSG, "Sel", 0);
-
-			semanticExpressions.add(t1);
-		}
+		OpersConcept semGeneralElement = new OpersConcept("GeneralConcept");
+		// From refas name depends all the static operations, do not change
+		// it
+
+		/*
+		 * semGeneralElement.putSemanticAttribute("Sel", new
+		 * ElemAttribute("Sel", "Boolean", AttributeType.EXECCURRENTSTATE,
+		 * false, "***Selected***", false, 2, -1, "", "", -1, "", ""));
+		 * semGeneralElement .putSemanticAttribute("Exclu", new
+		 * ElemAttribute("Exclu", "Boolean", AttributeType.EXECCURRENTSTATE,
+		 * false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", ""));
+		 */
+		instVertexGE = new InstConcept("GeneralConcept", metaMetaInstConcept,
+				semGeneralElement);
+
+		// t1 = new SemanticExpression("REFAS_pref<=1", refas
+		// .getSemanticExpressionTypes().get("LessOrEquals"),
+		// instRefasModel, "pref", 1);
+		//
+		// simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		//
+		// semanticExpressions.add(t1);
+
+		// InstEnumeration instVertexHStrME = new InstEnumeration(
+		// "HardStructEnumeration", metaEnumeration);
+		// refas.getVariabilityVertex().put("HardStructEnumeration",
+		// instVertexHStrME);
+
+		// ArrayList<InstAttribute> c = (ArrayList<InstAttribute>)
+		// ((InstAttribute) instVertexHStrME
+		// .getInstAttribute("value")).getInstAttributeAttribute("Value");
+		// InstAttribute a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "1-means_ends-means_ends-true-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum11");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "12-impl.-Impl.-true-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum12");
+		// c.add(a);
+		//
+		// InstEnumeration instVertexHSideME = new InstEnumeration(
+		// "HardSideEnumeration", metaEnumeration);
+		// // refas.getVariabilityVertex().put("HardSideEnumeration",
+		// // instVertexHSideME);
+		//
+		// c = (ArrayList<InstAttribute>) ((InstAttribute) instVertexHSideME
+		// .getInstAttribute("value")).getInstAttributeAttribute("Value");
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "1-conflict-conflict-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum1");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "2-altern.-altern.-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum2");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "3-preferred-pref.-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum3");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "4-req.-req..-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum4");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "5-cond.-cond.-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum5");
+		// c.add(a);
+		//
+		// InstEnumeration instClaimSemOTAsso = new InstEnumeration(
+		// "ClaimSemOTAsso", metaEnumeration);
+		// // refas.getVariabilityVertex().put("ClaimSemOTAsso",
+		// // instClaimSemOTAsso);
+		//
+		// c = (ArrayList<InstAttribute>) ((InstAttribute)
+		// instClaimSemOTAsso
+		// .getInstAttribute("value")).getInstAttributeAttribute("Value");
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "1#And#And#false#false#false#2#1#1#1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum1");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "2#Or#Or#false#true#true#2#1#1#1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum2");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "3#mutex#mutex#false#true#true#2#1#1#1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum3");
+		// c.add(a);
+
+		// Semantic Element
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		semGeneralElement.setSemanticExpressions(semExpr);
+
+		OpersExpr t1 = new OpersExpr("Req Implies Selected", refas
+				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
+				instVertexGE, "Required", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("Core Implies Selected", refas
+				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
+				instVertexGE, "Core", "Sel");
+
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("Req Implies Core", refas
+				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
+				instVertexGE, "Required", "Core");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		// t1 = new OpersExpr("Req Implies Verification Error", refas
+		// .getSemanticExpressionTypes().get("Implies"), instVertexGE,
+		// instVertexGE, "Required", "Ver");
+		//
+		// verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
+		// verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+
+		// semanticExpressions.add(t1);
+
+		t1 = new OpersExpr("NextPrefSel_=_0", refas
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"NPrefSel", true, 0);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("NextNotPrefSel_=_0", refas
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"NNotPrefSel", true, 0);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexGE, "Core", true, 1);
+
+		OpersExpr t2 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexGE, "FeatureType", "Root");
+
+		t1 = new OpersExpr("NoLFet & NoGFet Implies hasParent", refas
+				.getSemanticExpressionTypes().get("Implies"), t2, t1);
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, instVertexGE, "NReqSel", "ConfSel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NPrefSel", true, t1);
+
+		OpersExpr t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Sum"), instVertexGE, instVertexGE, "NPrefSel", "ConfSel");
+
+		t3 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NReqSel", true, t3);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
+				t1, t3);
+
+		t1 = new OpersExpr("Opt...", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Opt", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("Opt =0", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Opt", true, 0);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t2);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t2);
+
+		semExpr.add(t2);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, instVertexGE, "ConfSel", "NReqSel");
+
+		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, "Core", true, t1);
+
+		t1 = new OpersExpr("Core+ConfigSel+NextReqSel <=1", refas
+				.getSemanticExpressionTypes().get("LessOrEquals"), 1, false, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Or"),
+				instVertexGE, instVertexGE, "ConfNotSel", "NNotPrefSel");
+
+		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
+				instVertexGE, "Proh", true, t1);
+
+		t1 = new OpersExpr("6", refas.getSemanticExpressionTypes().get("Or"),
+				instVertexGE, "Dead", true, t1);
+
+		t1 = new OpersExpr("NotAvail (Dead Or Prohibit Or NotSelec)", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexGE, "Exclu", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, instVertexGE, "Sel", "Proh");
+
+		t1 = new OpersExpr("Sel * Proh = 0)", refas
+				.getSemanticExpressionTypes().get("Equals"), t1, 0);
+
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, instVertexGE, "Core", "Proh");
+
+		t1 = new OpersExpr("Core * Proh = 0)", refas
+				.getSemanticExpressionTypes().get("Equals"), t1, 0);
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
+				instVertexGE, instVertexGE, "NReqSel", "NPrefSel");
+
+		t2 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
+				instVertexGE, instVertexGE, "Core", "ConfSel");
+
+		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
+				t1, t2);
+
+		t1 = new OpersExpr("Selected (Core, NextReqSel, NextPrefSel)", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexGE, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, instVertexGE, "Sel", "Exclu");
+
+		t1 = new OpersExpr("Selected+NotAvail <=1", refas
+				.getSemanticExpressionTypes().get("Equals"), 0, false, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		refas.getVariabilityVertex().put("GeneralConcept", instVertexGE);
+
+		InstPairwiseRel instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("getobe", instEdge);
+		instEdge.setIdentifier("getobe");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexIE, true);
+		instEdge.setSourceRelation(instVertexGE, true);
+
+		// Design attributes: Do not change identifiers
+
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// semGeneralElement.putSemanticAttribute("Description", attribute);
+
+		attribute = new ElemAttribute("Scope", "Boolean",
+				AttributeType.OPERATION, true, "Global Scope", "", true, 0, 5,
+				"", "", -1, "", "");
+		semGeneralElement.addPropEditableAttribute("05#" + "Scope");
+		semGeneralElement.addPropVisibleAttribute("05#" + "Scope");
+		// simulationExecOperUniqueLabeling.addAttribute(new
+		// OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(),
+		// true));
+		// simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(),
+		// true));
+		semGeneralElement.putSemanticAttribute("Scope", attribute);
+		// simulOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(),
+		// true));
+		// simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(),
+		// true));
+		// TODO use scope
+
+		attribute = new ElemAttribute("ConcernLevel", "Class",
+				AttributeType.OPERATION, false, "Concern Level",
+				"Concern Level of the element (Ignored for operations)",
+
+				InstConcept.class.getCanonicalName(), "CG", null, "", 2, 6, "",
+				"Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
+						+ "#all#>>\n", "Scope" + "#==#" + "false");
+
+		semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
+
+		semGeneralElement.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
+				+ "Scope" + "#==#" + "false" + "#" + "");
+		semGeneralElement.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
+				+ "Scope" + "#==#" + "false" + "#" + "");
+
+		// semGeneralElement.addPanelVisibleAttribute("00#" + "ConcernLevel"
+		// + "#" + "Scope" + "#==#" + "false");
+		// semGeneralElement.addPanelSpacersAttribute("<<#" + "ConcernLevel"
+		// + "#>>\n");
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
+		// TODO: use concern level
+
+		// Configuration attributes: do no change identifiers
+		/*
+		 * attribute = new ElemAttribute("ReqLev", "Integer",
+		 * AttributeType.OPERATION, "Required Level", "", 0, false, new
+		 * RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+		 * semGeneralElement.putSemanticAttribute("ReqLev", attribute); //
+		 * simulationExecOperUniqueLabeling.addAttribute(attribute); //
+		 * simulOperationSubAction.addOutVariable(attribute); // TODO define
+		 * domain or Enum Level
+		 * 
+		 * semGeneralElement.addPropVisibleAttribute("05#" + "ReqLev" + "#" +
+		 * "Core" + "#==#" + "true");
+		 * 
+		 * // Simulation attributes: do not modify identifiers
+		 * 
+		 * attribute = new ElemAttribute("IniReqLev", "Integer",
+		 * AttributeType.EXECCURRENTSTATE, false, "Initial Required Level", "",
+		 * 0, new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+		 * semGeneralElement.putSemanticAttribute("IniReqLev", attribute);
+		 */
+
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationOperationAction.addInVariable(attribute);
+		/*
+		 * attribute = new ElemAttribute("SimReqLev", "Integer",
+		 * AttributeType.EXECCURRENTSTATE, false, "Required Level", "", 0, new
+		 * RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+		 */
+		// semGeneralElement.putSemanticAttribute("SimReqLev",
+		// attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("HasParent", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "Has Parent", "", true,
+				0, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("HasParent", attribute);
+		// TODO add to verification
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulOperationSubAction.addOutVariable(attribute);
+
+		attribute = new ElemAttribute("Opt", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "FilterVariable", "", 0,
+				new RangeDomain(0, 20, 0), 0, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("Opt", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semGeneralElement
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semGeneralElement
+				.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("Order", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "SortVariable", "", 0,
+				new RangeDomain(0, 40, 0), 0, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("Order", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semGeneralElement
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semGeneralElement
+				.getIdentifier(), attribute.getName(), true));
+		// simulOperationSubAction.addInVariable(attribute);
+
+		attribute = new ElemAttribute("NPrefSel", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false,
+				"Selected by configuration", "", false, 0, 3, "false", "", -1,
+				"", "");
+		semGeneralElement.putSemanticAttribute("NPrefSel", attribute);
+		semGeneralElement.addPropVisibleAttribute("03#" + "NPrefSel");
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semGeneralElement
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semGeneralElement
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("NNotPrefSel", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false,
+				"Not Selected by configuration", "", false, 0, 6, "false", "",
+				-1, "", "");
+		semGeneralElement.putSemanticAttribute("NNotPrefSel", attribute);
+		semGeneralElement.addPropVisibleAttribute("06#" + "NNotPrefSel");
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semGeneralElement
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semGeneralElement
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+
+		OpersConcept semHardConcept = new OpersConcept("semHardConcept");
+
+		attribute = new ElemAttribute("structVal", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "No loops validation",
+				"", 0, new RangeDomain(0, 40, 0), 0, -1, "false", "", -1, "",
+				"");
+		semHardConcept.putSemanticAttribute("structVal", attribute);
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semHardConcept.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semHardConcept.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("satType", "Enumeration",
+				AttributeType.OPERATION, false, "satType", "",
+				"com.variamos.dynsup.statictypes.SatisfactionType", "achieve",
+				"", 0, 1, "", "", -1, "", "");
+		semHardConcept.putSemanticAttribute("satType", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		semHardConcept.addPropEditableAttribute("01#" + "satType");
+		semHardConcept.addPropVisibleAttribute("01#" + "satType");
+
+		instVertexHC = new InstConcept("HardConcept", metaMetaInstConcept,
+				semHardConcept);
+		refas.getVariabilityVertex().put("HardConcept", instVertexHC);
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		semHardConcept.setSemanticExpressions(semExpr);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NReqSel", true, 4);
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
+				t1, 0);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, "NPrefSel", true, t1);
+
+		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Order", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("hctoge", instEdge);
+		instEdge.setIdentifier("hctoge");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexGE, true);
+		instEdge.setSourceRelation(instVertexHC, true);
+
+	}
+
+	private static void createOpersMetaModelFeaturesModel(ModelInstance refas) {
+		ArrayList<OpersExpr> semExpr = new ArrayList<OpersExpr>();
+
+		ElemAttribute attribute = null;
+
+		OpersConcept semFeature = new OpersConcept("Feature");
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), "Sel", true));
+
+		instVertexF = new InstConcept("Feature", metaMetaInstConcept,
+				semFeature);
+
+		attribute = new ElemAttribute("IsRootFeature", "Boolean",
+				AttributeType.OPERATION, true, "Is a Root Feature Concept", "",
+				false, 2, -1, "", "", -1, "", "");
+		// simulationExecOperUniqueLabeling.addAttribute(new
+		// OpersIOAttribute(
+		// semFeature.getIdentifier(), attribute.getName(), true));
+		// simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+		// semFeature.getIdentifier(), attribute.getName(), true));
+		// updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semFeature.getIdentifier(), attribute.getName(), true));
+		semFeature.putSemanticAttribute("IsRootFeature", attribute);
+		// simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semFeature.getIdentifier(), attribute.getName(), true));
+		// simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semFeature.getIdentifier(), attribute.getName(), true));
+		verifRootSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		semFeature.setSemanticExpressions(semExpr);
+
+		OpersExpr t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Product"), instVertexGE, "NReqSel", true, 4);
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
+				t1, 0);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, "NPrefSel", true, t1);
+
+		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Order", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
+				"Equals"), instInfraPair, "MetaPaiwise", "mandatory");
+
+		OpersExpr t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
+				.get("Equals"), instInfraPair, "MetaPaiwise", "optional");
+
+		t2 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Or"),
+				t1, t2);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITEROUTFIXEDSUBEXP, instInfraPair,
+				instInfraPair, t2, 0);
+
+		t1 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTITEROUTSUBEXP,
+				instInfraPair, instVertexF, t1, 1);
+
+		t1 = new OpersExpr("HasParent", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexF, "HasParent", true, t1);
+
+		// verifParentsOperSubActionRelaxable.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("HasParent", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexF, "Core", true, 1);
+
+		verifParentsOperSubActionToVerify.addSemanticExpression(t1);
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "FeatureType", "Root");
+
+		t1 = new OpersExpr("IsRootFeature=...", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexF, "IsRootFeature", true, t1);
+
+		verifRootOperSubActionRelaxable.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
+				"NotEquals"), instVertexGE, "FeatureType", "Root");
+
+		OpersExpr t3 = new OpersExpr("3-", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexF, "IsRootFeature", true, 0);
+
+		t1 = new OpersExpr("IsRootFeature=...", refas
+				.getSemanticExpressionTypes().get("Implies"), t1, t3);
+
+		semExpr.add(t1);
+
+		// t1 = new SemanticExpression("1",
+		// refas.getSemanticExpressionTypes().get(
+		// "Equals"), instVertexGE, "IsRootFeature", 0);
+		//
+		// t3 = new SemanticExpression("3",
+		// refas.getSemanticExpressionTypes().get(
+		// "NotEquals"), instVertexGE, "userId", "Feature");
+		//
+		// t1 = new SemanticExpression("Not Feat Implies NoRoot", refas
+		// .getSemanticExpressionTypes().get("Implies"), t3, t1);
+		//
+		// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+
+		// semanticExpressions.add(t1);
+
+		t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "FeatureType", "Root");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexGE, "Core", true, 1);
+
+		t1 = new OpersExpr("Root Implies Req", refas
+				.getSemanticExpressionTypes().get("Implies"), t1, t3);
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		// t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+		// "Equals"), instVertexGE, "IsRootFeature", true, 1);
+		//
+		// t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+		// "Equals"), instVertexGE, "Sel", true, 1);
+		//
+		// t1 = new OpersExpr("Root Implies Selected", refas
+		// .getSemanticExpressionTypes().get("Implies"), t1, t3);
+
+		// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+
+		// semanticExpressions.add(t1);
+
+		refas.getVariabilityVertex().put("Feature", instVertexF);
+
+		InstPairwiseRel instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ftoge", instEdge);
+		instEdge.setIdentifier("ftoge");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexGE, true);
+		instEdge.setSourceRelation(instVertexF, true);
+
+		OpersConcept semRFeature = new OpersConcept("RootFeature");
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semRFeature
+				.getIdentifier(), "Sel", true));
+
+		InstConcept instVertexRF = new InstConcept("RootFeature",
+				metaMetaInstConcept, semRFeature);
+
+		StringDomain rootTypeDomain = new StringDomain();
+		rootTypeDomain.add("Root");
+		rootTypeDomain.add("General");
+		rootTypeDomain.add("Leaf");
+		attribute = new ElemAttribute("FeatureType", "String",
+				AttributeType.OPERATION, "Feature Type", "", "Root", false,
+				null, 2, -1, "", "", -1, "", "");
+
+		semRFeature.putSemanticAttribute("FeatureType", attribute);
+		verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+
+		refas.getVariabilityVertex().put("RootFeature", instVertexRF);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("rftof", instEdge);
+		instEdge.setIdentifier("rftof");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instVertexRF, true);
+
+		OpersConcept semGFeature = new OpersConcept("GeneralFeature");
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semGFeature
+				.getIdentifier(), "Sel", true));
+
+		InstConcept instVertexGF = new InstConcept("GeneralFeature",
+				metaMetaInstConcept, semGFeature);
+
+		attribute = new ElemAttribute("FeatureType", "String",
+				AttributeType.OPERATION, "Feature Type", "", "General", false,
+				null, 2, -1, "", "", -1, "", "");
+		semGFeature.putSemanticAttribute("FeatureType", attribute);
+		verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+
+		refas.getVariabilityVertex().put("GeneralFeature", instVertexGF);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("gftof", instEdge);
+		instEdge.setIdentifier("gftof");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instVertexGF, true);
+
+		OpersConcept semLFeature = new OpersConcept("LeafFeature");
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semLFeature
+				.getIdentifier(), "Sel", true));
+
+		InstConcept instVertexLF = new InstConcept("LeafFeature",
+				metaMetaInstConcept, semLFeature);
+
+		attribute = new ElemAttribute("FeatureType", "String",
+				AttributeType.OPERATION, "Feature Type", "", "Leaf", false,
+				null, 2, -1, "", "", -1, "", "");
+		semLFeature.putSemanticAttribute("FeatureType", attribute);
+		verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+
+		refas.getVariabilityVertex().put("LeafFeature", instVertexLF);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("lftof", instEdge);
+		instEdge.setIdentifier("lftof");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instVertexLF, true);
+
+		OpersConcept directFeaFeatVertSemEdge = new OpersConcept("parentFeatPW");
+
+		attribute = new ElemAttribute("outStructVal", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directFeaFeatVertSemEdge
+				.putSemanticAttribute("outStructVal", attribute);
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+
+		InstConcept instDirFeaFeatVertSemEdge = new InstConcept("parentFeatPW",
+				metaMetaPairwiseRelation, directFeaFeatVertSemEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ffptoip", instEdge);
+		instEdge.setIdentifier("ffptoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
+
+		InstAttribute ia = instDirFeaFeatVertSemEdge
+				.getInstAttribute("relTypesAttr");
+		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
+				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("optional", new ElemAttribute("optional",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"optional#optional#false#true#true#1#-1#1#1"));
+
+		ia = instDirFeaFeatVertSemEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("MANSelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instDirFeaFeatVertSemEdge, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("MANSelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instDirFeaFeatVertSemEdge, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("MANSelected1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Core", "Core");
+
+		semExpr.add(t1);
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("MANNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexF,
+				"structVal", 1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexF, "structVal", true, t1);
+
+		semExpr.add(t1);
+		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("OPTSelected", refas.getSemanticExpressionTypes()
+				.get("LessOrEquals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("OPTSelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Core", "Core");
+
+		semExpr.add(t1);
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("OPTNotAvailable", refas
+				.getSemanticExpressionTypes().get("LessOrEquals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexF,
+				instVertexF, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexF,
+				"structVal", 1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexF, "structVal", true, t1);
+
+		semExpr.add(t1);
+		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
+		attribute = new ElemAttribute("optional", StringType.IDENTIFIER,
+				AttributeType.OPTION, false, "optional", "", "", 1, -1, "", "",
+				-1, "", "");
+		ias.add(new InstAttribute("optional", attribute, semExpr));
+
+		refas.getVariabilityVertex().put("parentFeatPW",
+				instDirFeaFeatVertSemEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("FeatFeatParentPWAsso-GR", instEdge);
+		instEdge.setIdentifier("FeatFeatParentPWAsso-GR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirFeaFeatVertSemEdge, true);
+		instEdge.setSourceRelation(instVertexF, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges()
+				.put("FeatFeatParentPW-GR-Asso", instEdge);
+		instEdge.setIdentifier("FeatFeatParentPW-GR-Asso");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
+
+		OpersConcept directFeatFeatSideSemEdge = new OpersConcept("altFeatPW");
+		InstConcept instDirFeatFeatSideSemEdge = new InstConcept("altFeatPW",
+				metaMetaPairwiseRelation, directFeatFeatSideSemEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ffstoip", instEdge);
+		instEdge.setIdentifier("ffstoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirFeatFeatSideSemEdge, true);
+
+		ia = instDirFeatFeatSideSemEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"conflict#conflict#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("require", new ElemAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"require#require#false#true#true#1#-1#1#1"));
+
+		ia = instDirFeatFeatSideSemEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Sel", "Sel");
+
+		t1 = new OpersExpr("CONFSelected", refas.getSemanticExpressionTypes()
+				.get("LessOrEquals"), 1, false, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("requires", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("require", new ElemAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"condition", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("altFeatPW",
+				instDirFeatFeatSideSemEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("FeatFeatSidePWAsso-GR", instEdge);
+		instEdge.setIdentifier("FeatFeatSidePWAsso-GR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirFeatFeatSideSemEdge, true);
+		instEdge.setSourceRelation(instVertexF, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("FeatFeatSidePW-GR-Asso", instEdge);
+		instEdge.setIdentifier("FeatFeatSidePW-GR-Asso");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instDirFeatFeatSideSemEdge, true);
+
+		OpersConcept semFeatOverTwoRelation = new OpersConcept("FeatOT");// featSemOverTwoRelList);
+		InstConcept instVertexFFGR = new InstConcept("FeatOT",
+				semFeatOverTwoRelation, metaMetaInstOverTwoRel);
+		refas.getVariabilityVertex().put("FeatOT", instVertexFFGR);
+
+		ia = instVertexFFGR.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"and#and#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"or#or#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"mutex#mutex#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"range#range#false#true#true#1#-1#1#1"));
+
+		ia = instVertexFFGR.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instVertexFFGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instVertexFFGR, "Core", "Core");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexFFGR, instVertexF, "Sel", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDFSRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, instVertexF, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexFFGR, instVertexF, "Core", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDFCRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, instVertexF, t1, "Core");
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ORFConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instVertexFFGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexFFGR, instVertexF, "Sel", true, "FalseVal");
+
+		t1 = new OpersExpr("ORFSRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, instVertexF, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexFFGR, instVertexF, "Core", true, "FalseVal");
+
+		t1 = new OpersExpr("ORFCRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, instVertexF, t1, "Core");
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("MUTEXFConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instVertexFFGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE, instVertexF,
+				"Sel", 0);
+
+		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, instVertexF, t1, 1);
+
+		t1 = new OpersExpr("MUTEXFRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexF, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexFFGR, instVertexF, "Core", true, "FalseVal");
+
+		t1 = new OpersExpr("MUTEXFCRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
+				instVertexF, t1, "Core");
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE, instVertexF,
+				"Sel", 0);
+
+		t1 = new OpersExpr("MUTEXrestric", refas.getSemanticExpressionTypes()
+				.get("LessOrEquals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
+				instVertexF, t1, 1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("RANGEhardConcept", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexFFGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexFFGR, instVertexHC, null, "Sel", "FalseVal", true);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, t1, instVertexHC, "LowRange");
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexFFGR, instVertexHC, null, "Sel", "FalseVal", true);
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, t2, instVertexHC, "HighRange");
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
+				t1, t2);
+
+		t1 = new OpersExpr("RANGEHardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), instVertexFFGR, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexFFGR, instVertexF, "Core", true, "FalseVal");
+
+		t1 = new OpersExpr("RANGEFCRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
+				instVertexF, t1, "Core");
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ffgrtogr", instEdge);
+		instEdge.setIdentifier("ffgrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexFFGR, true);
+
+		InstConcept instFeatFeatFFFGR = new InstConcept("FeatToOT",
+				metaMetaPairwiseRelation);
+		refas.getVariabilityVertex().put("FeatFeatToOTAssoPWAsso",
+				instFeatFeatFFFGR);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("featfeatF-FFFGR", instEdge);
+		instEdge.setIdentifier("featfeatF-FFFGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instFeatFeatFFFGR, true);
+		instEdge.setSourceRelation(instVertexF, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("featfeatFFFGR-FFGR", instEdge);
+		instEdge.setIdentifier("featfeatFFFGR-FFGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexFFGR, true);
+		instEdge.setSourceRelation(instFeatFeatFFFGR, true);
+
+		InstConcept instFeatFeatFGRF = new InstConcept("FeatFromOT",
+				metaMetaPairwiseRelation);
+		refas.getVariabilityVertex().put("FeatFromOT", instFeatFeatFGRF);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("featfeatFFFGR-F", instEdge);
+		instEdge.setIdentifier("featfeatFFFGR-F");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instFeatFeatFGRF, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("featfeatFFGR-FFFGR", instEdge);
+		instEdge.setIdentifier("featfeatFFGR-FFFGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instFeatFeatFGRF, true);
+		instEdge.setSourceRelation(instVertexFFGR, true);
+	}
+
+	@SuppressWarnings("unchecked")
+	private static void createOpersMetaModelElements(ModelInstance refas) {
+
+		ArrayList<OpersExpr> semExpr = new ArrayList<OpersExpr>();
+
+		ElemAttribute attribute = null;
+
+		OpersConcept semAssumption = new OpersConcept("Assumption");
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semAssumption
+				.getIdentifier(), "Sel", true));
+
+		InstConcept instVertexAS = new InstConcept("Assumption",
+				metaMetaInstConcept, semAssumption);
+		refas.getVariabilityVertex().put("Assumption", instVertexAS);
+
+		InstPairwiseRel instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("assutoge", instEdge);
+		instEdge.setIdentifier("assutoge");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexHC, true);
+		instEdge.setSourceRelation(instVertexAS, true);
+
+		OpersConcept semGoal = new OpersConcept("Goal");
+
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semGoal
+				.getIdentifier(), "Sel", true));
+		attribute = new ElemAttribute("satType", "Enumeration",
+				AttributeType.OPERATION, false, "satType", "",
+				"com.variamos.dynsup.statictypes.SatisfactionType", "achieve",
+				"", 0, 1, "", "", 1, "<#" + "satType" + "#all#>\n", "");
+		semGoal.putSemanticAttribute("satType", attribute);
+		// semGoal.addPanelVisibleAttribute("01#" + "satType");
+		// semGoal.addPanelSpacersAttribute("<#" + "satType" + "#>\n");
+		InstConcept instVertexG = new InstConcept("Goal", metaMetaInstConcept,
+				semGoal);
+		refas.getVariabilityVertex().put("Goal", instVertexG);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("gtoge", instEdge);
+		instEdge.setIdentifier("gtoge");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexHC, true);
+		instEdge.setSourceRelation(instVertexG, true);
+
+		OpersConcept semOperationalization = new OpersConcept(
+				"Operationalization");
+
+		attribute = new ElemAttribute("attributeValue", "Set",
+				AttributeType.SYNTAX, false, "values", "",
+				InstAttribute.class.getCanonicalName(),
+				new ArrayList<InstAttribute>(), 0, 6, "", "", 6,
+				"#attributeValue#2#\n", "");
+		semOperationalization.putSemanticAttribute("attributeValue", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		semOperationalization.addPropVisibleAttribute("06#" + "attributeValue");
+		semOperationalization
+				.addPropEditableAttribute("06#" + "attributeValue");
+
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(
+				semOperationalization.getIdentifier(), "Sel", true));
+
+		InstConcept instVertexOper = new InstConcept("Operationalization",
+				metaMetaInstConcept, semOperationalization);
+		refas.getVariabilityVertex().put("Operationalization", instVertexOper);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("opertoge", instEdge);
+		instEdge.setIdentifier("opertoge");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexHC, true);
+		instEdge.setSourceRelation(instVertexOper, true);
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		semOperationalization.setSemanticExpressions(semExpr);
+
+		OpersExpr t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexOper, instVertexOper, "Sel",
+				"TrueVal");
+
+		sasverConflClOperSubActionVerification.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionVerification.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		OpersConcept semSoftgoal = new OpersConcept("Softgoal");
+
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), "Sel", true));
+
+		attribute = new ElemAttribute("satisficingLevel", "String",
+				AttributeType.OPERATION, "Satisficing Level",
+				"Satisficing for dynamic operations (low/high/close)", "high",
+				false, null, 0, 11, "", "", -1, "", "");
+
+		semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+
+		semSoftgoal.addPropEditableAttribute("11#" + "satisficingLevel");
+		semSoftgoal.addPropVisibleAttribute("11#" + "satisficingLevel");
+
+		attribute = new ElemAttribute("satisficingType", "Enumeration",
+				AttributeType.OPERATION, false, "Satisficing Type",
+				"Satisficing for static operations",
+				SatisficingType.class.getCanonicalName(),
+				"Achieve as close as possible", "", 0, 10, "", "", -1, "", "");
+		semSoftgoal.putSemanticAttribute("satisficingType", attribute);
+		semSoftgoal.addPropEditableAttribute("10#" + "satisficingType");
+		semSoftgoal.addPropVisibleAttribute("10#" + "satisficingType");
+
+		attribute = new ElemAttribute("ConfigReqLevel", "Integer",
+				AttributeType.OPERATION, "Config Req Level (5=ignored)",
+				"SG required level (defined: 0..4 ignored: 5) ", 5, false,
+				new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#" + "true"
+						+ "#" + "0", "", -1, "", "");
+		semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
+		semSoftgoal.addPropEditableAttribute("05#" + "ConfigReqLevel" + "#"
+				+ "Required" + "#==#" + "true" + "#" + "5");
+		semSoftgoal.addPropVisibleAttribute("05#" + "ConfigReqLevel");
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("defaultDomainValue", "Integer",
+				AttributeType.OPERATION, "Default Domain Value",
+				"Default value for the domain when no relation exists", 5,
+				false, new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#"
+						+ "true" + "#" + "0", "", -1, "", "");
+		semSoftgoal.putSemanticAttribute("defaultDomainValue", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		semSoftgoal.setSemanticExpressions(semExpr);
+
+		instVertexSG = new InstConcept("Softgoal", metaMetaInstConcept,
+				semSoftgoal);
+
+		OpersExpr t3 = new OpersExpr("22", refas.getSemanticExpressionTypes()
+				.get("NotEquals"), instVertexSG, "ConfigReqLevel", true, 5);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, "satisficingLevel", "close");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
+				t1, t3);
+
+		t1 = new OpersExpr("26", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexSG, instVertexSG, "ConfigReqLevel",
+				"SDReqLevel");
+
+		t1 = new OpersExpr("ConfReqLev...", refas.getSemanticExpressionTypes()
+				.get("Implies"), t3, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t3 = new OpersExpr("23", refas.getSemanticExpressionTypes().get(
+				"NotEquals"), instVertexSG, "ConfigReqLevel", true, 5);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, "satisficingLevel", "low");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
+				t1, t3);
+
+		t1 = new OpersExpr("21", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), instVertexSG, instVertexSG, "ConfigReqLevel",
+				"SDReqLevel");
+
+		t1 = new OpersExpr("ConfReqLev...", refas.getSemanticExpressionTypes()
+				.get("Implies"), t3, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t3 = new OpersExpr("25", refas.getSemanticExpressionTypes().get(
+				"NotEquals"), instVertexSG, "ConfigReqLevel", true, 5);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, "satisficingLevel", "high");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
+				t1, t3);
+
+		t1 = new OpersExpr("20", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), instVertexSG, instVertexSG, "ConfigReqLevel",
+				"SDReqLevel");
+
+		t1 = new OpersExpr("ConfReqLev...", refas.getSemanticExpressionTypes()
+				.get("Implies"), t3, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Subtraction"), instVertexGE, "Sel", false, 1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"Product"), 8, true, t1);
+
+		t3 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NReqSel", true, 4);
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
+				t1, t3);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, "NPrefSel", true, t1);
+
+		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Order", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), instVertexSG, instVertexSG, "SDReqLevel",
+				"ClaimExpLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexSG, "Sel", true, t1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, "satisficingLevel", "high");
+
+		t1 = new OpersExpr("high: SDReqLevel<=ClaimExpLevel...", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), instVertexSG, instVertexSG, "SDReqLevel",
+				"ClaimExpLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexSG, "Sel", true, t1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, "satisficingLevel", "low");
+
+		t1 = new OpersExpr("low: SDReqLevel>=ClaimExpLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, instVertexSG, "SDReqLevel",
+				"ClaimExpLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexSG, "Sel", true, t1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, "satisficingLevel", "close");
+
+		t1 = new OpersExpr("close: SDReqLevel=ClaimExpLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		refas.getVariabilityVertex().put("Softgoal", instVertexSG);
+
+		attribute = new ElemAttribute("SDReqLevel", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "Required Level by SD",
+				"Required level (0..4) for the soft dependency relation", 0,
+				new RangeDomain(0, 4, 0), 2, 16, "", "", -1, "", "",
+				"ConfigReqLevel", "sourceLevel;targetLevel;level;CLSGLevel",
+				"defaultDomainValue");
+		semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("ClaimExpLevel", "Integer",
+				AttributeType.EXECCURRENTSTATE, false,
+				"Expected Level by Claim",
+				"Expected level (0..4) for the claim relation", 0,
+				new RangeDomain(0, 4, 0), 2, 18, "", "", -1, "", "",
+				"ConfigReqLevel", "sourceLevel;targetLevel;level;CLSGLevel",
+				"defaultDomainValue");
+		semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+
+		semSoftgoal.addPropVisibleAttribute("16#" + "SDReqLevel");
+		semSoftgoal.addPropVisibleAttribute("18#" + "ClaimExpLevel");
+
+		semSoftgoal.addPropEditableAttribute("16#" + "SDReqLevel");
+		semSoftgoal.addPropEditableAttribute("18#" + "ClaimExpLevel");
+
+		attribute = new ElemAttribute("defaultDomainValue", "Integer",
+				AttributeType.OPERATION, false,
+				"Default Value (Filtered Attributes)",
+				"Default value for ClaimExpLevel/SDReqLevel when no Claim/SD"
+						+ " constraints the domain (e.j. 4 for maximizing SG)",
+				0, new RangeDomain(0, 4, 0), 2, 19, "", "", -1, "", "");
+		semSoftgoal.putSemanticAttribute("defaultDomainValue", attribute);
+
+		semSoftgoal.addPropVisibleAttribute("19#" + "defaultDomainValue");
+
+		semSoftgoal.addPropEditableAttribute("19#" + "defaultDomainValue");
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sgtoge", instEdge);
+		instEdge.setIdentifier("sgtoge");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexGE, true);
+		instEdge.setSourceRelation(instVertexSG, true);
+
+		OpersConcept semAsset = new OpersConcept("Asset");
+
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semAsset
+				.getIdentifier(), "Sel", true));
+		InstConcept instVertexAsset = new InstConcept("Asset",
+				metaMetaInstConcept, semAsset);
+		refas.getVariabilityVertex().put("Asset", instVertexAsset);
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		semAsset.setSemanticExpressions(semExpr);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NReqSel", true, 4);
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
+				t1, 0);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, "NPrefSel", true, t1);
+
+		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Order", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("astoge", instEdge);
+		instEdge.setIdentifier("astoge");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexGE, true);
+		instEdge.setSourceRelation(instVertexAsset, true);
+
+		// ---
+		OpersConcept semanticOperClaimGroupRelation = new OpersConcept(
+				"OperClOT");// hardSemOverTwoRelList);
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		semanticOperClaimGroupRelation.setSemanticExpressions(semExpr);
+
+		InstConcept instVertexCLGR = new InstConcept("OperClOT",
+				semanticOperClaimGroupRelation, metaMetaInstOverTwoRel);
+
+		t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexCLGR, instVertexCLGR, "Sel", "TrueVal");
+
+		sasverConflClOperSubActionVerification.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionVerification.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+		// ---
+
+		OpersConcept semClaim = new OpersConcept("Claim");
+
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semClaim
+				.getIdentifier(), "Sel", true));
+
+		attribute = new ElemAttribute("outCl", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		semClaim.putSemanticAttribute("outCl", attribute);
+		sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+
+		InstConcept instVertexCL = new InstConcept("Claim", semClaim,
+				metaMetaInstOverTwoRel);
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		semClaim.setSemanticExpressions(semExpr);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE, instVertexCL,
+				instVertexOper, "Sel", true, "FalseVal");
+
+		t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
+				"Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexCL, instVertexOper, t1, "FalseVal");
+
+		OpersExpr t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
+				.get("Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexCL, instVertexCLGR, "Sel", true, "FalseVal");
+
+		t2 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
+				"Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexCL, instVertexCLGR, t2, "FalseVal");
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Or"),
+				t1, t2);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexCL, "outCL", false, t1);
+		// FIXME expression not working!
+
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexCL, instVertexCL,
+				"Sel", "outCl");
+
+		semExpr.add(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NReqSel", true, 4);
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
+				t1, 0);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, "NPrefSel", true, t1);
+
+		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Order", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		OpersConcept directOperClaimSemanticEdge = new OpersConcept("OperClPW");
+
+		attribute = new ElemAttribute("outCl", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directOperClaimSemanticEdge.putSemanticAttribute("outCl", attribute);
+		sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directOperClaimSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directOperClaimSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directOperClaimSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directOperClaimSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directOperClaimSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directOperClaimSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+
+		InstConcept instDirOperClaimSemanticEdge = new InstConcept("OperClPW",
+				metaMetaPairwiseRelation, directOperClaimSemanticEdge);
+
+		refas.getVariabilityVertex().put("OperClPW",
+				instDirOperClaimSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("opctoip", instEdge);
+		instEdge.setIdentifier("opctoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirOperClaimSemanticEdge, true);
+
+		instDirOperClaimSemanticEdge.createInstAttributes();
+
+		InstAttribute ia = instDirOperClaimSemanticEdge
+				.getInstAttribute("relTypesAttr");
+		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
+				"OperToClaim##true#true#true#1#-1#1#1"));
+
+		ia = instDirOperClaimSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "Sel", "ConditionalExpression");
+
+		t1 = new OpersExpr("OPERCLSelected", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), ExpressionVertexType.LEFTVARIABLE,
+				instDirOperClaimSemanticEdge, "outCl", true, t1);
+		semExpr.add(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "Sel", "ConditionalExpression");
+
+		t1 = new OpersExpr("OPERCLSelected", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
+				"Sel", true, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("OPERCLNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		refas.getVariabilityVertex().put("Claim", instVertexCL);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("cltoge", instEdge);
+		instEdge.setIdentifier("cltoge");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGE, true);
+		instEdge.setSourceRelation(instVertexCL, true);
+
+		attribute = new ElemAttribute(
+				"ConditionalExpression",
+				ModelExpr.class.getCanonicalName(),
+				AttributeType.OPERATION,
+				false,
+				"Conditional Expression",
+				"Claim activation expression (in addition to operationalizations/left features)",
+				null, 0, 3, "", "", 3, "#ConditionalExpression#all#", "");
+		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
+		semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
+		semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semClaim
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semClaim
+				.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("CompExp", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Boolean Comp. Expression",
+				"", true, 0, 1, "", "", -1, "", "");
+		semClaim.putSemanticAttribute("CompExp", attribute);
+		semClaim.addPropEditableAttribute("01#" + "CompExp");
+		semClaim.addPropVisibleAttribute("01#" + "CompExp");
+
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("ConfidenceLevel", "Integer",
+				AttributeType.OPERATION, "Confidence Level",
+				"(Ignored for operations)", 1, false, new RangeDomain(0, 4, 0),
+				0, 5, "", "", -1, "", "");
+		semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
+		semClaim.addPropEditableAttribute("05#" + "ConfidenceLevel");
+		semClaim.addPropVisibleAttribute("05#" + "ConfidenceLevel");
+
+		OpersConcept semSoftDependency = new OpersConcept("SoftDependency");
+
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftDependency
+				.getIdentifier(), "Sel", true));
+		InstConcept instVertexSD = new InstConcept("SoftDependency",
+				semSoftDependency, metaMetaInstConcept);
+		refas.getVariabilityVertex().put("SoftDependency", instVertexSD);
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		semSoftDependency.setSemanticExpressions(semExpr);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSD, instVertexSD,
+				"Sel", "outSdSg");
+
+		semExpr.add(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NReqSel", true, 4);
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
+				t1, 0);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, "NPrefSel", true, t1);
+
+		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Order", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sdtoge", instEdge);
+		instEdge.setIdentifier("sdtoge");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGE, true);
+		instEdge.setSourceRelation(instVertexSD, true);
+
+		attribute = new ElemAttribute("outSdSg", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		semSoftDependency.putSemanticAttribute("outSdSg", attribute);
+		sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("ConditionalExpression",
+				ModelExpr.class.getCanonicalName(), AttributeType.OPERATION,
+				false, "Conditional Expression",
+				"Soft dependency activation expression", null, 0, 3, "", "", 3,
+				"#ConditionalExpression#all#", "");
+		semSoftDependency.putSemanticAttribute("ConditionalExpression",
+				attribute);
+		semSoftDependency.addPropEditableAttribute("03#"
+				+ "ConditionalExpression");
+		semSoftDependency.addPropVisibleAttribute("03#"
+				+ "ConditionalExpression");
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftDependency
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftDependency
+				.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("CompExp", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Boolean Comp. Expression",
+				"", true, 2, 1, "", "", -1, "", "");
+		semSoftDependency.putSemanticAttribute("CompExp", attribute);
+		semSoftDependency.addPropEditableAttribute("01#" + "CompExp");
+		semSoftDependency.addPropVisibleAttribute("01#" + "CompExp");
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("SDSelected", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "SD Selected", "", false, 2,
+				2, "false", "", -1, "", "");
+		semSoftDependency.putSemanticAttribute("SDSelected", attribute);
+		semSoftDependency.addPropVisibleAttribute("02#" + "SDSelected");
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		OpersConcept semHardOverTwoRelation = new OpersConcept("SMOverTwo");// hardSemOverTwoRelList);
+
+		InstConcept instVertexHHGR = new InstConcept("GoalOT",
+				semHardOverTwoRelation, metaMetaInstOverTwoRel);
+		refas.getVariabilityVertex().put("GoalOT", instVertexHHGR);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("hhtoigr", instEdge);
+		instEdge.setIdentifier("hhtoigr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexHHGR, true);
+
+		InstConcept instHchcHHGRHC = new InstConcept("GoaltoOT",
+				metaMetaPairwiseRelation);
+		refas.getVariabilityVertex().put("GoaltoOT", instHchcHHGRHC);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("hhotfromip", instEdge);
+		instEdge.setIdentifier("hhotfromip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instHchcHHGRHC, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("hctoHHGR-HHGR-HHHHGR", instEdge);
+		instEdge.setIdentifier("hctoHHGR-HHGR-HHHHGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instHchcHHGRHC, true);
+		instEdge.setSourceRelation(instVertexHHGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("hctoHHGR-HHHHGR-H", instEdge);
+		instEdge.setIdentifier("hctoHHGR-HHHHGR-H");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexHC, true);
+		instEdge.setSourceRelation(instHchcHHGRHC, true);
+
+		InstConcept instHchcHHGRGR = new InstConcept("GoalfromOT",
+				metaMetaPairwiseRelation);
+		refas.getVariabilityVertex().put("GoalfromOT", instHchcHHGRGR);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("HHGRtohc-H-HHHHGR", instEdge);
+		instEdge.setIdentifier("HHGRtohc-H-HHHHGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instHchcHHGRGR, true);
+		instEdge.setSourceRelation(instVertexHC, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("HHGRtohc-HHHHGR-H", instEdge);
+		instEdge.setIdentifier("HHGRtohc-H-HHHHGR-H");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexHHGR, true);
+		instEdge.setSourceRelation(instHchcHHGRGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ogfottoip", instEdge);
+		instEdge.setIdentifier("ogfottoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instHchcHHGRGR, true);
+
+		instHchcHHGRGR.createInstAttributes();
+
+		ia = instVertexHHGR.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"and#and#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"or#or#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"mutex#mutex#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"range#range#false#true#true#1#-1#1#1"));
+
+		ia = instVertexHHGR.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHHGR,
+				instVertexHC, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHHGR,
+				instVertexHC, "Core", "Core");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexHHGR, instVertexHC, "Sel", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
+				instVertexHC, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexHHGR, instVertexHC, "Core", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
+				instVertexHC, t1, "Core");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ORhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHHGR,
+				instVertexHC, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexHHGR, instVertexHC, "Sel", true, "FalseVal");
+
+		t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexHHGR, instVertexHC, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexHHGR, instVertexHC, "Core", true, "FalseVal");
+
+		t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexHHGR, instVertexHC, t1, "Core");
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("MUTEXhardConcept", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHHGR,
+				instVertexHC, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE, instVertexHC,
+				"Sel", 0);
+
+		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexHHGR, instVertexHC, t1, 1);
+
+		t1 = new OpersExpr("MUTEXhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), instVertexHC, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE, instVertexHC,
+				"Sel", 0);
+
+		t1 = new OpersExpr("MUTEXrestric", refas.getSemanticExpressionTypes()
+				.get("LessOrEquals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
+				instVertexHC, t1, 1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("RANGEhardConcept", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHHGR,
+				instVertexHC, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexHHGR, instVertexHC, "Sel", true, "FalseVal");
+
+		t1 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexHHGR, instVertexHC, t1, "LowRange");
+
+		t2 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexHHGR, instVertexHC, "Sel", true, "FalseVal");
+
+		t2 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexHHGR, instVertexHC, t2, "HighRange");
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
+				t1, t2);
+
+		t1 = new OpersExpr("RANGEHardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), instVertexHHGR, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		OpersConcept directHardHardSemanticEdge = new OpersConcept("travHardPW");
+
+		attribute = new ElemAttribute("AggregationLow", "Integer",
+				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
+				"", "", 3, "[#" + "AggregationLow" + "#all#..",
+				"AggregationHigh" + "#!=#" + "0");
+		directHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
+				attribute);
+		directHardHardSemanticEdge.addPropEditableAttribute("03#"
+				+ "AggregationLow");
+		directHardHardSemanticEdge.addPropVisibleAttribute("03#"
+				+ "AggregationLow");
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+				directHardHardSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(
+				directHardHardSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directHardHardSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directHardHardSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+
+		attribute = new ElemAttribute("AggregationHigh", "Integer",
+				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 4,
+				"", "", 4, "#" + "AggregationHigh" + "#all#]\n",
+				"AggregationHigh" + "#!=#" + "0");
+		directHardHardSemanticEdge.putSemanticAttribute("AggregationHigh",
+				attribute);
+		directHardHardSemanticEdge.addPropEditableAttribute("04#"
+				+ "AggregationHigh");
+		directHardHardSemanticEdge.addPropVisibleAttribute("04#"
+				+ "AggregationHigh");
+
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+				directHardHardSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(
+				directHardHardSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directHardHardSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directHardHardSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+
+		InstConcept instDirHardHardSemanticEdge = new InstConcept("travHardPW",
+				metaMetaPairwiseRelation, directHardHardSemanticEdge);
+
+		directHardHardSemanticEdge.putSemanticAttribute("relationType",
+				new ElemAttribute("relationType", "Class",
+						AttributeType.OPERATION, true, "Relation Type", "",
+						InstAttribute.class.getCanonicalName(), null, "", 0, 6,
+						"", "", 6, "#" + "relationType" + "#all#\n", ""));
+		directHardHardSemanticEdge.addPropEditableAttribute("06#"
+				+ "relationType");
+		directHardHardSemanticEdge.addPropVisibleAttribute("06#"
+				+ "relationType");
+		// directHardHardSemanticEdge.addPanelVisibleAttribute("06#"
+		// + "relationType");
+		// directHardHardSemanticEdge.addPanelSpacersAttribute("#"
+		// + "relationType" + "#\n");
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ggstoip", instEdge);
+		instEdge.setIdentifier("ggstoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirHardHardSemanticEdge, true);
+
+		ia = instDirHardHardSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"conflict#conflict#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("alternative", new ElemAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
+				"altern.#altern.#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("preferred", new ElemAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", "", 1, -1, "", "", -1, "", ""),
+				"preferred#preferred#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("require", new ElemAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"require#require#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("condition", new ElemAttribute("condition",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"condition", "", "", 1, -1, "", "", -1, "", ""),
+				"condition#condition#false#true#true#1#-1#1#1"));
+
+		ia = instDirHardHardSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
+				instVertexHC, "Sel", "Sel");
+
+		t1 = new OpersExpr("CONFSelected", refas.getSemanticExpressionTypes()
+				.get("LessOrEquals"), 1, false, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexHC, instVertexHC, "Sel", true, 1);
+
+		t1 = new OpersExpr("ALTSelected", refas.getSemanticExpressionTypes()
+				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexHC, "Sel", true, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("alternative", new ElemAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
+				instVertexHC, "Sel", "Sel");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexHC, "Sel");
+
+		t1 = new OpersExpr("PREFSelected", refas.getSemanticExpressionTypes()
+				.get("And"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("preferred", new ElemAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirHardHardSemanticEdge, instVertexHC, "Sel", false, 1);
+
+		t1 = new OpersExpr("REQSelected", refas.getSemanticExpressionTypes()
+				.get("GreaterOrEq"), 1, false, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("require", new ElemAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "required",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("CONDSelected", refas.getSemanticExpressionTypes()
+				.get("NotEquals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
+				instVertexHC, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("CONDNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
+				instVertexHC, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("condition", new ElemAttribute("condition",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"condition", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("travHardPW",
+				instDirHardHardSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("GoalGoalSidePWAsso-GR", instEdge);
+		instEdge.setIdentifier("GoalGoalSidePWAsso-GR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirHardHardSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexHC, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("GoalGoalSidePW-GR-Asso", instEdge);
+		instEdge.setIdentifier("GoalGoalSidePW-GR-Asso");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexHC, true);
+		instEdge.setSourceRelation(instDirHardHardSemanticEdge, true);
+
+		OpersConcept directStructHardHardSemanticEdge = new OpersConcept(
+				"meansHardPW");
+
+		attribute = new ElemAttribute("AggregationLow", "Integer",
+				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
+				"", "", 3, "[#" + "AggregationLow" + "#all#..",
+				"AggregationHigh" + "#!=#" + "0");
+		directStructHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
+				attribute);
+		directStructHardHardSemanticEdge.addPropEditableAttribute("03#"
+				+ "AggregationLow");
+		directStructHardHardSemanticEdge.addPropVisibleAttribute("03#"
+				+ "AggregationLow");
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+
+		attribute = new ElemAttribute("AggregationHigh", "Integer",
+				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 4,
+				"", "", 4, "#" + "AggregationHigh" + "#all#]\n",
+				"AggregationHigh" + "#!=#" + "0");
+		directStructHardHardSemanticEdge.putSemanticAttribute(
+				"AggregationHigh", attribute);
+		directStructHardHardSemanticEdge.addPropEditableAttribute("04#"
+				+ "AggregationHigh");
+		directStructHardHardSemanticEdge.addPropVisibleAttribute("04#"
+				+ "AggregationHigh");
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+
+		attribute = new ElemAttribute("outStructVal", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directStructHardHardSemanticEdge.putSemanticAttribute("outStructVal",
+				attribute);
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directStructHardHardSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+
+		InstConcept instDirStructHardHardSemanticEdge = new InstConcept(
+				"meansHardPW", metaMetaPairwiseRelation,
+				directStructHardHardSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("shhtoip", instEdge);
+		instEdge.setIdentifier("shhtoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirStructHardHardSemanticEdge, true);
+
+		ia = instDirStructHardHardSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
+				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("optional", new ElemAttribute("optional",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"optional#optional#false#true#true#1#-1#1#1"));
+
+		ia = instDirStructHardHardSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("MANSelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instDirStructHardHardSemanticEdge, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("MANSelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instDirStructHardHardSemanticEdge, "Sel", "Sel");
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTVARIABLE,
+				instDirStructHardHardSemanticEdge,
+				instDirStructHardHardSemanticEdge, "AggregationHigh", true, 0);
+
+		t1 = new OpersExpr("NoAggre:MANSelected", refas
+				.getSemanticExpressionTypes().get("Implies"), t2, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		// iterate onver multi-instances
+		t1 = new OpersExpr("AggLow", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instDirStructHardHardSemanticEdge, "Sel", "AggregationLow");
+
+		t2 = new OpersExpr("AggHigh", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instDirStructHardHardSemanticEdge, "Sel", "AggregationHigh");
+
+		t1 = new OpersExpr("And",
+				refas.getSemanticExpressionTypes().get("And"), t1, t2);
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTVARIABLE,
+				instDirStructHardHardSemanticEdge,
+				instDirStructHardHardSemanticEdge, "Sel", true, 1);
+
+		t1 = new OpersExpr("Aggre:MANSelected", refas
+				.getSemanticExpressionTypes().get("Implies"), t1, t2);
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"NotEquals"), ExpressionVertexType.LEFTVARIABLE,
+				instDirStructHardHardSemanticEdge,
+				instDirStructHardHardSemanticEdge, "AggregationHigh", true, 0);
+
+		t1 = new OpersExpr("Aggre:MANSelected", refas
+				.getSemanticExpressionTypes().get("Implies"), t2, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("MANSelected1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
+				instVertexHC, "Core", "Core");
+
+		semExpr.add(t1);
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
+				instVertexHC, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexHC,
+				"structVal", 1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexHC, "structVal", true, t1);
+
+		semExpr.add(t1);
+		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirStructHardHardSemanticEdge, instVertexHC, "Sel", true, 1);
+
+		t1 = new OpersExpr("Sel", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexHC, "Sel", true, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexHC,
+				"structVal", 1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexHC, "structVal", true, t1);
+
+		semExpr.add(t1);
+		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("optional", new ElemAttribute("optional",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("meansHardPW",
+				instDirStructHardHardSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("structHardHardPWAsso-GR", instEdge);
+		instEdge.setIdentifier("structHardHardPWAsso-GR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirStructHardHardSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexHC, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges()
+				.put("structHardHardPW-GR-Asso", instEdge);
+		instEdge.setIdentifier("structHardHardPW-GR-Asso");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexHC, true);
+		instEdge.setSourceRelation(instDirStructHardHardSemanticEdge, true);
+
+		OpersConcept semAssetOperPairwiseRel = new OpersConcept("AssetOperPW");
+
+		attribute = new ElemAttribute("outStructVal", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		semAssetOperPairwiseRel.putSemanticAttribute("outStructVal", attribute);
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semAssetOperPairwiseRel.getIdentifier(), attribute.getName(),
+				true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semAssetOperPairwiseRel.getIdentifier(), attribute.getName(),
+				true));
+
+		InstConcept instSemAssetOperPairwiseRel = new InstConcept(
+				"AssetOperPW", metaMetaPairwiseRelation,
+				semAssetOperPairwiseRel);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("vaptoip", instEdge);
+		instEdge.setIdentifier("vaptoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instSemAssetOperPairwiseRel, true);
+
+		ia = instSemAssetOperPairwiseRel.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
+				"mandatory#mandatory#false#true#true#1#-1#1#1"));
+
+		ia = instSemAssetOperPairwiseRel.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("manLSelected1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexHC, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("manLSelected1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexHC, "Core", "Core");
+
+		semExpr.add(t1);
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("manLNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexHC, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexF,
+				"structVal", 1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexAsset, "structVal", true, t1);
+
+		semExpr.add(t1);
+		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("AssetOperPW",
+				instSemAssetOperPairwiseRel);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("varAssetOperPWAsso-GR", instEdge);
+		instEdge.setIdentifier("varAssetOperPWAsso-GR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instSemAssetOperPairwiseRel, true);
+		instEdge.setSourceRelation(instVertexAsset, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("varAssetOperPW-GR-Asso", instEdge);
+		instEdge.setIdentifier("varAssetOperPW-GR-Asso");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexOper, true);
+		instEdge.setSourceRelation(instSemAssetOperPairwiseRel, true);
+
+		OpersConcept semAssetPairwiseRel = new OpersConcept("AssetPW");
+
+		attribute = new ElemAttribute("outStructVal", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		semAssetPairwiseRel.putSemanticAttribute("outStructVal", attribute);
+		sasverNoLoopsOperationSubAction
+				.addOutAttribute(new OpersIOAttribute(semAssetPairwiseRel
+						.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semAssetPairwiseRel
+						.getIdentifier(), attribute.getName(), true));
+
+		InstConcept instSemAssetPairwiseRel = new InstConcept("AssetPW",
+				metaMetaPairwiseRelation, semAssetPairwiseRel);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("vatoip", instEdge);
+		instEdge.setIdentifier("vatoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instSemAssetPairwiseRel, true);
+
+		ia = instSemAssetPairwiseRel.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
+				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("optional", new ElemAttribute("optional",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"optional#optional#false#true#true#1#-1#1#1"));
+
+		ia = instSemAssetPairwiseRel.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("DELSelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexAsset, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("DELNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexAsset, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexAsset,
+				"structVal", 1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexAsset, "structVal", true, t1);
+
+		semExpr.add(t1);
+		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+		t1 = new OpersExpr("ASSESelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexAsset, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("ASSENotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("assembly", new ElemAttribute("assembly",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "assembly",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("AssetPW", instSemAssetPairwiseRel);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("varAssetPWAsso-GR", instEdge);
+		instEdge.setIdentifier("varAssetPWAsso-GR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instSemAssetPairwiseRel, true);
+		instEdge.setSourceRelation(instVertexAsset, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("varAssetPW-GR-Asso", instEdge);
+		instEdge.setIdentifier("varAssetPW-GR-Asso");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexAsset, true);
+		instEdge.setSourceRelation(instSemAssetPairwiseRel, true);
+
+		OpersConcept semvarcntxPairwiseRel = new OpersConcept("VaClPW");
+
+		InstConcept instSemvarcntxPairwiseRel = new InstConcept("VaClPW",
+				metaMetaPairwiseRelation, semvarcntxPairwiseRel);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("vcxtoip", instEdge);
+		instEdge.setIdentifier("vcxtoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instSemvarcntxPairwiseRel, true);
+
+		ia = instSemvarcntxPairwiseRel.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		ias.add(new InstAttribute("Variable Context", new ElemAttribute(
+				"Variable Context", StringType.IDENTIFIER,
+				AttributeType.OPTION, false, "Variable Context", "", "", 1, -1,
+				"", "", -1, "", ""),
+				"Variable Context##false#true#true#1#-1#1#1"));
+
+		ia = instSemvarcntxPairwiseRel.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		ias.add(new InstAttribute("Variable Context", new ElemAttribute(
+				"Variable Context", StringType.IDENTIFIER,
+				AttributeType.OPTION, false, "Variable Context", "", "", 1, -1,
+				"", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("VaClPW", instSemvarcntxPairwiseRel);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("varcntxPWAsso-GR", instEdge);
+		instEdge.setIdentifier("varcntxPWAsso-GR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instSemvarcntxPairwiseRel, true);
+		instEdge.setSourceRelation(instVertexVAR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("varcntxPW-GR-Asso", instEdge);
+		instEdge.setIdentifier("varcntxPW-GR-Asso");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexCG, true);
+		instEdge.setSourceRelation(instSemvarcntxPairwiseRel, true);
+
+		// Feature to Feature
+
+		OpersConcept directSGSGSemEdge = new OpersConcept("SgSgPWAsso");
+
+		attribute = new ElemAttribute("outConflSG", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directSGSGSemEdge.putSemanticAttribute("outConflSG", attribute);
+		sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("sourceLevel", "Integer",
+				AttributeType.OPERATION, "Source Level", "", 1, false,
+				new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
+				"SL: #sourceLevel#all# - ", "");
+		directSGSGSemEdge.putSemanticAttribute("sourceLevel", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+
+		directSGSGSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
+		directSGSGSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
+
+		attribute = new ElemAttribute("targetLevel", "Integer",
+				AttributeType.OPERATION, "Target Level", "", 1, false,
+				new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
+				"TL: #targetLevel#all#", "");
+		directSGSGSemEdge.putSemanticAttribute("targetLevel", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+
+		directSGSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel" + "#");
+		directSGSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
+		directSGSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
+		// directSGSGSemEdge.addPanelVisibleAttribute("09#" +
+		// "targetLevel");
+
+		attribute = new ElemAttribute("AggregationLow", "Integer",
+				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 7,
+				"", "", 7, "[#" + "AggregationLow" + "#all#..",
+				"AggregationHigh" + "#!=#" + "0");
+		directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+
+		directSGSGSemEdge.addPropEditableAttribute("07#" + "AggregationLow");
+
+		directSGSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
+
+		attribute = new ElemAttribute("AggregationHigh", "Integer",
+				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 8,
+				"", "", 8, "#" + "AggregationHigh" + "#all#\n",
+				"AggregationHigh" + "#!=#" + "0");
+		directSGSGSemEdge.putSemanticAttribute("AggregationHigh", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+
+		directSGSGSemEdge.addPropEditableAttribute("08#" + "AggregationHigh");
+
+		directSGSGSemEdge.addPropVisibleAttribute("08#" + "AggregationHigh");
+
+		InstConcept instDirSGSGSemanticEdge = new InstConcept("SgSgPWAsso",
+				metaMetaPairwiseRelation, directSGSGSemEdge);
+
+		refas.getVariabilityVertex().put("SgSgPWAsso", instDirSGSGSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sgsgtoip", instEdge);
+		instEdge.setIdentifier("sgsgtoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
+
+		ia = instDirSGSGSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("contribution", new ElemAttribute(
+				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "contribution", "", "", 1, -1, "", "", -1, "", ""),
+				"contribution#contribution#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"conflict#conflict#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("alternative", new ElemAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
+				"altern.#altern.#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("preferred", new ElemAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", "", 1, -1, "", "", -1, "", ""),
+				"preferred#preferred#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("require", new ElemAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"require#require#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("implication", new ElemAttribute(
+				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implication", "", "", 1, -1, "", "", -1, "", ""),
+				"implication#implication#false#true#true#1#-1#1#1"));
+
+		ia = instDirSGSGSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		// contribution of direct relations
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
+		semExpr.add(t1);
+		sasverSGConflOperSubActionVerification.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"low");
+
+		t1 = new OpersExpr("low: SGReqLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"high");
+
+		t1 = new OpersExpr("high: SGReqLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"close");
+
+		t1 = new OpersExpr("close: SGReqLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("contribution", new ElemAttribute(
+				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "contribution", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		// Wrong expressions - correct for conflict
+
+		t1 = new OpersExpr("CLEx SrcLv", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"low");
+
+		t1 = new OpersExpr("low: source & target", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("CLEx SrcLv", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"high");
+
+		t1 = new OpersExpr("high: source & target", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("CLEx SrcLv", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "sourceLevel");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSGSGSemanticEdge, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"close");
+
+		t1 = new OpersExpr("close: source & target", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "Sel", true, 1);
+
+		t1 = new OpersExpr("ALTSelected", refas.getSemanticExpressionTypes()
+				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "Sel", true, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("alternative", new ElemAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexSG,
+				instVertexSG, "Sel", "Sel");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "Sel");
+
+		t1 = new OpersExpr("PREFSelected", refas.getSemanticExpressionTypes()
+				.get("And"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("preferred", new ElemAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "Sel", false, 1);
+
+		t1 = new OpersExpr("REQSelected", refas.getSemanticExpressionTypes()
+				.get("GreaterOrEq"), 1, false, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("require", new ElemAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "Sel", true, 1);
+
+		t1 = new OpersExpr("IMPSelected", refas.getSemanticExpressionTypes()
+				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "Sel", true, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("implication", new ElemAttribute(
+				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implication", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sgsgPW-sgpwsg", instEdge);
+		instEdge.setIdentifier("sgsgPW-sgpwsg");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirSGSGSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexSG, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sgsgPW-sgsgpw", instEdge);
+		instEdge.setIdentifier("sgsgPW-sgsgpw");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexSG, true);
+		instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
+
+		OpersConcept semanticSGSGGroupRelation = new OpersConcept("SgOT");// hardSemOverTwoRelList);
+
+		InstConcept instVertexSGGR = new InstConcept("SgOT",
+				semanticSGSGGroupRelation, metaMetaInstOverTwoRel);
+		refas.getVariabilityVertex().put("SgOT", instVertexSGGR);
+
+		OpersConcept directGRSGSemEdge = new OpersConcept("SgToOT");
+
+		attribute = new ElemAttribute("outConflSG", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directGRSGSemEdge.putSemanticAttribute("outConflSG", attribute);
+		sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("targetLevel", "Integer",
+				AttributeType.OPERATION, "Target Level", "", 1, false,
+				new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
+				":#targetLevel#all#", "");
+		directGRSGSemEdge.putSemanticAttribute("targetLevel", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+
+		directGRSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel" + "#");
+		directGRSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
+		directGRSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
+		// directGRSGSemEdge.addPanelVisibleAttribute("09#" +
+		// "targetLevel");
+
+		// FIXME remove, use other
+		InstConcept instSgsgGRSG = new InstConcept("SgToOT",
+				metaMetaPairwiseRelation, directGRSGSemEdge);
+
+		refas.getVariabilityVertex().put("SgToOT", instSgsgGRSG);
+
+		ia = instSgsgGRSG.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("contribution", new ElemAttribute(
+				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "contribution", "", "", 1, -1, "", "", -1, "", ""),
+				"contribution#contribution#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"conflict#conflict#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("alternative", new ElemAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
+				"altern.#altern.#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("preferred", new ElemAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", "", 1, -1, "", "", -1, "", ""),
+				"preferred#preferred#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("require", new ElemAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"require#require#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("implication", new ElemAttribute(
+				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implication", "", "", 1, -1, "", "", -1, "", ""),
+				"implication#implication#false#true#true#1#-1#1#1"));
+
+		ia = instSgsgGRSG.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		// Expressions for contribution with OTRel
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instSgsgGRSG, instVertexSGGR, "Sel", true, 1);
+
+		semExpr.add(t1);
+		sasverSGConflOperSubActionVerification.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instSgsgGRSG, instVertexSGGR, "Sel", true, 1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instSgsgGRSG, instVertexSG, "ClaimExpLevel", true,
+				"targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instSgsgGRSG, instVertexSG, "satisficingLevel", "low");
+
+		t1 = new OpersExpr("low: SGReqLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instSgsgGRSG, instVertexSGGR, "Sel", true, 1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instSgsgGRSG, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"high");
+
+		t1 = new OpersExpr("high: SGReqLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instSgsgGRSG, instVertexSGGR, "Sel", true, 1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instSgsgGRSG, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"close");
+
+		t1 = new OpersExpr("close: SGReqLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("contribution", new ElemAttribute(
+				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "contribution", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		// FIX me wrong relations or good for conflict
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("SG Gr Sel", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, "Sel", 1);
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instVertexSG, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, "satisficingLevel", "low");
+
+		t1 = new OpersExpr("low: source & target", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("SG Gr Sel", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, "Sel", 1);
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, instVertexSG, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, "satisficingLevel", "high");
+
+		t1 = new OpersExpr("high: source & target", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("SG Gr Sel", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, "Sel", 1);
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, instVertexSG, "ClaimExpLevel", "targetLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexSG, "satisficingLevel", "high");
+
+		t1 = new OpersExpr("close: source & target", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "Sel", true, 1);
+
+		t1 = new OpersExpr("ALTSelected", refas.getSemanticExpressionTypes()
+				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "Sel", true, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("alternative", new ElemAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexSG,
+				instVertexSG, "Sel", "Sel");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "Sel");
+
+		t1 = new OpersExpr("PREFSelected", refas.getSemanticExpressionTypes()
+				.get("And"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("preferred", new ElemAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "Sel", false, 1);
+
+		t1 = new OpersExpr("REQSelected", refas.getSemanticExpressionTypes()
+				.get("GreaterOrEq"), 1, false, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("require", new ElemAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "Sel", true, 1);
+
+		t1 = new OpersExpr("IMPSelected", refas.getSemanticExpressionTypes()
+				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "Sel", true, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("implication", new ElemAttribute(
+				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implication", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		OpersConcept directSGGRSemEdge = new OpersConcept("SgFromOT");
+		attribute = new ElemAttribute("sourceLevel", "Integer",
+				AttributeType.OPERATION, "Source Level", "", 1, false,
+				new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "#sourceLevel#all#",
+				"");
+		directSGGRSemEdge.putSemanticAttribute("sourceLevel", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(directSGGRSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(directSGGRSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+
+		directSGGRSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
+		directSGGRSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
+		// directSGGRSemEdge.addPanelVisibleAttribute("08#" +
+		// "sourceLevel");
+
+		attribute = new ElemAttribute("AggregationLow", "Integer",
+				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 7,
+				"", "", 7, "[#" + "AggregationLow" + "#all#..",
+				"AggregationHigh" + "#!=#" + "0");
+		directSGGRSemEdge.putSemanticAttribute("AggregationLow", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(directSGGRSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(directSGGRSemEdge
+				.getIdentifier(), attribute.getName(), true));
+
+		directSGGRSemEdge.addPropEditableAttribute("07#" + "AggregationLow");
+
+		directSGGRSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
+
+		attribute = new ElemAttribute("AggregationHigh", "Integer",
+				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 8,
+				"", "", 8, "#" + "AggregationHigh" + "#all#]\n",
+				"AggregationHigh" + "#!=#" + "0");
+		directSGGRSemEdge.putSemanticAttribute("AggregationHigh", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(directSGGRSemEdge
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(directSGGRSemEdge
+				.getIdentifier(), attribute.getName(), true));
+
+		directSGGRSemEdge.addPropEditableAttribute("08#" + "AggregationHigh");
+
+		directSGGRSemEdge.addPropVisibleAttribute("08#" + "AggregationHigh");
+
+		InstConcept instSgsgSGR = new InstConcept("SgFromOT",
+
+		metaMetaPairwiseRelation, directSGGRSemEdge);
+
+		refas.getVariabilityVertex().put("SgFromOT", instSgsgSGR);
+
+		// extends
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sgsggrtoip", instEdge);
+		instEdge.setIdentifier("sgsggrtoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instSgsgGRSG, true);
+
+		// extends
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sggrtogr", instEdge);
+		instEdge.setIdentifier("sggrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexSGGR, true);
+
+		// From SG to group
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sgsgSGR-SGsgsg", instEdge);
+		instEdge.setIdentifier("sgsgSGR-SGsgsg");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instSgsgSGR, true);
+		instEdge.setSourceRelation(instVertexSG, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sgsgSGR-sgsgSG", instEdge);
+		instEdge.setIdentifier("sgsgSGR-sgsgSG");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexSGGR, true);
+		instEdge.setSourceRelation(instSgsgSGR, true);
+
+		// From group to SG
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("SGGRtosg-GRsgsgGR", instEdge);
+		instEdge.setIdentifier("SGGRtosg-GRsgsgGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instSgsgGRSG, true);
+		instEdge.setSourceRelation(instVertexSGGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("SGGRtosg-SGsgsgSG", instEdge);
+		instEdge.setIdentifier("SGGRtosg-SGsgsgSG");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexSG, true);
+		instEdge.setSourceRelation(instSgsgGRSG, true);
+
+		// FIX for SG to SG relations
+		ia = instVertexSGGR.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"and#and#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"or#or#false#true#true#1#-1#1#1"));
+
+		ia = instVertexSGGR.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexSG,
+				instSgsgSGR, "ClaimExpLevel", "sourceLevel");
+
+		t1 = new OpersExpr("sub1", refas.getSemanticExpressionTypes()
+				.get("And"), ExpressionVertexType.LEFTITERINCFIXEDSUBEXP,
+				instSgsgSGR, instDirSGSGSemanticEdge, t1, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexSGGR,
+				instVertexSG, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexSG,
+				instSgsgSGR, "ClaimExpLevel", "sourceLevel");
+
+		t1 = new OpersExpr("sub1", refas.getSemanticExpressionTypes()
+				.get("And"), ExpressionVertexType.LEFTITERINCFIXEDSUBEXP,
+				instSgsgSGR, instDirSGSGSemanticEdge, t1, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexSGGR,
+				instVertexSG, t1, "Core");
+
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexSG,
+				instSgsgSGR, "ClaimExpLevel", "sourceLevel");
+
+		t1 = new OpersExpr("sub1",
+				refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTITERINCFIXEDSUBEXP, instSgsgSGR,
+				instDirSGSGSemanticEdge, t1, "FalseVal");
+
+		t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexSGGR, instVertexSG, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		OpersConcept directCVCGSemanticEdge = new OpersConcept("VaClPW");
+		InstConcept instDirCVCGSemanticEdge = new InstConcept("VaClPW",
+				metaMetaPairwiseRelation, directCVCGSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("svcgtoip", instEdge);
+		instEdge.setIdentifier("svcgtoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirCVCGSemanticEdge, true);
+
+		ia = instDirCVCGSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		ias.add(new InstAttribute("Variable Context", new ElemAttribute(
+				"Variable Context", StringType.IDENTIFIER,
+				AttributeType.OPTION, false, "Variable Context", "", "", 1, -1,
+				"", "", -1, "", ""),
+				"Variable Context##false#true#true#1#-1#1#1"));
+
+		ia = instDirCVCGSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		ias.add(new InstAttribute("Variable Context", new ElemAttribute(
+				"Variable Context", StringType.IDENTIFIER,
+				AttributeType.OPTION, false, "Variable Context", "", "", 1, -1,
+				"", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("VaClPW", instDirCVCGSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("CVCGPWAsso-OOGR", instEdge);
+		instEdge.setIdentifier("CVCGPWAsso-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexCG, true);
+		instEdge.setSourceRelation(instDirCVCGSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("CVCGPWAsso-OGRO", instEdge);
+		instEdge.setIdentifier("CVCGPWAsso-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirCVCGSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexVAR, true);
+
+		// Oper to Claim
+
+		attribute = new ElemAttribute("AggregationLow", "Integer",
+				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
+				"", "", 3, "[#" + "AggregationLow" + "#all#..",
+				"AggregationHigh" + "#!=#" + "0");
+		semanticOperClaimGroupRelation.putSemanticAttribute("AggregationLow",
+				attribute);
+		semanticOperClaimGroupRelation.addPropEditableAttribute("03#"
+				+ "AggregationLow");
+		semanticOperClaimGroupRelation.addPropVisibleAttribute("03#"
+				+ "AggregationLow");
+
+		attribute = new ElemAttribute("AggregationHigh", "Integer",
+				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 4,
+				"", "", 4, "#" + "AggregationHigh" + "#all#]\n",
+				"AggregationHigh" + "#!=#" + "0");
+		semanticOperClaimGroupRelation.putSemanticAttribute("AggregationHigh",
+				attribute);
+		semanticOperClaimGroupRelation.addPropEditableAttribute("04#"
+				+ "AggregationHigh");
+		semanticOperClaimGroupRelation.addPropVisibleAttribute("04#"
+				+ "AggregationHigh");
+
+		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
+		// semanticVertices.add(semClaim);
+
+		ia = instVertexCLGR.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"and#and#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"or#or#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"mutex#mutex#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"range#range#false#true#true#1#-1#1#1"));
+
+		ia = instVertexCLGR.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Core", "Core");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexHHGR, instVertexOper, "Sel", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
+				instVertexOper, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexHHGR, instVertexOper, "Core", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
+				instVertexOper, t1, "Core");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ORhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexHHGR, instVertexOper, "Sel", true, "FalseVal");
+
+		t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexCLGR, instVertexOper, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("MUTEXhardConcept", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOper, "Sel", 0);
+
+		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexCLGR, instVertexOper, t1, 1);
+
+		t1 = new OpersExpr("MUTEXhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), instVertexHC, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOper, "Sel", 0);
+
+		t1 = new OpersExpr("MUTEXrestr", refas.getSemanticExpressionTypes()
+				.get("LessEquals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
+				instVertexOper, t1, 1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("RANGEhardConcept", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexCLGR, instVertexOper, null, "Sel", "FalseVal", true);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOper, t2, instVertexCLGR, "LowRange");
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexCLGR, instVertexOper, null, "Sel", "FalseVal", true);
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOper, t2, instVertexCLGR, "HighRange");
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
+				t1, t2);
+
+		t1 = new OpersExpr("RANGEHardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), instVertexCLGR, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("OperClOT", instVertexCLGR);
+
+		OpersConcept directOperClaimToSemanticEdge = new OpersConcept(
+				"OperClToPW");
+
+		attribute = new ElemAttribute("outCl", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directOperClaimToSemanticEdge.putSemanticAttribute("outCl", attribute);
+		sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directOperClaimToSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directOperClaimToSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directOperClaimToSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directOperClaimToSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directOperClaimToSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directOperClaimToSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+
+		InstConcept instDirOperClaimToSemanticEdge = new InstConcept(
+				"OperClToPW", metaMetaPairwiseRelation,
+				directOperClaimToSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ocltoip", instEdge);
+		instEdge.setIdentifier("ocltoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirOperClaimToSemanticEdge, true);
+
+		ia = instDirOperClaimToSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
+				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+
+		ia = instDirOperClaimToSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexCLGR,
+				instVertexCL, "Sel", "ConditionalExpression");
+
+		t1 = new OpersExpr("OPERCLSelected", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
+				"Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("OPERCLNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexCLGR,
+				instVertexCL, "Exclu", "Exclu");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("operToClaim", new ElemAttribute(
+				"operToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "operToClaim", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		refas.getVariabilityVertex().put("OperClToPW",
+				instDirOperClaimToSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("clgrtogr", instEdge);
+		instEdge.setIdentifier("clgrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexCLGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("OperClaimToPWAsso-OOGR", instEdge);
+		instEdge.setIdentifier("OperClaimToPWAsso-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexCL, true);
+		instEdge.setSourceRelation(instDirOperClaimToSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("OperClaimToPWAsso-OGRO", instEdge);
+		instEdge.setIdentifier("OperClaimToPWAsso-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirOperClaimToSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexCLGR, true);
+
+		OpersConcept directOperClaimFromSemanticEdge = new OpersConcept(
+				"OperClFromPW");
+
+		InstConcept instDirOperClaimFromSemanticEdge = new InstConcept(
+				"OperClFromPW", metaMetaPairwiseRelation,
+				directOperClaimFromSemanticEdge);
+		refas.getVariabilityVertex().put("OperClFromPW",
+				instDirOperClaimFromSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("oclftoip", instEdge);
+		instEdge.setIdentifier("oclftoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirOperClaimFromSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges()
+				.put("OperClaimFromPWAsso-OOGR", instEdge);
+		instEdge.setIdentifier("OperClaimFromPWAsso-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexCLGR, true);
+		instEdge.setSourceRelation(instDirOperClaimFromSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges()
+				.put("OperClaimFromPWAsso-OGRO", instEdge);
+		instEdge.setIdentifier("OperClaimFromPWAsso-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirOperClaimFromSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexOper, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("OperClaimPWAsso-OOGR", instEdge);
+		instEdge.setIdentifier("OperClaimPWAsso-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexCL, true);
+		instEdge.setSourceRelation(instDirOperClaimSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("OperClaimPWAsso-OGRO", instEdge);
+		instEdge.setIdentifier("OperClaimPWAsso-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirOperClaimSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexOper, true);
+
+		// LFeat to Claim
+		OpersConcept semanticLFClaimGroupRelation = new OpersConcept(
+				"LFtoClaimOTAsso"); // hardSemOverTwoRelList);
+
+		InstConcept instVertexLFCLGR = new InstConcept("LfClOT",
+				semanticLFClaimGroupRelation, metaMetaInstOverTwoRel);
+
+		refas.getVariabilityVertex().put("LfClOT", instVertexLFCLGR);
+
+		OpersConcept directFClaimToSemanticEdge = new OpersConcept("FeClToPW");
+
+		InstConcept instDirFClaimToSemanticEdge = new InstConcept("FeClToPW",
+				metaMetaPairwiseRelation, directFClaimToSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("lftcltoip", instEdge);
+		instEdge.setIdentifier("lftcltoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirFClaimToSemanticEdge, true);
+
+		ia = instDirFClaimToSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
+				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+
+		ia = instDirFClaimToSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexLFCLGR, instVertexCL, "Sel", "ConditionalExpression");
+
+		t1 = new OpersExpr("OPERCLSelected", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
+				"Sel", true, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("OPERCLNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexLFCLGR, instVertexCL, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
+
+		refas.getVariabilityVertex().put("FeClToPW",
+				instDirFClaimToSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("fctogr", instEdge);
+		instEdge.setIdentifier("fctogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexLFCLGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("FClaimToPWAsso-OOGR", instEdge);
+		instEdge.setIdentifier("FClaimToPWAsso-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexCL, true);
+		instEdge.setSourceRelation(instDirFClaimToSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("FClaimToPWAsso-OGRO", instEdge);
+		instEdge.setIdentifier("FClaimToPWAsso-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirFClaimToSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexLFCLGR, true);
+
+		OpersConcept directFClaimFromSemanticEdge = new OpersConcept(
+				"FeClFromPW");
+
+		InstConcept instDirFClaimFromSemanticEdge = new InstConcept(
+				"FeClFromPWo", metaMetaPairwiseRelation,
+				directFClaimFromSemanticEdge);
+		refas.getVariabilityVertex().put("FeClFromPW",
+				instDirFClaimFromSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("fclftoip", instEdge);
+		instEdge.setIdentifier("fclftoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirFClaimFromSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("FClaimFromPWAsso-OOGR", instEdge);
+		instEdge.setIdentifier("FClaimFromPWAsso-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexLFCLGR, true);
+		instEdge.setSourceRelation(instDirFClaimFromSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("FClaimFromPWAsso-OGRO", instEdge);
+		instEdge.setIdentifier("FClaimFromPWAsso-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirFClaimFromSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexCL, true);
+
+		OpersConcept directLFClaimSemanticEdge = new OpersConcept("LfClPW");
+
+		InstConcept instDirLFClaimSemanticEdge = new InstConcept("LfClPW",
+				metaMetaPairwiseRelation, directLFClaimSemanticEdge);
+		refas.getVariabilityVertex().put("LfClPW", instDirLFClaimSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("lfcltoip", instEdge);
+		instEdge.setIdentifier("lfcltoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirLFClaimSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("LFClaimPWAsso-OOGR", instEdge);
+		instEdge.setIdentifier("LFClaimPWAsso-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexCL, true);
+		instEdge.setSourceRelation(instDirLFClaimSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("LFClaimPWAsso-OGRO", instEdge);
+		instEdge.setIdentifier("LFClaimPWAsso-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirLFClaimSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexF, true);
+
+		// Claim to SG
+
+		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
+		// semanticVertices.add(semSoftgoal);
+		OpersConcept directClaimSGSemanticEdge = new OpersConcept(
+				"ClaimSGPWAsso");
+
+		attribute = new ElemAttribute("outConflClSD", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directClaimSGSemanticEdge.putSemanticAttribute("outConflClSD",
+				attribute);
+		sasverConflSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+
+		attribute = new ElemAttribute("CLSGLevel", "Integer",
+				AttributeType.OPERATION, "Relation Level",
+				"Required level for the Claim (0..4)", 2, false,
+				new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "#CLSGLevel#all#",
+				"");
+		directClaimSGSemanticEdge.putSemanticAttribute("CLSGLevel", attribute);
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+
+		directClaimSGSemanticEdge.addPropEditableAttribute("08#" + "CLSGLevel");
+		directClaimSGSemanticEdge.addPropVisibleAttribute("08#" + "CLSGLevel");
+		// directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
+		// + "CLSGLevel");
+		InstConcept instDirClaimSGSemanticEdge = new InstConcept(
+				"ClaimSGPWAsso", metaMetaPairwiseRelation,
+				directClaimSGSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("clsgtoip", instEdge);
+		instEdge.setIdentifier("clsgtoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirClaimSGSemanticEdge, true);
+
+		ia = instDirClaimSGSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("ClaimToSG", new ElemAttribute("ClaimToSG",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"ClaimToSG", "", "", 1, -1, "", "", -1, "", ""),
+				"ClaimToSG##true#true#true#1#-1#1#1"));
+
+		ia = instDirClaimSGSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirClaimSGSemanticEdge, "ClaimExpLevel", "CLSGLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexCL, "Sel", true, t1);
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"low");
+
+		t1 = new OpersExpr("low: ClaimExpLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirClaimSGSemanticEdge, "ClaimExpLevel", "CLSGLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexCL, "Sel", true, t1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"high");
+
+		t1 = new OpersExpr("high: ClaimExpLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirClaimSGSemanticEdge, "ClaimExpLevel", "CLSGLevel");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexCL, "Sel", true, t1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"close");
+
+		t1 = new OpersExpr("close: ClaimExpLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("ClaimToSG", new ElemAttribute("ClaimToSG",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"ClaimToSG", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("ClaimSGPWAsso",
+				instDirClaimSGSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("CLSGPWAsso-OOGR", instEdge);
+		instEdge.setIdentifier("CLSGPWAsso-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexSG, true);
+		instEdge.setSourceRelation(instDirClaimSGSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("CLSGPWAsso-OGRO", instEdge);
+		instEdge.setIdentifier("CLSGPWAsso-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirClaimSGSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexCL, true);
+
+		// SD to SG
+
+		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
+		// semanticVertices.add(semSoftgoal);
+
+		OpersConcept directSDSGSemanticEdge = new OpersConcept("SdSgPW");
+		attribute = new ElemAttribute("outConflClSD", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directSDSGSemanticEdge.putSemanticAttribute("outConflClSD", attribute);
+		sasverConflClOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+
+		attribute = new ElemAttribute("level", "Integer",
+				AttributeType.OPERATION, "Level",
+				"Required level for the SD (0..4)", 1, false, new RangeDomain(
+						0, 4, 0), 0, 8, "", "", 8, "level#all#", "");
+		directSDSGSemanticEdge.putSemanticAttribute("level", attribute);
+
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+
+		directSDSGSemanticEdge.addPropEditableAttribute("08#" + "level");
+		directSDSGSemanticEdge.addPropVisibleAttribute("08#" + "level");
+		// directSDSGSemanticEdge.addPanelVisibleAttribute("08#" + "level");
+
+		InstConcept instDirSDSGSemanticEdge = new InstConcept("SdSgPW",
+
+		metaMetaPairwiseRelation, directSDSGSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sdsgtoip", instEdge);
+		instEdge.setIdentifier("sdsgtoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirSDSGSemanticEdge, true);
+
+		ia = instDirSDSGSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("SD", new ElemAttribute("SD",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
+				"", 1, -1, "", "", -1, "", ""), "SD##true#true#true#1#-1#1#1"));
+
+		ia = instDirSDSGSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		// t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+		// "DoubleImplies"),
+		// ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		// ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSD,
+		// instDirSDSGSemanticEdge, "Sel", "outSdSg");
+		//
+		// semanticExpressions.add(t1);
+		// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSDSGSemanticEdge, "SDReqLevel", "level");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSD, "Sel", true, t1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSDSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"low");
+
+		t1 = new OpersExpr("low: SDReqLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionRelaxable.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSDSGSemanticEdge, "SDReqLevel", "level");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSD, "Sel", true, t1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSDSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"high");
+
+		t1 = new OpersExpr("high: SDReqLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionRelaxable.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexSG,
+				instDirSDSGSemanticEdge, "SDReqLevel", "level");
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSD, "Sel", true, t1);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSDSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"close");
+
+		t1 = new OpersExpr("close: SDReqLevel", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		// sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionRelaxable.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("SDSelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexCL,
+				instVertexCL, "Sel", "ConditionalExpression");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		// sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("SD", new ElemAttribute("SD",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("SdSgPW", instDirSDSGSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("SDSGPWAsso-OOGR", instEdge);
+		instEdge.setIdentifier("SDSGPWAsso-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexSG, true);
+		instEdge.setSourceRelation(instDirSDSGSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("SDSGPWAsso-OGRO", instEdge);
+		instEdge.setIdentifier("SDSGPWAsso-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirSDSGSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexSD, true);
+
+		// Asset to Asset
+
+		OpersConcept semanticAssetAssetOvertwoRel = new OpersConcept("AssetOT");// hardSemOverTwoRelList);
+
+		attribute = new ElemAttribute("AggregationLow", "Integer",
+				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
+				"", "", 3, "[#" + "AggregationLow" + "#all#..",
+				"AggregationHigh" + "#!=#" + "0");
+		semanticAssetAssetOvertwoRel.putSemanticAttribute("AggregationLow",
+				attribute);
+		semanticAssetAssetOvertwoRel.addPropEditableAttribute("03#"
+				+ "AggregationLow");
+		semanticAssetAssetOvertwoRel.addPropVisibleAttribute("03#"
+				+ "AggregationLow");
+
+		attribute = new ElemAttribute("AggregationHigh", "Integer",
+				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 4,
+				"", "", 4, "#" + "AggregationHigh" + "#all#]\n",
+				"AggregationHigh" + "#!=#" + "0");
+		semanticAssetAssetOvertwoRel.putSemanticAttribute("AggregationHigh",
+				attribute);
+		semanticAssetAssetOvertwoRel.addPropEditableAttribute("04#"
+				+ "AggregationHigh");
+		semanticAssetAssetOvertwoRel.addPropVisibleAttribute("04#"
+				+ "AggregationHigh");
+
+		InstConcept instVertexASSETGR = new InstConcept("AssetOT",
+				semanticAssetAssetOvertwoRel, metaMetaInstOverTwoRel);
+
+		refas.getVariabilityVertex().put("AssetOT", instVertexASSETGR);
+
+		InstConcept instAssetassetASGR = new InstConcept("AssetToOT",
+				metaMetaPairwiseRelation);
+		refas.getVariabilityVertex().put("AssetToOT", instAssetassetASGR);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("agrtogr", instEdge);
+		instEdge.setIdentifier("agrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexASSETGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ASSETGRtoassetA-AGR", instEdge);
+		instEdge.setIdentifier("ASSETGRtoassetA-AGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexAsset, true);
+		instEdge.setSourceRelation(instAssetassetASGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ASSETGRtoassetAGR-GR", instEdge);
+		instEdge.setIdentifier("ASSETGRtoassetAGR-GR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instAssetassetASGR, true);
+		instEdge.setSourceRelation(instVertexASSETGR, true);
+
+		InstConcept instAssetassetGRAS = new InstConcept("AssetFromOT",
+				metaMetaPairwiseRelation);
+		refas.getVariabilityVertex().put("AssetFromOT", instAssetassetGRAS);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("assettoAssetGR-AGR-A", instEdge);
+		instEdge.setIdentifier("assettoAssetGR-AGR-A");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instAssetassetGRAS, true);
+		instEdge.setSourceRelation(instVertexAsset, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("assettoAssetGR-GR-AGR", instEdge);
+		instEdge.setIdentifier("assettoAssetGR-GR-AGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexASSETGR, true);
+		instEdge.setSourceRelation(instAssetassetGRAS, true);
+
+		// Asset to Oper
+		// TODO use list of possible relations
+		OpersConcept semanticAssetOperGroupRelation = new OpersConcept(
+				"AssetOperOT");// hardSemOverTwoRelList);
+
+		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
+		// semanticVertices.add(semOperationalization);
+
+		InstConcept instVertexOPERGR = new InstConcept("AssetOperOT",
+				semanticAssetOperGroupRelation, metaMetaInstOverTwoRel);
+
+		refas.getVariabilityVertex().put("AssetOperOT", instVertexOPERGR);
+
+		InstConcept instAssetOperAOGR = new InstConcept("AssetOperToOT",
+				metaMetaPairwiseRelation);
+		refas.getVariabilityVertex().put("AssetOperToOT", instAssetOperAOGR);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("opgrtogr", instEdge);
+		instEdge.setIdentifier("opgrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexOPERGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("aogrtogr", instEdge);
+		instEdge.setIdentifier("aogrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instAssetOperAOGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("assettoOperGR-AAOGR", instEdge);
+		instEdge.setIdentifier("assettoOperGR-AAOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instAssetOperAOGR, true);
+		instEdge.setSourceRelation(instVertexAsset, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("assettoOperGR-AOGRGR", instEdge);
+		instEdge.setIdentifier("assettoOperGR-AOGRGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexOPERGR, true);
+		instEdge.setSourceRelation(instAssetOperAOGR, true);
+
+		ia = instVertexOPERGR.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"and#and#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"or#or#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"mutex#mutex#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"range#range#false#true#true#1#-1#1#1"));
+
+		ia = instVertexOPERGR.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instVertexOPERGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instVertexOPERGR, "Core", "Core");
+
+		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+
+		// updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, "Sel", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
+				instVertexOper, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, "Core", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
+				instVertexOper, t1, "Core");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ORhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
+				instVertexOPERGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, "Sel", true, "FalseVal");
+
+		t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOPERGR, instVertexAsset, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("MUTEXhardConcept", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
+				instVertexOPERGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexAsset, "Sel", 0);
+
+		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOPERGR, instVertexAsset, t1, 1);
+
+		t1 = new OpersExpr("MUTEXhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), instVertexF, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexAsset, "Sel", 0);
+
+		t1 = new OpersExpr("MUTEXrestric", refas.getSemanticExpressionTypes()
+				.get("LessOrEquals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
+				instVertexAsset, t1, 1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("RANGEhardConcept", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
+				instVertexOPERGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
+				true);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOPERGR, t1, instVertexAsset, "LowRange");
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
+				true);
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOPERGR, t2, instVertexAsset, "HighRange");
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
+				t1, t2);
+
+		t1 = new OpersExpr("RANGEHardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), instVertexOPERGR, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		ia = instVertexOPERGR.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"and#and#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"or#or#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "XOR", "",
+				"", 1, -1, "", "", -1, "", ""),
+				"mutex#mutex#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""),
+				"range#range#false#true#true#1#-1#1#1"));
+
+		ia = instVertexOPERGR.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instVertexOPERGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("ANDhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+				instVertexOPERGR, "Core", "Core");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, "Sel", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
+				instVertexOper, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, "Core", true, "TrueVal");
+
+		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
+				instVertexOper, t1, "Core");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("and", new ElemAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("ORhardConcept", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
+				instVertexOPERGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, "Sel", true, "False");
+
+		t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOPERGR, instVertexAsset, t1, "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("or", new ElemAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				"", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("MUTEXhardConcept", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
+				instVertexOPERGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexAsset, "Sel", 0);
+
+		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOPERGR, instVertexAsset, t1, 1);
+
+		t1 = new OpersExpr("MUTEXhardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), instVertexF, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexAsset, "Sel", 0);
+
+		t1 = new OpersExpr("MUTEXrestric", refas.getSemanticExpressionTypes()
+				.get("LessOrEquals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
+				instVertexAsset, t1, 1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("RANGEhardConcept", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
+				instVertexOPERGR, "Sel", "Sel");
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
+				true);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOPERGR, t2, instVertexAsset, "LowRange");
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
+				true);
+
+		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexOPERGR, t2, instVertexAsset, "HighRange");
+
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
+				t1, t3);
+
+		t1 = new OpersExpr("RANGEHardRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"), instVertexOPERGR, "Sel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		ias.add(new InstAttribute("range", new ElemAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		OpersConcept groupAssetOperSemanticEdge = new OpersConcept(
+				"AssetOperFromOT");
+
+		attribute = new ElemAttribute("outConflSG", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		groupAssetOperSemanticEdge
+				.putSemanticAttribute("outConflSG", attribute);
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				groupAssetOperSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				groupAssetOperSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+
+		attribute = new ElemAttribute("outStructVal", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		groupAssetOperSemanticEdge.putSemanticAttribute("outStructVal",
+				attribute);
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				groupAssetOperSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				groupAssetOperSemanticEdge.getIdentifier(),
+				attribute.getName(), true));
+
+		InstConcept instAssetOperGRAO = new InstConcept("AssetOperFromOT",
+				metaMetaPairwiseRelation, groupAssetOperSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("aofottoip", instEdge);
+		instEdge.setIdentifier("aofottoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instAssetOperGRAO, true);
+
+		ia = instAssetOperGRAO.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
+				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+
+		ia = instAssetOperGRAO.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("IMPSelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexOPERGR, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("IMPNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexOPERGR, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexOPERGR, "structVal", 1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexAsset, "structVal", true, t1);
+
+		semExpr.add(t1);
+		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("AssetOperFromOT", instAssetOperGRAO);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("OPERGRtooper-OOGR", instEdge);
+		instEdge.setIdentifier("OPERGRtooper-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexOper, true);
+		instEdge.setSourceRelation(instAssetOperGRAO, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("OPERGRtooper-OGRO", instEdge);
+		instEdge.setIdentifier("OPERGRtooper-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instAssetOperGRAO, true);
+		instEdge.setSourceRelation(instVertexOPERGR, true);
+
+		OpersConcept directAssetOperSemanticEdge = new OpersConcept(
+				"AssetOperPW");
+
+		attribute = new ElemAttribute("outStructVal", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directAssetOperSemanticEdge.putSemanticAttribute("outStructVal",
+				attribute);
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				directAssetOperSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directAssetOperSemanticEdge.getIdentifier(), attribute
+						.getName(), true));
+
+		InstConcept instDirAssetOperSemanticEdge = new InstConcept(
+				"AssetOperPW", metaMetaPairwiseRelation,
+				directAssetOperSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("aoptoip", instEdge);
+		instEdge.setIdentifier("aoptoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instInfraPair, true);
+		instEdge.setSourceRelation(instDirAssetOperSemanticEdge, true);
+
+		ia = instDirAssetOperSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
+				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+
+		ia = instDirAssetOperSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t1 = new OpersExpr("IMPSelected", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexOPERGR, instVertexOper, "Sel", "Sel");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("IMPNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexOPERGR, instVertexOper, "Exclu", "Exclu");
+
+		semExpr.add(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexOper,
+				"structVal", 1);
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexOPERGR, "structVal", true, t1);
+
+		semExpr.add(t1);
+		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
+		refas.getVariabilityVertex().put("AssetOperPW",
+				instDirAssetOperSemanticEdge);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("AssetOperPW-OOGR", instEdge);
+		instEdge.setIdentifier("AssetOperPW-OOGR");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instVertexOper, true);
+		instEdge.setSourceRelation(instDirAssetOperSemanticEdge, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("AssetOperPW-OGRO", instEdge);
+		instEdge.setIdentifier("AssetOperPW-OGRO");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instDirAssetOperSemanticEdge, true);
+		instEdge.setSourceRelation(instVertexAsset, true);
+
+	}
+
+	private static void createREFASMetaModelElement(ModelInstance refas) {
+		ArrayList<OpersExpr> semExpr = new ArrayList<OpersExpr>();
+
+		ElemAttribute attribute = null;
+
+		OpersConcept refasModel = new OpersConcept("REFAS");
+
+		attribute = new ElemAttribute("TotalOrder", "Integer",
+				AttributeType.EXECCURRENTSTATE, "***TotalOrder***", "", 0,
+				false, new RangeDomain(0, 2000, 0), 2, -1, "", "", -1, "", "");
+		// simulationExecOperUniqueLabeling.addAttribute(new
+		// OpersIOAttribute(
+		// refasModel.getIdentifier(), attribute.getName(), true));
+		refasModel.putSemanticAttribute("TotalOrder", attribute);
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		simsceExecOperLab2.setSemanticExpressions(semExpr);
+
+		InstConcept instRefasModel = null;
+		instRefasModel = new InstConcept("REFAS", metaMetaModel, refasModel);
+		refas.getVariabilityVertex().put("REFAS", instRefasModel);
+
+		OpersExpr t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
+				instVertexSG, "Sel", 0);
+
+		t1 = new OpersExpr("max soft goals", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
+				instRefasModel, instVertexSG, t1, 0);
+
+		semExpr.add(t1); // FIXME not used
+
+		// ----------------------
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		refasModel.setSemanticExpressions(semExpr);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instVertexGE,
+				"NPrefSel", 0);
+
+		t1 = new OpersExpr("prefSel <=1", refas.getSemanticExpressionTypes()
+				.get("LessOrEquals"),
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
+				instVertexGE, t1, 1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instVertexF,
+				"IsRootFeature", 0);
+
+		t1 = new OpersExpr("Roots", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
+				instVertexF, instVertexF, t1, 1);
+
+		verifRootSubOperVeri.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
+				.get("Prod"), ExpressionVertexType.LEFTITERANYCONVARIABLE,
+				instVertexF, "HasParent", 1);
+
+		t1 = new OpersExpr("Parents", refas.getSemanticExpressionTypes().get(
+				"Less"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexF, instVertexF, t1, 1);
+
+		// verifParentsOperSubActionVerification.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE, instVertexGE,
+				"Core", 0);
+
+		t1 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexGE, instRefasModel, t1, "TotalOrder");
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		// --------------------------
+		semExpr = new ArrayList<OpersExpr>(); // FIXME not used
+
+		simulExecOperUniLab.setSemanticExpressions(semExpr);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instVertexGE,
+				"Order", 0);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instVertexGE,
+				"Opt", 0);
+
+		semExpr.add(t1);
+
+		semExpr = new ArrayList<OpersExpr>(); // FIXME not used
+
+		simsceExecOperLab2.setSemanticExpressions(semExpr);
+
+		t1 = new OpersExpr("OrderLab...", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
+				instVertexSG, "Sel", 0);
+
+		semExpr.add(t1);
 	}
 }

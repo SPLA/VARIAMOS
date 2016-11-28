@@ -95,7 +95,7 @@ public class ModelExpr implements Serializable {
 
 	private int size = 0;
 	private ModelInstance refas;
-	private int instance = -1;
+	private int expressionInstance = -1;
 
 	public String getLastLeft() {
 		return lastLeft;
@@ -131,7 +131,7 @@ public class ModelExpr implements Serializable {
 	public ModelExpr(boolean customExpression, String id, boolean first,
 			int instance) {
 		this.customExpression = customExpression;
-		this.instance = instance;
+		this.expressionInstance = instance;
 		if (customExpression) {
 			customSemanticExpression = new OpersExpr(id);
 			semanticExpressionId = id;
@@ -730,8 +730,8 @@ public class ModelExpr implements Serializable {
 
 		if (expInstElement != null && expAttributeName != null) {
 			int appInstance = -1;
-			if (instance > -1)
-				appInstance = instance;
+			if (expressionInstance > -1)
+				appInstance = expressionInstance;
 			if (iterInstance > -1)
 				appInstance = iterInstance;
 			String fullIdentifier = expInstElement
@@ -746,7 +746,7 @@ public class ModelExpr implements Serializable {
 					expAttributeName);
 			InstAttribute att = expInstElement
 					.getInstAttribute(expAttributeName);
-			if (instance > -1)
+			if (expressionInstance > -1)
 				att = att.getAdditionalAttribute(pos);
 			ElemAttribute attribute = att.getAttribute();
 			// Specifically for Variables
@@ -1175,11 +1175,11 @@ public class ModelExpr implements Serializable {
 									pos + 1, -1));
 					}
 				} else {
-					if (getSemanticExpression().getLeftSemanticElement() != null) {
+					if (getSemanticExpression().getLeftSemanticElement() != null
+							&& elements != null) {
 						elemetType = getSemanticExpression()
 								.getLeftSemanticElement().getIdentifier();
-						leftInstElement = refas.getVariabilityVertexMC(
-								elemetType).get(pos);
+						leftInstElement = elements.get(pos);
 						if (iterInstance + 2 < leftInstElement
 								.getInstances(refas)) {
 							out.add(leftInstanceExpression.createExpression(
@@ -1698,11 +1698,11 @@ public class ModelExpr implements Serializable {
 				out += rightValue;
 				break;
 			case LEFTVARIABLE:
-				out += this.getLeftInstElementId();
-				out += getLeftAttributeName();
+				out += this.getLeftInstElementId() + ":";
+				out += getLeftAttributeName() + " ";
 				break;
 			case RIGHTVARIABLE:
-				out += getRightAttributeName();
+				out += getRightAttributeName() + " ";
 
 				break;
 			case LEFTSUBEXPRESSION:
@@ -1715,7 +1715,8 @@ public class ModelExpr implements Serializable {
 			case LEFTBOOLEANEXPRESSION:
 				break;
 			case LEFTCONCEPTVARIABLE:
-				out += getLeftAttributeName();
+				out += this.getLeftInstElementId() + ":";
+				out += getLeftAttributeName() + " ";
 				break;
 			case LEFTITERANYCONVARIABLE:
 				out += getLeftAttributeName();
@@ -1744,14 +1745,17 @@ public class ModelExpr implements Serializable {
 				break;
 			case LEFTITERINCRELFIXEDVARIABLE:
 
+				out += this.getLeftInstElementId() + ":";
 				out += getLeftAttributeName();
 				break;
 			case LEFTITERINCRELVARIABLE:
 
+				out += this.getLeftInstElementId() + ":";
 				out += getLeftAttributeName();
 				break;
 			case LEFTITEROUTCONFIXEDVARIABLE:
 
+				out += this.getLeftInstElementId() + ":";
 				out += getLeftAttributeName();
 				break;
 			case LEFTITEROUTCONVARIABLE:
@@ -1787,6 +1791,7 @@ public class ModelExpr implements Serializable {
 			case RIGHTBOOLEANEXPRESSION:
 				break;
 			case RIGHTCONCEPTVARIABLE:
+				out += this.getRightInstElementId() + ":";
 				out += getRightAttributeName();
 				break;
 			case RIGHTMODELVARS:
@@ -1797,18 +1802,22 @@ public class ModelExpr implements Serializable {
 				break;
 			case RIGHTUNIQUEINCCONVARIABLE:
 
+				out += this.getRightInstElementId() + ":";
 				out += getRightAttributeName();
 				break;
 			case RIGHTUNIQUEINCRELVARIABLE:
 
+				out += this.getRightInstElementId() + ":";
 				out += getRightAttributeName();
 				break;
 			case RIGHTUNIQUEOUTCONVARIABLE:
 
+				out += this.getRightInstElementId() + ":";
 				out += getRightAttributeName();
 				break;
 			case RIGHTUNIQUEOUTRELVARIABLE:
 
+				out += this.getRightInstElementId() + ":";
 				out += getRightAttributeName();
 				break;
 			default:
@@ -1828,7 +1837,7 @@ public class ModelExpr implements Serializable {
 
 	public void createFromSemanticExpression(InstElement instElement, int pos,
 			int sourceInstance, int iterInstance) {
-		this.instance = sourceInstance;
+		this.expressionInstance = sourceInstance;
 		ExpressionVertexType type = volatileSemanticExpression
 				.getLeftExpressionType();
 
