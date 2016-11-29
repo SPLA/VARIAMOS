@@ -809,7 +809,11 @@ public class ModelExpr implements Serializable {
 				|| attribute.getName().equals("ClaimExpLevel")) {
 			String configdomain = "";
 			Set<Integer> values = new HashSet<Integer>();
-			if (((InstConcept) instVertex).getInstAttribute("ConfigReqLevel") != null
+			if (((InstConcept) instVertex).getInstAttribute("Required") != null
+					&& ((InstConcept) instVertex)
+							.getInstAttribute("ConfigReqLevel") != null
+					&& ((InstConcept) instVertex).getInstAttribute("Required")
+							.getAsBoolean()
 					&& ((InstConcept) instVertex).getInstAttribute(
 							"ConfigReqLevel").getAsInteger() != 5)
 				values.add(((InstConcept) instVertex).getInstAttribute(
