@@ -1134,7 +1134,8 @@ public class ModelExpr implements Serializable {
 						out.add(leftInstanceExpression.createExpression(
 								pos + 1, -1));
 				} else {
-					if (getSemanticExpression().getLeftSemanticElement() != null) {
+					if (getSemanticExpression().getLeftSemanticElement() != null
+							&& elements != null) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -1193,7 +1194,8 @@ public class ModelExpr implements Serializable {
 						out.add(leftInstanceExpression.createExpression(
 								pos + 1, -1));
 				} else {
-					if (getSemanticExpression().getLeftSemanticElement() != null) {
+					if (getSemanticExpression().getLeftSemanticElement() != null
+							&& elements != null) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -1229,7 +1231,8 @@ public class ModelExpr implements Serializable {
 						out.add(leftInstanceExpression.createExpression(
 								pos + 1, -1));
 				} else {
-					if (getSemanticExpression().getLeftSemanticElement() != null) {
+					if (getSemanticExpression().getLeftSemanticElement() != null
+							&& elements != null) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -1264,7 +1267,8 @@ public class ModelExpr implements Serializable {
 									pos + 1, -1));
 					}
 				} else {
-					if (getSemanticExpression().getLeftSemanticElement() != null) {
+					if (getSemanticExpression().getLeftSemanticElement() != null
+							&& elements != null) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -1300,7 +1304,8 @@ public class ModelExpr implements Serializable {
 									pos + 1, -1));
 					}
 				} else {
-					if (getSemanticExpression().getLeftSemanticElement() != null) {
+					if (getSemanticExpression().getLeftSemanticElement() != null
+							&& elements != null) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -1338,7 +1343,8 @@ public class ModelExpr implements Serializable {
 									pos + 1, -1));
 					}
 				} else {
-					if (getSemanticExpression().getLeftSemanticElement() != null) {
+					if (getSemanticExpression().getLeftSemanticElement() != null
+							&& elements != null) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
