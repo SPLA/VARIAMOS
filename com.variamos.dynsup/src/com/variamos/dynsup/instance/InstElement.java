@@ -1300,6 +1300,10 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 	}
 
+	// Multi-instances only if the concept has scope or both elements in the
+	// relation has the same scope
+	// TODO support aggregation of multiples scopes - this support a global and
+	// another scope only
 	public int getInstances(ModelInstance refas) {
 		int out = 1;
 		if (getInstAttribute("Scope") != null) {
@@ -1318,16 +1322,25 @@ public abstract class InstElement implements Serializable, Cloneable,
 							"opersExprs");
 			if (ia != null) {
 				InstElement source = getSourceRelations().get(0);
-				if (source.getInstAttribute("Scope") != null) {
+				InstElement target = getTargetRelations().get(0);
+				if (source.getInstAttribute("Scope") != null
+						&& target.getInstAttribute("Scope") != null) {
 					boolean scope = (boolean) source
-							.getInstAttributeValue("Scope");
+							.getInstAttributeValue("Scope")
+							|| (boolean) target.getInstAttributeValue("Scope");
 					if (!scope) {
-						if (source.getInstAttribute("ConcernLevel") != null) {
-							String concernLevel = (String) source
+						if (source.getInstAttribute("ConcernLevel") != null
+								&& target.getInstAttribute("ConcernLevel") != null) {
+							String sourceConcernLevel = (String) source
 									.getInstAttributeValue("ConcernLevel");
-							InstElement concern = refas.getVertex(concernLevel);
-							out = (int) concern
-									.getInstAttributeValue("instances");
+							String targetConcernLevel = (String) source
+									.getInstAttributeValue("ConcernLevel");
+							if (sourceConcernLevel.equals(targetConcernLevel)) {
+								InstElement concern = refas
+										.getVertex(sourceConcernLevel);
+								out = (int) concern
+										.getInstAttributeValue("instances");
+							}
 						}
 					}
 				}

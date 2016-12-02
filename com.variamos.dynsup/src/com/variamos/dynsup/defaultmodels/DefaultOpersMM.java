@@ -4598,6 +4598,28 @@ public class DefaultOpersMM {
 
 		refas.getVariabilityVertex().put("nmMetaOTRel", instVertexGR);
 
+		attribute = new ElemAttribute("Scope", "Boolean",
+				AttributeType.OPERATION, true, "Global Scope", "", true, 0, 5,
+				"", "", -1, "", "");
+		semInfraOTRel.addPropEditableAttribute("05#" + "Scope");
+		semInfraOTRel.addPropVisibleAttribute("05#" + "Scope");
+		semInfraOTRel.putSemanticAttribute("Scope", attribute);
+
+		attribute = new ElemAttribute("ConcernLevel", "Class",
+				AttributeType.OPERATION, false, "Concern Level",
+				"Concern Level of the element (Ignored for operations)",
+
+				InstConcept.class.getCanonicalName(), "CG", null, "", 2, 6, "",
+				"Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
+						+ "#all#>>\n", "Scope" + "#==#" + "false");
+
+		semInfraOTRel.putSemanticAttribute("ConcernLevel", attribute);
+
+		semInfraOTRel.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
+				+ "Scope" + "#==#" + "false" + "#" + "");
+		semInfraOTRel.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
+				+ "Scope" + "#==#" + "false" + "#" + "");
+
 		attribute = new ElemAttribute("TrueVal", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", "",
 				true, 2, -1, "", "", -1, "", "");
@@ -5569,10 +5591,11 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("isConfDom", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configure Domain",
-				"Configured value", 0, 0, 1, "", "variableType" + "#==#"
-						+ "Integer" + "$" + "variableType" + "#==#"
-						+ "Enumeration" + "$" + "variableType" + "#==#"
-						+ "Boolean", -1, "", "", "varConfDom", "", null);
+				"Activate to configure custom domain for the variable", 0, 0,
+				1, "", "variableType" + "#==#" + "Integer" + "$"
+						+ "variableType" + "#==#" + "Enumeration" + "$"
+						+ "variableType" + "#==#" + "Boolean", -1, "", "",
+				"varConfDom", "", null);
 
 		// TODO define multiple conditions
 		semVariable.putSemanticAttribute("isConfDom", attribute);
@@ -5657,8 +5680,8 @@ public class DefaultOpersMM {
 				.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("varConfDom", "String",
-				AttributeType.GLOBALCONFIG, false, "Configured Domain",
-				"Configured domain {n..m,o,p..r} (no spaces)", "", 0, 2,
+				AttributeType.GLOBALCONFIG, false, "Custom Domain",
+				"Configured domain \"n..m,o,p..r\" (no spaces)", "", 0, 2,
 				"isConfDom" + "#==#" + "true#", "", -1, "", "");
 		semVariable.putSemanticAttribute("varConfDom", attribute);
 		semVariable.addPropEditableAttribute("02#" + "varConfDom");
@@ -6171,21 +6194,7 @@ public class DefaultOpersMM {
 				"", "", -1, "", "");
 		semGeneralElement.addPropEditableAttribute("05#" + "Scope");
 		semGeneralElement.addPropVisibleAttribute("05#" + "Scope");
-		// simulationExecOperUniqueLabeling.addAttribute(new
-		// OpersIOAttribute(
-		// semGeneralElement.getIdentifier(), attribute.getName(),
-		// true));
-		// simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-		// semGeneralElement.getIdentifier(), attribute.getName(),
-		// true));
 		semGeneralElement.putSemanticAttribute("Scope", attribute);
-		// simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-		// semGeneralElement.getIdentifier(), attribute.getName(),
-		// true));
-		// simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-		// semGeneralElement.getIdentifier(), attribute.getName(),
-		// true));
-		// TODO use scope
 
 		attribute = new ElemAttribute("ConcernLevel", "Class",
 				AttributeType.OPERATION, false, "Concern Level",
@@ -9443,7 +9452,7 @@ public class DefaultOpersMM {
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
-		t1 = new OpersExpr("MANSelected", refas.getSemanticExpressionTypes()
+		t1 = new OpersExpr("MANnoHighSel", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
 				instDirStructHardHardSemanticEdge, "Sel", "Sel");
