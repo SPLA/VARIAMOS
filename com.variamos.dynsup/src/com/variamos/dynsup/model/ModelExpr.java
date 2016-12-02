@@ -2,7 +2,6 @@ package com.variamos.dynsup.model;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -316,7 +315,7 @@ public class ModelExpr implements Serializable {
 				// System.out.println("EXPRR " + expressionTerms.get(0) + " "
 				// + expressionTerms.get(1) + factoryMethod.getName());
 				// try {
-				// Thread.sleep(100);
+				// Thread.sleep(300);
 				// } catch (InterruptedException e) {
 				// // TODO Auto-generated catch block
 				// e.printStackTrace();
@@ -325,9 +324,9 @@ public class ModelExpr implements Serializable {
 						parameter1.cast(expressionTerms.get(0)),
 						parameter2.cast(expressionTerms.get(1)));
 			}
-		} catch (NoSuchMethodException | SecurityException
-				| IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
+		} catch (Exception e) {
+			ConsoleTextArea.addText("EXPRR " + expressionTerms.get(0) + " "
+					+ expressionTerms.get(1) + factoryMethod.getName());
 			ConsoleTextArea.addText(e.getStackTrace());
 		}
 		return null;
