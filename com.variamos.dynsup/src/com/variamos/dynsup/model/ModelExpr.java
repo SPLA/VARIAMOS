@@ -1150,7 +1150,7 @@ public class ModelExpr implements Serializable {
 					out.add(hlclFactory.number(getSemanticExpression()
 							.getLeftSemanticExpression().getRightNumber()));
 				if (pos == -1 || !iter)
-					out.add(getIdentifier(expressionType, pos, leftIterInstance));
+					out.add(getIdentifier(expressionType, pos, -1));
 				break;
 			case LEFTNUMERICVALUE:
 				out.add(hlclFactory.number(getSemanticExpression()
@@ -1210,8 +1210,7 @@ public class ModelExpr implements Serializable {
 					out.add(hlclFactory.number(getSemanticExpression()
 							.getLeftSemanticExpression().getRightNumber()));
 				if (pos == -1 || !iter)
-					out.add(rightInstanceExpression.createExpression(0,
-							leftIterInstance));
+					out.add(rightInstanceExpression.createExpression(0, -1));
 				break;
 			case RIGHTCONCEPTVARIABLE:
 				if (iter) {
