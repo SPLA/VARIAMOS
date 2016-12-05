@@ -624,9 +624,8 @@ public class ModelExpr2HLCL {
 
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributes().values()) {
-					if (instAttribute.equals("TrueVal")
-							|| instVertex.getInstAttribute("FalseVal")
-									.getAsBoolean())
+					if (instAttribute.getIdentifier().equals("TrueVal")
+							|| instVertex.getIdentifier().equals("FalseVal"))
 						continue;
 					// System.out.println(vertexId + " " + attribute);
 					if (instAttribute.getAttribute() instanceof ElemAttribute
