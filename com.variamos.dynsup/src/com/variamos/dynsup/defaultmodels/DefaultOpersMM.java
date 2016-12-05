@@ -5816,7 +5816,7 @@ public class DefaultOpersMM {
 								false,
 								"Current Instances",
 								"Current active instances of the concepts of this Concern Level",
-								"1", 0, 7, "", "", -1, "", ""));
+								1, 0, 7, "", "", -1, "", ""));
 		semContextGroup.addPropEditableAttribute("07#" + "instances");
 		semContextGroup.addPropVisibleAttribute("07#" + "instances");
 		semContextGroup.putSemanticAttribute("ExtVisible", new ElemAttribute(

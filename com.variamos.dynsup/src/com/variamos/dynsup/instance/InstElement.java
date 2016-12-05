@@ -1312,7 +1312,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 				if (getInstAttribute("ConcernLevel") != null) {
 					String concernLevel = (String) getInstAttributeValue("ConcernLevel");
 					InstElement concern = refas.getVertex(concernLevel);
-					out = (int) concern.getInstAttributeValue("instances");
+					out = Integer.parseInt(((String) concern
+							.getInstAttributeValue("instances")));
 				}
 			}
 		}
