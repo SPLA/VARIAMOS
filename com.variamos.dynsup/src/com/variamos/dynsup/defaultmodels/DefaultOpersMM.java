@@ -9313,20 +9313,20 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				ExpressionVertexType.LEFTITERINCRELFIXEDVARIABLE,
 				instVertexHHGR, instVertexHC, "Sel", true, "FalseVal");
 
 		t1 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCRELVARIABLE,
 				instVertexHHGR, instVertexHC, t1, "LowRange");
 
 		t2 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				ExpressionVertexType.LEFTITERINCRELFIXEDVARIABLE,
 				instVertexHHGR, instVertexHC, "Sel", true, "FalseVal");
 
 		t2 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
-				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCRELVARIABLE,
 				instVertexHHGR, instVertexHC, t2, "HighRange");
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
