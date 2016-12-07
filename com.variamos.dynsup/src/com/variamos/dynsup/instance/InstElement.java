@@ -1312,8 +1312,13 @@ public abstract class InstElement implements Serializable, Cloneable,
 				if (getInstAttribute("ConcernLevel") != null) {
 					String concernLevel = (String) getInstAttributeValue("ConcernLevel");
 					InstElement concern = refas.getVertex(concernLevel);
-					out = Integer.parseInt(((String) concern
-							.getInstAttributeValue("instances")));
+					// FIXME fix the value to remove the validation
+					if (concern.getInstAttributeValue("instances") instanceof String)
+						out = Integer.parseInt(((String) concern
+								.getInstAttributeValue("instances")));
+					else
+						out = (int) concern.getInstAttributeValue("instances");
+
 				}
 			}
 		}
@@ -1321,7 +1326,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 			InstAttribute ia = getTransSupportMetaElement()
 					.getTransInstSemanticElement().getInstAttribute(
 							"opersExprs");
-			if (ia != null) {
+			if (ia != null && getSourceRelations().size() > 0
+					&& getTargetRelations().size() > 0) {
 				InstElement source = getSourceRelations().get(0);
 				InstElement target = getTargetRelations().get(0);
 				if (source.getInstAttribute("Scope") != null

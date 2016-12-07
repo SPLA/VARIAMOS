@@ -717,23 +717,8 @@ public class ModelExpr implements Serializable {
 			expInstElement = this.getRightElement();
 			expAttributeName = getSemanticExpression().getRightAttributeName();
 			break;
-		case RIGHTUNIQUEOUTRELVARIABLE:
-			if (!(volatileRightInstElement instanceof InstConcept))
-				expInstElement = outExpIndirInstElement;
-			else
-				expInstElement = outExpDirInstElement;
-			expAttributeName = getSemanticExpression()
-					.getRightRelAttributeName();
-			break;
-		case RIGHTUNIQUEINCRELVARIABLE:
-			if (!(volatileRightInstElement instanceof InstConcept))
-				expInstElement = incExpIndirInstElement;
-			else
-				expInstElement = incExpDirInstElement;
-			expAttributeName = getSemanticExpression()
-					.getRightRelAttributeName();
-			break;
 		case RIGHTUNIQUEOUTCONVARIABLE:
+		case RIGHTUNIQUEOUTRELVARIABLE:
 			if (volatileRightInstElement instanceof InstConcept)
 				expInstElement = outExpIndirInstElement;
 			else
@@ -741,6 +726,7 @@ public class ModelExpr implements Serializable {
 			expAttributeName = getSemanticExpression().getRightAttributeName();
 			break;
 		case RIGHTUNIQUEINCCONVARIABLE:
+		case RIGHTUNIQUEINCRELVARIABLE:
 			if (volatileRightInstElement instanceof InstConcept)
 				expInstElement = incExpIndirInstElement;
 			else

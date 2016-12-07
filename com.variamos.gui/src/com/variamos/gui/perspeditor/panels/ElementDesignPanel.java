@@ -77,14 +77,14 @@ public class ElementDesignPanel extends JPanel {
 	private JPanel rootPanel2 = new JPanel(new SpringLayout());
 	private JPanel rootPanel3 = new JPanel(new SpringLayout());
 	private JPanel rootPanel4 = new JPanel(new SpringLayout());
-	private int mainPanelWidth = 200;
+	private int mainPanelWidth = 800;
 
 	public ElementDesignPanel() {
 
 		rootPanel1.add(contentPanel1);
 		JPanel dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMaximumSize(new Dimension(300, 300));
+		dummyP.setMaximumSize(new Dimension(600, 300));
 		// rootPanel1.add(dummyP);
 		// SpringUtilities.makeCompactGrid(rootPanel1, 2, 1, 4, 4, 4, 4);
 
@@ -934,9 +934,9 @@ public class ElementDesignPanel extends JPanel {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 350;
-				rootPanel3.setPreferredSize(new Dimension(650, 450));
-				contentPanel3.setPreferredSize(new Dimension(650, 450));
-				contentPanel3.setMaximumSize(new Dimension(650, 450));
+				rootPanel3.setPreferredSize(new Dimension(350, 450));
+				contentPanel3.setPreferredSize(new Dimension(350, 450));
+				contentPanel3.setMaximumSize(new Dimension(350, 450));
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {

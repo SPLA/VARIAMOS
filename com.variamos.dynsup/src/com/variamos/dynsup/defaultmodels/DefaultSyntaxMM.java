@@ -402,7 +402,7 @@ public class DefaultSyntaxMM {
 		// Feature direct relations
 
 		InstElement semGroupPaiwiseRel = refas.getOperationalModel().getVertex(
-				"groupPWAsso");
+				"GoalfromOT");
 
 		SyntaxElement metaGroupPairwiseRel = new SyntaxElement('P',
 				"Group Relation", true, true, "Group Relation", "",
@@ -413,25 +413,30 @@ public class DefaultSyntaxMM {
 
 		// InstConcept instGroupPairWiseRel = new InstConcept("Group Relation",
 		// supportMetaElementPairwise, metaGroupPairwiseRel);
-		metaGroupPairwiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", "", 0, 0, 3, "", "", 3, "[#"
-						+ "AggregationLow" + "#all#..", "AggregationHigh"
-						+ "#!=#" + "0");
-		metaGroupPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
-		metaGroupPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
+		// metaGroupPairwiseRel.addModelingAttribute("AggregationLow",
+		// "Integer",
+		// false, "Aggregation Low", "", 0, 0, 3, "", "", 3, "[#"
+		// + "AggregationLow" + "#all#..", "AggregationHigh"
+		// + "#!=#" + "0");
+		// metaGroupPairwiseRel.addPropEditableAttribute("03#" +
+		// "AggregationLow");
+		// metaGroupPairwiseRel.addPropVisibleAttribute("03#" +
+		// "AggregationLow");
 		// metaGroupPairwiseRel.addPanelVisibleAttribute("03#" +
 		// "AggregationLow"
 		// + "#" + "AggregationHigh" + "#!=#" + "0");
 		// metaGroupPairwiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
 		// + "#..");
 
-		metaGroupPairwiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "Aggregation High", "", 0, 0, 4, "", "", 4, "#"
-						+ "AggregationHigh" + "#all#]\n", "AggregationHigh"
-						+ "#!=#" + "0");
-		metaGroupPairwiseRel
-				.addPropEditableAttribute("04#" + "AggregationHigh");
-		metaGroupPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
+		// metaGroupPairwiseRel.addModelingAttribute("AggregationHigh",
+		// "Integer",
+		// false, "Aggregation High", "", 0, 0, 4, "", "", 4, "#"
+		// + "AggregationHigh" + "#all#]\n", "AggregationHigh"
+		// + "#!=#" + "0");
+		// metaGroupPairwiseRel
+		// .addPropEditableAttribute("04#" + "AggregationHigh");
+		// metaGroupPairwiseRel.addPropVisibleAttribute("04#" +
+		// "AggregationHigh");
 		// metaGroupPairwiseRel.addPanelVisibleAttribute("04#" +
 		// "AggregationHigh"
 		// + "#" + "AggregationHigh" + "#!=#" + "0");
@@ -986,7 +991,7 @@ public class DefaultSyntaxMM {
 
 		// Direct Hard Relations
 
-		// FIXIT change meansHardPW for meansHardToOT
+		// FIXME change meansHardPW for meansHardToOT
 		InstElement directStructHardHardSemanticEdge = refas
 				.getOperationalModel().getVertex("meansHardPW");
 
