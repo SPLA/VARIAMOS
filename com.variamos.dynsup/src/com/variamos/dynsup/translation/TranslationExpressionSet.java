@@ -297,7 +297,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										ModelExpr.class.getCanonicalName())) {
 									if (att.getValue() != null) {
 										ModelExpr instanceExpression = new ModelExpr(
-												true, "cond", true, -1);
+												true, "cond", true, pos);
 										instanceExpression
 												.setSemanticExpressionType(refas
 														.getSemanticExpressionTypes()
@@ -316,7 +316,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										out.add(instanceExpression);
 									} else {
 										ModelExpr instanceExpression = new ModelExpr(
-												true, "cond", true, -1);
+												true, "cond", true, pos);
 										instanceExpression
 												.setSemanticExpressionType(refas
 														.getSemanticExpressionTypes()

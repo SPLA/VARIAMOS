@@ -375,9 +375,6 @@ public class ModelExpr2HLCL {
 				}
 			}
 		}
-		// Add Literal Expressions from low level Expressions
-		// hlclProgram.add(new LiteralBooleanExpression(
-		// " Rs #= 10,   Alpha #= 10, Rns is ((1 - Alpha) * Rs)"));
 
 		for (AbstractExpression staticTransformation : staticTransformations) {
 			// System.out.println(transformation.expressionStructure());
@@ -386,17 +383,10 @@ public class ModelExpr2HLCL {
 				hlclProgram
 						.add(((AbstractBooleanExpression) staticTransformation)
 								.transform(f, idMap));
-				// For negation testing
-				// prog.add(((AbstractBooleanTransformation) transformation)
-				// .transformNegation(f, idMap, true, false));
 			} else if (staticTransformation instanceof AbstractComparisonExpression) {
 				hlclProgram
 						.add(((AbstractComparisonExpression) staticTransformation)
 								.transform(f, idMap));
-				// For negation testing
-				// prog.add(((AbstractComparisonTransformation)
-				// transformation)
-				// .transformNegation(f, idMap));
 			} else {
 				hlclProgram
 						.add(((AbstractComparisonExpression) staticTransformation)
