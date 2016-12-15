@@ -260,6 +260,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									instanceExpression.setLeftElement(instE);
 									instanceExpression.setLeftAttributeName(var
 											.getIdentifier());
+									// System.out.println("ErDe: "+var.getIdentifier());
 									if (type.equals("String")) {
 										instanceExpression
 												.setRightValue((String) var

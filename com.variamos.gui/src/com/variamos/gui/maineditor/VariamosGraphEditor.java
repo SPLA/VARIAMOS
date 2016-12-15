@@ -1686,7 +1686,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	protected void mouseLocationChanged(MouseEvent e) {
 		String solver = "";
 		if (!lastSolverInvocations.equals("")) {
-			solver = " Last Execution Times(ms) {Total[Solver]}: "
+			solver = " Last Execution Time(ms) {Total[Solver]}: "
 					+ lastSolverInvocations + " || ";
 		}
 		status(solver + e.getX() + ", " + e.getY());
@@ -1705,7 +1705,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						String buffer = (graphComponent.getTripleBuffer() != null) ? ""
 								: " (unbufferedX)";
 						if (!lastSolverInvocations.equals("")) {
-							solver = " Last Execution Times(ms) {Total[Solver]}: "
+							solver = " Last Execution Time(ms) {Total[Solver]}: "
 									+ lastSolverInvocations + " || ";
 
 						}

@@ -697,6 +697,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			modelToVerify.addAll(relaxed);
 			modelToVerify.addAll(fixed);
 			iniSTime = System.currentTimeMillis();
+			endSTime = iniSTime;
 			if (modelToVerify.toString().equals("[]"))
 				return "No features to verify";
 			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify,

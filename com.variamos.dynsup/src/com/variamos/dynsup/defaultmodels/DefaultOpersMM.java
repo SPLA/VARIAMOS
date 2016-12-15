@@ -10650,8 +10650,6 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instVertexCG, true);
 		instEdge.setSourceRelation(instSemvarcntxPairwiseRel, true);
 
-		// Feature to Feature
-
 		OpersConcept directSGSGSemEdge = new OpersConcept("SgSgPWAsso");
 
 		attribute = new ElemAttribute("outConflSG", "Boolean",

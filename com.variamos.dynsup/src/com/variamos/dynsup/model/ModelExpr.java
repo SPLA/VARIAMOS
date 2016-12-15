@@ -37,7 +37,7 @@ import com.variamos.io.ConsoleTextArea;
  * @author jcmunoz
  *
  */
-public class ModelExpr implements Serializable {
+public class ModelExpr implements Serializable, Cloneable {
 	/**
 	 * 
 	 */
@@ -144,6 +144,14 @@ public class ModelExpr implements Serializable {
 		}
 		this.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
 		this.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+	}
+
+	public int getExpressionInstance() {
+		return expressionInstance;
+	}
+
+	public void setExpressionInstance(int expressionInstance) {
+		this.expressionInstance = expressionInstance;
 	}
 
 	public ModelExpr(boolean customExpression, OpersExpr semanticExpression) {
@@ -1120,7 +1128,7 @@ public class ModelExpr implements Serializable {
 								pos + 1, -1));
 				} else {
 					if (getSemanticExpression().getLeftSemanticElement() != null
-							&& elements != null) {
+							&& elements != null && elements.size() > 0) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -1180,7 +1188,7 @@ public class ModelExpr implements Serializable {
 								pos + 1, -1));
 				} else {
 					if (getSemanticExpression().getLeftSemanticElement() != null
-							&& elements != null) {
+							&& elements != null && elements.size() > 0) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -1216,8 +1224,11 @@ public class ModelExpr implements Serializable {
 								pos + 1, -1));
 				} else {
 					if (getSemanticExpression().getLeftSemanticElement() != null
-							&& elements != null) {
-						leftInstElement = elements.get(pos);
+							&& elements != null && elements.size() > 0) {
+						if (pos == -1)
+							leftInstElement = elements.get(0);
+						else
+							leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
 							out.add(leftInstanceExpression.createExpression(
@@ -1252,7 +1263,7 @@ public class ModelExpr implements Serializable {
 					}
 				} else {
 					if (getSemanticExpression().getLeftSemanticElement() != null
-							&& elements != null) {
+							&& elements != null && elements.size() > 0) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -1289,7 +1300,7 @@ public class ModelExpr implements Serializable {
 					}
 				} else {
 					if (getSemanticExpression().getLeftSemanticElement() != null
-							&& elements != null) {
+							&& elements != null && elements.size() > 0) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -1328,7 +1339,7 @@ public class ModelExpr implements Serializable {
 					}
 				} else {
 					if (getSemanticExpression().getLeftSemanticElement() != null
-							&& elements != null) {
+							&& elements != null && elements.size() > 0) {
 						leftInstElement = elements.get(pos);
 						if (leftIterInstance + 2 < leftInstElement
 								.getInstances(refas) && !iterInstance) {
@@ -2319,5 +2330,21 @@ public class ModelExpr implements Serializable {
 			break;
 		}
 
+	}
+
+	public ModelExpr clone(int pos) {
+		ModelExpr obj = null;
+		try {
+			obj = (ModelExpr) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		obj.setExpressionInstance(pos);
+		if (obj.leftInstanceExpression != null)
+			obj.setLeftInstanceExpression(obj.leftInstanceExpression.clone(pos));
+		if (obj.rightInstanceExpression != null)
+			obj.setRightInstanceExpression(obj.rightInstanceExpression
+					.clone(pos));
+		return obj;
 	}
 }

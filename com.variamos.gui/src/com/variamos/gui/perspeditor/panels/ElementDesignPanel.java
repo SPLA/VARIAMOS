@@ -277,30 +277,37 @@ public class ElementDesignPanel extends JPanel {
 					designPanelElements++;
 				}
 
-				List<InstAttribute> visible = finalEditElm
+				List<InstAttribute> visibles = finalEditElm
 						.getVisibleVariables(syntaxParent);
-
-				for (InstAttribute instAttribute : visible) {
-					Map<String, InstElement> mapElements = null;
-					if (finalEditElm instanceof InstPairwiseRel) {
-						InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
-						mapElements = editor
-								.getEditedModel()
-								.getSyntaxModel()
-								.getValidPairwiseRelations(
-										instPairwise.getSourceRelations()
-												.get(0),
-										instPairwise.getTargetRelations()
-												.get(0));
-						final WidgetR widget = factory
-								.getWidgetFor(instAttribute);
-					}
-					instAttribute.updateValidationList(finalEditElm,
-							mapElements);
+				Map<String, InstElement> mapElementss = null;
+				if (finalEditElm instanceof InstPairwiseRel) {
+					InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
+					mapElementss = editor
+							.getEditedModel()
+							.getSyntaxModel()
+							.getValidPairwiseRelations(
+									instPairwise.getSourceRelations().get(0),
+									instPairwise.getTargetRelations().get(0));
 				}
-				visible = editElm.getVisibleAttributes(syntaxParent);
+				for (InstAttribute instAttribute : visibles) {
+					final WidgetR widget = factory.getWidgetFor(instAttribute);
+					instAttribute.updateValidationList(finalEditElm,
+							mapElementss);
+				}
+				List<InstAttribute> visible = editElm
+						.getVisibleAttributes(syntaxParent);
 				List<InstAttribute> editables = editElm
 						.getEditableAttributes(visible);
+				Map<String, InstElement> mapElements = null;
+				if (editElm instanceof InstPairwiseRel) {
+					InstPairwiseRel instPairwise = (InstPairwiseRel) editElm;
+					mapElements = editor
+							.getEditedModel()
+							.getSyntaxModel()
+							.getValidPairwiseRelations(
+									instPairwise.getSourceRelations().get(0),
+									instPairwise.getTargetRelations().get(0));
+				}
 				if (visible != null)
 					for (InstAttribute instAttribute : visible) {
 						if (instAttribute != null
@@ -333,23 +340,9 @@ public class ElementDesignPanel extends JPanel {
 								}
 							}
 							final InstAttribute finalInstAttribute = instAttribute;
-							Map<String, InstElement> mapElements = null;
-							if (editElm instanceof InstPairwiseRel) {
-								InstPairwiseRel instPairwise = (InstPairwiseRel) editElm;
-								mapElements = editor
-										.getEditedModel()
-										.getSyntaxModel()
-										.getValidPairwiseRelations(
-												instPairwise
-														.getSourceRelations()
-														.get(0),
-												instPairwise
-														.getTargetRelations()
-														.get(0));
-							}
+
 							instAttribute.updateValidationList((editElm),
 									mapElements);
-
 							if (instAttribute.getType().equals(
 									"com.variamos.dynsup.model.ModelExpr")) {
 								JButton button = new JButton(
@@ -362,7 +355,6 @@ public class ElementDesignPanel extends JPanel {
 										if (editor.getPerspective() == 4)
 											editable = false;
 										List<ModelExpr> ie = new ArrayList<ModelExpr>();
-										;
 										if ((ModelExpr) finalInstAttribute
 												.getValue() != null)
 											ie.add((ModelExpr) finalInstAttribute
@@ -378,7 +370,7 @@ public class ElementDesignPanel extends JPanel {
 											@Override
 											public boolean onAction() {
 												finalInstAttribute
-														.setValue(dialog
+														.setValues(dialog
 																.getExpressions()
 																.get(0));
 												try {
@@ -429,8 +421,8 @@ public class ElementDesignPanel extends JPanel {
 															JOptionPane
 																	.showMessageDialog(
 																			finalEditor,
-																			"The expression is imcomplete, this may cause"
-																					+ " error for verification and simulation operations",
+																			"The expression is incomplete, this may cause"
+																					+ " error for verification and validation operations",
 																			"Instance Expression Error",
 																			JOptionPane.INFORMATION_MESSAGE,
 																			null);
@@ -440,8 +432,8 @@ public class ElementDesignPanel extends JPanel {
 														JOptionPane
 																.showMessageDialog(
 																		finalEditor,
-																		"The expression is imcomplete, this may cause error"
-																				+ " for verification and simulation operations",
+																		"The expression is incomplete, this may cause error"
+																				+ " for verification and validation operations",
 																		"Instance Expression Error",
 																		JOptionPane.INFORMATION_MESSAGE,
 																		null);
@@ -453,7 +445,7 @@ public class ElementDesignPanel extends JPanel {
 											@Override
 											public boolean onAction() {
 												finalInstAttribute
-														.setValue(null);
+														.setValues(null);
 												return true;
 											}
 										});
@@ -538,7 +530,7 @@ public class ElementDesignPanel extends JPanel {
 											public void focusLost(
 													FocusEvent arg0) {
 												// Makes it pull the values.
-												IntInstAttribute elementAttribute = widget
+												InstAttribute elementAttribute = (InstAttribute) widget
 														.getInstAttribute();
 												if (elementAttribute.getType()
 														.equals("String")
@@ -553,6 +545,34 @@ public class ElementDesignPanel extends JPanel {
 																			.getWidth() / 8));
 
 												}
+												// FIXME use the same solution
+												// of the static implementation
+												// this is a temporary
+												// workaround - not dynamic
+												if (elementAttribute.getType()
+														.equals("Class")
+														&& elementAttribute
+																.getName()
+																.equals("MetaPaiwise")) {
+													List<InstElement> pwrList = (elementAttribute)
+															.getValidationMEList();
+													InstElement sel = null;
+													String val = ((SyntaxElement) elementAttribute
+															.getValueObject())
+															.getInstSemanticElementId();
+													for (InstElement e : pwrList) {
+														String ee = (String) e
+																.getInstAttribute(
+																		"OperationsMMType")
+																.getValue();
+														if (ee.equals(val))
+															sel = e;
+													}
+													finalEditElm
+															.setTransSupInstElement(sel);
+												}
+												// FIXME end
+
 												// Divide lines every 15
 												// characters
 												// (aprox.)

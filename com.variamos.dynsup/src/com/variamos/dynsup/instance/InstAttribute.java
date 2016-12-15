@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersConcept;
 
 /**
@@ -260,6 +261,17 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	@Override
 	public void setValue(Object value) {
 		setInstAttributeAttribute(VAR_VALUE, value);
+		// this.value = value;
+	}
+
+	public void setValues(Object value) {
+		setInstAttributeAttribute(VAR_VALUE, value);
+		int pos = 0;
+		if (value instanceof ModelExpr)
+			for (InstAttribute att : this.additionalAttributes) {
+				att.setInstAttributeAttribute(VAR_VALUE,
+						((ModelExpr) value).clone(pos++));
+			}
 		// this.value = value;
 	}
 

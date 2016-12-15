@@ -477,7 +477,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							}
 							correctExecution = true;
 							long endTime = System.currentTimeMillis();
-							executionTime = "NormalExec: "
+							executionTime = this.operationsNames.get(0)
 									+ (endTime - iniTime)
 									+ "["
 									+ (refas2hlcl.getLastExecutionTime() / 1000000)
