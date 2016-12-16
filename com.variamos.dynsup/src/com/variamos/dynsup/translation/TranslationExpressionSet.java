@@ -578,10 +578,15 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						ModelExpr instanceExpression = new ModelExpr(refas,
 								false, semExpression,
 								expressionInstances == 1 ? false : true);
+						// System.out.println("ME_ID "
+						// + instanceExpression.getSemanticExpression()
+						// .getIdentifier());
 						instanceExpression.createFromSemanticExpression(
 								instElement, 0, expressionInstance,
 								expressionInstances == 1 ? false : true, 0);
-						out.add(instanceExpression);
+						// System.out.println("ME_STR "
+						// + instanceExpression.expressionStructure());
+						// out.add(instanceExpression);
 						expressionInstance++;
 					} while (expressionInstance + 1 < expressionInstances);
 				}
@@ -643,6 +648,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return out;
 	}
 
+	@Deprecated
 	protected List<ModelExpr> createElementInstanceExpressions(
 			InstElement instElement, int expressionInstance) {
 		OpersElement semElement = instElement.getTransSupportMetaElement()

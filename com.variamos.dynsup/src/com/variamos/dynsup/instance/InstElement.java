@@ -1313,11 +1313,13 @@ public abstract class InstElement implements Serializable, Cloneable,
 					String concernLevel = (String) getInstAttributeValue("ConcernLevel");
 					InstElement concern = refas.getVertex(concernLevel);
 					// FIXME fix the value to remove the validation
-					if (concern.getInstAttributeValue("instances") instanceof String)
-						out = Integer.parseInt(((String) concern
-								.getInstAttributeValue("instances")));
-					else
-						out = (int) concern.getInstAttributeValue("instances");
+					if (concern != null)
+						if (concern.getInstAttributeValue("instances") instanceof String)
+							out = Integer.parseInt(((String) concern
+									.getInstAttributeValue("instances")));
+						else
+							out = (int) concern
+									.getInstAttributeValue("instances");
 
 				}
 			}
