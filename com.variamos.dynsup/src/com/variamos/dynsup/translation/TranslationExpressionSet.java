@@ -586,7 +586,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								expressionInstances == 1 ? false : true, 0);
 						// System.out.println("ME_STR "
 						// + instanceExpression.expressionStructure());
-						// out.add(instanceExpression);
+						out.add(instanceExpression);
 						expressionInstance++;
 					} while (expressionInstance + 1 < expressionInstances);
 				}
