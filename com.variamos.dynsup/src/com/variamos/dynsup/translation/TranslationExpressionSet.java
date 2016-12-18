@@ -190,7 +190,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 														"LowLevelVarValue")
 												.getValue().equals("")) {
 									ModelExpr instanceExpression = new ModelExpr(
-											true, "cond", true, -1);
+											true, instE.getIdentifier()
+													+ "Cond", true, -1);
 									instanceExpression
 											.setSemanticExpressionType(refas
 													.getSemanticExpressionTypes()
@@ -298,7 +299,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										ModelExpr.class.getCanonicalName())) {
 									if (att.getValue() != null) {
 										ModelExpr instanceExpression = new ModelExpr(
-												true, "cond", true, pos);
+												true, att.getIdentifier()
+														+ "Cond", true, pos);
 										instanceExpression
 												.setSemanticExpressionType(refas
 														.getSemanticExpressionTypes()
@@ -317,7 +319,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										out.add(instanceExpression);
 									} else {
 										ModelExpr instanceExpression = new ModelExpr(
-												true, "cond", true, pos);
+												true, att.getIdentifier()
+														+ "Cond", true, pos);
 										instanceExpression
 												.setSemanticExpressionType(refas
 														.getSemanticExpressionTypes()

@@ -5516,54 +5516,56 @@ public class DefaultOpersMM {
 				.getIdentifier(), attribute.getName(), true));
 		simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverCoreOpersOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverSDCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverSDneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverCoreOpersOperationSubAction.addOutAttribute(new
+		// OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverConflClSDOperationSubAction.addInAttribute(new
+		// OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverConflClOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("isContext", "Boolean",
 				AttributeType.OPERATION, false, "Context Defined",
@@ -5616,54 +5618,6 @@ public class DefaultOpersMM {
 		simulSubOperationAction.addInAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("varConfValue", "Integer",
@@ -8302,7 +8256,7 @@ public class DefaultOpersMM {
 				t1, t2);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexCL, "outCL", false, t1);
+				"DoubleImplies"), instVertexCL, "outCl", false, t1);
 		// FIXME expression not working!
 
 		sasverClallOperSubActionNormal.addSemanticExpression(t1);
@@ -8556,7 +8510,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
-				instVertexCL, "outCL", "ConditionalExpression");
+				instVertexCL, "outCl", "ConditionalExpression");
 
 		t1 = new OpersExpr("OPERCLSelected", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
@@ -10782,54 +10736,6 @@ public class DefaultOpersMM {
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 
 		directSGSGSemEdge.addPropEditableAttribute("07#" + "AggregationLow");
 
@@ -10847,54 +10753,6 @@ public class DefaultOpersMM {
 		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 
 		directSGSGSemEdge.addPropEditableAttribute("08#" + "AggregationHigh");
@@ -11430,54 +11288,6 @@ public class DefaultOpersMM {
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 
 		directGRSGSemEdge.addPropEditableAttribute("07#" + "AggregationLow");
 
@@ -11495,54 +11305,6 @@ public class DefaultOpersMM {
 		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 
 		directGRSGSemEdge.addPropEditableAttribute("08#" + "AggregationHigh");
@@ -12026,54 +11788,6 @@ public class DefaultOpersMM {
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
 
 		directSGGRSemEdge.addPropEditableAttribute("07#" + "AggregationLow");
 
@@ -12091,54 +11805,6 @@ public class DefaultOpersMM {
 		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
 
 		directSGGRSemEdge.addPropEditableAttribute("08#" + "AggregationHigh");
