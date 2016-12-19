@@ -1074,9 +1074,13 @@ public class ModelExpr implements Serializable, Cloneable {
 			case LEFTITERCONCEPTVARIABLE:
 				String elemetType = getSemanticExpression()
 						.getLeftSemanticElement().getIdentifier();
-				InstElement leftInstElement = refas.getVariabilityVertexMC(
-						elemetType).get(pos);
-				leftIterInstances = leftInstElement.getInstances(refas);
+				leftIterInstances = 1;
+				InstElement leftInstElement = null;
+				if (refas.getVariabilityVertexMC(elemetType).size() > 0) {
+					leftInstElement = refas.getVariabilityVertexMC(elemetType)
+							.get(pos);
+					leftIterInstances = leftInstElement.getInstances(refas);
+				}
 				leftIterInstance = -1;
 			case LEFTITEROUTRELVARIABLE:
 			case LEFTITERINCRELVARIABLE:
