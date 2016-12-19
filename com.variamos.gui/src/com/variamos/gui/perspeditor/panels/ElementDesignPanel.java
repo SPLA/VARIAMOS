@@ -360,8 +360,10 @@ public class ElementDesignPanel extends JPanel {
 											ie.add((ModelExpr) finalInstAttribute
 													.getValue());
 										else
-											ie.add(new ModelExpr(true, "id",
-													true, -1));
+											ie.add(new ModelExpr(true,
+													finalInstAttribute
+															.getIdentifier()
+															+ "Exp", true, -1));
 										final InstanceExpressionDialog dialog = new InstanceExpressionDialog(
 												finalEditor, finalEditElm,
 												false, ie, editable);

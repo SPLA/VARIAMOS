@@ -449,7 +449,8 @@ public class SemanticExpressionDialog extends JDialog {
 			if (semanticExpression.getSemanticExpressionType() != null) {
 				if (semanticExpression.getLeftSemanticExpression() == null)
 					semanticExpression.setLeftSemanticExpression(
-							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
+							ExpressionVertexType.LEFTSUBEXPRESSION, null,
+							semanticExpression.getIdentifier() + "Sub");
 				showExpression(semanticExpression.getLeftSemanticExpression(),
 						element, leftPanel,
 						semanticExpression.getLeftValidExpressions(),
@@ -740,7 +741,7 @@ public class SemanticExpressionDialog extends JDialog {
 					if (semanticExpression.getRightSemanticExpression() == null)
 						semanticExpression.setRightSemanticExpression(
 								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
-								"id");
+								semanticExpression.getIdentifier() + "Sub");
 					showExpression(
 							semanticExpression.getRightSemanticExpression(),
 							element, rightPanel,

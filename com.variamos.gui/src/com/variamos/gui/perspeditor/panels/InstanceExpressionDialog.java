@@ -409,8 +409,9 @@ public class InstanceExpressionDialog extends JDialog {
 					.getSemanticExpressionType() != null) {
 				if (instanceExpression.getLeftInstanceExpression() == null)
 					instanceExpression.setLeftInstanceExpression(
-							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id",
-							-1);
+							ExpressionVertexType.LEFTSUBEXPRESSION, null,
+							instanceExpression.getSemanticExpressionId()
+									+ "Sub", -1);
 				showExpression(instanceExpression.getLeftInstanceExpression(),
 						element, leftPanel,
 						instanceExpression.getLeftValidExpressions(),
@@ -531,7 +532,8 @@ public class InstanceExpressionDialog extends JDialog {
 					if (instanceExpression.getRightInstanceExpression() == null)
 						instanceExpression.setRightInstanceExpression(
 								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
-								"id", -1);
+								instanceExpression.getSemanticExpressionId()
+										+ "Sub", -1);
 					showExpression(
 							instanceExpression.getRightInstanceExpression(),
 							element, rightPanel,
