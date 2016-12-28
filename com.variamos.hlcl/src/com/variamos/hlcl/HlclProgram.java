@@ -12,6 +12,7 @@ public class HlclProgram extends LinkedList<BooleanExpression> implements
 	 * 
 	 * @return true if the expression has all the components
 	 */
+	@Override
 	public boolean isValidExpression() {
 		for (BooleanExpression e : this)
 			if (e == null || !e.isValidExpression())

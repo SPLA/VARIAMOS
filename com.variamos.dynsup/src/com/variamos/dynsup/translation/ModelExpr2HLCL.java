@@ -12,6 +12,8 @@ import java.util.TreeMap;
 
 import javax.swing.ProgressMonitor;
 
+import org.jpl7.PrologException;
+
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -37,6 +39,7 @@ import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.Labeling;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 import com.variamos.io.ConsoleTextArea;
@@ -372,9 +375,6 @@ public class ModelExpr2HLCL {
 				}
 			}
 		}
-		// Add Literal Expressions from low level Expressions
-		// hlclProgram.add(new LiteralBooleanExpression(
-		// " Rs #= 10,   Alpha #= 10, Rns is ((1 - Alpha) * Rs)"));
 
 		for (AbstractExpression staticTransformation : staticTransformations) {
 			// System.out.println(transformation.expressionStructure());
@@ -383,17 +383,10 @@ public class ModelExpr2HLCL {
 				hlclProgram
 						.add(((AbstractBooleanExpression) staticTransformation)
 								.transform(f, idMap));
-				// For negation testing
-				// prog.add(((AbstractBooleanTransformation) transformation)
-				// .transformNegation(f, idMap, true, false));
 			} else if (staticTransformation instanceof AbstractComparisonExpression) {
 				hlclProgram
 						.add(((AbstractComparisonExpression) staticTransformation)
 								.transform(f, idMap));
-				// For negation testing
-				// prog.add(((AbstractComparisonTransformation)
-				// transformation)
-				// .transformNegation(f, idMap));
 			} else {
 				hlclProgram
 						.add(((AbstractComparisonExpression) staticTransformation)
@@ -445,7 +438,8 @@ public class ModelExpr2HLCL {
 		return out;
 	}
 
-	// dynamic call implementation
+	// dynamic call implementation 0 OK, -1 General Error +1 Specific Error
+	// (general)
 	public int execute(ProgressMonitor progressMonitor, int solutions,
 			InstElement operation, InstElement suboper)
 			throws InterruptedException {
@@ -463,14 +457,16 @@ public class ModelExpr2HLCL {
 			if (exp.size() > 1) {
 
 				hlclProgram = exp;
+				List<Labeling> labelings = transExpSet.getLabelings(refas,
+						suboper.getIdentifier(), null);
+				// Start Execution Model
 				swiSolver = new SWIPrologSolver(hlclProgram);
 				if (progressMonitor != null && progressMonitor.isCanceled())
 					throw (new InterruptedException());
 				try {
 					ConfigurationOptions configurationOptions = new ConfigurationOptions();
 					// FIXME support types other than normal
-					configurationOptions.setLabelings(transExpSet.getLabelings(
-							refas, suboper.getIdentifier(), null));
+					configurationOptions.setLabelings(labelings);
 					configurationOptions.setOrder(true);
 
 					configurationOptions.setStartFromZero(true);
@@ -484,7 +480,7 @@ public class ModelExpr2HLCL {
 					return -1;
 				}
 			} else
-				return 0;
+				return 1;
 		}
 
 		if (progressMonitor != null && progressMonitor.isCanceled())
@@ -492,7 +488,15 @@ public class ModelExpr2HLCL {
 
 		if (solutions == 0 || solutions == 1) {
 			if (configuration != null) {
-				configuration = swiSolver.getSolution();
+				try {
+					configuration = swiSolver.getSolution();
+				} catch (PrologException e) {
+
+					ConsoleTextArea
+							.addText("Prolog Exception" + e.getMessage());
+					ConsoleTextArea.addText(e.getStackTrace());
+					return -1;
+				}
 				lastExecutionTime += swiSolver.getLastExecutionTime();
 				if (configuration == null)
 					return -1;
@@ -501,7 +505,7 @@ public class ModelExpr2HLCL {
 			throw new RuntimeException("Solution parameter not supported");
 		// System.out.println("configuration: " + configuration.toString());
 
-		return 1;
+		return 0;
 	}
 
 	// static call implementation
@@ -585,6 +589,12 @@ public class ModelExpr2HLCL {
 		// Call the SWIProlog and obtain the result
 
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
+			if (execType == ModelExpr2HLCL.DESIGN_EXEC) {
+				if (instVertex.getInstAttribute("isConfDom") != null)
+					instVertex.getInstAttribute("isConfDom").setValue(false);
+				if (instVertex.getInstAttribute("varConfValue") != null)
+					instVertex.getInstAttribute("varConfValue").setValue(null);
+			}
 			if (this.validateConceptType(instVertex, "GeneralConcept")) {
 				if (instVertex.getInstAttribute("TrueVal").getAsBoolean()
 						|| instVertex.getInstAttribute("FalseVal")
@@ -609,10 +619,14 @@ public class ModelExpr2HLCL {
 					instVertex.getInstAttribute("ConfSel").setValue(false);
 					instVertex.getInstAttribute("ConfNotSel").setValue(false);
 					instVertex.getInstAttribute("Dead").setValue(false);
+
 				}
 
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributes().values()) {
+					if (instAttribute.getIdentifier().equals("TrueVal")
+							|| instVertex.getIdentifier().equals("FalseVal"))
+						continue;
 					// System.out.println(vertexId + " " + attribute);
 					if (instAttribute.getAttribute() instanceof ElemAttribute
 							&& instAttribute.getAttribute().getAttributeType()
@@ -632,8 +646,12 @@ public class ModelExpr2HLCL {
 					}
 					if (instAttribute.getType().equals("Boolean")
 							&& (instAttribute.getIdentifier()
-									.equals("NPrefSel") || instAttribute
-									.getIdentifier().equals("NNotPrefSel")))
+									.equals("NPrefSel")
+									|| instAttribute.getIdentifier().equals(
+											"NNotPrefSel")
+									|| instAttribute.getIdentifier().equals(
+											"NReqSel") || instAttribute
+									.getIdentifier().equals("NNotSel")))
 						instAttribute.setValue(false);
 				}
 			}
@@ -697,7 +715,7 @@ public class ModelExpr2HLCL {
 				// System.out.println(vertexId + " " + attribute + " "
 				// + prologOut.get(identifier));
 				if (!vertexId.equals("Amodel")
-						&& (outVariables == null || outVariables
+						&& (outVariables != null && outVariables
 								.contains(attribute))) {
 					InstElement vertex = refas.getElement(vertexId);
 					if (vertex == null
@@ -833,8 +851,9 @@ public class ModelExpr2HLCL {
 					InstElement vertex = refas.getElement(vertexId);
 					InstAttribute instAttribute = vertex
 							.getInstAttribute(attribute);
-					boolean exists = false;
 					for (OpersIOAttribute attTarget : selectedAttributes) {
+						boolean exists = false;
+
 						List<InstElement> opersParents = null;
 						if (vertex.getTransSupportMetaElement() != null
 								&& vertex.getTransSupportMetaElement()
@@ -927,11 +946,27 @@ public class ModelExpr2HLCL {
 			String defectId, String defectDescription) {
 		// Call the SWIProlog and obtain the result
 
+		String description = null;
+
+		if (defectDescription.contains("#number#"))
+			description = defectDescription.replace("#number#",
+					identifiers.size() + "");
+		else
+			description = defectDescription;
+
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 
 			if (identifiers != null
 					&& identifiers.contains(instVertex.getIdentifier()))
-				instVertex.putDefect(defectId, defectDescription);
+				instVertex.putDefect(defectId, description);
+			else
+				instVertex.removeDefect(defectId);
+		}
+		for (InstElement instVertex : refas.getConstraintInstEdges().values()) {
+
+			if (identifiers != null
+					&& identifiers.contains(instVertex.getIdentifier()))
+				instVertex.putDefect(defectId, description);
 			else
 				instVertex.removeDefect(defectId);
 		}

@@ -381,27 +381,6 @@ public class InstOverTwoRel extends InstVertex {
 	}
 
 	@Override
-	public List<InstAttribute> getEditableVariables(
-			List<InstElement> syntaxParents) {
-
-		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
-				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
-						.getValueObject() != null) {
-			Object o = getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
-					.getValueObject();
-			String semGroupDep = (String) ((OpersConcept) o).getIdentifier();
-
-			if (!semGroupDepOld.equals(semGroupDep)) {
-				semGroupDepOld = semGroupDep;
-				setInstAttribute(VAR_SEMANTICOVERTWOREL_IDEN, semGroupDep);
-				createInstAttributes(syntaxParents);
-			}
-		}
-		Set<String> attributesNames = getDisPropEditableAttributes(syntaxParents);
-		return getFilteredInstAttributes(attributesNames, null);
-
-	}
-
 	public String toString() {
 		String out = "";
 		// List<String> visibleAttributesNames = metaConcept

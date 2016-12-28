@@ -44,6 +44,7 @@ public class VariamosDashBoardFrame extends JFrame {
 		this.refasModel = refasModel;
 		this.setTitle("Simulation DashBoard");
 		addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
 			public void windowClosing(java.awt.event.WindowEvent evt) {
 				formWindowClosing(evt);
 			}
@@ -94,7 +95,11 @@ public class VariamosDashBoardFrame extends JFrame {
 	}
 
 	public void updateDashBoard(ModelInstance refasModel,
-			boolean updateConcepts, boolean updated) {
+			boolean showDashboard, boolean updateConcepts, boolean updateValues) {
+		if (!showDashboard) {
+			this.setVisible(false);
+			return;
+		}
 		this.refasModel = refasModel;
 		int concepts = 0;
 		if (updateConcepts || elements == null)
@@ -126,7 +131,7 @@ public class VariamosDashBoardFrame extends JFrame {
 					cols = element.getCols();
 					concepts++;
 				}
-				typePanel.add(element.showElement(showNames, updated));
+				typePanel.add(element.showElement(showNames, updateValues));
 				elements++;
 			}
 			if (elements % cols > 0) {

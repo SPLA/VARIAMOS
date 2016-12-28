@@ -293,6 +293,9 @@ public class PerspEditorMenuBar extends JMenuBar {
 							if (i == 0) {
 								InstElement e = oper.getTargetRelations()
 										.get(0);
+								if (!(boolean) e.getInstAttribute("visible")
+										.getValue())
+									continue;
 								JMenuItem menuItem = new JMenuItem((String) e
 										.getInstAttribute("name").getValue());
 
@@ -478,10 +481,10 @@ public class PerspEditorMenuBar extends JMenuBar {
 
 					if (selected) {
 						finalEditor.showNames(true);
-						finalEditor.updateDashBoard(false, false);
+						finalEditor.updateDashBoard(true, false, false);
 					} else {
 						finalEditor.showNames(false);
-						finalEditor.updateDashBoard(false, false);
+						finalEditor.updateDashBoard(true, false, false);
 					}
 				}
 			});

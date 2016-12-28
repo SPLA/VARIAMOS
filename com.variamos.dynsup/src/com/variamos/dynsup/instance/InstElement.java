@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import com.cfm.productline.AbstractElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
@@ -368,16 +369,14 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return (Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES);
 	}
 
-	public abstract List<InstAttribute> getEditableVariables(
-			List<InstElement> syntaxParents);
-
 	@SuppressWarnings("unchecked")
 	public Collection<InstAttribute> getInstAttributesCollection() {
 		return ((Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES))
 				.values();
 	}
 
-	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
+	public String getInstAttributeFullIdentifier(String insAttributeLocalId,
+			int instance) {
 		if (this.getInstAttribute(insAttributeLocalId) == null) {
 			this.createInstAttributes(null);
 			if (this.getInstAttribute(insAttributeLocalId) == null) {
@@ -386,7 +385,10 @@ public abstract class InstElement implements Serializable, Cloneable,
 				return null;
 			}
 		}
-		return this.getIdentifier() + "_"
+		String addAtt = "";
+		if (instance != -1)
+			addAtt = "_" + instance;
+		return this.getIdentifier() + addAtt + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
 
@@ -598,6 +600,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					String value = null;
 					String defvalue = null;
 					variable = attribute.substring(0, varEnd);
+					// System.out.println("ATTPRT: " + attribute);
 					condition = attribute.substring(varEnd + 1, condEnd);
 					if (valueEnd != -1) {
 						value = attribute.substring(condEnd + 1, valueEnd);
@@ -762,34 +765,44 @@ public abstract class InstElement implements Serializable, Cloneable,
 		for (String attributeName : visibleAttributesNames) {
 			ElemAttribute attribute = supportElement.getAbstractAttribute(
 					attributeName.substring(2), syntaxParents, null);
-			String visibleAttribute = attribute.getElementDisplayCondition();
-			int varEnd = visibleAttribute.indexOf("#");
-			int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
-			int valueEnd = visibleAttribute.indexOf("#", condEnd + 1);
-			if (valueEnd == -1)
-				valueEnd = visibleAttribute.length();
-			String variable = null;
-			String condition = null;
-			String value = null;
-			String name = attributeName.substring(2);
-			boolean validCondition = true;
-			if (varEnd != -1 && condEnd != -1) {
+			String visibleAttributes = attribute.getElementDisplayCondition();
 
-				variable = visibleAttribute.substring(0, varEnd);
-				condition = visibleAttribute.substring(varEnd + 1, condEnd);
-				if (condEnd < valueEnd)
-					value = visibleAttribute.substring(condEnd + 1, valueEnd);
-				else
-					value = "";
-				InstAttribute varValue = getInstAttributes().get(variable);
-				if (varValue == null || varValue.getValue() == null)
+			String name = null;
+			boolean validCondition = true;
+			String[] split = visibleAttributes.split("\\$");
+			for (String visibleAttribute : split) {
+				int varEnd = visibleAttribute.indexOf("#");
+				int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
+				int valueEnd = visibleAttribute.indexOf("#", condEnd + 1);
+				if (valueEnd == -1)
+					valueEnd = visibleAttribute.length();
+				String variable = null;
+				String condition = null;
+				String value = null;
+				name = attributeName.substring(2);
+				if (varEnd != -1 && condEnd != -1) {
+
+					variable = visibleAttribute.substring(0, varEnd);
+					condition = visibleAttribute.substring(varEnd + 1, condEnd);
+					if (condEnd < valueEnd)
+						value = visibleAttribute.substring(condEnd + 1,
+								valueEnd);
+					else
+						value = "";
 					validCondition = false;
-				else if (varValue.getValue().toString().trim().equals(value)) {
-					if (condition.equals("!="))
-						validCondition = false;
-				} else {
-					if (condition.equals("=="))
-						validCondition = false;
+					InstAttribute varValue = getInstAttributes().get(variable);
+					if (varValue == null || varValue.getValue() == null)
+						continue;
+					else if (varValue.getValue().toString().trim()
+							.equals(value)) {
+						if (condition.equals("!="))
+							continue;
+					} else {
+						if (condition.equals("=="))
+							continue;
+					}
+					validCondition = true;
+					break;
 				}
 			}
 			boolean nvar = false;
@@ -1285,5 +1298,64 @@ public abstract class InstElement implements Serializable, Cloneable,
 			return new Float(value);
 		return value;
 
+	}
+
+	// Multi-instances only if the concept has scope or both elements in the
+	// relation has the same scope
+	// TODO support aggregation of multiples scopes - this support a global and
+	// another scope only
+	public int getInstances(ModelInstance refas) {
+		int out = 1;
+		if (getInstAttribute("Scope") != null) {
+			boolean scope = (boolean) getInstAttributeValue("Scope");
+			if (!scope) {
+				if (getInstAttribute("ConcernLevel") != null) {
+					String concernLevel = (String) getInstAttributeValue("ConcernLevel");
+					InstElement concern = refas.getVertex(concernLevel);
+					// FIXME fix the value to remove the validation
+					if (concern != null)
+						if (concern.getInstAttributeValue("instances") instanceof String)
+							out = Integer.parseInt(((String) concern
+									.getInstAttributeValue("instances")));
+						else
+							out = (int) concern
+									.getInstAttributeValue("instances");
+
+				}
+			}
+		}
+		if (getTransSupportMetaElement().getTransInstSemanticElement() != null) {
+			InstAttribute ia = getTransSupportMetaElement()
+					.getTransInstSemanticElement().getInstAttribute(
+							"opersExprs");
+			if (ia != null && getSourceRelations().size() > 0
+					&& getTargetRelations().size() > 0) {
+				InstElement source = getSourceRelations().get(0);
+				InstElement target = getTargetRelations().get(0);
+				if (source.getInstAttribute("Scope") != null
+						&& target.getInstAttribute("Scope") != null) {
+					boolean scope = (boolean) source
+							.getInstAttributeValue("Scope")
+							|| (boolean) target.getInstAttributeValue("Scope");
+					if (!scope) {
+						if (source.getInstAttribute("ConcernLevel") != null
+								&& target.getInstAttribute("ConcernLevel") != null) {
+							String sourceConcernLevel = (String) source
+									.getInstAttributeValue("ConcernLevel");
+							String targetConcernLevel = (String) source
+									.getInstAttributeValue("ConcernLevel");
+							if (sourceConcernLevel.equals(targetConcernLevel)) {
+								InstElement concern = refas
+										.getVertex(sourceConcernLevel);
+								out = (int) concern
+										.getInstAttributeValue("instances");
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return out;
 	}
 }

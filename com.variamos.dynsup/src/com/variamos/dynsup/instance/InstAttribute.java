@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersConcept;
 
 /**
@@ -23,7 +24,7 @@ import com.variamos.dynsup.model.OpersConcept;
  * @see com.variamos.syntaxsupport.metamodelsupport.AbtractAttribute
  */
 public class InstAttribute implements Serializable, IntInstAttribute,
-		Comparable<Object> {
+		Comparable<Object>, Cloneable {
 	/**
 	 * 
 	 */
@@ -39,6 +40,8 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	 * attribute is not serialized (get/set differ from name)
 	 */
 	private ElemAttribute volatileAttribute;
+
+	private List<InstAttribute> additionalAttributes = new ArrayList<InstAttribute>();
 
 	private boolean enabled;
 
@@ -122,6 +125,19 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		this.volatileValueObject = valueObject;
 
 		// this.value = value;
+	}
+
+	@Override
+	protected InstAttribute clone() {
+		InstAttribute out = null;
+		try {
+			out = (InstAttribute) super.clone();
+			out.instAttributeAttributes = new HashMap<>();
+			out.instAttributeAttributes.putAll(instAttributeAttributes);
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return out;
 	}
 
 	public Object getInstAttributeAttribute(String name) {
@@ -245,6 +261,17 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	@Override
 	public void setValue(Object value) {
 		setInstAttributeAttribute(VAR_VALUE, value);
+		// this.value = value;
+	}
+
+	public void setValues(Object value) {
+		setInstAttributeAttribute(VAR_VALUE, value);
+		int pos = 0;
+		if (value instanceof ModelExpr)
+			for (InstAttribute att : this.additionalAttributes) {
+				att.setInstAttributeAttribute(VAR_VALUE,
+						((ModelExpr) value).clone(pos++));
+			}
 		// this.value = value;
 	}
 
@@ -466,5 +493,27 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	public String setToolTipText(String out) {
 		volatileAttribute.setToolTipText(out);
 		return null;
+	}
+
+	public void updateAdditionalAttributes(int size) {
+		int currentSize = additionalAttributes.size();
+		if (currentSize < size)
+			for (int i = currentSize; i < size; i++)
+				additionalAttributes.add(this.clone());
+		else if (currentSize > size)
+			for (int i = currentSize; i > size; i--)
+				additionalAttributes.remove(i);
+	}
+
+	public List<InstAttribute> getAdditionalAttributes() {
+		return additionalAttributes;
+	}
+
+	public InstAttribute getAdditionalAttribute(int pos) {
+		return additionalAttributes.get(pos);
+	}
+
+	public void setAdditionalAttributes(List<InstAttribute> additionalAttributes) {
+		this.additionalAttributes = additionalAttributes;
 	}
 }

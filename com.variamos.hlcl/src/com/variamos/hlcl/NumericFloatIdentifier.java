@@ -32,4 +32,25 @@ public class NumericFloatIdentifier implements NumericExpression {
 	public String toString() {
 		return "NumericIdentifier [value=" + floatValue + "]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (obj instanceof NumericFloatIdentifier) {
+			NumericFloatIdentifier bE = (NumericFloatIdentifier) obj;
+			if (floatValue == bE.getValue())
+				return true;
+			else
+				return false;
+		} else
+			return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return (int) floatValue * 1000;
+	}
 }

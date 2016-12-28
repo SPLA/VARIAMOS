@@ -35,7 +35,8 @@ public class OperationAction extends AbstractEditorAction {
 		List<String> operations = new ArrayList<String>();
 
 		// FIXME review why this is needed for verification operations
-		vg.updateObjects();
+		if (!operation.startsWith("N:"))
+			vg.updateObjects();
 
 		if (operation.startsWith("exec-all-ver-")) {
 			// FIXME get all operations to execute
@@ -51,7 +52,7 @@ public class OperationAction extends AbstractEditorAction {
 
 		if (operation.startsWith("N:")) {
 			vg.editPropertiesRefas();
-			vg.updateDashBoard(false, true);
+			vg.updateDashBoard(true, false, true);
 		}
 
 		vg.updateSimulResults();

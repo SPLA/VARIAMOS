@@ -33,7 +33,8 @@ public class StringWidget extends WidgetR {
 
 	@Override
 	protected boolean pushValue(IntInstAttribute v) {
-		txtValue.setText((String) v.getValue());
+		if (v.getValue() instanceof String)
+			txtValue.setText((String) v.getValue());
 		group.setText((String) v.getGroup());
 		revalidate();
 		repaint();

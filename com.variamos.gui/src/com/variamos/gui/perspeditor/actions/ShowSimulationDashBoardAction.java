@@ -10,15 +10,16 @@ public class ShowSimulationDashBoardAction extends AbstractEditorAction {
 
 	public ShowSimulationDashBoardAction() {
 
-	//	this.putValue(SHORT_DESCRIPTION, mxResources.get("resetSimulation"));
+		// this.putValue(SHORT_DESCRIPTION, mxResources.get("resetSimulation"));
 	}
 
 	/**
 		 * 
 		 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
-		VariamosGraphEditor editor = getEditor(e);		
-		editor.updateDashBoard(true, false);
+		VariamosGraphEditor editor = getEditor(e);
+		editor.updateDashBoard(true, true, false);
 		editor.showDashBoard(true);
 	}
 }

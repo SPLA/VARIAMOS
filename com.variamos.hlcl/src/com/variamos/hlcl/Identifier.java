@@ -21,6 +21,7 @@ public class Identifier implements BooleanExpression, NumericExpression,
 	 * 
 	 * @return true if the expression has all the components
 	 */
+	@Override
 	public boolean isValidExpression() {
 		return true;
 	};
@@ -73,6 +74,7 @@ public class Identifier implements BooleanExpression, NumericExpression,
 		return id.compareTo(other.getId());
 	}
 
+	@Override
 	public String toString() {
 		return "Identifier [id=" + id + "]";
 	}

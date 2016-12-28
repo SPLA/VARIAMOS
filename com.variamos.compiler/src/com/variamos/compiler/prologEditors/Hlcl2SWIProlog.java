@@ -267,8 +267,10 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 				}
 				// jcmunoz: new condition for String domains using hashcodes
 			} else if (identifier.getDomain() instanceof StringDomain) {
-				domainString
-						.append(getStringDomain(identifier.getDomain(), id));
+				StringBuffer str = getStringDomain(identifier.getDomain(), id);
+				if (str == null)
+					continue;
+				domainString.append(str);
 			}
 
 			domainString.append(COMMA);
@@ -377,8 +379,10 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 				}
 				// jcmunoz: new condition for String domains using hashcodes
 			} else if (identifier.getDomain() instanceof StringDomain) {
-				domainString
-						.append(getStringDomain(identifier.getDomain(), id));
+				StringBuffer str = getStringDomain(identifier.getDomain(), id);
+				if (str == null)
+					continue;
+				domainString.append(str);
 			}
 
 			domainString.append(COMMA);
@@ -427,10 +431,13 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 	 * @return
 	 */
 	private StringBuffer getStringDomain(Domain domain, String id) {
-		StringBuffer domainString = new StringBuffer();
+		StringBuffer domainString = null;
 		List<String> values = ((StringDomain) domain).getStringValues();
-		domainString.append(id);
-		domainString.append(IN);
+		if (values.size() > 0) {
+			domainString = new StringBuffer();
+			domainString.append(id);
+			domainString.append(IN);
+		}
 		for (int i = 0; i < values.size(); i++) {
 			String domainValue = values.get(i);
 			domainString.append(Integer.toString(domainValue.hashCode()));

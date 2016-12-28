@@ -25,7 +25,6 @@ import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.editor.logic.ConstraintMode;
-import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.io.ConsoleTextArea;
 
 @SuppressWarnings("serial")
@@ -128,18 +127,19 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									childCell, k);
 							InstElement child2Value = ((InstCell) child2Cell
 									.getValue()).getInstElement();
-							if (SharedActions.validateConceptType(child2Value,
-									"GeneralConcept")) {
-								drawStatusBar(child2Cell, parentCell);
-								drawErrorIcons(child2Cell, child2Value, redx);
-							}
+							// if
+							// (SharedActions.validateConceptType(child2Value,
+							// "GeneralConcept")) {
+							drawStatusBar(child2Cell, parentCell);
+							drawErrorIcons(child2Cell, child2Value, redx);
+							// }
 						}
 					else {
-						if (SharedActions.validateConceptType(childValue,
-								"GeneralConcept")) {
-							drawStatusBar(childCell, parentCell);
-							drawErrorIcons(childCell, childValue, redx);
-						}
+						// if (SharedActions.validateConceptType(childValue,
+						// "GeneralConcept")) {
+						drawStatusBar(childCell, parentCell);
+						drawErrorIcons(childCell, childValue, redx);
+						// }
 					}
 				}
 			}
@@ -164,59 +164,42 @@ public class VariamosGraphComponent extends mxGraphComponent {
 	private String imagesBasePath = "/com/variamos/gui/perspeditor/images/test/";
 
 	private void drawStatusBar(mxCell childCell, mxCell parentCell) {
-		if (childCell.isVertex()) {
+		InstElement val = ((InstCell) childCell.getValue()).getInstElement();
 
-			// Verify is a semantic general element
-			/*
-			 * InstElement instElement = ((InstCell) childCell.getValue())
-			 * .getInstElement(); if (instElement != null) { MetaVertex
-			 * metaElement = ((MetaVertex) instElement
-			 * .getTransSupportMetaElement()); IntOpersElement semElement =
-			 * metaElement == null ? null :
-			 * metaElement.getTransSemanticConcept(); while (semElement != null
-			 * && semElement.getIdentifier() != null &&
-			 * !semElement.getIdentifier().equals("GeneralConcept")) semElement
-			 * = semElement.getParent();
-			 * 
-			 * if (semElement != null && semElement.getIdentifier() != null &&
-			 * semElement.getIdentifier().equals("GeneralConcept")) {
-			 */
-			InstElement val = ((InstCell) childCell.getValue())
-					.getInstElement();
+		// For simulation perspective
+		if (childCell.getGeometry() != null && val != null
+				&& val instanceof InstConcept && parentCell.getValue() != null) {
+			try {
+				InstConcept instConcept = (InstConcept) val;
+				String backtophint = "", backbottomhint = "";
 
-			// For simulation perspective
-			if (childCell.getGeometry() != null && val != null
-					&& val instanceof InstConcept
-					&& parentCell.getValue() != null) {
-				try {
-					InstConcept instConcept = (InstConcept) val;
-					String backtophint = "", backbottomhint = "";
+				String sim_core = imagesBasePath + "sim_core.png";
+				String sim_core_req = imagesBasePath + "sim_core_req.png";
+				String sim_dead = imagesBasePath + "sim_dead.png";
+				String sim_inactive = imagesBasePath + "sim_inactive.png";
+				String sim_normal = imagesBasePath + "sim_normal.png";
+				String sim_notavailable = imagesBasePath
+						+ "sim_notavailable.png";
+				String sim_prohibit = imagesBasePath + "design_prohibited.png";
+				String sim_selected = imagesBasePath + "sim_selected.png";
+				String sim_backcolor = sim_normal;
 
-					String sim_core = imagesBasePath + "sim_core.png";
-					String sim_core_req = imagesBasePath + "sim_core_req.png";
-					String sim_dead = imagesBasePath + "sim_dead.png";
-					String sim_inactive = imagesBasePath + "sim_inactive.png";
-					String sim_normal = imagesBasePath + "sim_normal.png";
-					String sim_notavailable = imagesBasePath
-							+ "sim_notavailable.png";
-					String sim_prohibit = imagesBasePath
-							+ "design_prohibited.png";
-					String sim_selected = imagesBasePath + "sim_selected.png";
-					String sim_backcolor = sim_normal;
+				String sim_green1 = imagesBasePath + "sim_green1.png";
+				String sim_green2 = imagesBasePath + "sim_green2.png";
+				String sim_green2_tmp = imagesBasePath + "sim_green2_tmp.png";
+				String sim_green3 = imagesBasePath + "sim_green3.png";
 
-					String sim_green1 = imagesBasePath + "sim_green1.png";
-					String sim_green2 = imagesBasePath + "sim_green2.png";
-					String sim_green2_tmp = imagesBasePath
-							+ "sim_green2_tmp.png";
-					String sim_green3 = imagesBasePath + "sim_green3.png";
-
-					String sim_red2 = imagesBasePath + "sim_red2.png";
-					String sim_red2_tmp = imagesBasePath + "sim_red2_tmp.png";
-					String sim_red3 = imagesBasePath + "sim_red3.png";
-					if (simulationStarted) {
-						sim_backcolor = sim_red3;
-						backtophint = "Not selected";
-					}
+				String sim_red2 = imagesBasePath + "sim_red2.png";
+				String sim_red2_tmp = imagesBasePath + "sim_red2_tmp.png";
+				String sim_red3 = imagesBasePath + "sim_red3.png";
+				if (simulationStarted) {
+					sim_backcolor = sim_red3;
+					backtophint = "Not selected";
+				}
+				if (instConcept.getInstAttribute("Core") != null
+						&& instConcept.getInstAttribute("Required") != null) {
+					if (!(instConcept.getInstAttribute("Core").getValue() instanceof Boolean))
+						return;
 					if ((boolean) instConcept.getInstAttribute("Core")
 							.getValue()
 							&& !(boolean) instConcept.getInstAttribute(
@@ -352,58 +335,56 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-				} catch (Exception e) {
-					System.out.println("Cell draw error");
-					ConsoleTextArea.addText(e.getStackTrace());
 				}
-			}
-
-			// For design perspective
-			if (childCell.getGeometry() != null && val != null
-					&& parentCell.getValue() == null
-					&& val instanceof InstConcept) {
-				String design_required = imagesBasePath + "design_required.png";
-				String design_normal = imagesBasePath + "design_normal.png";
-				String design_dead = imagesBasePath + "design_dead.png";
-				String design_prohibit = imagesBasePath
-						+ "design_prohibited.png";
-				String design_core = imagesBasePath + "design_core.png";
-				String backtophint = "", icon = "";
-				InstConcept instConcept = (InstConcept) val;
-				try {
-					if ((boolean) instConcept.getInstAttribute("Required")
-							.getValue()) {
-						backtophint = "Part of the core (by manual selection)";
-						icon = design_required;
-					} else if ((boolean) instConcept.getInstAttribute("Core")
-							.getValue()) {
-						backtophint = "Part of the core (by implicatiom)";
-						icon = design_core;
-					} else if ((boolean) instConcept.getInstAttribute("Dead")
-							.getValue()) {
-						backtophint = "Dead element (by implication)";
-						icon = design_dead;
-					} else if ((boolean) instConcept.getInstAttribute("Proh")
-							.getValue()) {
-						backtophint = "Prohibited element (by manual selection)";
-						icon = design_prohibit;
-					} else {
-						backtophint = "Not part of the core (Variability point)";
-						icon = design_normal;
-					}
-					mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
-							mxGraphComponent.class.getResource(icon)),
-							backtophint);
-					over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-					over3.setAlign(mxConstants.ALIGN_CENTER);
-					addCellOverlay(childCell, over3);
-
-				} catch (Exception e) {
-					System.out.println("Cell draw error");
-					// ConsoleTextArea.addText(e.getStackTrace());
-				}
+			} catch (Exception e) {
+				System.out.println("Cell draw error");
+				// ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
+
+		// For design perspective
+		if (childCell.getGeometry() != null && val != null
+				&& parentCell.getValue() == null && val instanceof InstConcept) {
+			String design_required = imagesBasePath + "design_required.png";
+			String design_normal = imagesBasePath + "design_normal.png";
+			String design_dead = imagesBasePath + "design_dead.png";
+			String design_prohibit = imagesBasePath + "design_prohibited.png";
+			String design_core = imagesBasePath + "design_core.png";
+			String backtophint = "", icon = "";
+			InstConcept instConcept = (InstConcept) val;
+			try {
+				if ((boolean) instConcept.getInstAttribute("Required")
+						.getValue()) {
+					backtophint = "Part of the core (by manual selection)";
+					icon = design_required;
+				} else if ((boolean) instConcept.getInstAttribute("Core")
+						.getValue()) {
+					backtophint = "Part of the core (by implicatiom)";
+					icon = design_core;
+				} else if ((boolean) instConcept.getInstAttribute("Dead")
+						.getValue()) {
+					backtophint = "Dead element (by implication)";
+					icon = design_dead;
+				} else if ((boolean) instConcept.getInstAttribute("Proh")
+						.getValue()) {
+					backtophint = "Prohibited element (by manual selection)";
+					icon = design_prohibit;
+				} else {
+					backtophint = "Not part of the core (Variability point)";
+					icon = design_normal;
+				}
+				mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+						mxGraphComponent.class.getResource(icon)), backtophint);
+				over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+				over3.setAlign(mxConstants.ALIGN_CENTER);
+				addCellOverlay(childCell, over3);
+
+			} catch (Exception e) {
+				System.out.println("Cell draw error");
+				// ConsoleTextArea.addText(e.getStackTrace());
+			}
+		}
+		// }
 		// }
 		// }
 	}
@@ -411,13 +392,19 @@ public class VariamosGraphComponent extends mxGraphComponent {
 	private void drawErrorIcons(mxCell childCell, Object childValue,
 			List<String> redx) {
 		if (childCell.getGeometry() != null && childValue != null
-				&& childValue instanceof InstConcept) {
+				&& childValue instanceof InstElement) {
 			try {
-				InstConcept instConcept = (InstConcept) childValue;
-				String error = "/com/variamos/gui/perspeditor/images/test/design_dead.png";
+				InstElement instConcept = (InstElement) childValue;
+				String error = "/com/variamos/gui/perspeditor/images/test/design_dead_arrow.png";
+				if (childValue instanceof InstConcept)
+					error = "/com/variamos/gui/perspeditor/images/test/design_dead.png";
+				String defects = "";
 				for (String defect : instConcept.getDefects().values()) {
+					defects = defects + " * " + defect;
+				}
+				if (!defects.equals("")) {
 					mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
-							mxGraphComponent.class.getResource(error)), defect);
+							mxGraphComponent.class.getResource(error)), defects);
 					over3.setVerticalAlign(mxConstants.ALIGN_MIDDLE);
 					over3.setAlign(mxConstants.ALIGN_RIGHT);
 					addCellOverlay(childCell, over3);

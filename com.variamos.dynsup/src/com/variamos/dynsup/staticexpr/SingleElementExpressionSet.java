@@ -358,18 +358,17 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									} else
 										dr = true;
 								}
-								// if (dr)
-								//
-								// booleanExpressions
-								// .put("Simul",
-								// (BooleanExpression) getHlclFactory()
-								// .equals(getHlclFactory()
-								// .newIdentifier(
-								// instVertex
-								// .getIdentifier()
-								// + "_CompExp"),
-								// getHlclFactory()
-								// .number(1)));
+								if (dr)
+									booleanExpressions
+											.put("Simul",
+													getHlclFactory()
+															.equals(getHlclFactory()
+																	.newIdentifier(
+																			instVertex
+																					.getIdentifier()
+																					+ "_CompExp"),
+																	getHlclFactory()
+																			.number(1)));
 							}
 
 							if (instAttribute.getIdentifier().equals(

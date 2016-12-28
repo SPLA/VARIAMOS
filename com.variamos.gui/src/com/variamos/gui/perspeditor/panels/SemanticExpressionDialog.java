@@ -70,7 +70,7 @@ public class SemanticExpressionDialog extends JDialog {
 	public SemanticExpressionDialog(VariamosGraphEditor editor,
 			InstElement instElement, List<OpersExpr> semanticExpressions) {
 		super(editor.getFrame(), "Meta-Model-Expression's Editor");
-		refasModel = (ModelInstance) editor.getEditedModel();
+		refasModel = editor.getEditedModel();
 		this.semanticExpressions = semanticExpressions;
 		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, semanticExpressions);
@@ -99,7 +99,7 @@ public class SemanticExpressionDialog extends JDialog {
 		for (final OpersExpr semanticExpression : this.semanticExpressions) {
 
 			if (semanticExpressions != null)
-				selectedExpression = (OpersExpr) semanticExpression;
+				selectedExpression = semanticExpression;
 
 			solutionPanel = new JPanel();
 			solutionPanel.setAutoscrolls(true);
@@ -114,18 +114,17 @@ public class SemanticExpressionDialog extends JDialog {
 
 				@Override
 				public void focusLost(FocusEvent event) {
-					String item = (String) ((JTextField) event.getSource())
-							.getText();
+					String item = ((JTextField) event.getSource()).getText();
 					if (item != null) {
 						semanticExpression.setIdentifier(item);
 					}
 				}
 			});
 			solutionPanel.add(iden);
-			((OpersExpr) semanticExpression).loadVolatileElements(refasModel
+			semanticExpression.loadVolatileElements(refasModel
 					.getVariabilityVertex());
-			showExpression((OpersExpr) semanticExpression, element,
-					solutionPanel, OpersExprType.BOOLEXP, 255);
+			showExpression(semanticExpression, element, solutionPanel,
+					OpersExprType.BOOLEXP, 255);
 
 			solutionPanel.addPropertyChangeListener("value",
 					new PropertyChangeListener() {
@@ -151,6 +150,7 @@ public class SemanticExpressionDialog extends JDialog {
 				// TODO Auto-generated method stub
 				displayConceptName = !displayConceptName;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(element, null);
 					}
@@ -172,6 +172,7 @@ public class SemanticExpressionDialog extends JDialog {
 				displayVariableName = !displayVariableName;
 
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(element, null);
 					}
@@ -189,6 +190,7 @@ public class SemanticExpressionDialog extends JDialog {
 				finalSemanticExpressions.add(new OpersExpr(element));
 
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(element, null);
 					}
@@ -281,6 +283,7 @@ public class SemanticExpressionDialog extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(ele, null);
 					}
@@ -316,6 +319,7 @@ public class SemanticExpressionDialog extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(ele, null);
 					}
@@ -368,6 +372,12 @@ public class SemanticExpressionDialog extends JDialog {
 
 			case LEFTITERCONCEPTVARIABLE:
 				leftSide.setSelectedItem("A Concept Type Variable");
+				break;
+			case LEFTITERINCSUBEXP:
+				leftSide.setSelectedItem("Source Variables - Iterative (SubExp)");
+				break;
+			case LEFTITEROUTSUBEXP:
+				leftSide.setSelectedItem("Target Variables - Iterative (SubExp)");
 				break;
 			case LEFTITERINCCONVARIABLE:
 				leftSide.setSelectedItem("Source Variables - Iterative (Concept)");
@@ -439,7 +449,8 @@ public class SemanticExpressionDialog extends JDialog {
 			if (semanticExpression.getSemanticExpressionType() != null) {
 				if (semanticExpression.getLeftSemanticExpression() == null)
 					semanticExpression.setLeftSemanticExpression(
-							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
+							ExpressionVertexType.LEFTSUBEXPRESSION, null,
+							semanticExpression.getIdentifier() + "Sub");
 				showExpression(semanticExpression.getLeftSemanticExpression(),
 						element, leftPanel,
 						semanticExpression.getLeftValidExpressions(),
@@ -589,6 +600,16 @@ public class SemanticExpressionDialog extends JDialog {
 		ExpressionVertexType iterativeType = null;
 		ExpressionVertexType subIterType = null;
 		if (leftSide.getSelectedItem().equals(
+				"Source Variables - Iterative (SubExp)")) {
+			iterativeType = ExpressionVertexType.LEFTITERINCSUBEXP;
+			subIterType = ExpressionVertexType.LEFTITERINCFIXEDSUBEXP;
+		}
+		if (leftSide.getSelectedItem().equals(
+				"Target Variables - Iterative (SubExp)")) {
+			iterativeType = ExpressionVertexType.LEFTITEROUTSUBEXP;
+			subIterType = ExpressionVertexType.LEFTITEROUTFIXEDSUBEXP;
+		}
+		if (leftSide.getSelectedItem().equals(
 				"Source Variables - Iterative (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITERINCCONVARIABLE;
 			subIterType = ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE;
@@ -649,6 +670,7 @@ public class SemanticExpressionDialog extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(ele, null);
 					}
@@ -686,6 +708,7 @@ public class SemanticExpressionDialog extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
 				new Thread() {
+					@Override
 					public void run() {
 						initialize(ele, null);
 					}
@@ -718,7 +741,7 @@ public class SemanticExpressionDialog extends JDialog {
 					if (semanticExpression.getRightSemanticExpression() == null)
 						semanticExpression.setRightSemanticExpression(
 								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
-								"id");
+								semanticExpression.getIdentifier() + "Sub");
 					showExpression(
 							semanticExpression.getRightSemanticExpression(),
 							element, rightPanel,
@@ -865,6 +888,7 @@ public class SemanticExpressionDialog extends JDialog {
 					semanticExpressions.remove(semanticExpression);
 
 					new Thread() {
+						@Override
 						public void run() {
 							initialize(element, null);
 						}
@@ -910,8 +934,7 @@ public class SemanticExpressionDialog extends JDialog {
 
 			@Override
 			public void focusLost(FocusEvent event) {
-				String item = (String) ((JTextField) event.getSource())
-						.getText();
+				String item = ((JTextField) event.getSource()).getText();
 				if (item != null) {
 					switch (expressionVertexType) {
 					case LEFTNUMERICVALUE:
@@ -984,6 +1007,7 @@ public class SemanticExpressionDialog extends JDialog {
 									expressionVertexType, elementType);
 						}
 						new Thread() {
+							@Override
 							public void run() {
 								initialize(element, null);
 							}
@@ -1055,6 +1079,8 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTITERINCCONVARIABLE:
 		case LEFTITEROUTCONVARIABLE:
+		case LEFTITERINCSUBEXP:
+		case LEFTITEROUTSUBEXP:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (sourceRelation.getSupInstEleId().equals("OMConcept")
@@ -1159,6 +1185,7 @@ public class SemanticExpressionDialog extends JDialog {
 								.getSemanticExpressionTypes().get(item));
 					}
 					new Thread() {
+						@Override
 						public void run() {
 							initialize(element, null);
 						}
@@ -1244,17 +1271,25 @@ public class SemanticExpressionDialog extends JDialog {
 							semanticExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTITERCONCEPTVARIABLE);
 							break;
+						case "Source Variables - Iterative (SubExp)":
+							semanticExpression
+									.setLeftExpressionType(ExpressionVertexType.LEFTITERINCSUBEXP);
+							break;
+						case "Target Variables - Iterative (SubExp)":
+							semanticExpression
+									.setLeftExpressionType(ExpressionVertexType.LEFTITEROUTSUBEXP);
+							break;
 						case "Source Variables - Iterative (Concept)":
 							semanticExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTITERINCCONVARIABLE);
 							break;
-						case "Source Variables - Iterative (Relation)":
-							semanticExpression
-									.setLeftExpressionType(ExpressionVertexType.LEFTITERINCRELVARIABLE);
-							break;
 						case "Target Variables - Iterative (Concept)":
 							semanticExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTITEROUTCONVARIABLE);
+							break;
+						case "Source Variables - Iterative (Relation)":
+							semanticExpression
+									.setLeftExpressionType(ExpressionVertexType.LEFTITERINCRELVARIABLE);
 							break;
 						case "Target Variables - Iterative (Relation)":
 							semanticExpression
@@ -1303,6 +1338,7 @@ public class SemanticExpressionDialog extends JDialog {
 							break;
 						}
 						new Thread() {
+							@Override
 							public void run() {
 								initialize(element, null);
 							}

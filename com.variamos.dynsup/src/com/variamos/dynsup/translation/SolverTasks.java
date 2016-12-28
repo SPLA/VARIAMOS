@@ -306,6 +306,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 	public boolean verify(List<String> defect) throws InterruptedException {
 
+		errorMessage = "";
 		executionTime = "";
 		boolean errors = false;
 
@@ -358,7 +359,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					if (actionList.get(posList).equals("Err")) {
 
 						outMessageList.add(verifyDefects(verifElement,
-								verifMessage, verifHint));
+								verifMessage, verifHint,
+								DefectAnalyzerMode.INCOMPLETE_SLOW));
 					} else {
 						if (defect == null || defect.contains("Core")
 								|| defect.contains("Dead")
@@ -636,6 +638,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					out.add(uniqueIdentifiers.size() + verifMessage);
 				refas2hlcl.updateErrorMark(uniqueIdentifiers, element,
 						verifHint);
+
 			}
 
 			if (defect == null || defect.contains("Core"))
@@ -675,7 +678,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	}
 
 	private String verifyDefects(String verifElement, String verifMessage,
-			String verifHint) throws InterruptedException {
+			String verifHint, DefectAnalyzerMode mode)
+			throws InterruptedException {
 		String outMessage = null;
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
@@ -693,6 +697,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			modelToVerify.addAll(relaxed);
 			modelToVerify.addAll(fixed);
 			iniSTime = System.currentTimeMillis();
+			endSTime = iniSTime;
 			if (modelToVerify.toString().equals("[]"))
 				return "No features to verify";
 			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify,
@@ -710,7 +715,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				fixedConstraint.addAll(verify);
 				fixedConstraint.addAll(fixed);
 				Diagnosis result = cauCosAnalyzer.getCauCos(defect, relaxed,
-						fixedConstraint, DefectAnalyzerMode.PARTIAL);
+						fixedConstraint, mode);
 				endSTime = System.currentTimeMillis();
 				String defects = "(";
 				for (CauCos correction : result.getCorrections()) {

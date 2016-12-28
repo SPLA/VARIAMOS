@@ -190,7 +190,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 														"LowLevelVarValue")
 												.getValue().equals("")) {
 									ModelExpr instanceExpression = new ModelExpr(
-											true, "cond", true);
+											true, instE.getIdentifier()
+													+ "Cond", true, -1);
 									instanceExpression
 											.setSemanticExpressionType(refas
 													.getSemanticExpressionTypes()
@@ -209,6 +210,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								}
 							}
 						}
+						int expressionInstances = instE.getInstances(refas);
+
 						if (instE.getInstAttribute("variableType") == null
 								|| (!instE.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable") && !instE
@@ -216,103 +219,125 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										.getValue()
 										.equals("LowLevel expression")))
 							out.addAll(createElementInstanceExpressions(instE,
-									semExp, false));
-
-						// FIXME better validate to create conditional
-						// expressions
-						if (out.size() == 0) {
-							// continue;
-						}
-
-						for (InstAttribute att : instE.getInstAttributes()
-								.values()) {
-							// create instance expressions for conditional
-							// expressions
-							if (att.getType().equals(
-									ModelExpr.class.getCanonicalName())) {
-								if (att.getValue() != null) {
+									semExp, false, expressionInstances));
+						int pos = -1;
+						do {
+							for (InstAttribute var : instE.getInstAttributes()
+									.values()) {
+								if (expressionInstances > 1 && pos == -1)
+									var.updateAdditionalAttributes(expressionInstances);
+								if (expressionInstances > 1 && pos != -1)
+									var = var.getAdditionalAttribute(pos);
+								int attributeValue = 0;
+								if (subOperExpTypeName.equals("NORMAL")
+										&& ((OpersSubOperation) operSubAction
+												.getEdOperEle())
+												.validateAttribute(
+														instE.getTransSupportMetaElement()
+																.getTransInstSemanticElement(),
+														var.getAttributeName(),
+														true) == 1) {
+									String type = var.getType();
+									if (type.equals("Integer")
+											|| type.equals("Boolean")) {
+										if (var.getValue() instanceof Boolean)
+											attributeValue = ((boolean) var
+													.getValue()) ? 1 : 0;
+										else if (var.getValue() instanceof String)
+											attributeValue = Integer
+													.valueOf((String) var
+															.getValue());
+										else
+											attributeValue = (Integer) var
+													.getValue();
+									}
 									ModelExpr instanceExpression = new ModelExpr(
-											true, "cond", true);
-									instanceExpression
-											.setSemanticExpressionType(refas
-													.getSemanticExpressionTypes()
-													.get("DoubleImplies"));
-									instanceExpression.setLeftElement(instE);
-									instanceExpression.setLeftAttributeName(att
-											.getIdentifier());
-									System.out.println(att.getIdentifier());
-									instanceExpression
-											.setRightInstanceExpression((ModelExpr) att
-													.getValue());
-									instanceExpression
-											.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-									out.add(instanceExpression);
-								} else {
-									ModelExpr instanceExpression = new ModelExpr(
-											true, "cond", true);
+											true, "t", true, pos);
 									instanceExpression
 											.setSemanticExpressionType(refas
 													.getSemanticExpressionTypes()
 													.get("Equals"));
 									instanceExpression.setLeftElement(instE);
-									instanceExpression.setLeftAttributeName(att
+									instanceExpression.setLeftAttributeName(var
 											.getIdentifier());
-									instanceExpression
-											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
-									instanceExpression.setRightNumber(1);
+									// System.out.println("ErDe: "+var.getIdentifier());
+									if (type.equals("String")) {
+										instanceExpression
+												.setRightValue((String) var
+														.getValue());
+										instanceExpression
+												.setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
+									} else {
+										instanceExpression
+												.setRightNumber(attributeValue);
+										instanceExpression
+												.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+									}
 									out.add(instanceExpression);
 								}
 							}
+							pos++;
+						} while (pos + 1 < expressionInstances);
+						// FIXME validate better the creation of conditional
+						// expressions
+						if (out.size() == 0) {
+							continue;
 						}
-						for (InstAttribute var : instE.getInstAttributes()
-								.values()) {
-							int attributeValue = 0;
-							if (subOperExpTypeName.equals("NORMAL")
-									&& ((OpersSubOperation) operSubAction
-											.getEdOperEle())
-											.validateAttribute(
-													instE.getTransSupportMetaElement()
-															.getTransInstSemanticElement(),
-													var.getAttributeName(),
-													true) == 1) {
-								String type = var.getType();
-								if (type.equals("Integer")
-										|| type.equals("Boolean")) {
-									if (var.getValue() instanceof Boolean)
-										attributeValue = ((boolean) var
-												.getValue()) ? 1 : 0;
-									else if (var.getValue() instanceof String)
-										attributeValue = Integer
-												.valueOf((String) var
+						pos = -1;
+						do {
+							for (InstAttribute att : instE.getInstAttributes()
+									.values()) {
+								if (expressionInstances > 1 && pos == -1)
+									att.updateAdditionalAttributes(expressionInstances);
+								if (expressionInstances > 1 && pos != -1)
+									att = att.getAdditionalAttribute(pos);
+								// create instance expressions for conditional
+								// expressions
+								if (att.getType().equals(
+										ModelExpr.class.getCanonicalName())) {
+									if (att.getValue() != null) {
+										ModelExpr instanceExpression = new ModelExpr(
+												true, att.getIdentifier()
+														+ "Cond", true, pos);
+										instanceExpression
+												.setSemanticExpressionType(refas
+														.getSemanticExpressionTypes()
+														.get("DoubleImplies"));
+										instanceExpression
+												.setLeftElement(instE);
+										instanceExpression
+												.setLeftAttributeName(att
+														.getIdentifier());
+										// System.out.println(att.getIdentifier());
+										instanceExpression
+												.setRightInstanceExpression((ModelExpr) att
 														.getValue());
-									else
-										attributeValue = (Integer) var
-												.getValue();
+										instanceExpression
+												.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+										out.add(instanceExpression);
+									} else {
+										ModelExpr instanceExpression = new ModelExpr(
+												true, att.getIdentifier()
+														+ "Cond", true, pos);
+										instanceExpression
+												.setSemanticExpressionType(refas
+														.getSemanticExpressionTypes()
+														.get("Equals"));
+										instanceExpression
+												.setLeftElement(instE);
+										instanceExpression
+												.setLeftAttributeName(att
+														.getIdentifier());
+										instanceExpression
+												.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+										instanceExpression.setRightNumber(1);
+										out.add(instanceExpression);
+									}
 								}
-								ModelExpr instanceExpression = new ModelExpr(
-										true, "t", true);
-								instanceExpression
-										.setSemanticExpressionType(refas
-												.getSemanticExpressionTypes()
-												.get("Equals"));
-								instanceExpression.setLeftElement(instE);
-								instanceExpression.setLeftAttributeName(var
-										.getIdentifier());
-								if (type.equals("String")) {
-									instanceExpression
-											.setRightValue((String) var
-													.getValue());
-									instanceExpression
-											.setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
-								} else {
-									instanceExpression
-											.setRightNumber(attributeValue);
-									instanceExpression
-											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
-								}
-								out.add(instanceExpression);
 							}
-						}
+
+							pos++;
+						} while (pos + 1 < expressionInstances);
 						// for (AbstractAttribute var : operSubAction
 						// .getInVariables()) {
 						// int attributeValue = 0;
@@ -366,9 +391,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						// }
 						// }
 					}
-				else
+				else {
+					int instances = instElement.getInstances(refas);
 					out.addAll(createElementInstanceExpressions(instElement,
-							semExp, false));
+							semExp, false, instances));
+				}
 
 			}
 		}
@@ -449,24 +476,36 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										.getInstAttribute("variableType")
 										.getValue()
 										.equals("LowLevel expression"))) {
-							for (InstAttribute var : instE.getInstAttributes()
-									.values()) {
-								if (((OpersLabeling) operLab.getEdOperEle())
-										.validateAttribute(instE
-												.getTransSupportMetaElement()
-												.getTransInstSemanticElement(),
-												var.getAttributeName()) == 1) {
-
-									Identifier id = f.newIdentifier(instE
-											.getIdentifier()
-											+ "_"
-											+ var.getAttributeName());
-									// id.setDomain();
-									ModelExpr.updateDomain(var.getAttribute(),
-											instE, id);
-									ident.add(id);
+							int instances = instE.getInstances(refas);
+							int pos = -1;
+							do {
+								for (InstAttribute var : instE
+										.getInstAttributes().values()) {
+									if (instances > 1 && pos == -1)
+										var.updateAdditionalAttributes(instances);
+									if (instances > 1 && pos != -1)
+										var = var.getAdditionalAttribute(pos);
+									if (((OpersLabeling) operLab.getEdOperEle())
+											.validateAttribute(
+													instE.getTransSupportMetaElement()
+															.getTransInstSemanticElement(),
+													var.getAttributeName()) == 1) {
+										String addAtt = "";
+										if (pos != -1)
+											addAtt = "_" + pos;
+										Identifier id = f.newIdentifier(instE
+												.getIdentifier()
+												+ addAtt
+												+ "_"
+												+ var.getAttributeName());
+										// id.setDomain();
+										ModelExpr.updateDomain(
+												var.getAttribute(), instE, id);
+										ident.add(id);
+									}
 								}
-							}
+								pos++;
+							} while (pos + 1 < instances);
 						}
 					}
 					Collections.sort(ident);
@@ -483,7 +522,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					// FIXME support more models
 					InstElement oper2 = refas.getElement("REFAS1");
 					List<ModelExpr> instexp = createElementInstanceExpressions(
-							oper2, semExps, true);
+							oper2, semExps, true, 1);
 					List<NumericExpression> explist = getNumericExpressions(instexp);
 					Labeling lab = new Labeling(operLab.getIdentifier(),
 							(String) operLab.getInstAttributeValue("labelId"),
@@ -507,7 +546,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	@SuppressWarnings("unchecked")
 	protected List<ModelExpr> createElementInstanceExpressions(
 			InstElement instElement, List<OpersExpr> semanticExpressions,
-			boolean semanticElement) {
+			boolean semanticElement, int expressionInstances) {
 		OpersElement semElement = null;
 		/*
 		 * if (semanticElement) semElement =
@@ -523,6 +562,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						.getTransInstSemanticElement() != null)
 			opersParents = instElement.getTransSupportMetaElement()
 					.getTransInstSemanticElement().getParentOpersConcept();
+		// Creates the expression from concepts meta-expressions
 		if (semElement != null
 				&& semElement.getAllSemanticExpressions(opersParents) != null) {
 			List<OpersExpr> semanticExpr = null;
@@ -534,20 +574,34 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			for (OpersExpr semExpression : semanticExpr) {
 				if (semanticElement
 						|| semanticExpressions.contains(semExpression)) {
-					ModelExpr instanceExpression = new ModelExpr(refas, false,
-							semExpression);
-					instanceExpression.createFromSemanticExpression(
-							instElement, 0);
-					out.add(instanceExpression);
+					int expressionInstance = -1;
+					do {
+						ModelExpr instanceExpression = new ModelExpr(refas,
+								false, semExpression,
+								expressionInstances == 1 ? false : true);
+						// System.out.println("ME_ID "
+						// + instanceExpression.getSemanticExpression()
+						// .getIdentifier());
+						instanceExpression.createFromSemanticExpression(
+								instElement, 0, expressionInstance,
+								expressionInstances == 1 ? false : true, 0);
+						// System.out.println("ME_STR "
+						// + instanceExpression.expressionStructure());
+						out.add(instanceExpression);
+						expressionInstance++;
+					} while (expressionInstance + 1 < expressionInstances);
 				}
 			}
 		}
+		// Creates the expression from meta-expressions of the relation
+		// attribute "opersExprs"
 		if (semElement != null && (semElement instanceof OpersElement)) {
 			InstAttribute ia = instElement.getTransSupportMetaElement()
 					.getTransInstSemanticElement()
 					.getInstAttribute("opersExprs");
 			if (ia != null) {
 				List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+
 				for (InstAttribute attribute : ias) {
 					String att = attribute.getIdentifier();
 					if (instElement.getInstAttribute("relationType") != null) {
@@ -559,15 +613,33 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								if (semanticElement
 										|| semanticExpressions
 												.contains(semExpression)) {
-									ModelExpr instanceExpression = new ModelExpr(
-											refas, false, semExpression);
-									instanceExpression
-											.createFromSemanticExpression(
-													instElement, 0);
-									out.add(instanceExpression);
-									// System.out.println("instExppr: "
-									// + instanceExpression
-									// .expressionStructure());
+									int expressionInstance = -1;
+									do {
+										ModelExpr instanceExpression = new ModelExpr(
+												refas,
+												false,
+												semExpression,
+												expressionInstances == 1 ? false
+														: true);
+
+										instanceExpression
+												.createFromSemanticExpression(
+														instElement,
+														0,
+														expressionInstance,
+														expressionInstances == 1 ? false
+																: true, 0);
+										out.add(instanceExpression);
+
+										// System.out
+										// .println("instExppr: "
+										// + instanceExpression
+										// .getSemanticExpressionId()
+										// + " "
+										// + instanceExpression
+										// .expressionStructure());
+										expressionInstance++;
+									} while (expressionInstance + 1 < expressionInstances);
 								}
 							}
 					}
@@ -577,8 +649,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return out;
 	}
 
+	@Deprecated
 	protected List<ModelExpr> createElementInstanceExpressions(
-			InstElement instElement) {
+			InstElement instElement, int expressionInstance) {
 		OpersElement semElement = instElement.getTransSupportMetaElement()
 				.getTransSemanticConcept();
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
@@ -590,8 +663,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			for (OpersExpr semExpression : semElement
 					.getAllSemanticExpressions(opersParents)) {
 				ModelExpr instanceExpression = new ModelExpr(refas, false,
-						semExpression);
-				instanceExpression.createFromSemanticExpression(instElement, 0);
+						semExpression, false);
+				instanceExpression.createFromSemanticExpression(instElement, 0,
+						expressionInstance, false, 0);
 				out.add(instanceExpression);
 			}
 

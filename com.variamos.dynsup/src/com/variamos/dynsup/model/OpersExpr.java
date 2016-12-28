@@ -42,12 +42,6 @@ public class OpersExpr implements Serializable {
 	 * for LEFT Concept (Definition concept)
 	 */
 	private InstElement volatileLeftSemanticElement;
-
-	/**
-	 * for LEFT Relation/Related Concept
-	 */
-	private InstElement volatileLeftSemanticRelElement;
-
 	private String rightSemanticElementId;
 	private String leftSemanticElementId;
 	private String rightSemanticRelElementId;
@@ -57,11 +51,6 @@ public class OpersExpr implements Serializable {
 	 * for RIGHT Concept (Definition concept)
 	 */
 	private InstElement volatileRightSemanticElement;
-
-	/**
-	 * for RIGHT Relation Concept
-	 */
-	private InstElement volatileRightSemanticRelElement;
 
 	/**
 	 * for LEFT
@@ -255,7 +244,6 @@ public class OpersExpr implements Serializable {
 		this.semanticExpressionType = semanticExpressionType;
 		if (replaceRight) {
 			this.setLeftSemanticElement(semanticConElement);
-			this.setLeftSemanticRelElement(semanticRelElement);
 			this.leftAttributeName = attributeName1;
 			this.rightAttributeName = attributeName2;
 			setLeftExpressionType(expressionVertexType);
@@ -263,7 +251,6 @@ public class OpersExpr implements Serializable {
 			setRightSemanticElement(semanticElement);
 		} else {
 			this.setRightSemanticElement(semanticConElement);
-			this.setRightSemanticRelElement(semanticRelElement);
 			this.rightAttributeName = attributeName1;
 			this.leftAttributeName = attributeName2;
 			setRightExpressionType(expressionVertexType);
@@ -363,18 +350,20 @@ public class OpersExpr implements Serializable {
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
-			InstElement semanticElement, String attributeName,
-			boolean replaceTarget, OpersExpr semanticExpression) {
+			InstElement semanticElement, InstElement sideSemanticElement,
+			String attributeName, boolean replaceTarget,
+			OpersExpr semanticExpression) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
+		this.setSemanticElement(semanticElement);
 		if (replaceTarget) {
-			this.setLeftSemanticElement(semanticElement);
+			this.setLeftSemanticElement(sideSemanticElement);
 			this.leftAttributeName = attributeName;
 			setLeftExpressionType(expressionVertexType);
 			setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 			this.rightSemanticExpression = semanticExpression;
 		} else {
-			this.setRightSemanticElement(semanticElement);
+			this.setRightSemanticElement(sideSemanticElement);
 			this.rightAttributeName = attributeName;
 			setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 			setRightExpressionType(expressionVertexType);
@@ -677,12 +666,6 @@ public class OpersExpr implements Serializable {
 		if (rightSemanticElementId != null)
 			volatileRightSemanticElement = instVertices
 					.get(rightSemanticElementId);
-		if (leftSemanticRelElementId != null)
-			volatileLeftSemanticRelElement = instVertices
-					.get(leftSemanticRelElementId);
-		if (rightSemanticRelElementId != null)
-			volatileRightSemanticRelElement = instVertices
-					.get(rightSemanticRelElementId);
 	}
 
 	public String getLeftExpTypeStr() {
@@ -786,24 +769,6 @@ public class OpersExpr implements Serializable {
 		this.rightSemanticElementId = volSemElement.getIdentifier();
 	}
 
-	public void setLeftSemanticRelElement(InstElement leftSemanticRelElement) {
-		this.volatileLeftSemanticRelElement = leftSemanticRelElement;
-		if (leftSemanticRelElement != null)
-			this.leftSemanticRelElementId = leftSemanticRelElement
-					.getIdentifier();
-		else
-			this.leftSemanticRelElementId = null;
-	}
-
-	public void setRightSemanticRelElement(InstElement rightSemanticRelElement) {
-		this.volatileRightSemanticRelElement = rightSemanticRelElement;
-		if (rightSemanticRelElement != null)
-			this.rightSemanticRelElementId = rightSemanticRelElement
-					.getIdentifier();
-		else
-			this.leftSemanticRelElementId = null;
-	}
-
 	public void setLeftSemanticExpression(OpersExpr leftSemanticExpression) {
 		this.leftSemanticExpression = leftSemanticExpression;
 	}
@@ -811,6 +776,8 @@ public class OpersExpr implements Serializable {
 	public void setLeftSemanticExpression(ExpressionVertexType type,
 			OpersExprType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION
+				|| type == ExpressionVertexType.LEFTITERINCSUBEXP
+				|| type == ExpressionVertexType.LEFTITEROUTSUBEXP
 				|| type == ExpressionVertexType.LEFTITERINCFIXEDSUBEXP
 				|| type == ExpressionVertexType.LEFTITEROUTFIXEDSUBEXP
 				|| type == ExpressionVertexType.LEFTITERCONCEPTVARIABLE
@@ -879,14 +846,6 @@ public class OpersExpr implements Serializable {
 
 	public InstElement getRightSemanticElement() {
 		return volatileRightSemanticElement;
-	}
-
-	public InstElement getLeftSemanticRelElement() {
-		return volatileLeftSemanticRelElement;
-	}
-
-	public InstElement getRightSemanticRelElement() {
-		return volatileRightSemanticRelElement;
 	}
 
 	public String getLeftAttributeName() {
@@ -992,25 +951,19 @@ public class OpersExpr implements Serializable {
 		case LEFTITERCONCEPTVARIABLE:
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
-			if (volatileLeftSemanticElement != null)
-				return volatileLeftSemanticElement.getIdentifier();
-			break;
 		case LEFTUNIQUEINCRELVARIABLE:
 		case LEFTUNIQUEOUTRELVARIABLE:
-			if (volatileLeftSemanticRelElement != null)
-				return volatileLeftSemanticRelElement.getIdentifier();
+			if (volatileLeftSemanticElement != null)
+				return volatileLeftSemanticElement.getIdentifier();
 			break;
 		case RIGHTVARIABLE:
 		case RIGHTCONCEPTVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
-			if (volatileRightSemanticElement != null)
-				return volatileRightSemanticElement.getIdentifier();
-			break;
 		case RIGHTUNIQUEOUTRELVARIABLE:
 		case RIGHTUNIQUEINCRELVARIABLE:
-			if (volatileRightSemanticRelElement != null)
-				return volatileRightSemanticRelElement.getIdentifier();
+			if (volatileRightSemanticElement != null)
+				return volatileRightSemanticElement.getIdentifier();
 			break;
 		default:
 		}

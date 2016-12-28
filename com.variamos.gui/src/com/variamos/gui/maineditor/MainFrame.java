@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.mxgraph.util.mxResources;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersExprType;
@@ -47,7 +48,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20161031-1600";
+	private String variamosBuild = "20161228-0000";
 	private String downloadId = "499";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -172,8 +173,10 @@ public class MainFrame extends JFrame {
 		}
 
 		System.out.println("GUI creation complete");
-		this.add(graphEditors.get(1));
-		this.setJMenuBar(editorsMenu.get(1));
+		this.add(graphEditors.get(2));
+		this.setJMenuBar(editorsMenu.get(2));
+		graphEditors.get(2).updatePespectiveMenuTab(
+				mxResources.get("modelingPerspButton"));
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 			this.checkUpdates(false);
@@ -399,17 +402,15 @@ public class MainFrame extends JFrame {
 		directory.mkdir();
 		if (!directory.exists() || !directory.canRead()
 				|| !directory.canWrite()) {
-			System.out
-					.println("VariaMos needs the folder "
-							+ getFilesUrl()
-							+ " with writing privileges. Please change the privileges or manually create the folder with writing privileges and execute VariaMos againt");
-			JOptionPane
-					.showMessageDialog(
-							this,
-							"VariaMos needs the folder "
-									+ getFilesUrl()
-									+ " with writing privileges. Please change the privileges or manually create the folder with writing privileges",
-							"Fatal Error", JOptionPane.ERROR_MESSAGE, null);
+			System.out.println("VariaMos needs the folder " + getFilesUrl()
+					+ " with writing privileges. Please change the"
+					+ " privileges or manually create the folder "
+					+ "with writing privileges and execute VariaMos againt");
+			JOptionPane.showMessageDialog(this, "VariaMos needs the folder "
+					+ getFilesUrl() + " with writing privileges. Please change"
+					+ " the privileges or manually create the "
+					+ "folder with writing privileges", "Fatal Error",
+					JOptionPane.ERROR_MESSAGE, null);
 		}
 		InputStream stream = null;
 		OutputStream resStreamOut = null;

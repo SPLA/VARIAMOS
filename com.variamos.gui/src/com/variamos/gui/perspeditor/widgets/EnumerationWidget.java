@@ -1,12 +1,12 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
-import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
+import com.variamos.core.util.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
@@ -61,21 +61,16 @@ public class EnumerationWidget extends WidgetR {
 		enumeration = aClass.getEnumConstants();
 		if (enumeration != null)
 			for (int i = 0; i < enumeration.length; i++) {
-				String patternString = "([_])";
-				Pattern p = Pattern.compile(patternString);
-
-				String[] split = p.split(enumeration[i].toString());
-				String out = split[0] + " ";
-				for (int j = 1; j < split.length; j++)
-					out += split[j].toLowerCase() + " ";
-				txtValue.addItem(out.trim());
+				String out = StringUtils.formatEnumValue(enumeration[i]
+						.toString());
+				txtValue.addItem(out);
 				if (instAttribute.getValue() != null
 						&& out.equals(instAttribute.getValue()))
 					txtValue.setSelectedItem(out);
 			}
 		if (instAttribute.getValue() == null) {
 			txtValue.setSelectedIndex(0);
-			instAttribute.setValue((String) txtValue.getSelectedItem());
+			instAttribute.setValue(txtValue.getSelectedItem());
 		}
 		revalidate();
 		repaint();
@@ -83,7 +78,7 @@ public class EnumerationWidget extends WidgetR {
 
 	@Override
 	protected boolean pushValue(IntInstAttribute v) {
-		txtValue.setSelectedItem((String) v.getValue());
+		txtValue.setSelectedItem(v.getValue());
 		group.setText((String) v.getGroup());
 		revalidate();
 		repaint();
@@ -92,7 +87,7 @@ public class EnumerationWidget extends WidgetR {
 
 	@Override
 	protected void pullValue(IntInstAttribute v) {
-		v.setValue((String) txtValue.getSelectedItem());
+		v.setValue(txtValue.getSelectedItem());
 		v.setGroup(group.getText());
 	}
 

@@ -40,6 +40,15 @@
 		<add as="fillColor" value="white" />
 		<add as="verticalAlign" value="middle"/>		
 		<add as="strokeColor" value="black"/>
+	</add>	
+	<add as="df">
+		<add as="shape" value="df"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>		
+		<add as="fillColor" value="white" />
+		<add as="verticalAlign" value="middle"/>	
 	</add>
 	<add as="refassoftgoal">
 		<add as="shape" value="refas-softgoal"/>

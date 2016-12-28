@@ -22,6 +22,7 @@ public class ComparisonExpression implements BooleanExpression {
 	 * 
 	 * @return true if the expression has all the components
 	 */
+	@Override
 	public boolean isValidExpression() {
 		if (left == null || right == null)
 			return false;
@@ -65,6 +66,29 @@ public class ComparisonExpression implements BooleanExpression {
 	public String toString() {
 		return "ComparisonExpression [left=" + left + ", right=" + right
 				+ ", type=" + type + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (obj instanceof ComparisonExpression) {
+			ComparisonExpression bE = (ComparisonExpression) obj;
+			if (left.equals(bE.getLeft()) && right.equals(bE.getRight())
+					&& type.equals(bE.getType()))
+				return true;
+			else
+				return false;
+		} else
+			return false;
+	}
+
+	@Override
+	public int hashCode() {
+		String out = (left + "#" + right + "#" + type);
+		return out.hashCode();
 	}
 
 }
