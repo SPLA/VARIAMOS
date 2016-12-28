@@ -589,6 +589,12 @@ public class ModelExpr2HLCL {
 		// Call the SWIProlog and obtain the result
 
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
+			if (execType == ModelExpr2HLCL.DESIGN_EXEC) {
+				if (instVertex.getInstAttribute("isConfDom") != null)
+					instVertex.getInstAttribute("isConfDom").setValue(false);
+				if (instVertex.getInstAttribute("varConfValue") != null)
+					instVertex.getInstAttribute("varConfValue").setValue(null);
+			}
 			if (this.validateConceptType(instVertex, "GeneralConcept")) {
 
 				/*
@@ -610,6 +616,7 @@ public class ModelExpr2HLCL {
 					instVertex.getInstAttribute("ConfSel").setValue(false);
 					instVertex.getInstAttribute("ConfNotSel").setValue(false);
 					instVertex.getInstAttribute("Dead").setValue(false);
+
 				}
 
 				for (InstAttribute instAttribute : instVertex
