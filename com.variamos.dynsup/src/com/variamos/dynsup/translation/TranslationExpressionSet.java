@@ -220,7 +220,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										.equals("LowLevel expression")))
 							out.addAll(createElementInstanceExpressions(instE,
 									semExp, false, expressionInstances));
-
 						int pos = -1;
 						do {
 							for (InstAttribute var : instE.getInstAttributes()
@@ -284,7 +283,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						if (out.size() == 0) {
 							continue;
 						}
-
 						pos = -1;
 						do {
 							for (InstAttribute att : instE.getInstAttributes()

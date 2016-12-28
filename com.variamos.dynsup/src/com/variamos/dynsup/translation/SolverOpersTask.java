@@ -107,6 +107,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			ModelInstance refasModel, ModelExpr2HLCL refas2hlcl,
 			HlclProgram configHlclProgram, boolean firstSimulExec,
 			List<String> operations, Configuration lastConfiguration) {
+
 		this.refasModel = refasModel;
 		this.progressMonitor = progressMonitor;
 		this.refas2hlcl = refas2hlcl;
@@ -358,6 +359,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								|| type.equals(StringUtils
 										.formatEnumValue(OperationSubActionType.Iterative_Update
 												.toString()))) {
+
 							if (lastConfiguration == null) {
 								result = refas2hlcl.execute(progressMonitor,
 										ModelExpr2HLCL.ONE_SOLUTION,
@@ -698,6 +700,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			String method, List<OpersIOAttribute> outAttributes,
 			int numberOperations, String outAttribute,
 			boolean updateOutAttributes) throws InterruptedException {
+
 		HlclFactory f = new HlclFactory();
 		long iniTime = System.currentTimeMillis();
 		int result = 0;
@@ -708,7 +711,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		List<String> freeIdsNames = null;
 		List<String> defectsNames = new ArrayList<String>();
 		long falseOTime = 0;
-
 		result = refas2hlcl.execute(progressMonitor, 0, operation, subOper);
 		if (result == 0) {
 			Map<String, Number> currentResult = refas2hlcl.getResult();
@@ -716,7 +718,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					outAttribute);
 		} else
 			return -1;
-
 		if (freeIdsNames != null) {
 			Set<Identifier> freeIdentifiers = new HashSet<Identifier>();
 			for (String freeIdentifier : freeIdsNames) {
@@ -748,7 +749,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						break;
 					case "getAllNonAttainableDomains":
 						coreIds = defectVerifier
-								.getAllNonAttainableDomains(freeIdentifiers);
+
+						.getAllNonAttainableDomains(freeIdentifiers);
 						break;
 					default:
 						throw new FunctionalException();
@@ -769,10 +771,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						defectsFreeIdsName = freeIdsNames;
 						result = coreIds.size();
 					}
-
 					task += 100 / numberOperations;
 					setProgress((int) task);
-
 				} catch (FunctionalException e) {
 					// TODO Auto-generated catch block
 					ConsoleTextArea.addText(e.getStackTrace());
@@ -781,7 +781,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			}
 			if (updateOutAttributes)
 				refas2hlcl.updateGUIElements(outAttributes, null);
-
 		} else {
 			long endTime = System.currentTimeMillis();
 			executionTime += element
@@ -793,7 +792,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					+ " -- ";
 			return -1;
 		}
-
 		long endTime = System.currentTimeMillis();
 		long defectVerifTime = defectVerifier == null ? 0 : (defectVerifier
 				.getSolverTime() / 1000000);

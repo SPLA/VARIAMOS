@@ -596,7 +596,10 @@ public class ModelExpr2HLCL {
 					instVertex.getInstAttribute("varConfValue").setValue(null);
 			}
 			if (this.validateConceptType(instVertex, "GeneralConcept")) {
-
+				if (instVertex.getInstAttribute("TrueVal").getAsBoolean()
+						|| instVertex.getInstAttribute("FalseVal")
+								.getAsBoolean())
+					continue;
 				/*
 				 * if (instVertex.getInstAttribute("Core").getAsBoolean() ||
 				 * instVertex.getInstAttribute("Dead").getAsBoolean()) continue;
@@ -850,6 +853,7 @@ public class ModelExpr2HLCL {
 							.getInstAttribute(attribute);
 					for (OpersIOAttribute attTarget : selectedAttributes) {
 						boolean exists = false;
+
 						List<InstElement> opersParents = null;
 						if (vertex.getTransSupportMetaElement() != null
 								&& vertex.getTransSupportMetaElement()

@@ -224,6 +224,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		// " "
 		// + this.expressionStructure());
 		return createExpression(0, -1);
+
 	}
 
 	public Expression createExpression(int pos, int leftIterInstance) {
@@ -231,6 +232,7 @@ public class ModelExpr implements Serializable, Cloneable {
 				leftIterInstance, 0);
 		// System.out.println("ERR MODELEXP" + expressionTerms.get(0) + " "
 		// + expressionTerms.get(1));
+
 		Class<? extends HlclFactory> hlclFactoryClass = hlclFactory.getClass();
 		OpersExprType semanticExpressionType = getSemanticExpression()
 				.getSemanticExpressionType();
