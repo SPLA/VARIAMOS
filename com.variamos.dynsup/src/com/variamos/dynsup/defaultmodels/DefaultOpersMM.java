@@ -3575,12 +3575,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -3673,12 +3673,13 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraMConcept.getIdentifier(), attributeSel.getName(),
 					true));
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attributeSel.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraMConcept.getIdentifier(), attributeSel.getName(),
-					true));
+			// sasverNoLoopsOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attributeSel.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraMConcept.getIdentifier(), attributeSel.getName(),
+			// true));
 			sasverSGConflOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attributeSel.getName(), true));
@@ -3765,12 +3766,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -3888,12 +3889,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -3986,12 +3987,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4087,12 +4088,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4206,12 +4207,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4318,12 +4319,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4425,12 +4426,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4521,12 +4522,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4669,11 +4670,12 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -4753,11 +4755,12 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -4830,11 +4833,12 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -4932,11 +4936,12 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -5010,11 +5015,12 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -5110,11 +5116,12 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -5195,11 +5202,12 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -5287,11 +5295,12 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralPair.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semGeneralPair
-							.getIdentifier(), attribute.getName(), true));
-			sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semGeneralPair.getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semGeneralPair
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semGeneralPair.getIdentifier(), attribute.getName(), true));
 			sasverSGConflOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semGeneralPair
 							.getIdentifier(), attribute.getName(), true));
@@ -5950,7 +5959,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -6072,7 +6081,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -6262,10 +6271,10 @@ public class DefaultOpersMM {
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semGeneralElement.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -6325,10 +6334,10 @@ public class DefaultOpersMM {
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semGeneralElement.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -6553,7 +6562,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -6754,7 +6763,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -6778,7 +6787,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -6815,7 +6824,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -6857,7 +6866,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -6890,7 +6899,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -6980,7 +6989,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7010,7 +7019,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7087,7 +7096,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7126,7 +7135,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7167,7 +7176,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7194,7 +7203,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7238,7 +7247,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7269,7 +7278,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7313,7 +7322,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7345,7 +7354,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7386,7 +7395,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7552,6 +7561,14 @@ public class DefaultOpersMM {
 				false, null, 0, 11, "", "", -1, "", "");
 
 		semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
+		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		verifFalseOptElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftgoal
 				.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
@@ -7588,10 +7605,10 @@ public class DefaultOpersMM {
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -7630,6 +7647,14 @@ public class DefaultOpersMM {
 		semSoftgoal.addPropEditableAttribute("05#" + "ConfigReqLevel" + "#"
 				+ "Required" + "#==#" + "true" + "#" + "5");
 		semSoftgoal.addPropVisibleAttribute("05#" + "ConfigReqLevel");
+		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		verifFalseOptElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftgoal
 				.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
@@ -7666,10 +7691,10 @@ public class DefaultOpersMM {
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -7729,10 +7754,10 @@ public class DefaultOpersMM {
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -7785,7 +7810,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7821,7 +7846,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7855,7 +7880,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7911,7 +7936,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7944,7 +7969,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -7977,7 +8002,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -8030,10 +8055,10 @@ public class DefaultOpersMM {
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -8095,10 +8120,10 @@ public class DefaultOpersMM {
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -8322,7 +8347,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -8475,7 +8500,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -8560,7 +8585,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -8593,10 +8618,47 @@ public class DefaultOpersMM {
 		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 		semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
 		semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
+
 		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semClaim
 				.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semClaim
 				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(semClaim
+				.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(semClaim
+				.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("CompExp", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Boolean Comp. Expression",
@@ -8690,10 +8752,59 @@ public class DefaultOpersMM {
 				+ "ConditionalExpression");
 		semSoftDependency.addPropVisibleAttribute("03#"
 				+ "ConditionalExpression");
+
 		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftDependency
 				.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftDependency
 				.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("CompExp", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Boolean Comp. Expression",
@@ -8963,7 +9074,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9048,7 +9159,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9127,7 +9238,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9198,7 +9309,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9272,7 +9383,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9301,7 +9412,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9377,7 +9488,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9589,7 +9700,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9622,7 +9733,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9675,7 +9786,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9706,7 +9817,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9731,7 +9842,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9866,7 +9977,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -9917,7 +10028,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10009,7 +10120,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10051,7 +10162,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10102,7 +10213,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10240,7 +10351,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10277,7 +10388,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10387,7 +10498,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10412,7 +10523,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10452,7 +10563,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10477,7 +10588,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10605,10 +10716,10 @@ public class DefaultOpersMM {
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -10670,10 +10781,10 @@ public class DefaultOpersMM {
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -10825,7 +10936,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10865,7 +10976,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10905,7 +11016,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10954,7 +11065,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -10994,7 +11105,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11034,7 +11145,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11067,7 +11178,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11140,7 +11251,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11224,10 +11335,10 @@ public class DefaultOpersMM {
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -11371,7 +11482,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11410,7 +11521,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11449,7 +11560,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11494,7 +11605,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11530,7 +11641,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11566,7 +11677,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11639,7 +11750,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11672,7 +11783,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11725,10 +11836,10 @@ public class DefaultOpersMM {
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -11877,9 +11988,6 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("ANDhardSelRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"), instSgsgSGR, "sourceClExp", true, t1);
 
-		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-		verifDeadElemSubOperNormal.addSemanticExpression(t1);
-		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -11892,7 +12000,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -11996,7 +12104,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12051,7 +12159,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12197,7 +12305,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12269,7 +12377,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12336,7 +12444,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12367,7 +12475,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12398,7 +12506,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12439,7 +12547,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12559,7 +12667,7 @@ public class DefaultOpersMM {
 				instDirOperClaimToSemanticEdge, instVertexCL, "Sel", true, t1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
-		// simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// verifDeadElemSubOperNormal.addSemanticExpression(t1);
 		// verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
@@ -12570,7 +12678,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12622,7 +12730,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12689,7 +12797,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12827,7 +12935,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -12852,7 +12960,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -13030,12 +13138,12 @@ public class DefaultOpersMM {
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
-				true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+		// true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -13219,7 +13327,7 @@ public class DefaultOpersMM {
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
@@ -13277,7 +13385,7 @@ public class DefaultOpersMM {
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
@@ -13336,7 +13444,7 @@ public class DefaultOpersMM {
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
@@ -13452,7 +13560,7 @@ public class DefaultOpersMM {
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
@@ -13612,12 +13720,12 @@ public class DefaultOpersMM {
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
-		sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
-				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
-				true));
+		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+		// true));
 		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -13710,7 +13818,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -13746,7 +13854,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -13782,7 +13890,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -13804,7 +13912,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14007,7 +14115,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14047,7 +14155,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14089,7 +14197,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14119,7 +14227,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14150,7 +14258,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14181,7 +14289,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14210,7 +14318,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14241,7 +14349,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14284,7 +14392,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14340,7 +14448,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14378,7 +14486,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14421,7 +14529,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14448,7 +14556,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14479,7 +14587,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14510,7 +14618,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14539,7 +14647,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14570,7 +14678,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14613,7 +14721,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14694,7 +14802,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14719,7 +14827,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14827,7 +14935,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
@@ -14852,7 +14960,7 @@ public class DefaultOpersMM {
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
 		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
 		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
