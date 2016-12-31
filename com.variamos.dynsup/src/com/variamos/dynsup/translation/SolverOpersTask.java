@@ -906,7 +906,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 					task += 100 / numberOperations;
 					setProgress((int) task);
-
+					System.out.println(defectsNames);
 					refas2hlcl.updateErrorMark(defectsNames,
 							operation.getIdentifier(), verifHint);
 				} catch (FunctionalException e) {

@@ -4872,10 +4872,11 @@ public class DefaultOpersMM {
 					.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
 					.getIdentifier(), attribute.getName(), true));
-			updateCoreSubOperationAction.addOutAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// updateCoreSubOperationAction.addOutAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -4886,17 +4887,18 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			verifDeadElemSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			verifFalseOptSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			verifFalseOptElemOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
+			// verifDeadElemSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// verifDeadElemOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// verifFalseOptSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// verifFalseOptElemOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
 		}
 		semInfraOTRel.putSemanticAttribute("Core", attribute);
 
@@ -5820,6 +5822,21 @@ public class DefaultOpersMM {
 		instVertexGE = new InstConcept("GeneralConcept", metaMetaInstConcept,
 				semGeneralElement);
 
+		attribute = new ElemAttribute("outGE", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for GE verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		semGeneralElement.putSemanticAttribute("outGE", attribute);
+		// verifDeadElemSubOperationAction.addOutAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(), true));
+		// verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(), true));
+		// verifFalseOptSubOperationAction.addOutAttribute(new OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(), true));
+		// verifFalseOptElemOperUniqueLabeling.addAttribute(new
+		// OpersIOAttribute(
+		// semGeneralElement.getIdentifier(), attribute.getName(), true));
+
 		// t1 = new SemanticExpression("REFAS_pref<=1", refas
 		// .getSemanticExpressionTypes().get("LessOrEquals"),
 		// instRefasModel, "pref", 1);
@@ -5930,7 +5947,16 @@ public class DefaultOpersMM {
 
 		semGeneralElement.setSemanticExpressions(semExpr);
 
-		OpersExpr t1 = new OpersExpr("Req Implies Selected", refas
+		OpersExpr t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Implies"), ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexGE, instVertexGE,
+				"Sel", "outGE");
+
+		semExpr.add(t1);
+		// verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		// verifDeadElemSubOperNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("Req Implies Selected", refas
 				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
 				instVertexGE, "Required", "Sel");
 
