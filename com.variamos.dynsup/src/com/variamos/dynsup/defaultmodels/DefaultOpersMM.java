@@ -5997,7 +5997,7 @@ public class DefaultOpersMM {
 				instVertexGE, "Required", "Core");
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
-		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		// t1 = new OpersExpr("Req Implies Verification Error", refas

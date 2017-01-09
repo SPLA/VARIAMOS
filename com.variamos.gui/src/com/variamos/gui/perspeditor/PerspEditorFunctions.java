@@ -23,7 +23,6 @@ import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
-import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersSubOperation;
@@ -136,11 +135,11 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 										o = new InstConcept();
 										c = o.getClass().getConstructor(
 												String.class,
-												SyntaxElement.class,
+												InstElement.class,
 												SyntaxElement.class);
-										obj = (InstElement) c
-												.newInstance("", metaVertex,
-														new SyntaxElement());
+										obj = (InstElement) c.newInstance("",
+												instElement,
+												new SyntaxElement());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",

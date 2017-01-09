@@ -878,6 +878,31 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 						defects = defectVerifier
 								.getRedundancies(constraitsToVerifyRedundacies);
+						for (Defect defect : defects)
+							constraitsToVerifyRedundacies.removeAll(defect
+									.getVerificationExpressions());
+						// TODO add option to see redundant instead of
+						// non-redundant - parentOper uses this function
+						defects.clear();
+						if (constraitsToVerifyRedundacies.size() > 0) {
+							List<String> newDefectsNames = new ArrayList<String>();
+							List<String> newDefectsIds = new ArrayList<String>();
+							for (BooleanExpression conceptVariable : constraitsToVerifyRedundacies) {
+								String[] conceptId = conceptVariable.toString()
+										.split("_");
+								conceptId = conceptId[0].toString().split("=");
+								newDefectsNames
+										.add(conceptId[conceptId.length - 1]);
+								newDefectsIds
+										.add(conceptId[conceptId.length - 1]
+												+ "_Sel");
+							}
+							defectsNames.addAll(newDefectsNames);
+							freeIdsNames.removeAll(newDefectsIds);
+							if (updateIds)
+								defectsFreeIdsName = freeIdsNames;
+							result = defects.size();
+						}
 						break;
 					case "getAllNonAttainableDomains":
 						defects = defectVerifier

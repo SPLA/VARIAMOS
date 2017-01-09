@@ -913,8 +913,9 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
 			if (editElm.getSupInstEleId() != null
-					&& ((editElm.getSupInstEleId().equals("OPER") || (editElm
-							.getSupInstEleId().equals("ME"))))) {
+					&& ((editElm.getSupInstEleId().equals("OPER")
+							|| (editElm.getSupInstEleId().equals("ME")) || (editElm
+								.getSupInstEleId().equals("OMMEnum"))))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
@@ -932,7 +933,8 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setPreferredSize(new Dimension(150, 150));
 				attPanel.setMaximumSize(new Dimension(150, 180));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
-				if (editElm.getSupInstEleId().equals("ME")) {
+				if (editElm.getSupInstEleId().equals("ME")
+						|| editElm.getSupInstEleId().equals("OMMEnum")) {
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));

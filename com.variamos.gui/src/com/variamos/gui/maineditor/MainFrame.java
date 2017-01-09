@@ -130,6 +130,11 @@ public class MainFrame extends JFrame {
 			case 2:// syntax 3
 				abstractModel = syntaxSuperstructure;
 
+				// TO View OperMM in Syntax Perspective
+				// abstractModel = new ModelInstance(
+				// PerspectiveType.OPERATIONSINFRASTRUCTURE,
+				// metaExpressionTypes, InfraBasicSyntax, null);
+
 				bgColor = new Color(255, 255, 245);
 				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b"
 						+ variamosBuild;
@@ -146,7 +151,6 @@ public class MainFrame extends JFrame {
 				System.out
 						.println("Creating Configuration and Simulation Perspective...");
 				break;
-
 			}
 
 			refasGraph = new PerspEditorGraph(i + 1, abstractModel);

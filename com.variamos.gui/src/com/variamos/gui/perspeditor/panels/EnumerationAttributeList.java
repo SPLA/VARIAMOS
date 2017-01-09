@@ -73,6 +73,9 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				SyntaxElement.VAR_METAENUMVALUE);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
+		o = element.getInstAttributes().get("other");
+		if (o != null)
+			init((Collection<InstAttribute>) o.getValue());
 	}
 
 	private void init(Collection<InstAttribute> varAttributes) {
@@ -90,6 +93,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 		addMouseListener(new MouseAdapter() {
 
+			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 					int index = locationToIndex(evt.getPoint());
@@ -130,9 +134,15 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
-			Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
-					.getInstAttributes().get(SyntaxElement.VAR_METAENUMVALUE)
-					.getValue();
+			Collection<InstAttribute> instAttributes = null;
+			if (element.getInstAttributes()
+					.get(SyntaxElement.VAR_METAENUMVALUE) != null)
+				instAttributes = (Collection<InstAttribute>) element
+						.getInstAttributes()
+						.get(SyntaxElement.VAR_METAENUMVALUE).getValue();
+			if (element.getInstAttributes().get("other") != null)
+				instAttributes = (Collection<InstAttribute>) element
+						.getInstAttributes().get("other").getValue();
 			int i = 1;
 			/*
 			 * while (notFound) { for (InstAttribute i : instAttributes) {
@@ -197,9 +207,15 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				v.setValue(((Integer) instIdentifier.getValue()).intValue()
 						+ "#" + (String) instName.getValue());
 
-				List<InstAttribute> attributes = ((List<InstAttribute>) element
-						.getInstAttributes()
-						.get(SyntaxElement.VAR_METAENUMVALUE).getValue());
+				List<InstAttribute> attributes = null;
+				if (element.getInstAttributes().get(
+						SyntaxElement.VAR_METAENUMVALUE) != null)
+					attributes = ((List<InstAttribute>) element
+							.getInstAttributes()
+							.get(SyntaxElement.VAR_METAENUMVALUE).getValue());
+				if (element.getInstAttributes().get("other") != null)
+					attributes = ((List<InstAttribute>) element
+							.getInstAttributes().get("other").getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -245,6 +261,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 		final InstCell finalInstCell = instCell;
 		new Thread() {
+			@Override
 			public void run() {
 				try {
 					sleep(500);

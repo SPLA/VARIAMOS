@@ -48,17 +48,19 @@ public class EnumerationWidget extends WidgetR {
 				.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
-		InstAttribute instAttribute = (InstAttribute) v;
-		try {
-			aClass = classLoader.loadClass(instAttribute.getAttribute()
-					.getClassCanonicalName());
-			// System.out.println("aClass.getName() = " + aClass.getName());
-		} catch (ClassNotFoundException e) {
-			ConsoleTextArea.addText(instAttribute.getAttribute()
-					.getClassCanonicalName());
-			ConsoleTextArea.addText(e.getStackTrace());
+		IntInstAttribute instAttribute = v;
+		if (instAttribute instanceof InstAttribute) {
+			try {
+				aClass = classLoader.loadClass(((InstAttribute) instAttribute)
+						.getAttribute().getClassCanonicalName());
+				// System.out.println("aClass.getName() = " + aClass.getName());
+			} catch (ClassNotFoundException e) {
+				ConsoleTextArea.addText(((InstAttribute) instAttribute)
+						.getAttribute().getClassCanonicalName());
+				ConsoleTextArea.addText(e.getStackTrace());
+			}
+			enumeration = aClass.getEnumConstants();
 		}
-		enumeration = aClass.getEnumConstants();
 		if (enumeration != null)
 			for (int i = 0; i < enumeration.length; i++) {
 				String out = StringUtils.formatEnumValue(enumeration[i]
@@ -68,7 +70,7 @@ public class EnumerationWidget extends WidgetR {
 						&& out.equals(instAttribute.getValue()))
 					txtValue.setSelectedItem(out);
 			}
-		if (instAttribute.getValue() == null) {
+		if (instAttribute.getValue() == null && txtValue.getItemCount() > 0) {
 			txtValue.setSelectedIndex(0);
 			instAttribute.setValue(txtValue.getSelectedItem());
 		}
