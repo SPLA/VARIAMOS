@@ -1717,7 +1717,7 @@ public class DefaultOpersMM {
 			instOperationSubAction
 					.getInstAttribute("defectsVerifierMethod")
 					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+							OperationSubActionDefectsVerifierMethodType.getDeadElements
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("CLCoreOper");

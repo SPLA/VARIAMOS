@@ -672,6 +672,15 @@ public class ModelExpr2HLCL {
 			if (instVertex.getInstAttribute("Sel") != null)
 				instVertex.getInstAttribute("Sel").setValue(false);
 		}
+		for (InstElement instVertex : refas.getConstraintInstEdges().values()) {
+			instVertex.clearDefects();
+			if (instVertex.getInstAttribute("Dead") != null)
+				instVertex.getInstAttribute("Dead").setValue(false);
+			if (instVertex.getInstAttribute("Core") != null)
+				instVertex.getInstAttribute("Core").setValue(false);
+			if (instVertex.getInstAttribute("Sel") != null)
+				instVertex.getInstAttribute("Sel").setValue(false);
+		}
 	}
 
 	public Map<String, Number> getResult() {

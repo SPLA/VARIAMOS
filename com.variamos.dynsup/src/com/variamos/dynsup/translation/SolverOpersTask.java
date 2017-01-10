@@ -888,6 +888,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							List<String> newDefectsNames = new ArrayList<String>();
 							List<String> newDefectsIds = new ArrayList<String>();
 							for (BooleanExpression conceptVariable : constraitsToVerifyRedundacies) {
+								// FIXME better support for expression and other
+								// fields
 								String[] conceptId = conceptVariable.toString()
 										.split("_");
 								conceptId = conceptId[0].toString().split("=");
