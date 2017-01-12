@@ -541,9 +541,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 			refas2hlcl.updateGUIElements(attributes);
 			Map<String, Number> currentResult = refas2hlcl.getResult();
+			Map<String, Number> lastResult = refas2hlcl.getResult();
 			System.out.println(currentResult);
+			System.out.println(lastResult);
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
-					refas2hlcl.getResult());
+					lastResult);
 
 			// System.out.println(falseOptIdentifiers);
 
@@ -642,8 +644,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			}
 
 			if (defect == null || defect.contains("Core"))
-				;
-			// refas2hlcl.updateCoreConcepts(uniqueIdentifiers, false);
+				refas2hlcl.updateCoreConcepts(uniqueIdentifiers, false);
 
 			if (defect == null || defect.contains("Dead"))
 				refas2hlcl.updateDeadConcepts(deadIdentifiers);

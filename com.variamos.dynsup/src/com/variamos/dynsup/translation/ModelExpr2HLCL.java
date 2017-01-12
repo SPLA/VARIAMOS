@@ -724,7 +724,7 @@ public class ModelExpr2HLCL {
 				// System.out.println(vertexId + " " + attribute + " "
 				// + prologOut.get(identifier));
 				if (!vertexId.equals("Amodel")
-						&& (outVariables != null && outVariables
+						&& (outVariables == null || outVariables
 								.contains(attribute))) {
 					InstElement vertex = refas.getElement(vertexId);
 					if (vertex == null

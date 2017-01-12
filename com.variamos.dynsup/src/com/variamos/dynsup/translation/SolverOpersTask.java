@@ -878,9 +878,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 						defects = defectVerifier
 								.getRedundancies(constraitsToVerifyRedundacies);
-						for (Defect defect : defects)
-							constraitsToVerifyRedundacies.removeAll(defect
-									.getVerificationExpressions());
+						// for (Defect defect : defects)
+						// constraitsToVerifyRedundacies.removeAll(defect
+						// .getVerificationExpressions());
 						// TODO add option to see redundant instead of
 						// non-redundant - parentOper uses this function
 						defects.clear();
