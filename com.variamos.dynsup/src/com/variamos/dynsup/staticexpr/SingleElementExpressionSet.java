@@ -813,7 +813,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 					if (target.getTargetRelations().get(0)
 							.getInstAttribute("Active").getAsBoolean())
 						out++;
-				} else if (type == null || (type.equals("Group"))) {
+				} else if (type == null || (type.equals("Default"))) {
 					InstElement grouprel = target.getTargetRelations().get(0);
 					if (grouprel.getTargetRelations().size() > 0) {
 						String relType = ((InstPairwiseRel) grouprel

@@ -638,7 +638,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			if (defect == null || defect.contains("FalseOpt")) {
 				if (uniqueIdentifiers.size() > 0)
 					out.add(uniqueIdentifiers.size() + verifMessage);
-				refas2hlcl.updateErrorMark(uniqueIdentifiers, element,
+				refas2hlcl.updateErrorMark(uniqueIdentifiers, "FalseOpt",
 						verifHint);
 
 			}

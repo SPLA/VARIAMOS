@@ -7051,6 +7051,15 @@ public class DefaultOpersMM {
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
+		t1 = new OpersExpr("requires", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Core", "Core");
+
+		semExpr.add(t1);
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"condition", "", "", 1, -1, "", "", -1, "", ""), semExpr));
@@ -9818,6 +9827,17 @@ public class DefaultOpersMM {
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirHardHardSemanticEdge, instVertexHC, "Core", false, 1);
+
+		t1 = new OpersExpr("REQSelected", refas.getSemanticExpressionTypes()
+				.get("GreaterOrEq"), 1, false, t1);
+
+		semExpr.add(t1);
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "required",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
@@ -11250,6 +11270,16 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "Core", false, 1);
+
+		t1 = new OpersExpr("REQSelected", refas.getSemanticExpressionTypes()
+				.get("GreaterOrEq"), 1, false, t1);
+		semExpr.add(t1);
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
@@ -11781,6 +11811,17 @@ public class DefaultOpersMM {
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instDirSGSGSemanticEdge, instVertexSG, "Core", false, 1);
+
+		t1 = new OpersExpr("REQSelected", refas.getSemanticExpressionTypes()
+				.get("GreaterOrEq"), 1, false, t1);
+
+		semExpr.add(t1);
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
