@@ -322,8 +322,9 @@ public class ModelExpr implements Serializable, Cloneable {
 				factoryMethod = hlclFactoryClass.getMethod(
 						semanticExpressionType.getMethod(), parameter1,
 						parameter2);
-				// System.out.println("EXPRR " + expressionTerms.get(0) + " "
-				// + expressionTerms.get(1) + factoryMethod.getName());
+				System.out.println("EXPRR " + this.getSemanticExpressionId()
+						+ " " + expressionTerms.get(0) + " "
+						+ expressionTerms.get(1) + factoryMethod.getName());
 				// try {
 				// Thread.sleep(300);
 				// } catch (InterruptedException e) {
