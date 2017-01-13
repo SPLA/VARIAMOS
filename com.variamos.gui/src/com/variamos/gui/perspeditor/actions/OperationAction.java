@@ -25,11 +25,12 @@ public class OperationAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e) {
 		Component editor = getComponentEditor(e);
 		VariamosGraphEditor vg = null;
+		int perspective = ((MainFrame) editor).getPerspective();
 		if (editor instanceof VariamosGraphEditor)
 			vg = (VariamosGraphEditor) editor;
 		if (editor instanceof MainFrame) {
-			int i = ((MainFrame) editor).getPerspective();
-			vg = ((MainFrame) editor).getEditor(i);
+
+			vg = ((MainFrame) editor).getEditor(perspective);
 		}
 		String operation = ((JMenuItem) e.getSource()).getName();
 		List<String> operations = new ArrayList<String>();
@@ -45,9 +46,12 @@ public class OperationAction extends AbstractEditorAction {
 		} else
 			operations.add(operation);
 
-		// FIXME only for simulation
-		((VariamosGraphComponent) vg.getGraphComponent())
-				.setSimulationStarted(true);
+		if (perspective == 2)
+			((VariamosGraphComponent) vg.getGraphComponent())
+					.setSimulationStarted(false);
+		else
+			((VariamosGraphComponent) vg.getGraphComponent())
+					.setSimulationStarted(true);
 		vg.callOperations(operations);
 
 		if (operation.startsWith("N:")) {
