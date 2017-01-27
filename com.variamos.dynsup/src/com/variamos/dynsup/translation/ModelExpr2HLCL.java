@@ -671,6 +671,14 @@ public class ModelExpr2HLCL {
 				instVertex.getInstAttribute("Core").setValue(false);
 			if (instVertex.getInstAttribute("Sel") != null)
 				instVertex.getInstAttribute("Sel").setValue(false);
+			if (instVertex.getInstAttribute("NReqSel") != null)
+				instVertex.getInstAttribute("NReqSel").setValue(false);
+			if (instVertex.getInstAttribute("NNotSel") != null)
+				instVertex.getInstAttribute("NNotSel").setValue(false);
+			if (instVertex.getInstAttribute("NPrefSel") != null)
+				instVertex.getInstAttribute("NPrefSel").setValue(false);
+			if (instVertex.getInstAttribute("NNotPrefSel") != null)
+				instVertex.getInstAttribute("NNotPrefSel").setValue(false);
 		}
 		for (InstElement instVertex : refas.getConstraintInstEdges().values()) {
 			instVertex.clearDefects();

@@ -825,7 +825,8 @@ public class ModelExpr implements Serializable, Cloneable {
 						.toString().length() != 0) {
 					InstAttribute obj = ((InstConcept) instVertex)
 							.getInstAttribute(filter);
-					values.add(obj.getAsInteger());
+					if (obj.getAsInteger() != 5)
+						values.add(obj.getAsInteger());
 				}
 			}
 

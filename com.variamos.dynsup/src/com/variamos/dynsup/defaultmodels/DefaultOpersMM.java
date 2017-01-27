@@ -1891,6 +1891,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("name").setValue(
 					"All Operationalizations Activated");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 
@@ -1932,7 +1933,7 @@ public class DefaultOpersMM {
 			instOperationSubAction
 					.getInstAttribute("defectsVerifierMethod")
 					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+							OperationSubActionDefectsVerifierMethodType.getDeadElements
 									.toString());
 
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
@@ -3575,6 +3576,12 @@ public class DefaultOpersMM {
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			// sasverNoLoopsOperationSubAction
 			// .addInAttribute(new OpersIOAttribute(semInfraMConcept
 			// .getIdentifier(), attribute.getName(), true));
@@ -3676,6 +3683,12 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attributeSel.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attributeSel.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attributeSel.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraMConcept.getIdentifier(), attributeSel.getName(),
 					true));
@@ -3767,6 +3780,12 @@ public class DefaultOpersMM {
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverCoreOpersOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling
@@ -3892,6 +3911,12 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -3988,6 +4013,12 @@ public class DefaultOpersMM {
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverCoreOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling
@@ -4089,6 +4120,12 @@ public class DefaultOpersMM {
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverCoreOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling
@@ -4210,6 +4247,12 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4322,6 +4365,12 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4429,6 +4478,12 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -4523,6 +4578,12 @@ public class DefaultOpersMM {
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverCoreOpersOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling
@@ -4674,6 +4735,12 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			// sasverNoLoopsOperationSubAction
@@ -4759,6 +4826,12 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			// sasverNoLoopsOperationSubAction
@@ -4835,6 +4908,12 @@ public class DefaultOpersMM {
 			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverCoreOpersOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -4942,6 +5021,12 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			// sasverNoLoopsOperationSubAction
@@ -5019,6 +5104,12 @@ public class DefaultOpersMM {
 			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverCoreOpersOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5122,6 +5213,12 @@ public class DefaultOpersMM {
 			sasverCoreOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			// sasverNoLoopsOperationSubAction
@@ -5206,6 +5303,12 @@ public class DefaultOpersMM {
 			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverCoreOpersOperationSubAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5299,6 +5402,12 @@ public class DefaultOpersMM {
 			sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralPair.getIdentifier(), attribute.getName(), true));
 			sasverCoreOpersOperationSubAction
+					.addOutAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverCoreOpersOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semGeneralPair
+							.getIdentifier(), attribute.getName(), true));
+			sasverAllOpersOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semGeneralPair
 							.getIdentifier(), attribute.getName(), true));
 			sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -6303,6 +6412,10 @@ public class DefaultOpersMM {
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -6365,6 +6478,10 @@ public class DefaultOpersMM {
 		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
@@ -7656,6 +7773,10 @@ public class DefaultOpersMM {
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -7695,7 +7816,7 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, "Config Req Level (5=ignored)",
 				"SG required level (defined: 0..4 ignored: 5) ", 5, false,
 				new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#" + "true"
-						+ "#" + "0", "", -1, "", "");
+						+ "#" + "5", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
 		semSoftgoal.addPropEditableAttribute("05#" + "ConfigReqLevel" + "#"
 				+ "Required" + "#==#" + "true" + "#" + "5");
@@ -7742,6 +7863,10 @@ public class DefaultOpersMM {
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -7771,62 +7896,70 @@ public class DefaultOpersMM {
 				false, new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#"
 						+ "true" + "#" + "0", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("defaultDomainValue", attribute);
-		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftgoal
-				.getIdentifier(), attribute.getName(), true));
-		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
-				.getIdentifier(), attribute.getName(), true));
-		simulSubOperationAction.addInAttribute(new OpersIOAttribute(semSoftgoal
-				.getIdentifier(), attribute.getName(), true));
-		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// simulExecOperUniLab.addAttribute(new OpersIOAttribute(semSoftgoal
+		// .getIdentifier(), attribute.getName(), true));
+		// simsceExecOperLab2.addAttribute(new OpersIOAttribute(semSoftgoal
+		// .getIdentifier(), attribute.getName(), true));
+		// simulSubOperationAction.addInAttribute(new
+		// OpersIOAttribute(semSoftgoal
+		// .getIdentifier(), attribute.getName(), true));
+		// simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
 		// semSoftgoal.getIdentifier(), attribute.getName(), true));
-		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
 		// semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverSDallOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverSDneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverClallOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverClneverOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverCoreOpersOperationSubAction.addInAttribute(new
+		// OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// // sasverNoLoopsOperationSubAction.addInAttribute(new
+		// OpersIOAttribute(
+		// // semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// // sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// // semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverSGConflOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverConflClSDOperationSubAction.addInAttribute(new
+		// OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverConflClOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverConflSDOperationSubAction.addInAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
+		// sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semSoftgoal.getIdentifier(), attribute.getName(), true));
 
 		semExpr = new ArrayList<OpersExpr>();
 
@@ -8106,6 +8239,10 @@ public class DefaultOpersMM {
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		// sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
@@ -8170,6 +8307,10 @@ public class DefaultOpersMM {
 		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -8559,6 +8700,21 @@ public class DefaultOpersMM {
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
+		t1 = new OpersExpr("OperCLEq", refas.getSemanticExpressionTypes().get(
+				"And"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexCL,
+				instDirOperClaimSemanticEdge, "Sel", "Sel");
+		semExpr.add(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+
 		t1 = new OpersExpr("AggLow", refas.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirOperClaimSemanticEdge, instVertexOper, "Sel", true, 0);
@@ -8693,6 +8849,10 @@ public class DefaultOpersMM {
 		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semClaim.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semClaim.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semClaim.getIdentifier(), attribute.getName(), true));
@@ -8839,6 +8999,10 @@ public class DefaultOpersMM {
 		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftDependency.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semSoftDependency.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semSoftDependency.getIdentifier(), attribute.getName(), true));
@@ -9172,22 +9336,23 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
-		t1 = new OpersExpr("DEFCore1Core", refas.getSemanticExpressionTypes()
-				.get("And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
-				instHchcHHGRGR, "Core", "TrueVal");
-
-		t1 = new OpersExpr("DEFCore1", refas.getSemanticExpressionTypes().get(
-				"DoubleImplies"),
-				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instHchcHHGRGR,
-				instVertexHC, "Core", false, t1);
-
-		semExpr.add(t1);
-		updCoreOptSubOperNormal.addSemanticExpression(t1);
-		// simulExecOptSubOperNormal.addSemanticExpression(t1);
-		// simulScenExecOptSubOperNormal.addSemanticExpression(t1);
-
-		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		// t1 = new OpersExpr("DEFCore1Core", refas.getSemanticExpressionTypes()
+		// .get("And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		// ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
+		// instHchcHHGRGR, "Core", "TrueVal");
+		//
+		// t1 = new OpersExpr("DEFCore1",
+		// refas.getSemanticExpressionTypes().get(
+		// "DoubleImplies"),
+		// ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instHchcHHGRGR,
+		// instVertexHC, "Core", false, t1);
+		//
+		// semExpr.add(t1);
+		// updCoreOptSubOperNormal.addSemanticExpression(t1);
+		// // simulExecOptSubOperNormal.addSemanticExpression(t1);
+		// // simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		//
+		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("MAExclu1Exclu", refas.getSemanticExpressionTypes()
 				.get("And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -10777,6 +10942,10 @@ public class DefaultOpersMM {
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -10841,6 +11010,10 @@ public class DefaultOpersMM {
 		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
@@ -11406,6 +11579,10 @@ public class DefaultOpersMM {
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -11917,6 +12094,10 @@ public class DefaultOpersMM {
 		sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSGGRSemEdge.getIdentifier(), attribute.getName(), true));
@@ -12795,7 +12976,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("MANSelSel", refas.getSemanticExpressionTypes().get(
 				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
-				instDirOperClaimToSemanticEdge, "Sel", "TrueVal");
+				instVertexCL, "Sel", "TrueVal");
 
 		t1 = new OpersExpr("MANSel", refas.getSemanticExpressionTypes().get(
 				"DoubleImplies"), ExpressionVertexType.RIGHTVARIABLE,
@@ -13217,6 +13398,12 @@ public class DefaultOpersMM {
 				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -13799,6 +13986,12 @@ public class DefaultOpersMM {
 				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
 		sasverCoreOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverAllOpersOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
 		sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(

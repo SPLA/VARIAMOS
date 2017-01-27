@@ -1645,7 +1645,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void updateObjects() {
 		if (perspective == 4) {
-			clearElementState(ModelExpr2HLCL.DESIGN_EXEC);
+			clearElementState(ModelExpr2HLCL.SIMUL_EXEC);
 			// executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
 			this.updateRefasModel(modelEditor.getEditedModel());
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
