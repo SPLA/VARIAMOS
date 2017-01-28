@@ -470,13 +470,12 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							outVariables = refas2hlcl.getOutVariables(
 									operationName, suboper.getIdentifier());
 							lastConfiguration = refas2hlcl.getConfiguration();
-							if (update) {
-								refas2hlcl
-										.updateGUIElements(null, outVariables);
-								// messagesArea.setText(refas2hlcl.getText());
-								// bringUpTab(mxResources.get("elementSimPropTab"));
-								// editPropertiesRefas(editor.lastEditableElement);
-							}
+							// if (update) {
+							refas2hlcl.updateGUIElements(null, outVariables);
+							// messagesArea.setText(refas2hlcl.getText());
+							// bringUpTab(mxResources.get("elementSimPropTab"));
+							// editPropertiesRefas(editor.lastEditableElement);
+							// }
 							correctExecution = true;
 							long endTime = System.currentTimeMillis();
 							executionTime = this.operationsNames.get(0)
