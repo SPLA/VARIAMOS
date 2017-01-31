@@ -885,6 +885,15 @@ public class DefaultSyntaxMM {
 				"User Identifier", "", "", 0, 2, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
+		sOperationalization.addModelingAttribute("name", "String", false,
+				"Name", "", "", 0, 3, "", "", -1, "", "");
+
+		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
+
+		syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
+
+		syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
+
 		InstConcept instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
 
@@ -1749,14 +1758,14 @@ public class DefaultSyntaxMM {
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
-				"", "", 0, -1, "", "", -1, "", "");
-		syntaxAbsVariable.addModelingAttribute("type", "String", false, "Type",
-				"", "", 0, -1, "", "", -1, "", "");
+				"", "", 0, 3, "", "", -1, "", "");
+		syntaxAbsVariable.addModelingAttribute("type", "String", false,
+				"TypeS", "", "", 0, -1, "", "", -1, "", "");
 		syntaxAbsVariable.addModelingAttribute("domain", "String", false,
-				"Domain", "", "", 0, -1, "", "", -1, "", "");
+				"DomainS", "", "", 0, -1, "", "", -1, "", "");
 		syntaxAbsVariable.addModelingAttribute("enumeration",
-				"MetaEnumeration", false, "Enumeration", "", "", 0, -1, "", "",
-				-1, "", "");
+				"MetaEnumeration", false, "EnumerationS", "", "", 0, -1, "",
+				"", -1, "", "");
 		// syntaxAbsVariable.addModelingAttribute("concern", "ConcernLevel",
 		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
 

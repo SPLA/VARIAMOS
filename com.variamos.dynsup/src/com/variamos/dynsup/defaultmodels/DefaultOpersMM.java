@@ -5546,12 +5546,6 @@ public class DefaultOpersMM {
 		// semVariable.addPanelSpacersAttribute("<<#" + "ConcernLevel" +
 		// "#>>\n");
 
-		attribute = new ElemAttribute("name", "String",
-				AttributeType.OPERATION, false, "Name",
-				"Name to identify the variable", "", 0, 1, "", "", -1, "", "");
-		semVariable.putSemanticAttribute("name", attribute);
-		semVariable.addPropEditableAttribute("01#" + "name");
-		semVariable.addPropVisibleAttribute("01#" + "name");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("variableType", "Enumeration",
@@ -5867,11 +5861,6 @@ public class DefaultOpersMM {
 
 		OpersElement semContextGroup = new OpersElement("nmConcernLevel");
 
-		semContextGroup.putSemanticAttribute("name", new ElemAttribute("name",
-				"String", AttributeType.OPERATION, false, "Group Name", "",
-				"<<new>>", 0, 1, "", "", 1, "", ""));
-		semContextGroup.addPropVisibleAttribute("01#" + "name");
-		semContextGroup.addPropEditableAttribute("01#" + "name");
 		//
 		// semContextGroup
 		// .putSemanticAttribute(

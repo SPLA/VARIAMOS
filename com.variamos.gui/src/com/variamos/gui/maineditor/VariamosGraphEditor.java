@@ -1792,7 +1792,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (semTask != null)
 				semTask.setTerminated(true);
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
-					"Executing Simulation", "", 0, 100);
+					"Executing operation", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(1);
