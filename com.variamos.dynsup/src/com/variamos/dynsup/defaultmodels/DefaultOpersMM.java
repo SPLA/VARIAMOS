@@ -8915,7 +8915,7 @@ public class DefaultOpersMM {
 				false,
 				"Conditional Expression",
 				"Claim activation expression (in addition to operationalizations/left features)",
-				null, 0, 3, "", "", 3, "#ConditionalExpression#all#", "");
+				null, 0, 3, "", "", -1, "#ConditionalExpression#all#", "");
 		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 		semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
 		semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
@@ -9049,8 +9049,8 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("ConditionalExpression",
 				ModelExpr.class.getCanonicalName(), AttributeType.OPERATION,
 				false, "Conditional Expression",
-				"Soft dependency activation expression", null, 0, 3, "", "", 3,
-				"#ConditionalExpression#all#", "");
+				"Soft dependency activation expression", null, 0, 3, "", "",
+				-1, "#ConditionalExpression#all#", "");
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
 				attribute);
 		semSoftDependency.addPropEditableAttribute("03#"

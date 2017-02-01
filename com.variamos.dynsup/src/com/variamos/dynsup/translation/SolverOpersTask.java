@@ -500,6 +500,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								}
 							if (result >= 1)
 								if (firstSimulExec && lastConfiguration == null) {
+									outVariables = refas2hlcl.getOutVariables(
+											operationName,
+											suboper.getIdentifier());
 									errorMessage = (String) suboper
 											.getInstAttributeValue("errorMsg");
 									if (errorMessage.contains("#number#"))
@@ -655,6 +658,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							}
 						}
 						if (!outIdentifiers.isEmpty()) {
+							System.out.println(defects);
 							defects = defects
 									.substring(0, defects.length() - 2) + ")";
 							outResult = outIdentifiers.size();
