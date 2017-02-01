@@ -69,6 +69,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return errorTitle;
 	}
 
+	public String getCompletedMessage() {
+		return completedMessage;
+	}
+
 	public String getErrorMessage() {
 		return errorMessage;
 	}
@@ -85,6 +89,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private boolean firstSimulExec;
 	private boolean reloadDashBoardConcepts = true;
 	private boolean showDashboard = false;
+	private String completedMessage;
 	private String executionTime = "";
 	// private List<String> defects;
 	private Configuration lastConfiguration;
@@ -346,6 +351,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						// .getInstAttributeValue("type")));
 						String type = (String) suboper
 								.getInstAttributeValue("type");
+						completedMessage = (String) suboper
+								.getInstAttributeValue("completedMessage");
 						boolean showDashboard = (boolean) suboper
 								.getInstAttributeValue("showDashboard");
 						if (showDashboard)

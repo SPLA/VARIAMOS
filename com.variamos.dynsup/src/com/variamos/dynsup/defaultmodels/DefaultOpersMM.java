@@ -477,6 +477,8 @@ public class DefaultOpersMM {
 
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Iterative update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					true);
 			instOperationSubAction.getInstAttribute("iteration").setValue(true);
@@ -906,6 +908,8 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Iterative update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration").setValue(true);
@@ -1164,6 +1168,8 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("errorTitle").setValue(
 					"Model Update Error");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction
 					.getInstAttribute("errorText")
 					.setValue(
@@ -1269,6 +1275,8 @@ public class DefaultOpersMM {
 					"Model Verify Error");
 			instOperationSubAction.getInstAttribute("errorHint").setValue(
 					"This SD is selected in all the solutions.");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("errorMsg").setValue(
 					"Please review the SD. #number# SD always selected.");
 			instOperationSubAction
@@ -1383,6 +1391,8 @@ public class DefaultOpersMM {
 					.getInstAttribute("errorMsg")
 					.setValue(
 							"Please review the SDs conditional expressions.\n #number# SD are never selected.");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction
 					.getInstAttribute("errorText")
 					.setValue(
@@ -1504,6 +1514,8 @@ public class DefaultOpersMM {
 
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outCl");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -1605,6 +1617,8 @@ public class DefaultOpersMM {
 					"Defects verifier error");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction
 					.getInstAttribute("defectsVerifierMethod")
 					.setValue(
@@ -1712,6 +1726,8 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Defects verifier error");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction
@@ -1926,6 +1942,8 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Defects verifier error");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -2042,6 +2060,8 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Multi verification");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -2160,6 +2180,8 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Multi verification");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -2293,6 +2315,8 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Multi verification");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -2428,6 +2452,8 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Multi verification");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -2561,6 +2587,8 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Multi verification");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -2799,6 +2827,8 @@ public class DefaultOpersMM {
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("UpdateCoreOper");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"Sel");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -2894,6 +2924,8 @@ public class DefaultOpersMM {
 							"Please review required attributes and relations. #number# false optional concept(s) identified.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Defects verifier error");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction
@@ -3028,6 +3060,8 @@ public class DefaultOpersMM {
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("UpdateCoreOper");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -3144,6 +3178,8 @@ public class DefaultOpersMM {
 							"No root or #number# roots identified.\n Please keep only one root concept.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Multi verification");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")

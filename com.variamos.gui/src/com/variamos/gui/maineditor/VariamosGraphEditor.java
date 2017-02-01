@@ -2087,6 +2087,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					semTask.getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
 					null);
 			semTask.clearErrorMessage();
+		} else if (semTask != null && semTask.getCompletedMessage() != null
+				&& !semTask.getCompletedMessage().equals("")) {
+			JOptionPane.showMessageDialog(frame, semTask.getCompletedMessage(),
+					"Operation Completed", JOptionPane.PLAIN_MESSAGE, null);
+			semTask.clearErrorMessage();
 
 		}
 	}
