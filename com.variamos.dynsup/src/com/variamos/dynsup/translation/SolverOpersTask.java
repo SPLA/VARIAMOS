@@ -80,6 +80,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public void clearErrorMessage() {
 		errorMessage = "";
 		errorTitle = "";
+		completedMessage = "";
 	}
 
 	private boolean test;

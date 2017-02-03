@@ -7111,7 +7111,7 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexF,
 				"structVal", 1);
 
-		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+		t1 = new OpersExpr("structValMan", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", true, t1);
 
@@ -7186,7 +7186,7 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexF,
 				"structVal", 1);
 
-		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
+		t1 = new OpersExpr("structValOpt", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", true, t1);
 
@@ -13562,10 +13562,10 @@ public class DefaultOpersMM {
 				"level#all#", "");
 		directClaimSGSemanticEdge.putSemanticAttribute("outConflClSD",
 				attribute);
-		sasverConflSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		sasverConflClOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
 		sasverConflClSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
@@ -14150,10 +14150,10 @@ public class DefaultOpersMM {
 				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
 				"level#all#", "");
 		directSDSGSemanticEdge.putSemanticAttribute("outConflClSD", attribute);
-		sasverConflClOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		sasverConflSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
 		sasverConflClSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
