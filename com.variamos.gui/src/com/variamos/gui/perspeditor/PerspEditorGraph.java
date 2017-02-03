@@ -815,6 +815,15 @@ public class PerspEditorGraph extends AbstractGraph {
 			mxGraphLayout layout = new mxOrganicLayout(this);
 			layout.execute(getDefaultParent()); // todo change root?
 		} catch (Exception e) {
+			// System.out.println("RefasGraph: Auto Layout failed");
+		}
+	}
+
+	public void runOrganicLayout() {
+		try {
+			mxGraphLayout layout = new mxOrganicLayout(this);
+			layout.execute(getDefaultParent()); // todo change root?
+		} catch (Exception e) {
 			System.out.println("RefasGraph: Auto Layout failed");
 		}
 	}

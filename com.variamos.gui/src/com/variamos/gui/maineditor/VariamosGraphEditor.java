@@ -226,6 +226,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		this.graphLayout("organicLayout", false);
 		this.getGraphComponent().zoomAndCenter();
 		defineViewTabs();
+		refasGraph.runOrganicLayout();
 	}
 
 	public void defineViewTabs() {
@@ -1962,7 +1963,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					ConsoleTextArea.addText(refas2hlcl.getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
-
 				}
 			}
 			if (semTask != null) {
@@ -1982,7 +1982,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					updateSimulResults();
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
-
 				}
 			}
 
@@ -2046,10 +2045,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									task.getErrorTitle(),
 									JOptionPane.INFORMATION_MESSAGE, null);
 						}
-
 						break;
 					}
-
 				}
 			} else if (progressMonitor.isCanceled()
 					|| (semTask != null && semTask.isDone())) {
