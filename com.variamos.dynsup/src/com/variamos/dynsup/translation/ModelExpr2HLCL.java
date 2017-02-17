@@ -699,16 +699,17 @@ public class ModelExpr2HLCL {
 	 * Updates the GUI with the configuration
 	 */
 	public void updateGUIElements(List<String> attributes) {
-		updateGUIElements(attributes, new ArrayList<String>(), null, null, null);
+		updateGUIElements(attributes, new ArrayList<String>(), null, null,
+				null, null);
 	}
 
 	/**
 	 * Updates the GUI with the configuration
 	 */
 	public void updateGUIElements(List<String> attributes,
-			List<String> outVariables) {
+			List<String> outVariables, InstElement instSubOper) {
 		updateGUIElements(attributes, new ArrayList<String>(), null,
-				outVariables, null);
+				outVariables, null, instSubOper);
 	}
 
 	/**
@@ -716,7 +717,8 @@ public class ModelExpr2HLCL {
 	 */
 	public void updateGUIElements(List<String> selectedAttributes,
 			List<String> notAvailableAttributes, List<String> conceptTypes,
-			List<String> outVariables, Map<String, Number> config) {
+			List<String> outVariables, Map<String, Number> config,
+			InstElement instOperSubAction) {
 		// Call the SWIProlog and obtain the result
 		if (configuration != null) {
 			Map<String, Number> prologOut;
@@ -731,10 +733,23 @@ public class ModelExpr2HLCL {
 				String attribute = split[1];
 				// System.out.println(vertexId + " " + attribute + " "
 				// + prologOut.get(identifier));
+				InstElement vertex = refas.getElement(vertexId);
 				if (!vertexId.equals("Amodel")
-						&& (outVariables == null || outVariables
-								.contains(attribute))) {
-					InstElement vertex = refas.getElement(vertexId);
+						&& (outVariables == null
+								|| outVariables.contains(attribute) || (vertex
+								.getTransSupInstElement().getEdSyntaxEle()
+								.getInstSemanticElementId() != null
+								&& vertex.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId()
+										.equals("nmVariable")
+								&& instOperSubAction != null
+								&& vertex.getInstAttribute("variableType")
+										.getValue().equals("LowLevel variable") && (vertex
+								.getInstAttribute("LowLevelVarOutSubOper")
+								.getValue().equals(instOperSubAction
+								.getDynamicAttribute("userId")))))) {
+
 					if (vertex == null
 							|| (conceptTypes != null && !conceptTypes
 									.contains(vertex
@@ -1375,7 +1390,7 @@ public class ModelExpr2HLCL {
 				result = execute(progressMonitor, element,
 						ModelExpr2HLCL.NEXT_SOLUTION, type);
 			if (result && !progressMonitor.isCanceled()) {
-				updateGUIElements(null);
+				updateGUIElements(null, null);
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
 				for (InstElement instVertex : refas
 						.getVariabilityVertexCollection()) {

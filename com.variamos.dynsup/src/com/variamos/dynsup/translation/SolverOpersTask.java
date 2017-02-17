@@ -342,10 +342,12 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					suboperationsObjs.add(suboper);
 				}
 				result = 0;
+				InstElement lastSubOper = null;
 				for (InstElement suboper : suboperationsObjs) {
+					lastSubOper = suboper;
 					if (result == -1)
 						break;
-
+					lastConfiguration = null;
 					try {
 						// Validation operations
 						// System.out.println(((String) suboper
@@ -479,7 +481,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									operationName, suboper.getIdentifier());
 							lastConfiguration = refas2hlcl.getConfiguration();
 							// if (update) {
-							refas2hlcl.updateGUIElements(null, outVariables);
+							refas2hlcl.updateGUIElements(null, outVariables,
+									suboper);
 							// messagesArea.setText(refas2hlcl.getText());
 							// bringUpTab(mxResources.get("elementSimPropTab"));
 							// editPropertiesRefas(editor.lastEditableElement);
@@ -536,7 +539,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				if (!firstSimulExec && result == 1)
 					// Update GUI after first execution, editor is not notify
 					// because the task is at 100%
-					this.refas2hlcl.updateGUIElements(null, outVariables);
+					this.refas2hlcl.updateGUIElements(null, outVariables,
+							lastSubOper);
 			}
 			task = 100;
 			setProgress((int) task);

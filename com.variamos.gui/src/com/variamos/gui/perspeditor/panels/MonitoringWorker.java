@@ -117,7 +117,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 							ModelExpr2HLCL.DESIGN_EXEC);
 					editor.getRefas2hlcl().updateGUIElements(
 							selectedAttributes, notAvailableAttributes,
-							conceptTypes, null, config);
+							conceptTypes, null, config, null);
 					// editor.editPropertiesRefas();
 					if (mapeAP) {
 						try {
@@ -154,7 +154,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 								editor.getRefas2hlcl().updateGUIElements(
 										selectedAttributes,
 										notAvailableAttributes, conceptTypes,
-										null, config);
+										null, config, null);
 								task = editor.executeSimulation(true, false,
 										ModelExpr2HLCL.SIMUL_MAPE, true,
 										"Simul");

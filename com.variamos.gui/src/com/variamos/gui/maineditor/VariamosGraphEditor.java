@@ -1974,7 +1974,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// .getExecType() == ModelExpr2HLCL.SIMUL_MAPE)
 				) {
 					List<String> outVariables = semTask.getOutVariables();
-					refas2hlcl.updateGUIElements(null, outVariables);
+					refas2hlcl.updateGUIElements(null, outVariables, null);
 					updateDashBoard(semTask.isShowDashboard(),
 							semTask.isReloadDashBoardConcepts(),
 							semTask.isUpdate());
