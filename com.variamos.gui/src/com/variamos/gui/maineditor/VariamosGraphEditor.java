@@ -63,6 +63,8 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersExpr;
+import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
@@ -2224,6 +2226,47 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		perspective.updatePerspective(mainFrame.getPerspective());
 		mainFrame.validate();
 		mainFrame.repaint();
+
+		// if (mainFrame.getPerspective()==1)
+		{
+			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
+				InstElement et = el.getTransSupInstElement();
+				if (et.getIdentifier().equals("OMOperation")
+						&& el.getIdentifier().equals("BasicSimulOper")) {
+					int expressions = 0;
+					for (InstElement rel : el.getTargetRelations()) {
+						InstElement subOper = rel.getTargetRelations().get(0);
+						List<InstAttribute> listatt = ((List<InstAttribute>) subOper
+								.getInstAttributeValue("exptype"));
+						OpersSubOperationExpType operExpType = null;
+						String subOperExpTypeName = null;
+						if (listatt != null) {
+							System.out.println(subOper.getIdentifier());
+							for (InstAttribute att : listatt) {
+								String attObj = (String) ((InstConcept) att
+										.getValue())
+										.getInstAttributeValue("suboperexptype");
+								operExpType = (OpersSubOperationExpType) ((InstConcept) att
+										.getValue()).getEdOperEle();
+								subOperExpTypeName = attObj;
+								System.out.println(attObj);
+								expressions += operExpType
+										.getSemanticExpressions().size();
+								for (OpersExpr opExp : operExpType
+										.getSemanticExpressions()) {
+									System.out
+											.println(opExp.getSemElemId()
+													+ " "
+													+ opExp.expressionStructure());
+								}
+
+							}
+						}
+					}
+					// System.out.println(el.getIdentifier()+" " + expressions);
+				}
+			}
+		}
 
 	}
 

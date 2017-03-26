@@ -180,6 +180,9 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return null;
 	}
 
+	/*
+	 * Save all the solutions for the current configuration
+	 */
 	public boolean saveConfiguration(String file) throws InterruptedException {
 		setProgress(1);
 		progressMonitor.setNote("Solutions processed: 0");

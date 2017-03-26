@@ -316,6 +316,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		long iniTime = System.currentTimeMillis();
 		int result = 0;
 		setProgress(10);
+		lastConfiguration = null;
 		while (!terminated) { // use the same task for simulation iterations
 			if (!next) {
 				try {
@@ -347,7 +348,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					lastSubOper = suboper;
 					if (result == -1)
 						break;
-					lastConfiguration = null;
 					try {
 						// Validation operations
 						// System.out.println(((String) suboper

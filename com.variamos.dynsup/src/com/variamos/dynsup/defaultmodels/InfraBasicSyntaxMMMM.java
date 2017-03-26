@@ -48,8 +48,7 @@ public class InfraBasicSyntaxMMMM {
 
 		basicOpersSyntaxM3Concept.addModelingAttribute("MetaType",
 				new ElemAttribute("MetaType", "Enumeration",
-						AttributeType.SYNTAX, false, "SyntaxConcept Type",
-						ConceptType.class.getCanonicalName(), "SyntaxConcept",
+						AttributeType.SYNTAX, false, "SyntaxConcept Type","", "SyntaxConcept",
 						"", "", 0, -1, "", "", -1, "", ""));
 		// metaBasicConcept.addModelingAttribute("Identifier",
 		// new ElemAttribute("Identifier", "String", false,
@@ -108,6 +107,8 @@ public class InfraBasicSyntaxMMMM {
 		instInfraSyntaxOpersM2Concept.copyValuesToInstAttributes(null);
 		variabilityInstVertex.put("OMMConcept", instInfraSyntaxOpersM2Concept);
 
+		//Currently not used but required to move types from 
+		//com.variamos.dynsup.types to dynamic definitions
 		SyntaxElement basicOpersSyntaxM3Enum = new SyntaxElement('E',
 				"OMMEnum", true, true, "OMMEnum",
 				"infrabasicsyntaxm3miniconcept",
@@ -136,7 +137,7 @@ public class InfraBasicSyntaxMMMM {
 		basicOpersSyntaxM3Enum.addModelingAttribute("MetaType",
 				new ElemAttribute("MetaType", "Enumeration",
 						AttributeType.SYNTAX, false, "SyntaxConcept Type",
-						ConceptType.class.getCanonicalName(), "SyntaxConcept",
+						"", "SyntaxConcept",
 						"", "", 0, -1, "", "", -1, "", ""));
 		// metaBasicConcept.addModelingAttribute("Identifier",
 		// new ElemAttribute("Identifier", "String", false,
