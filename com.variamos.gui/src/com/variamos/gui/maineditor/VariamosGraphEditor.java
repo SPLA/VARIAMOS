@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -2229,10 +2230,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 		// if (mainFrame.getPerspective()==1)
 		{
+			TreeSet<String> expressionsS = new TreeSet<String>();
 			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 				InstElement et = el.getTransSupInstElement();
 				if (et.getIdentifier().equals("OMOperation")
-						&& el.getIdentifier().equals("BasicSimulOper")) {
+						&& el.getIdentifier().equals("VerifyRootsOper")) {
 					int expressions = 0;
 					for (InstElement rel : el.getTargetRelations()) {
 						InstElement subOper = rel.getTargetRelations().get(0);
@@ -2254,20 +2256,24 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 										.getSemanticExpressions().size();
 								for (OpersExpr opExp : operExpType
 										.getSemanticExpressions()) {
-									System.out
-											.println(opExp.getSemElemId()
-													+ " "
-													+ opExp.expressionStructure());
+									expressionsS.add(opExp.getSemElemId() + " "
+											+ opExp.expressionStructure());
+									// System.out
+									// .println(opExp.getSemElemId()
+									// + " "
+									// + opExp.expressionStructure());
 								}
 
 							}
 						}
 					}
+
 					// System.out.println(el.getIdentifier()+" " + expressions);
 				}
 			}
+			for (String opExp : expressionsS)
+				System.out.println(opExp);
 		}
 
 	}
-
 }

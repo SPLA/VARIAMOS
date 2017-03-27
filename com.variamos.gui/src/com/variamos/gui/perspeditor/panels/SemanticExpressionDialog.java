@@ -349,12 +349,12 @@ public class SemanticExpressionDialog extends JDialog {
 		if (semanticExpression != null
 				&& semanticExpression.getLeftExpressionType() != null)
 			switch (semanticExpression.getLeftExpressionType()) {
-			case LEFTITERCONFIXEDVARIABLE:
-			case LEFTITERINCRELFIXEDVARIABLE:
-			case LEFTITERANYFIXEDVARIABLE:
-			case LEFTITEROUTRELFIXEDVARIABLE:
-			case LEFTITEROUTCONFIXEDVARIABLE:
-			case LEFTITERINCCONFIXEDVARIABLE:
+			case LEFSUBTITERCONVARIABLE:
+			case LEFTSUBITERINCRELVARIABLE:
+			case LEFTSUBITERANYVARIABLE:
+			case LEFTSUBITEROUTRELVARIABLE:
+			case LEFTSUBITEROUTCONVARIABLE:
+			case LEFTSUBITERINCCONVARIABLE:
 				leftSide.setSelectedItem("An Element Fixed");
 				break;
 			case LEFTSUBEXPRESSION:
@@ -602,46 +602,46 @@ public class SemanticExpressionDialog extends JDialog {
 		if (leftSide.getSelectedItem().equals(
 				"Source Variables - Iterative (SubExp)")) {
 			iterativeType = ExpressionVertexType.LEFTITERINCSUBEXP;
-			subIterType = ExpressionVertexType.LEFTITERINCFIXEDSUBEXP;
+			subIterType = ExpressionVertexType.LEFSUBTITERINCSUBEXP;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Target Variables - Iterative (SubExp)")) {
 			iterativeType = ExpressionVertexType.LEFTITEROUTSUBEXP;
-			subIterType = ExpressionVertexType.LEFTITEROUTFIXEDSUBEXP;
+			subIterType = ExpressionVertexType.LEFTSUBITEROUTSUBEXP;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source Variables - Iterative (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITERINCCONVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTSUBITERINCCONVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Target Variables - Iterative (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITEROUTCONVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITEROUTCONFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTSUBITEROUTCONVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source Variables - Iterative (Relation)")) {
 			iterativeType = ExpressionVertexType.LEFTITERINCRELVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERINCRELFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTSUBITERINCRELVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Target Variables - Iterative (Relation)")) {
 			iterativeType = ExpressionVertexType.LEFTITEROUTRELVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITEROUTRELFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTSUBITEROUTRELVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source/Target Variables (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITERANYCONVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERANYFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTSUBITERANYVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source/Target Variables (Relation)")) {
 			iterativeType = ExpressionVertexType.LEFTITERANYRELVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERANYFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTSUBITERANYVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals("A Concept Type Variable")) {
 			iterativeType = ExpressionVertexType.LEFTITERCONCEPTVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERCONFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFSUBTITERCONVARIABLE;
 		}
 		if (iterativeType != null)
 			if (semanticExpression.getSemanticExpressionType() != null) {
