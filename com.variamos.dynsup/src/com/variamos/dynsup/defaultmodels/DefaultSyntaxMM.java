@@ -402,7 +402,7 @@ public class DefaultSyntaxMM {
 		// Feature direct relations
 
 		InstElement semGroupPaiwiseRel = refas.getOperationalModel().getVertex(
-				"GoalfromOT");
+				"HardConceptToHardOT");
 
 		SyntaxElement metaGroupPairwiseRel = new SyntaxElement('P',
 				"Group Relation", true, true, "Group Relation", "",
@@ -1164,7 +1164,7 @@ public class DefaultSyntaxMM {
 		// Hard OverTwoRelations
 
 		InstConcept semanticHardHardGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("GoalOT"));
+				.getOperationalModel().getVertex("HardOT"));
 
 		SyntaxElement hardMetaOverTwoRel = new SyntaxElement('O', "HardOT",
 				true, true, "HardOverTwoRel", "plgroup",

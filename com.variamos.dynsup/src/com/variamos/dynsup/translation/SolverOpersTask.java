@@ -312,7 +312,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	// dynamic call implementation
 	public void executeOperations() {
-
+		update = false;
 		long iniTime = System.currentTimeMillis();
 		int result = 0;
 		setProgress(10);
@@ -477,6 +477,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							result = -1;
 						}
 						if (result == 0) {
+							update = true;
 							outVariables = refas2hlcl.getOutVariables(
 									operationName, suboper.getIdentifier());
 							lastConfiguration = refas2hlcl.getConfiguration();
