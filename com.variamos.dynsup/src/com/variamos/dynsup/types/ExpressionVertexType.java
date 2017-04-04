@@ -12,6 +12,7 @@ package com.variamos.dynsup.types;
 
 // @formatter:off
 public enum ExpressionVertexType {
+
 	LEFTVARIABLE, RIGHTVARIABLE,
 
 	LEFTNUMERICVALUE, RIGHTNUMERICVALUE,

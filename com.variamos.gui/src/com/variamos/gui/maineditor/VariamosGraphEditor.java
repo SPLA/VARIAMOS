@@ -2227,7 +2227,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		perspective.updatePerspective(mainFrame.getPerspective());
 		mainFrame.validate();
 		mainFrame.repaint();
-
 		// if (mainFrame.getPerspective()==1)
 		{
 			TreeSet<String> expressionsS = new TreeSet<String>();

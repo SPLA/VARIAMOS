@@ -512,6 +512,22 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								}
 							if (result >= 1)
 								if (firstSimulExec && lastConfiguration == null) {
+									errorMessage = (String) suboper
+											.getInstAttributeValue("errorMsg");
+									if (errorMessage.contains("#number#"))
+										errorMessage = errorMessage.replace(
+												"#number#", result + "");
+									errorTitle = (String) suboper
+											.getInstAttributeValue("errorTitle");
+									correctExecution = false;
+									// terminated = true;
+								} else {
+									errorMessage = "No more solutions found";
+									errorTitle = "Simulation Message";
+									correctExecution = false;
+								}
+							if (result >= 1)
+								if (firstSimulExec && lastConfiguration == null) {
 									outVariables = refas2hlcl.getOutVariables(
 											operationName,
 											suboper.getIdentifier());

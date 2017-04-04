@@ -221,6 +221,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									ModelExpr instanceExpression = new ModelExpr(
 											true, instE.getIdentifier()
 													+ "Cond", true, -1);
+
 									instanceExpression
 											.setSemanticExpressionType(refas
 													.getSemanticExpressionTypes()
@@ -235,9 +236,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 													.getInstAttribute("value")
 													.getValue()));
 									outLow.add(instanceExpression);
+
 								}
 							}
-
 						}
 						int expressionInstances = instE.getInstances(refas);
 
@@ -357,6 +358,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 											}
 											out.add(instanceExpression);
 										}
+
 									}
 								}
 								pos++;
@@ -365,7 +367,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							// expressions
 							if (out.size() == 0) {
 								continue;
+
 							}
+
 							// for (AbstractAttribute var : operSubAction
 							// .getInVariables()) {
 							// int attributeValue = 0;
@@ -420,6 +424,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							// }
 							// }
 						}
+
 					}
 				else {
 					int instances = instElement.getInstances(refas);

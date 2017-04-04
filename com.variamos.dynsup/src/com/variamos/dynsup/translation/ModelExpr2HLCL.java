@@ -595,7 +595,6 @@ public class ModelExpr2HLCL {
 				if (instVertex.getInstAttribute("varConfValue") != null)
 					instVertex.getInstAttribute("varConfValue").setValue(0);
 			}
-
 			if (this.validateConceptType(instVertex, "GeneralConcept")) {
 
 				/*
@@ -751,7 +750,6 @@ public class ModelExpr2HLCL {
 								.getInstAttribute("LowLevelVarOutSubOper")
 								.getValue().equals(instOperSubAction
 								.getDynamicAttribute("userId")))))) {
-
 					if (vertex == null
 							|| (conceptTypes != null && !conceptTypes
 									.contains(vertex
