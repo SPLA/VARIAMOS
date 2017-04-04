@@ -259,7 +259,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
 									"ConfSel").getValue() || (boolean) instConcept
-									.getInstAttribute("NPrefSel").getValue())) {
+									.getInstAttribute("TestConfSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
@@ -275,7 +275,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
 									"ConfSel").getValue() || (boolean) instConcept
-									.getInstAttribute("NPrefSel").getValue())) {
+									.getInstAttribute("TestConfSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class
 										.getResource(sim_green2_tmp)),
@@ -286,7 +286,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute("NReqSel")
+					if ((boolean) instConcept.getInstAttribute("SimulSel")
 							.getValue()) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
@@ -301,7 +301,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
 									"ConfNotSel").getValue() || (boolean) instConcept
-									.getInstAttribute("NNotPrefSel").getValue())) {
+									.getInstAttribute("TestConfNotSel")
+									.getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class
 										.getResource(sim_red2_tmp)),
@@ -315,7 +316,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
 									"ConfNotSel").getValue() || (boolean) instConcept
-									.getInstAttribute("NNotPrefSel").getValue())) {
+									.getInstAttribute("TestConfNotSel")
+									.getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class.getResource(sim_red2)),
 								"Configuration Not Selected");

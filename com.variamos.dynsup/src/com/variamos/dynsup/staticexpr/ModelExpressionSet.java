@@ -121,19 +121,19 @@ public class ModelExpressionSet extends ElementExpressionSet {
 					case ModelExpr2HLCL.SIMUL_EXPORT:
 						if (reqOutExp == null)
 							reqOutExp = new SumNumericExpression(vertex,
-									"NReqSel", true,
+									"SimulSel", true,
 									new NumberNumericExpression(0));
 						else
 							reqOutExp = new SumNumericExpression(vertex,
-									"NReqSel", true, reqOutExp);
+									"SimulSel", true, reqOutExp);
 
 						if (prefOutExp == null)
 							prefOutExp = new SumNumericExpression(vertex,
-									"NPrefSel", true,
+									"TestConfSel", true,
 									new NumberNumericExpression(0));
 						else
 							prefOutExp = new SumNumericExpression(vertex,
-									"NPrefSel", true, prefOutExp);
+									"TestConfSel", true, prefOutExp);
 					}
 				}
 		}

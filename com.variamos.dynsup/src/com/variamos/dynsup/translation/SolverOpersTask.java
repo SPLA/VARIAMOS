@@ -69,6 +69,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return errorTitle;
 	}
 
+	public String getCompletedMessage() {
+		return completedMessage;
+	}
+
 	public String getErrorMessage() {
 		return errorMessage;
 	}
@@ -76,6 +80,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public void clearErrorMessage() {
 		errorMessage = "";
 		errorTitle = "";
+		completedMessage = "";
 	}
 
 	private boolean test;
@@ -85,6 +90,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private boolean firstSimulExec;
 	private boolean reloadDashBoardConcepts = true;
 	private boolean showDashboard = false;
+	private String completedMessage;
 	private String executionTime = "";
 	// private List<String> defects;
 	private Configuration lastConfiguration;
@@ -306,10 +312,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	// dynamic call implementation
 	public void executeOperations() {
-
+		update = false;
 		long iniTime = System.currentTimeMillis();
 		int result = 0;
 		setProgress(10);
+		lastConfiguration = null;
 		while (!terminated) { // use the same task for simulation iterations
 			if (!next) {
 				try {
@@ -336,16 +343,19 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					suboperationsObjs.add(suboper);
 				}
 				result = 0;
+				InstElement lastSubOper = null;
 				for (InstElement suboper : suboperationsObjs) {
+					lastSubOper = suboper;
 					if (result == -1)
 						break;
-
 					try {
 						// Validation operations
 						// System.out.println(((String) suboper
 						// .getInstAttributeValue("type")));
 						String type = (String) suboper
 								.getInstAttributeValue("type");
+						completedMessage = (String) suboper
+								.getInstAttributeValue("completedMessage");
 						boolean showDashboard = (boolean) suboper
 								.getInstAttributeValue("showDashboard");
 						if (showDashboard)
@@ -467,16 +477,17 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							result = -1;
 						}
 						if (result == 0) {
+							update = true;
 							outVariables = refas2hlcl.getOutVariables(
 									operationName, suboper.getIdentifier());
 							lastConfiguration = refas2hlcl.getConfiguration();
-							if (update) {
-								refas2hlcl
-										.updateGUIElements(null, outVariables);
-								// messagesArea.setText(refas2hlcl.getText());
-								// bringUpTab(mxResources.get("elementSimPropTab"));
-								// editPropertiesRefas(editor.lastEditableElement);
-							}
+							// if (update) {
+							refas2hlcl.updateGUIElements(null, outVariables,
+									suboper);
+							// messagesArea.setText(refas2hlcl.getText());
+							// bringUpTab(mxResources.get("elementSimPropTab"));
+							// editPropertiesRefas(editor.lastEditableElement);
+							// }
 							correctExecution = true;
 							long endTime = System.currentTimeMillis();
 							executionTime = this.operationsNames.get(0)
@@ -515,6 +526,25 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									errorTitle = "Simulation Message";
 									correctExecution = false;
 								}
+							if (result >= 1)
+								if (firstSimulExec && lastConfiguration == null) {
+									outVariables = refas2hlcl.getOutVariables(
+											operationName,
+											suboper.getIdentifier());
+									errorMessage = (String) suboper
+											.getInstAttributeValue("errorMsg");
+									if (errorMessage.contains("#number#"))
+										errorMessage = errorMessage.replace(
+												"#number#", result + "");
+									errorTitle = (String) suboper
+											.getInstAttributeValue("errorTitle");
+									correctExecution = false;
+									// terminated = true;
+								} else {
+									errorMessage = "No more solutions found";
+									errorTitle = "Simulation Message";
+									correctExecution = false;
+								}
 							// terminated = true;
 						}
 
@@ -526,7 +556,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				if (!firstSimulExec && result == 1)
 					// Update GUI after first execution, editor is not notify
 					// because the task is at 100%
-					this.refas2hlcl.updateGUIElements(null, outVariables);
+					this.refas2hlcl.updateGUIElements(null, outVariables,
+							lastSubOper);
 			}
 			task = 100;
 			setProgress((int) task);
@@ -656,6 +687,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							}
 						}
 						if (!outIdentifiers.isEmpty()) {
+							System.out.println(defects);
 							defects = defects
 									.substring(0, defects.length() - 2) + ")";
 							outResult = outIdentifiers.size();
@@ -878,6 +910,33 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 						defects = defectVerifier
 								.getRedundancies(constraitsToVerifyRedundacies);
+						// for (Defect defect : defects)
+						// constraitsToVerifyRedundacies.removeAll(defect
+						// .getVerificationExpressions());
+						// TODO add option to see redundant instead of
+						// non-redundant - parentOper uses this function
+						defects.clear();
+						if (constraitsToVerifyRedundacies.size() > 0) {
+							List<String> newDefectsNames = new ArrayList<String>();
+							List<String> newDefectsIds = new ArrayList<String>();
+							for (BooleanExpression conceptVariable : constraitsToVerifyRedundacies) {
+								// FIXME better support for expression and other
+								// fields
+								String[] conceptId = conceptVariable.toString()
+										.split("_");
+								conceptId = conceptId[0].toString().split("=");
+								newDefectsNames
+										.add(conceptId[conceptId.length - 1]);
+								newDefectsIds
+										.add(conceptId[conceptId.length - 1]
+												+ "_Sel");
+							}
+							defectsNames.addAll(newDefectsNames);
+							freeIdsNames.removeAll(newDefectsIds);
+							if (updateIds)
+								defectsFreeIdsName = freeIdsNames;
+							result = defects.size();
+						}
 						break;
 					case "getAllNonAttainableDomains":
 						defects = defectVerifier
@@ -906,7 +965,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 					task += 100 / numberOperations;
 					setProgress((int) task);
-
+					System.out.println(defectsNames);
 					refas2hlcl.updateErrorMark(defectsNames,
 							operation.getIdentifier(), verifHint);
 				} catch (FunctionalException e) {

@@ -129,8 +129,6 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 					for (InstAttribute instAttribute : instVertex
 							.getInstAttributesCollection()) {
-						// System.out.println(instVertex.getIdentifier() + " "
-						// + instAttribute.getIdentifier());
 						int attributeValue = 0;
 						String type = instAttribute.getType();
 						if (type.equals("Integer") || type.equals("Boolean")) {
@@ -144,9 +142,14 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							else if (instAttribute.getValue() instanceof Float)
 								attributeValue = ((Float) instAttribute
 										.getValue()).intValue();
-							else
+							else {
+
+								System.out.println(instVertex.getIdentifier()
+										+ " " + instAttribute.getIdentifier());
 								attributeValue = (Integer) instAttribute
 										.getValue();
+							}
+
 						}
 						if (type.equals("Float")) {
 							if (instAttribute.getValue() instanceof String)
@@ -312,7 +315,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							 * EqualsComparisonExpression( instVertex, "Opt",
 							 * getHlclFactory().number(0))); } if
 							 * (instAttribute.getIdentifier().equals(
-							 * "NReqSel")) {
+							 * "SimulSel")) {
 							 * 
 							 * coreAndFalseOptList .add(new
 							 * EqualsComparisonExpression( instVertex,
@@ -499,13 +502,13 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							/*
 							 * if (instAttribute.getIdentifier().equals(
-							 * "NReqSel")) { getElementExpressions().add( new
+							 * "SimulSel")) { getElementExpressions().add( new
 							 * EqualsComparisonExpression( instVertex,
 							 * instAttribute .getIdentifier(),
 							 * getHlclFactory().number( attributeValue))); }
 							 */
-							if (instAttribute.getIdentifier()
-									.equals("NPrefSel")) {
+							if (instAttribute.getIdentifier().equals(
+									"TestConfSel")) {
 								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
@@ -514,7 +517,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							}
 
 							if (instAttribute.getIdentifier().equals(
-									"NNotPrefSel")) {
+									"TestConfNotSel")) {
 								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
@@ -527,17 +530,17 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 								if (execType != ModelExpr2HLCL.CORE_EXEC
 										&& (execType != ModelExpr2HLCL.DESIGN_EXEC)) {
 									AbstractNumericExpression transformation50 = new SumNumericExpression(
-											instVertex, instVertex, "NReqSel",
+											instVertex, instVertex, "SimulSel",
 											"ConfSel");
 									AbstractNumericExpression transformation51 = new ProdNumericExpression(
-											instVertex, "NPrefSel", true,
+											instVertex, "TestConfSel", true,
 											transformation50);
 
 									AbstractNumericExpression transformation52 = new SumNumericExpression(
-											instVertex, instVertex, "NPrefSel",
-											"ConfSel");
+											instVertex, instVertex,
+											"TestConfSel", "ConfSel");
 									AbstractNumericExpression transformation53 = new ProdNumericExpression(
-											instVertex, "NReqSel", true,
+											instVertex, "SimulSel", true,
 											transformation52);
 
 									AbstractNumericExpression transformation54 = new SumNumericExpression(
@@ -597,12 +600,12 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											0);
 
 								AbstractNumericExpression transformation48 = new ProdNumericExpression(
-										instVertex, "NReqSel", true,
+										instVertex, "SimulSel", true,
 										getHlclFactory().number(4));
 								AbstractNumericExpression transformation50 = new SumNumericExpression(
 										transformation49, transformation48);
 								AbstractNumericExpression transformation55 = new SumNumericExpression(
-										instVertex, "NPrefSel", true,
+										instVertex, "TestConfSel", true,
 										transformation50);
 
 								getElementExpressions().add(
@@ -682,7 +685,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							AbstractNumericExpression transformation53 = new SumNumericExpression(
 									instVertex, instVertex, "ConfSel",
-									"NReqSel");
+									"SimulSel");
 							AbstractNumericExpression transformation54 = new SumNumericExpression(
 									instVertex, "Core", true, transformation53);
 							AbstractBooleanExpression transformation55 = new LessOrEqualsBooleanExpression(
@@ -694,13 +697,14 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 						// Set ForceSelected from GUI properties
 
-						if (instAttribute.getIdentifier().equals("NNotPrefSel")) {
+						if (instAttribute.getIdentifier().equals(
+								"TestConfNotSel")) {
 							// identifierId_NotAvailable #<=>
 							// ( ( ( identifierId_ConfigNotSelected
 							// #\/ identifierId_Dead )
 							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
 									instVertex, instVertex, "ConfNotSel",
-									"NNotPrefSel");
+									"TestConfNotSel");
 							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
 									instVertex, "Dead", true, transformation6);
 							transformation7 = new OrBooleanExpression(
@@ -711,7 +715,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											transformation7));
 						}
 
-						if (instAttribute.getIdentifier().equals("NReqSel")) {
+						if (instAttribute.getIdentifier().equals("SimulSel")) {
 							// identifierId_Selected #<=>
 							// ( ( ( identifierId_ConfigSelected
 							// #\/ identifierId_NextPrefSelected ) #\/
@@ -720,8 +724,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
 									instVertex, instVertex, "Core", "ConfSel");
 							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
-									instVertex, instVertex, "NReqSel",
-									"NPrefSel");
+									instVertex, instVertex, "SimulSel",
+									"TestConfSel");
 							AbstractBooleanExpression transformation8 = new OrBooleanExpression(
 									transformation7, transformation6);
 							getElementExpressions().add(
@@ -813,7 +817,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 					if (target.getTargetRelations().get(0)
 							.getInstAttribute("Active").getAsBoolean())
 						out++;
-				} else if (type == null || (type.equals("Group"))) {
+				} else if (type == null || (type.equals("Default"))) {
 					InstElement grouprel = target.getTargetRelations().get(0);
 					if (grouprel.getTargetRelations().size() > 0) {
 						String relType = ((InstPairwiseRel) grouprel

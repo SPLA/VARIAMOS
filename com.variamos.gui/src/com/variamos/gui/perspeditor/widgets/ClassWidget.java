@@ -258,11 +258,11 @@ public class ClassWidget extends WidgetR {
 									&& concept.getEdOperEle() instanceof OpersLabeling) {
 								// OpersLabeling.validateSubOper()
 								// instAttribute.
-								Object o = concept.getInstAttribute(
-										"includeLabel").getValue();
-								if (((Boolean) concept.getInstAttribute(
-										"includeLabel").getValue()))
-									continue;
+								// Object o = concept.getInstAttribute(
+								// "includeLabel").getValue();
+								// if (((Boolean) concept.getInstAttribute(
+								// "includeLabel").getValue()))
+								// continue;
 							}
 							instVertex.put(
 									concept.getInstAttribute("identifier")

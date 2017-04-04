@@ -630,6 +630,14 @@ public class InfraSyntaxOpersMMM {
 				+ "iteration");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
 				+ "iteration");
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"completedMessage", new ElemAttribute("completedMessage",
+						"String", AttributeType.OPERATION, false,
+						"completedMessage", "", "", 0, 9, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
+				+ "showDashboard");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
+				+ "showDashboard");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("showDashboard",
 				new ElemAttribute("showDashboard", "Boolean",

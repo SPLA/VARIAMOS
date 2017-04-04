@@ -228,6 +228,7 @@ public class ModelExpr implements Serializable, Cloneable {
 	}
 
 	public Expression createExpression(int pos, int leftIterInstance) {
+		int i = 0;
 		List<Expression> expressionTerms = expressionTerms(pos,
 				leftIterInstance, 0);
 		// System.out.println("ERR MODELEXP" + expressionTerms.get(0) + " "
@@ -322,7 +323,8 @@ public class ModelExpr implements Serializable, Cloneable {
 				factoryMethod = hlclFactoryClass.getMethod(
 						semanticExpressionType.getMethod(), parameter1,
 						parameter2);
-				// System.out.println("EXPRR " + expressionTerms.get(0) + " "
+				// System.out.println("EXPRR " + this.getSemanticExpressionId()
+				// + " " + expressionTerms.get(0) + " "
 				// + expressionTerms.get(1) + factoryMethod.getName());
 				// try {
 				// Thread.sleep(300);
@@ -413,7 +415,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		switch (expressionVertexType) {
 
 		case LEFTITERCONCEPTVARIABLE:
-		case LEFTITERCONFIXEDVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
 			String elemetType = this.getSemanticExpression()
 					.getLeftSemanticElement().getIdentifier();
 			elements.addAll(refas.getVariabilityVertexMC(elemetType));
@@ -421,19 +423,19 @@ public class ModelExpr implements Serializable, Cloneable {
 			break;
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITERINCCONVARIABLE:
-		case LEFTITERINCCONFIXEDVARIABLE:
-		case LEFTITERINCRELFIXEDVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
 		case LEFTITERINCSUBEXP:
-		case LEFTITERINCFIXEDSUBEXP:
+		case LEFSUBTITERINCSUBEXP:
 			elements = volatileLeftInstElement.getSourceRelations();
 			out = volatileLeftInstElement.getSourceRelations().size();
 			break;
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITEROUTCONVARIABLE:
-		case LEFTITEROUTCONFIXEDVARIABLE:
-		case LEFTITEROUTRELFIXEDVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
 		case LEFTITEROUTSUBEXP:
-		case LEFTITEROUTFIXEDSUBEXP:
+		case LEFTSUBITEROUTSUBEXP:
 			elements = volatileLeftInstElement.getTargetRelations();
 			out = volatileLeftInstElement.getTargetRelations().size();
 			break;
@@ -443,7 +445,7 @@ public class ModelExpr implements Serializable, Cloneable {
 			break;
 		case LEFTITERANYCONVARIABLE:
 			break;
-		case LEFTITERANYFIXEDVARIABLE:
+		case LEFTSUBITERANYVARIABLE:
 			break;
 		case LEFTITERANYRELVARIABLE:
 			break;
@@ -500,7 +502,6 @@ public class ModelExpr implements Serializable, Cloneable {
 	private Identifier getIdentifier(ExpressionVertexType expressionVertexType,
 			int pos, int iterInstance) {
 		Identifier out = null;
-
 		List<InstElement> elements = null;
 		InstElement volatileInstElement = null;
 		InstElement expInstElement = null;
@@ -508,7 +509,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		switch (expressionVertexType) {
 
 		case LEFTITERCONCEPTVARIABLE:
-		case LEFTITERCONFIXEDVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
 			elements = new ArrayList<InstElement>();
 			String elemetType = this.getSemanticExpression()
 					.getLeftSemanticElement().getIdentifier();
@@ -516,25 +517,25 @@ public class ModelExpr implements Serializable, Cloneable {
 			size = elements.size();
 			break;
 		case LEFTITERINCRELVARIABLE:
-		case LEFTITERINCRELFIXEDVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
 		case LEFTITERINCCONVARIABLE:
-		case LEFTITERINCCONFIXEDVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
 		case LEFTITERINCSUBEXP:
-		case LEFTITERINCFIXEDSUBEXP:
+		case LEFSUBTITERINCSUBEXP:
 			elements = volatileLeftInstElement.getSourceRelations();
 			size = volatileLeftInstElement.getSourceRelations().size();
 			break;
 		case LEFTITEROUTRELVARIABLE:
-		case LEFTITEROUTRELFIXEDVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
 		case LEFTITEROUTCONVARIABLE:
-		case LEFTITEROUTCONFIXEDVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
 		case LEFTITEROUTSUBEXP:
-		case LEFTITEROUTFIXEDSUBEXP:
+		case LEFTSUBITEROUTSUBEXP:
 			elements = volatileLeftInstElement.getTargetRelations();
 			size = volatileLeftInstElement.getTargetRelations().size();
 			break;
 		case LEFTITERANYCONVARIABLE:
-		case LEFTITERANYFIXEDVARIABLE:
+		case LEFTSUBITERANYVARIABLE:
 			elements = volatileLeftInstElement.getTargetRelations();
 			elements.addAll(volatileLeftInstElement.getSourceRelations());
 			size = volatileLeftInstElement.getTargetRelations().size();
@@ -665,26 +666,26 @@ public class ModelExpr implements Serializable, Cloneable {
 			expAttributeName = getSemanticExpression()
 					.getLeftSemanticExpression().getLeftAttributeName();
 			break;
-		case LEFTITERCONFIXEDVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
 			expInstElement = elements.get(pos);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 
 			break;
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
-		case LEFTITERINCRELFIXEDVARIABLE:
-		case LEFTITEROUTRELFIXEDVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
 			expInstElement = elements.get(pos);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 
 		case LEFTITERINCCONVARIABLE:
-		case LEFTITERINCCONFIXEDVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
 			expInstElement = elements.get(pos).getSourceRelations().get(0);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFTITEROUTCONVARIABLE:
-		case LEFTITEROUTCONFIXEDVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
 			expInstElement = elements.get(pos).getTargetRelations().get(0);
 			;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
@@ -750,7 +751,7 @@ public class ModelExpr implements Serializable, Cloneable {
 			break;
 		case LEFTITERANYCONVARIABLE:
 			break;
-		case LEFTITERANYFIXEDVARIABLE:
+		case LEFTSUBITERANYVARIABLE:
 			break;
 		case LEFTITERANYRELVARIABLE:
 			break;
@@ -824,7 +825,8 @@ public class ModelExpr implements Serializable, Cloneable {
 						.toString().length() != 0) {
 					InstAttribute obj = ((InstConcept) instVertex)
 							.getInstAttribute(filter);
-					values.add(obj.getAsInteger());
+					if (obj.getAsInteger() != 5)
+						values.add(obj.getAsInteger());
 				}
 			}
 
@@ -1003,30 +1005,30 @@ public class ModelExpr implements Serializable, Cloneable {
 		List<InstElement> elements = null;
 		switch (expressionVertexTypes.get(0)) {
 		case LEFTITERCONCEPTVARIABLE:
-		case LEFTITERCONFIXEDVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
 			elements = new ArrayList<InstElement>();
 			String elemetType = this.getSemanticExpression()
 					.getLeftSemanticElement().getIdentifier();
 			elements.addAll(refas.getVariabilityVertexMC(elemetType));
 			break;
 		case LEFTITERINCRELVARIABLE:
-		case LEFTITERINCRELFIXEDVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
 		case LEFTITERINCCONVARIABLE:
-		case LEFTITERINCCONFIXEDVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
 		case LEFTITERINCSUBEXP:
-		case LEFTITERINCFIXEDSUBEXP:
+		case LEFSUBTITERINCSUBEXP:
 			elements = volatileLeftInstElement.getSourceRelations();
 			break;
 		case LEFTITEROUTRELVARIABLE:
-		case LEFTITEROUTRELFIXEDVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
 		case LEFTITEROUTCONVARIABLE:
-		case LEFTITEROUTCONFIXEDVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
 		case LEFTITEROUTSUBEXP:
-		case LEFTITEROUTFIXEDSUBEXP:
+		case LEFTSUBITEROUTSUBEXP:
 			elements = volatileLeftInstElement.getTargetRelations();
 			break;
 		case LEFTITERANYCONVARIABLE:
-		case LEFTITERANYFIXEDVARIABLE:
+		case LEFTSUBITERANYVARIABLE:
 			elements = volatileLeftInstElement.getTargetRelations();
 			elements.addAll(volatileLeftInstElement.getSourceRelations());
 			break;
@@ -1097,11 +1099,11 @@ public class ModelExpr implements Serializable, Cloneable {
 					iter = false;
 				break;
 
-			case LEFTITERCONFIXEDVARIABLE:
-			case LEFTITERINCCONFIXEDVARIABLE:
-			case LEFTITEROUTCONFIXEDVARIABLE:
-			case LEFTITERINCRELFIXEDVARIABLE:
-			case LEFTITEROUTRELFIXEDVARIABLE:
+			case LEFSUBTITERCONVARIABLE:
+			case LEFTSUBITERINCCONVARIABLE:
+			case LEFTSUBITEROUTCONVARIABLE:
+			case LEFTSUBITERINCRELVARIABLE:
+			case LEFTSUBITEROUTRELVARIABLE:
 				iter = true;
 			case LEFTVARIABLE:
 			case LEFTUNIQUEOUTRELVARIABLE:
@@ -1165,8 +1167,8 @@ public class ModelExpr implements Serializable, Cloneable {
 				// out.add(leftInstanceExpression.createExpression(0));
 				break;
 
-			case LEFTITERINCFIXEDSUBEXP:
-			case LEFTITEROUTFIXEDSUBEXP:
+			case LEFSUBTITERINCSUBEXP:
+			case LEFTSUBITEROUTSUBEXP:
 				iter = true;
 				getIdentifier(expressionType, pos, leftIterInstance);
 				if (pos >= size - 1)
@@ -1805,7 +1807,7 @@ public class ModelExpr implements Serializable, Cloneable {
 			case LEFTITERANYCONVARIABLE:
 				out += getLeftAttributeName();
 				break;
-			case LEFTITERANYFIXEDVARIABLE:
+			case LEFTSUBITERANYVARIABLE:
 				out += getLeftAttributeName();
 				break;
 			case LEFTITERANYRELVARIABLE:
@@ -1814,10 +1816,10 @@ public class ModelExpr implements Serializable, Cloneable {
 			case LEFTITERCONCEPTVARIABLE:
 				out += getLeftAttributeName();
 				break;
-			case LEFTITERCONFIXEDVARIABLE:
+			case LEFSUBTITERCONVARIABLE:
 				out += getLeftAttributeName();
 				break;
-			case LEFTITERINCCONFIXEDVARIABLE:
+			case LEFTSUBITERINCCONVARIABLE:
 				out += getLeftAttributeName();
 				break;
 			case LEFTITERINCCONVARIABLE:
@@ -1825,7 +1827,7 @@ public class ModelExpr implements Serializable, Cloneable {
 					out += "(" + leftInstanceExpression.expressionStructure()
 							+ ")";
 				break;
-			case LEFTITERINCRELFIXEDVARIABLE:
+			case LEFTSUBITERINCRELVARIABLE:
 				out += this.getLeftInstElementId() + ":";
 				out += getLeftAttributeName();
 				break;
@@ -1833,14 +1835,14 @@ public class ModelExpr implements Serializable, Cloneable {
 				out += this.getLeftInstElementId() + ":";
 				out += getLeftAttributeName();
 				break;
-			case LEFTITEROUTCONFIXEDVARIABLE:
+			case LEFTSUBITEROUTCONVARIABLE:
 				out += this.getLeftInstElementId() + ":";
 				out += getLeftAttributeName();
 				break;
 			case LEFTITEROUTCONVARIABLE:
 				out += getLeftAttributeName();
 				break;
-			case LEFTITEROUTRELFIXEDVARIABLE:
+			case LEFTSUBITEROUTRELVARIABLE:
 				out += getLeftAttributeName();
 				break;
 			case LEFTITEROUTRELVARIABLE:
@@ -2049,7 +2051,7 @@ public class ModelExpr implements Serializable, Cloneable {
 							iterExpression, -1);
 			}
 			break;
-		case LEFTITERCONFIXEDVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
 			this.volatileLeftInstElement = instElement;
 			elemetType = this.getSemanticExpression().getLeftSemanticElement()
 					.getIdentifier();
@@ -2092,8 +2094,8 @@ public class ModelExpr implements Serializable, Cloneable {
 							iterExpression, -1);
 			}
 			break;
-		case LEFTITERINCCONFIXEDVARIABLE:
-		case LEFTITERINCRELFIXEDVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getSourceRelations().size()) {
 				InstElement leftInstElement = instElement.getSourceRelations()
@@ -2112,7 +2114,7 @@ public class ModelExpr implements Serializable, Cloneable {
 							iterExpression, -1);
 			}
 			break;
-		case LEFTITERINCFIXEDSUBEXP:
+		case LEFSUBTITERINCSUBEXP:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getSourceRelations().size()) {
 				leftInstanceExpression = new ModelExpr(refas, false,
@@ -2137,7 +2139,7 @@ public class ModelExpr implements Serializable, Cloneable {
 							iterExpression, -1);
 			}
 			break;
-		case LEFTITEROUTFIXEDSUBEXP:
+		case LEFTSUBITEROUTSUBEXP:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getTargetRelations().size()) {
 				leftInstanceExpression = new ModelExpr(refas, false,
@@ -2184,8 +2186,8 @@ public class ModelExpr implements Serializable, Cloneable {
 							iterExpression, -1);
 			}
 			break;
-		case LEFTITEROUTCONFIXEDVARIABLE:
-		case LEFTITEROUTRELFIXEDVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getTargetRelations().size()) {
 				InstElement leftInstElement = instElement.getSourceRelations()
@@ -2208,7 +2210,7 @@ public class ModelExpr implements Serializable, Cloneable {
 			break;
 		case LEFTITERANYCONVARIABLE:
 			break;
-		case LEFTITERANYFIXEDVARIABLE:
+		case LEFTSUBITERANYVARIABLE:
 			break;
 		case LEFTITERANYRELVARIABLE:
 			break;
@@ -2284,27 +2286,27 @@ public class ModelExpr implements Serializable, Cloneable {
 			break;
 		case LEFTITERANYCONVARIABLE:
 			break;
-		case LEFTITERANYFIXEDVARIABLE:
+		case LEFTSUBITERANYVARIABLE:
 			break;
 		case LEFTITERANYRELVARIABLE:
 			break;
 		case LEFTITERCONCEPTVARIABLE:
 			break;
-		case LEFTITERCONFIXEDVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
 			break;
-		case LEFTITERINCCONFIXEDVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
 			break;
 		case LEFTITERINCCONVARIABLE:
 			break;
-		case LEFTITERINCRELFIXEDVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
 			break;
 		case LEFTITERINCRELVARIABLE:
 			break;
-		case LEFTITEROUTCONFIXEDVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
 			break;
 		case LEFTITEROUTCONVARIABLE:
 			break;
-		case LEFTITEROUTRELFIXEDVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
 			break;
 		case LEFTITEROUTRELVARIABLE:
 			break;

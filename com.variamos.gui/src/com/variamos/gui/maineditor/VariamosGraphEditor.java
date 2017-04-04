@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -63,6 +64,8 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersExpr;
+import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
@@ -226,6 +229,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		this.graphLayout("organicLayout", false);
 		this.getGraphComponent().zoomAndCenter();
 		defineViewTabs();
+		refasGraph.runOrganicLayout();
 	}
 
 	public void defineViewTabs() {
@@ -1645,7 +1649,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void updateObjects() {
 		if (perspective == 4) {
-			clearElementState(ModelExpr2HLCL.DESIGN_EXEC);
+			clearElementState(ModelExpr2HLCL.SIMUL_EXEC);
 			// executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
 			this.updateRefasModel(modelEditor.getEditedModel());
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
@@ -1792,7 +1796,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (semTask != null)
 				semTask.setTerminated(true);
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
-					"Executing Simulation", "", 0, 100);
+					"Executing operation", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(1);
@@ -1962,7 +1966,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					ConsoleTextArea.addText(refas2hlcl.getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
-
 				}
 			}
 			if (semTask != null) {
@@ -1974,7 +1977,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// .getExecType() == ModelExpr2HLCL.SIMUL_MAPE)
 				) {
 					List<String> outVariables = semTask.getOutVariables();
-					refas2hlcl.updateGUIElements(null, outVariables);
+					refas2hlcl.updateGUIElements(null, outVariables, null);
 					updateDashBoard(semTask.isShowDashboard(),
 							semTask.isReloadDashBoardConcepts(),
 							semTask.isUpdate());
@@ -1982,7 +1985,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					updateSimulResults();
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
-
 				}
 			}
 
@@ -2046,10 +2048,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									task.getErrorTitle(),
 									JOptionPane.INFORMATION_MESSAGE, null);
 						}
-
 						break;
 					}
-
 				}
 			} else if (progressMonitor.isCanceled()
 					|| (semTask != null && semTask.isDone())) {
@@ -2086,6 +2086,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			JOptionPane.showMessageDialog(frame, semTask.getErrorMessage(),
 					semTask.getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
 					null);
+			semTask.clearErrorMessage();
+		} else if (semTask != null && semTask.getCompletedMessage() != null
+				&& !semTask.getCompletedMessage().equals("")) {
+			JOptionPane.showMessageDialog(frame, semTask.getCompletedMessage(),
+					"Operation Completed", JOptionPane.PLAIN_MESSAGE, null);
 			semTask.clearErrorMessage();
 
 		}
@@ -2222,7 +2227,52 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		perspective.updatePerspective(mainFrame.getPerspective());
 		mainFrame.validate();
 		mainFrame.repaint();
+		// if (mainFrame.getPerspective()==1)
+		{
+			TreeSet<String> expressionsS = new TreeSet<String>();
+			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
+				InstElement et = el.getTransSupInstElement();
+				if (et.getIdentifier().equals("OMOperation")
+						|| el.getIdentifier().equals("BasicSimulOper")) {
+					int expressions = 0;
+					for (InstElement rel : el.getTargetRelations()) {
+						InstElement subOper = rel.getTargetRelations().get(0);
+						List<InstAttribute> listatt = ((List<InstAttribute>) subOper
+								.getInstAttributeValue("exptype"));
+						OpersSubOperationExpType operExpType = null;
+						String subOperExpTypeName = null;
+						if (listatt != null) {
+							System.out.println(subOper.getIdentifier());
+							for (InstAttribute att : listatt) {
+								String attObj = (String) ((InstConcept) att
+										.getValue())
+										.getInstAttributeValue("suboperexptype");
+								operExpType = (OpersSubOperationExpType) ((InstConcept) att
+										.getValue()).getEdOperEle();
+								subOperExpTypeName = attObj;
+								System.out.println(attObj);
+								expressions += operExpType
+										.getSemanticExpressions().size();
+								for (OpersExpr opExp : operExpType
+										.getSemanticExpressions()) {
+									expressionsS.add(opExp.getSemElemId() + " "
+											+ opExp.expressionStructure());
+									// System.out
+									// .println(opExp.getSemElemId()
+									// + " "
+									// + opExp.expressionStructure());
+								}
+
+							}
+						}
+					}
+
+					System.out.println(el.getIdentifier() + " " + expressions);
+				}
+			}
+			// for (String opExp : expressionsS)
+			// System.out.println(opExp);
+		}
 
 	}
-
 }

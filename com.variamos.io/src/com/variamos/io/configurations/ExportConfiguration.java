@@ -8,8 +8,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
- * A class to draw the dashboard for initial simultaion. Part of PhD work at
- * University of Paris 1
+ * A class to create an XLS file with the valid results for the current configuration.
+ * Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.0

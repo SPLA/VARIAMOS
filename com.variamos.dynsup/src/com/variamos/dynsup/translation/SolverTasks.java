@@ -180,6 +180,9 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return null;
 	}
 
+	/*
+	 * Save all the solutions for the current configuration
+	 */
 	public boolean saveConfiguration(String file) throws InterruptedException {
 		setProgress(1);
 		progressMonitor.setNote("Solutions processed: 0");
@@ -541,9 +544,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 			refas2hlcl.updateGUIElements(attributes);
 			Map<String, Number> currentResult = refas2hlcl.getResult();
+			Map<String, Number> lastResult = refas2hlcl.getResult();
 			System.out.println(currentResult);
+			System.out.println(lastResult);
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
-					refas2hlcl.getResult());
+					lastResult);
 
 			// System.out.println(falseOptIdentifiers);
 
@@ -636,14 +641,13 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			if (defect == null || defect.contains("FalseOpt")) {
 				if (uniqueIdentifiers.size() > 0)
 					out.add(uniqueIdentifiers.size() + verifMessage);
-				refas2hlcl.updateErrorMark(uniqueIdentifiers, element,
+				refas2hlcl.updateErrorMark(uniqueIdentifiers, "FalseOpt",
 						verifHint);
 
 			}
 
 			if (defect == null || defect.contains("Core"))
-				;
-			// refas2hlcl.updateCoreConcepts(uniqueIdentifiers, false);
+				refas2hlcl.updateCoreConcepts(uniqueIdentifiers, false);
 
 			if (defect == null || defect.contains("Dead"))
 				refas2hlcl.updateDeadConcepts(deadIdentifiers);

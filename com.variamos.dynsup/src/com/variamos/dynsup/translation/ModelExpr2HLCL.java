@@ -593,13 +593,10 @@ public class ModelExpr2HLCL {
 				if (instVertex.getInstAttribute("isConfDom") != null)
 					instVertex.getInstAttribute("isConfDom").setValue(false);
 				if (instVertex.getInstAttribute("varConfValue") != null)
-					instVertex.getInstAttribute("varConfValue").setValue(null);
+					instVertex.getInstAttribute("varConfValue").setValue(0);
 			}
 			if (this.validateConceptType(instVertex, "GeneralConcept")) {
-				if (instVertex.getInstAttribute("TrueVal").getAsBoolean()
-						|| instVertex.getInstAttribute("FalseVal")
-								.getAsBoolean())
-					continue;
+
 				/*
 				 * if (instVertex.getInstAttribute("Core").getAsBoolean() ||
 				 * instVertex.getInstAttribute("Dead").getAsBoolean()) continue;
@@ -608,10 +605,6 @@ public class ModelExpr2HLCL {
 				case ModelExpr2HLCL.SIMUL_EXEC:
 				case ModelExpr2HLCL.SIMUL_EXPORT:
 				case ModelExpr2HLCL.SIMUL_MAPE:
-					if (instVertex.getInstAttribute("ConfSel").getAsBoolean()
-							|| instVertex.getInstAttribute("ConfNotSel")
-									.getAsBoolean())
-						continue;
 					break;
 				case ModelExpr2HLCL.CORE_EXEC:
 					instVertex.getInstAttribute("Core").setValue(false);
@@ -636,22 +629,30 @@ public class ModelExpr2HLCL {
 									"HasParent")) {
 						if (execType == ModelExpr2HLCL.CORE_EXEC
 								|| execType == ModelExpr2HLCL.DESIGN_EXEC
-								|| execType == ModelExpr2HLCL.SIMUL_EXEC
-								|| execType == ModelExpr2HLCL.SIMUL_EXPORT
-								|| execType == ModelExpr2HLCL.SIMUL_MAPE
-								|| (!instAttribute.getIdentifier()
+								|| (execType == ModelExpr2HLCL.SIMUL_EXEC
+										|| execType == ModelExpr2HLCL.SIMUL_EXPORT || execType == ModelExpr2HLCL.SIMUL_MAPE)
+								&& (!instAttribute.getIdentifier()
 										.equals("Sel") && !instAttribute
-										.getIdentifier().equals("Exclu")))
+										.getIdentifier().equals("Exclu"))) {
+							if (instAttribute.getIdentifier().equals("ConfSel")
+									|| instAttribute.getIdentifier().equals(
+											"ConfNotSel")
+									|| instAttribute.getIdentifier().equals(
+											"TestConfSel")
+									|| instAttribute.getIdentifier().equals(
+											"TestConfNotSel"))
+								continue;
 							instAttribute.setValue(false);
+						}
 					}
-					if (instAttribute.getType().equals("Boolean")
-							&& (instAttribute.getIdentifier()
-									.equals("NPrefSel")
+					if (execType != ModelExpr2HLCL.SIMUL_EXEC
+							&& (instAttribute.getType().equals("Boolean") && (instAttribute
+									.getIdentifier().equals("TestConfSel")
 									|| instAttribute.getIdentifier().equals(
-											"NNotPrefSel")
+											"TestConfNotSel")
 									|| instAttribute.getIdentifier().equals(
-											"NReqSel") || instAttribute
-									.getIdentifier().equals("NNotSel")))
+											"SimulSel") || instAttribute
+									.getIdentifier().equals("NNotSel"))))
 						instAttribute.setValue(false);
 				}
 			}
@@ -671,6 +672,23 @@ public class ModelExpr2HLCL {
 				instVertex.getInstAttribute("Core").setValue(false);
 			if (instVertex.getInstAttribute("Sel") != null)
 				instVertex.getInstAttribute("Sel").setValue(false);
+			if (instVertex.getInstAttribute("SimulSel") != null)
+				instVertex.getInstAttribute("SimulSel").setValue(false);
+			if (instVertex.getInstAttribute("NNotSel") != null)
+				instVertex.getInstAttribute("NNotSel").setValue(false);
+			if (instVertex.getInstAttribute("TestConfSel") != null)
+				instVertex.getInstAttribute("TestConfSel").setValue(false);
+			if (instVertex.getInstAttribute("TestConfNotSel") != null)
+				instVertex.getInstAttribute("TestConfNotSel").setValue(false);
+		}
+		for (InstElement instVertex : refas.getConstraintInstEdges().values()) {
+			instVertex.clearDefects();
+			if (instVertex.getInstAttribute("Dead") != null)
+				instVertex.getInstAttribute("Dead").setValue(false);
+			if (instVertex.getInstAttribute("Core") != null)
+				instVertex.getInstAttribute("Core").setValue(false);
+			if (instVertex.getInstAttribute("Sel") != null)
+				instVertex.getInstAttribute("Sel").setValue(false);
 		}
 	}
 
@@ -682,16 +700,17 @@ public class ModelExpr2HLCL {
 	 * Updates the GUI with the configuration
 	 */
 	public void updateGUIElements(List<String> attributes) {
-		updateGUIElements(attributes, new ArrayList<String>(), null, null, null);
+		updateGUIElements(attributes, new ArrayList<String>(), null, null,
+				null, null);
 	}
 
 	/**
 	 * Updates the GUI with the configuration
 	 */
 	public void updateGUIElements(List<String> attributes,
-			List<String> outVariables) {
+			List<String> outVariables, InstElement instSubOper) {
 		updateGUIElements(attributes, new ArrayList<String>(), null,
-				outVariables, null);
+				outVariables, null, instSubOper);
 	}
 
 	/**
@@ -699,7 +718,8 @@ public class ModelExpr2HLCL {
 	 */
 	public void updateGUIElements(List<String> selectedAttributes,
 			List<String> notAvailableAttributes, List<String> conceptTypes,
-			List<String> outVariables, Map<String, Number> config) {
+			List<String> outVariables, Map<String, Number> config,
+			InstElement instOperSubAction) {
 		// Call the SWIProlog and obtain the result
 		if (configuration != null) {
 			Map<String, Number> prologOut;
@@ -714,10 +734,22 @@ public class ModelExpr2HLCL {
 				String attribute = split[1];
 				// System.out.println(vertexId + " " + attribute + " "
 				// + prologOut.get(identifier));
+				InstElement vertex = refas.getElement(vertexId);
 				if (!vertexId.equals("Amodel")
-						&& (outVariables != null && outVariables
-								.contains(attribute))) {
-					InstElement vertex = refas.getElement(vertexId);
+						&& (outVariables == null
+								|| outVariables.contains(attribute) || (vertex
+								.getTransSupInstElement().getEdSyntaxEle()
+								.getInstSemanticElementId() != null
+								&& vertex.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId()
+										.equals("nmVariable")
+								&& instOperSubAction != null
+								&& vertex.getInstAttribute("variableType")
+										.getValue().equals("LowLevel variable") && (vertex
+								.getInstAttribute("LowLevelVarOutSubOper")
+								.getValue().equals(instOperSubAction
+								.getDynamicAttribute("userId")))))) {
 					if (vertex == null
 							|| (conceptTypes != null && !conceptTypes
 									.contains(vertex
@@ -1113,7 +1145,7 @@ public class ModelExpr2HLCL {
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "GeneralConcept")) {
 				InstAttribute instAttributeTest = instVertex
-						.getInstAttribute("NPrefSel");
+						.getInstAttribute("TestConfSel");
 				InstAttribute instAttributeConf = instVertex
 						.getInstAttribute("ConfSel");
 
@@ -1152,7 +1184,7 @@ public class ModelExpr2HLCL {
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "GeneralConcept")) {
 				InstAttribute instAttributeTest = instVertex
-						.getInstAttribute("NNotPrefSel");
+						.getInstAttribute("TestConfNotSel");
 				InstAttribute instAttributeConf = instVertex
 						.getInstAttribute("ConfNotSel");
 
@@ -1358,7 +1390,7 @@ public class ModelExpr2HLCL {
 				result = execute(progressMonitor, element,
 						ModelExpr2HLCL.NEXT_SOLUTION, type);
 			if (result && !progressMonitor.isCanceled()) {
-				updateGUIElements(null);
+				updateGUIElements(null, null);
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
 				for (InstElement instVertex : refas
 						.getVariabilityVertexCollection()) {

@@ -58,18 +58,22 @@ public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 		this.identifier = identifier;
 	}
 
+	@Override
 	public String getIdentifier() {
 		return identifier;
 	}
 
+	@Override
 	public String getType() {
 		return type;
 	}
 
+	@Override
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -79,6 +83,7 @@ public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 	}
 
 	// Method from com.cfm.productline.Variable class
+	@Override
 	public Float getAsFloat() {
 		Object val = value;
 		if (val == null)
@@ -94,6 +99,7 @@ public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 	}
 
 	// Method from com.cfm.productline.Variable class
+	@Override
 	public Integer getAsInteger() {
 		Object val = value;
 		if (val == null)
@@ -109,6 +115,7 @@ public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 	}
 
 	// Method from com.cfm.productline.Variable class
+	@Override
 	public Boolean getAsBoolean() {
 		Object val = value;
 		if (val == null)
@@ -129,6 +136,7 @@ public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 		return true;
 	}
 
+	@Override
 	public String toString() {
 		Object val = value;
 		if (val == null)
@@ -136,18 +144,22 @@ public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 		return val.toString();
 	}
 
+	@Override
 	public void setGroup(Object valueObject) {
 		this.group = valueObject;
 	}
 
+	@Override
 	public Object getGroup() {
 		return group;
 	}
 
+	@Override
 	public void setValue(Object valueObject) {
 		this.value = valueObject;
 	}
 
+	@Override
 	public Object getValue() {
 		return value;
 	}
@@ -166,10 +178,12 @@ public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 		return getIdentifier().hashCode();
 	}
 
+	@Override
 	public boolean isAffectProperties() {
 		return false;
 	}
 
+	@Override
 	public String getDisplayName() {
 		return name;
 	}
