@@ -781,7 +781,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			BooleanExpression newExp = (BooleanExpression) expression
 					.createSGSExpression();
-
+			// System.out.println(expression.getSemanticExpression()
+			// .expressionStructure());
 			if (newExp != null)
 				prog.add(newExp);
 		}

@@ -2169,8 +2169,8 @@ public class ModelExpr implements Serializable, Cloneable {
 		case LEFTITEROUTSUBEXP:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getTargetRelations().size()) {
-				InstElement leftInstElement = instElement.getSourceRelations()
-						.get(pos).getSourceRelations().get(0);
+				InstElement leftInstElement = instElement.getTargetRelations()
+						.get(pos).getTargetRelations().get(0);
 				leftInstanceExpression = new ModelExpr(refas, false, this
 						.getSemanticExpression().getLeftSemanticExpression(),
 						iterInstance);
@@ -2190,8 +2190,8 @@ public class ModelExpr implements Serializable, Cloneable {
 		case LEFTSUBITEROUTRELVARIABLE:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getTargetRelations().size()) {
-				InstElement leftInstElement = instElement.getSourceRelations()
-						.get(pos).getSourceRelations().get(0);
+				InstElement leftInstElement = instElement.getTargetRelations()
+						.get(pos).getTargetRelations().get(0);
 				leftInstanceExpression = new ModelExpr(refas, false,
 						this.getSemanticExpression(), iterInstance);
 				if (leftIterInstance + 1 < leftInstElement.getInstances(refas)

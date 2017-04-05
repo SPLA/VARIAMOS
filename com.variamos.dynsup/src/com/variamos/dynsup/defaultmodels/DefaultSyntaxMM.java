@@ -448,7 +448,7 @@ public class DefaultSyntaxMM {
 		// instGroupPairWiseRel);
 
 		InstElement directFeatFeatVertSemEdge = refas.getOperationalModel()
-				.getVertex("parentFeatPW");
+				.getVertex("ParentFeaturePW");
 
 		InstElement directFeatFeatSideSemEdge = refas.getOperationalModel()
 				.getVertex("altFeatPW");
@@ -1478,10 +1478,10 @@ public class DefaultSyntaxMM {
 				"SgSgPWAsso");
 
 		InstElement directSGGRSemEdge = refas.getOperationalModel().getVertex(
-				"SgFromOT");
+				"SoftgoalToSoftgoalOT");
 
 		InstElement directGRSGSemEdge = refas.getOperationalModel().getVertex(
-				"SgToOT");
+				"SoftgoalOTToSoftgoal");
 
 		SyntaxElement metaGroupSoftFromPairWiseRel = new SyntaxElement('P',
 				"GroupSoftFromRelation", true, true,
@@ -1578,7 +1578,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instDirSoftPairWiseRel, true);
 
 		InstConcept semanticSGSGGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("SgOT"));
+				.getOperationalModel().getVertex("SoftgoalOT"));
 
 		// Group soft relation
 
@@ -2379,7 +2379,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semanticOperClaimGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("OperClOT"));
+				.getOperationalModel().getVertex("OperClaimOT"));
 
 		hardMetaOverTwoRel = new SyntaxElement(
 				'O',
@@ -2394,8 +2394,8 @@ public class DefaultSyntaxMM {
 				20, 20, "/com/variamos/gui/pl/editor/images/plgroup.png",
 				false, "white", 1, semanticOperClaimGroupRelation, false);
 
-		InstElement semClaimPairwiseRel = refas.getOperationalModel()
-				.getVertex("OperClPW");
+		InstElement semOperClaimOTToClaimPW = refas.getOperationalModel()
+				.getVertex("OperClaimOTToClaimPW");
 
 		SyntaxElement metaClaimPairwiseRel = new SyntaxElement(
 				'P',
@@ -2408,7 +2408,7 @@ public class DefaultSyntaxMM {
 						+ " an operationalization(s) and a claim. The operationalization(s)"
 						+ " is required to satisfy a claim", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				semClaimPairwiseRel);
+				semOperClaimOTToClaimPW);
 
 		InstConcept instGrpOperClaimPairWiseRel = new InstConcept(
 				"GrpOperClaimRelation", supportMetaElementPairwise,
@@ -2422,6 +2422,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("GrpOperClaimRelation",
 				instGrpOperClaimPairWiseRel);
 
+		// FIXME use FeClToPW
 		InstConcept instGrpLFClaimPairWiseRel = new InstConcept(
 				"GrpLFClaimRelation", supportMetaElementPairwise,
 				metaClaimPairwiseRel);
@@ -2434,6 +2435,9 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("GrpLFClaimRelation",
 				instGrpLFClaimPairWiseRel);
 
+		InstElement semDirOperClaimPW = refas.getOperationalModel().getVertex(
+				"OperClaimPW");
+
 		SyntaxElement metaDirClaimPairwiseRel = new SyntaxElement(
 				'P',
 				"ClaimRelation",
@@ -2445,7 +2449,7 @@ public class DefaultSyntaxMM {
 						+ " an operationalization(s) and a claim. The operationalization(s)"
 						+ " is required to satisfy a claim", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				semClaimPairwiseRel);
+				semDirOperClaimPW);
 
 		// metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow",
 		// "Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
@@ -2704,7 +2708,7 @@ public class DefaultSyntaxMM {
 		// MetaEdge, metaSDSGEdge));
 
 		InstElement directClaimSGSemanticEdge = refas.getOperationalModel()
-				.getVertex("ClaimSGPWAsso");
+				.getVertex("ClaimSgPW");
 
 		SyntaxElement metaClaimSGEdge = new SyntaxElement(
 				'P',
