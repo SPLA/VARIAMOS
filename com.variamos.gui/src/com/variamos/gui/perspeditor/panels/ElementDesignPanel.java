@@ -391,6 +391,8 @@ public class ElementDesignPanel extends JPanel {
 																		null);
 														return false;
 													}
+													// test Angela Graphs
+													// dialog.createRelations(finalEditor);
 													// System.out.println(exp);
 												} catch (Exception e) {
 													JOptionPane

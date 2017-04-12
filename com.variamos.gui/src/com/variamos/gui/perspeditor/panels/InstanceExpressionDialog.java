@@ -46,6 +46,7 @@ import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.hlcl.Domain;
 import com.variamos.hlcl.DomainParser;
@@ -68,6 +69,7 @@ public class InstanceExpressionDialog extends JDialog {
 	private boolean multiExpressions;
 	private boolean displayTextExpression = false;
 	private boolean editable;
+	private InstElement sourceElement;
 
 	static interface InstanceExpressionButtonAction {
 		public boolean onAction();
@@ -82,6 +84,7 @@ public class InstanceExpressionDialog extends JDialog {
 		refasModel = editor.getEditedModel();
 		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, instanceExpressions);
+		sourceElement = instElement;
 	}
 
 	public void initialize(final InstElement element,
@@ -130,6 +133,7 @@ public class InstanceExpressionDialog extends JDialog {
 					Expression exp = instanceExpression
 							.createSGSExpression(element.getIdentifier());
 					textTextualExpression = new JTextArea(exp.toString());
+
 				} catch (Exception e) {
 
 					textTextualExpression = new JTextArea(
@@ -292,6 +296,37 @@ public class InstanceExpressionDialog extends JDialog {
 		pack();
 		revalidate();
 		repaint();
+	}
+
+	public void createRelations(VariamosGraphEditor editor) {
+
+		PerspEditorGraph refasGraph = ((PerspEditorGraph) editor
+				.getGraphComponent().getGraph());
+		List<InstElement> concepts = instanceExpressions.get(0).getConcepts();
+
+		for (InstPairwiseRel e : refasModel.getConstraintInstEdges().values()) {
+			if (e.getSupInstEleId().equals("Test-Cl-Var")
+					&& e.getSourceRelations().get(0).equals(sourceElement)) {
+				refasGraph.removeEdge(e);
+				refasModel.removeElement(e);
+			}
+		}
+
+		int i = 0;
+		for (InstElement concept : concepts) {
+			InstPairwiseRel directRelation = new InstPairwiseRel();
+			directRelation.setIdentifier(sourceElement.getIdentifier() + i++);
+			directRelation.setTargetRelation(concept, true);
+			directRelation.setSourceRelation(sourceElement, true);
+			InstElement metaPairwiseRelNormal = refasModel.getSyntaxModel()
+					.getElement("Test-Cl-Var");
+			directRelation
+					.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+			directRelation.setSupSyntaxEleId("Test-Cl-Var");
+			directRelation.setSupInstEleId("Test-Cl-Var");
+			this.refasModel.addNewConstraintInstEdge(directRelation);
+			refasGraph.createNewEdge(directRelation);
+		}
 	}
 
 	private void showExpression(final ModelExpr instanceExpression,

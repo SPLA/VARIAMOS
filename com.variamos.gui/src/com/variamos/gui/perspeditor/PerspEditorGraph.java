@@ -223,6 +223,64 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 	}
 
+	public void createNewEdge(InstPairwiseRel instEdge) {
+		if (instEdge.getSourceRelations().size() != 0
+				&& instEdge.getIdentifier() != null
+				&& !instEdge.getIdentifier().equals("")) {
+			mxCell child = new mxCell();
+			child.setValue(new InstCell(child, instEdge, false));
+			child.setId(instEdge.getIdentifier());
+			addCell(child);
+			mxCell source = this.getCellById(modelViewIndex
+					+ instEdge.getSourceRelations().get(0).getIdentifier());
+			mxCell target = this.getCellById(modelViewIndex
+					+ instEdge.getTargetRelations().get(0).getIdentifier());
+			child.setStyle("");
+			SyntaxElement e = instEdge.getTransSupportMetaElement();
+			if (e != null) {
+				child.setStyle(e.getStyle());
+			}
+
+			child.setSource(source);
+			child.setTarget(target);
+			mxGeometry geo = new mxGeometry();
+			String id = instEdge.getIdentifier();
+			if (source != null)
+				source.insertEdge(child, true);
+			if (target != null)
+				target.insertEdge(child, false);
+			child.setGeometry(geo);
+			child.setVisible(true);
+			child.setVertex(false);
+			child.setEdge(true);
+			mxGraphModel model = (mxGraphModel) getModel();
+			model.getCells().remove(child.getId());
+			model.getCells().put(modelViewIndex + id, child);
+			child.setId(modelViewIndex + id);
+		}
+	}
+
+	public void removeEdge(InstPairwiseRel instEdge) {
+		if (instEdge.getIdentifier() != null
+				&& !instEdge.getIdentifier().equals("")) {
+
+			mxGraphModel model = (mxGraphModel) getModel();
+			mxCell child = (mxCell) model.getCells().get(
+					modelViewIndex + instEdge.getIdentifier());
+			// model.getCells().remove(modelViewIndex +
+			// instEdge.getIdentifier());
+			mxCell source = this.getCellById(modelViewIndex
+					+ instEdge.getSourceRelations().get(0).getIdentifier());
+			mxCell target = this.getCellById(modelViewIndex
+					+ instEdge.getTargetRelations().get(0).getIdentifier());
+			if (source != null)
+				source.removeEdge(child, true);
+			if (target != null)
+				target.removeEdge(child, false);
+			model.getCells().remove(child);
+		}
+	}
+
 	public List<String> getValidElements(int modelView, int modelSubView) {
 		if (modelInstance.getSyntaxModel() == null)
 			return null;

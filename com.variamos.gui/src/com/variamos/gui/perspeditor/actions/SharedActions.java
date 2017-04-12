@@ -314,8 +314,9 @@ public class SharedActions {
 				} else
 					try {
 
-						if (!((InstCell) mv0.getValue()).isCloned()) {
-							// System.out.println(mv0.getValue());
+						if (!((InstCell) mv0.getValue()).isCloned()
+								&& ((InstCell) mv0.getValue()).getInstElement() != null) {
+							System.out.println(mv0.getValue());
 							createClone(editor, mv0.getValue(), mv0, graph);
 
 						}
