@@ -2233,7 +2233,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 				InstElement et = el.getTransSupInstElement();
 				if (et.getIdentifier().equals("OMOperation")
-						&& el.getIdentifier().equals("VerifyParentsOper")) {
+						|| el.getIdentifier().equals("VerifyParentsOper")) {
 					int expressions = 0;
 					for (InstElement rel : el.getTargetRelations()) {
 						InstElement subOper = rel.getTargetRelations().get(0);
@@ -2257,10 +2257,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 										.getSemanticExpressions()) {
 									expressionsS.add(opExp.getSemElemId() + " "
 											+ opExp.expressionStructure());
-									System.out
-											.println(opExp.getSemElemId()
-													+ " "
-													+ opExp.expressionStructure());
+									// System.out
+									// .println(opExp.getSemElemId()
+									// + " "
+									// + opExp.expressionStructure());
 								}
 
 							}
@@ -2270,8 +2270,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					System.out.println(el.getIdentifier() + " " + expressions);
 				}
 			}
-			// for (String opExp : expressionsS)
-			// System.out.println(opExp);
+			for (String opExp : expressionsS)
+				System.out.println(opExp);
 		}
 
 	}

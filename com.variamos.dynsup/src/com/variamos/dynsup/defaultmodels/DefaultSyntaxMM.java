@@ -469,12 +469,22 @@ public class DefaultSyntaxMM {
 		InstElement semGroupPaiwiseRel = refas.getOperationalModel().getVertex(
 				"HardConceptToHardOT");
 
-		SyntaxElement metaGroupPairwiseRel = new SyntaxElement('P',
+		SyntaxElement metaGroupHardPairwiseRel = new SyntaxElement('P',
 				"Group Relation", true, true, "Group Relation", "",
 				"Direct relation with a over two relation concept."
 						+ " No additional type defined", 60, 40,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				semGroupPaiwiseRel);
+
+		InstElement semGroupFeatPaiwiseRel = refas.getOperationalModel()
+				.getVertex("FeatureToFeatureOT");
+
+		SyntaxElement metaGroupFeatPairwiseRel = new SyntaxElement('P',
+				"Group Relation", true, true, "Group Relation", "",
+				"Direct relation with a over two relation concept."
+						+ " No additional type defined", 60, 40,
+				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				semGroupFeatPaiwiseRel);
 
 		// InstConcept instGroupPairWiseRel = new InstConcept("Group Relation",
 		// supportMetaElementPairwise, metaGroupPairwiseRel);
@@ -516,7 +526,7 @@ public class DefaultSyntaxMM {
 				.getVertex("ParentFeaturePW");
 
 		InstElement directFeatFeatSideSemEdge = refas.getOperationalModel()
-				.getVertex("altFeatPW");
+				.getVertex("AlternFeaturePW");
 
 		SyntaxElement metaFeatVertPairwiseRel = new SyntaxElement('P',
 				"Structural", true, true, "Feature Child Relation", "",
@@ -671,7 +681,7 @@ public class DefaultSyntaxMM {
 		// Features OverTwoRelations
 
 		InstConcept semanticFeatFeatGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("FeatOT"));
+				.getOperationalModel().getVertex("FeatureOT"));
 
 		SyntaxElement featureMetaOverTwoRel = new SyntaxElement('O',
 				"FeatOTAsso", true, true, "FeatOTAsso", "plgroup",
@@ -712,8 +722,17 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewFG, true);
 		instEdge.setSourceRelation(instViewC, true);
 
+		InstConcept instGrpFeatRelation = new InstConcept("GrpFeatRelation",
+				supportMetaElementPairwise, metaGroupFeatPairwiseRel);
+
+		instGrpFeatRelation.setInstAttribute("Type", "Group");
+		instGrpFeatRelation.setInstAttribute("SourceCardinality", "[1..1]");
+		instGrpFeatRelation.setInstAttribute("TargetCardinality", "[0..1]");
+		refas.getVariabilityVertex()
+				.put("GrpFeatRelation", instGrpFeatRelation);
+
 		InstConcept instGrpVertRelation = new InstConcept("GrpVertRelation",
-				supportMetaElementPairwise, metaGroupPairwiseRel);
+				supportMetaElementPairwise, metaGroupHardPairwiseRel);
 
 		instGrpVertRelation.setInstAttribute("Type", "Group");
 		instGrpVertRelation.setInstAttribute("SourceCardinality", "[1..1]");
@@ -745,7 +764,7 @@ public class DefaultSyntaxMM {
 		refas.getConstraintInstEdges().put("strvariab-f-pwrme", instEdge);
 		instEdge.setIdentifier("strvariab-f-pwrme");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		instEdge.setTargetRelation(instGrpVertRelation, true);
+		instEdge.setTargetRelation(instGrpFeatRelation, true);
 		instEdge.setSourceRelation(instVertexF, true);
 
 		instEdge = new InstPairwiseRel();
@@ -753,7 +772,7 @@ public class DefaultSyntaxMM {
 		instEdge.setIdentifier("strfeatf-pwrme-va");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexFOTR, true);
-		instEdge.setSourceRelation(instGrpVertRelation, true);
+		instEdge.setSourceRelation(instGrpFeatRelation, true);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("strvariab-otr-fpwrme", instEdge);
@@ -1242,7 +1261,7 @@ public class DefaultSyntaxMM {
 		// TODO Create another group
 		InstConcept instGroupHardPairWiseRel = new InstConcept(
 				"Hard Group Relation", supportMetaElementPairwise,
-				metaGroupPairwiseRel);
+				metaGroupHardPairwiseRel);
 
 		instGroupHardPairWiseRel.setInstAttribute("Type", "Default");
 		instGroupHardPairWiseRel
@@ -1745,7 +1764,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Context", instViewCoV);
 		// syntaxMetaView.addConcept(syntaxVariable);
 		InstConcept semContextGroup = ((InstConcept) refas
-				.getOperationalModel().getVertex("nmConcernLevel"));
+				.getOperationalModel().getVertex("NmConcernLevel"));
 		SyntaxElement syntaxContextGroup = new SyntaxElement('C', "CG", true,
 				true, "ConcernLevel", "refascontextgrp", " A Concern Level"
 						+ " is defined to associate variables with common"
@@ -1796,7 +1815,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instViewCoV, true);
 
 		InstConcept semVariable = ((InstConcept) refas.getOperationalModel()
-				.getVertex("nmVariable"));
+				.getVertex("NmVariable"));
 		SyntaxElement syntaxAbsVariable = new SyntaxElement(
 				'C',
 				"Variable",
@@ -2175,7 +2194,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGroupOperClaimPairWiseRel = new InstConcept(
 				"OperClaim Group Relation", supportMetaElementPairwise,
-				metaGroupPairwiseRel);
+				metaGroupHardPairwiseRel);
 
 		instGroupOperClaimPairWiseRel.setInstAttribute("Type", "Default");
 		instGroupOperClaimPairWiseRel.setInstAttribute("SourceCardinality",
@@ -2187,7 +2206,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGroupLFClaimPairWiseRel = new InstConcept(
 				"LFClaim Group Relation", supportMetaElementPairwise,
-				metaGroupPairwiseRel);
+				metaGroupFeatPairwiseRel);
 
 		instGroupLFClaimPairWiseRel.setInstAttribute("Type", "Default");
 		instGroupLFClaimPairWiseRel.setInstAttribute("SourceCardinality",
@@ -2350,6 +2369,9 @@ public class DefaultSyntaxMM {
 
 		InstElement semDirOperClaimPW = refas.getOperationalModel().getVertex(
 				"OperClaimPW");
+
+		InstElement semDirLfClaimPW = refas.getOperationalModel().getVertex(
+				"LfClPW");
 
 		// / test Angela relations
 
@@ -2518,12 +2540,12 @@ public class DefaultSyntaxMM {
 		InstElement semOperClaimOTToClaimPW = refas.getOperationalModel()
 				.getVertex("OperClaimOTToClaimPW");
 
-		SyntaxElement metaClaimPairwiseRel = new SyntaxElement(
+		SyntaxElement metaOperClaimPairwiseRel = new SyntaxElement(
 				'P',
-				"ClaimRelation",
+				"OperClaimRelation",
 				true,
 				true,
-				"ClaimRelation",
+				"OperClaimRelation",
 				"",
 				"Represent the relation between"
 						+ " an operationalization(s) and a claim. The operationalization(s)"
@@ -2533,7 +2555,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpOperClaimPairWiseRel = new InstConcept(
 				"GrpOperClaimRelation", supportMetaElementPairwise,
-				metaClaimPairwiseRel);
+				metaOperClaimPairwiseRel);
 
 		instGrpOperClaimPairWiseRel.setInstAttribute("Type", "OPER-CL");
 		instGrpOperClaimPairWiseRel.setInstAttribute("SourceCardinality",
@@ -2544,9 +2566,25 @@ public class DefaultSyntaxMM {
 				instGrpOperClaimPairWiseRel);
 
 		// FIXME use FeClToPW
+
+		InstElement semLfClaimOTToClaimPW = refas.getOperationalModel()
+				.getVertex("FeClOTToClPW");
+
+		SyntaxElement metaLfClaimPairwiseRel = new SyntaxElement(
+				'P',
+				"LfClaimRelation",
+				true,
+				true,
+				"LfClaimRelation",
+				"",
+				"Represent the relation between"
+						+ " an operationalization(s) and a claim. The operationalization(s)"
+						+ " is required to satisfy a claim", 60, 50,
+				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				semLfClaimOTToClaimPW);
 		InstConcept instGrpLFClaimPairWiseRel = new InstConcept(
 				"GrpLFClaimRelation", supportMetaElementPairwise,
-				metaClaimPairwiseRel);
+				metaLfClaimPairwiseRel);
 
 		instGrpLFClaimPairWiseRel.setInstAttribute("Type", "LF-CL");
 		instGrpLFClaimPairWiseRel.setInstAttribute("SourceCardinality",
@@ -2556,7 +2594,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("GrpLFClaimRelation",
 				instGrpLFClaimPairWiseRel);
 
-		SyntaxElement metaDirClaimPairwiseRel = new SyntaxElement(
+		SyntaxElement metaDirOperClaimPairwiseRel = new SyntaxElement(
 				'P',
 				"ClaimRelation",
 				true,
@@ -2569,35 +2607,9 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semDirOperClaimPW);
 
-		// metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow",
-		// "Integer", false, "Aggregation Low", "", 0, 0, 3, "", "", 3,
-		// "[#" + "AggregationLow" + "#..", "AggregationHigh" + "#!=#"
-		// + "0");
-		// metaDirClaimPairwiseRel.addPropEditableAttribute("03#"
-		// + "AggregationLow");
-		// metaDirClaimPairwiseRel.addPropVisibleAttribute("03#"
-		// + "AggregationLow");
-		// metaDirClaimPairwiseRel.addPanelVisibleAttribute("03#"
-		// + "AggregationLow" + "#" + "AggregationHigh" + "#!=#" + "0");
-		// metaDirClaimPairwiseRel.addPanelSpacersAttribute("[#"
-		// + "AggregationLow" + "#..");
-
-		// metaDirClaimPairwiseRel.addModelingAttribute("AggregationHigh",
-		// "Integer", false, "Aggregation High", "", 0, 0, 4, "", "", 4,
-		// "#" + "AggregationHigh" + "#]\n", "AggregationHigh" + "#!=#"
-		// + "0");
-		// metaDirClaimPairwiseRel.addPropEditableAttribute("04#"
-		// + "AggregationHigh");
-		// metaDirClaimPairwiseRel.addPropVisibleAttribute("04#"
-		// + "AggregationHigh");
-		// metaDirClaimPairwiseRel.addPanelVisibleAttribute("04#"
-		// + "AggregationHigh" + "#" + "AggregationHigh" + "#!=#" + "0");
-		// metaDirClaimPairwiseRel.addPanelSpacersAttribute("#"
-		// + "AggregationHigh" + "#]\n");
-
 		InstConcept instDirOperClaimPairWiseRel = new InstConcept(
 				"DirOperClaimRelation", supportMetaElementPairwise,
-				metaDirClaimPairwiseRel);
+				metaDirOperClaimPairwiseRel);
 
 		instDirOperClaimPairWiseRel.setInstAttribute("Type", "OPER-CL");
 		instDirOperClaimPairWiseRel.setInstAttribute("SourceCardinality",
@@ -2607,9 +2619,17 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("DirOperClaimRelation",
 				instDirOperClaimPairWiseRel);
 
+		SyntaxElement metaDirLfClaimPairwiseRel = new SyntaxElement('P',
+				"LfClaimRelation", true, true, "LfClaimRelation", "",
+				"Represent the relation between"
+						+ " a leaf feature(s) and a claim. The leaf feature(s)"
+						+ " is required to satisfy a claim", 60, 50,
+				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				semDirLfClaimPW);
+
 		InstConcept instDirLFClaimPairWiseRel = new InstConcept(
 				"DirLFClaimRelation", supportMetaElementPairwise,
-				metaDirClaimPairwiseRel);
+				metaDirLfClaimPairwiseRel);
 
 		instDirLFClaimPairWiseRel.setInstAttribute("Type", "LF-CL");
 		instDirLFClaimPairWiseRel.setInstAttribute("SourceCardinality",
@@ -2695,7 +2715,7 @@ public class DefaultSyntaxMM {
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sgs-pwrd-opclaim", instEdge);
 		instEdge.setIdentifier("sgs-pwrd-opclaim");
-		instEdge.setEdSyntaxEle(metaClaimPairwiseRel);
+		instEdge.setEdSyntaxEle(metaOperClaimPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexCL, true);
 		instEdge.setSourceRelation(instDirOperClaimPairWiseRel, true);
@@ -2703,7 +2723,7 @@ public class DefaultSyntaxMM {
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sgs-oper-pwrd", instEdge);
 		instEdge.setIdentifier("sgs-oper-pwrd");
-		instEdge.setEdSyntaxEle(metaClaimPairwiseRel);
+		instEdge.setEdSyntaxEle(metaOperClaimPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instDirOperClaimPairWiseRel, true);
 		instEdge.setSourceRelation(instVertexOper, true);
@@ -2711,7 +2731,7 @@ public class DefaultSyntaxMM {
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sgs-pwrd-lfclaim", instEdge);
 		instEdge.setIdentifier("sgs-pwrd-lfclaim");
-		instEdge.setEdSyntaxEle(metaClaimPairwiseRel);
+		instEdge.setEdSyntaxEle(metaLfClaimPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexCL, true);
 		instEdge.setSourceRelation(instDirLFClaimPairWiseRel, true);
@@ -2719,7 +2739,7 @@ public class DefaultSyntaxMM {
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sgs-lf-pwrd", instEdge);
 		instEdge.setIdentifier("sgs-lf-pwrd");
-		instEdge.setEdSyntaxEle(metaClaimPairwiseRel);
+		instEdge.setEdSyntaxEle(metaLfClaimPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instDirLFClaimPairWiseRel, true);
 		instEdge.setSourceRelation(instVertexLF, true);
@@ -2735,7 +2755,7 @@ public class DefaultSyntaxMM {
 		refas.getConstraintInstEdges().put("sgs-pwrg-opclaimgp", instEdge);
 		instEdge.setIdentifier("sgs-pwrg-opclaimgp");
 		instEdge.setTargetRelation(instVertexOCOTR, true);
-		instEdge.setEdSyntaxEle(metaGroupPairwiseRel);
+		instEdge.setEdSyntaxEle(metaGroupHardPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setSourceRelation(instGroupOperClaimPairWiseRel, true);
 
@@ -2750,14 +2770,14 @@ public class DefaultSyntaxMM {
 		refas.getConstraintInstEdges().put("sgs-pwrg-lfclaimgp", instEdge);
 		instEdge.setIdentifier("sgs-pwrg-lfclaimgp");
 		instEdge.setTargetRelation(instVertexFCOTR, true);
-		instEdge.setEdSyntaxEle(metaGroupPairwiseRel);
+		instEdge.setEdSyntaxEle(metaGroupHardPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setSourceRelation(instGroupLFClaimPairWiseRel, true);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sgs-pwr-CL", instEdge);
 		instEdge.setIdentifier("sgs-pwr-CL");
-		instEdge.setEdSyntaxEle(metaClaimPairwiseRel);
+		instEdge.setEdSyntaxEle(metaOperClaimPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexCL, true);
 		instEdge.setSourceRelation(instGrpOperClaimPairWiseRel, true);
@@ -2772,7 +2792,7 @@ public class DefaultSyntaxMM {
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sgs-pwr-LFCL", instEdge);
 		instEdge.setIdentifier("sgs-pwr-LFCL");
-		instEdge.setEdSyntaxEle(metaClaimPairwiseRel);
+		instEdge.setEdSyntaxEle(metaLfClaimPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexCL, true);
 		instEdge.setSourceRelation(instGrpLFClaimPairWiseRel, true);
@@ -2903,7 +2923,7 @@ public class DefaultSyntaxMM {
 		// Create another meta element
 		InstConcept instGroupAssetPairWiseRel = new InstConcept(
 				"Soft Group Relation", supportMetaElementPairwise,
-				metaGroupPairwiseRel);
+				metaGroupHardPairwiseRel);
 
 		instGroupAssetPairWiseRel.setInstAttribute("Type", "Default");
 		instGroupAssetPairWiseRel.setInstAttribute("SourceCardinality",
@@ -2931,8 +2951,17 @@ public class DefaultSyntaxMM {
 		InstConcept semanticAssetOperGroupRelation = ((InstConcept) refas
 				.getOperationalModel().getVertex("AssetOperOT"));
 
+		InstConcept semanticAssetLfGroupRelation = ((InstConcept) refas
+				.getOperationalModel().getVertex("AssetLfOT"));
+
 		InstElement directAssetOperSemanticEdge = refas.getOperationalModel()
 				.getVertex("AssetOperPW");
+
+		InstElement directAssetOperFromSemanticEdge = refas
+				.getOperationalModel().getVertex("AssetOperFromOT");
+
+		InstElement directAssetLfFromSemanticEdge = refas.getOperationalModel()
+				.getVertex("AssetLfOTToLf");
 
 		InstConcept semanticAssetAssetGroupRelation = ((InstConcept) refas
 				.getOperationalModel().getVertex("AssetOT"));
@@ -2955,7 +2984,7 @@ public class DefaultSyntaxMM {
 				"AssetFeatOT", "plgroup", "Represents the implementation "
 						+ "of a feautre by a group of assets", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
-				"white", 1, semanticAssetOperGroupRelation, false);
+				"white", 1, semanticAssetLfGroupRelation, false);
 		InstConcept instVertexAssetFeat = new InstConcept("AssetFeatOT",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexAssetFeat.getInstAttribute("Type").setValue("Group");
@@ -2980,6 +3009,21 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directAssetOperSemanticEdge);
 
+		SyntaxElement metaAssetOperToPairWiseRel = new SyntaxElement('P',
+				"AssetOperOT To Oper Relation", true, true,
+				"AssetOperOT To Oper Relation", "", "Represents the "
+						+ "implementation of operationalization by an"
+						+ " asset", 50, 50,
+				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				directAssetOperFromSemanticEdge);
+
+		SyntaxElement metaLfOperToPairWiseRel = new SyntaxElement('P',
+				"AssetFlOT To Lf Relation", true, true,
+				"AssetFlOT To Lf Relation", "", "Represents the "
+						+ "implementation of leaf feature by an" + " asset",
+				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				directAssetLfFromSemanticEdge);
+
 		InstConcept instDirOperPairWiseRel = new InstConcept(
 				"Dir Asset To Oper Relation", supportMetaElementPairwise,
 				metaOperPairWiseRel);
@@ -2992,7 +3036,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpOperPairWiseRel = new InstConcept(
 				"Group Asset To Oper Relation", supportMetaElementPairwise,
-				metaOperPairWiseRel);
+				metaAssetOperToPairWiseRel);
 
 		instGrpOperPairWiseRel.setInstAttribute("Type", "Implementation");
 		instGrpOperPairWiseRel.setInstAttribute("SourceCardinality", "[0..1]");
@@ -3002,7 +3046,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpLFPairWiseRel = new InstConcept(
 				"Group Asset To L Relation", supportMetaElementPairwise,
-				metaOperPairWiseRel);
+				metaLfOperToPairWiseRel);
 
 		instGrpLFPairWiseRel.setInstAttribute("Type", "Implementation");
 		instGrpLFPairWiseRel.setInstAttribute("SourceCardinality", "[0..1]");
@@ -3094,7 +3138,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpAssetAssetPairWiseRel = new InstConcept(
 				"Group Asset-Asset Relation", supportMetaElementPairwise,
-				metaGroupPairwiseRel);
+				metaGroupHardPairwiseRel);
 
 		instGrpAssetAssetPairWiseRel.setInstAttribute("Type", "Default");
 		instGrpAssetAssetPairWiseRel.setInstAttribute("SourceCardinality",
@@ -3106,7 +3150,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpAssetOperPairWiseRel = new InstConcept(
 				"Group Asset-Oper Relation", supportMetaElementPairwise,
-				metaGroupPairwiseRel);
+				metaGroupHardPairwiseRel);
 
 		instGrpAssetOperPairWiseRel.setInstAttribute("Type", "Default");
 		instGrpAssetOperPairWiseRel.setInstAttribute("SourceCardinality",
@@ -3118,7 +3162,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpAssetFeatPairWiseRel = new InstConcept(
 				"Group Asset-Feat Relation", supportMetaElementPairwise,
-				metaGroupPairwiseRel);
+				metaGroupHardPairwiseRel);
 
 		instGrpAssetFeatPairWiseRel.setInstAttribute("Type", "Default");
 		instGrpAssetFeatPairWiseRel.setInstAttribute("SourceCardinality",
