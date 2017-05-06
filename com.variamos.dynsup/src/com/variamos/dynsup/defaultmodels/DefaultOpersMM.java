@@ -1197,7 +1197,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Core Operation for SDs");
+					"Identify Soft Dependencies on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(false);
@@ -1301,7 +1301,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"SDs Always Activated");
+					"Identify Soft Dependencies Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -1411,7 +1411,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"SDs Never Activated");
+					"Identify Soft Dependenciees Never Allowed");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -1524,7 +1524,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Core Operation for Claims");
+					"Identify Claims on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(false);
@@ -1628,7 +1628,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Claims Always Activated");
+					"Identify Claims Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -1739,7 +1739,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Claims Never Activated");
+					"Identify Claims Never Allowed");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -1854,7 +1854,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Core Operation for Operationalizations");
+					"Identify Operationalizations on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(false);
@@ -1960,7 +1960,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"All Operationalizations Activated");
+					"Identify Operationalizations Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
@@ -2076,7 +2076,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"No Loops in Struct. Rel.");
+					"Identify Loops in Structural Relations");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2197,7 +2197,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Softgoals Contribution Conflicts");
+					"Identify Softgoals Contributions with Conflict");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2333,7 +2333,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Conflicts with Claims");
+					"Identify Conflicts with Claims");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2470,7 +2470,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Conflicts with Claims & SDs");
+					"Identify Claims & Soft Dependencies with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2580,7 +2580,7 @@ public class DefaultOpersMM {
 
 			// operationSubAction.addOperationLabeling(operationLabeling);
 
-			instLabeling = new InstConcept("sg-confl-lab", metaLabeling,
+			instLabeling = new InstConcept("confl-cl-sd-lab", metaLabeling,
 					sasverConflClSDOperUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
@@ -2607,7 +2607,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Conflicts with SDs");
+					"Identify Soft Dependencies with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2740,7 +2740,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Update Core Operation");
+					"Update Core Elements");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2840,7 +2840,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Verify Dead Elements Operation");
+					"Identify Dead Elements");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2944,7 +2944,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Verify False Optional Operation");
+					"Identify False Optional Elements");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -3069,7 +3069,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Verify Parents Operation");
+					"Identify Elements Without Parents");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(true);
@@ -3196,7 +3196,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Verify Roots Operation");
+					"Verify a Single Root");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -3318,6 +3318,7 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
+			// Not implemented
 			instOperationGroup = new InstConcept("Configuration",
 					metaOperationMenu, operationMenu);
 			refas.getVariabilityVertex().put("Configuration",
@@ -5338,6 +5339,21 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalseOptSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			verifFalseOptElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			verifDeadElemSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		}
 
 		attribute = new ElemAttribute("HighRange", "Integer",
@@ -5429,6 +5445,17 @@ public class DefaultOpersMM {
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalseOptSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			verifFalseOptElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			verifDeadElemSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		}
 
@@ -6814,9 +6841,9 @@ public class DefaultOpersMM {
 		// refas.getSemanticExpressionTypes().get(
 		// "Equals"), instVertexF, instVertexF, "Core", true, 1);
 
-		verifParentsOperSubActionToVerify.addSemanticExpression(t1);
+		// verifParentsOperSubActionToVerify.addSemanticExpression(t1);
 
-		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 
 		semExpr.add(t1);
 
@@ -7764,7 +7791,7 @@ public class DefaultOpersMM {
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
@@ -7796,7 +7823,7 @@ public class DefaultOpersMM {
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
@@ -7864,6 +7891,28 @@ public class DefaultOpersMM {
 				instVertexFFGR, t1, "Core");
 
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
+				instVertexF, null, "TrueVal", "FalseVal", true);
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, t1, instVertexF, "LowRange");
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
+				instVertexF, null, "Core", "TrueVal", true);
+
+		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, t2, instVertexF, "Core");
+
+		t1 = new OpersExpr("023** ANDFCRel", refas.getSemanticExpressionTypes()
+				.get("Implies"), instVertexFFGR, t1, t2);
+
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
@@ -13036,7 +13085,7 @@ public class DefaultOpersMM {
 				.get("And"), ExpressionVertexType.LEFTSUBITERINCRELVARIABLE,
 				instVertexSGGR, instSgToSgGR, "sourceClExp", true, "TrueVal");
 
-		t1 = new OpersExpr("ANDSGSGGrSelRel", refas
+		t1 = new OpersExpr("070 ANDSGSGGrSelRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexSGGR,
 				instSgToSgGR, t1, "Sel");
@@ -13064,7 +13113,7 @@ public class DefaultOpersMM {
 				.get("And"), ExpressionVertexType.LEFTSUBITERINCRELVARIABLE,
 				instVertexSGGR, instSgToSgGR, "sourceClExp", true, "TrueVal");
 
-		t1 = new OpersExpr("ANDSGSGGrCoreRel", refas
+		t1 = new OpersExpr("071 ANDSGSGGrCoreRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexSGGR,
 				instSgToSgGR, t1, "Core");
@@ -13091,8 +13140,8 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexSGGR,
 				instSgToSgGR, t1, "FalseVal");
 
-		t1 = new OpersExpr("ORSGSGGrSelRel", refas.getSemanticExpressionTypes()
-				.get("DoubleImplies"),
+		t1 = new OpersExpr("072 ORSGSGGrSelRel", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexSGGR,
 				instVertexSG, t1, "Sel");
 

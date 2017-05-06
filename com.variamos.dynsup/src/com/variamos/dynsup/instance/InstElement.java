@@ -419,10 +419,11 @@ public abstract class InstElement implements Serializable, Cloneable,
 			Set<String> modelingAttributes = getEdSyntaxEle()
 					.getDeclaredModelingAttributesNames();
 			for (String attributeName : modelingAttributes) {
-				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
-						&& !attributeName.equals("identifier")
-						&& !attributeName.equals("userId")
-						&& !attributeName.equals("Description")) {
+				if (// !attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
+				// && !attributeName.equals("identifier")
+				// && !attributeName.equals("userId")
+				// &&
+				!attributeName.equals("Description")) {
 					ElemAttribute i = getEdSyntaxEle().getModelingAttribute(
 							attributeName, syntaxParents);
 					if (i == null)

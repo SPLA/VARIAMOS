@@ -731,14 +731,14 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex()
 				.put("GrpFeatRelation", instGrpFeatRelation);
 
-		InstConcept instGrpVertRelation = new InstConcept("GrpVertRelation",
-				supportMetaElementPairwise, metaGroupHardPairwiseRel);
-
-		instGrpVertRelation.setInstAttribute("Type", "Group");
-		instGrpVertRelation.setInstAttribute("SourceCardinality", "[1..1]");
-		instGrpVertRelation.setInstAttribute("TargetCardinality", "[0..1]");
-		refas.getVariabilityVertex()
-				.put("GrpVertRelation", instGrpVertRelation);
+		// InstConcept instGrpVertRelation = new InstConcept("GrpVertRelation",
+		// supportMetaElementPairwise, metaGroupHardPairwiseRel);
+		//
+		// instGrpVertRelation.setInstAttribute("Type", "Group");
+		// instGrpVertRelation.setInstAttribute("SourceCardinality", "[1..1]");
+		// instGrpVertRelation.setInstAttribute("TargetCardinality", "[0..1]");
+		// refas.getVariabilityVertex()
+		// .put("GrpVertRelation", instGrpVertRelation);
 
 		InstConcept instGrpStrucRelation = new InstConcept("GrpStrucRelation",
 				supportMetaElementPairwise, metaFeatVertPairwiseRel);
@@ -2921,17 +2921,17 @@ public class DefaultSyntaxMM {
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
 		// Create another meta element
-		InstConcept instGroupAssetPairWiseRel = new InstConcept(
-				"Soft Group Relation", supportMetaElementPairwise,
-				metaGroupHardPairwiseRel);
-
-		instGroupAssetPairWiseRel.setInstAttribute("Type", "Default");
-		instGroupAssetPairWiseRel.setInstAttribute("SourceCardinality",
-				"[0..*]");
-		instGroupAssetPairWiseRel.setInstAttribute("TargetCardinality",
-				"[0..*]");
-		refas.getVariabilityVertex().put("Soft Group Relation",
-				instGroupAssetPairWiseRel);
+		// InstConcept instGroupAssetPairWiseRel = new InstConcept(
+		// "Soft Group Relation", supportMetaElementPairwise,
+		// metaGroupHardPairwiseRel);
+		//
+		// instGroupAssetPairWiseRel.setInstAttribute("Type", "Default");
+		// instGroupAssetPairWiseRel.setInstAttribute("SourceCardinality",
+		// "[0..*]");
+		// instGroupAssetPairWiseRel.setInstAttribute("TargetCardinality",
+		// "[0..*]");
+		// refas.getVariabilityVertex().put("Soft Group Relation",
+		// instGroupAssetPairWiseRel);
 
 		// syntaxMetaView.addConcept(syntaxAsset);
 
@@ -3162,7 +3162,8 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpAssetFeatPairWiseRel = new InstConcept(
 				"Group Asset-Feat Relation", supportMetaElementPairwise,
-				metaGroupHardPairwiseRel);
+				metaGroupHardPairwiseRel);// TODO review if it should be changed
+											// with metaGroupFeatPairwiseRel
 
 		instGrpAssetFeatPairWiseRel.setInstAttribute("Type", "Default");
 		instGrpAssetFeatPairWiseRel.setInstAttribute("SourceCardinality",
