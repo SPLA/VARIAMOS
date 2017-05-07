@@ -4889,6 +4889,11 @@ public class DefaultOpersMM {
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+
 			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(

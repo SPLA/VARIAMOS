@@ -156,6 +156,9 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 						instOverTwoRelation, att.getIdentifier(),
 						getHlclFactory().number(i));
 				getElementExpressions().add(r);
+				if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
+						.getInstAttribute("LowRange").getAsInteger())
+					coreList.add(r);
 				allList.add(r);
 
 				att = instOverTwoRelation.getInstAttribute("HighRange");
@@ -168,203 +171,201 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 				r = new EqualsComparisonExpression(instOverTwoRelation,
 						att.getIdentifier(), getHlclFactory().number(i));
 				getElementExpressions().add(r);
+				if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
+						.getInstAttribute("LowRange").getAsInteger())
+					coreList.add(r);
 				allList.add(r);
 			}
-			if (relationType.equals("and") || element == null
-					|| !element.equals("Core"))
-				for (String sourceName : instOverTwoRelation
-						.getSourcePositiveAttributeNames()) {
-					AbstractExpression abstractTransformation = null;
-					Iterator<InstElement> instEdges1 = instOverTwoRelation
-							.getSourceRelations().iterator();
-					AbstractExpression iterativeExpression1 = null;
-					if (instEdges1.hasNext()) {
-						InstElement left1 = instEdges1.next();
-						while (((InstPairwiseRel) left1).getSourceRelations()
-								.size() != 0
-								&& (boolean) ((InstPairwiseRel) left1)
-										.getSourceRelations().get(0)
-										.getInstAttribute("Active").getValue() == false) {
-							if (instEdges1.hasNext())
-								left1 = instEdges1.next();
-							else
-								return;
-						}
-						switch (relationType) {
-						case "and":
-						case "none":
-							abstractTransformation = new AndBooleanExpression();
-							break;
-						case "or":
-							abstractTransformation = new OrBooleanExpression();
-							break;
-						case "mutex":
-							abstractTransformation = new SumNumericExpression();
-							break;
-						case "range":
-							abstractTransformation = new SumNumericExpression();
-							// Iterator<InstElement> instEdges2 =
-							// instOverTwoRelation
-							// .getSourceRelations().iterator();
-							// instEdges2.next(); // TODO eliminate duplicated
-							// edges
-							// from collection and remove this
-							// line
-							/*
-							 * InstElement left2 = instEdges2.next();
-							 * Constructor<?> constructor3 = null, constructor4
-							 * = null; try { constructor3 =
-							 * abstractTransformation
-							 * .getClass().getConstructor( InstElement.class,
-							 * String.class, Boolean.TYPE,
-							 * AbstractExpression.class); constructor4 =
-							 * abstractTransformation
-							 * .getClass().getConstructor( InstElement.class,
-							 * InstElement.class, String.class, String.class); }
-							 * catch (NoSuchMethodException | SecurityException
-							 * e) { e.printStackTrace(); }
-							 */
-							// recursiveExpression2 =
-							// transformation(constructor3,
-							// constructor4, instEdges2, left2, sourceName);
-							break;
-						case "":
+			// if (relationType.equals("and") || element == null
+			// || !element.equals("Core"))
+			for (String sourceName : instOverTwoRelation
+					.getSourcePositiveAttributeNames()) {
+				AbstractExpression abstractTransformation = null;
+				Iterator<InstElement> instEdges1 = instOverTwoRelation
+						.getSourceRelations().iterator();
+				AbstractExpression iterativeExpression1 = null;
+				if (instEdges1.hasNext()) {
+					InstElement left1 = instEdges1.next();
+					while (((InstPairwiseRel) left1).getSourceRelations()
+							.size() != 0
+							&& (boolean) ((InstPairwiseRel) left1)
+									.getSourceRelations().get(0)
+									.getInstAttribute("Active").getValue() == false) {
+						if (instEdges1.hasNext())
+							left1 = instEdges1.next();
+						else
 							return;
+					}
+					switch (relationType) {
+					case "and":
+					case "none":
+						abstractTransformation = new AndBooleanExpression();
+						break;
+					case "or":
+						abstractTransformation = new OrBooleanExpression();
+						break;
+					case "mutex":
+						abstractTransformation = new SumNumericExpression();
+						break;
+					case "range":
+						abstractTransformation = new SumNumericExpression();
+						// Iterator<InstElement> instEdges2 =
+						// instOverTwoRelation
+						// .getSourceRelations().iterator();
+						// instEdges2.next(); // TODO eliminate duplicated
+						// edges
+						// from collection and remove this
+						// line
+						/*
+						 * InstElement left2 = instEdges2.next(); Constructor<?>
+						 * constructor3 = null, constructor4 = null; try {
+						 * constructor3 = abstractTransformation
+						 * .getClass().getConstructor( InstElement.class,
+						 * String.class, Boolean.TYPE,
+						 * AbstractExpression.class); constructor4 =
+						 * abstractTransformation .getClass().getConstructor(
+						 * InstElement.class, InstElement.class, String.class,
+						 * String.class); } catch (NoSuchMethodException |
+						 * SecurityException e) { e.printStackTrace(); }
+						 */
+						// recursiveExpression2 =
+						// transformation(constructor3,
+						// constructor4, instEdges2, left2, sourceName);
+						break;
+					case "":
+						return;
 
-						default:
-							return;
+					default:
+						return;
+					}
+
+					Constructor<?> constructor1 = null, constructor2 = null;
+					try {
+
+						if (left1.getSupInstEleId().equals(
+								"GroupSoftFromRelation")) {
+							constructor1 = abstractTransformation.getClass()
+									.getConstructor(AbstractExpression.class,
+											AbstractExpression.class);
+							constructor2 = abstractTransformation.getClass()
+									.getConstructor(InstElement.class,
+											InstElement.class, String.class,
+											String.class);
+
+						} else {
+							constructor1 = abstractTransformation.getClass()
+									.getConstructor(InstElement.class,
+											String.class, Boolean.TYPE,
+											AbstractExpression.class);
+							constructor2 = abstractTransformation.getClass()
+									.getConstructor(InstElement.class,
+											InstElement.class, String.class,
+											String.class);
 						}
+					} catch (NoSuchMethodException | SecurityException e) {
+						ConsoleTextArea.addText(e.getStackTrace());
+					}
 
-						Constructor<?> constructor1 = null, constructor2 = null;
-						try {
-
-							if (left1.getSupInstEleId().equals(
-									"GroupSoftFromRelation")) {
-								constructor1 = abstractTransformation
-										.getClass().getConstructor(
-												AbstractExpression.class,
-												AbstractExpression.class);
-								constructor2 = abstractTransformation
-										.getClass().getConstructor(
-												InstElement.class,
-												InstElement.class,
-												String.class, String.class);
-
-							} else {
-								constructor1 = abstractTransformation
-										.getClass().getConstructor(
-												InstElement.class,
-												String.class, Boolean.TYPE,
-												AbstractExpression.class);
-								constructor2 = abstractTransformation
-										.getClass().getConstructor(
-												InstElement.class,
-												InstElement.class,
-												String.class, String.class);
-							}
-						} catch (NoSuchMethodException | SecurityException e) {
-							ConsoleTextArea.addText(e.getStackTrace());
-						}
-
-						switch (relationType) {
-						case "and":
-						case "none":
-							// B_Satisfied #<=> ( ( A1_"attribute" #/\
-							// A2_"attribute" ) #/\ ... )
-						case "or":
-							// B_Satisfied #<=> ( ( A1_"attribute" #\/
-							// A2_"attribute" ) #\/ ... )
-							iterativeExpression1 = transformation(constructor1,
-									constructor2, instEdges1, left1, sourceName);
-							AbstractBooleanExpression out = null;
-							if (!relationType.equals("none"))
-								out = new DoubleImplicationBooleanExpression(
-										instOverTwoRelation, sourceName, true,
-										iterativeExpression1);
-							else {
-								AbstractBooleanExpression negation = new NotBooleanExpression(
-										instOverTwoRelation, sourceName);
-								out = new DoubleImplicationBooleanExpression(
-										negation, iterativeExpression1);
-							}
-
-							getElementExpressions().add(out);
-							if (relationType.equals("and"))
-								coreList.add(out);
-							allList.add(out);
-							break;
-						case "mutex":
-							// (( ( A1_"attribute" + A2_"attribute"
-							// ) + ... ) #<= 1)
-							iterativeExpression1 = transformation(constructor1,
-									constructor2, instEdges1, left1, sourceName);
-							LessOrEqualsBooleanExpression out2 = new LessOrEqualsBooleanExpression(
-									iterativeExpression1,
-									new NumberNumericExpression(1));
-							getElementExpressions().add(out2);
-							allList.add(out2);
-							// B_Satisfied #<=> (( ( A1_"attribute" +
-							// A2_"attribute"
-							// ) + ... ) #<=> 1)
-							AbstractExpression transformation1 = new EqualsComparisonExpression(
-									iterativeExpression1,
-									new NumberNumericExpression(1));
-							AbstractBooleanExpression out3 = new DoubleImplicationBooleanExpression(
+					switch (relationType) {
+					case "and":
+					case "none":
+						// B_Satisfied #<=> ( ( A1_"attribute" #/\
+						// A2_"attribute" ) #/\ ... )
+					case "or":
+						// B_Satisfied #<=> ( ( A1_"attribute" #\/
+						// A2_"attribute" ) #\/ ... )
+						iterativeExpression1 = transformation(constructor1,
+								constructor2, instEdges1, left1, sourceName);
+						AbstractBooleanExpression out = null;
+						if (!relationType.equals("none"))
+							out = new DoubleImplicationBooleanExpression(
 									instOverTwoRelation, sourceName, true,
-									transformation1);
-							getElementExpressions().add(out3);
-							allList.add(out3);
-							break;
-						case "range":
-
-							// B_"attribute" #<=> ( ( ( ( A1_"attribute" +
-							// A2_"attribute" ) + ... ) #>= GD_LowRange)
-							// #/\
-							// ( ( ( A1_"attribute" + A2_"attribute" ) + ... )
-							// #<=
-							// GD_HighRange ) )
-							iterativeExpression1 = transformation(constructor1,
-									constructor2, instEdges1, left1, sourceName);
-							AbstractExpression transformation3 = new LessOrEqualsBooleanExpression(
-									instOverTwoRelation, "LowRange", true,
 									iterativeExpression1);
-
-							AbstractExpression transformation4 = new GreaterOrEqualsBooleanExpression(
-									instOverTwoRelation, "HighRange", true,
-									iterativeExpression1);
-
-							AbstractExpression transformation5 = new AndBooleanExpression(
-									transformation3, transformation4);
-							AbstractBooleanExpression out0 = new ImplicationBooleanExpression(
-									instOverTwoRelation, sourceName, true,
-									transformation5);
-							getElementExpressions().add(out0);
-							if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
-									.getInstAttribute("LowRange")
-									.getAsInteger())
-								coreList.add(out0);
-							allList.add(out0);
-
-							transformation5 = new GreaterOrEqualsBooleanExpression(
-									iterativeExpression1,
-									new NumberNumericExpression(1));
-
-							out0 = new ImplicationBooleanExpression(
-									instOverTwoRelation, sourceName, false,
-									transformation5);
-							getElementExpressions().add(out0);
-							if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
-									.getInstAttribute("LowRange")
-									.getAsInteger())
-								coreList.add(out0);
-							allList.add(out0);
-							break;
-
-						default:
-							return;
+						else {
+							AbstractBooleanExpression negation = new NotBooleanExpression(
+									instOverTwoRelation, sourceName);
+							out = new DoubleImplicationBooleanExpression(
+									negation, iterativeExpression1);
 						}
+
+						getElementExpressions().add(out);
+						if (relationType.equals("and"))
+							coreList.add(out);
+						allList.add(out);
+						break;
+					case "mutex":
+						// (( ( A1_"attribute" + A2_"attribute"
+						// ) + ... ) #<= 1)
+						iterativeExpression1 = transformation(constructor1,
+								constructor2, instEdges1, left1, sourceName);
+						LessOrEqualsBooleanExpression out2 = new LessOrEqualsBooleanExpression(
+								iterativeExpression1,
+								new NumberNumericExpression(1));
+						getElementExpressions().add(out2);
+						allList.add(out2);
+						// B_Satisfied #<=> (( ( A1_"attribute" +
+						// A2_"attribute"
+						// ) + ... ) #<=> 1)
+						AbstractExpression transformation1 = new EqualsComparisonExpression(
+								iterativeExpression1,
+								new NumberNumericExpression(1));
+						AbstractBooleanExpression out3 = new DoubleImplicationBooleanExpression(
+								instOverTwoRelation, sourceName, true,
+								transformation1);
+						getElementExpressions().add(out3);
+						if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
+								.getInstAttribute("LowRange").getAsInteger())
+							coreList.add(out3);
+						allList.add(out3);
+						break;
+					case "range":
+
+						// B_"attribute" #<=> ( ( ( ( A1_"attribute" +
+						// A2_"attribute" ) + ... ) #>= GD_LowRange)
+						// #/\
+						// ( ( ( A1_"attribute" + A2_"attribute" ) + ... )
+						// #<=
+						// GD_HighRange ) )
+						iterativeExpression1 = transformation(constructor1,
+								constructor2, instEdges1, left1, sourceName);
+						AbstractExpression transformation3 = new LessOrEqualsBooleanExpression(
+								instOverTwoRelation, "LowRange", true,
+								iterativeExpression1);
+
+						AbstractExpression transformation4 = new GreaterOrEqualsBooleanExpression(
+								instOverTwoRelation, "HighRange", true,
+								iterativeExpression1);
+
+						AbstractExpression transformation5 = new AndBooleanExpression(
+								transformation3, transformation4);
+						AbstractBooleanExpression out0 = new ImplicationBooleanExpression(
+								instOverTwoRelation, sourceName, true,
+								transformation5);
+						getElementExpressions().add(out0);
+						if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
+								.getInstAttribute("LowRange").getAsInteger())
+							coreList.add(out0);
+						allList.add(out0);
+
+						transformation5 = new GreaterOrEqualsBooleanExpression(
+								iterativeExpression1,
+								new NumberNumericExpression(1));
+
+						out0 = new ImplicationBooleanExpression(
+								instOverTwoRelation, sourceName, false,
+								transformation5);
+						getElementExpressions().add(out0);
+						if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
+								.getInstAttribute("LowRange").getAsInteger())
+							coreList.add(out0);
+						allList.add(out0);
+						break;
+
+					default:
+						return;
 					}
 				}
+			}
 			List<AbstractExpression> parentList = this
 					.getCompulsoryExpressionList("Parent");
 			if (parentList != null)
