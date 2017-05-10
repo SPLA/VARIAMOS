@@ -1559,13 +1559,13 @@ public class DefaultSyntaxMM {
 		// Direct Soft relation
 
 		InstElement directSGSGSemEdge = refas.getOperationalModel().getVertex(
-				"SgSgPWAsso");
+				"SoftgoalPW");
 
 		InstElement directSGGRSemEdge = refas.getOperationalModel().getVertex(
 				"SoftgoalToSoftgoalOT");
 
 		InstElement directGRSGSemEdge = refas.getOperationalModel().getVertex(
-				"SoftgoalOTToSoftgoal");
+				"SoftgoalOTToSoftgoalPW");
 
 		SyntaxElement metaGroupSoftFromPairWiseRel = new SyntaxElement('P',
 				"GroupSoftFromRelation", true, true,

@@ -161,8 +161,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 				if (instElement == null)
 					for (InstElement instE : refas.getElements()) {
-						if (instE.getTransSupInstElement().getEdSyntaxEle()
-								.getInstSemanticElementId() != null
+						if (instE.getTransSupInstElement().getEdSyntaxEle() != null
+								&& instE.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId() != null
 								&& instE.getTransSupInstElement()
 										.getEdSyntaxEle()
 										.getInstSemanticElementId()
@@ -239,7 +241,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 								}
 							}
-						}
+						} else if (instE.getTransSupInstElement()
+								.getEdSyntaxEle() == null)
+							System.out.println(instE.getIdentifier());
+
 						int expressionInstances = instE.getInstances(refas);
 
 						if (instE.getInstAttribute("variableType") == null
