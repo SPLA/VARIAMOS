@@ -4968,10 +4968,17 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("Sel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***",
+				"Element selected for static operations", false, 2, -1, "", "",
+				-1, "", "");
+
+		semInfraOTRel.putSemanticAttribute("Sel", attribute);
+
+		attribute = new ElemAttribute("OSel", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***",
 				"Element selected for this solution (green)", false, 2, -1, "",
 				"", -1, "", "");
 
-		semInfraOTRel.putSemanticAttribute("Sel", attribute);
+		semInfraOTRel.putSemanticAttribute("OSel", attribute);
 		if (!empty) {
 			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
 					.getIdentifier(), attribute.getName(), true));
@@ -5049,7 +5056,7 @@ public class DefaultOpersMM {
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		}
 
-		attribute = new ElemAttribute("Core", "Boolean",
+		attribute = new ElemAttribute("OCore", "Boolean",
 				AttributeType.OPERATION, false, "Is a Core Concept",
 				"Core element defined by the core update operation", false, 2,
 				-1, "", "", -1, "", "");
@@ -5086,7 +5093,7 @@ public class DefaultOpersMM {
 			// .addAttribute(new OpersIOAttribute(semInfraOTRel
 			// .getIdentifier(), attribute.getName(), true));
 		}
-		semInfraOTRel.putSemanticAttribute("Core", attribute);
+		semInfraOTRel.putSemanticAttribute("OCore", attribute);
 
 		if (!empty) {
 			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
@@ -7565,7 +7572,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexFFGR,
-				instVertexF, instVertexFFGR, "Sel", "Sel");
+				instVertexF, instVertexFFGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -7590,7 +7597,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexFFGR,
-				instVertexF, instVertexFFGR, "Core", "Core");
+				instVertexF, instVertexFFGR, "Core", "OCore");
 
 		// updCoreOptSubOperNormal.addSemanticExpression(t1);
 		// semExpr.add(t1);
@@ -7603,7 +7610,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("025 ANDFSRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
-				instVertexFFGR, t1, "Sel");
+				instVertexFFGR, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -7632,7 +7639,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("023 ANDFCRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
-				instVertexFFGR, t1, "Core");
+				instVertexFFGR, t1, "OCore");
 
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
@@ -7648,7 +7655,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexFFGR,
-				instVertexF, instVertexFFGR, "Sel", "Sel");
+				instVertexF, instVertexFFGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -7674,7 +7681,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("026 ORFSRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
-				instVertexF, t1, "Sel");
+				instVertexF, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -7702,7 +7709,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("023b ORFCRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
-				instVertexFFGR, t1, "Core");
+				instVertexFFGR, t1, "OCore");
 		// Only for parents, not for updateCore
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
 
@@ -7718,7 +7725,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexFFGR,
-				instVertexF, instVertexFFGR, "Sel", "Sel");
+				instVertexF, instVertexFFGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -7750,7 +7757,7 @@ public class DefaultOpersMM {
 				instVertexFFGR, instVertexF, t1, 1);
 
 		t1 = new OpersExpr("027 MUTEXFRel", refas.getSemanticExpressionTypes()
-				.get("DoubleImplies"), instVertexFFGR, instVertexFFGR, "Sel",
+				.get("DoubleImplies"), instVertexFFGR, instVertexFFGR, "OSel",
 				true, t1);
 
 		// FIXME review if instVertexFFGR or Feature
@@ -7782,7 +7789,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("023c MUTEXFCRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
-				instVertexFFGR, t1, "Core");
+				instVertexFFGR, t1, "OCore");
 		// Only for parents, not for updateCore
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -7827,7 +7834,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexFFGR,
-				instVertexF, instVertexFFGR, "Sel", "Sel");
+				instVertexF, instVertexFFGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -7870,7 +7877,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("029 RANGEFeatRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexFFGR, instVertexFFGR, "Sel", true, t1);
+				instVertexFFGR, instVertexFFGR, "OSel", true, t1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -7898,7 +7905,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("023d RANGEFCRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
-				instVertexFFGR, t1, "Core");
+				instVertexFFGR, t1, "OCore");
 
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -7917,7 +7924,7 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexFFGR, t2, instVertexFFGR, "Core");
+				instVertexFFGR, t2, instVertexFFGR, "OCore");
 
 		t1 = new OpersExpr("031 ANDFCRel", refas.getSemanticExpressionTypes()
 				.get("Implies"), instVertexFFGR, t1, t2);
@@ -8813,7 +8820,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("103 2-1", refas.getSemanticExpressionTypes().get(
 				"Equals"), instVertexCLGR, instVertexCLGR, instVertexCLGR,
-				"Sel", "TrueVal");
+				"OSel", "TrueVal");
 
 		sasverConflClOperSubActionVerification.addSemanticExpression(t1);
 		sasverConflClSDOperSubActionVerification.addSemanticExpression(t1);
@@ -8824,7 +8831,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexCLGR,
-				instVertexCL, instVertexCLGR, "Core", "Core");
+				instVertexCL, instVertexCLGR, "Core", "OCore");
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -8843,7 +8850,7 @@ public class DefaultOpersMM {
 
 		OpersExpr t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
 				.get("Or"), ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexCL, instVertexCLGR, "Sel", true, "FalseVal");
+				instVertexCL, instVertexCLGR, "OSel", true, "FalseVal");
 
 		t2 = new OpersExpr("ORClRel", refas.getSemanticExpressionTypes().get(
 				"Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -9929,7 +9936,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instVertexHHGR,
-				instVertexHC, instVertexHHGR, "Core", "Core");
+				instVertexHC, instVertexHHGR, "Core", "OCore");
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -9942,7 +9949,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("034 ANDhardSelRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
-				instVertexHC, t1, "Sel");
+				instVertexHC, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -9972,7 +9979,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("035 ANDhardCoreRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
-				instVertexHHGR, t1, "Core");
+				instVertexHHGR, t1, "OCore");
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -10015,7 +10022,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("036 ORHCRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
-				instVertexHC, t1, "Sel");
+				instVertexHC, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -10044,7 +10051,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("037 ORhardRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
-				instVertexHHGR, t1, "Core");
+				instVertexHHGR, t1, "OCore");
 
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -10197,7 +10204,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("040 RANGEHardRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexHHGR, instVertexHHGR, "Sel", true, t1);
+				instVertexHHGR, instVertexHHGR, "OSel", true, t1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -10232,7 +10239,7 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexHHGR, t2, instVertexHC, "Core");
+				instVertexHHGR, t2, instVertexHC, "OCore");
 
 		t1 = new OpersExpr("041 ANDFCRel", refas.getSemanticExpressionTypes()
 				.get("Implies"), instVertexHHGR, t1, t2);
@@ -10430,9 +10437,8 @@ public class DefaultOpersMM {
 				"FalseVal");
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("And"),
-				ExpressionVertexType.RIGHTCONCEPTVARIABLE,
-				instDirHardHardSemanticEdge, instDirHardHardSemanticEdge,
-				"PSel", false, t1);
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instDirHardHardSemanticEdge, instVertexHC, "Sel", false, t1);
 
 		t1 = new OpersExpr("058 CONFSel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
@@ -10959,6 +10965,21 @@ public class DefaultOpersMM {
 				instDirStructHardHardSemanticEdge, "Core", "TrueVal");
 
 		t1 = new OpersExpr("052 MANCore1", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instDirStructHardHardSemanticEdge, instVertexHC, "Core", false,
+				t1);
+
+		semExpr.add(t1);
+		updCoreOptSubOperNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("MACore1Core", refas.getSemanticExpressionTypes()
+				.get("And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instDirStructHardHardSemanticEdge, instVertexHHGR,
+				instDirStructHardHardSemanticEdge, "OCore", "TrueVal");
+
+		t1 = new OpersExpr("052x MANCore1", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHC, "Core", false,
@@ -12404,14 +12425,14 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("087 1", refas.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instSgOTToSg, instVertexSGGR, "Sel", true, 1);
+				instSgOTToSg, instVertexSGGR, "OSel", true, 1);
 
 		semExpr.add(t1);
 		sasverSGConflOperSubActionVerification.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instSgOTToSg, instVertexSGGR, "Sel", true, 1);
+				instSgOTToSg, instVertexSGGR, "OSel", true, 1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -12450,7 +12471,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instSgOTToSg, instVertexSGGR, "Sel", true, 1);
+				instSgOTToSg, instVertexSGGR, "OSel", true, 1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -12490,7 +12511,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instSgOTToSg, instVertexSGGR, "Sel", true, 1);
+				instSgOTToSg, instVertexSGGR, "OSel", true, 1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -13147,7 +13168,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("072 ANDSGSGGrSelRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexSGGR,
-				instSgToSgGR, t1, "Sel");
+				instSgToSgGR, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -13175,7 +13196,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("073 ANDSGSGGrCoreRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexSGGR,
-				instSgToSgGR, t1, "Core");
+				instSgToSgGR, t1, "OCore");
 
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -13202,7 +13223,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("074 ORSGSGGrSelRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexSGGR,
-				instVertexSG, t1, "Sel");
+				instVertexSG, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -13339,7 +13360,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("104 ANDOperCLhardSelRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
-				instVertexCLGR, t1, "Sel");
+				instVertexCLGR, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -13368,7 +13389,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("106 ANDhardOperCLCoreRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
-				instVertexOper, t1, "Core");
+				instVertexOper, t1, "OCore");
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -13411,7 +13432,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("107 ORhardSelRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
-				instVertexOper, t1, "Sel");
+				instVertexOper, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -13478,7 +13499,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("108 MUTEXhardSelLRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexCLGR, instVertexHC, "Sel", true, t1);
+				instVertexCLGR, instVertexHC, "OSel", true, t1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -13540,7 +13561,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexCLGR,
-				instVertexCL, instVertexCLGR, "Sel", "Sel");
+				instVertexCL, instVertexCLGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -13582,7 +13603,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("110 RANGEHardRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexCLGR, instVertexCLGR, "Sel", true, t1);
+				instVertexCLGR, instVertexCLGR, "OSel", true, t1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -13617,7 +13638,7 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexCLGR, t2, instVertexOper, "Core");
+				instVertexCLGR, t2, instVertexOper, "OCore");
 
 		t1 = new OpersExpr("112 ANDFCRel", refas.getSemanticExpressionTypes()
 				.get("Implies"), instVertexCLGR, t1, t2);
@@ -13999,7 +14020,7 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instDirFClaimToSemanticEdge, instVertexLFCLGR, instVertexCL,
-				"Sel", "ConditionalExpression");
+				"OSel", "ConditionalExpression");
 
 		t1 = new OpersExpr("OPERCLSelected", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
@@ -15179,10 +15200,10 @@ public class DefaultOpersMM {
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 		// semanticVertices.add(semOperationalization);
 
-		InstConcept instVertexOPERGR = new InstConcept("AssetOperOT",
+		InstConcept instVertexAssOPERGR = new InstConcept("AssetOperOT",
 				semanticAssetOperGroupRelation, metaMetaInstOverTwoRel);
 
-		refas.getVariabilityVertex().put("AssetOperOT", instVertexOPERGR);
+		refas.getVariabilityVertex().put("AssetOperOT", instVertexAssOPERGR);
 
 		InstConcept instAssetOperAOGR = new InstConcept("AssetOperToOT",
 				metaMetaPairwiseRelation);
@@ -15194,7 +15215,7 @@ public class DefaultOpersMM {
 		instEdge.setIdentifier("opgrtogr");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
 		instEdge.setTargetRelation(instNmMetaOT, true);
-		instEdge.setSourceRelation(instVertexOPERGR, true);
+		instEdge.setSourceRelation(instVertexAssOPERGR, true);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("aogrtogr", instEdge);
@@ -15214,10 +15235,10 @@ public class DefaultOpersMM {
 		refas.getConstraintInstEdges().put("assettoOperGR-AOGRGR", instEdge);
 		instEdge.setIdentifier("assettoOperGR-AOGRGR");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-		instEdge.setTargetRelation(instVertexOPERGR, true);
+		instEdge.setTargetRelation(instVertexAssOPERGR, true);
 		instEdge.setSourceRelation(instAssetOperAOGR, true);
 
-		ia = instVertexOPERGR.getInstAttribute("relTypesAttr");
+		ia = instVertexAssOPERGR.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
@@ -15239,7 +15260,7 @@ public class DefaultOpersMM {
 				"", "", 1, -1, "", "", -1, "", ""),
 				"range#range#false#true#true#1#-1#1#1"));
 
-		ia = instVertexOPERGR.getInstAttribute("opersExprs");
+		ia = instVertexAssOPERGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semExpr = new ArrayList<OpersExpr>();
@@ -15247,8 +15268,8 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("ANDFOpGrSelConcept", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOPERGR,
-				instVertexF, instVertexOPERGR, "Sel", "Sel");
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAssOPERGR,
+				instVertexOper, instVertexAssOPERGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15269,11 +15290,11 @@ public class DefaultOpersMM {
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
-		t1 = new OpersExpr("ANDfeatCoreConcept", refas
+		t1 = new OpersExpr("ANDAssOperCoreConcept", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOPERGR,
-				instVertexOper, instVertexOPERGR, "Core", "Core");
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAssOPERGR,
+				instVertexOper, instVertexAssOPERGR, "Core", "OCore");
 
 		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 
@@ -15283,12 +15304,12 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexOPERGR, instVertexAsset, "Sel", true, "TrueVal");
+				instVertexAssOPERGR, instVertexAsset, "Sel", true, "TrueVal");
 
 		t1 = new OpersExpr("ANDAssOperSelRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
-				instVertexOper, t1, "Sel");
+				ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexAssOPERGR, instVertexOper, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15312,12 +15333,12 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexOPERGR, instVertexAsset, "Core", true, "TrueVal");
+				instVertexAssOPERGR, instVertexAsset, "Core", true, "TrueVal");
 
 		t1 = new OpersExpr("ANDAssOperCoreRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
-				instVertexOper, t1, "Core");
+				ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexAssOPERGR, instVertexAsset, t1, "OCore");
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -15331,8 +15352,8 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("OROperOperGRSelConcept", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOPERGR,
-				instVertexOper, instVertexOPERGR, "Sel", "Sel");
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAssOPERGR,
+				instVertexOper, instVertexAssOPERGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15355,12 +15376,12 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexOPERGR, instVertexAsset, "Sel", true, "FalseVal");
+				instVertexAssOPERGR, instVertexAsset, "Sel", true, "FalseVal");
 
 		t1 = new OpersExpr("ORAssOperSelRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
-				instVertexAsset, t1, "Sel");
+				ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexAssOPERGR, instVertexAsset, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15390,8 +15411,8 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("MUTEOperOperGrSelConcept", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOPERGR,
-				instVertexOper, instVertexOPERGR, "Sel", "Sel");
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAssOPERGR,
+				instVertexOper, instVertexAssOPERGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15415,16 +15436,16 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexOPERGR, instVertexAsset, "Sel", 0);
+				instVertexAssOPERGR, instVertexAsset, "Sel", 0);
 
 		t1 = new OpersExpr("sub2operassetsel", refas
 				.getSemanticExpressionTypes().get("Equals"),
-				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
-				instVertexAsset, t1, 1);
+				ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexAssOPERGR, instVertexAsset, t1, 1);
 
 		t1 = new OpersExpr("MUTEXAssOperGrSelRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexOPERGR, instVertexOPERGR, "Sel", true, t1);
+				instVertexAssOPERGR, instVertexAssOPERGR, "OSel", true, t1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15446,12 +15467,12 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexOPERGR, instVertexAsset, "Sel", 0);
+				instVertexAssOPERGR, instVertexAsset, "Sel", 0);
 
 		t1 = new OpersExpr("MUTEXAssOperGrrestric", refas
 				.getSemanticExpressionTypes().get("LessOrEquals"),
-				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexOPERGR,
-				instVertexAsset, t1, 1);
+				ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexAssOPERGR, instVertexAsset, t1, 1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15481,8 +15502,8 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("RANGEOperOperGrSelConcept", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOPERGR,
-				instVertexOper, instVertexOPERGR, "Sel", "Sel");
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAssOPERGR,
+				instVertexOper, instVertexAssOPERGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15505,28 +15526,28 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
+				instVertexAssOPERGR, instVertexAsset, null, "Sel", "FalseVal",
 				true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexOPERGR, t1, instVertexAsset, "LowRange");
+				instVertexAssOPERGR, t1, instVertexAsset, "LowRange");
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexOPERGR, instVertexAsset, null, "Sel", "FalseVal",
+				instVertexAssOPERGR, instVertexAsset, null, "Sel", "FalseVal",
 				true);
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexOPERGR, t2, instVertexAsset, "HighRange");
+				instVertexAssOPERGR, t2, instVertexAsset, "HighRange");
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
-				instVertexOPERGR, t1, t2);
+				instVertexAssOPERGR, t1, t2);
 
 		t1 = new OpersExpr("RANGEHardRel", refas.getSemanticExpressionTypes()
-				.get("DoubleImplies"), instVertexOPERGR, instVertexOPERGR,
-				"Sel", true, t1);
+				.get("DoubleImplies"), instVertexAssOPERGR,
+				instVertexAssOPERGR, "OSel", true, t1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15549,23 +15570,23 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexOPERGR, instVertexAsset, null, "TrueVal", 0, true);
+				instVertexAssOPERGR, instVertexAsset, null, "TrueVal", 0, true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexOPERGR, t1, instVertexF, "LowRange");
+				instVertexAssOPERGR, t1, instVertexF, "LowRange");
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexOPERGR, instVertexAsset, null, "Core", "TrueVal",
+				instVertexAssOPERGR, instVertexAsset, null, "Core", "TrueVal",
 				true);
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexOPERGR, t2, instVertexAsset, "Core");
+				instVertexAssOPERGR, t2, instVertexAsset, "OCore");
 
 		t1 = new OpersExpr("ANDFCRel", refas.getSemanticExpressionTypes().get(
-				"Implies"), instVertexOPERGR, t1, t2);
+				"Implies"), instVertexAssOPERGR, t1, t2);
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -15642,7 +15663,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
-				instVertexF, instVertexAsLFGR, "Sel", "Sel");
+				instVertexF, instVertexAsLFGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15667,7 +15688,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
-				instVertexF, instVertexAsLFGR, "Core", "Core");
+				instVertexF, instVertexAsLFGR, "Core", "OCore");
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -15680,7 +15701,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("ANDOperOperGrRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
-				instVertexF, t1, "Sel");
+				instVertexF, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15709,7 +15730,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("ANDOperOperGrCoreRel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
-				instVertexF, t1, "Core");
+				instVertexF, t1, "OCore");
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -15723,7 +15744,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("OROperConcept", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
-				instVertexF, instVertexAsLFGR, "Sel", "Sel");
+				instVertexF, instVertexAsLFGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15751,7 +15772,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("ORAssetRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
-				instVertexAsset, t1, "Sel");
+				instVertexAsset, t1, "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15782,7 +15803,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
-				instVertexF, instVertexAsLFGR, "Sel", "Sel");
+				instVertexF, instVertexAsLFGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15874,7 +15895,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
-				instVertexF, instVertexAsLFGR, "Sel", "Sel");
+				instVertexF, instVertexAsLFGR, "Sel", "OSel");
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15918,7 +15939,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("RANGEHardRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"), instVertexAsLFGR, instVertexAsLFGR,
-				"Sel", true, t1);
+				"OSel", true, t1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15954,7 +15975,7 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexAsLFGR, t2, instVertexAsset, "Core");
+				instVertexAsLFGR, t2, instVertexAsset, "OCore");
 
 		t1 = new OpersExpr("023** ANDFCRel", refas.getSemanticExpressionTypes()
 				.get("Implies"), instVertexAsLFGR, t1, t2);
@@ -16028,8 +16049,8 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instAssetOperGRAO, instVertexAsset, instVertexOPERGR, "Sel",
-				"Sel");
+				instAssetOperGRAO, instVertexAsset, instVertexAssOPERGR, "Sel",
+				"OSel");
 
 		semExpr.add(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
@@ -16054,8 +16075,8 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instAssetOperGRAO, instVertexAsset, instVertexOPERGR, "Exclu",
-				"Exclu");
+				instAssetOperGRAO, instVertexAsset, instVertexAssOPERGR,
+				"Exclu", "Exclu");
 
 		semExpr.add(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
@@ -16078,7 +16099,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instAssetOperGRAO, instVertexOPERGR, "structVal", 1);
+				instAssetOperGRAO, instVertexAssOPERGR, "structVal", 1);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -16105,7 +16126,7 @@ public class DefaultOpersMM {
 		instEdge.setIdentifier("OPERGRtooper-OGRO");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdge.setTargetRelation(instAssetOperGRAO, true);
-		instEdge.setSourceRelation(instVertexOPERGR, true);
+		instEdge.setSourceRelation(instVertexAssOPERGR, true);
 
 		InstConcept instAssetLfGRAO = new InstConcept("AssetLfOTToLf",
 				metaMetaPairwiseRelation, groupAssetOperSemanticEdge);
@@ -16141,7 +16162,7 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instAssetLfGRAO, instVertexAsset, instVertexAsLFGR, "Sel",
-				"Sel");
+				"OSel");
 
 		semExpr.add(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);

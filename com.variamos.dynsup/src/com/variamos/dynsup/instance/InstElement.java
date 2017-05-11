@@ -1334,7 +1334,9 @@ public abstract class InstElement implements Serializable, Cloneable,
 				}
 			}
 		}
-		if (getTransSupportMetaElement().getTransInstSemanticElement() != null) {
+		if (// getTransSupportMetaElement() != null
+			// &&
+		getTransSupportMetaElement().getTransInstSemanticElement() != null) {
 			InstAttribute ia = getTransSupportMetaElement()
 					.getTransInstSemanticElement().getInstAttribute(
 							"opersExprs");
