@@ -100,6 +100,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 
 		addMouseListener(new MouseAdapter() {
 
+			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 1) {
 					int index = locationToIndex(evt.getPoint());
@@ -119,7 +120,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 					int index, boolean isSelected, boolean cellHasFocus) {
 				JLabel lbl = (JLabel) super.getListCellRendererComponent(list,
 						value, index, isSelected, cellHasFocus);
-				lbl.setText((String) ((ElemAttribute) value).getName() + ":"
+				lbl.setText(((ElemAttribute) value).getName() + ":"
 						+ ((ElemAttribute) value).getType());
 				return lbl;
 			}
@@ -243,8 +244,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 								+ (String) name.getValue());
 					}
 					if (instElement.getEdOperEle() != null) {
-						OpersElement sc = ((OpersElement) instElement
-								.getEdOperEle());
+						OpersElement sc = (instElement.getEdOperEle());
 						sc.putSemanticAttribute((String) name.getValue(), v);
 						sc.putSemanticAttribute(
 								SyntaxElement.VAR_USERIDENTIFIER,
@@ -273,6 +273,26 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 
 			@Override
 			public boolean onAction() {
+				afterAction();
+				return true;
+			}
+		});
+
+		attributeEdition.setOnDelete(new DialogButtonAction() {
+
+			@Override
+			public boolean onAction() {
+				attributeEdition.getParameters();
+				DefaultListModel<ElemAttribute> ldm = ((DefaultListModel<ElemAttribute>) getModel());
+				int i = 0;
+				for (Object ea : ldm.toArray()) {
+					String nameS = (String) name.getValue();
+					if (((ElemAttribute) ea).getName().equals(nameS)) {
+						ldm.remove(i);
+						attributes.remove(nameS);
+					}
+					i++;
+				}
 				afterAction();
 				return true;
 			}

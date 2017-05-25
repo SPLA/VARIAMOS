@@ -758,7 +758,7 @@ public class InfraSyntaxOpersMMM {
 								AttributeType.OPERATION,
 								false,
 								"Update Out Attribs",
-								"Use Update Output Attributes to update the core on the model",
+								"Use Update Output Attributes to update the results on the model",
 								"",
 								false,
 								"",

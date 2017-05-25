@@ -2102,7 +2102,7 @@ public class DefaultSyntaxMM {
 		// Direct variable relations
 
 		InstElement directCVCGSemanticEdge = refas.getOperationalModel()
-				.getVertex("VaClPW");
+				.getVertex("NmVarToClaimPW");
 
 		SyntaxElement metaVariableEdge = new SyntaxElement('P',
 				"Variable To Context Relation", true, true,
@@ -2957,8 +2957,8 @@ public class DefaultSyntaxMM {
 		InstElement directAssetOperSemanticEdge = refas.getOperationalModel()
 				.getVertex("AssetOperPW");
 
-		InstElement directAssetOperFromSemanticEdge = refas
-				.getOperationalModel().getVertex("AssetOperFromOT");
+		InstElement instAssetOperOTtoOperPW = refas.getOperationalModel()
+				.getVertex("AssetOperOTtoOperPW");
 
 		InstElement directAssetLfFromSemanticEdge = refas.getOperationalModel()
 				.getVertex("AssetLfOTToLf");
@@ -3015,7 +3015,7 @@ public class DefaultSyntaxMM {
 						+ "implementation of operationalization by an"
 						+ " asset", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				directAssetOperFromSemanticEdge);
+				instAssetOperOTtoOperPW);
 
 		SyntaxElement metaLfOperToPairWiseRel = new SyntaxElement('P',
 				"AssetFlOT To Lf Relation", true, true,

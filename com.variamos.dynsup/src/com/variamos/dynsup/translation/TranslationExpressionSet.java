@@ -168,7 +168,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								&& instE.getTransSupInstElement()
 										.getEdSyntaxEle()
 										.getInstSemanticElementId()
-										.equals("nmVariable")) {
+										.equals("NmVariable")) {
 							// System.out.println(instE.getInstAttribute("type"));
 							if (instE.getInstAttribute("variableType")
 									.getValue().equals("LowLevel expression")
@@ -495,7 +495,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								&& instE.getTransSupInstElement()
 										.getEdSyntaxEle()
 										.getInstSemanticElementId()
-										.equals("nmVariable")
+										.equals("NmVariable")
 								&& instE.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable")
 								&& (instE

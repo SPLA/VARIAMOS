@@ -743,7 +743,7 @@ public class ModelExpr2HLCL {
 								&& vertex.getTransSupInstElement()
 										.getEdSyntaxEle()
 										.getInstSemanticElementId()
-										.equals("nmVariable")
+										.equals("NmVariable")
 								&& instOperSubAction != null
 								&& vertex.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable") && (vertex

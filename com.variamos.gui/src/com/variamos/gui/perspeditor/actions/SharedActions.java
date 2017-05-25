@@ -514,7 +514,8 @@ public class SharedActions {
 					&& metaElement.getInstSemanticElementId() != null) {
 				InstElement rr = refas.getOperationalModel().getVertex(
 						metaElement.getInstSemanticElementId());
-				metaElement.setTransInstSemanticElement(rr);
+				if (rr != null)
+					metaElement.setTransInstSemanticElement(rr);
 			}
 			OpersElement semElement = instElement.getEdOperEle();
 			if (semElement != null) {

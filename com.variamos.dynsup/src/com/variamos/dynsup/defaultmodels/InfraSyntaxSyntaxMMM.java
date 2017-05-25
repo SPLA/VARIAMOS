@@ -121,7 +121,7 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.OPERATION, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, -1, "", "", 1, "<<MetaConcept>>\n{OperType:\"#"
+						0, 0, "", "", 1, "<<MetaConcept>>\n{OperType:\"#"
 								+ "OperationsMMType" + "#all#\"}\n", ""));
 
 		infraSyntaxM2Node.addPropVisibleAttribute("00#" + "OperationsMMType");
@@ -948,7 +948,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2PWRel.addModelingAttribute("SourceCardinality",
 				new ElemAttribute("SourceCardinality", "String",
 						AttributeType.SYNTAX, false, "Source Cardinality", "",
-						"String", "[]", "", 0, -1, "", "", 4, "{SourCard:#"
+						"String", "[]", "", 0, 4, "", "", 4, "{SourCard:#"
 								+ "SourceCardinality" + "#all#,", ""));
 
 		infraSyntaxM2PWRel
