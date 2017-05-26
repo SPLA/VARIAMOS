@@ -440,9 +440,9 @@ public class SyntaxElement implements Serializable {
 					.getAllSemanticAttributesNames(syntaxParents));
 		if (syntaxParents != null)
 			for (InstElement parent : syntaxParents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
-				if (parentConcept != null) {
+				SyntaxElement parentConcept = parent.getEdSyntaxEle();
+				if (parentConcept != null
+						&& parentConcept.getTransInstSemanticElement() != null) {
 					modelingAttributesNames.addAll(parentConcept
 							.getTransInstSemanticElement()
 							.getAllSemanticAttributesNames(syntaxParents));
@@ -514,8 +514,7 @@ public class SyntaxElement implements Serializable {
 					.getPropVisibleAttributes());
 		if (syntaParents != null)
 			for (InstElement parent : syntaParents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
+				SyntaxElement parentConcept = parent.getEdSyntaxEle();
 				if (parentConcept != null) {
 					if (parentConcept.getTransInstSemanticElement()
 							.getEdOperEle() != null)
@@ -541,8 +540,7 @@ public class SyntaxElement implements Serializable {
 
 		if (parents != null)
 			for (InstElement parent : parents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
+				SyntaxElement parentConcept = parent.getEdSyntaxEle();
 				if (parentConcept != null) {
 					if (parentConcept.getTransInstSemanticElement()
 							.getEdOperEle() != null)
@@ -568,11 +566,11 @@ public class SyntaxElement implements Serializable {
 
 		if (parents != null)
 			for (InstElement parent : parents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
+				SyntaxElement parentConcept = parent.getEdSyntaxEle();
 				if (parentConcept != null) {
-					if (parentConcept.getTransInstSemanticElement()
-							.getEdOperEle() != null)
+					if (parentConcept.getTransInstSemanticElement() != null
+							&& parentConcept.getTransInstSemanticElement()
+									.getEdOperEle() != null)
 						modelingAttributesNames.addAll(parentConcept
 								.getTransInstSemanticElement()
 								.getPanelVisibleAttributes());
@@ -594,11 +592,11 @@ public class SyntaxElement implements Serializable {
 
 		if (parents != null)
 			for (InstElement parent : parents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
+				SyntaxElement parentConcept = parent.getEdSyntaxEle();
 				if (parentConcept != null) {
-					if (parentConcept.getTransInstSemanticElement()
-							.getEdOperEle() != null)
+					if (parentConcept.getTransInstSemanticElement() != null
+							&& parentConcept.getTransInstSemanticElement()
+									.getEdOperEle() != null)
 						modelingAttributesNames.addAll(parentConcept
 								.getTransInstSemanticElement()
 								.getPanelSpacersAttributes());
@@ -673,8 +671,7 @@ public class SyntaxElement implements Serializable {
 		modelingAttributesNames.addAll(getModelingAttributesNames());
 		if (parents != null)
 			for (InstElement parent : parents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
+				SyntaxElement parentConcept = parent.getEdSyntaxEle();
 				if (parentConcept != null)
 					modelingAttributesNames.addAll(parentConcept
 							.getModelingAttributesNames());
@@ -713,8 +710,7 @@ public class SyntaxElement implements Serializable {
 		else {
 			if (parents != null)
 				for (InstElement parent : parents) {
-					SyntaxElement parentConcept = (SyntaxElement) parent
-							.getEdSyntaxEle();
+					SyntaxElement parentConcept = parent.getEdSyntaxEle();
 
 					if (parentConcept != null
 							&& parentConcept.getModelingAttribute(name) != null) {

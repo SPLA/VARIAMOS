@@ -790,7 +790,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									.getTransSupportMetaElement()
 									.getAutoIdentifier();
 							// System.out.println(iden);
-							if (iden.equals("CG")
+							if (elm.getTransSupportMetaElement()
+									.getTransInstSemanticElement()
+									.getIdentifier().equals("NmVariable")
+									|| iden.equals("CG")
 									|| iden.equals("ContextVariable")
 									|| iden.equals("GlobalVariable")
 									|| iden.equals("GlobalVariable")
@@ -1020,7 +1023,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					String iden = ((InstConcept) finalEditElm)
 							.getTransSupportMetaElement().getAutoIdentifier();
 					// System.out.println(iden);
-					if (iden.equals("CG") || iden.equals("ContextVariable")
+					if ((finalEditElm.getTransSupportMetaElement() != null
+							&& finalEditElm.getTransSupportMetaElement()
+									.getTransInstSemanticElement() != null && finalEditElm
+							.getTransSupportMetaElement()
+							.getTransInstSemanticElement().getIdentifier()
+							.equals("NmVariable"))
+							|| iden.equals("CG")
+							|| iden.equals("ContextVariable")
 							|| iden.equals("GlobalVariable")
 							|| iden.equals("Variable") || iden.equals("ENUM"))
 

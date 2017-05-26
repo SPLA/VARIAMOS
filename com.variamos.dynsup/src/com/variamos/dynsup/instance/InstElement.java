@@ -765,6 +765,10 @@ public abstract class InstElement implements Serializable, Cloneable,
 		for (String attributeName : visibleAttributesNames) {
 			ElemAttribute attribute = supportElement.getAbstractAttribute(
 					attributeName.substring(2), syntaxParents, null);
+			if (attribute == null) {
+				System.out.println("NULL Attr:" + attributeName);
+				continue;
+			}
 			String visibleAttributes = attribute.getElementDisplayCondition();
 
 			String name = null;

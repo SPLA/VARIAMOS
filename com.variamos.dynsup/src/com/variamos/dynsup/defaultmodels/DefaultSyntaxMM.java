@@ -2032,7 +2032,7 @@ public class DefaultSyntaxMM {
 		instEdge.setIdentifier("vme-fromview");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instViewME, true);
-		instEdge.setSourceRelation(instViewC, true);
+		instEdge.setSourceRelation(instViewCoV, true);
 
 		syntaxMetaChildView = new SyntaxElement('V', "VariabContext",
 				"Context without Enumerations", "Context Palette", 1, null);
@@ -2175,20 +2175,10 @@ public class DefaultSyntaxMM {
 		// *************************---------------****************************
 		// SG satisficing Model
 
-		syntaxMetaView = new SyntaxElement(
-				'V',
-				"SoftGoalsSatisficing",
-				true,
-				true,
-				"SG Satisficing View",
-				"plnode",
-				"Defines a feature",
-				100,
-				80,
-				"/com/variamos/gui/pl/editor/images/plnode.png",
-				3,
-				"SG Satisficing Palette - Goals;SG Satisficing Palette - Features",
-				4, null);
+		syntaxMetaView = new SyntaxElement('V', "SoftGoalsSatisficing", true,
+				true, "SG Satisficing View", "plnode", "Defines a feature",
+				100, 80, "/com/variamos/gui/pl/editor/images/plnode.png", 3,
+				"SG Satisficing Palette - Goals", 4, null);
 		instViewC = new InstConcept("SoftGoalsSatisficing", metaView,
 				syntaxMetaView);
 
@@ -2296,24 +2286,24 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLFsg.setPalette("SG Satisficing Palette - Features");
-
-		InstConcept instViewLFs = new InstConcept("ViewS LF Relation",
-				supportMetaViewPairwise, metaViewLFsg);
-		refas.getVariabilityVertex().put("ViewS LF Relation", instViewLFs);
-
-		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("vslf-tolf", instEdge);
-		instEdge.setIdentifier("vslf-tolf");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		instEdge.setTargetRelation(instVertexLF, true);
-		instEdge.setSourceRelation(instViewLFs, true);
-
-		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("vslf-fromview", instEdge);
-		instEdge.setIdentifier("vslf-fromview");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		instEdge.setTargetRelation(instViewLFs, true);
-		instEdge.setSourceRelation(instViewC, true);
+		//
+		// InstConcept instViewLFs = new InstConcept("ViewS LF Relation",
+		// supportMetaViewPairwise, metaViewLFsg);
+		// refas.getVariabilityVertex().put("ViewS LF Relation", instViewLFs);
+		//
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("vslf-tolf", instEdge);
+		// instEdge.setIdentifier("vslf-tolf");
+		// instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		// instEdge.setTargetRelation(instVertexLF, true);
+		// instEdge.setSourceRelation(instViewLFs, true);
+		//
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("vslf-fromview", instEdge);
+		// instEdge.setIdentifier("vslf-fromview");
+		// instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		// instEdge.setTargetRelation(instViewLFs, true);
+		// instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semClaim = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Claim"));

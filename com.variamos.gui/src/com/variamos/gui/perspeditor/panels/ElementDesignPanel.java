@@ -959,10 +959,10 @@ public class ElementDesignPanel extends JPanel {
 			} else if (editor.getPerspective() % 2 != 0) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
-				mainPanelWidth += 350;
-				rootPanel3.setPreferredSize(new Dimension(350, 450));
-				contentPanel3.setPreferredSize(new Dimension(350, 450));
-				contentPanel3.setMaximumSize(new Dimension(350, 450));
+				mainPanelWidth += 450;
+				rootPanel3.setPreferredSize(new Dimension(450, 450));
+				contentPanel3.setPreferredSize(new Dimension(450, 450));
+				contentPanel3.setMaximumSize(new Dimension(450, 450));
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
@@ -1026,8 +1026,8 @@ public class ElementDesignPanel extends JPanel {
 								attributeEdition);
 				}
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(350, 250));
-				attPanel.setMaximumSize(new Dimension(650, 250));
+				attPanel.setPreferredSize(new Dimension(450, 350));
+				attPanel.setMaximumSize(new Dimension(650, 350));
 				JScrollPane jj = new JScrollPane(attList);
 				jj.setAutoscrolls(true);
 				attPanel.add(jj);
@@ -1053,7 +1053,7 @@ public class ElementDesignPanel extends JPanel {
 							.getSupInstEleId().equals("OMOTRel"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
-				mainPanelWidth += 200;
+				mainPanelWidth += 450;
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
@@ -1065,8 +1065,9 @@ public class ElementDesignPanel extends JPanel {
 						editorProperties(finalEditor, instCell);
 					}
 				});
-				attPanel.setPreferredSize(new Dimension(150, 150));
-				attPanel.setMaximumSize(new Dimension(150, 180));
+				attPanel.setPreferredSize(new Dimension(450, 150));
+				attPanel.setMaximumSize(new Dimension(450, 180));
+				attPanel.setMinimumSize(new Dimension(450, 180));
 				attPanel.add(new JLabel(mxResources.get("relationTypesPanel")));
 
 				RelationTypesList attList = new RelationTypesList(editor,
