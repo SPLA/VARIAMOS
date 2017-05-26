@@ -55,8 +55,9 @@ public class DefaultSyntaxMM {
 		// Goals and Variability model
 
 		syntaxMetaView = new SyntaxElement('V', "Variability", true, true,
-				"Variability View", "plnode", "Defines a feature", 130, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
+				"Variability View", "plnode",
+				"Defines the relations between goals and operationalizations",
+				130, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Goals Palette;Feature Palette",
 				// ;Graphs",
 				1, null);
@@ -165,8 +166,9 @@ public class DefaultSyntaxMM {
 		// / New Graphs - Angela
 
 		SyntaxElement syntaxGvariable = new SyntaxElement('C', "GVariable",
-				false, true, "GVariable", "plnode", "Defines a feature", 100,
-				50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
+				false, true, "GVariable", "plnode",
+				"Defines a Global Variable (old)", 100, 50,
+				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
 		// TODO include different visibility for extended attribute
@@ -1756,7 +1758,8 @@ public class DefaultSyntaxMM {
 		// Context model
 
 		syntaxMetaView = new SyntaxElement('V', "Context", true, true,
-				"Context View", "plnode", "Defines a feature", 100, 80,
+				"Context View", "plnode",
+				"Defines the context variables and concerns", 100, 80,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Context Palette", 3, null);
 		InstConcept instViewCoV = new InstConcept("Context", metaView,
@@ -2175,8 +2178,14 @@ public class DefaultSyntaxMM {
 		// *************************---------------****************************
 		// SG satisficing Model
 
-		syntaxMetaView = new SyntaxElement('V', "SoftGoalsSatisficing", true,
-				true, "SG Satisficing View", "plnode", "Defines a feature",
+		syntaxMetaView = new SyntaxElement(
+				'V',
+				"SoftGoalsSatisficing",
+				true,
+				true,
+				"SG Satisficing View",
+				"plnode",
+				"Defines the relation between operationalizations and softgoals",
 				100, 80, "/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"SG Satisficing Palette - Goals", 4, null);
 		instViewC = new InstConcept("SoftGoalsSatisficing", metaView,
