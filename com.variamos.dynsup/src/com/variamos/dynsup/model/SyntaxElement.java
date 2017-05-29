@@ -461,24 +461,6 @@ public class SyntaxElement implements Serializable {
 		return null;
 	}
 
-	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {
-		this.propVisibleAttributes = disPropVisibleAttributes;
-	}
-
-	public void setPropEditableAttributes(List<String> disPropEditableAttributes) {
-		this.propEditableAttributes = disPropEditableAttributes;
-	}
-
-	@Deprecated
-	public void setPanelVisibleAttributes(List<String> disPanelVisibleAttributes) {
-		this.panelVisibleAttributes = disPanelVisibleAttributes;
-	}
-
-	@Deprecated
-	public void setPanelSpacersAttributes(List<String> disPanelSpacersAttributes) {
-		this.panelSpacersAttributes = disPanelSpacersAttributes;
-	}
-
 	public void setModelingAttributes(
 			Map<String, ElemAttribute> modelingAttributes) {
 		this.modelingAttributes = modelingAttributes;
@@ -494,16 +476,14 @@ public class SyntaxElement implements Serializable {
 
 	}
 
-	public List<String> getPropVisibleAttributes() {
-		return propVisibleAttributes;
-	}
-
+	@Deprecated
 	protected Set<String> getPropVisibleAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(propVisibleAttributes);
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public Set<String> getPropVisibleAttributesSet(
 			List<InstElement> syntaParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
@@ -530,6 +510,7 @@ public class SyntaxElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public Set<String> getPropEditableAttributesSet(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
@@ -582,6 +563,7 @@ public class SyntaxElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public Set<String> getPanelSpacersAttributesSet(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
@@ -610,27 +592,21 @@ public class SyntaxElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public void addPropVisibleAttribute(String visibleAttribute) {
 		propVisibleAttributes.add(visibleAttribute);
 	}
 
-	public List<String> getPropEditableAttributes() {
-		return propEditableAttributes;
-	}
-
+	@Deprecated
 	protected Set<String> getPropEditableAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(propEditableAttributes);
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public void addPropEditableAttribute(String editableAttribute) {
 		propEditableAttributes.add(editableAttribute);
-	}
-
-	@Deprecated
-	public List<String> getPanelVisibleAttributes() {
-		return panelVisibleAttributes;
 	}
 
 	@Deprecated
@@ -641,25 +617,10 @@ public class SyntaxElement implements Serializable {
 	}
 
 	@Deprecated
-	public void addPanelVisibleAttribute(String visibleAttribute) {
-		panelVisibleAttributes.add(visibleAttribute);
-	}
-
-	@Deprecated
-	public List<String> getPanelSpacersAttributes() {
-		return panelSpacersAttributes;
-	}
-
-	@Deprecated
 	protected Set<String> getPanelSpacersAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(panelSpacersAttributes);
 		return modelingAttributesNames;
-	}
-
-	@Deprecated
-	public void addPanelSpacersAttribute(String spacerAttribute) {
-		panelSpacersAttributes.add(spacerAttribute);
 	}
 
 	public Set<String> getDeclaredModelingAttributesNames() {
