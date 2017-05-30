@@ -124,9 +124,9 @@ public class DefaultSyntaxMM {
 
 		// syntaxFeature.addPanelVisibleAttribute("03#" + "name");
 
-		syntaxFeature.addPropEditableAttribute("03#" + "name");
-
-		syntaxFeature.addPropVisibleAttribute("03#" + "name");
+		// syntaxFeature.addPropEditableAttribute("03#" + "name");
+		//
+		// syntaxFeature.addPropVisibleAttribute("03#" + "name");
 
 		// syntaxFeature.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -186,9 +186,9 @@ public class DefaultSyntaxMM {
 
 		// syntaxFeature.addPanelVisibleAttribute("03#" + "name");
 
-		syntaxFeature.addPropEditableAttribute("03#" + "name");
-
-		syntaxFeature.addPropVisibleAttribute("03#" + "name");
+		// syntaxFeature.addPropEditableAttribute("03#" + "name");
+		//
+		// syntaxFeature.addPropVisibleAttribute("03#" + "name");
 
 		// syntaxFeature.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -246,9 +246,9 @@ public class DefaultSyntaxMM {
 
 		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
-		syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
-
-		syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
+		// syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
+		//
+		// syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
 
 		// syntaxVariabilityArtifact.addModelingAttribute("concern",
 		// "ConcernLevel", false, "Concern Level", "", 0, -1, "", "", -1,
@@ -976,9 +976,9 @@ public class DefaultSyntaxMM {
 
 		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
-		syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
-
-		syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
+		// syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
+		//
+		// syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
 
 		InstConcept instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
@@ -1415,8 +1415,8 @@ public class DefaultSyntaxMM {
 				"", "", 0, 3, "", "", -1, "", "");
 		// syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
 
-		syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
-		syntaxSoftGoal.addPropVisibleAttribute("03#" + "name");
+		// syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
+		// syntaxSoftGoal.addPropVisibleAttribute("03#" + "name");
 
 		// syntaxSoftGoal.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -1988,11 +1988,11 @@ public class DefaultSyntaxMM {
 				new ArrayList<InstAttribute>(), 0, 1, "", "", 5, "#"
 						+ SyntaxElement.VAR_METAENUMVALUE + "#all#\n", "");
 
-		metaEnumeration.addPropEditableAttribute("01#"
-				+ SyntaxElement.VAR_METAENUMNAME);
-
-		metaEnumeration.addPropVisibleAttribute("01#"
-				+ SyntaxElement.VAR_METAENUMNAME);
+		// metaEnumeration.addPropEditableAttribute("01#"
+		// + SyntaxElement.VAR_METAENUMNAME);
+		//
+		// metaEnumeration.addPropVisibleAttribute("01#"
+		// + SyntaxElement.VAR_METAENUMNAME);
 		// metaEnumeration.addPanelVisibleAttribute("05#"
 		// + SyntaxElement.VAR_METAENUMVALUE);
 		// metaEnumeration.addPanelSpacersAttribute("#"
@@ -2125,8 +2125,8 @@ public class DefaultSyntaxMM {
 				"cardinality", "", "", "", 0, 1, "", "", -1, "#cardinality#",
 				"");
 		// metaContextEdge.addPanelVisibleAttribute("01#cardinality");
-		metaContextEdge.addPropEditableAttribute("01#cardinality");
-		metaContextEdge.addPropVisibleAttribute("01#cardinality");
+		// metaContextEdge.addPropEditableAttribute("01#cardinality");
+		// metaContextEdge.addPropVisibleAttribute("01#cardinality");
 
 		InstConcept instVariablePairWiseRel = new InstConcept(
 				"Variable To Context Relation", supportMetaElementPairwise,
@@ -2349,18 +2349,18 @@ public class DefaultSyntaxMM {
 
 		// syntaxClaim.addPanelVisibleAttribute("03#" + "name");
 
-		syntaxClaim.addPropEditableAttribute("03#" + "name");
-
-		syntaxClaim.addPropVisibleAttribute("03#" + "name");
+		// syntaxClaim.addPropEditableAttribute("03#" + "name");
+		//
+		// syntaxClaim.addPropVisibleAttribute("03#" + "name");
 
 		// syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
 		// syntaxClaim.addPanelVisibleAttribute("10#" +
 		// "condExpText");
 
-		syntaxClaim.addPropEditableAttribute("10#" + "condExpText");
-
-		syntaxClaim.addPropVisibleAttribute("10#" + "condExpText");
+		// syntaxClaim.addPropEditableAttribute("10#" + "condExpText");
+		//
+		// syntaxClaim.addPropVisibleAttribute("10#" + "condExpText");
 
 		InstConcept instVertexCL = new InstConcept("CL",
 				supportMetaElementOverTwo, syntaxClaim);
@@ -2483,9 +2483,9 @@ public class DefaultSyntaxMM {
 
 		// syntaxSoftDependency.addPanelVisibleAttribute("03#" + "name");
 
-		syntaxSoftDependency.addPropEditableAttribute("03#" + "name");
-
-		syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
+		// syntaxSoftDependency.addPropEditableAttribute("03#" + "name");
+		//
+		// syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
 
 		// syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
@@ -2935,8 +2935,8 @@ public class DefaultSyntaxMM {
 		// syntaxMetaView.addConcept(syntaxAsset);
 
 		// syntaxAsset.addPanelVisibleAttribute("03#" + "name");
-		syntaxAsset.addPropEditableAttribute("03#" + "name");
-		syntaxAsset.addPropVisibleAttribute("03#" + "name");
+		// syntaxAsset.addPropEditableAttribute("03#" + "name");
+		// syntaxAsset.addPropVisibleAttribute("03#" + "name");
 		syntaxMetaChildView = new SyntaxElement('V', "Assets",
 				"Assets General View", "Assets Palette", 0, null);
 		childView = new InstConcept("GeneralAssets", metaView,

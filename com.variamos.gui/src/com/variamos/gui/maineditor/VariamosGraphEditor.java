@@ -1511,7 +1511,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void refreshElement(InstElement elm) {
-		List<InstAttribute> visible = elm.getVisibleVariables(refasModel
+		List<InstAttribute> visible = elm.getVisibleAttributes(refasModel
 				.getParentSMMSyntaxElement(elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		for (InstAttribute v : visible) {

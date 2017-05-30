@@ -457,7 +457,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 				&& this.getInstAttribute("Name").getValue().equals("Claim"))
 			out = "<<MetaConcept>>\nClaim\n\n";
 		else if (getTransSupportMetaElement() != null) {
-			out = oldPanelVisible(syntaxParents);
+			// out = oldPanelVisible(syntaxParents);
 			out += panelVisible(syntaxParents, getTransSupportMetaElement());
 			if (out.equals(""))
 				out = "No display attributes defined";
@@ -670,17 +670,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 					visibleAttributes.add(attribute);
 			}
 		}
-		return getFiltVisibleAttributes(visibleAttributes);
-	}
-
-	public List<InstAttribute> getVisibleVariables(
-			List<InstElement> syntaxParents) {
-		createInstAttributes(syntaxParents);
-		if (getTransSupportMetaElement() == null)
-			return null;
-		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributesSet(syntaxParents);
-		return getFilteredInstAttributes(attributesNames, null);
+		List<InstAttribute> out = getFiltVisibleAttributes(visibleAttributes);
+		return out;
 	}
 
 	public List<InstAttribute> getFiltVisibleAttributes(
@@ -936,125 +927,6 @@ public abstract class InstElement implements Serializable, Cloneable,
 			}
 		}
 
-		return out;
-	}
-
-	private String oldPanelVisible(List<InstElement> syntaxParents) {
-		String out = "";
-		// OLD implementation
-		Set<String> visibleAttributesNames = getTransSupportMetaElement()
-				.getPanelVisibleAttributesSet(syntaxParents);
-		List<String> listVisibleAttributes = new ArrayList<String>();
-		listVisibleAttributes.addAll(visibleAttributesNames);
-		Collections.sort(listVisibleAttributes);
-		Set<String> spacersAttributes = getTransSupportMetaElement()
-				.getPanelSpacersAttributesSet(syntaxParents);
-		for (String visibleAttribute : listVisibleAttributes) {
-			boolean validCondition = true;
-
-			int nameEnd = visibleAttribute.indexOf("#", 3);
-			int varEnd = visibleAttribute.indexOf("#", nameEnd + 1);
-			int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
-
-			String name = visibleAttribute.substring(3);
-			if (nameEnd != -1) {
-				name = visibleAttribute.substring(3, nameEnd);
-				String variable = null;
-				String condition = null;
-				String value = null;
-				variable = visibleAttribute.substring(nameEnd + 1, varEnd);
-				condition = visibleAttribute.substring(varEnd + 1, condEnd);
-				value = visibleAttribute.substring(condEnd + 1);
-				InstAttribute varValue = getInstAttributes().get(variable);
-				if (varValue == null || varValue.getValue() == null)
-					validCondition = false;
-				else if (varValue.getValue().toString().trim().equals(value)) {
-					if (condition.equals("!="))
-						validCondition = false;
-				} else {
-					if (condition.equals("=="))
-						validCondition = false;
-				}
-			}
-			boolean nvar = false;
-			if (name != null && validCondition) {
-				Iterator<String> spacers = spacersAttributes.iterator();
-				while (spacers.hasNext()) {
-					String spacer = spacers.next();
-					if (spacer.indexOf("#" + name + "#") != -1) {
-						nvar = true;
-						int sp1 = spacer.indexOf("#");
-						int sp2 = spacer.indexOf("#", sp1 + 1);
-
-						out += spacer.substring(0, sp1);
-						if (name.equals("name")
-								&& getInstAttributes().get(name).toString()
-										.trim().equals(""))
-							out += "<<NoName>>";
-						else {
-							InstAttribute instAttribute = getInstAttributes()
-									.get(name);
-							// System.out.println(this.getIdentifier());
-							if (instAttribute != null) {
-								if (instAttribute.getType() != null
-										&& instAttribute.getType()
-												.equals("Set"))
-									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
-											.getValue())
-										out += e.toString().trim() + "\n";
-								else
-									out += instAttribute.toString().trim();
-							}
-						}
-						while (sp2 != spacer.length()) {
-							int sp3 = spacer.indexOf("#", sp2 + 1);
-							if (sp3 == -1) {
-								out += spacer.substring(sp2 + 1);
-								break;
-							}
-							out += spacer.substring(sp2 + 1, sp3);
-
-							sp2 = sp3;
-						}
-					}
-
-				}
-				if (!nvar)
-					if (name.equals("name")
-							&& getInstAttributes().get(name) != null
-							&& getInstAttributes().get(name).toString().trim()
-									.equals(""))
-						out += "<<NoName>>";
-					else {
-						InstAttribute instAttribute = getInstAttributes().get(
-								name);
-						if (instAttribute.getEnumType() != null
-								&& instAttribute.getEnumType().equals(
-										InstConcept.class.getCanonicalName())) {
-							out += (String) instAttribute.getValue();
-							if (instAttribute.getValueObject() != null) {
-								Map<String, InstAttribute> o = (Map<String, InstAttribute>) ((InstElement) instAttribute
-										.getValueObject())
-										.getDynamicAttribute(VAR_INSTATTRIBUTES);
-								InstAttribute oo = o
-										.get(SyntaxElement.VAR_METAENUMVALUE);
-								Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
-										.getInstAttributeAttribute("Value");
-								String outt = "{ ";
-								for (InstAttribute i : ooo) {
-									String values[] = ((String) i.getValue())
-											.split("#");
-									outt += values[1] + ", ";
-								}
-								outt = outt.substring(0, outt.length() - 2);
-								outt += " }";
-								out += AbstractElement.multiLine(outt, 40);
-							}
-						} else
-							out += instAttribute.toString().trim();
-					}
-			}
-		}
 		return out;
 	}
 

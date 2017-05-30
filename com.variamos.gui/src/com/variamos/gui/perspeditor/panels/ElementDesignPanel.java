@@ -278,7 +278,7 @@ public class ElementDesignPanel extends JPanel {
 				}
 
 				List<InstAttribute> visibles = finalEditElm
-						.getVisibleVariables(syntaxParent);
+						.getVisibleAttributes(syntaxParent);
 				Map<String, InstElement> mapElementss = null;
 				if (finalEditElm instanceof InstPairwiseRel) {
 					InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
