@@ -14,7 +14,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/com.variamos.reasoning/lib/SWIProlog/jpl723.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.dynsup"/>
 	<classpathentry kind="src" path="/com.variamos.io"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.dynsup"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
