@@ -537,7 +537,8 @@ public class SyntaxElement implements Serializable {
 					SyntaxElement parentConcept = parent.getEdSyntaxEle();
 
 					if (parentConcept != null
-							&& parentConcept.getModelingAttribute(name) != null) {
+					// && parentConcept.getModelingAttribute(name) != null
+					) {
 						return parentConcept.getModelingAttribute(name);
 					}
 				}
@@ -595,6 +596,10 @@ public class SyntaxElement implements Serializable {
 					propTabPosition, propTabEditionCondition,
 					propTabVisualCondition, elementDisplayPosition,
 					elementDisplaySpacers, elementDisplayCondition));
+	}
+
+	public void removeModelingAttribute(String value) {
+		modelingAttributes.remove(value);
 	}
 
 	public boolean getVisible() {
@@ -680,5 +685,4 @@ public class SyntaxElement implements Serializable {
 	public char getType() {
 		return type;
 	}
-
 }

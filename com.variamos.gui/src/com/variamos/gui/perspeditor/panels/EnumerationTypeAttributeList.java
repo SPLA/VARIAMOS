@@ -92,6 +92,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 
 		addMouseListener(new MouseAdapter() {
 
+			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 					int index = locationToIndex(evt.getPoint());
@@ -273,11 +274,11 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 						+ "#"
 						+ (String) instPanelName.getValue()
 						+ "#"
-						+ (Boolean) instRelationExclusive.getValue()
+						+ instRelationExclusive.getValue()
 						+ "#"
-						+ (Boolean) instSourceExclusive.getValue()
+						+ instSourceExclusive.getValue()
 						+ "#"
-						+ (Boolean) instTargetExclusive.getValue()
+						+ instTargetExclusive.getValue()
 						+ "#"
 						+ ((Integer) instMinSourceCardinality.getValue())
 								.intValue()
@@ -317,7 +318,11 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 						.getInstAttributes()
 						.get(SyntaxElement.VAR_METAENUMVALUE).getValue());
 
-				attributes.remove(v);
+				System.out.println(attributes.remove(v));
+
+				System.out
+						.println(((DefaultListModel<InstAttribute>) getModel())
+								.removeElement(v));
 
 				afterAction();
 				return true;
@@ -339,6 +344,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 
 		final InstCell finalInstCell = instCell;
 		new Thread() {
+			@Override
 			public void run() {
 				try {
 					sleep(500);

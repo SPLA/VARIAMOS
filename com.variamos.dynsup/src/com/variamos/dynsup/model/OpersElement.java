@@ -267,6 +267,10 @@ public class OpersElement implements Serializable {
 		this.semanticAttributes.put(name, abstractAttribute);
 	}
 
+	public void removeSemanticAttribute(String value) {
+		this.semanticAttributes.remove(value);
+	}
+
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}

@@ -289,10 +289,19 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 					String nameS = (String) name.getValue();
 					if (((ElemAttribute) ea).getName().equals(nameS)) {
 						ldm.remove(i);
-						attributes.remove(nameS);
+						attributes.remove(name);
 					}
 					i++;
 				}
+				if (instElement.getEdSyntaxEle() != null) {
+					SyntaxElement me = instElement.getEdSyntaxEle();
+					me.removeModelingAttribute((String) name.getValue());
+				}
+				if (instElement.getEdOperEle() != null) {
+					OpersElement sc = (instElement.getEdOperEle());
+					sc.removeSemanticAttribute((String) name.getValue());
+				}
+
 				afterAction();
 				return true;
 			}

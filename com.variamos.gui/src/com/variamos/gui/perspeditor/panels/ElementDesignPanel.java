@@ -314,9 +314,13 @@ public class ElementDesignPanel extends JPanel {
 								&& instAttribute.getAttribute() instanceof ElemAttribute
 								&& (instAttribute.getAttribute()
 										.getAttributeType()
-										.equals(AttributeType.SYNTAX) || instAttribute
+										.equals(AttributeType.SYNTAX)
+										|| instAttribute
+												.getAttribute()
+												.getAttributeType()
+												.equals(AttributeType.OPERATION) || instAttribute
 										.getAttribute().getAttributeType()
-										.equals(AttributeType.OPERATION))) {
+										.equals(AttributeType.CONFIGURATION))) {
 							if (instAttribute.getIdentifier().equals(
 									SyntaxElement.VAR_USERIDENTIFIER)
 									&& instAttribute.getValue() == null) {
@@ -959,10 +963,10 @@ public class ElementDesignPanel extends JPanel {
 			} else if (editor.getPerspective() % 2 != 0) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
-				mainPanelWidth += 450;
-				rootPanel3.setPreferredSize(new Dimension(450, 450));
-				contentPanel3.setPreferredSize(new Dimension(450, 450));
-				contentPanel3.setMaximumSize(new Dimension(450, 450));
+				mainPanelWidth += 650;
+				rootPanel3.setPreferredSize(new Dimension(550, 450));
+				contentPanel3.setPreferredSize(new Dimension(550, 450));
+				contentPanel3.setMaximumSize(new Dimension(550, 450));
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
@@ -1026,7 +1030,7 @@ public class ElementDesignPanel extends JPanel {
 								attributeEdition);
 				}
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(450, 350));
+				attPanel.setPreferredSize(new Dimension(650, 350));
 				attPanel.setMaximumSize(new Dimension(650, 350));
 				JScrollPane jj = new JScrollPane(attList);
 				jj.setAutoscrolls(true);
