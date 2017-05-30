@@ -980,6 +980,15 @@ public class DefaultSyntaxMM {
 		//
 		// syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
 
+		sOperationalization.addModelingAttribute("name", "String", false,
+				"Name", "", "", 0, 3, "", "", -1, "", "");
+
+		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
+
+		syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
+
+		syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
+
 		InstConcept instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
 

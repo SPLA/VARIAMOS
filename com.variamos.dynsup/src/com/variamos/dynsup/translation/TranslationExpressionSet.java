@@ -244,7 +244,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						} else if (instE.getTransSupInstElement()
 								.getEdSyntaxEle() == null)
 							System.out.println(instE.getIdentifier());
-
 						int expressionInstances = instE.getInstances(refas);
 
 						if (instE.getInstAttribute("variableType") == null

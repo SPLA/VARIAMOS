@@ -315,7 +315,7 @@ public class OpersExpr implements Serializable {
 		this.semanticExpressionType = semanticExpressionType;
 		this.setLeftSemanticElement(semanticConElement);
 		this.rightAttributeName = rightAttribute;
-		this.setRightSemanticElement(semanticElement);
+		this.setRightSemanticElement(semanticConElement);
 		setLeftExpressionType(expressionVertexType);
 		setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
 	}
