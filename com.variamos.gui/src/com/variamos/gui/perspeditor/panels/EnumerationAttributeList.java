@@ -241,6 +241,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 				attributes.remove(v);
 
+				((DefaultListModel<InstAttribute>) getModel()).removeElement(v);
+
 				afterAction();
 				return true;
 			}

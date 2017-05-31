@@ -273,15 +273,15 @@ public class ElemAttribute implements Serializable {
 
 	VAR_DOMAINFILTERSOWNFIELDS = "domFiltOwnFields",
 
-	VAR_DOMAINFILTERSOWNFIELDS_NAME = "Fields to filter domain (Concept)",
+	VAR_DOMAINFILTERSOWNFIELDS_NAME = "Filter domain (Own Fields)",
 
 	VAR_DOMAINFILTERSRELFIELDS = "domFilTRelFields",
 
-	VAR_DOMAINFILTERSRELFIELDS_NAME = "Fields to filter domain (Rel)",
+	VAR_DOMAINFILTERSRELFIELDS_NAME = "Filter domain (Rel. Fields)",
 
 	VAR_DEFAULTDOMAINVALUEFIELD = "defDomValueField",
 
-	VAR_DEFAULTDOMAINVALUEFIELD_NAME = "Default Domain Value Field (Filtered)",
+	VAR_DEFAULTDOMAINVALUEFIELD_NAME = "Def. Domain (Filter Field)",
 
 	VAR_TOOLTIPTEXTNAME = "toolTipTextName";
 

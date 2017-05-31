@@ -790,7 +790,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									.getTransSupportMetaElement()
 									.getAutoIdentifier();
 							// System.out.println(iden);
-							if (iden.equals("CG")
+							if (elm.getTransSupportMetaElement()
+									.getTransInstSemanticElement()
+									.getIdentifier().equals("NmVariable")
+									|| iden.equals("CG")
 									|| iden.equals("ContextVariable")
 									|| iden.equals("GlobalVariable")
 									|| iden.equals("GlobalVariable")
@@ -1020,7 +1023,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					String iden = ((InstConcept) finalEditElm)
 							.getTransSupportMetaElement().getAutoIdentifier();
 					// System.out.println(iden);
-					if (iden.equals("CG") || iden.equals("ContextVariable")
+					if ((finalEditElm.getTransSupportMetaElement() != null
+							&& finalEditElm.getTransSupportMetaElement()
+									.getTransInstSemanticElement() != null && finalEditElm
+							.getTransSupportMetaElement()
+							.getTransInstSemanticElement().getIdentifier()
+							.equals("NmVariable"))
+							|| iden.equals("CG")
+							|| iden.equals("ContextVariable")
 							|| iden.equals("GlobalVariable")
 							|| iden.equals("Variable") || iden.equals("ENUM"))
 
@@ -1501,7 +1511,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void refreshElement(InstElement elm) {
-		List<InstAttribute> visible = elm.getVisibleVariables(refasModel
+		List<InstAttribute> visible = elm.getVisibleAttributes(refasModel
 				.getParentSMMSyntaxElement(elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		for (InstAttribute v : visible) {
@@ -2233,7 +2243,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 				InstElement et = el.getTransSupInstElement();
 				if (et.getIdentifier().equals("OMOperation")
-						|| el.getIdentifier().equals("BasicSimulOper")) {
+						|| el.getIdentifier().equals("VerifyParentsOper")) {
 					int expressions = 0;
 					for (InstElement rel : el.getTargetRelations()) {
 						InstElement subOper = rel.getTargetRelations().get(0);
@@ -2270,8 +2280,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					System.out.println(el.getIdentifier() + " " + expressions);
 				}
 			}
-			// for (String opExp : expressionsS)
-			// System.out.println(opExp);
+			for (String opExp : expressionsS)
+				System.out.println(opExp);
 		}
 
 	}

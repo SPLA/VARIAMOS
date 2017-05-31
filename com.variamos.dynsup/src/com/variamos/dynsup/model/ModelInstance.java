@@ -801,7 +801,7 @@ public class ModelInstance extends AbstractModel {
 	public void updateValidationLists(InstElement elm, InstElement instSource,
 			InstElement instTarget, List<InstElement> syntaxParents,
 			List<InstElement> opersParents) {
-		List<InstAttribute> visible = elm.getVisibleVariables(syntaxParents);
+		List<InstAttribute> visible = elm.getVisibleAttributes(syntaxParents);
 		InstPairwiseRel instPairwise = (InstPairwiseRel) elm;
 		if (instSource == null && instPairwise.getSourceRelations().size() > 0)
 			instSource = instPairwise.getSourceRelations().get(0);

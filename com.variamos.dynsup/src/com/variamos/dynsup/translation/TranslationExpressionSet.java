@@ -161,12 +161,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 				if (instElement == null)
 					for (InstElement instE : refas.getElements()) {
-						if (instE.getTransSupInstElement().getEdSyntaxEle()
-								.getInstSemanticElementId() != null
+						if (instE.getTransSupInstElement().getEdSyntaxEle() != null
+								&& instE.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId() != null
 								&& instE.getTransSupInstElement()
 										.getEdSyntaxEle()
 										.getInstSemanticElementId()
-										.equals("nmVariable")) {
+										.equals("NmVariable")) {
 							// System.out.println(instE.getInstAttribute("type"));
 							if (instE.getInstAttribute("variableType")
 									.getValue().equals("LowLevel expression")
@@ -239,7 +241,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 								}
 							}
-						}
+						} else if (instE.getTransSupInstElement()
+								.getEdSyntaxEle() == null)
+							System.out.println(instE.getIdentifier());
 						int expressionInstances = instE.getInstances(refas);
 
 						if (instE.getInstAttribute("variableType") == null
@@ -490,7 +494,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								&& instE.getTransSupInstElement()
 										.getEdSyntaxEle()
 										.getInstSemanticElementId()
-										.equals("nmVariable")
+										.equals("NmVariable")
 								&& instE.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable")
 								&& (instE
@@ -781,7 +785,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			BooleanExpression newExp = (BooleanExpression) expression
 					.createSGSExpression();
-
+			// System.out.println(expression.getSemanticExpression()
+			// .expressionStructure());
 			if (newExp != null)
 				prog.add(newExp);
 		}

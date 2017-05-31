@@ -278,7 +278,7 @@ public class ElementDesignPanel extends JPanel {
 				}
 
 				List<InstAttribute> visibles = finalEditElm
-						.getVisibleVariables(syntaxParent);
+						.getVisibleAttributes(syntaxParent);
 				Map<String, InstElement> mapElementss = null;
 				if (finalEditElm instanceof InstPairwiseRel) {
 					InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
@@ -314,9 +314,13 @@ public class ElementDesignPanel extends JPanel {
 								&& instAttribute.getAttribute() instanceof ElemAttribute
 								&& (instAttribute.getAttribute()
 										.getAttributeType()
-										.equals(AttributeType.SYNTAX) || instAttribute
+										.equals(AttributeType.SYNTAX)
+										|| instAttribute
+												.getAttribute()
+												.getAttributeType()
+												.equals(AttributeType.OPERATION) || instAttribute
 										.getAttribute().getAttributeType()
-										.equals(AttributeType.OPERATION))) {
+										.equals(AttributeType.CONFIGURATION))) {
 							if (instAttribute.getIdentifier().equals(
 									SyntaxElement.VAR_USERIDENTIFIER)
 									&& instAttribute.getValue() == null) {
@@ -391,6 +395,8 @@ public class ElementDesignPanel extends JPanel {
 																		null);
 														return false;
 													}
+													// test Angela Graphs
+													// dialog.createRelations(finalEditor);
 													// System.out.println(exp);
 												} catch (Exception e) {
 													JOptionPane
@@ -957,10 +963,10 @@ public class ElementDesignPanel extends JPanel {
 			} else if (editor.getPerspective() % 2 != 0) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
-				mainPanelWidth += 350;
-				rootPanel3.setPreferredSize(new Dimension(350, 450));
-				contentPanel3.setPreferredSize(new Dimension(350, 450));
-				contentPanel3.setMaximumSize(new Dimension(350, 450));
+				mainPanelWidth += 650;
+				rootPanel3.setPreferredSize(new Dimension(550, 450));
+				contentPanel3.setPreferredSize(new Dimension(550, 450));
+				contentPanel3.setMaximumSize(new Dimension(550, 450));
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
@@ -1024,8 +1030,8 @@ public class ElementDesignPanel extends JPanel {
 								attributeEdition);
 				}
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(350, 250));
-				attPanel.setMaximumSize(new Dimension(650, 250));
+				attPanel.setPreferredSize(new Dimension(650, 350));
+				attPanel.setMaximumSize(new Dimension(650, 350));
 				JScrollPane jj = new JScrollPane(attList);
 				jj.setAutoscrolls(true);
 				attPanel.add(jj);
@@ -1051,7 +1057,7 @@ public class ElementDesignPanel extends JPanel {
 							.getSupInstEleId().equals("OMOTRel"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
-				mainPanelWidth += 200;
+				mainPanelWidth += 450;
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
@@ -1063,8 +1069,9 @@ public class ElementDesignPanel extends JPanel {
 						editorProperties(finalEditor, instCell);
 					}
 				});
-				attPanel.setPreferredSize(new Dimension(150, 150));
-				attPanel.setMaximumSize(new Dimension(150, 180));
+				attPanel.setPreferredSize(new Dimension(450, 150));
+				attPanel.setMaximumSize(new Dimension(450, 180));
+				attPanel.setMinimumSize(new Dimension(450, 180));
 				attPanel.add(new JLabel(mxResources.get("relationTypesPanel")));
 
 				RelationTypesList attList = new RelationTypesList(editor,

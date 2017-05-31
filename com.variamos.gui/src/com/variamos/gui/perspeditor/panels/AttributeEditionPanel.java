@@ -28,7 +28,7 @@ public class AttributeEditionPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1478873242908064197L;
 	private HashMap<String, WidgetR> widgets;
-	private DialogButtonAction onAccept, onCancel;
+	private DialogButtonAction onAccept, onCancel, onDelete;
 	private JList<ElemAttribute> propertyAttributeList;
 	JPanel panel = null;
 
@@ -152,7 +152,24 @@ public class AttributeEditionPanel extends JPanel {
 
 		buttonsPanel.add(btnAccept);
 
-		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 2, 4, 4, 4, 4);
+		final JButton btnDelete = new JButton();
+		btnDelete.setText("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// if( onAccept == null )
+				if (onDelete.onAction())
+					// dispose();
+					propertyAttributeList.setEnabled(true);
+				panel.removeAll();
+				panel.revalidate();
+				repaint();
+			}
+		});
+
+		buttonsPanel.add(btnDelete);
+
+		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 3, 4, 4, 4, 4);
 
 		add(buttonsPanel, BorderLayout.SOUTH);
 
@@ -164,5 +181,9 @@ public class AttributeEditionPanel extends JPanel {
 
 	public void setOnCancel(DialogButtonAction onCancel) {
 		this.onCancel = onCancel;
+	}
+
+	public void setOnDelete(DialogButtonAction onDelete) {
+		this.onDelete = onDelete;
 	}
 }

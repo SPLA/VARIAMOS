@@ -440,9 +440,9 @@ public class SyntaxElement implements Serializable {
 					.getAllSemanticAttributesNames(syntaxParents));
 		if (syntaxParents != null)
 			for (InstElement parent : syntaxParents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
-				if (parentConcept != null) {
+				SyntaxElement parentConcept = parent.getEdSyntaxEle();
+				if (parentConcept != null
+						&& parentConcept.getTransInstSemanticElement() != null) {
 					modelingAttributesNames.addAll(parentConcept
 							.getTransInstSemanticElement()
 							.getAllSemanticAttributesNames(syntaxParents));
@@ -461,24 +461,6 @@ public class SyntaxElement implements Serializable {
 		return null;
 	}
 
-	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {
-		this.propVisibleAttributes = disPropVisibleAttributes;
-	}
-
-	public void setPropEditableAttributes(List<String> disPropEditableAttributes) {
-		this.propEditableAttributes = disPropEditableAttributes;
-	}
-
-	@Deprecated
-	public void setPanelVisibleAttributes(List<String> disPanelVisibleAttributes) {
-		this.panelVisibleAttributes = disPanelVisibleAttributes;
-	}
-
-	@Deprecated
-	public void setPanelSpacersAttributes(List<String> disPanelSpacersAttributes) {
-		this.panelSpacersAttributes = disPanelSpacersAttributes;
-	}
-
 	public void setModelingAttributes(
 			Map<String, ElemAttribute> modelingAttributes) {
 		this.modelingAttributes = modelingAttributes;
@@ -494,174 +476,14 @@ public class SyntaxElement implements Serializable {
 
 	}
 
-	public List<String> getPropVisibleAttributes() {
-		return propVisibleAttributes;
-	}
-
-	protected Set<String> getPropVisibleAttributesSet() {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-		modelingAttributesNames.addAll(propVisibleAttributes);
-		return modelingAttributesNames;
-	}
-
-	public Set<String> getPropVisibleAttributesSet(
-			List<InstElement> syntaParents) {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-
-		if (getTransInstSemanticElement() != null
-				&& getTransInstSemanticElement().getEdOperEle() != null)
-			modelingAttributesNames.addAll(getTransInstSemanticElement()
-					.getPropVisibleAttributes());
-		if (syntaParents != null)
-			for (InstElement parent : syntaParents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
-				if (parentConcept != null) {
-					if (parentConcept.getTransInstSemanticElement()
-							.getEdOperEle() != null)
-						modelingAttributesNames.addAll(parentConcept
-								.getTransInstSemanticElement()
-								.getPropVisibleAttributes());
-					modelingAttributesNames.addAll(parentConcept
-							.getPropVisibleAttributesSet());
-				}
-
-			}
-		modelingAttributesNames.addAll(getPropVisibleAttributesSet());
-		return modelingAttributesNames;
-	}
-
-	public Set<String> getPropEditableAttributesSet(List<InstElement> parents) {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-
-		if (getTransInstSemanticElement() != null
-				&& getTransInstSemanticElement().getEdOperEle() != null)
-			modelingAttributesNames.addAll(getTransInstSemanticElement()
-					.getPropEditableAttributes());
-
-		if (parents != null)
-			for (InstElement parent : parents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
-				if (parentConcept != null) {
-					if (parentConcept.getTransInstSemanticElement()
-							.getEdOperEle() != null)
-						modelingAttributesNames.addAll(parentConcept
-								.getTransInstSemanticElement()
-								.getPropEditableAttributes());
-					modelingAttributesNames.addAll(parentConcept
-							.getPropEditableAttributesSet());
-				}
-			}
-		modelingAttributesNames.addAll(getPropEditableAttributesSet());
-		return modelingAttributesNames;
-	}
-
 	@Deprecated
-	public Set<String> getPanelVisibleAttributesSet(List<InstElement> parents) {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-
-		if (getTransInstSemanticElement() != null
-				&& getTransInstSemanticElement().getEdOperEle() != null)
-			modelingAttributesNames.addAll(getTransInstSemanticElement()
-					.getPanelVisibleAttributes());
-
-		if (parents != null)
-			for (InstElement parent : parents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
-				if (parentConcept != null) {
-					if (parentConcept.getTransInstSemanticElement()
-							.getEdOperEle() != null)
-						modelingAttributesNames.addAll(parentConcept
-								.getTransInstSemanticElement()
-								.getPanelVisibleAttributes());
-					modelingAttributesNames.addAll(parentConcept
-							.getPanelVisibleAttributesSet());
-				}
-			}
-		modelingAttributesNames.addAll(getPanelVisibleAttributesSet());
-		return modelingAttributesNames;
-	}
-
-	public Set<String> getPanelSpacersAttributesSet(List<InstElement> parents) {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-
-		if (getTransInstSemanticElement() != null
-				&& getTransInstSemanticElement().getEdOperEle() != null)
-			modelingAttributesNames.addAll(getTransInstSemanticElement()
-					.getPanelSpacersAttributes());
-
-		if (parents != null)
-			for (InstElement parent : parents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
-				if (parentConcept != null) {
-					if (parentConcept.getTransInstSemanticElement()
-							.getEdOperEle() != null)
-						modelingAttributesNames.addAll(parentConcept
-								.getTransInstSemanticElement()
-								.getPanelSpacersAttributes());
-
-					modelingAttributesNames.addAll(parentConcept
-							.getPanelSpacersAttributesSet());
-				}
-
-			}
-		modelingAttributesNames.addAll(getPanelSpacersAttributesSet());
-		return modelingAttributesNames;
-	}
-
 	public void addPropVisibleAttribute(String visibleAttribute) {
 		propVisibleAttributes.add(visibleAttribute);
 	}
 
-	public List<String> getPropEditableAttributes() {
-		return propEditableAttributes;
-	}
-
-	protected Set<String> getPropEditableAttributesSet() {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-		modelingAttributesNames.addAll(propEditableAttributes);
-		return modelingAttributesNames;
-	}
-
+	@Deprecated
 	public void addPropEditableAttribute(String editableAttribute) {
 		propEditableAttributes.add(editableAttribute);
-	}
-
-	@Deprecated
-	public List<String> getPanelVisibleAttributes() {
-		return panelVisibleAttributes;
-	}
-
-	@Deprecated
-	protected Set<String> getPanelVisibleAttributesSet() {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-		modelingAttributesNames.addAll(panelVisibleAttributes);
-		return modelingAttributesNames;
-	}
-
-	@Deprecated
-	public void addPanelVisibleAttribute(String visibleAttribute) {
-		panelVisibleAttributes.add(visibleAttribute);
-	}
-
-	@Deprecated
-	public List<String> getPanelSpacersAttributes() {
-		return panelSpacersAttributes;
-	}
-
-	@Deprecated
-	protected Set<String> getPanelSpacersAttributesSet() {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-		modelingAttributesNames.addAll(panelSpacersAttributes);
-		return modelingAttributesNames;
-	}
-
-	@Deprecated
-	public void addPanelSpacersAttribute(String spacerAttribute) {
-		panelSpacersAttributes.add(spacerAttribute);
 	}
 
 	public Set<String> getDeclaredModelingAttributesNames() {
@@ -673,8 +495,7 @@ public class SyntaxElement implements Serializable {
 		modelingAttributesNames.addAll(getModelingAttributesNames());
 		if (parents != null)
 			for (InstElement parent : parents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
+				SyntaxElement parentConcept = parent.getEdSyntaxEle();
 				if (parentConcept != null)
 					modelingAttributesNames.addAll(parentConcept
 							.getModelingAttributesNames());
@@ -713,11 +534,11 @@ public class SyntaxElement implements Serializable {
 		else {
 			if (parents != null)
 				for (InstElement parent : parents) {
-					SyntaxElement parentConcept = (SyntaxElement) parent
-							.getEdSyntaxEle();
+					SyntaxElement parentConcept = parent.getEdSyntaxEle();
 
 					if (parentConcept != null
-							&& parentConcept.getModelingAttribute(name) != null) {
+					// && parentConcept.getModelingAttribute(name) != null
+					) {
 						return parentConcept.getModelingAttribute(name);
 					}
 				}
@@ -775,6 +596,10 @@ public class SyntaxElement implements Serializable {
 					propTabPosition, propTabEditionCondition,
 					propTabVisualCondition, elementDisplayPosition,
 					elementDisplaySpacers, elementDisplayCondition));
+	}
+
+	public void removeModelingAttribute(String value) {
+		modelingAttributes.remove(value);
 	}
 
 	public boolean getVisible() {
@@ -860,5 +685,4 @@ public class SyntaxElement implements Serializable {
 	public char getType() {
 		return type;
 	}
-
 }

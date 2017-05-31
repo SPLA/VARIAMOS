@@ -1,7 +1,5 @@
 package com.variamos.dynsup.instance;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -301,70 +299,6 @@ public class InstOverTwoRel extends InstVertex {
 		;
 	}
 
-	@Deprecated
-	private Set<String> getDisPropVisibleAttributes(
-			List<InstElement> syntaxParents) {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-
-		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null)
-			modelingAttributesNames.addAll(((OpersConcept) getInstAttribute(
-					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
-					.getPropVisibleAttributes(null));
-		// FIXME how to pass parents to opersconcept
-		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPropVisibleAttributesSet(syntaxParents));
-		return modelingAttributesNames;
-	}
-
-	public Set<String> getDisPropEditableAttributes(List<InstElement> parents) {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-
-		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
-				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
-						.getValueObject() != null)
-			// FIXME how to pass parents to opersconcept
-			modelingAttributesNames.addAll(((OpersConcept) getInstAttribute(
-					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
-					.getPropEditableAttributes(null));
-
-		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPropEditableAttributesSet(parents));
-		return modelingAttributesNames;
-	}
-
-	@Deprecated
-	public Set<String> getDisPanelVisibleAttributes(List<InstElement> parents) {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-
-		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
-				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
-						.getValueObject() != null)
-			modelingAttributesNames.addAll(((OpersConcept) getInstAttribute(
-					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
-					.getPanelVisibleAttributes(null));
-
-		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPanelVisibleAttributesSet(parents));
-		return modelingAttributesNames;
-	}
-
-	@Deprecated
-	public Set<String> getDisPanelSpacersAttributes(
-			List<InstElement> syntaxParents) {
-		Set<String> modelingAttributesNames = new HashSet<String>();
-
-		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
-				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
-						.getValueObject() != null)
-			modelingAttributesNames.addAll(((OpersConcept) getInstAttribute(
-					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
-					.getPanelSpacersAttributes(null));
-
-		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPanelSpacersAttributesSet(syntaxParents));
-		return modelingAttributesNames;
-	}
-
 	public Set<String> getSemanticAttributesNames(List<InstElement> opersParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
@@ -378,84 +312,6 @@ public class InstOverTwoRel extends InstVertex {
 					.getAllSemanticAttributesNames(opersParents));
 		}
 		return modelingAttributesNames;
-	}
-
-	@Override
-	public String toString() {
-		String out = "";
-		// List<String> visibleAttributesNames = metaConcept
-		// .getPanelVisibleAttributes();
-		if (getSupportMetaOverTwoRelation() != null) {
-			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes(null);
-			List<String> listVisibleAttributes = new ArrayList<String>();
-			listVisibleAttributes.addAll(visibleAttributesNames);
-			Collections.sort(listVisibleAttributes);
-
-			// List<String> spacersAttributes = metaConcept
-			// .getPanelSpacersAttributes();
-			Set<String> spacersAttributes = getDisPanelSpacersAttributes(null);
-			for (String visibleAttribute : listVisibleAttributes) {
-				boolean validCondition = true;
-
-				int nameEnd = visibleAttribute.indexOf("#", 3);
-				int varEnd = visibleAttribute.indexOf("#", nameEnd + 1);
-				int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
-
-				String name = visibleAttribute.substring(3);
-				if (nameEnd != -1) {
-					name = visibleAttribute.substring(3, nameEnd);
-					String variable = null;
-					String condition = null;
-					String value = null;
-					variable = visibleAttribute.substring(nameEnd + 1, varEnd);
-					condition = visibleAttribute.substring(varEnd + 1, condEnd);
-					value = visibleAttribute.substring(condEnd + 1);
-					InstAttribute varValue = getInstAttributes().get(variable);
-					if (varValue == null)
-						validCondition = false;
-					else if (varValue.getValue().toString().trim()
-							.equals(value)) {
-						if (condition.equals("!="))
-							validCondition = false;
-					} else {
-						if (condition.equals("=="))
-							validCondition = false;
-					}
-				}
-				boolean nvar = false;
-				if (name != null && validCondition) {
-					Iterator<String> spacers = spacersAttributes.iterator();
-					while (spacers.hasNext()) {
-						String spacer = spacers.next();
-						if (spacer.indexOf("#" + name + "#") != -1) {
-							nvar = true;
-							int sp1 = spacer.indexOf("#");
-							int sp2 = spacer.indexOf("#", sp1 + 1);
-
-							out += spacer.substring(0, sp1);
-							out += getInstAttributes().get(name);
-							while (sp2 != spacer.length()) {
-								int sp3 = spacer.indexOf("#", sp2 + 1);
-								if (sp3 == -1) {
-
-									out += spacer.substring(sp2 + 1);
-									break;
-								}
-								out += spacer.substring(sp2 + 1, sp3);
-
-								sp2 = sp3;
-							}
-						}
-
-					}
-					if (!nvar)
-						out += getInstAttributes().get(name);
-				}
-			}
-			if (out.equals(""))
-				out = "No display attributes defined";
-		}
-		return out;
 	}
 
 	@Override
