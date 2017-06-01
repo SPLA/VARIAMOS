@@ -5640,7 +5640,8 @@ public class DefaultOpersMM {
 		// "#>>\n");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
+//TODO variables
+		
 		attribute = new ElemAttribute("variableType", "Enumeration",
 				AttributeType.OPERATION, true, "Variable Type",
 				"Type of variable", VariableType.class.getCanonicalName(),

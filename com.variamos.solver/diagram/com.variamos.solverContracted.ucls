@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true">  
+<class-diagram version="1.1.14" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="com.variamos.solver.Configuration" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/Configuration.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="128" y="286"/>    
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="com.variamos.solver.SWIPrologSolver" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/SWIPrologSolver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="634" y="525"/>    
+    <position height="-1" width="-1" x="639" y="546"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -100,40 +100,40 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="15">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="16" name="mode">        
-        <position height="0" width="0" x="-640" y="-3"/>      
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="16" name="listener">        
+        <position height="0" width="0" x="-722" y="-15"/>      
       </attribute>      
       <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-722" y="-15"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="18">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="19" name="mode">        
+        <position height="0" width="0" x="-640" y="-3"/>      
+      </attribute>      
+      <multiplicity id="20" minimum="0" maximum="1">        
         <position height="0" width="0" x="-640" y="-3"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="18">    
+  <association id="21">    
     <bendpoint x="370" y="268"/>    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="19" name="options">        
+      <attribute id="22" name="options">        
         <position height="0" width="0" x="-532" y="-308"/>      
       </attribute>      
-      <multiplicity id="20" minimum="0" maximum="1">        
+      <multiplicity id="23" minimum="0" maximum="1">        
         <position height="0" width="0" x="-532" y="-308"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="21">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="22" name="listener">        
-        <position height="0" width="0" x="-722" y="-15"/>      
-      </attribute>      
-      <multiplicity id="23" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-722" y="-15"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <realization id="24">    
