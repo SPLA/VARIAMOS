@@ -383,10 +383,24 @@ public class InfraSyntaxOpersMMM {
 
 		rel = new InstPairwiseRel(basicOpersM2AsoRel);
 		rel.setEdSyntaxEle(infraSyntaxOpersM2AsoRel);
-		rel.setIdentifier("AssoCPWRel");
+		rel.setIdentifier("AssonmCPWRel");
 		rel.setTargetRelation(instPairWiseRelation, true);
-		rel.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
-		constraintInstEdges.put("AssoCPWRel", rel);
+		rel.setSourceRelation(instInfraSyntaxOpersM2nmConcept, true);
+		constraintInstEdges.put("AssonmCPWRel", rel);
+
+		rel = new InstPairwiseRel(basicOpersM2AsoRel);
+		rel.setEdSyntaxEle(infraSyntaxOpersM2AsoRel);
+		rel.setIdentifier("AssonmPWCRel");
+		rel.setTargetRelation(instInfraSyntaxOpersM2nmConcept, true);
+		rel.setSourceRelation(instPairWiseRelation, true);
+		constraintInstEdges.put("AssonmPWCRel", rel);
+
+		rel = new InstPairwiseRel(basicOpersM2AsoRel);
+		rel.setEdSyntaxEle(infraSyntaxOpersM2AsoRel);
+		rel.setIdentifier("AssoOCPWRel");
+		rel.setTargetRelation(instInfraSyntaxOpersM2Concept, true);
+		rel.setSourceRelation(instPairWiseRelation, true);
+		constraintInstEdges.put("AssoOCPWRel", rel);
 
 		rel = new InstPairwiseRel(basicOpersM2AsoRel);
 		rel.setEdSyntaxEle(infraSyntaxOpersM2AsoRel);
@@ -744,7 +758,7 @@ public class InfraSyntaxOpersMMM {
 								AttributeType.OPERATION,
 								false,
 								"Update Out Attribs",
-								"Use Update Output Attributes to update the core on the model",
+								"Use Update Output Attributes to update the results on the model",
 								"",
 								false,
 								"",

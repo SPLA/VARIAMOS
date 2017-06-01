@@ -2169,8 +2169,8 @@ public class ModelExpr implements Serializable, Cloneable {
 		case LEFTITEROUTSUBEXP:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getTargetRelations().size()) {
-				InstElement leftInstElement = instElement.getSourceRelations()
-						.get(pos).getSourceRelations().get(0);
+				InstElement leftInstElement = instElement.getTargetRelations()
+						.get(pos).getTargetRelations().get(0);
 				leftInstanceExpression = new ModelExpr(refas, false, this
 						.getSemanticExpression().getLeftSemanticExpression(),
 						iterInstance);
@@ -2190,8 +2190,8 @@ public class ModelExpr implements Serializable, Cloneable {
 		case LEFTSUBITEROUTRELVARIABLE:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getTargetRelations().size()) {
-				InstElement leftInstElement = instElement.getSourceRelations()
-						.get(pos).getSourceRelations().get(0);
+				InstElement leftInstElement = instElement.getTargetRelations()
+						.get(pos).getTargetRelations().get(0);
 				leftInstanceExpression = new ModelExpr(refas, false,
 						this.getSemanticExpression(), iterInstance);
 				if (leftIterInstance + 1 < leftInstElement.getInstances(refas)
@@ -2354,5 +2354,22 @@ public class ModelExpr implements Serializable, Cloneable {
 			obj.setRightInstanceExpression(obj.rightInstanceExpression
 					.clone(pos));
 		return obj;
+	}
+
+	public List<InstElement> getConcepts() {
+		ArrayList<InstElement> out = new ArrayList<InstElement>();
+		ExpressionVertexType leftType = customSemanticExpression
+				.getLeftExpressionType();
+		ExpressionVertexType rightType = customSemanticExpression
+				.getRightExpressionType();
+		if (leftType == ExpressionVertexType.LEFTSUBEXPRESSION)
+			out.addAll(this.leftInstanceExpression.getConcepts());
+		if (rightType == ExpressionVertexType.RIGHTSUBEXPRESSION)
+			out.addAll(this.rightInstanceExpression.getConcepts());
+		if (leftType == ExpressionVertexType.LEFTVARIABLE)
+			out.add(this.getLeftElement());
+		if (rightType == ExpressionVertexType.RIGHTVARIABLE)
+			out.add(this.getRightElement());
+		return out;
 	}
 }

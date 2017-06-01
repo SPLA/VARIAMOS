@@ -3,7 +3,6 @@ package com.variamos.dynsup.instance;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -309,24 +308,6 @@ public class InstPairwiseRel extends InstElement {
 	 */
 
 	@Override
-	public List<InstAttribute> getVisibleVariables(
-			List<InstElement> syntaxParents) {
-		createInstAttributes(syntaxParents);
-		// return new InstAttribute[0];
-		List<InstAttribute> visibleInstAttributes = null;
-		if (getMetaPairwiseRelation() != null) {
-			Set<String> attributesNames = getDisPropVisibleAttributes(syntaxParents);
-			visibleInstAttributes = getFilteredInstAttributes(attributesNames,
-					null);
-		} else {
-			visibleInstAttributes = new ArrayList<InstAttribute>();
-			visibleInstAttributes.add(getInstAttribute(VAR_METAPAIRWISE));
-			;
-		}
-		return visibleInstAttributes;
-	}
-
-	@Override
 	public List<InstAttribute> getFilteredInstAttributes(
 			Set<String> attributesNames, List<InstAttribute> instAttributes) {
 		List<String> listEditableAttributes = new ArrayList<String>();
@@ -382,26 +363,6 @@ public class InstPairwiseRel extends InstElement {
 		// return instAttributes.get(name);
 	}
 
-	public Set<String> getDisPropEditableAttributes(List<InstElement> parents) {
-		if (getMetaPairwiseRelation() == null)
-			return new HashSet<String>();
-		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPropEditableAttributesSet(parents);
-
-		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
-				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			OpersConcept semanticRelation = (OpersConcept) getInstAttribute(
-					VAR_OPERSPAIRWISE_OBJ).getValueObject();
-			// FIXME how pass parent to opersconcept
-			editableAttributes.addAll(semanticRelation
-					.getPropEditableAttributes(null));
-		}
-
-		editableAttributes.add("02#" + VAR_METAPAIRWISE);
-
-		return editableAttributes;
-	}
-
 	public OpersConcept getSemanticEdge() {
 		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
 				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
@@ -409,24 +370,6 @@ public class InstPairwiseRel extends InstElement {
 					.getValueObject();
 		}
 		return null;
-	}
-
-	public Set<String> getDisPropVisibleAttributes(List<InstElement> parents) {
-		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPropVisibleAttributesSet(parents);
-
-		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
-				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			OpersConcept semanticRelation = (OpersConcept) getInstAttribute(
-					VAR_OPERSPAIRWISE_OBJ).getValueObject();
-			// FIXME how to get the parents for this opersconcept
-			editableAttributes.addAll(semanticRelation
-					.getPropVisibleAttributes(null));
-		}
-
-		editableAttributes.add("02#" + VAR_METAPAIRWISE);
-
-		return editableAttributes;
 	}
 
 	@Override
@@ -456,38 +399,10 @@ public class InstPairwiseRel extends InstElement {
 				if (attribute != null)
 					visibleAttributes.add(attribute);
 			}
+		} else {
+			visibleAttributes.add(getInstAttribute(VAR_METAPAIRWISE));
 		}
 		return visibleAttributes;
-	}
-
-	@Deprecated
-	public Set<String> getDisPanelVisibleAttributes(List<InstElement> parents) {
-		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPanelVisibleAttributesSet(parents);
-
-		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
-				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			OpersConcept semanticRelation = (OpersConcept) getInstAttribute(
-					VAR_OPERSPAIRWISE_OBJ).getValueObject();
-			editableAttributes.addAll(semanticRelation
-					.getPanelVisibleAttributes(null));
-		}
-		return editableAttributes;
-	}
-
-	@Deprecated
-	public Set<String> getDisPanelSpacersAttributes(List<InstElement> parents) {
-		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPanelSpacersAttributesSet(parents);
-
-		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
-				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			OpersConcept semanticRelation = (OpersConcept) getInstAttribute(
-					VAR_OPERSPAIRWISE_OBJ).getValueObject();
-			editableAttributes.addAll(semanticRelation
-					.getPanelSpacersAttributes(null));
-		}
-		return editableAttributes;
 	}
 
 	@Override

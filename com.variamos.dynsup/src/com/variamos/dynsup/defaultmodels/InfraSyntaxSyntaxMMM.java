@@ -121,7 +121,7 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.OPERATION, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, -1, "", "", 1, "<<MetaConcept>>\n{OperType:\"#"
+						0, 0, "", "", 1, "<<MetaConcept>>\n{OperType:\"#"
 								+ "OperationsMMType" + "#all#\"}\n", ""));
 
 		infraSyntaxM2Node.addPropVisibleAttribute("00#" + "OperationsMMType");
@@ -483,17 +483,17 @@ public class InfraSyntaxSyntaxMMM {
 				"", "", 0, 5, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Style", new ElemAttribute(
 				"Style", "String", AttributeType.SYNTAX, false,
-				"Drawing Style", "", "refasclaim", 0, 6, "", "", -1, "", ""));
+				"Drawing Style", "", "refasclaim", 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Description",
 				new ElemAttribute("Description", "String",
 						AttributeType.SYNTAX, false, "Description", "", "", 0,
 						7, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Width", new ElemAttribute(
 				"Width", "Integer", AttributeType.SYNTAX, false,
-				"Initial Width", "", 100, 0, 8, "", "", -1, "", ""));
+				"Initial Width", "", 100, 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Height", new ElemAttribute(
 				"Height", "Integer", AttributeType.SYNTAX, false,
-				"Initial Height", "", 40, 0, 9, "", "", -1, "", ""));
+				"Initial Height", "", 40, 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Image", new ElemAttribute(
 				"Image", "String", AttributeType.SYNTAX, false, "Image File",
 				"", "/com/variamos/gui/perspeditor/images/claim.png", 0, -1,
@@ -501,7 +501,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2View.addModelingAttribute("BorderStroke",
 				new ElemAttribute("BorderStroke", "Integer",
 						AttributeType.SYNTAX, false, "Border Stroke", "", 1, 0,
-						11, "", "", -1, "", ""));
+						-1, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("PaletteNames",
 				new ElemAttribute("PaletteNames", "String",
 						AttributeType.SYNTAX, false, "Palette Name", "", "", 0,
@@ -948,7 +948,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2PWRel.addModelingAttribute("SourceCardinality",
 				new ElemAttribute("SourceCardinality", "String",
 						AttributeType.SYNTAX, false, "Source Cardinality", "",
-						"String", "[]", "", 0, -1, "", "", 4, "{SourCard:#"
+						"String", "[]", "", 0, 4, "", "", 4, "{SourCard:#"
 								+ "SourceCardinality" + "#all#,", ""));
 
 		infraSyntaxM2PWRel

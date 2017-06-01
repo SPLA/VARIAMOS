@@ -272,7 +272,7 @@ public class ModelExpr2HLCL {
 		// for (Expression exp : transExpSet.getHLCLExpressions(subOperation +
 		// "-"
 		// + operExecType)) {
-		// System.out.println(exp.toString());
+		// System.out.println(exp + exp.toString());
 		// }
 		// List<Labeling> labelings =
 		// transExpSet.getLabelings(refas, subOperation, operExecType);
@@ -377,7 +377,7 @@ public class ModelExpr2HLCL {
 		}
 
 		for (AbstractExpression staticTransformation : staticTransformations) {
-			// System.out.println(transformation.expressionStructure());
+			// System.out.println(staticTransformation.expressionStructure());
 			idMap.putAll(staticTransformation.getIdentifiers(f));
 			if (staticTransformation instanceof AbstractBooleanExpression) {
 				hlclProgram
@@ -743,7 +743,7 @@ public class ModelExpr2HLCL {
 								&& vertex.getTransSupInstElement()
 										.getEdSyntaxEle()
 										.getInstSemanticElementId()
-										.equals("nmVariable")
+										.equals("NmVariable")
 								&& instOperSubAction != null
 								&& vertex.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable") && (vertex

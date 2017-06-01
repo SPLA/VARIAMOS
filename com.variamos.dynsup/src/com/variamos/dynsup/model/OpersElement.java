@@ -26,9 +26,13 @@ public class OpersElement implements Serializable {
 	private static final long serialVersionUID = 2700689903495112611L;
 	private String identifier;
 
+	@Deprecated
 	private List<String> propVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
+	@Deprecated
 	private List<String> propEditableAttributes; // position(01-99)#variable#conditionalvariable#operator#value
+	@Deprecated
 	private List<String> panelVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
+	@Deprecated
 	private List<String> panelSpacersAttributes; // preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, ElemAttribute> semanticAttributes = new HashMap<String, ElemAttribute>();
 	private List<OpersExpr> semanticExpressions;
@@ -60,10 +64,12 @@ public class OpersElement implements Serializable {
 		this.semanticExpressions = new ArrayList<OpersExpr>();
 	}
 
+	@Deprecated
 	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {
 		this.propVisibleAttributes = disPropVisibleAttributes;
 	}
 
+	@Deprecated
 	public void setPropEditableAttributes(List<String> disPropEditableAttributes) {
 		this.propEditableAttributes = disPropEditableAttributes;
 	}
@@ -261,6 +267,10 @@ public class OpersElement implements Serializable {
 		this.semanticAttributes.put(name, abstractAttribute);
 	}
 
+	public void removeSemanticAttribute(String value) {
+		this.semanticAttributes.remove(value);
+	}
+
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
@@ -303,8 +313,7 @@ public class OpersElement implements Serializable {
 				.addAll(getAllSemanticAttributesNames(opersParents));
 		if (syntaxParents != null)
 			for (InstElement parent : syntaxParents) {
-				SyntaxElement parentConcept = (SyntaxElement) parent
-						.getEdSyntaxEle();
+				SyntaxElement parentConcept = parent.getEdSyntaxEle();
 				modelingAttributesNames.addAll(parentConcept
 						.getTransInstSemanticElement().getEdOperEle()
 						.getAllSemanticAttributesNames(opersParents));
