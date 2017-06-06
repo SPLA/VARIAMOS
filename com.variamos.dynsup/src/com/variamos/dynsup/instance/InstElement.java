@@ -445,8 +445,12 @@ public abstract class InstElement implements Serializable, Cloneable,
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("TrueVal")
-						&& !attributeName.equals("False")
+						&& !attributeName.equals("FalseVal")
 						&& !attributeName.equals("userId")
+						&& !attributeName.equals("Active")
+						&& !attributeName.equals("TestConfSel")
+						&& !attributeName.equals("exportOnConfig")
+						&& !attributeName.equals("TestConfNotSel")
 						&& !attributeName.equals("Description"))
 					out2 += attributeName + "\n";
 			}

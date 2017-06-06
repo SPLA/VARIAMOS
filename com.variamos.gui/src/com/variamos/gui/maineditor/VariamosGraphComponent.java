@@ -327,19 +327,20 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						addCellOverlay(childCell, over3);
 					}
 
-					if ((boolean) instConcept.getInstAttribute("NNotSel")
-							.getValue()) {
-						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
-								mxGraphComponent.class.getResource(sim_red3)),
-								backbottomhint + "Not selected");
-						backbottomhint = "Not selected";
-						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-						over3.setAlign(mxConstants.ALIGN_CENTER);
-						addCellOverlay(childCell, over3);
-					}
+					// if ((boolean) instConcept.getInstAttribute("NNotSel")
+					// .getValue()) {
+					// mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+					// mxGraphComponent.class.getResource(sim_red3)),
+					// backbottomhint + "Not selected");
+					// backbottomhint = "Not selected";
+					// over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+					// over3.setAlign(mxConstants.ALIGN_CENTER);
+					// addCellOverlay(childCell, over3);
+					// }
 				}
 			} catch (Exception e) {
-				System.out.println("Cell draw error");
+				System.out.println("Cell draw error 01");
+				e.printStackTrace();
 				// ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
@@ -382,7 +383,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				addCellOverlay(childCell, over3);
 
 			} catch (Exception e) {
-				System.out.println("Cell draw error");
+				System.out.println("Cell draw error 02");
 				// ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
