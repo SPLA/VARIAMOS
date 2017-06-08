@@ -280,7 +280,7 @@ public class DefaultOpersMM {
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(2);
+			instOperationSubAction.getInstAttribute("index").setValue(2);
 
 			refas.getVariabilityVertex().put("None", instOperationSubAction);
 
@@ -333,7 +333,7 @@ public class DefaultOpersMM {
 			instOperationGroup.getInstAttribute("name").setValue(
 					"Basic Simulation (Dynamic)");
 			instOperationGroup.getInstAttribute("shortcut").setValue("S");
-			instOperationGroup.getInstAttribute("Index").setValue(1);
+			instOperationGroup.getInstAttribute("index").setValue(1);
 
 			simulOper = new OpersConcept("BasicSimulOper");
 
@@ -374,7 +374,7 @@ public class DefaultOpersMM {
 			// false);
 			// instOperationSubAction.getInstAttribute("iteration")
 			// .setValue(false);
-			// instOperationSubAction.getInstAttribute("Index").setValue(1);
+			// instOperationSubAction.getInstAttribute("index").setValue(1);
 			//
 			// refas.getVariabilityVertex().put("BasSim-Pre-Validation",
 			// instOperationSubAction);
@@ -440,7 +440,7 @@ public class DefaultOpersMM {
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(2);
+			instOperationSubAction.getInstAttribute("index").setValue(2);
 
 			refas.getVariabilityVertex().put("BasSim-Pre-UpdateSubOper",
 					instOperationSubAction);
@@ -534,7 +534,7 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					true);
 			instOperationSubAction.getInstAttribute("iteration").setValue(true);
-			instOperationSubAction.getInstAttribute("Index").setValue(3);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
 
 			refas.getVariabilityVertex().put("BasSim-ExecutionSubOper",
 					instOperationSubAction);
@@ -651,7 +651,7 @@ public class DefaultOpersMM {
 			// .setValue(false);
 			// refas.getVariabilityVertex().put("BasSim-Post-Validation",
 			// instOperationSubAction);
-			// instOperationSubAction.getInstAttribute("Index").setValue(4);
+			// instOperationSubAction.getInstAttribute("index").setValue(4);
 			//
 			// instEdgeOper = new InstPairwiseRel();
 			// refas.getConstraintInstEdges().put("sim-pos-val", instEdgeOper);
@@ -716,7 +716,7 @@ public class DefaultOpersMM {
 			// false);
 			// instOperationSubAction.getInstAttribute("iteration")
 			// .setValue(false);
-			// instOperationSubAction.getInstAttribute("Index").setValue(5);
+			// instOperationSubAction.getInstAttribute("index").setValue(5);
 			//
 			// refas.getVariabilityVertex().put("BasSim-Post-Update",
 			// instOperationSubAction);
@@ -780,7 +780,7 @@ public class DefaultOpersMM {
 			instOperationGroup.getInstAttribute("name").setValue(
 					"Simulation Scenarios  (Dynamic)");
 			instOperationGroup.getInstAttribute("shortcut").setValue("C");
-			instOperationGroup.getInstAttribute("Index").setValue(1);
+			instOperationGroup.getInstAttribute("index").setValue(1);
 
 			simulScenOper = new OpersConcept("SceSimulOper");
 
@@ -819,7 +819,7 @@ public class DefaultOpersMM {
 			// false);
 			// instOperationSubAction.getInstAttribute("iteration")
 			// .setValue(false);
-			// instOperationSubAction.getInstAttribute("Index").setValue(1);
+			// instOperationSubAction.getInstAttribute("index").setValue(1);
 			//
 			// refas.getVariabilityVertex().put("SimSce-Pre-Validation",
 			// instOperationSubAction);
@@ -888,7 +888,7 @@ public class DefaultOpersMM {
 			// false);
 			// instOperationSubAction.getInstAttribute("iteration")
 			// .setValue(false);
-			// instOperationSubAction.getInstAttribute("Index").setValue(2);
+			// instOperationSubAction.getInstAttribute("index").setValue(2);
 			//
 			// refas.getVariabilityVertex().put("SimSce-Pre-Update",
 			// instOperationSubAction);
@@ -964,7 +964,7 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					true);
 			instOperationSubAction.getInstAttribute("iteration").setValue(true);
-			instOperationSubAction.getInstAttribute("Index").setValue(3);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
 
 			refas.getVariabilityVertex().put("SceSim-Execution",
 					instOperationSubAction);
@@ -1054,7 +1054,7 @@ public class DefaultOpersMM {
 			// true);
 			// instOperationSubAction.getInstAttribute("iteration")
 			// .setValue(false);
-			// instOperationSubAction.getInstAttribute("Index").setValue(4);
+			// instOperationSubAction.getInstAttribute("index").setValue(4);
 			//
 			// refas.getVariabilityVertex().put("SimSce-Post-Validation",
 			// instOperationSubAction);
@@ -1122,7 +1122,7 @@ public class DefaultOpersMM {
 			// false);
 			// instOperationSubAction.getInstAttribute("iteration")
 			// .setValue(false);
-			// instOperationSubAction.getInstAttribute("Index").setValue(5);
+			// instOperationSubAction.getInstAttribute("index").setValue(5);
 			//
 			// refas.getVariabilityVertex().put("SimSce-Post-Update",
 			// instOperationSubAction);
@@ -1243,7 +1243,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("SDCoreSubOper",
 					instOperationSubAction);
@@ -1353,7 +1353,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("SDAlwaysActSubOper",
 					instOperationSubAction);
@@ -1467,7 +1467,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("SDneverActSubOper",
 					instOperationSubAction);
@@ -1570,7 +1570,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("ClCoreSubOper",
 					instOperationSubAction);
@@ -1681,7 +1681,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("ClAlwaysActSubOper",
 					instOperationSubAction);
@@ -1792,7 +1792,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("ClNeverActSubOper",
 					instOperationSubAction);
@@ -1899,7 +1899,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("OperCoreSubOper",
 					instOperationSubAction);
@@ -2018,7 +2018,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("AllOpersActivatedSubOper",
 					instOperationSubAction);
@@ -2126,7 +2126,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("NoLoopsStructRelSubOper",
 					instOperationSubAction);
@@ -2247,7 +2247,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("SGConflictsSubOper",
 					instOperationSubAction);
@@ -2383,7 +2383,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("indivVerExp").setValue(
 					true);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("ConflictClSubOper",
 					instOperationSubAction);
@@ -2521,7 +2521,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("indivVerExp").setValue(
 					true);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("ConflictClSdSubOper",
 					instOperationSubAction);
@@ -2656,7 +2656,7 @@ public class DefaultOpersMM {
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("ConflictSDSubOper",
 					instOperationSubAction);
@@ -2786,7 +2786,7 @@ public class DefaultOpersMM {
 					.setValue(true);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			refas.getVariabilityVertex().put("UpdateCoreSubOper",
 					instOperationSubAction);
@@ -2897,7 +2897,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("IdentifyDeadSubOper",
 					instOperationSubAction);
 
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("ver-dead", instEdgeOper);
@@ -3000,7 +3000,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("IdentifyFalseSubOper",
 					instOperationSubAction);
 
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("ver-false", instEdgeOper);
@@ -3126,7 +3126,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("IdentifyWithoutParentsSubOper",
 					instOperationSubAction);
 
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("ver-par", instEdgeOper);
@@ -3242,7 +3242,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("VerifySingleRootSubOper",
 					instOperationSubAction);
 
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("ver-root", instEdgeOper);
@@ -3384,7 +3384,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("ConfigureTemporalSubOper",
 					instOperationSubAction);
 
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("conf-temp", instEdgeOper);
@@ -3480,7 +3480,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("ConfigurePermanentSubOpe",
 					instOperationSubAction);
 
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("conf-perm", instEdgeOper);
@@ -3921,8 +3921,8 @@ public class DefaultOpersMM {
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 		}
-		attribute = new ElemAttribute("Description", "String",
-				AttributeType.OPERATION, false, "Description", "", "", 0, -1,
+		attribute = new ElemAttribute("description", "String",
+				AttributeType.OPERATION, false, "description", "", "", 0, -1,
 				"", "", -1, "", "");
 		// TODO move to syntax
 
@@ -5399,11 +5399,11 @@ public class DefaultOpersMM {
 
 		}
 
-		attribute = new ElemAttribute("Description", "String",
-				AttributeType.OPERATION, false, "Description",
+		attribute = new ElemAttribute("description", "String",
+				AttributeType.OPERATION, false, "description",
 				"Element description", "", 0, -1, "", "", -1, "", "");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		semInfraOTRel.putSemanticAttribute("Description", attribute);
+		semInfraOTRel.putSemanticAttribute("description", attribute);
 
 		semInfraOTRel.putSemanticAttribute("relationType", new ElemAttribute(
 				"relationType", "Class", AttributeType.OPERATION, true,
@@ -6744,7 +6744,7 @@ public class DefaultOpersMM {
 		// Design attributes: Do not change identifiers
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		// semGeneralElement.putSemanticAttribute("Description", attribute);
+		// semGeneralElement.putSemanticAttribute("description", attribute);
 
 		attribute = new ElemAttribute("Scope", "Boolean",
 				AttributeType.OPERATION, true, "Global Scope", "", true, 0, 5,
