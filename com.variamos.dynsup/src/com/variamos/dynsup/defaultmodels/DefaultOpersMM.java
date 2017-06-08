@@ -3536,6 +3536,8 @@ public class DefaultOpersMM {
 	private static InstConcept instNmMetaPW = null;
 	private static InstConcept instNmMetaOT = null;
 	private static InstConcept instVertexVAR = null;
+	private static InstConcept instVertexLowVAR = null;
+	private static InstConcept instVertexLowExp = null;
 	private static InstConcept instVertexCG = null;
 
 	private static void createOpersMetaModelnmElements(ModelInstance refas,
@@ -6184,6 +6186,137 @@ public class DefaultOpersMM {
 		// simulOperationSubAction.addInVariable(attribute);
 
 		refas.getVariabilityVertex().put("NmVariable", instVertexVAR);
+
+		OpersVariable semLowExp = new OpersVariable("NmLowExp");
+
+		instVertexLowExp = new InstConcept("NmLowExp", infraMetaMetaConcept,
+				semLowExp);
+
+		attribute = new ElemAttribute("LowLevelExpressionText",
+				LowExpr.class.getCanonicalName(), AttributeType.OPERATION,
+				false, "Low-Level Expr. Text",
+				"Expression at the solver level (language independent)", null,
+				0, 3, "", "", -1, "", "");
+		semLowExp.putSemanticAttribute("LowLevelExpressionText", attribute);
+		semLowExp.addPropEditableAttribute("03#" + "LowLevelExpressionText");
+		semLowExp.addPropVisibleAttribute("03#" + "LowLevelExpressionText"
+				+ "#" + "");
+
+		attribute = new ElemAttribute("LowLevelExprSubOper", "Class",
+				AttributeType.OPERATION, false, "SubOper",
+				"Sub Operation to include this low-level expressions",
+				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				0, 3, "", "", -1, "", "");
+		semLowExp.putSemanticAttribute("LowLevelExprSubOper", attribute);
+		semLowExp.addPropEditableAttribute("03#" + "LowLevelExprSubOper");
+		semLowExp.addPropVisibleAttribute("03#" + "LowLevelExprSubOper" + "#"
+				+ "");
+
+		refas.getVariabilityVertex().put("NmLowExp", instVertexLowExp);
+
+		OpersVariable semLowVariable = new OpersVariable("NmLowVariable");
+
+		instVertexLowVAR = new InstConcept("NmLowVariable",
+				infraMetaMetaConcept, semLowVariable);
+
+		attribute = new ElemAttribute("value", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "Value",
+				"Variable current value (defined by an operation execution)",
+				0, 1, 7, "", "", -1, "", "");
+		semLowVariable.putSemanticAttribute("value", attribute);
+		semLowVariable.addPropVisibleAttribute("07#" + "value");
+		semLowVariable.addPropVisibleAttribute("07#" + "value");
+		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semLowVariable
+				.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute(
+				"LowLevelVarOutSubOper",
+				"Class",
+				AttributeType.OPERATION,
+				false,
+				"Out SubOper",
+				"Sub operation to include the low-level variable calculated (in a low level expression)",
+				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				0, 4, "", "variableType" + "#==#" + "LowLevel variable", -1,
+				"", "");
+		semLowVariable.putSemanticAttribute("LowLevelVarOutSubOper", attribute);
+		semLowVariable
+				.addPropEditableAttribute("04#" + "LowLevelVarOutSubOper");
+		semLowVariable.addPropVisibleAttribute("04#" + "LowLevelVarOutSubOper");
+
+		attribute = new ElemAttribute(
+				"LowLevelOutVarLabel",
+				"Class",
+				AttributeType.OPERATION,
+				false,
+				"Output Labeling",
+				"Labeling with only a set of output variables (i.e., without sorting) for a sub operation",
+				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
+				0, 5, "", "", -1, "", "");
+		semLowVariable.putSemanticAttribute("LowLevelOutVarLabel", attribute);
+		semLowVariable.addPropEditableAttribute("05#" + "LowLevelOutVarLabel");
+		semLowVariable.addPropVisibleAttribute("05#" + "LowLevelOutVarLabel");
+
+		attribute = new ElemAttribute(
+				"LowLevelVarInSubOper",
+				"Class",
+				AttributeType.OPERATION,
+				false,
+				"Input SubOper as low var",
+				"Sub Operation to include the low-level variable with a fixed or previously calculated value",
+				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				0, 6, "", "", -1, "", "");
+		semLowVariable.putSemanticAttribute("LowLevelVarInSubOper", attribute);
+		semLowVariable.addPropEditableAttribute("06#" + "LowLevelVarInSubOper");
+		semLowVariable.addPropVisibleAttribute("06#" + "LowLevelVarInSubOper"
+				+ "#" + "variableType" + "#==#" + "LowLevel variable");
+
+		attribute = new ElemAttribute("LowLevelInVarLabel", "Class",
+				AttributeType.OPERATION, false, "Input Labeling as low var",
+				"Labeling with only a set of variables for input suboper",
+				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
+				0, 7, "", "", -1, "", "");
+		semLowVariable.putSemanticAttribute("LowLevelInVarLabel", attribute);
+		semLowVariable.addPropEditableAttribute("07#" + "LowLevelInVarLabel");
+		semLowVariable.addPropVisibleAttribute("07#" + "LowLevelInVarLabel");
+
+		attribute = new ElemAttribute(
+				"IntegerVarInSubOper",
+				"Class",
+				AttributeType.OPERATION,
+				false,
+				"Input SubOper as int",
+				"Sub Operation to include the low-level variable previous calculated, in a low level expression, as Integer",
+				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				0, 8, "", "", -1, "", "");
+		semLowVariable.putSemanticAttribute("IntegerVarInSubOper", attribute);
+		semLowVariable.addPropEditableAttribute("08#" + "IntegerVarInSubOper");
+		semLowVariable.addPropVisibleAttribute("08#" + "IntegerVarInSubOper");
+
+		attribute = new ElemAttribute("IntegerInVarLabel", "Class",
+				AttributeType.OPERATION, false, "Input Labeling as int",
+				"Labeling with only a set of variables for input suboper",
+				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
+				0, 9, "", "", -1, "", "");
+		semLowVariable.putSemanticAttribute("IntegerInVarLabel", attribute);
+		semLowVariable.addPropEditableAttribute("09#" + "IntegerInVarLabel");
+		semLowVariable.addPropVisibleAttribute("09#" + "IntegerInVarLabel");
+
+		attribute = new ElemAttribute("LowLevelVarValue", "String",
+				AttributeType.GLOBALCONFIG, false, "Fixed Input Value",
+				"Value defined for input variable", "", 0, 8, "", "", -1, "",
+				"");
+		semLowVariable.putSemanticAttribute("LowLevelVarValue", attribute);
+		semLowVariable.addPropEditableAttribute("08#" + "LowLevelVarValue");
+		semLowVariable.addPropVisibleAttribute("08#" + "LowLevelVarValue");
+
+		refas.getVariabilityVertex().put("NmLowVariable", instVertexLowVAR);
 
 		OpersElement semContextGroup = new OpersElement("NmConcernLevel");
 
@@ -12050,6 +12183,106 @@ public class DefaultOpersMM {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdge.setTargetRelation(instVertexAsset, true);
 		instEdge.setSourceRelation(instSemAssetPairwiseRel, true);
+
+		// OpersConcept semlowexpcntxPairwiseRel = new OpersConcept(
+		// "NmLowExpToConcernPWlaimPW");
+		//
+		// InstConcept instLowSemexpcntxPairwiseRel = new InstConcept(
+		// "NmLowExpToConcernPW", metaMetaPairwiseRelation,
+		// semlowexpcntxPairwiseRel);
+		//
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("lowexpxtoip", instEdge);
+		// instEdge.setIdentifier("vlowexptoip");
+		// instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		// instEdge.setTargetRelation(instNmMetaPW, true);
+		// instEdge.setSourceRelation(instLowSemexpcntxPairwiseRel, true);
+		//
+		// ia = instLowSemexpcntxPairwiseRel.getInstAttribute("relTypesAttr");
+		// ias = (List<InstAttribute>) ia.getValue();
+		//
+		// ias.add(new InstAttribute("LowVExp Context", new ElemAttribute(
+		// "LowExp Context", StringType.IDENTIFIER, AttributeType.OPTION,
+		// false, "LowExp Context", "", "", 1, -1, "", "", -1, "", ""),
+		// "LowExp Context##false#true#true#1#-1#1#1"));
+		//
+		// ia = instLowSemexpcntxPairwiseRel.getInstAttribute("opersExprs");
+		// ias = (List<InstAttribute>) ia.getValue();
+		//
+		// semExpr = new ArrayList<OpersExpr>();
+		//
+		// ias.add(new InstAttribute("LowExp Context", new ElemAttribute(
+		// "LowExp Context", StringType.IDENTIFIER, AttributeType.OPTION,
+		// false, "LowExp Context", "", "", 1, -1, "", "", -1, "", ""),
+		// semExpr));
+		//
+		// refas.getVariabilityVertex().put("NmLowVarToConcernPW",
+		// instLowSemexpcntxPairwiseRel);
+		//
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("lowexprcntxPWAsso-GR", instEdge);
+		// instEdge.setIdentifier("lowexprcntxPWAsso-GR");
+		// instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		// instEdge.setTargetRelation(instLowSemexpcntxPairwiseRel, true);
+		// instEdge.setSourceRelation(instVertexLowExp, true);
+		//
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("lowexprcntxPW-GR-Asso",
+		// instEdge);
+		// instEdge.setIdentifier("lowexpcntxPW-GR-Asso");
+		// instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		// instEdge.setTargetRelation(instVertexCG, true);
+		// instEdge.setSourceRelation(instLowSemexpcntxPairwiseRel, true);
+		//
+		// OpersConcept semlowvarcntxPairwiseRel = new OpersConcept(
+		// "NmLowVarToConcernPWlaimPW");
+		//
+		// InstConcept instLowSemvarcntxPairwiseRel = new InstConcept(
+		// "NmLowVarToConcernPW", metaMetaPairwiseRelation,
+		// semlowvarcntxPairwiseRel);
+		//
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("lowvcxtoip", instEdge);
+		// instEdge.setIdentifier("vlowcxtoip");
+		// instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		// instEdge.setTargetRelation(instNmMetaPW, true);
+		// instEdge.setSourceRelation(instLowSemvarcntxPairwiseRel, true);
+		//
+		// ia = instLowSemvarcntxPairwiseRel.getInstAttribute("relTypesAttr");
+		// ias = (List<InstAttribute>) ia.getValue();
+		//
+		// ias.add(new InstAttribute("LowVariable Context", new ElemAttribute(
+		// "LowVariable Context", StringType.IDENTIFIER,
+		// AttributeType.OPTION, false, "LowVariable Context", "", "", 1,
+		// -1, "", "", -1, "", ""),
+		// "LowVariable Context##false#true#true#1#-1#1#1"));
+		//
+		// ia = instLowSemvarcntxPairwiseRel.getInstAttribute("opersExprs");
+		// ias = (List<InstAttribute>) ia.getValue();
+		//
+		// semExpr = new ArrayList<OpersExpr>();
+		//
+		// ias.add(new InstAttribute("LowVariable Context", new ElemAttribute(
+		// "LowVariable Context", StringType.IDENTIFIER,
+		// AttributeType.OPTION, false, "LowVariable Context", "", "", 1,
+		// -1, "", "", -1, "", ""), semExpr));
+		//
+		// refas.getVariabilityVertex().put("NmLowVarToConcernPW",
+		// instLowSemvarcntxPairwiseRel);
+		//
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("lowvarcntxPWAsso-GR", instEdge);
+		// instEdge.setIdentifier("lowvarcntxPWAsso-GR");
+		// instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		// instEdge.setTargetRelation(instLowSemvarcntxPairwiseRel, true);
+		// instEdge.setSourceRelation(instVertexLowVAR, true);
+		//
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("lowvarcntxPW-GR-Asso", instEdge);
+		// instEdge.setIdentifier("lowvarcntxPW-GR-Asso");
+		// instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		// instEdge.setTargetRelation(instVertexCG, true);
+		// instEdge.setSourceRelation(instLowSemvarcntxPairwiseRel, true);
 
 		OpersConcept semvarcntxPairwiseRel = new OpersConcept(
 				"NmVarToConcernPWlaimPW");

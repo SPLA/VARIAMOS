@@ -281,9 +281,10 @@ public class ElemAttribute implements Serializable {
 
 	VAR_DEFAULTDOMAINVALUEFIELD = "defDomValueField",
 
-	VAR_DEFAULTDOMAINVALUEFIELD_NAME = "Def. Domain (Filter Field)",
+	// meta-attribute that defines the default domain in case the domain is null
+			VAR_DEFAULTDOMAINVALUEFIELD_NAME = "Def. Domain (Filter Field)",
 
-	VAR_TOOLTIPTEXTNAME = "toolTipTextName";
+			VAR_TOOLTIPTEXTNAME = "toolTipTextName";
 
 	public String getElementDisplayCondition() {
 		return elementDisplayCondition;
