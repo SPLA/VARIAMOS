@@ -3001,7 +3001,6 @@ public class DefaultOpersMM {
 					instOperationSubAction);
 
 			instOperationSubAction.getInstAttribute("index").setValue(1);
-
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("ver-false", instEdgeOper);
 			instEdgeOper.setIdentifier("ver-false");
