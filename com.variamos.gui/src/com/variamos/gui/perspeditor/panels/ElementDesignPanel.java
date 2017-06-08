@@ -359,8 +359,9 @@ public class ElementDesignPanel extends JPanel {
 										if (editor.getPerspective() == 4)
 											editable = false;
 										List<ModelExpr> ie = new ArrayList<ModelExpr>();
-										if ((ModelExpr) finalInstAttribute
-												.getValue() != null)
+										if (finalInstAttribute.getValue() != null
+												&& !finalInstAttribute
+														.getValue().equals(""))
 											ie.add((ModelExpr) finalInstAttribute
 													.getValue());
 										else
