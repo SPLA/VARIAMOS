@@ -2939,7 +2939,6 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			verifFalseOptOper = new OpersConcept("IdentifyFalseOper");
-
 			instOperationAction = new InstConcept("IdentifyFalseOper",
 					metaOperationAction, verifFalseOptOper);
 			refas.getVariabilityVertex().put("IdentifyFalseOper",
@@ -4725,6 +4724,7 @@ public class DefaultOpersMM {
 		// "");
 		// semNmMetaConcept.putSemanticAttribute("NNotSel", attribute);
 		// semNmMetaConcept.addPropVisibleAttribute("04#" + "NNotSel");
+
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addOutVariable(attribute);
 
@@ -5209,10 +5209,12 @@ public class DefaultOpersMM {
 					.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
 					.getIdentifier(), attribute.getName(), true));
+
 			updateCoreSubOperationAction.addOutAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+
 			sasverSDCoreOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -5990,6 +5992,7 @@ public class DefaultOpersMM {
 		// semVariable.putSemanticAttribute("extVisible", attribute);
 		// semVariable.addPropEditableAttribute("08#" + "extVisible");
 		// semVariable.addPropVisibleAttribute("08#" + "extVisible");
+
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		// Hidden, currently not used, required for MAPE-K simulation
@@ -6211,6 +6214,7 @@ public class DefaultOpersMM {
 								1, 0, 7, "", "", -1, "", ""));
 		semContextGroup.addPropEditableAttribute("07#" + "instances");
 		semContextGroup.addPropVisibleAttribute("07#" + "instances");
+
 		// semContextGroup.putSemanticAttribute("ExtVisible", new ElemAttribute(
 		// "ExtVisible", "Boolean", AttributeType.OPERATION, false,
 		// "External Visible", "(Ignored for operations)", false, 0, -1,
@@ -8212,6 +8216,7 @@ public class DefaultOpersMM {
 		// Copy the expressions from the PW definition
 		// parent 164 165 166 167 168 169
 		// altern 170 171 172
+
 		InstConcept instFeatFeatFGRF = new InstConcept("FeatureOTToFeature",
 				metaMetaPairwiseRelation);
 		refas.getVariabilityVertex()
