@@ -576,9 +576,16 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					List<ModelExpr> instexp = createElementInstanceExpressions(
 							oper2, semExps, true, 1);
 					List<NumericExpression> explist = getNumericExpressions(instexp);
+					int position = 0;
+					if (operLab.getInstAttributeValue("position") instanceof String)
+						position = Integer.parseInt((String) operLab
+								.getInstAttributeValue("position"));
+					else
+						position = ((Integer) operLab
+								.getInstAttributeValue("position")).intValue();
 					Labeling lab = new Labeling(operLab.getIdentifier(),
 							(String) operLab.getInstAttributeValue("labelId"),
-							(int) operLab.getInstAttributeValue("position"),
+							position,
 							(boolean) operLab
 									.getInstAttributeValue("outputSet"),
 							(boolean) operLab
