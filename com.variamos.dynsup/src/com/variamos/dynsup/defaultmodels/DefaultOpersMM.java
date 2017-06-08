@@ -1285,8 +1285,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("sd-core-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sd-core-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("sd-core-lab");
+			refas.getConstraintInstEdges().put("sd-core-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-core-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -1395,8 +1395,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("sd-all-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sd-all-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("sd-all-lab");
+			refas.getConstraintInstEdges().put("sd-all-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-all-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -1509,8 +1509,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("sd-never-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sd-never-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("sd-never-lab");
+			refas.getConstraintInstEdges().put("sd-never-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("sd-never-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -1612,8 +1612,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("cl-core-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("cl-core-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("cl-core-lab");
+			refas.getConstraintInstEdges().put("cl-core-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("cl-core-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -1723,8 +1723,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("cl-all-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("cl-all-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("cl-all-lab");
+			refas.getConstraintInstEdges().put("cl-all-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("cl-all-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -1834,8 +1834,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("cl-never-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("cl-never-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("cl-never-lab");
+			refas.getConstraintInstEdges().put("cl-never-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("cl-never-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -1941,8 +1941,9 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("oper-core-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("oper-core-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("oper-core-lab");
+			refas.getConstraintInstEdges()
+					.put("oper-core-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("oper-core-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -2059,8 +2060,9 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("all-opers-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("all-opers-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("all-opers-lab");
+			refas.getConstraintInstEdges()
+					.put("all-opers-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("all-opers-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -2181,8 +2183,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("no-loops-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("no-loops-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("no-loops-lab");
+			refas.getConstraintInstEdges().put("no-loops-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("no-loops-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -2317,8 +2319,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("sg-confl-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("sg-confl-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("sg-confl-lab");
+			refas.getConstraintInstEdges().put("sg-confl-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("sg-confl-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -2453,8 +2455,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("confl-cl-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("confl-cl-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("confl-cl-lab");
+			refas.getConstraintInstEdges().put("confl-cl-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("confl-cl-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -2591,8 +2593,9 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("confl-cl-sd-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("confl-cl-sd-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("confl-cl-sd-lab");
+			refas.getConstraintInstEdges().put("confl-cl-sd-lab-pw",
+					instEdgeOper);
+			instEdgeOper.setIdentifier("confl-cl-sd-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -2710,8 +2713,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("confl-sd-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("confl-sd-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("confl-sd-lab");
+			refas.getConstraintInstEdges().put("confl-sd-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("confl-sd-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -2825,8 +2828,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("Upd-core-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("upd-core-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("upd-core-lab");
+			refas.getConstraintInstEdges().put("upd-core-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("upd-core-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -2929,8 +2932,8 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("Ver-dead-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ver-dead-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-dead-lab");
+			refas.getConstraintInstEdges().put("ver-dead-lab-pw", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-dead-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -2997,8 +3000,6 @@ public class DefaultOpersMM {
 					.setValue(false);
 			refas.getVariabilityVertex().put("IdentifyFalseSubOper",
 					instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("Index").setValue(1);
 
 			instOperationSubAction.getInstAttribute("Index").setValue(1);
 
@@ -7428,7 +7429,7 @@ public class DefaultOpersMM {
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
-		t1 = new OpersExpr("019X OPTSelected", refas
+		t1 = new OpersExpr("019X 168 OPTSelected", refas
 				.getSemanticExpressionTypes().get("LessOrEquals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
@@ -7464,7 +7465,7 @@ public class DefaultOpersMM {
 		semExpr.add(t1);
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
 
-		t1 = new OpersExpr("016bX OPTSelected", refas
+		t1 = new OpersExpr("016bX 165 OPTSelected", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
@@ -7500,7 +7501,7 @@ public class DefaultOpersMM {
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
-		t1 = new OpersExpr("018X OPTNotAvailable", refas
+		t1 = new OpersExpr("018X 167 OPTNotAvailable", refas
 				.getSemanticExpressionTypes().get("LessOrEquals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
@@ -7640,7 +7641,7 @@ public class DefaultOpersMM {
 				instDirFeatFeatSideSemEdge, instVertexFFGR, instVertexF,
 				"OSel", "Sel");
 
-		t1 = new OpersExpr("021X CONFSelected", refas
+		t1 = new OpersExpr("021X 170 CONFSelected", refas
 				.getSemanticExpressionTypes().get("LessOrEquals"),
 				instDirFeatFeatSideSemEdge, 1, false, t1);
 
@@ -7716,7 +7717,7 @@ public class DefaultOpersMM {
 
 		// updCoreOptSubOperNormal.addSemanticExpression(t1);
 
-		t1 = new OpersExpr("022X requiresAltFeat", refas
+		t1 = new OpersExpr("022X 171 requiresAltFeat", refas
 				.getSemanticExpressionTypes().get("LessOrEquals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
@@ -8160,7 +8161,7 @@ public class DefaultOpersMM {
 				instVertexF, null, "TrueVal", 0, true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexFFGR, t1, instVertexFFGR, "LowRange");
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
@@ -10481,7 +10482,7 @@ public class DefaultOpersMM {
 				instVertexHC, null, "TrueVal", 0, true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexHHGR, t1, instVertexHC, "LowRange");
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
@@ -14140,7 +14141,7 @@ public class DefaultOpersMM {
 				instVertexOper, null, "TrueVal", 0, true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexCLGR, t1, instVertexF, "LowRange");
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
@@ -16085,7 +16086,7 @@ public class DefaultOpersMM {
 				instVertexAssOPERGR, instVertexAsset, null, "TrueVal", 0, true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexAssOPERGR, t1, instVertexAsset, "LowRange");
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
@@ -16478,7 +16479,7 @@ public class DefaultOpersMM {
 				instVertexAsLFGR, instVertexAsset, null, "TrueVal", 0, true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexAsLFGR, t1, instVertexF, "LowRange");
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
