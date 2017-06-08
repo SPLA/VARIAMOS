@@ -1571,7 +1571,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					editableMetaElement.setPaletteName((String) instAttribute
 							.getValue());
 
-				if (instAttribute.getIdentifier().equals("Description"))
+				if (instAttribute.getIdentifier().equals("description"))
 					editableMetaElement.setDescription((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Width"))

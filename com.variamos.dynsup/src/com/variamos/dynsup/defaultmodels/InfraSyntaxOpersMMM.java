@@ -491,11 +491,11 @@ public class InfraSyntaxOpersMMM {
 				.addPropEditableAttribute("07#" + "shortcut");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("07#" + "shortcut");
 
-		infraSyntaxOpersM2OperGroup.addModelingAttribute("Index",
-				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
+		infraSyntaxOpersM2OperGroup.addModelingAttribute("index",
+				new ElemAttribute("index", "Integer", AttributeType.OPERATION,
 						false, "Position", "", 1, 0, 9, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#" + "Index");
-		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#" + "Index");
+		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#" + "index");
+		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#" + "index");
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -642,13 +642,13 @@ public class InfraSyntaxOpersMMM {
 				.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("Index",
-				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("index",
+				new ElemAttribute("index", "Integer", AttributeType.OPERATION,
 						false, "Position", "", 1, 0, -1, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("08#"
-				+ "Index");
+				+ "index");
 		infraSyntaxOpersM2OperSubAction
-				.addPropVisibleAttribute("08#" + "Index");
+				.addPropVisibleAttribute("08#" + "index");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",

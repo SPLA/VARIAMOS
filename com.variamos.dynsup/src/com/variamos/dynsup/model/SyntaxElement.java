@@ -41,7 +41,7 @@ public class SyntaxElement implements Serializable {
 	/**
 			 * 
 			 */
-	VAR_DESCRIPTION = "Description";
+	VAR_DESCRIPTION = "description";
 	/**
 	 * 
 	 */
