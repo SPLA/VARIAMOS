@@ -175,6 +175,16 @@
 		<add as="verticalAlign" value="top"/>
 		<add as="fillColor" value="white"/>		
 		<add as="strokeColor" value="black"/>
+	</add>		
+	<add as="infrasyntaxm2grayconcept">
+		<add as="shape" value="concept"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="top"/>
+		<add as="fillColor" value="#D0D0D0"/>		
+		<add as="strokeColor" value="black"/>
 	</add>	
 	<add as="infrasyntaxm2bigconcept">
 		<add as="shape" value="bigconcept"/>
@@ -193,7 +203,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="top"/>
-		<add as="fillColor" value="#B0B0B0"/>		
+		<add as="fillColor" value="#D0D0D0"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 		<add as="infrasyntaxm2minigrayconcept">
@@ -203,7 +213,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="top"/>
-		<add as="fillColor" value="#B0B0B0"/>		
+		<add as="fillColor" value="#D0D0D0"/>		
 		<add as="strokeColor" value="black"/>
 	</add>	
 	<add as="infrasyntaxm2miniconcept">
@@ -284,7 +294,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="top"/>
-		<add as="fillColor" value="B0B0B0"/>		
+		<add as="fillColor" value="D0D0D0"/>		
 		<add as="strokeColor" value="black"/>
 	</add>	
 	<add as="infrasyntaxopersm2bigconcept">
@@ -304,7 +314,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="top"/>
-		<add as="fillColor" value="#B0B0B0"/>		
+		<add as="fillColor" value="#D0D0D0"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 		<add as="infrasyntaxopersm2minigrayconcept">
@@ -314,7 +324,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="top"/>
-		<add as="fillColor" value="#B0B0B0"/>		
+		<add as="fillColor" value="#D0D0D0"/>		
 		<add as="strokeColor" value="black"/>
 	</add>	
 	<add as="infrasyntaxopersm2miniconcept">

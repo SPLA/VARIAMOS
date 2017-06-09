@@ -224,6 +224,10 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 				v.setDefaultValue(defaultValue.getValue());
 				// v.setDomain((Domain) domain.getValue());
 				// v.setDisplayName((String) name.getDisplayName());
+
+				// FIXME if the meta-attribute exists but the name was changed
+				// it is needed to delete the existing element from the
+				// collection and add it again with the new identifier.
 				if (insert) {
 					((DefaultListModel<ElemAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -289,7 +293,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 					String nameS = (String) name.getValue();
 					if (((ElemAttribute) ea).getName().equals(nameS)) {
 						ldm.remove(i);
-						attributes.remove(name);
+						attributes.remove(nameS);
 					}
 					i++;
 				}

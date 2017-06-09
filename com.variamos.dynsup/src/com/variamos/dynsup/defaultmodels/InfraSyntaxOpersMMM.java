@@ -16,6 +16,7 @@ import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationActionType;
+import com.variamos.dynsup.types.OperationExecType;
 import com.variamos.dynsup.types.OperationSubActionDefectsVerifierMethodType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.OperationSubActionType;
@@ -490,11 +491,11 @@ public class InfraSyntaxOpersMMM {
 				.addPropEditableAttribute("07#" + "shortcut");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("07#" + "shortcut");
 
-		infraSyntaxOpersM2OperGroup.addModelingAttribute("Index",
-				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
+		infraSyntaxOpersM2OperGroup.addModelingAttribute("index",
+				new ElemAttribute("index", "Integer", AttributeType.OPERATION,
 						false, "Position", "", 1, 0, 9, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#" + "Index");
-		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#" + "Index");
+		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#" + "index");
+		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#" + "index");
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -547,6 +548,16 @@ public class InfraSyntaxOpersMMM {
 				+ "operType");
 		infraSyntaxOpersM2OperAction
 				.addPropVisibleAttribute("05#" + "operType");
+		infraSyntaxOpersM2OperAction.addModelingAttribute("execType",
+				new ElemAttribute("execType", "Enumeration",
+						AttributeType.OPERATION, false, "Execution Type", "",
+						OperationExecType.class.getCanonicalName(),
+						OperationExecType.on_demand, "", 0, 5, "", "", -1, "",
+						""));
+		infraSyntaxOpersM2OperAction.addPropEditableAttribute("05#"
+				+ "execType");
+		infraSyntaxOpersM2OperAction
+				.addPropVisibleAttribute("05#" + "execType");
 		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
 						false, "Name", "", null, 0, 6, "", "", -1, "", ""));
@@ -562,11 +573,14 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperAction
 				.addPropVisibleAttribute("07#" + "shortcut");
 
-		infraSyntaxOpersM2OperAction.addModelingAttribute("Index",
-				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", "", 1, 0, -1, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("08#" + "Index");
-		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("08#" + "Index");
+		infraSyntaxOpersM2OperAction.addModelingAttribute("position",
+				new ElemAttribute("position", "Integer",
+						AttributeType.OPERATION, false, "Position", "", 8, 0,
+						-1, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperAction.addPropEditableAttribute("08#"
+				+ "position");
+		infraSyntaxOpersM2OperAction
+				.addPropVisibleAttribute("08#" + "position");
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("visible",
 				new ElemAttribute("visible", "Boolean",
@@ -628,13 +642,13 @@ public class InfraSyntaxOpersMMM {
 				.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("Index",
-				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("index",
+				new ElemAttribute("index", "Integer", AttributeType.OPERATION,
 						false, "Position", "", 1, 0, -1, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("08#"
-				+ "Index");
+				+ "index");
 		infraSyntaxOpersM2OperSubAction
-				.addPropVisibleAttribute("08#" + "Index");
+				.addPropVisibleAttribute("08#" + "index");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",
@@ -1025,11 +1039,12 @@ public class InfraSyntaxOpersMMM {
 		rel.setSourceRelation(instInfraSyntaxOpersM2OperSubAction, true);
 		constraintInstEdges.put("AssoSubAct-Lab", rel);
 
-		rel = new InstPairwiseRel(basicOpersM2AsoRel);
-		rel.setEdSyntaxEle(infraSyntaxOpersM2AsoRel);
-		rel.setIdentifier("AssoSubAct-ExpType");
-		rel.setTargetRelation(instInfraSyntaxOpersM2ExpType, true);
-		rel.setSourceRelation(instInfraSyntaxOpersM2OperSubAction, true);
-		constraintInstEdges.put("AssoSubAct-ExpType", rel);
+		// Its a meta-meta-attribute, no relation required
+		// rel = new InstPairwiseRel(basicOpersM2AsoRel);
+		// rel.setEdSyntaxEle(infraSyntaxOpersM2AsoRel);
+		// rel.setIdentifier("AssoSubAct-ExpType");
+		// rel.setTargetRelation(instInfraSyntaxOpersM2ExpType, true);
+		// rel.setSourceRelation(instInfraSyntaxOpersM2OperSubAction, true);
+		// constraintInstEdges.put("AssoSubAct-ExpType", rel);
 	}
 }

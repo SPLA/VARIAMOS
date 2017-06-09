@@ -2114,7 +2114,7 @@ public class DefaultSyntaxMM {
 		// Direct variable relations
 
 		InstElement directCVCGSemanticEdge = refas.getOperationalModel()
-				.getVertex("NmVarToClaimPW");
+				.getVertex("NmVarToConcernPW");
 
 		SyntaxElement metaVariableEdge = new SyntaxElement('P',
 				"Variable To Context Relation", true, true,

@@ -359,8 +359,9 @@ public class ElementDesignPanel extends JPanel {
 										if (editor.getPerspective() == 4)
 											editable = false;
 										List<ModelExpr> ie = new ArrayList<ModelExpr>();
-										if ((ModelExpr) finalInstAttribute
-												.getValue() != null)
+										if (finalInstAttribute.getValue() != null
+												&& !finalInstAttribute
+														.getValue().equals(""))
 											ie.add((ModelExpr) finalInstAttribute
 													.getValue());
 										else
@@ -544,7 +545,7 @@ public class ElementDesignPanel extends JPanel {
 														.equals("String")
 														&& !elementAttribute
 																.getIdentifier()
-																.equals("Description")) {
+																.equals("description")) {
 													elementAttribute
 															.setValue(AbstractElement.multiLine(
 																	elementAttribute
@@ -608,7 +609,7 @@ public class ElementDesignPanel extends JPanel {
 														.equals("String")
 														&& !elementAttribute
 																.getIdentifier()
-																.equals("Description")) {
+																.equals("description")) {
 													elementAttribute
 															.setValue(AbstractElement.multiLine(
 																	elementAttribute
@@ -797,7 +798,7 @@ public class ElementDesignPanel extends JPanel {
 										.getInstAttribute();
 								if (elementAttribute.getType().equals("String")
 										&& !elementAttribute.getIdentifier()
-												.equals("Description")) {
+												.equals("description")) {
 									elementAttribute
 											.setValue(AbstractElement.multiLine(
 													elementAttribute.toString(),
@@ -1142,7 +1143,7 @@ public class ElementDesignPanel extends JPanel {
 								.setPaletteName((String) instAttribute
 										.getValue());
 				}
-				if (instAttribute.getIdentifier().equals("Description"))
+				if (instAttribute.getIdentifier().equals("description"))
 					editableMetaElement.setDescription((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Width"))
