@@ -1217,8 +1217,10 @@ public class SemanticExpressionDialog extends JDialog {
 			combo.addItem("Source/Target Variables (Concept)");
 			combo.addItem("Source/Target Variables (Relation)");
 		}
-		if (fixed != null)
+		if (fixed != null) {
 			combo.addItem("An Element Fixed");
+			semanticExpression.setLeftExpressionType(fixed);
+		}
 		combo.addItem("Source Variable - Unique Rel. (Concept)");
 		combo.addItem("Target Variable - Unique Rel. (Concept)");
 		combo.addItem("Source Variable - Unique Rel. (Relation)");

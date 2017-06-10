@@ -522,6 +522,37 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									.getIdentifier() + "_value");
 							ident.add(id);
 						}
+						if (instE.getTransSupInstElement().getEdSyntaxEle()
+								.getInstSemanticElementId() != null
+								&& instE.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId()
+										.equals("NmLowVariable")
+								&& (instE
+										.getInstAttribute(
+												"LowLevelVarInSubOper")
+										.getValue()
+										.equals(instOperSubAction
+												.getDynamicAttribute("userId"))
+										&& instE.getInstAttribute(
+												"LowLevelInVarLabel")
+												.getValue()
+												.equals(operLab
+														.getDynamicAttribute("userId")) || instE
+										.getInstAttribute(
+												"LowLevelVarOutSubOper")
+										.getValue()
+										.equals(instOperSubAction
+												.getDynamicAttribute("userId"))
+										&& instE.getInstAttribute(
+												"LowLevelOutVarLabel")
+												.getValue()
+												.equals(operLab
+														.getDynamicAttribute("userId")))) {
+							Identifier id = f.newIdentifier(instE
+									.getIdentifier() + "_value");
+							ident.add(id);
+						}
 						if (instE.getInstAttribute("variableType") == null
 								|| (!instE.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable") && !instE

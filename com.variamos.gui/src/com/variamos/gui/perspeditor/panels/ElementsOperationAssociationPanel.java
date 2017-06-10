@@ -156,7 +156,7 @@ public class ElementsOperationAssociationPanel extends
 								.getValue()).getEdOperEle());
 			}
 
-			subOperColumnsNames.add(operSubAction.getIdentifier());
+			subOperColumnsNames.add(subOper.getIdentifier());
 			subOpers.add(operSubAction);
 			// operLabelNames.addAll(operSubAction.getOperLabelNames());
 			// operLabels.addAll(operSubAction.getOperLabels());
@@ -167,8 +167,8 @@ public class ElementsOperationAssociationPanel extends
 				OpersLabeling operLab = (OpersLabeling) instOperLab
 						.getEdOperEle();
 				operLabs.add(operLab);
-				operLabsNames.add(operSubAction.getIdentifier() + "-"
-						+ operLab.getIdentifier());
+				operLabsNames.add(subOper.getIdentifier() + "-"
+						+ instOperLab.getIdentifier());
 
 			}
 
