@@ -450,6 +450,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 						&& !attributeName.equals("Active")
 						&& !attributeName.equals("TestConfSel")
 						&& !attributeName.equals("exportOnConfig")
+						&& !attributeName.equals("isContext")
+						&& !attributeName.equals("ExportOnConfig")
 						&& !attributeName.equals("TestConfNotSel")
 						&& !attributeName.equals("description")) {
 					if (attributeName.length() > 1)
@@ -591,6 +593,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 		List<InstAttribute> listEditableAttribs = new ArrayList<InstAttribute>();
 		for (InstAttribute instAttribute : instAttributes) {
+			if (instAttribute.getAttribute() == null)
+				continue;
 			String attri = instAttribute.getAttribute()
 					.getPropTabEditionCondition();
 			if (attri.equals("false"))
@@ -1226,9 +1230,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 				}
 			}
 		}
-		if (// getTransSupportMetaElement() != null
-			// &&
-		getTransSupportMetaElement().getTransInstSemanticElement() != null) {
+		if (getTransSupportMetaElement() != null
+				&& getTransSupportMetaElement().getTransInstSemanticElement() != null) {
 			InstAttribute ia = getTransSupportMetaElement()
 					.getTransInstSemanticElement().getInstAttribute(
 							"opersExprs");

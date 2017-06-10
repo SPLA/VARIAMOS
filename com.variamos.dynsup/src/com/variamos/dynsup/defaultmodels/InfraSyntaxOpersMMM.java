@@ -734,18 +734,13 @@ public class InfraSyntaxOpersMMM {
 						"type#==#Defects verifier error$"
 								+ "type#==#Defects verifier update$"
 								+ "type#==#Multi verification"));
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute(
-						"indivVerExp",
-						new ElemAttribute(
-								"indivVerExp",
-								"Boolean",
-								AttributeType.OPERATION,
-								false,
-								"Use Verification Expr. Indiv.",
-								"Use Verification Expressions Individually with multiple calls to CauCos",
-								false, 0, 11, "type#==#Multi verification# ",
-								"type#==#Multi verification# ", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("indivVerExp",
+				new ElemAttribute("indivVerExp", "Boolean",
+						AttributeType.OPERATION, false,
+						"Use Verification Expr. Indiv.",
+						"Use Verification Expressions ", false, 0, 11,
+						"type#==#Multi verification# ",
+						"type#==#Multi verification# ", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
 						"indivRelExp",
@@ -891,8 +886,8 @@ public class InfraSyntaxOpersMMM {
 				new ElemAttribute("exptype", "Set", AttributeType.SYNTAX,
 						false, "exptype", InstAttribute.class
 								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, 2, "", "", 6, "#\n",
-						""));
+						new ArrayList<InstAttribute>(), 0, -1, "", "", 6,
+						"#\n", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -905,7 +900,7 @@ public class InfraSyntaxOpersMMM {
 		variabilityInstVertex.put("OMSubOper",
 				instInfraSyntaxOpersM2OperSubAction);
 
-		SyntaxElement infraSyntaxOpersM2OperLabeling = new SyntaxElement('S',
+		SyntaxElement infraSyntaxOpersM2OperLabeling = new SyntaxElement('L',
 				"OMLabeling", true, true, "OMLabeling",
 				"sinfrasyntaxopersm2label", "Operation Labeling", 100, 45,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,

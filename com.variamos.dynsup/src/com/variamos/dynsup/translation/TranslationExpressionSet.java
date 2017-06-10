@@ -148,8 +148,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			OpersSubOperationExpType operExpType = null;
 			String subOperExpTypeName = null;
 			for (InstAttribute att : listatt) {
-				String attObj = (String) ((InstConcept) att.getValue())
-						.getInstAttributeValue("suboperexptype");
+				String attObj = ((InstConcept) att.getValue())
+						.getInstAttributeValue("suboperexptype").toString();
 				if (attObj.equals(expressionType.toString())) {
 					operExpType = (OpersSubOperationExpType) ((InstConcept) att
 							.getValue()).getEdOperEle();

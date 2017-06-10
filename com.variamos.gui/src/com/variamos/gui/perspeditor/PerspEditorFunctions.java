@@ -25,6 +25,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
+import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.editor.logic.ConstraintMode;
@@ -171,6 +172,11 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 										obj = (InstElement) c.newInstance("",
 												instElement,
 												new OpersSubOperation());
+										break;
+									case 'L':
+										obj = (InstElement) c.newInstance("",
+												instElement,
+												new OpersLabeling());
 										break;
 									case 'P':
 										obj = (InstElement) c
