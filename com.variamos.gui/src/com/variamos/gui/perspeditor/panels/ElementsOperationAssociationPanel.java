@@ -83,7 +83,7 @@ public class ElementsOperationAssociationPanel extends
 				"OMOperation");
 
 		for (InstElement operAction : operActions) {
-			combo.addItem(operAction.getEdOperEle().getIdentifier());
+			combo.addItem(operAction.getIdentifier());
 		}
 		combo.setSelectedItem(combo.getItemAt(0));
 		JPanel topPanel = new JPanel();
@@ -148,8 +148,9 @@ public class ElementsOperationAssociationPanel extends
 			for (InstAttribute instatt : atttypes) {
 				subOperTypesColumnsNames.add(subOper.getIdentifier()
 						+ "-"
-						+ (String) ((InstElement) instatt.getValue())
-								.getInstAttributeValue("suboperexptype"));
+						+ ((InstElement) instatt.getValue())
+								.getInstAttributeValue("suboperexptype")
+								.toString());
 				subOpersTypesColumns
 						.add((OpersSubOperationExpType) ((InstElement) instatt
 								.getValue()).getEdOperEle());
