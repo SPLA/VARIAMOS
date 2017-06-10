@@ -999,7 +999,8 @@ public class SemanticExpressionDialog extends JDialog {
 							 * elementType);
 							 */
 						} else {
-							if (expressionVertexType == ExpressionVertexType.LEFTVARIABLEVALUE)
+							if (expressionVertexType == ExpressionVertexType.LEFTVARIABLEVALUE
+									|| expressionVertexType == ExpressionVertexType.LEFTSUBITERINCCONVARIABLE)
 								semanticExpression.setLeftSemanticElement();
 							if (expressionVertexType == ExpressionVertexType.RIGHTVARIABLEVALUE)
 								semanticExpression.setRightSemanticElement();

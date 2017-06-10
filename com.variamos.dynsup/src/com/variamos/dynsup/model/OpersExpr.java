@@ -1164,6 +1164,7 @@ public class OpersExpr implements Serializable {
 			ExpressionVertexType expressionVertexType, char elementType) {
 		switch (expressionVertexType) {
 		case LEFTVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
