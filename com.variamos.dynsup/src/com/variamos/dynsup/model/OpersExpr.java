@@ -1137,6 +1137,8 @@ public class OpersExpr implements Serializable {
 		switch (expressionVertexType) {
 		case LEFTVARIABLE:
 		case LEFTVARIABLEVALUE:
+		case LEFTSUBITERINCCONVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
@@ -1165,6 +1167,7 @@ public class OpersExpr implements Serializable {
 		switch (expressionVertexType) {
 		case LEFTVARIABLE:
 		case LEFTSUBITERINCCONVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
@@ -1258,6 +1261,7 @@ public class OpersExpr implements Serializable {
 
 			case LEFTSUBITERINCCONVARIABLE:
 				out += "LeftSubIterIncomigConceptVar" + ":";
+				out += this.getLeftSemanticElementId() + ":";
 				out += getLeftAttributeName();
 				break;
 			case LEFTITERINCCONVARIABLE:
