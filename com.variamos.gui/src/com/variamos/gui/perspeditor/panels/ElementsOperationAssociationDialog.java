@@ -36,7 +36,7 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
 	private int width = 1100;
-	private int height = 850;
+	private int height = 650;
 
 	static interface DialogButtonAction {
 		public boolean onAction();

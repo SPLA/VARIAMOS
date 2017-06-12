@@ -4729,13 +4729,13 @@ public class DefaultOpersMM {
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addOutVariable(attribute);
 
-		// attribute = new ElemAttribute("DBVis", "Boolean",
-		// AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
-		// "Display element on simulation dashboard", true, 0, 3, "", "",
-		// -1, "", "");
-		// semNmMetaConcept.putSemanticAttribute("DBVis", attribute);
-		// semNmMetaConcept.addPropEditableAttribute("03#" + "DBVis");
-		// semNmMetaConcept.addPropVisibleAttribute("03#" + "DBVis");
+		attribute = new ElemAttribute("DBVis", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
+				"Display element on simulation dashboard", true, 0, 3, "", "",
+				-1, "", "");
+		semNmMetaConcept.putSemanticAttribute("DBVis", attribute);
+		semNmMetaConcept.addPropEditableAttribute("03#" + "DBVis");
+		semNmMetaConcept.addPropVisibleAttribute("03#" + "DBVis");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -5764,12 +5764,12 @@ public class DefaultOpersMM {
 		// verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 		// verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 
-		// attribute = new ElemAttribute("DBVis", "Boolean",
-		// AttributeType.GLOBALCONFIG, false, "Visible on Dashboard", "",
-		// true, 0, 3, "", "", -1, "", "");
-		// semVariable.putSemanticAttribute("DBVis", attribute);
-		// semVariable.addPropEditableAttribute("03#" + "DBVis");
-		// semVariable.addPropVisibleAttribute("03#" + "DBVis");
+		attribute = new ElemAttribute("DBVis", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard", "",
+				true, 0, 3, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("DBVis", attribute);
+		semVariable.addPropEditableAttribute("03#" + "DBVis");
+		semVariable.addPropVisibleAttribute("03#" + "DBVis");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -11399,7 +11399,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
-		t1 = new OpersExpr("AggLow", refas.getSemanticExpressionTypes().get(
+		t1 = new OpersExpr("AggLowSel", refas.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHHGR, "OSel",
 				true, 0);
@@ -11409,9 +11409,9 @@ public class DefaultOpersMM {
 				instDirStructHardHardSemanticEdge,
 				instDirStructHardHardSemanticEdge, "AggregationLow", false, t1);
 
-		t2 = new OpersExpr("AggHigh", refas.getSemanticExpressionTypes().get(
-				"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instDirStructHardHardSemanticEdge, instVertexHHGR, "SOel",
+		t2 = new OpersExpr("AggHighSel", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instDirStructHardHardSemanticEdge, instVertexHHGR, "OSel",
 				true, 0);
 
 		t2 = new OpersExpr("AggHigh", refas.getSemanticExpressionTypes().get(
@@ -17168,7 +17168,7 @@ public class DefaultOpersMM {
 				.get("Sum"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
 				instRefasModel, instVertexSG, t1, 0);
 
-		semExpr.add(t1); // FIXME not used
+		// semExpr.add(t1); // FIXME not used
 
 		// ----------------------
 
@@ -17205,21 +17205,21 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 
-		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
-				.get("Prod"), ExpressionVertexType.LEFTITERANYCONVARIABLE,
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
+				"Product"), ExpressionVertexType.LEFSUBTITERCONVARIABLE,
 				instRefasModel, instVertexF, "HasParent", 1);
 
 		t1 = new OpersExpr("Parents", refas.getSemanticExpressionTypes().get(
-				"Less"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				"Less"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
 				instRefasModel, instVertexF, t1, 1);
 
 		// verifParentsOperSubActionVerification.addSemanticExpression(t1);
 
-		semExpr.add(t1);
+		// semExpr.add(t1);
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instRefasModel,
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
 				instVertexGE, "Core", 0);
 
 		t1 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
@@ -17228,7 +17228,7 @@ public class DefaultOpersMM {
 
 		// updCoreOptSubOperNormal.addSemanticExpression(t1);
 
-		semExpr.add(t1);
+		// semExpr.add(t1);
 
 		// --------------------------
 		semExpr = new ArrayList<OpersExpr>(); // FIXME not used
@@ -17239,6 +17239,11 @@ public class DefaultOpersMM {
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
 				instVertexGE, "Order", 0);
+
+		// t1 = new OpersExpr("OrderMin",
+		// refas.getSemanticExpressionTypes().get(
+		// "Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+		// instRefasModel, instVertexGE, t1, "FalseVal");
 
 		semExpr.add(t1);
 
