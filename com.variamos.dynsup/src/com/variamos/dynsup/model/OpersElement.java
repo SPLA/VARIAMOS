@@ -35,7 +35,7 @@ public class OpersElement implements Serializable {
 	@Deprecated
 	private List<String> panelSpacersAttributes; // preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, ElemAttribute> semanticAttributes = new HashMap<String, ElemAttribute>();
-	private List<OpersExpr> semanticExpressions;
+	protected List<OpersExpr> semanticExpressions;
 
 	public OpersElement(String identifier) {
 		this(identifier, new ArrayList<String>(), new ArrayList<String>(),

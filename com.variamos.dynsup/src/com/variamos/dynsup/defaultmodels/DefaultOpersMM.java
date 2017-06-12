@@ -4729,13 +4729,13 @@ public class DefaultOpersMM {
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addOutVariable(attribute);
 
-		// attribute = new ElemAttribute("DBVis", "Boolean",
-		// AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
-		// "Display element on simulation dashboard", true, 0, 3, "", "",
-		// -1, "", "");
-		// semNmMetaConcept.putSemanticAttribute("DBVis", attribute);
-		// semNmMetaConcept.addPropEditableAttribute("03#" + "DBVis");
-		// semNmMetaConcept.addPropVisibleAttribute("03#" + "DBVis");
+		attribute = new ElemAttribute("DBVis", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
+				"Display element on simulation dashboard", true, 0, 3, "", "",
+				-1, "", "");
+		semNmMetaConcept.putSemanticAttribute("DBVis", attribute);
+		semNmMetaConcept.addPropEditableAttribute("03#" + "DBVis");
+		semNmMetaConcept.addPropVisibleAttribute("03#" + "DBVis");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -5764,12 +5764,12 @@ public class DefaultOpersMM {
 		// verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
 		// verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 
-		// attribute = new ElemAttribute("DBVis", "Boolean",
-		// AttributeType.GLOBALCONFIG, false, "Visible on Dashboard", "",
-		// true, 0, 3, "", "", -1, "", "");
-		// semVariable.putSemanticAttribute("DBVis", attribute);
-		// semVariable.addPropEditableAttribute("03#" + "DBVis");
-		// semVariable.addPropVisibleAttribute("03#" + "DBVis");
+		attribute = new ElemAttribute("DBVis", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard", "",
+				true, 0, 3, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("DBVis", attribute);
+		semVariable.addPropEditableAttribute("03#" + "DBVis");
+		semVariable.addPropVisibleAttribute("03#" + "DBVis");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -7713,9 +7713,9 @@ public class DefaultOpersMM {
 		instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
 
 		OpersConcept directFeatFeatSideSemEdge = new OpersConcept(
-				"AlternFeaturePW");
+				"CrossTreeFeaturePW");
 		InstConcept instDirFeatFeatSideSemEdge = new InstConcept(
-				"AlternFeaturePW", metaMetaPairwiseRelation,
+				"CrossTreeFeaturePW", metaMetaPairwiseRelation,
 				directFeatFeatSideSemEdge);
 
 		instEdge = new InstPairwiseRel();
@@ -7728,15 +7728,15 @@ public class DefaultOpersMM {
 		ia = instDirFeatFeatSideSemEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+		ias.add(new InstAttribute("excludes", new ElemAttribute("excludes",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "excludes",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"conflict#conflict#false#true#true#1#-1#1#1"));
+				"excludes#excludes#false#true#true#0#-1#0#-1"));
 
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"require#require#false#true#true#1#-1#1#1"));
+				"require#require#false#true#true#0#-1#0#-1"));
 
 		ia = instDirFeatFeatSideSemEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -7812,8 +7812,8 @@ public class DefaultOpersMM {
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
-		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+		ias.add(new InstAttribute("excludes", new ElemAttribute("excludes",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "excludes",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
 
 		semExpr = new ArrayList<OpersExpr>();
@@ -7905,7 +7905,7 @@ public class DefaultOpersMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"condition", "", "", 1, -1, "", "", -1, "", ""), semExpr));
 
-		refas.getVariabilityVertex().put("AlternFeaturePW",
+		refas.getVariabilityVertex().put("CrossTreeFeaturePW",
 				instDirFeatFeatSideSemEdge);
 
 		instEdge = new InstPairwiseRel();
@@ -7929,22 +7929,22 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"and#and#true#true#true#1#-1#1#1"));
+				"and#and#true#true#true#2#-1#0#-1"));
 
 		ias.add(new InstAttribute("or", new ElemAttribute("or",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"or#or#false#true#true#1#-1#1#1"));
+				"or#or#false#true#true#2#-1#0#-1"));
 
 		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"mutex#mutex#false#true#true#1#-1#1#1"));
+				"mutex#mutex#false#true#true#2#-1#0#-1"));
 
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"range#range#false#true#true#1#-1#1#1"));
+				"range#range#false#true#true#2#-1#0#-1"));
 
 		ia = instVertexFFGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -9505,7 +9505,7 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-				"OperToClaim##true#true#true#1#-1#1#1"));
+				"OperToClaim##true#true#true#0#-1#0#-1"));
 
 		ia = instDirOperClaimSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -10111,7 +10111,7 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("Default", new ElemAttribute("Default",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "Default",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"Default##true#true#true#1#-1#1#1"));
+				"Default##true#true#true#0#-1#0#-1"));
 
 		ia = instHchcHHGRGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -10300,22 +10300,22 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"and#and#true#true#true#1#-1#1#1"));
+				"and#and#true#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("or", new ElemAttribute("or",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"or#or#false#true#true#1#-1#1#1"));
+				"or#or#false#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"mutex#mutex#false#true#true#1#-1#1#1"));
+				"mutex#mutex#false#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"range#range#false#true#true#1#-1#1#1"));
+				"range#range#false#true#true#2#-1#1#1"));
 
 		ia = instVertexHHGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -10641,7 +10641,7 @@ public class DefaultOpersMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
 
-		OpersConcept directHardHardSemanticEdge = new OpersConcept("travHardPW");
+		OpersConcept directHardHardSemanticEdge = new OpersConcept("TravHardPW");
 
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
@@ -10690,7 +10690,7 @@ public class DefaultOpersMM {
 				directHardHardSemanticEdge.getIdentifier(),
 				attribute.getName(), true));
 
-		InstConcept instDirHardHardSemanticEdge = new InstConcept("travHardPW",
+		InstConcept instDirHardHardSemanticEdge = new InstConcept("TravHardPW",
 				metaMetaPairwiseRelation, directHardHardSemanticEdge);
 
 		directHardHardSemanticEdge.putSemanticAttribute("relationType",
@@ -10735,12 +10735,12 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"require#require#false#true#true#1#-1#1#1"));
+				"require#require#false#true#true#0#-1#0#-1"));
 
 		ias.add(new InstAttribute("condition", new ElemAttribute("condition",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"condition", "", "", 1, -1, "", "", -1, "", ""),
-				"condition#condition#false#true#true#1#-1#1#1"));
+				"condition#condition#false#true#true#0#-1#0#-1"));
 
 		ia = instDirHardHardSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -11015,7 +11015,7 @@ public class DefaultOpersMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"condition", "", "", 1, -1, "", "", -1, "", ""), semExpr));
 
-		refas.getVariabilityVertex().put("travHardPW",
+		refas.getVariabilityVertex().put("TravHardPW",
 				instDirHardHardSemanticEdge);
 
 		instEdge = new InstPairwiseRel();
@@ -11209,12 +11209,12 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
-				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+				"mandatory#mandatory#true#true#true#0#-1#0#1"));
 
 		ias.add(new InstAttribute("optional", new ElemAttribute("optional",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"optional#optional#false#true#true#1#-1#1#1"));
+				"optional#optional#false#true#true#0#-1#0#1"));
 
 		ia = instDirStructHardHardSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -11400,7 +11400,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
-		t1 = new OpersExpr("AggLow", refas.getSemanticExpressionTypes().get(
+		t1 = new OpersExpr("AggLowSel", refas.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHHGR, "OSel",
 				true, 0);
@@ -11410,9 +11410,9 @@ public class DefaultOpersMM {
 				instDirStructHardHardSemanticEdge,
 				instDirStructHardHardSemanticEdge, "AggregationLow", false, t1);
 
-		t2 = new OpersExpr("AggHigh", refas.getSemanticExpressionTypes().get(
-				"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instDirStructHardHardSemanticEdge, instVertexHHGR, "SOel",
+		t2 = new OpersExpr("AggHighSel", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instDirStructHardHardSemanticEdge, instVertexHHGR, "OSel",
 				true, 0);
 
 		t2 = new OpersExpr("AggHigh", refas.getSemanticExpressionTypes().get(
@@ -11869,10 +11869,10 @@ public class DefaultOpersMM {
 		ia = instSemAssetOperPairwiseRel.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
-				"mandatory#mandatory#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
+				"implementedBy", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementedBy", "", "", 1, -1, "", "", -1, "", ""),
+				"implementedBy#implementedBy#false#true#true#0#-1#0#1"));
 
 		ia = instSemAssetOperPairwiseRel.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -11969,9 +11969,10 @@ public class DefaultOpersMM {
 		semExpr.add(t1);
 		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"mandatory", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
+				"implementedBy", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementedBy", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
 
 		refas.getVariabilityVertex().put("AssetOperPW",
 				instSemAssetOperPairwiseRel);
@@ -12019,12 +12020,12 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
-				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+				"mandatory#mandatory#true#true#true#0#-1#0#1"));
 
 		ias.add(new InstAttribute("optional", new ElemAttribute("optional",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"optional#optional#false#true#true#1#-1#1#1"));
+				"optional#optional#false#true#true#0#-1#0#1"));
 
 		ia = instSemAssetPairwiseRel.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -12305,7 +12306,7 @@ public class DefaultOpersMM {
 				"Variable Context", StringType.IDENTIFIER,
 				AttributeType.OPTION, false, "Variable Context", "", "", 1, -1,
 				"", "", -1, "", ""),
-				"Variable Context##false#true#true#1#-1#1#1"));
+				"Variable Context##false#true#true#1#-1#0#1"));
 
 		ia = instSemvarcntxPairwiseRel.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -12540,12 +12541,12 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("contribution", new ElemAttribute(
 				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "contribution", "", "", 1, -1, "", "", -1, "", ""),
-				"contribution#contribution#true#true#true#1#-1#1#1"));
+				"contribution#contribution#true#true#true#0#-1#0#-1"));
 
 		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"conflict#conflict#false#true#true#1#-1#1#1"));
+				"conflict#conflict#false#true#true#0#-1#0#-1"));
 
 		// ias.add(new InstAttribute("alternative", new ElemAttribute(
 		// "alternative", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -12560,7 +12561,7 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"require#require#false#true#true#1#-1#1#1"));
+				"require#require#false#true#true#0#-1#0#-1"));
 
 		// ias.add(new InstAttribute("implication", new ElemAttribute(
 		// "implication", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -13138,7 +13139,7 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("contribution", new ElemAttribute(
 				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "contribution", "", "", 1, -1, "", "", -1, "", ""),
-				"contribution#contribution#true#true#true#1#-1#1#1"));
+				"contribution#contribution#true#true#true#0#-1#0#-1"));
 
 		// ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 		// StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
@@ -13159,7 +13160,7 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"require#require#false#true#true#1#-1#1#1"));
+				"require#require#false#true#true#0#-1#0#-1"));
 		//
 		// ias.add(new InstAttribute("implication", new ElemAttribute(
 		// "implication", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -13800,7 +13801,7 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("Default", new ElemAttribute("Default",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "Default",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"Default##true#true#true#1#-1#1#1"));
+				"Default##true#true#true#0#-1#0#-1"));
 
 		ia = instSgToSgGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -13899,12 +13900,12 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"and#and#true#true#true#1#-1#1#1"));
+				"and#and#true#true#true#0#-1#0#-1"));
 
 		ias.add(new InstAttribute("or", new ElemAttribute("or",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"or#or#false#true#true#1#-1#1#1"));
+				"or#or#false#true#true#0#-1#0#-1"));
 
 		ia = instVertexSGGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -14017,7 +14018,7 @@ public class DefaultOpersMM {
 				"Variable Context", StringType.IDENTIFIER,
 				AttributeType.OPTION, false, "Variable Context", "", "", 1, -1,
 				"", "", -1, "", ""),
-				"Variable Context##false#true#true#1#-1#1#1"));
+				"Variable Context##false#true#true#0#-1#0#-1"));
 
 		ia = instDirCVCGSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -14055,22 +14056,22 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"and#and#true#true#true#1#-1#1#1"));
+				"and#and#true#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("or", new ElemAttribute("or",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"or#or#false#true#true#1#-1#1#1"));
+				"or#or#false#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"mutex#mutex#false#true#true#1#-1#1#1"));
+				"mutex#mutex#false#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"range#range#false#true#true#1#-1#1#1"));
+				"range#range#false#true#true#2#-1#1#1"));
 
 		ia = instVertexCLGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -14491,7 +14492,7 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+				"OperToClaim#OperToClaim#true#true#true#0#-1#0#-1"));
 
 		ia = instDirOperClaimOTToClaim.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -14760,7 +14761,7 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+				"OperToClaim#OperToClaim#true#true#true#0#-1#0#-1"));
 
 		ia = instDirFClaimToSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -15097,7 +15098,7 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("ClaimToSG", new ElemAttribute("ClaimToSG",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"ClaimToSG", "", "", 1, -1, "", "", -1, "", ""),
-				"ClaimToSG##true#true#true#1#-1#1#1"));
+				"ClaimToSG##true#true#true#1#-1#0#-1"));
 
 		ia = instDirClaimSGSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -15679,7 +15680,7 @@ public class DefaultOpersMM {
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("SD", new ElemAttribute("SD",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
-				"", 1, -1, "", "", -1, "", ""), "SD##true#true#true#1#-1#1#1"));
+				"", 1, -1, "", "", -1, "", ""), "SD##true#true#true#1#-1#0#-1"));
 
 		ia = instDirSDSGSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -15994,22 +15995,22 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"and#and#true#true#true#1#-1#1#1"));
+				"and#and#true#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("or", new ElemAttribute("or",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"or#or#false#true#true#1#-1#1#1"));
+				"or#or#false#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"mutex#mutex#false#true#true#1#-1#1#1"));
+				"mutex#mutex#false#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"range#range#false#true#true#1#-1#1#1"));
+				"range#range#false#true#true#2#-1#1#1"));
 
 		ia = instVertexAssOPERGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -16388,22 +16389,22 @@ public class DefaultOpersMM {
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"and#and#true#true#true#1#-1#1#1"));
+				"and#and#true#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("or", new ElemAttribute("or",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"or#or#false#true#true#1#-1#1#1"));
+				"or#or#false#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "XOR", "",
 				"", 1, -1, "", "", -1, "", ""),
-				"mutex#mutex#false#true#true#1#-1#1#1"));
+				"mutex#mutex#false#true#true#2#-1#1#1"));
 
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""),
-				"range#range#false#true#true#1#-1#1#1"));
+				"range#range#false#true#true#2#-1#1#1"));
 
 		ia = instVertexAsLFGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -16787,10 +16788,10 @@ public class DefaultOpersMM {
 
 		ia = instAssetOperGRAO.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
-				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
+				"implemented by", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implemented by", "", "", 1, -1, "", "", -1, "", ""),
+				"implementedBy#implemented by#true#true#true#0#-1#0#1"));
 
 		ia = instAssetOperGRAO.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -16860,9 +16861,10 @@ public class DefaultOpersMM {
 		semExpr.add(t1);
 		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"mandatory", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
+				"implementedBy", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implemented by", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
 
 		refas.getVariabilityVertex().put("AssetOperOTtoOperPW",
 				instAssetOperGRAO);
@@ -16900,10 +16902,10 @@ public class DefaultOpersMM {
 
 		ia = instAssetLfGRAO.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"mandatory", "", "", 1, -1, "", "", -1, "", ""),
-				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
+				"implementedBy", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementedBy", "", "", 1, -1, "", "", -1, "", ""),
+				"implementedBy#implementedBy#true#true#true#0#-1#0#1"));
 
 		ia = instAssetLfGRAO.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -16973,9 +16975,10 @@ public class DefaultOpersMM {
 		semExpr.add(t1);
 		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"mandatory", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
+				"implementedBy", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementedBy", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
 
 		refas.getVariabilityVertex().put("AssetLfOTToLf", instAssetLfGRAO);
 
@@ -17166,7 +17169,7 @@ public class DefaultOpersMM {
 				.get("Sum"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
 				instRefasModel, instVertexSG, t1, 0);
 
-		semExpr.add(t1); // FIXME not used
+		// semExpr.add(t1); // FIXME not used
 
 		// ----------------------
 
@@ -17203,21 +17206,21 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 
-		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
-				.get("Prod"), ExpressionVertexType.LEFTITERANYCONVARIABLE,
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
+				"Product"), ExpressionVertexType.LEFSUBTITERCONVARIABLE,
 				instRefasModel, instVertexF, "HasParent", 1);
 
 		t1 = new OpersExpr("Parents", refas.getSemanticExpressionTypes().get(
-				"Less"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				"Less"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
 				instRefasModel, instVertexF, t1, 1);
 
 		// verifParentsOperSubActionVerification.addSemanticExpression(t1);
 
-		semExpr.add(t1);
+		// semExpr.add(t1);
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instRefasModel,
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
 				instVertexGE, "Core", 0);
 
 		t1 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
@@ -17226,7 +17229,7 @@ public class DefaultOpersMM {
 
 		// updCoreOptSubOperNormal.addSemanticExpression(t1);
 
-		semExpr.add(t1);
+		// semExpr.add(t1);
 
 		// --------------------------
 		semExpr = new ArrayList<OpersExpr>(); // FIXME not used
@@ -17237,6 +17240,11 @@ public class DefaultOpersMM {
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
 				instVertexGE, "Order", 0);
+
+		// t1 = new OpersExpr("OrderMin",
+		// refas.getSemanticExpressionTypes().get(
+		// "Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+		// instRefasModel, instVertexGE, t1, "FalseVal");
 
 		semExpr.add(t1);
 

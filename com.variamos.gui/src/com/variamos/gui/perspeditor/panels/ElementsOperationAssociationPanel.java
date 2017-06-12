@@ -83,7 +83,7 @@ public class ElementsOperationAssociationPanel extends
 				"OMOperation");
 
 		for (InstElement operAction : operActions) {
-			combo.addItem(operAction.getEdOperEle().getIdentifier());
+			combo.addItem(operAction.getIdentifier());
 		}
 		combo.setSelectedItem(combo.getItemAt(0));
 		JPanel topPanel = new JPanel();
@@ -148,14 +148,15 @@ public class ElementsOperationAssociationPanel extends
 			for (InstAttribute instatt : atttypes) {
 				subOperTypesColumnsNames.add(subOper.getIdentifier()
 						+ "-"
-						+ (String) ((InstElement) instatt.getValue())
-								.getInstAttributeValue("suboperexptype"));
+						+ ((InstElement) instatt.getValue())
+								.getInstAttributeValue("suboperexptype")
+								.toString());
 				subOpersTypesColumns
 						.add((OpersSubOperationExpType) ((InstElement) instatt
 								.getValue()).getEdOperEle());
 			}
 
-			subOperColumnsNames.add(operSubAction.getIdentifier());
+			subOperColumnsNames.add(subOper.getIdentifier());
 			subOpers.add(operSubAction);
 			// operLabelNames.addAll(operSubAction.getOperLabelNames());
 			// operLabels.addAll(operSubAction.getOperLabels());
@@ -166,8 +167,8 @@ public class ElementsOperationAssociationPanel extends
 				OpersLabeling operLab = (OpersLabeling) instOperLab
 						.getEdOperEle();
 				operLabs.add(operLab);
-				operLabsNames.add(operSubAction.getIdentifier() + "-"
-						+ operLab.getIdentifier());
+				operLabsNames.add(subOper.getIdentifier() + "-"
+						+ instOperLab.getIdentifier());
 
 			}
 
