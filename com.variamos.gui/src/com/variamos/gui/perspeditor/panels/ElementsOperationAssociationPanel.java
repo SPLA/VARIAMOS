@@ -258,7 +258,6 @@ public class ElementsOperationAssociationPanel extends
 			if (dialog == 0 && el.getInstAttribute("opersExprs") != null)
 				for (InstAttribute v : (List<InstAttribute>) el
 						.getInstAttribute("opersExprs").getValue()) {
-					List<Integer> valuesOperColumns = new ArrayList<Integer>();
 
 					// Relation Type
 					AssociationRow attNode = new AssociationRow(
@@ -267,6 +266,7 @@ public class ElementsOperationAssociationPanel extends
 
 					node.getChildren().add(attNode);
 					for (OpersExpr e : (List<OpersExpr>) v.getValue()) {
+						List<Integer> valuesOperColumns = new ArrayList<Integer>();
 						for (OpersSubOperationExpType operColumn : subOpersTypesColumns)
 							if (operColumn.hasSemanticExpression(e
 									.getIdentifier()))

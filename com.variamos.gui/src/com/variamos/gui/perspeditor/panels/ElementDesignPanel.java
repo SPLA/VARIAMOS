@@ -130,7 +130,7 @@ public class ElementDesignPanel extends JPanel {
 	public void editorProperties(final VariamosGraphEditor editor,
 			final InstCell instCell) {
 		mainPanel.removeAll();
-		mainPanelWidth = 350;
+		mainPanelWidth = 230;
 		JPanel elementDesPropSubPanel = null;
 		final VariamosGraphEditor finalEditor = editor;
 
@@ -861,7 +861,7 @@ public class ElementDesignPanel extends JPanel {
 			dummy = new JPanel();
 			dummy.setMinimumSize(new Dimension(0, 0));
 			dummy.setPreferredSize(new Dimension(0, 20));
-			dummy.setMaximumSize(new Dimension(350, 200));
+			dummy.setMaximumSize(new Dimension(230, 200));
 			elementDesPropSubPanel.add(dummy);
 
 			// System.out.println(designPanelElements + "s");

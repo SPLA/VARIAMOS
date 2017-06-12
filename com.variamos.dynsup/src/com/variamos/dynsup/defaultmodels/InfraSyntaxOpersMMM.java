@@ -444,58 +444,57 @@ public class InfraSyntaxOpersMMM {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxOpersM2OperGroup.addModelingAttribute("menuType",
-				new ElemAttribute("menuType", "String",
-						AttributeType.OPERATION, "Oper Group Type", "", "4",
-						false, d, 0, 5, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperGroup
-				.addPropEditableAttribute("05#" + "menuType");
-		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("05#" + "menuType");
+				.addModelingAttribute(
+						"menuType",
+						new ElemAttribute(
+								"menuType",
+								"String",
+								AttributeType.OPERATION,
+								"Perspective to diplay",
+								"Supported option are 2 (Modeling) and 4 (Model Configuration/Simulation)",
+								"4", false, d, 0, 5, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("visible",
 				new ElemAttribute("visible", "Boolean",
 						AttributeType.OPERATION, false, "Visible", "", true, 0,
 						8, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("08#" + "visible");
-		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("08#" + "visible");
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("clearButton",
 				new ElemAttribute("clearButton", "Boolean",
 						AttributeType.OPERATION, false,
-						"Show clear errors on menu", "", false, 0, 9,
-						"menuType#==#2#false", "", -1, "", ""));
-		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#"
-				+ "clearButton");
-		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#"
-				+ "clearButton");
+						"Show clear errors on menu",
+						"Currently ignored by the implementation", false, 0, 9,
+						"false", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("execAll",
 				new ElemAttribute("execAll", "Boolean",
 						AttributeType.OPERATION, false,
-						"Show execute all menu with selection", "", false, 0,
-						10, "menuType#==#2#false", "", -1, "", ""));
-		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("10#" + "execAll");
-		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("10#" + "execAll");
+						"Show menu: execute all",
+						"Currently ignored by the implementation", false, 0,
+						10, "false", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
 						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
-		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("06#" + "name");
-		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("06#" + "name");
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("shortcut",
 				new ElemAttribute("shortcut", "String",
-						AttributeType.OPERATION, false, "Shortcut", "", null,
-						0, 7, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperGroup
-				.addPropEditableAttribute("07#" + "shortcut");
-		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("07#" + "shortcut");
+						AttributeType.OPERATION, false, "Shortcut",
+						"Keyboard commmand to call the operation", null, 0, 9,
+						"false", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperGroup.addModelingAttribute("index",
-				new ElemAttribute("index", "Integer", AttributeType.OPERATION,
-						false, "Position", "", 1, 0, 9, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#" + "index");
-		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#" + "index");
+		infraSyntaxOpersM2OperGroup
+				.addModelingAttribute(
+						"index",
+						new ElemAttribute(
+								"index",
+								"Integer",
+								AttributeType.OPERATION,
+								false,
+								"Position",
+								"sorting index for this group of operations in the menu",
+								1, 0, 6, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -518,8 +517,6 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2MetaModel.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
 						false, "Name", "", null, 0, 6, "", "", 4, "", ""));
-		infraSyntaxOpersM2MetaModel.addPropEditableAttribute("06#" + "name");
-		infraSyntaxOpersM2MetaModel.addPropVisibleAttribute("06#" + "name");
 
 		infraSyntaxOpersM2MetaModel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -540,82 +537,78 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("operType",
 				new ElemAttribute("operType", "Enumeration",
-						AttributeType.OPERATION, false, "Operation Type", "",
+						AttributeType.OPERATION, false, "Operation Type",
+						"Currently ignored by the implementation",
 						OperationActionType.class.getCanonicalName(),
 						OperationActionType.Validation_with_Dashboard, "", 0,
-						5, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("05#"
-				+ "operType");
+						-1, "false", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction
-				.addPropVisibleAttribute("05#" + "operType");
-		infraSyntaxOpersM2OperAction.addModelingAttribute("execType",
-				new ElemAttribute("execType", "Enumeration",
-						AttributeType.OPERATION, false, "Execution Type", "",
-						OperationExecType.class.getCanonicalName(),
-						OperationExecType.on_demand, "", 0, 5, "", "", -1, "",
-						""));
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("05#"
-				+ "execType");
-		infraSyntaxOpersM2OperAction
-				.addPropVisibleAttribute("05#" + "execType");
+				.addModelingAttribute(
+						"execType",
+						new ElemAttribute(
+								"execType",
+								"Enumeration",
+								AttributeType.OPERATION,
+								false,
+								"Execution Type",
+								"Currently ignored by the implementation (on_demand assumed)",
+								OperationExecType.class.getCanonicalName(),
+								"on demand", "", 0, 5, "false", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
 						false, "Name", "", null, 0, 6, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("06#" + "name");
-		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("06#" + "name");
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("shortcut",
 				new ElemAttribute("shortcut", "String",
 						AttributeType.OPERATION, false, "Shortcut", "", null,
-						0, 7, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("07#"
-				+ "shortcut");
-		infraSyntaxOpersM2OperAction
-				.addPropVisibleAttribute("07#" + "shortcut");
+						0, 7, "false", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("position",
 				new ElemAttribute("position", "Integer",
-						AttributeType.OPERATION, false, "Position", "", 8, 0,
+						AttributeType.OPERATION, false, "Position",
+						"Sorting index of this operation in the menu", 8, 0,
 						-1, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("08#"
-				+ "position");
-		infraSyntaxOpersM2OperAction
-				.addPropVisibleAttribute("08#" + "position");
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("visible",
 				new ElemAttribute("visible", "Boolean",
 						AttributeType.OPERATION, false, "Visible Operation",
-						"", true, 0, 9, "", "", -1, "", ""));
+						"Show/Hide this operation in the menu", true, 0, 9, "",
+						"", -1, "", ""));
+
 		infraSyntaxOpersM2OperAction
-				.addPropEditableAttribute("09#" + "visible");
-		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("09#" + "visible");
+				.addModelingAttribute(
+						"iteration",
+						new ElemAttribute(
+								"iteration",
+								"Boolean",
+								AttributeType.OPERATION,
+								false,
+								"Iterate Button",
+								"Specifies if an iteration option should be included (for validation through simulation)",
+								false, 0, 9, "", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperAction.addModelingAttribute("iteration",
-				new ElemAttribute("iteration", "Boolean",
-						AttributeType.OPERATION, false, "Iterate Button", "",
-						false, 0, 9, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("09#"
-				+ "iteration");
-		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("09#"
-				+ "iteration");
+		infraSyntaxOpersM2OperAction
+				.addModelingAttribute(
+						"iterationName",
+						new ElemAttribute(
+								"iterationName",
+								"String",
+								AttributeType.OPERATION,
+								false,
+								"Iterate Name",
+								"Name to show on the menu for the iteration opcion (e.g., next solution)",
+								null, 0, -1, "false", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperAction.addModelingAttribute("iterationName",
-				new ElemAttribute("iterationName", "String",
-						AttributeType.OPERATION, false, "Iterate Name", "",
-						null, 0, 9, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("09#"
-				+ "iterationName");
-		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("09#"
-				+ "iterationName");
-
-		infraSyntaxOpersM2OperAction.addModelingAttribute("prevSpacer",
-				new ElemAttribute("prevSpacer", "Boolean",
-						AttributeType.OPERATION, false, "Add Previous Spacer",
-						"", false, 0, -1, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addPropEditableAttribute("10#"
-				+ "prevSpacer");
-		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("10#"
-				+ "prevSpacer");
+		infraSyntaxOpersM2OperAction
+				.addModelingAttribute(
+						"prevSpacer",
+						new ElemAttribute(
+								"prevSpacer",
+								"Boolean",
+								AttributeType.OPERATION,
+								false,
+								"Add Previous Spacer when presenting this operation in the menu",
+								"", false, 0, -1, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -637,54 +630,50 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", "", null, 0, -1, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction
-				.addPropEditableAttribute("06#" + "name");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
+						false, "Name",
+						"Name to identify / display for the operation", null,
+						0, -1, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("index",
 				new ElemAttribute("index", "Integer", AttributeType.OPERATION,
-						false, "Position", "", 1, 0, -1, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("08#"
-				+ "index");
-		infraSyntaxOpersM2OperSubAction
-				.addPropVisibleAttribute("08#" + "index");
+						false, "Position",
+						"Defines the order of execution between suboperations",
+						1, 0, -1, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",
 						AttributeType.OPERATION, false, "Iterate Sub-Oper", "",
 						false, 0, 9, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
-				+ "iteration");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
-				+ "iteration");
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
-				"completedMessage", new ElemAttribute("completedMessage",
-						"String", AttributeType.OPERATION, false,
-						"completedMessage", "", "", 0, 9, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
-				+ "showDashboard");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
-				+ "showDashboard");
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"completedMessage",
+						new ElemAttribute(
+								"completedMessage",
+								"String",
+								AttributeType.OPERATION,
+								false,
+								"Text when completed",
+								"Message to show when the operation is completed succesfully",
+								"", 0, 9, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("showDashboard",
 				new ElemAttribute("showDashboard", "Boolean",
 						AttributeType.OPERATION, false, "ShowDashboard", "",
 						false, 0, 9, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
-				+ "showDashboard");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
-				+ "showDashboard");
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("type",
-				new ElemAttribute("type", "Enumeration",
-						AttributeType.OPERATION, true, "Type", "",
-						OperationSubActionType.class.getCanonicalName(),
-						"Single update", "", 0, 10, "", "", 10, "\ntype: #"
-								+ "type" + "#all#", ""));
 		infraSyntaxOpersM2OperSubAction
-				.addPropEditableAttribute("10#" + "type");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
+				.addModelingAttribute(
+						"type",
+						new ElemAttribute(
+								"type",
+								"Enumeration",
+								AttributeType.OPERATION,
+								true,
+								"Type",
+								"Type of Suboperation: determines the path of the execution model",
+								OperationSubActionType.class.getCanonicalName(),
+								"Single update", "", 0, 10, "", "", 10,
+								"\ntype: #" + "type" + "#all#", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
 						"defectsVerifierMethod",
@@ -694,7 +683,7 @@ public class InfraSyntaxOpersMMM {
 								AttributeType.OPERATION,
 								false,
 								"DefectsVerif. Method",
-								"",
+								"Specifies the method from the Defects Verifier to use",
 								OperationSubActionDefectsVerifierMethodType.class
 										.getCanonicalName(),
 								"",
@@ -706,41 +695,53 @@ public class InfraSyntaxOpersMMM {
 								11, "\nMethod: #" + "defectsVerifierMethod"
 										+ "#all#",
 								"type#==#Defects verifier error$type#==#Defects verifier update"));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
-				+ "defectsVerifierMethod");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
-				+ "defectsVerifierMethod");
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("defectsCoreOper",
-				new ElemAttribute("defectsCoreOper", "Class",
-						AttributeType.OPERATION, false, "DefVerif. Core Oper",
-						"", InstConcept.class.getCanonicalName(),
-						"OMOperation", "UpdateCoreOper", "", 0, 11,
-						"type#==#Defects verifier error#\"\"", "", 12,
-						"\ncoreOper: #" + "defectsCoreOper" + "#all#",
-						"type#==#Defects verifier error"));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
-				+ "defectsCoreOper");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
-				+ "defectsCoreOper");
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"defectsCoreOper",
+						new ElemAttribute(
+								"defectsCoreOper",
+								"Class",
+								AttributeType.OPERATION,
+								false,
+								"Def. Verif. Core Oper",
+								"Specifies the core operation to obtain the free identifiers",
+								InstConcept.class.getCanonicalName(),
+								"OMOperation", "UpdateCoreOper", "", 0, 11,
+								"type#==#Defects verifier error#\"\"",
+								"type#==#Defects verifier error#\"\"", 12,
+								"\ncoreOper: #" + "defectsCoreOper" + "#all#",
+								"type#==#Defects verifier error"));
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("outAttribute",
-				new ElemAttribute("outAttribute", "String",
-						AttributeType.OPERATION, false, "Validation Attrib.",
-						"", "Sel", 0, 11, "type#==#Defects verifier error$"
-								+ "type#==#Defects verifier update$"
-								+ "type#==#Multi verification# ", "", 13,
-						"\noutAtt: #" + "outAttribute" + "#all#",
-						"type#==#Defects verifier error$"
-								+ "type#==#Defects verifier update$"
-								+ "type#==#Multi verification"));
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("indivVerExp",
-				new ElemAttribute("indivVerExp", "Boolean",
-						AttributeType.OPERATION, false,
-						"Use Verification Expr. Indiv.",
-						"Use Verification Expressions ", false, 0, 11,
-						"type#==#Multi verification# ",
-						"type#==#Multi verification# ", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"outAttribute",
+						new ElemAttribute(
+								"outAttribute",
+								"String",
+								AttributeType.OPERATION,
+								false,
+								"Output Attribute",
+								"Attribute to validate the elements with errors, must be an output attributes with 0,1 domain",
+								"Sel", 0, 11, "type#==#Defects verifier error$"
+										+ "type#==#Defects verifier update$"
+										+ "type#==#Multi verification# ", "",
+								13, "\noutAtt: #" + "outAttribute" + "#all#",
+								"type#==#Defects verifier error$"
+										+ "type#==#Defects verifier update$"
+										+ "type#==#Multi verification"));
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"indivVerExp",
+						new ElemAttribute(
+								"indivVerExp",
+								"Boolean",
+								AttributeType.OPERATION,
+								false,
+								"Indiv. Verif. Expr.",
+								"Use Verification Expressions individually with multiple calls CauCos",
+								false, 0, 11, "type#==#Multi verification# ",
+								"type#==#Multi verification# ", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
 						"indivRelExp",
@@ -749,14 +750,10 @@ public class InfraSyntaxOpersMMM {
 								"Boolean",
 								AttributeType.OPERATION,
 								false,
-								"Use Relaxable Expr. Indiv.",
+								"Indiv. Relax. Expr.",
 								"Use Relaxable Expressions Individually with multiple calls to CauCos",
 								false, 0, 11, "type#==#Multi verification# ",
 								"type#==#Multi verification# ", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
-				+ "indivRelExp");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
-				+ "indivRelExp");
 
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
@@ -775,10 +772,6 @@ public class InfraSyntaxOpersMMM {
 								11,
 								"type#==#Defects verifier error$type#==#Defects verifier update#\"\"",
 								"", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("11#"
-				+ "updateOutAttributes");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("11#"
-				+ "updateOutAttributes");
 
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
@@ -798,10 +791,6 @@ public class InfraSyntaxOpersMMM {
 								12,
 								"type#==#Defects verifier error$type#==#Defects verifier update#false",
 								"", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("12#"
-				+ "reuseFreeIds");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("12#"
-				+ "reuseFreeIds");
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
 						"updateFreeIds",
@@ -820,37 +809,24 @@ public class InfraSyntaxOpersMMM {
 								13,
 								"type#==#Defects verifier error$type#==#Defects verifier update#false",
 								"", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("13#"
-				+ "updateFreeIds");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("13#"
-				+ "updateFreeIds");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorTitle",
 				new ElemAttribute("errorTitle", "String",
-						AttributeType.OPERATION, false, "Error title", "", "",
-						0, 14, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("14#"
-				+ "errorTitle");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("14#"
-				+ "errorTitle");
+						AttributeType.OPERATION, false, "Error title text",
+						"Title of the dialog box", "", 0, 14, "", "", -1, "",
+						""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorText",
 				new ElemAttribute("errorText", "String",
-						AttributeType.OPERATION, false, "Error general text",
-						"", "", 0, 15, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("15#"
-				+ "errorText");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("15#"
-				+ "errorText");
+						AttributeType.OPERATION, false, "General error text",
+						"Text to display when the operation execution fails",
+						"", 0, 15, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorHint",
 				new ElemAttribute("errorHint", "String",
-						AttributeType.OPERATION, false, "Error Hint", "", "",
+						AttributeType.OPERATION, false, "Error hint text",
+						"Hint text to display in each element with error", "",
 						0, 16, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("16#"
-				+ "errorHint");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("16#"
-				+ "errorHint");
 
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
@@ -865,21 +841,14 @@ public class InfraSyntaxOpersMMM {
 								DefectAnalyzerMode.class.getCanonicalName(),
 								StringUtils
 										.formatEnumValue(DefectAnalyzerMode.INCOMPLETE_FAST
-												.toString()), "", 0, 16, "",
-								"", -1, "", ""));
-
-		infraSyntaxOpersM2OperSubAction
-				.addPropEditableAttribute("16#" + "mode");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("16#" + "mode");
+												.toString()),
+								"Complete explores all the combination of errors, partial stops with the first set of error, incomplete identifies up to a number of error",
+								0, 16, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorMsg",
 				new ElemAttribute("errorMsg", "String",
 						AttributeType.OPERATION, false, "Error Message", "",
 						"", 0, 17, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("17#"
-				+ "errorMsg");
-		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("17#"
-				+ "errorMsg");
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				"exptype",
@@ -909,10 +878,6 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("labelId",
 				new ElemAttribute("labelId", "String", AttributeType.OPERATION,
 						false, "Label ID", "", null, 0, 5, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("05#"
-				+ "labelId");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("05#"
-				+ "labelId");
 
 		infraSyntaxOpersM2OperLabeling
 				.addModelingAttribute(
@@ -925,10 +890,6 @@ public class InfraSyntaxOpersMMM {
 								"Output Set",
 								"Include set of variables in the constraint program call to obtain the variables",
 								true, 0, 6, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("06#"
-				+ "outputSet");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("06#"
-				+ "outputSet");
 
 		infraSyntaxOpersM2OperLabeling
 				.addModelingAttribute(
@@ -941,34 +902,21 @@ public class InfraSyntaxOpersMMM {
 								"Include Label",
 								"Include label in the constraint program (or only define the set of variables)",
 								true, 0, 7, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("07#"
-				+ "includeLabel");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("07#"
-				+ "includeLabel");
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("position",
 				new ElemAttribute("position", "Integer",
 						AttributeType.OPERATION, false, "Position", "", 1, 0,
 						8, "includeLabel" + "#==#" + "true", "", -1, "", ""));
-		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#"
-				+ "position");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#"
-				+ "position");
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("once",
 				new ElemAttribute("once", "Boolean", AttributeType.OPERATION,
 						false, "Once", "", false, 0, 8, "includeLabel" + "#==#"
 								+ "true", "", -1, "", ""));
-		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#" + "once");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#" + "once");
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("order",
 				new ElemAttribute("order", "Boolean", AttributeType.OPERATION,
 						false, "Order", "", false, 0, 9, "includeLabel"
 								+ "#==#" + "true", "", -1, "", ""));
-		infraSyntaxOpersM2OperLabeling
-				.addPropEditableAttribute("09#" + "order");
-		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("09#" + "order");
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
 				"sortorder",
