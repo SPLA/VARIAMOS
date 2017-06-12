@@ -528,7 +528,7 @@ public class DefaultSyntaxMM {
 				.getVertex("ParentFeaturePW");
 
 		InstElement directFeatFeatSideSemEdge = refas.getOperationalModel()
-				.getVertex("AlternFeaturePW");
+				.getVertex("CrossTreeFeaturePW");
 
 		SyntaxElement metaFeatVertPairwiseRel = new SyntaxElement('P',
 				"Structural", true, true, "Feature Child Relation", "",
@@ -1174,7 +1174,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("MeansEnds", instDirMeansEndsRelation);
 
 		InstElement directSideHardHardSemanticEdge = refas
-				.getOperationalModel().getVertex("travHardPW");
+				.getOperationalModel().getVertex("TravHardPW");
 
 		SyntaxElement metaGrpSideHardPairwiseRel = new SyntaxElement('P',
 				"TraversalHG", true, true, "Traversal Relation", "",
@@ -3516,6 +3516,32 @@ public class DefaultSyntaxMM {
 		instEdge.setIdentifier("vasset-fromview");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instViewAsset, true);
+		instEdge.setSourceRelation(instViewC, true);
+
+		SyntaxElement metaView2AsFG = new SyntaxElement('P', "ViewRelation",
+				true, true, "ViewRelation", "",
+				"View relation between a view and a concepts.", 60, 50,
+				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				directViewSemanticEdge);
+		metaView2AsFG.setPalette("Assets Palette - Features");
+
+		InstConcept instViewAsset2 = new InstConcept("View Asset Relation2",
+				supportMetaViewPairwise, metaView2AsFG);
+		refas.getVariabilityVertex()
+				.put("View Asset Relation2", instViewAsset2);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("vasset-toasset2", instEdge);
+		instEdge.setIdentifier("vasset-toasset2");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexAsset, true);
+		instEdge.setSourceRelation(instViewAsset2, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("vasset-fromview2", instEdge);
+		instEdge.setIdentifier("vasset-fromview2");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instViewAsset2, true);
 		instEdge.setSourceRelation(instViewC, true);
 
 		// InstConcept instViewAsset2 = new InstConcept("View Asset2 Relation",

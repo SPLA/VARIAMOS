@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20170608-1430";
+	private String variamosBuild = "20170612-1700";
 	private String downloadId = "499";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -81,7 +81,8 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1166, 768);
 
-		System.out.println("Loading Syntax and Operations Infrastructure...");
+		System.out
+				.println("Loading Syntax, Semantic and Operations Infrastructure...");
 		ModelInstance InfraBasicSyntax = new ModelInstance(
 				PerspectiveType.INFRASTRUCTUREBASICSYNTAX, metaExpressionTypes);
 		ModelInstance syntaxInfrastructure = new ModelInstance(
@@ -111,7 +112,7 @@ public class MainFrame extends JFrame {
 				perspTitle = "Operations - VariaMos " + variamosVersionNumber
 						+ "b" + variamosBuild;
 				System.out
-						.println("Creating Operations Meta-Model Perspective...");
+						.println("Loading Semantic and Operations Meta-Models Perspective...");
 				break;
 
 			case 1:// modeling 2
@@ -122,8 +123,7 @@ public class MainFrame extends JFrame {
 				bgColor = new Color(236, 238, 255);
 				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber
 						+ "b" + variamosBuild;
-				System.out
-						.println("Creating Requirements Model Perspective...");
+				System.out.println("Loading Modeling Perspective...");
 				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
@@ -138,7 +138,7 @@ public class MainFrame extends JFrame {
 				bgColor = new Color(255, 255, 245);
 				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b"
 						+ variamosBuild;
-				System.out.println("Creating Syntax Meta-Model Perspective...");
+				System.out.println("Loading Syntax Meta-Model Perspective...");
 				break;
 
 			case 3:// simulation 4
@@ -149,7 +149,7 @@ public class MainFrame extends JFrame {
 				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber
 						+ "b" + variamosBuild;
 				System.out
-						.println("Creating Configuration and Simulation Perspective...");
+						.println("Loading Configuration and Simulation Perspective...");
 				break;
 			}
 
@@ -176,7 +176,7 @@ public class MainFrame extends JFrame {
 			editor.updateView();
 		}
 
-		System.out.println("GUI creation complete");
+		System.out.println("GUI load completed");
 		this.add(graphEditors.get(2));
 		this.setJMenuBar(editorsMenu.get(2));
 		graphEditors.get(2).updatePespectiveMenuTab(

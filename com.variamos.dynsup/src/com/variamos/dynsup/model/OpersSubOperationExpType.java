@@ -9,7 +9,8 @@ public class OpersSubOperationExpType extends OpersElement {
 	 * 
 	 */
 	private static final long serialVersionUID = -4179971760312524058L;
-	private List<OpersExpr> semanticExpressions;
+
+	// private List<OpersExpr> semanticExpressions;
 
 	public OpersSubOperationExpType() {
 		super(null);

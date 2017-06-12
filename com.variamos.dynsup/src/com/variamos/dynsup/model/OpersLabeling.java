@@ -16,6 +16,7 @@ public class OpersLabeling extends OpersElement {
 
 	public OpersLabeling() {
 		super(null);
+		attributes = new ArrayList<OpersIOAttribute>();
 	}
 
 	public OpersLabeling(String identifier) {

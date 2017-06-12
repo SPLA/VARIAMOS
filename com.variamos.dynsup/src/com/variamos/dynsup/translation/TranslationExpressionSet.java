@@ -148,8 +148,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			OpersSubOperationExpType operExpType = null;
 			String subOperExpTypeName = null;
 			for (InstAttribute att : listatt) {
-				String attObj = (String) ((InstConcept) att.getValue())
-						.getInstAttributeValue("suboperexptype");
+				String attObj = ((InstConcept) att.getValue())
+						.getInstAttributeValue("suboperexptype").toString();
 				if (attObj.equals(expressionType.toString())) {
 					operExpType = (OpersSubOperationExpType) ((InstConcept) att
 							.getValue()).getEdOperEle();
@@ -522,6 +522,37 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									.getIdentifier() + "_value");
 							ident.add(id);
 						}
+						if (instE.getTransSupInstElement().getEdSyntaxEle()
+								.getInstSemanticElementId() != null
+								&& instE.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId()
+										.equals("NmLowVariable")
+								&& (instE
+										.getInstAttribute(
+												"LowLevelVarInSubOper")
+										.getValue()
+										.equals(instOperSubAction
+												.getDynamicAttribute("userId"))
+										&& instE.getInstAttribute(
+												"LowLevelInVarLabel")
+												.getValue()
+												.equals(operLab
+														.getDynamicAttribute("userId")) || instE
+										.getInstAttribute(
+												"LowLevelVarOutSubOper")
+										.getValue()
+										.equals(instOperSubAction
+												.getDynamicAttribute("userId"))
+										&& instE.getInstAttribute(
+												"LowLevelOutVarLabel")
+												.getValue()
+												.equals(operLab
+														.getDynamicAttribute("userId")))) {
+							Identifier id = f.newIdentifier(instE
+									.getIdentifier() + "_value");
+							ident.add(id);
+						}
 						if (instE.getInstAttribute("variableType") == null
 								|| (!instE.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable") && !instE
@@ -576,9 +607,16 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					List<ModelExpr> instexp = createElementInstanceExpressions(
 							oper2, semExps, true, 1);
 					List<NumericExpression> explist = getNumericExpressions(instexp);
+					int position = 0;
+					if (operLab.getInstAttributeValue("position") instanceof String)
+						position = Integer.parseInt((String) operLab
+								.getInstAttributeValue("position"));
+					else
+						position = ((Integer) operLab
+								.getInstAttributeValue("position")).intValue();
 					Labeling lab = new Labeling(operLab.getIdentifier(),
 							(String) operLab.getInstAttributeValue("labelId"),
-							(int) operLab.getInstAttributeValue("position"),
+							position,
 							(boolean) operLab
 									.getInstAttributeValue("outputSet"),
 							(boolean) operLab

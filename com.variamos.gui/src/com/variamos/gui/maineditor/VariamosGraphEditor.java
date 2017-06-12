@@ -1131,8 +1131,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				}
 				instAttribute.updateValidationList(instElement, mapElements);
 
-				if (instAttribute.getType().equals(
-						"com.variamos.dynsup.model.ModelExpr")) {
+				if (instAttribute.getType() != null
+						&& instAttribute.getType().equals(
+								"com.variamos.dynsup.model.ModelExpr")) {
 					continue;
 				}
 
@@ -1335,8 +1336,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				}
 				instAttribute.updateValidationList(instElement, mapElements);
 
-				if (instAttribute.getType().equals(
-						"com.variamos.dynsup.model.ModelExpr")) {
+				if (instAttribute.getType() != null
+						&& instAttribute.getType().equals(
+								"com.variamos.dynsup.model.ModelExpr")) {
 					continue;
 				}
 
@@ -1788,7 +1790,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		InstConcept element = new InstConcept("REFAS1", refas);
 		element.createInstAttributes(null);
 		this.refasModel.getVariabilityVertex().put("REFAS1", element);
-		System.out.println(operations);
+		// System.out.println(operations);
 		boolean first = true;
 		if (operations.get(0).startsWith("N:"))
 			first = false;
@@ -2252,7 +2254,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						OpersSubOperationExpType operExpType = null;
 						String subOperExpTypeName = null;
 						if (listatt != null) {
-							System.out.println(subOper.getIdentifier());
+							// System.out.println(subOper.getIdentifier());
 							for (InstAttribute att : listatt) {
 								String attObj = (String) ((InstConcept) att
 										.getValue())
@@ -2260,7 +2262,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								operExpType = (OpersSubOperationExpType) ((InstConcept) att
 										.getValue()).getEdOperEle();
 								subOperExpTypeName = attObj;
-								System.out.println(attObj);
+								// System.out.println(attObj);
 								expressions += operExpType
 										.getSemanticExpressions().size();
 								for (OpersExpr opExp : operExpType
@@ -2277,11 +2279,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 					}
 
-					System.out.println(el.getIdentifier() + " " + expressions);
+					// System.out.println(el.getIdentifier() + " " +
+					// expressions);
 				}
 			}
-			for (String opExp : expressionsS)
-				System.out.println(opExp);
+			// for (String opExp : expressionsS)
+			// System.out.println(opExp);
 		}
 
 	}
