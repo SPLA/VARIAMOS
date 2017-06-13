@@ -687,9 +687,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							}
 						}
 						if (!outIdentifiers.isEmpty()) {
-							System.out.println(defects);
 							defects = defects
 									.substring(0, defects.length() - 2) + ")";
+							System.out.println(defects);
 							outResult = outIdentifiers.size();
 						}
 					} while (indivRelExp && relaxedIter.hasNext());

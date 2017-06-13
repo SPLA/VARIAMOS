@@ -451,8 +451,8 @@ public class InfraSyntaxSyntaxMMM {
 				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
 				"", true, 0, 3, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Name", new ElemAttribute(
-				"Name", "String", AttributeType.SYNTAX, false, "Concept name",
-				"", "", 0, 5, "", "", -1, "", ""));
+				"Name", "String", AttributeType.SYNTAX, false, "View name", "",
+				"", 0, 5, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Style", new ElemAttribute(
 				"Style", "String", AttributeType.SYNTAX, false,
 				"Drawing Style", "", "refasclaim", 0, -1, "", "", -1, "", ""));

@@ -285,6 +285,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("None", instOperationSubAction);
 
 			OpersSubOperationExpType operSubActionNormal = new OpersSubOperationExpType();
+			operSubActionNormal.setIdentifier("NORMAL");
 
 			InstConcept instOperSubOperationExpType = new InstConcept(
 					"exptype", metaExpType, operSubActionNormal);
@@ -2799,6 +2800,7 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
 			updCoreOptSubOperNormal = new OpersSubOperationExpType();
+			updCoreOptSubOperNormal.setIdentifier("NORMAL");
 
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, updCoreOptSubOperNormal);
@@ -2884,7 +2886,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getDeadElements
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("UpdateCoreOper");
+					.setValue("Update Core Elements");
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -2907,6 +2909,7 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
 			verifDeadElemSubOperNormal = new OpersSubOperationExpType();
+			verifDeadElemSubOperNormal.setIdentifier("NORMAL");
 
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifDeadElemSubOperNormal);
@@ -2989,7 +2992,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("UpdateCoreOper");
+					.setValue("Update Core Elements");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 
@@ -3112,7 +3115,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getRedundancies
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("UpdateCoreOper");
+					.setValue("Update Core Elements");
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("iteration")

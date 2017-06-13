@@ -128,14 +128,14 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				"relTypesAttr",
 				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
-						false, "relationTypes", InstAttribute.class
+						false, "relationTypes", "", InstAttribute.class
 								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute("opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
-						false, "Operations Meta-Model Expr.",
+						false, "Operations Meta-Model Expr.", "",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -159,14 +159,14 @@ public class InfraSyntaxOpersMMM {
 		metaMetaPairwiseRel.addModelingAttribute(
 				"relTypesAttr",
 				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
-						false, "relationTypes", InstAttribute.class
+						false, "relationTypes", "", InstAttribute.class
 								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
 		metaMetaPairwiseRel.addModelingAttribute("opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
-						false, "Operations Meta-Model Expr.",
+						false, "Operations Meta-Model Expr.", "",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -225,7 +225,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
 				"relTypesAttr",
 				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
-						false, "relationTypes", InstAttribute.class
+						false, "relationTypes", "", InstAttribute.class
 								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -233,7 +233,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
 				"opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
-						false, "semanticExpressions", InstAttribute.class
+						false, "semanticExpressions", "", InstAttribute.class
 								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -258,7 +258,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OTRel.addModelingAttribute(
 				"relTypesAttr",
 				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
-						false, "relationTypes", InstAttribute.class
+						false, "relationTypes", "", InstAttribute.class
 								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -266,7 +266,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OTRel.addModelingAttribute(
 				"opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
-						false, "semanticExpressions", InstAttribute.class
+						false, "semanticExpressions", "", InstAttribute.class
 								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -438,8 +438,12 @@ public class InfraSyntaxOpersMMM {
 		rel.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
 		constraintInstEdges.put("AssoPWCORel", rel);
 
-		SyntaxElement infraSyntaxOpersM2OperGroup = new SyntaxElement('M',
-				"OMOperGroup", true, true, "OMOperGroup",
+		SyntaxElement infraSyntaxOpersM2OperGroup = new SyntaxElement(
+				'M',
+				"OMOperGroup",
+				true,
+				true,
+				"Defines meta-elements that groups together related operations",
 				"sinfrasyntaxopersm2opergroup", "Operation Group", 110, 55,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
@@ -529,11 +533,16 @@ public class InfraSyntaxOpersMMM {
 				infraSyntaxOpersM2MetaModel);
 		variabilityInstVertex.put("OMModel", instInfraSyntaxOpersM2MetaModel);
 
-		SyntaxElement infraSyntaxOpersM2OperAction = new SyntaxElement('A',
-				"OMOperation", true, true, "OMOperation",
-				"sinfrasyntaxopersm2oper", "Operation Action", 100, 75,
-				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, null, true);
+		SyntaxElement infraSyntaxOpersM2OperAction = new SyntaxElement(
+				'A',
+				"OMOperation",
+				true,
+				true,
+				"OMOperation",
+				"sinfrasyntaxopersm2oper",
+				"Is an executable action over a visual model composed of one or several suboperations",
+				100, 75, "/com/variamos/gui/perspeditor/images/assump.png",
+				true, Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("operType",
 				new ElemAttribute("operType", "Enumeration",
@@ -622,11 +631,17 @@ public class InfraSyntaxOpersMMM {
 		variabilityInstVertex.put("OMOperation",
 				instInfraSyntaxOpersM2OperAction);
 
-		SyntaxElement infraSyntaxOpersM2OperSubAction = new SyntaxElement('S',
-				"OMSubOper", true, true, "OMSubOper",
-				"sinfrasyntaxopersm2suboper", "Operation Action", 100, 55,
-				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, null, true);
+		SyntaxElement infraSyntaxOpersM2OperSubAction = new SyntaxElement(
+				'S',
+				"OMSubOper",
+				true,
+				true,
+				"OMSubOper",
+				"sinfrasyntaxopersm2suboper",
+				"Is the unit of action to define an operation. "
+						+ "An instance of the OMOperation must have at least one OMSubOper instance.",
+				100, 55, "/com/variamos/gui/perspeditor/images/assump.png",
+				true, Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
@@ -689,9 +704,11 @@ public class InfraSyntaxOpersMMM {
 								"",
 								"",
 								0,
-								11,
-								"type#==#Defects verifier error$type#==#Defects verifier update# ",
-								"type#==#Defects verifier error$type#==#Defects verifier update# ",
+								11,/*
+									 * "type#==#Defects verifier error$type#==#Defects verifier update# "
+									 */
+								"",
+								/* "type#==#Defects verifier error$type#==#Defects verifier update# " */"",
 								11, "\nMethod: #" + "defectsVerifierMethod"
 										+ "#all#",
 								"type#==#Defects verifier error$type#==#Defects verifier update"));
@@ -707,8 +724,8 @@ public class InfraSyntaxOpersMMM {
 								"Def. Verif. Core Oper",
 								"Specifies the core operation to obtain the free identifiers",
 								InstConcept.class.getCanonicalName(),
-								"OMOperation", "UpdateCoreOper", "", 0, 11,
-								"type#==#Defects verifier error#\"\"",
+								"OMOperation", "Update Core Elements", "", 0,
+								11, "type#==#Defects verifier error#\"\"",
 								"type#==#Defects verifier error#\"\"", 12,
 								"\ncoreOper: #" + "defectsCoreOper" + "#all#",
 								"type#==#Defects verifier error"));
@@ -723,10 +740,13 @@ public class InfraSyntaxOpersMMM {
 								false,
 								"Output Attribute",
 								"Attribute to validate the elements with errors, must be an output attributes with 0,1 domain",
-								"Sel", 0, 11, "type#==#Defects verifier error$"
-										+ "type#==#Defects verifier update$"
-										+ "type#==#Multi verification# ", "",
-								13, "\noutAtt: #" + "outAttribute" + "#all#",
+								"Sel", 0, 11, /*
+											 * "type#==#Defects verifier error$"
+											 * +
+											 * "type#==#Defects verifier update$"
+											 * + "type#==#Multi verification# "
+											 */"", "", 13, "\noutAtt: #"
+										+ "outAttribute" + "#all#",
 								"type#==#Defects verifier error$"
 										+ "type#==#Defects verifier update$"
 										+ "type#==#Multi verification"));
@@ -853,7 +873,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				"exptype",
 				new ElemAttribute("exptype", "Set", AttributeType.SYNTAX,
-						false, "exptype", InstAttribute.class
+						false, "exptype", "", InstAttribute.class
 								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", 6,
 						"#\n", ""));
@@ -921,7 +941,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
 				"sortorder",
 				new ElemAttribute("sortorder", "Set", AttributeType.SYNTAX,
-						false, "sortorder", InstAttribute.class
+						false, "sortorder", "", InstAttribute.class
 								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1,
 						"#\n", ""));

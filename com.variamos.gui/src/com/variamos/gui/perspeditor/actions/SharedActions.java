@@ -609,6 +609,7 @@ public class SharedActions {
 			if (metaVertex == null)
 				System.err.println("Concept w " + instVertex.getSupInstEleId());
 			else {
+
 				instVertex.setTransSupInstElement(instSupVertex);
 				refas.putVariabilityInstVertex(instVertex);
 				Iterator<InstAttribute> ias = instVertex.getInstAttributes()
@@ -634,6 +635,22 @@ public class SharedActions {
 							if (instanceExpression != null)
 								instanceExpression.loadVolatileElements(refas
 										.getVariabilityVertex());
+						}
+
+						if (ia.getIdentifier().equals("exptype")) {
+							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
+									.getValue();
+							for (InstAttribute att : arr) {
+								InstConcept cp = (InstConcept) att.getValue();
+								if (cp.getTransSupportMetaElement() == null) {
+									InstElement instSupportElement = refas
+											.getSyntaxModel().getVertex(
+													cp.getSupInstEleId());
+									cp.setTransSupInstElement(instSupportElement);
+								}
+							}
+							System.out.println("exptypes:"
+									+ instVertex.getIdentifier());
 						}
 						if (ia.getIdentifier().equals("enumType")) {
 							Object instanceExpression = ia.getValue();

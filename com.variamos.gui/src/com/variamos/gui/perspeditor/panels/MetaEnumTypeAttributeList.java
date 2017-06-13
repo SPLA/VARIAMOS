@@ -99,6 +99,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 
 		addMouseListener(new MouseAdapter() {
 
+			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 					int index = locationToIndex(evt.getPoint());
@@ -212,16 +213,28 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 				if (attributeName.equals("exptype")) {
 					OperationSubActionExecType ex = OperationSubActionExecType
 							.valueOf((String) instName.getValue());
-					InstElement e = new InstConcept("exptype",
-							infraSyntaxOpersM2Element,
-							new OpersSubOperationExpType());
-					e.getInstAttribute("suboperexptype").setValue(ex);
-					v.setValue(e);
+					if (v.getValue() instanceof String
+							|| !((String) ((InstElement) v.getValue())
+									.getInstAttribute("suboperexptype")
+									.getValue()).equals(instName.getValue())) {
 
+						OpersSubOperationExpType opexp = new OpersSubOperationExpType();
+						opexp.setIdentifier((String) instName.getValue());
+						InstElement e = new InstConcept("exptype",
+								infraSyntaxOpersM2Element, opexp);
+						e.getInstAttribute("suboperexptype").setValue(
+								ex.toString());
+						v.setValue(e);
+					} else {
+
+						InstAttribute ee = ((InstElement) v.getValue())
+								.getInstAttribute("suboperexptype");
+						ee.setValue(ex.toString());
+					}
 					attributes = ((List<InstAttribute>) element
 							.getInstAttributes().get(attributeName).getValue());
 				} else {
-					v.setValue((String) instName.getValue());
+					v.setValue(instName.getValue());
 
 					attributes = ((List<InstAttribute>) element
 							.getInstAttributes().get(attributeName).getValue());
@@ -269,6 +282,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 
 		final InstCell finalInstCell = instCell;
 		new Thread() {
+			@Override
 			public void run() {
 				try {
 					sleep(500);
