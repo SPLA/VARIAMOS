@@ -16349,8 +16349,24 @@ public class DefaultOpersMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
 
+		OpersConcept semanticAssetLfGroupRelation = new OpersConcept(
+				"AssetLfOT");// hardSemOverTwoRelList);
+
+		attribute = new ElemAttribute("structVal", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "No loops validation",
+				"", 0, new RangeDomain(0, 40, 0), 0, -1, "false", "", -1, "",
+				"");
+		semanticAssetLfGroupRelation.putSemanticAttribute("structVal",
+				attribute);
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semanticAssetLfGroupRelation.getIdentifier(), attribute
+						.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semanticAssetLfGroupRelation.getIdentifier(), attribute
+						.getName(), true));
+
 		InstConcept instVertexAsLFGR = new InstConcept("AssetLfOT",
-				semanticAssetOperGroupRelation, metaMetaInstOverTwoRel);
+				semanticAssetLfGroupRelation, metaMetaInstOverTwoRel);
 
 		refas.getVariabilityVertex().put("AssetLfOT", instVertexAsLFGR);
 
@@ -16360,12 +16376,13 @@ public class DefaultOpersMM {
 
 		// extends
 		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("lfgrtogr", instEdge);
-		instEdge.setIdentifier("lfgrtogr");
+		refas.getConstraintInstEdges().put("lfgrtogrhr", instEdge);
+		instEdge.setIdentifier("lfgrtogrhr");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
 		instEdge.setTargetRelation(instNmMetaOT, true);
 		instEdge.setSourceRelation(instVertexAsLFGR, true);
 
+		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("lfdstogr", instEdge);
 		instEdge.setIdentifier("lfdstogr");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);

@@ -667,8 +667,8 @@ public class SharedActions {
 									cp.setTransSupInstElement(instSupportElement);
 								}
 							}
-							System.out.println("exptypes:"
-									+ instVertex.getIdentifier());
+							// System.out.println("exptypes:"
+							// + instVertex.getIdentifier());
 						}
 						if (ia.getIdentifier().equals("enumType")) {
 							Object instanceExpression = ia.getValue();
@@ -743,10 +743,10 @@ public class SharedActions {
 				// if (source.getSource() == null)
 				// source.getSource().toString();
 				if (source.getSource() == null) {
-					System.out.println(source.getId());
+					System.out.println("null source for: " + source.getId());
 				}
 				if (source.getTarget() == null) {
-					System.out.println(source.getId());
+					System.out.println("null target for: " + source.getId());
 				}
 				InstElement sourceVertex = ((InstCell) source.getSource()
 						.getValue()).getInstElement();
