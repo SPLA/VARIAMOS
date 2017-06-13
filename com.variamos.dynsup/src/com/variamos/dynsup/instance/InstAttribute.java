@@ -291,7 +291,10 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 
 	public Object getEnumType() {
 		// TODO Auto-generated method stub
-		return volatileAttribute.getClassCanonicalName();
+		if (volatileAttribute != null)
+			return volatileAttribute.getClassCanonicalName();
+		System.out.println("null volatile att:" + this.getIdentifier());
+		return null;
 	}
 
 	@Override

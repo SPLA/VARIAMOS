@@ -285,6 +285,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("None", instOperationSubAction);
 
 			OpersSubOperationExpType operSubActionNormal = new OpersSubOperationExpType();
+			operSubActionNormal.setIdentifier("NORMAL");
 
 			InstConcept instOperSubOperationExpType = new InstConcept(
 					"exptype", metaExpType, operSubActionNormal);
@@ -1197,7 +1198,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Soft Dependencies on the Model");
+					"Identify SoftDeps on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(false);
@@ -1301,7 +1302,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Soft Dependencies Always Active");
+					"Identify SoftDeps Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -1411,7 +1412,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Soft Dependenciees Never Allowed");
+					"Identify SoftDeps Never Allowed");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -1854,7 +1855,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Operationalizations on the Model");
+					"Identify Operat. on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(false);
@@ -1961,7 +1962,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Operationalizations Always Active");
+					"Identify Operat. Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
@@ -2078,7 +2079,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Loops in Structural Relations");
+					"Identify Loops in Struct. Rels");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2199,7 +2200,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Softgoals Contributions with Conflict");
+					"Identify SG Contribs with Conflict");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2472,7 +2473,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Claims & Soft Dependencies with Conflicts");
+					"Identify Claims & SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2610,7 +2611,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Soft Dependencies with Conflicts");
+					"Identify SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2799,6 +2800,7 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
 			updCoreOptSubOperNormal = new OpersSubOperationExpType();
+			updCoreOptSubOperNormal.setIdentifier("NORMAL");
 
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, updCoreOptSubOperNormal);
@@ -2884,7 +2886,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getDeadElements
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("UpdateCoreOper");
+					.setValue("Update Core Elements");
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -2907,6 +2909,7 @@ public class DefaultOpersMM {
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
 			verifDeadElemSubOperNormal = new OpersSubOperationExpType();
+			verifDeadElemSubOperNormal.setIdentifier("NORMAL");
 
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifDeadElemSubOperNormal);
@@ -2946,7 +2949,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify False Optional Elements");
+					"Identify False Optionals");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2989,7 +2992,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("UpdateCoreOper");
+					.setValue("Update Core Elements");
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 
@@ -3112,7 +3115,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getRedundancies
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("UpdateCoreOper");
+					.setValue("Update Core Elements");
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("iteration")
@@ -16346,8 +16349,24 @@ public class DefaultOpersMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
 
+		OpersConcept semanticAssetLfGroupRelation = new OpersConcept(
+				"AssetLfOT");// hardSemOverTwoRelList);
+
+		attribute = new ElemAttribute("structVal", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "No loops validation",
+				"", 0, new RangeDomain(0, 40, 0), 0, -1, "false", "", -1, "",
+				"");
+		semanticAssetLfGroupRelation.putSemanticAttribute("structVal",
+				attribute);
+		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+				semanticAssetLfGroupRelation.getIdentifier(), attribute
+						.getName(), true));
+		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semanticAssetLfGroupRelation.getIdentifier(), attribute
+						.getName(), true));
+
 		InstConcept instVertexAsLFGR = new InstConcept("AssetLfOT",
-				semanticAssetOperGroupRelation, metaMetaInstOverTwoRel);
+				semanticAssetLfGroupRelation, metaMetaInstOverTwoRel);
 
 		refas.getVariabilityVertex().put("AssetLfOT", instVertexAsLFGR);
 
@@ -16357,12 +16376,13 @@ public class DefaultOpersMM {
 
 		// extends
 		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("lfgrtogr", instEdge);
-		instEdge.setIdentifier("lfgrtogr");
+		refas.getConstraintInstEdges().put("lfgrtogrhr", instEdge);
+		instEdge.setIdentifier("lfgrtogrhr");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
 		instEdge.setTargetRelation(instNmMetaOT, true);
 		instEdge.setSourceRelation(instVertexAsLFGR, true);
 
+		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("lfdstogr", instEdge);
 		instEdge.setIdentifier("lfdstogr");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);

@@ -25,6 +25,8 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.types.AttributeType;
+import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.io.ConsoleTextArea;
@@ -609,6 +611,7 @@ public class SharedActions {
 			if (metaVertex == null)
 				System.err.println("Concept w " + instVertex.getSupInstEleId());
 			else {
+
 				instVertex.setTransSupInstElement(instSupVertex);
 				refas.putVariabilityInstVertex(instVertex);
 				Iterator<InstAttribute> ias = instVertex.getInstAttributes()
@@ -634,6 +637,38 @@ public class SharedActions {
 							if (instanceExpression != null)
 								instanceExpression.loadVolatileElements(refas
 										.getVariabilityVertex());
+						}
+
+						if (ia.getIdentifier().equals("exptype")) {
+							ElemAttribute attributeE = instVertex
+									.getTransSupportMetaElement()
+									.getSemanticAttribute(ia.getAttributeName());
+							if (attributeE != null) {
+								ia.setAttribute(attributeE);
+							}
+							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
+									.getValue();
+							for (InstAttribute att : arr) {
+								InstConcept cp = (InstConcept) att.getValue();
+								if (cp.getTransSupportMetaElement() == null) {
+									InstElement instSupportElement = refas
+											.getSyntaxModel().getVertex(
+													cp.getSupInstEleId());
+									InstAttribute iaia = cp
+											.getInstAttribute("suboperexptype");
+									iaia.setAttribute(new ElemAttribute(
+											"EnumNameValue", "Enumeration",
+											AttributeType.SYNTAX, false,
+											"Value Name", "",
+											OperationSubActionExecType.class
+													.getCanonicalName(), "",
+											"RELAXABLE", 1, -1, "", "", -1, "",
+											""));
+									cp.setTransSupInstElement(instSupportElement);
+								}
+							}
+							// System.out.println("exptypes:"
+							// + instVertex.getIdentifier());
 						}
 						if (ia.getIdentifier().equals("enumType")) {
 							Object instanceExpression = ia.getValue();
@@ -708,10 +743,10 @@ public class SharedActions {
 				// if (source.getSource() == null)
 				// source.getSource().toString();
 				if (source.getSource() == null) {
-					System.out.println(source.getId());
+					System.out.println("null source for: " + source.getId());
 				}
 				if (source.getTarget() == null) {
-					System.out.println(source.getId());
+					System.out.println("null target for: " + source.getId());
 				}
 				InstElement sourceVertex = ((InstCell) source.getSource()
 						.getValue()).getInstElement();

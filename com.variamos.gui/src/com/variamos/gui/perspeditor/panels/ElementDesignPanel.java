@@ -130,7 +130,7 @@ public class ElementDesignPanel extends JPanel {
 	public void editorProperties(final VariamosGraphEditor editor,
 			final InstCell instCell) {
 		mainPanel.removeAll();
-		mainPanelWidth = 350;
+		mainPanelWidth = 330;
 		JPanel elementDesPropSubPanel = null;
 		final VariamosGraphEditor finalEditor = editor;
 
@@ -766,13 +766,15 @@ public class ElementDesignPanel extends JPanel {
 								if (widget instanceof MClassWidget
 										|| widget instanceof MEnumerationWidget) {
 									widget.getEditor().setPreferredSize(
-											new Dimension(200, 100));
+											new Dimension(250, 100));
+									widget.getEditor().setMaximumSize(
+											new Dimension(250, 20));
 
 								} else {
 									widget.getEditor().setPreferredSize(
-											new Dimension(200, 20));
+											new Dimension(250, 20));
 									widget.getEditor().setMaximumSize(
-											new Dimension(300, 20));
+											new Dimension(250, 20));
 								}
 								// System.out.println("DREE "
 								// + instAttribute.getIdentifier());
@@ -861,7 +863,7 @@ public class ElementDesignPanel extends JPanel {
 			dummy = new JPanel();
 			dummy.setMinimumSize(new Dimension(0, 0));
 			dummy.setPreferredSize(new Dimension(0, 20));
-			dummy.setMaximumSize(new Dimension(350, 200));
+			dummy.setMaximumSize(new Dimension(230, 200));
 			elementDesPropSubPanel.add(dummy);
 
 			// System.out.println(designPanelElements + "s");
@@ -870,14 +872,14 @@ public class ElementDesignPanel extends JPanel {
 			// JFrame e = new JFrame();
 			// e.add(contentPanel1);
 			// e.setVisible(true);
+			elementDesPropSubPanel.setPreferredSize(new Dimension(330,
+					designPanelElements * 28));
+			elementDesPropSubPanel.setMaximumSize(new Dimension(330,
+					designPanelElements * 28));
 			contentPanel1.add(elementDesPropSubPanel);
-			elementDesPropSubPanel.setPreferredSize(new Dimension(300,
-					designPanelElements * 28));
-			elementDesPropSubPanel.setMaximumSize(new Dimension(400,
-					designPanelElements * 28));
-			contentPanel1.setMaximumSize(new Dimension(400, 450));
-			contentPanel1.setPreferredSize(new Dimension(300, 450));
-			contentPanel1.setMinimumSize(new Dimension(200, 450));
+			contentPanel1.setMaximumSize(new Dimension(330, 450));
+			contentPanel1.setPreferredSize(new Dimension(330, 450));
+			contentPanel1.setMinimumSize(new Dimension(330, 450));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -886,13 +888,13 @@ public class ElementDesignPanel extends JPanel {
 			// Properties Panel
 			JPanel dummy2 = new JPanel();
 			if (description != null) {
-				mainPanelWidth += 100;
+				mainPanelWidth += 150;
 				JTextArea ta = new JTextArea();
 				ta.setAutoscrolls(true);
 				ta.setText(description);
 				ta.setEditable(false);
 				ta.setLineWrap(true);
-				contentPanel2.add(new JLabel("Element semantics"));// TODO add
+				contentPanel2.add(new JLabel("Element Description"));// TODO add
 				// constant
 				JScrollPane sca = new JScrollPane(ta);
 				sca.setAutoscrolls(true);
@@ -900,15 +902,15 @@ public class ElementDesignPanel extends JPanel {
 				ta.setRows(5);
 				ta.setColumns(40);
 				ta.setWrapStyleWord(true);
-				sca.setPreferredSize(new Dimension(250, 150));
-				sca.setMaximumSize(new Dimension(250, 150));
+				sca.setPreferredSize(new Dimension(150, 250));
+				sca.setMaximumSize(new Dimension(150, 250));
 
 				// dummy2.setPreferredSize(new Dimension(300, 150));
 				// dummy2.setMaximumSize(new Dimension(300, 150));
 				// contentPanel2.add(dummy2);
 				//
-				contentPanel2.setPreferredSize(new Dimension(200, 150));
-				contentPanel2.setMaximumSize(new Dimension(200, 150));
+				contentPanel2.setPreferredSize(new Dimension(150, 250));
+				contentPanel2.setMaximumSize(new Dimension(150, 250));
 				mainPanel.add(rootPanel2);
 
 				SpringUtilities
