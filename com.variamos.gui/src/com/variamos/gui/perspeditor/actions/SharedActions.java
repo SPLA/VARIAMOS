@@ -25,6 +25,8 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.types.AttributeType;
+import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.io.ConsoleTextArea;
@@ -638,6 +640,12 @@ public class SharedActions {
 						}
 
 						if (ia.getIdentifier().equals("exptype")) {
+							ElemAttribute attributeE = instVertex
+									.getTransSupportMetaElement()
+									.getSemanticAttribute(ia.getAttributeName());
+							if (attributeE != null) {
+								ia.setAttribute(attributeE);
+							}
 							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
 									.getValue();
 							for (InstAttribute att : arr) {
@@ -646,6 +654,16 @@ public class SharedActions {
 									InstElement instSupportElement = refas
 											.getSyntaxModel().getVertex(
 													cp.getSupInstEleId());
+									InstAttribute iaia = cp
+											.getInstAttribute("suboperexptype");
+									iaia.setAttribute(new ElemAttribute(
+											"EnumNameValue", "Enumeration",
+											AttributeType.SYNTAX, false,
+											"Value Name", "",
+											OperationSubActionExecType.class
+													.getCanonicalName(), "",
+											"RELAXABLE", 1, -1, "", "", -1, "",
+											""));
 									cp.setTransSupInstElement(instSupportElement);
 								}
 							}

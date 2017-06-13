@@ -790,7 +790,7 @@ public class InfraSyntaxOpersMMM {
 								"",
 								0,
 								11,
-								"type#==#Defects verifier error$type#==#Defects verifier update#\"\"",
+								/* "type#==#Defects verifier error$type#==#Defects verifier update#\"\"" */"",
 								"", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction

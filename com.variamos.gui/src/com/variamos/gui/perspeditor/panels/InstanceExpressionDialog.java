@@ -816,7 +816,7 @@ public class InstanceExpressionDialog extends JDialog {
 					.getVariabilityVertexCollection()) {
 				OpersElement semElement2 = instVertex
 						.getTransSupportMetaElement().getTransSemanticConcept();
-				if (semElement2 != null
+				if (semElement2 != null && semElement2.getIdentifier() != null
 						&& semElement2.getIdentifier().equals("NmVariable")) {
 					String instVertexId = null;
 					if (displayVariableName)

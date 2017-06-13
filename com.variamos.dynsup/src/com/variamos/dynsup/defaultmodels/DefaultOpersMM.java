@@ -1198,7 +1198,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Soft Dependencies on the Model");
+					"Identify SoftDeps on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(false);
@@ -1302,7 +1302,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Soft Dependencies Always Active");
+					"Identify SoftDeps Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -1412,7 +1412,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Soft Dependenciees Never Allowed");
+					"Identify SoftDeps Never Allowed");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -1855,7 +1855,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Operationalizations on the Model");
+					"Identify Operat. on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(false);
@@ -1962,7 +1962,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Operationalizations Always Active");
+					"Identify Operat. Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
@@ -2079,7 +2079,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Loops in Structural Relations");
+					"Identify Loops in Struct. Rels");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2200,7 +2200,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Softgoals Contributions with Conflict");
+					"Identify SG Contribs with Conflict");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2473,7 +2473,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Claims & Soft Dependencies with Conflicts");
+					"Identify Claims & SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2611,7 +2611,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Soft Dependencies with Conflicts");
+					"Identify SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -2949,7 +2949,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
-					"Identify False Optional Elements");
+					"Identify False Optionals");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);

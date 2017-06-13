@@ -293,6 +293,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		// TODO Auto-generated method stub
 		if (volatileAttribute != null)
 			return volatileAttribute.getClassCanonicalName();
+		System.out.println("null volatile att:" + this.getIdentifier());
 		return null;
 	}
 
