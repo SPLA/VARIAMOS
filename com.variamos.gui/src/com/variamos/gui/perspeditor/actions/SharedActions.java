@@ -670,6 +670,50 @@ public class SharedActions {
 							// System.out.println("exptypes:"
 							// + instVertex.getIdentifier());
 						}
+
+						if (ia.getIdentifier().equals("exptype")) {
+							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
+									.getValue();
+							for (InstAttribute att : arr) {
+								InstConcept cp = (InstConcept) att.getValue();
+								if (cp.getTransSupportMetaElement() == null) {
+									InstElement instSupportElement = refas
+											.getSyntaxModel().getVertex(
+													cp.getSupInstEleId());
+									InstAttribute iaia = cp
+											.getInstAttribute("suboperexptype");
+									iaia.setAttribute(new ElemAttribute(
+											"EnumNameValue", "Enumeration",
+											AttributeType.SYNTAX, false,
+											"Value Name", "",
+											OperationSubActionExecType.class
+													.getCanonicalName(), "",
+											"RELAXABLE", 1, -1, "", "", -1, "",
+											""));
+									cp.setTransSupInstElement(instSupportElement);
+								}
+							}
+							// System.out.println("exptypes:"
+							// + instVertex.getIdentifier());
+						}
+						if (ia.getIdentifier().equals("relTypesAttr")) {
+							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
+									.getValue();
+							for (InstAttribute att : arr) {
+								String values[] = ((String) att.getValue())
+										.split("#");
+								att.setAttribute(new ElemAttribute(values[0],
+										"String", AttributeType.SYNTAX, false,
+										values[1], "",
+										OperationSubActionExecType.class
+												.getCanonicalName(), "", "", 1,
+										-1, "", "", -1, "", ""));
+
+							}
+							// System.out.println("exptypes:"
+							// + instVertex.getIdentifier());
+						}
+
 						if (ia.getIdentifier().equals("enumType")) {
 							Object instanceExpression = ia.getValue();
 							if (ia.getAttribute().getType().equals("Class")) {
