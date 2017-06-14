@@ -640,6 +640,38 @@ public class SharedActions {
 						}
 
 						if (ia.getIdentifier().equals("exptype")) {
+							ElemAttribute attributeE = instVertex
+									.getTransSupportMetaElement()
+									.getSemanticAttribute(ia.getAttributeName());
+							if (attributeE != null) {
+								ia.setAttribute(attributeE);
+							}
+							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
+									.getValue();
+							for (InstAttribute att : arr) {
+								InstConcept cp = (InstConcept) att.getValue();
+								if (cp.getTransSupportMetaElement() == null) {
+									InstElement instSupportElement = refas
+											.getSyntaxModel().getVertex(
+													cp.getSupInstEleId());
+									InstAttribute iaia = cp
+											.getInstAttribute("suboperexptype");
+									iaia.setAttribute(new ElemAttribute(
+											"EnumNameValue", "Enumeration",
+											AttributeType.SYNTAX, false,
+											"Value Name", "",
+											OperationSubActionExecType.class
+													.getCanonicalName(), "",
+											"RELAXABLE", 1, -1, "", "", -1, "",
+											""));
+									cp.setTransSupInstElement(instSupportElement);
+								}
+							}
+							// System.out.println("exptypes:"
+							// + instVertex.getIdentifier());
+						}
+
+						if (ia.getIdentifier().equals("exptype")) {
 							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
 									.getValue();
 							for (InstAttribute att : arr) {
