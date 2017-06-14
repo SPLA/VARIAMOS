@@ -640,12 +640,6 @@ public class SharedActions {
 						}
 
 						if (ia.getIdentifier().equals("exptype")) {
-							ElemAttribute attributeE = instVertex
-									.getTransSupportMetaElement()
-									.getSemanticAttribute(ia.getAttributeName());
-							if (attributeE != null) {
-								ia.setAttribute(attributeE);
-							}
 							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
 									.getValue();
 							for (InstAttribute att : arr) {
@@ -670,6 +664,24 @@ public class SharedActions {
 							// System.out.println("exptypes:"
 							// + instVertex.getIdentifier());
 						}
+						if (ia.getIdentifier().equals("relTypesAttr")) {
+							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
+									.getValue();
+							for (InstAttribute att : arr) {
+								String values[] = ((String) att.getValue())
+										.split("#");
+								att.setAttribute(new ElemAttribute(values[0],
+										"String", AttributeType.SYNTAX, false,
+										values[1], "",
+										OperationSubActionExecType.class
+												.getCanonicalName(), "", "", 1,
+										-1, "", "", -1, "", ""));
+
+							}
+							// System.out.println("exptypes:"
+							// + instVertex.getIdentifier());
+						}
+
 						if (ia.getIdentifier().equals("enumType")) {
 							Object instanceExpression = ia.getValue();
 							if (ia.getAttribute().getType().equals("Class")) {
