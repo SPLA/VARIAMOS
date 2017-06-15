@@ -443,10 +443,11 @@ public class InfraSyntaxOpersMMM {
 				"OMOperGroup",
 				true,
 				true,
+				"OMOperGroup",
+				"sinfrasyntaxopersm2opergroup",
 				"Defines meta-elements that groups together related operations",
-				"sinfrasyntaxopersm2opergroup", "Operation Group", 110, 55,
-				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, null, true);
+				110, 55, "/com/variamos/gui/perspeditor/images/assump.png",
+				true, Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2OperGroup
 				.addModelingAttribute(
