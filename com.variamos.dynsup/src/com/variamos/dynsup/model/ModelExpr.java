@@ -1979,6 +1979,8 @@ public class ModelExpr implements Serializable, Cloneable {
 		case LEFTUNIQUEOUTCONVARIABLE: {
 			this.volatileLeftInstElement = instElement;
 			InstElement leftInstElement;
+			if (instElement.getTargetRelations().size() == 0)
+				break;
 			if (instElement instanceof InstPairwiseRel)
 				leftInstElement = instElement.getTargetRelations().get(pos);
 			else if (instElement.getTargetRelations().size() == 0)
@@ -2000,6 +2002,8 @@ public class ModelExpr implements Serializable, Cloneable {
 		case LEFTUNIQUEINCCONVARIABLE: {
 			this.volatileLeftInstElement = instElement;
 			InstElement leftInstElement;
+			if (instElement.getSourceRelations().size() == 0)
+				break;
 			if (instElement instanceof InstPairwiseRel)
 				leftInstElement = instElement.getSourceRelations().get(pos);
 			else if (instElement.getSourceRelations().size() == 0)

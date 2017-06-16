@@ -615,8 +615,12 @@ public class SyntaxElement implements Serializable {
 	}
 
 	public List<InstAttribute> getOpersRelationTypes() {
+		if (getTransInstSemanticElement() == null)
+			return null;
 		InstAttribute ia = getTransInstSemanticElement().getInstAttribute(
 				"relTypesAttr");
+		if (ia == null)
+			return null;
 		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
 
 		return ias;

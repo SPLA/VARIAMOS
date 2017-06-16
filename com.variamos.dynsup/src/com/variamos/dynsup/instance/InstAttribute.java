@@ -465,13 +465,15 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					setValidationMEList(metaGD);
 				}
 			}
-		} else if (instElement.getTransSupportMetaElement().getType() == 'O') {
+		} else if (instElement.getTransSupportMetaElement().getType() == 'O'
+				|| instElement.getTransSupportMetaElement().getType() == 'T') {
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(
 							InstAttribute.class.getCanonicalName())) {
 				List<InstAttribute> semanticRelationTypes = instElement
 						.getTransSupportMetaElement().getOpersRelationTypes();
+				// System.out.println("semreltypes: " + semanticRelationTypes);
 				setOpersOverTwoRelList(semanticRelationTypes);
 			}
 		}

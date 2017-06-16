@@ -988,8 +988,8 @@ public class ElementDesignPanel extends JPanel {
 				if (// editor.getPerspective() == 3
 				(editElm.getTransSupportMetaElement() != null && editElm
 						.getTransSupportMetaElement().isEditable() == false)) {
-					attributeEdition.setEnabled(false);
-					editable = false;
+					// attributeEdition.setEnabled(false);
+					// editable = false;
 				}
 
 				JList attList = null;

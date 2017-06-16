@@ -622,6 +622,13 @@ public class SharedActions {
 							ia.getIdentifier(), syntaxParents, opersParents);
 					if (attribute != null) {
 						ia.setAttribute(attribute);
+
+						List<InstAttribute> semGD = instVertex
+								.getTransSupportMetaElement()
+								.getOpersRelationTypes();
+						if (semGD != null)
+							ia.setOpersOverTwoRelList(semGD);
+
 						if (ia.getType().equals("Boolean")
 								&& ia.getValue() instanceof String)
 							if (((String) ia.getValue()).equals("0"))
@@ -648,6 +655,7 @@ public class SharedActions {
 							}
 							ArrayList<InstAttribute> arr = (ArrayList<InstAttribute>) ia
 									.getValue();
+
 							for (InstAttribute att : arr) {
 								InstConcept cp = (InstConcept) att.getValue();
 								if (cp.getTransSupportMetaElement() == null) {
