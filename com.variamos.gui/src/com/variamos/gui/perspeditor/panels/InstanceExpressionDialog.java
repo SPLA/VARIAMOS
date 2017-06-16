@@ -792,7 +792,8 @@ public class InstanceExpressionDialog extends JDialog {
 						.getSourceRelations().get(0).getInstAttribute("userId")
 						.toString();
 			if (element instanceof InstOverTwoRel
-					|| element.getTransSupportMetaElement().getType() == 'O')
+					|| element.getTransSupportMetaElement().getType() == 'O'
+					|| element.getTransSupportMetaElement().getType() == 'T')
 				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getInstAttribute("userId").toString();
@@ -803,7 +804,8 @@ public class InstanceExpressionDialog extends JDialog {
 				instRelElementId = ((InstPairwiseRel) element)
 						.getSourceRelations().get(0).getIdentifier();
 			if (element instanceof InstOverTwoRel
-					|| element.getTransSupportMetaElement().getType() == 'O')
+					|| element.getTransSupportMetaElement().getType() == 'O'
+					|| element.getTransSupportMetaElement().getType() == 'T')
 				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getIdentifier();

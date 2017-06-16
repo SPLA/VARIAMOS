@@ -646,12 +646,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					do {
 						if (indivRelExp) {
 							relaxed = new HlclProgram();
-							fixed = new HlclProgram();
-							fixed.addAll(fixedList);
 							if (relaxedIter.hasNext()) {
-								fixed.addAll(relaxedList);
 								relaxed.add(relaxedIter.next());
-								fixed.removeAll(relaxed);
 							}
 						}
 						Defect defect = new Defect(verify);
