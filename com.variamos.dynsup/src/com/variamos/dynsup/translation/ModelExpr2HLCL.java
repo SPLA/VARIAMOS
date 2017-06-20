@@ -20,6 +20,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
@@ -280,6 +281,17 @@ public class ModelExpr2HLCL {
 		fillHlclProgram(operationName, subOperation, operExecType, hlclProgram,
 				constraintGroups);
 		return hlclProgram;
+	}
+
+	public List<ModelExpr> getInstanceExpressions(InstElement operation,
+			String subOperation, OperationSubActionExecType operExecType) {
+		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+				refas, operation, null, null);
+		transExpSet.addExpressions(refas, null, subOperation, operExecType);
+		List<ModelExpr> ts = transExpSet.getInstanceExpressions(subOperation
+				+ "-" + operExecType);
+
+		return ts;
 	}
 
 	// Static call
@@ -1011,6 +1023,21 @@ public class ModelExpr2HLCL {
 				instVertex.removeDefect(defectId);
 		}
 
+	}
+
+	public void updateErrorMark(Collection<String> identifiers,
+			String defectId, ArrayList<String> defectDescriptions) {
+		// Call the SWIProlog and obtain the result
+
+		int pos = 0;
+		for (InstElement instVertex : refas.getElements()) {
+			instVertex.removeDefect(defectId);
+		}
+
+		for (String identifier : identifiers) {
+			InstElement element = refas.getElement(identifier);
+			element.putDefect(defectId, defectDescriptions.get(pos++));
+		}
 	}
 
 	/**

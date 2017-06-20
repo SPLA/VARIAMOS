@@ -89,8 +89,11 @@ public class DefaultOpersMM {
 	private static OpersSubOperationExpType sasverAllOpersOperSubActionNormal = null;
 
 	private static OpersConcept sasverNoLoopsOperationAction = null;
-	private static OpersSubOperationExpType sasverNoLoopsOperSubActionNormal = null;
-	private static OpersSubOperationExpType sasverNoLoopsOperSubActionRelaxable = null;
+	private static OpersSubOperationExpType sasverNoLoopsOperSubActionMVNormal = null;
+	private static OpersSubOperationExpType sasverNoLoopsOperSubActionMVRelaxable = null;
+
+	private static OpersSubOperationExpType sasverNoLoopsOperSubActionRedNormal = null;
+	private static OpersSubOperationExpType sasverNoLoopsOperSubActionRedToVerify = null;
 
 	private static OpersConcept sasverSGConflperationAction = null;
 	private static OpersSubOperationExpType sasverSGConflOperSubActionNormal = null;
@@ -128,7 +131,8 @@ public class DefaultOpersMM {
 	private static OpersSubOperation sasverClneverOperationSubAction = null;
 	private static OpersSubOperation sasverCoreOpersOperationSubAction = null;
 	private static OpersSubOperation sasverAllOpersOperationSubAction = null;
-	private static OpersSubOperation sasverNoLoopsOperationSubAction = null;
+	private static OpersSubOperation sasverNoLoopsOperationSubActionMV = null;
+	private static OpersSubOperation sasverNoLoopsOperationSubActionRed = null;
 	private static OpersSubOperation sasverSGConflOperationSubAction = null;
 	private static OpersSubOperation sasverConflClSDOperationSubAction = null;
 	private static OpersSubOperation sasverConflSDOperationSubAction = null;
@@ -171,7 +175,9 @@ public class DefaultOpersMM {
 			"unique");
 	private static OpersLabeling sasverAllOpersOperUniqueLabeling = new OpersLabeling(
 			"unique");
-	private static OpersLabeling sasverNoLoopsOperUniqueLabeling = new OpersLabeling(
+	private static OpersLabeling sasverNoLoopsOperMVUniqueLabeling = new OpersLabeling(
+			"unique");
+	private static OpersLabeling sasverNoLoopsOperRedUniqueLabeling = new OpersLabeling(
 			"unique");
 	private static OpersLabeling sasverSGConflOperUniqueLabeling = new OpersLabeling(
 			"unique");
@@ -343,7 +349,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("BasicSimulOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Validation_with_Dashboard.toString());
+					OperationActionType.Validation.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Start Simulation (Dynamic)");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -790,7 +796,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("SceSimulOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Validation_with_Dashboard.toString());
+					OperationActionType.Validation.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Start Simulation (Dynamic)");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -2091,24 +2097,27 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationAction, true);
 			instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-			sasverNoLoopsOperationSubAction = new OpersSubOperation(1,
+			sasverNoLoopsOperationSubActionMV = new OpersSubOperation(1,
 					"NoLoopsStructRelSubOper");
 			// updateCoreOperationAction
 			// .addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("NoLoopsStructRelSubOper",
-					metaOperationSubAction, sasverNoLoopsOperationSubAction);
+					metaOperationSubAction, sasverNoLoopsOperationSubActionMV);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("useNatLangExprDesc")
+					.setValue(true);
+
 			instOperationSubAction.getInstAttribute("errorTitle").setValue(
 					"Model Verify Error");
 			instOperationSubAction
 					.getInstAttribute("errorHint")
 					.setValue(
-							"This concepts has incoming relations that creates an structural loop or double structures.");
-			instOperationSubAction
-					.getInstAttribute("errorMsg")
-					.setValue(
-							"Please review the relations. #number# are involved in structural loops.");
+							"This concept has incoming/outgoing relations that "
+									+ "creates an structural loop or double structures.");
+			instOperationSubAction.getInstAttribute("errorMsg").setValue(
+					"Please review the relations. #number# concepts are "
+							+ "involved in structural loops.");
 			instOperationSubAction
 					.getInstAttribute("errorText")
 					.setValue(
@@ -2122,7 +2131,7 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"outStructVal");
+					"structVal");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -2139,10 +2148,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
-			sasverNoLoopsOperSubActionRelaxable = new OpersSubOperationExpType();
+			sasverNoLoopsOperSubActionMVRelaxable = new OpersSubOperationExpType();
 
 			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, sasverNoLoopsOperSubActionRelaxable);
+					metaExpType, sasverNoLoopsOperSubActionMVRelaxable);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("RELAXABLE");
@@ -2154,10 +2163,10 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			sasverNoLoopsOperSubActionNormal = new OpersSubOperationExpType();
+			sasverNoLoopsOperSubActionMVNormal = new OpersSubOperationExpType();
 
 			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, sasverNoLoopsOperSubActionNormal);
+					metaExpType, sasverNoLoopsOperSubActionMVNormal);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
@@ -2169,12 +2178,12 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			sasverNoLoopsOperUniqueLabeling = new OpersLabeling("unique");
+			sasverNoLoopsOperMVUniqueLabeling = new OpersLabeling("unique");
 
 			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("no-loops-lab", metaLabeling,
-					sasverNoLoopsOperUniqueLabeling);
+					sasverNoLoopsOperMVUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
 			instLabeling.getInstAttribute("position").setValue(1);
@@ -2186,6 +2195,112 @@ public class DefaultOpersMM {
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("no-loops-lab-pw", instEdgeOper);
 			instEdgeOper.setIdentifier("no-loops-lab-pw");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			sasverNoLoopsOperationSubActionRed = new OpersSubOperation(1,
+					"NoLoopsStructRelSubOperRed");
+			// updateCoreOperationAction
+			// .addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept(
+					"NoLoopsStructRelSubOperRed", metaOperationSubAction,
+					sasverNoLoopsOperationSubActionRed);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verify Error");
+			instOperationSubAction
+					.getInstAttribute("errorHint")
+					.setValue(
+							"This concepts has incoming relations that creates an structural loop or double structures.");
+			instOperationSubAction
+					.getInstAttribute("errorMsg")
+					.setValue(
+							"Please review the relations. #number# are involved in structural loops.");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent or the operation has errors."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was partially updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getRedundancies
+									.toString());
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"structVal");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			refas.getVariabilityVertex().put("NoLoopsStructRelSubOperRed",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("no-loopsRed", instEdgeOper);
+			instEdgeOper.setIdentifier("no-loopsRed");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			sasverNoLoopsOperSubActionRedToVerify = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverNoLoopsOperSubActionRedToVerify);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("TOVERIFY");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverNoLoopsOperSubActionRedNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, sasverNoLoopsOperSubActionRedNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			sasverNoLoopsOperRedUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("no-loopsRed-lab", metaLabeling,
+					sasverNoLoopsOperRedUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("no-loopsRed-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("no-loopsRed-lab-pw",
+					instEdgeOper);
+			instEdgeOper.setIdentifier("no-loopsRed-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -3337,8 +3452,8 @@ public class DefaultOpersMM {
 					metaOperationAction, configTempOper);
 			refas.getVariabilityVertex().put("ConfigureTemporalOper",
 					instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Configure.toString());
+			// instOperationAction.getInstAttribute("operType").setValue(
+			// OperationActionType.Configure.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Configure Temporal Operation");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3437,8 +3552,8 @@ public class DefaultOpersMM {
 					metaOperationAction, configPermOper);
 			refas.getVariabilityVertex().put("ConfigurePermanentOper",
 					instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Configure.toString());
+			// instOperationAction.getInstAttribute("operType").setValue(
+			// OperationActionType.Configure.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Configure Permanent Operation");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -6839,9 +6954,14 @@ public class DefaultOpersMM {
 				"", 0, new RangeDomain(0, 40, 0), 0, -1, "false", "", -1, "",
 				"");
 		semHardConcept.putSemanticAttribute("structVal", attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
 				semHardConcept.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionRed
+				.addOutAttribute(new OpersIOAttribute(semHardConcept
+						.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperMVUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semHardConcept.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semHardConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("satType", "Enumeration",
@@ -7009,8 +7129,10 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 
-		t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
-				"Equals"), instVertexF, "FeatureType", "Root");
+		t1 = new OpersExpr("2-1",
+				"Remove this or another of the root features", refas
+						.getSemanticExpressionTypes().get("Equals"),
+				instVertexF, "FeatureType", "Root");
 
 		t1 = new OpersExpr("010 VerRoot - IsRootFeature=...", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
@@ -7313,18 +7435,18 @@ public class DefaultOpersMM {
 				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
 				true));
 
-		attribute = new ElemAttribute("outStructVal", "Boolean",
-				AttributeType.OPERATION, false,
-				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
-				"level#all#", "");
-		directFeaFeatVertSemEdge
-				.putSemanticAttribute("outStructVal", attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
+		// attribute = new ElemAttribute("outStructVal", "Boolean",
+		// AttributeType.OPERATION, false,
+		// "Selected for SD verifications", "", false, 0, -1, "", "", -1,
+		// "level#all#", "");
+		// directFeaFeatVertSemEdge
+		// .putSemanticAttribute("outStructVal", attribute);
+		// sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
 
 		InstConcept instDirFeaFeatVertSemEdge = new InstConcept(
 				"ParentFeaturePW", metaMetaPairwiseRelation,
@@ -7517,26 +7639,31 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", 1);
 
-		t1 = new OpersExpr("020 NoLoop structValMan", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("020 NoLoop structValMan",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", 1);
 
-		t1 = new OpersExpr("169 NoLoop structValMan", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("169 NoLoop structValMan",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexFFGR, "structVal", true,
 				t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -7672,26 +7799,31 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", 1);
 
-		t1 = new OpersExpr("020b NoLoop structValOpt", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("020b NoLoop structValOpt",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", 1);
 
-		t1 = new OpersExpr("169b NoLoop structValOpt", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("169b NoLoop structValOpt",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexFFGR, "structVal", true,
 				t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		attribute = new ElemAttribute("optional", StringType.IDENTIFIER,
 				AttributeType.OPTION, false, "optional", "", "", 1, -1, "", "",
@@ -9119,9 +9251,14 @@ public class DefaultOpersMM {
 				"", 0, new RangeDomain(0, 40, 0), 0, -1, "false", "", -1, "",
 				"");
 		semAsset.putSemanticAttribute("structVal", attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
 				semAsset.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionRed
+				.addOutAttribute(new OpersIOAttribute(semAsset.getIdentifier(),
+						attribute.getName(), true));
+		sasverNoLoopsOperMVUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semAsset.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semAsset.getIdentifier(), attribute.getName(), true));
 
 		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semAsset
@@ -9170,10 +9307,21 @@ public class DefaultOpersMM {
 				"");
 		semanticOperClaimGroupRelation.putSemanticAttribute("structVal",
 				attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
 				semanticOperClaimGroupRelation.getIdentifier(), attribute
 						.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionRed
+				.addOutAttribute(new OpersIOAttribute(
+						semanticOperClaimGroupRelation.getIdentifier(),
+						attribute.getName(), true));
+		sasverNoLoopsOperationSubActionRed
+				.addOutAttribute(new OpersIOAttribute(
+						semanticOperClaimGroupRelation.getIdentifier(),
+						attribute.getName(), true));
+		sasverNoLoopsOperMVUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semanticOperClaimGroupRelation.getIdentifier(), attribute
+						.getName(), true));
+		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semanticOperClaimGroupRelation.getIdentifier(), attribute
 						.getName(), true));
 
@@ -9924,10 +10072,16 @@ public class DefaultOpersMM {
 				"", 0, new RangeDomain(0, 40, 0), 0, -1, "false", "", -1, "",
 				"");
 		semHardOverTwoRelation.putSemanticAttribute("structVal", attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
 				semHardOverTwoRelation.getIdentifier(), attribute.getName(),
 				true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionRed
+				.addOutAttribute(new OpersIOAttribute(semHardOverTwoRelation
+						.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperMVUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semHardOverTwoRelation.getIdentifier(), attribute.getName(),
+				true));
+		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semHardOverTwoRelation.getIdentifier(), attribute.getName(),
 				true));
 
@@ -10296,13 +10450,16 @@ public class DefaultOpersMM {
 				.get("Sum"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instHchcHHGRGR, instVertexHC, "structVal", 1);
 
-		t1 = new OpersExpr("045 NoLoop - DEFStruc", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("045 NoLoop - DEFStruc",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE, instHchcHHGRGR,
 				instVertexHC, "structVal", true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("Default", new ElemAttribute("Default",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "Default",
@@ -11194,18 +11351,18 @@ public class DefaultOpersMM {
 				directStructHardHardSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
 
-		attribute = new ElemAttribute("outStructVal", "Boolean",
-				AttributeType.OPERATION, false,
-				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
-				"level#all#", "");
-		directStructHardHardSemanticEdge.putSemanticAttribute("outStructVal",
-				attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				directStructHardHardSemanticEdge.getIdentifier(), attribute
-						.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directStructHardHardSemanticEdge.getIdentifier(), attribute
-						.getName(), true));
+		// attribute = new ElemAttribute("outStructVal", "Boolean",
+		// AttributeType.OPERATION, false,
+		// "Selected for SD verifications", "", false, 0, -1, "", "", -1,
+		// "level#all#", "");
+		// directStructHardHardSemanticEdge.putSemanticAttribute("outStructVal",
+		// attribute);
+		// sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directStructHardHardSemanticEdge.getIdentifier(), attribute
+		// .getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directStructHardHardSemanticEdge.getIdentifier(), attribute
+		// .getName(), true));
 
 		InstConcept instDirStructHardHardSemanticEdge = new InstConcept(
 				"meansHardPW", metaMetaPairwiseRelation,
@@ -11562,26 +11719,32 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHC, "structVal", 1);
 
-		t1 = new OpersExpr("048 NoLoop - structVal", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("048 NoLoop - structVal",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHC, "structVal",
 				true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHC, "structVal", 1);
 
-		t1 = new OpersExpr("048X 2", refas.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new OpersExpr("048X 2",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHHGR, "structVal",
 				true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -11818,27 +11981,32 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHC, "structVal", 1);
 
-		t1 = new OpersExpr("048b NoLoop structVal", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("048b NoLoop structVal",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHC, "structVal",
 				true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHC, "structVal", 1);
 
-		t1 = new OpersExpr("149b NoLoop structVal", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("149b NoLoop structVal",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirStructHardHardSemanticEdge, instVertexHHGR, "structVal",
 				true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("optional", new ElemAttribute("optional",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
@@ -11864,17 +12032,18 @@ public class DefaultOpersMM {
 
 		OpersConcept semAssetOperPairwiseRel = new OpersConcept("AssetOperPW");
 
-		attribute = new ElemAttribute("outStructVal", "Boolean",
-				AttributeType.OPERATION, false,
-				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
-				"level#all#", "");
-		semAssetOperPairwiseRel.putSemanticAttribute("outStructVal", attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semAssetOperPairwiseRel.getIdentifier(), attribute.getName(),
-				true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semAssetOperPairwiseRel.getIdentifier(), attribute.getName(),
-				true));
+		// attribute = new ElemAttribute("outStructVal", "Boolean",
+		// AttributeType.OPERATION, false,
+		// "Selected for SD verifications", "", false, 0, -1, "", "", -1,
+		// "level#all#", "");
+		// semAssetOperPairwiseRel.putSemanticAttribute("outStructVal",
+		// attribute);
+		// sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// semAssetOperPairwiseRel.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// semAssetOperPairwiseRel.getIdentifier(), attribute.getName(),
+		// true));
 
 		InstConcept instSemAssetOperPairwiseRel = new InstConcept(
 				"AssetOperPW", metaMetaPairwiseRelation,
@@ -11982,14 +12151,16 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instSemAssetOperPairwiseRel, instVertexOper, "structVal", 1);
 
-		t1 = new OpersExpr("137 NoLoop - 22p", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("137 NoLoop - 22p",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instSemAssetOperPairwiseRel, instVertexAsset, "structVal",
 				true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
 				"implementedBy", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -12015,17 +12186,17 @@ public class DefaultOpersMM {
 
 		OpersConcept semAssetPairwiseRel = new OpersConcept("AssetPW");
 
-		attribute = new ElemAttribute("outStructVal", "Boolean",
-				AttributeType.OPERATION, false,
-				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
-				"level#all#", "");
-		semAssetPairwiseRel.putSemanticAttribute("outStructVal", attribute);
-		sasverNoLoopsOperationSubAction
-				.addOutAttribute(new OpersIOAttribute(semAssetPairwiseRel
-						.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling
-				.addAttribute(new OpersIOAttribute(semAssetPairwiseRel
-						.getIdentifier(), attribute.getName(), true));
+		// attribute = new ElemAttribute("outStructVal", "Boolean",
+		// AttributeType.OPERATION, false,
+		// "Selected for SD verifications", "", false, 0, -1, "", "", -1,
+		// "level#all#", "");
+		// semAssetPairwiseRel.putSemanticAttribute("outStructVal", attribute);
+		// sasverNoLoopsOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(semAssetPairwiseRel
+		// .getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling
+		// .addAttribute(new OpersIOAttribute(semAssetPairwiseRel
+		// .getIdentifier(), attribute.getName(), true));
 
 		InstConcept instSemAssetPairwiseRel = new InstConcept("AssetPW",
 				metaMetaPairwiseRelation, semAssetPairwiseRel);
@@ -12122,12 +12293,15 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instSemAssetPairwiseRel, instVertexAsset, "structVal", 1);
 
-		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
-				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new OpersExpr("2", "This relation creates an structural loop",
+				refas.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instSemAssetPairwiseRel, instVertexAsset, "structVal", true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -12626,8 +12800,10 @@ public class DefaultOpersMM {
 				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"low");
 
-		t1 = new OpersExpr("080 Ver/Val low: SGReqLevel", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("080 Ver/Val low: SGReqLevel",
+				"This contribution relation requires arevision to solve"
+						+ " a conflict between the soft goals involved", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -12669,8 +12845,10 @@ public class DefaultOpersMM {
 				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"high");
 
-		t1 = new OpersExpr("079 Ver/Val high: SGReqLevel", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("079 Ver/Val high: SGReqLevel",
+				"This contribution relation requires a revision to solve"
+						+ " a conflict between the soft goals involved", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -12712,8 +12890,10 @@ public class DefaultOpersMM {
 				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"close");
 
-		t1 = new OpersExpr("078b Ver/Val close: SGReqLevel", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("078b Ver/Val close: SGReqLevel",
+				"This contribution relation requires a revision to solve"
+						+ " a conflict between the soft goals involved", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -12764,8 +12944,10 @@ public class DefaultOpersMM {
 				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"low");
 
-		t1 = new OpersExpr("078 Ver/Val low: source & target", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("078 Ver/Val low: source & target",
+				"This contribution relation requires a revision to solve"
+						+ " a conflict between the soft goals involved", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -13221,9 +13403,12 @@ public class DefaultOpersMM {
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instSgOTToSg, instVertexSG, "satisficingLevel", "low");
 
-		t1 = new OpersExpr("086  Ver/Val - low: SGReqLevel", refas
-				.getSemanticExpressionTypes().get("Implies"), instSgOTToSg, t3,
-				t1);
+		t1 = new OpersExpr(
+				"086  Ver/Val - low: SGReqLevel",
+				"This contribution relation requires a revision to solve"
+						+ " a conflict between the soft goal OT and the soft goal involved",
+				refas.getSemanticExpressionTypes().get("Implies"),
+				instSgOTToSg, t3, t1);
 
 		semExpr.add(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
@@ -13261,9 +13446,12 @@ public class DefaultOpersMM {
 				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"high");
 
-		t1 = new OpersExpr("085 Ver/Val high: SGReqLevel", refas
-				.getSemanticExpressionTypes().get("Implies"), instSgOTToSg, t3,
-				t1);
+		t1 = new OpersExpr(
+				"085 Ver/Val high: SGReqLevel",
+				"This contribution relation requires a revision to solve"
+						+ " a conflict between the soft goal OT and the soft goal involved",
+				refas.getSemanticExpressionTypes().get("Implies"),
+				instSgOTToSg, t3, t1);
 
 		semExpr.add(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
@@ -13301,9 +13489,12 @@ public class DefaultOpersMM {
 				instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"close");
 
-		t1 = new OpersExpr("084 Ver/Val close: SGReqLevel", refas
-				.getSemanticExpressionTypes().get("Implies"), instSgOTToSg, t3,
-				t1);
+		t1 = new OpersExpr(
+				"084 Ver/Val close: SGReqLevel",
+				"This contribution relation requires a revision to solve"
+						+ " a conflict between the soft goal OT and the soft goal involved",
+				refas.getSemanticExpressionTypes().get("Implies"),
+				instSgOTToSg, t3, t1);
 
 		semExpr.add(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
@@ -15212,8 +15403,10 @@ public class DefaultOpersMM {
 				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"low");
 
-		t1 = new OpersExpr("100 Ver -  Low: ClaimExpLevel", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("100 Ver -  Low: ClaimExpLevel",
+				"This claim to soft goal relation requires a revision to solve"
+						+ " a conflict with the expected value", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirClaimSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -15280,15 +15473,7 @@ public class DefaultOpersMM {
 		semExpr.add(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
-		verifDeadElemSubOperNormal.addSemanticExpression(t1);
-		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
-		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
-		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
-		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
-		sasverConflClSDOperSubActionRelaxable.addSemanticExpression(t1);
-		sasverConflClOperSubActionRelaxable.addSemanticExpression(t1);
-		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		// FIXME include in only one of the sets, the previous or this one
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -15348,8 +15533,10 @@ public class DefaultOpersMM {
 				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"high");
 
-		t1 = new OpersExpr("102 Ver - High: Claim", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("102 Ver - High: Claim",
+				"This claim to soft goal relation requires a revision to solve"
+						+ " a conflict with the expected value", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirClaimSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -15454,6 +15641,7 @@ public class DefaultOpersMM {
 		semExpr.add(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE,
@@ -15475,8 +15663,10 @@ public class DefaultOpersMM {
 				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"close");
 
-		t1 = new OpersExpr("101 Ver - close: ClaimExpLevel", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("101 Ver - close: ClaimExpLevel",
+				"This claim to soft goal relation requires a revision to solve"
+						+ " a conflict with the expected value", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirClaimSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -15738,8 +15928,10 @@ public class DefaultOpersMM {
 				instDirSDSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"low");
 
-		t1 = new OpersExpr("129 Ver/Val low: SDReqLevel", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("129 Ver/Val low: SDReqLevel",
+				"This soft dependency to soft goal relation requires a revision"
+						+ " to solve a conflict with the required value", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirSDSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -15776,8 +15968,10 @@ public class DefaultOpersMM {
 				instDirSDSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"high");
 
-		t1 = new OpersExpr("128 Ver/Val high: SDReqLevel", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("128 Ver/Val high: SDReqLevel",
+				"This soft dependency to soft goal relation requires a revision "
+						+ "to solve a conflict with the required value", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirSDSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -15814,8 +16008,10 @@ public class DefaultOpersMM {
 				instDirSDSGSemanticEdge, instVertexSG, "satisficingLevel",
 				"close");
 
-		t1 = new OpersExpr("127 VerGM/Val - close: SDReqLevel", refas
-				.getSemanticExpressionTypes().get("Implies"),
+		t1 = new OpersExpr("127 VerGM/Val - close: SDReqLevel",
+				"This soft dependency to soft goal relation requires a revision "
+						+ "to solve a conflict with the required value", refas
+						.getSemanticExpressionTypes().get("Implies"),
 				instDirSDSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
@@ -15968,10 +16164,17 @@ public class DefaultOpersMM {
 				"");
 		semanticAssetOperGroupRelation.putSemanticAttribute("structVal",
 				attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
 				semanticAssetOperGroupRelation.getIdentifier(), attribute
 						.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionRed
+				.addOutAttribute(new OpersIOAttribute(
+						semanticAssetOperGroupRelation.getIdentifier(),
+						attribute.getName(), true));
+		sasverNoLoopsOperMVUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semanticAssetOperGroupRelation.getIdentifier(), attribute
+						.getName(), true));
+		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semanticAssetOperGroupRelation.getIdentifier(), attribute
 						.getName(), true));
 
@@ -16383,10 +16586,17 @@ public class DefaultOpersMM {
 				"");
 		semanticAssetLfGroupRelation.putSemanticAttribute("structVal",
 				attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
 				semanticAssetLfGroupRelation.getIdentifier(), attribute
 						.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		sasverNoLoopsOperationSubActionRed
+				.addOutAttribute(new OpersIOAttribute(
+						semanticAssetLfGroupRelation.getIdentifier(), attribute
+								.getName(), true));
+		sasverNoLoopsOperMVUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semanticAssetLfGroupRelation.getIdentifier(), attribute
+						.getName(), true));
+		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semanticAssetLfGroupRelation.getIdentifier(), attribute
 						.getName(), true));
 
@@ -16800,18 +17010,18 @@ public class DefaultOpersMM {
 		// groupAssetOperSemanticEdge.getIdentifier(),
 		// attribute.getName(), true));
 
-		attribute = new ElemAttribute("outStructVal", "Boolean",
-				AttributeType.OPERATION, false,
-				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
-				"level#all#", "");
-		groupAssetOperSemanticEdge.putSemanticAttribute("outStructVal",
-				attribute);
-		sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				groupAssetOperSemanticEdge.getIdentifier(),
-				attribute.getName(), true));
-		sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				groupAssetOperSemanticEdge.getIdentifier(),
-				attribute.getName(), true));
+		// attribute = new ElemAttribute("outStructVal", "Boolean",
+		// AttributeType.OPERATION, false,
+		// "Selected for SD verifications", "", false, 0, -1, "", "", -1,
+		// "level#all#", "");
+		// groupAssetOperSemanticEdge.putSemanticAttribute("outStructVal",
+		// attribute);
+		// sasverNoLoopsOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// groupAssetOperSemanticEdge.getIdentifier(),
+		// attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// groupAssetOperSemanticEdge.getIdentifier(),
+		// attribute.getName(), true));
 
 		InstConcept instAssetOperGRAO = new InstConcept("AssetOperOTtoOperPW",
 				metaMetaPairwiseRelation, groupAssetOperSemanticEdge);
@@ -16898,13 +17108,16 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instAssetOperGRAO, instVertexOper, "structVal", 1);
 
-		t1 = new OpersExpr("134 NoLoop structVal", refas
-				.getSemanticExpressionTypes().get("Equals"),
+		t1 = new OpersExpr("134 NoLoop structVal",
+				"This relation creates an structural loop", refas
+						.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instAssetOperGRAO, instVertexAssOPERGR, "structVal", true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
 				"implementedBy", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -17018,7 +17231,9 @@ public class DefaultOpersMM {
 				instAssetLfGRAO, instVertexAsset, "structVal", true, t1);
 
 		semExpr.add(t1);
-		sasverNoLoopsOperSubActionRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
 				"implementedBy", StringType.IDENTIFIER, AttributeType.OPTION,

@@ -550,8 +550,8 @@ public class InfraSyntaxOpersMMM {
 						AttributeType.OPERATION, false, "Operation Type",
 						"Currently ignored by the implementation",
 						OperationActionType.class.getCanonicalName(),
-						OperationActionType.Validation_with_Dashboard, "", 0,
-						-1, "false", "", -1, "", ""));
+						OperationActionType.Verification, "", 0, 4, "", "", -1,
+						"", ""));
 		infraSyntaxOpersM2OperAction
 				.addModelingAttribute(
 						"execType",
@@ -660,36 +660,27 @@ public class InfraSyntaxOpersMMM {
 				new ElemAttribute("iteration", "Boolean",
 						AttributeType.OPERATION, false, "Iterate Sub-Oper", "",
 						false, 0, 9, "", "", -1, "", ""));
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute(
-						"completedMessage",
-						new ElemAttribute(
-								"completedMessage",
-								"String",
-								AttributeType.OPERATION,
-								false,
-								"Text when completed",
-								"Message to show when the operation is completed succesfully",
-								"", 0, 9, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"completedMessage", new ElemAttribute("completedMessage",
+						"String", AttributeType.OPERATION, false,
+						"Text when completed",
+						"Message to show when the operation is "
+								+ "completed succesfully", "", 0, 9, "", "",
+						-1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("showDashboard",
 				new ElemAttribute("showDashboard", "Boolean",
 						AttributeType.OPERATION, false, "ShowDashboard", "",
 						false, 0, 9, "", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute(
-						"type",
-						new ElemAttribute(
-								"type",
-								"Enumeration",
-								AttributeType.OPERATION,
-								true,
-								"Type",
-								"Type of Suboperation: determines the path of the execution model",
-								OperationSubActionType.class.getCanonicalName(),
-								"Single update", "", 0, 10, "", "", 10,
-								"\ntype: #" + "type" + "#all#", ""));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("type",
+				new ElemAttribute("type", "Enumeration",
+						AttributeType.OPERATION, true, "Type",
+						"Type of Suboperation: determines the path of "
+								+ "the execution model",
+						OperationSubActionType.class.getCanonicalName(),
+						"Single update", "", 0, 10, "", "", 10, "\ntype: #"
+								+ "type" + "#all#", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
 						"defectsVerifierMethod",
@@ -705,64 +696,60 @@ public class InfraSyntaxOpersMMM {
 								"",
 								"",
 								0,
-								11,/*
-									 * "type#==#Defects verifier error$type#==#Defects verifier update# "
-									 */
-								"",
-								/* "type#==#Defects verifier error$type#==#Defects verifier update# " */"",
+								11,
+								"type#!=#Multi verification# "/*
+															 * "type#==#Defects verifier error$type#==#Defects verifier update# "
+															 */
+								,
+								"type#!=#Multi verification# "
+								/* "type#==#Defects verifier error$type#==#Defects verifier update# " */,
 								11, "\nMethod: #" + "defectsVerifierMethod"
 										+ "#all#",
 								"type#==#Defects verifier error$type#==#Defects verifier update"));
 
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute(
-						"defectsCoreOper",
-						new ElemAttribute(
-								"defectsCoreOper",
-								"Class",
-								AttributeType.OPERATION,
-								false,
-								"Def. Verif. Core Oper",
-								"Specifies the core operation to obtain the free identifiers",
-								InstConcept.class.getCanonicalName(),
-								"OMOperation", "Update Core Elements", "", 0,
-								11, "type#==#Defects verifier error#\"\"",
-								"type#==#Defects verifier error#\"\"", 12,
-								"\ncoreOper: #" + "defectsCoreOper" + "#all#",
-								"type#==#Defects verifier error"));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"defectsCoreOper",
+				new ElemAttribute("defectsCoreOper", "Class",
+						AttributeType.OPERATION, false,
+						"Def. Verif. Core Oper",
+						"Specifies the core operation to obtain the"
+								+ " free identifiers", InstConcept.class
+								.getCanonicalName(), "OMOperation",
+						"Update Core Elements", "", 0, 11,
+						"type#==#Defects verifier error#\"\"",
+						"type#==#Defects verifier error#\"\"", 12,
+						"\ncoreOper: #" + "defectsCoreOper" + "#all#",
+						"type#==#Defects verifier error"));
 
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute(
-						"outAttribute",
-						new ElemAttribute(
-								"outAttribute",
-								"String",
-								AttributeType.OPERATION,
-								false,
-								"Output Attribute",
-								"Attribute to validate the elements with errors, must be an output attributes with 0,1 domain",
-								"Sel", 0, 11, /*
-											 * "type#==#Defects verifier error$"
-											 * +
-											 * "type#==#Defects verifier update$"
-											 * + "type#==#Multi verification# "
-											 */"", "", 13, "\noutAtt: #"
-										+ "outAttribute" + "#all#",
-								"type#==#Defects verifier error$"
-										+ "type#==#Defects verifier update$"
-										+ "type#==#Multi verification"));
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute(
-						"indivVerExp",
-						new ElemAttribute(
-								"indivVerExp",
-								"Boolean",
-								AttributeType.OPERATION,
-								false,
-								"Indiv. Verif. Expr.",
-								"Use Verification Expressions individually with multiple calls CauCos",
-								false, 0, 11, "type#==#Multi verification# ",
-								"type#==#Multi verification# ", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("outAttribute",
+				new ElemAttribute("outAttribute", "String",
+						AttributeType.OPERATION, false, "Output Attribute",
+						"Attribute to validate the elements with errors, must "
+								+ "be an output attributes with 0,1 domain",
+						"Sel", 0, 11, /*
+									 * "type#==#Defects verifier error$" +
+									 * "type#==#Defects verifier update$" +
+									 * "type#==#Multi verification# "
+									 */"", "", 13, "\noutAtt: #"
+								+ "outAttribute" + "#all#",
+						"type#==#Defects verifier error$"
+								+ "type#==#Defects verifier update$"
+								+ "type#==#Multi verification"));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("indivVerExp",
+				new ElemAttribute("indivVerExp", "Boolean",
+						AttributeType.OPERATION, false, "Indiv. Verif. Expr.",
+						"Use Verification Expressions individually with"
+								+ " multiple calls CauCos", false, 0, 11,
+						"type#==#Multi verification# ",
+						"type#==#Multi verification# ", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"useNatLangExprDesc", new ElemAttribute("useNatLangExprDesc",
+						"Boolean", AttributeType.OPERATION, false,
+						"Use Nat. Lang. Desc.",
+						"Use the natural language description of the relaxable "
+								+ "expressions for this operation", false, 0,
+						11, "type#==#Multi verification# ",
+						"type#==#Multi verification# ", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
 						"indivRelExp",
@@ -791,7 +778,7 @@ public class InfraSyntaxOpersMMM {
 								"",
 								0,
 								11,
-								/* "type#==#Defects verifier error$type#==#Defects verifier update#\"\"" */"",
+								"type#!=#Multi verification# "/* "type#==#Defects verifier error$type#==#Defects verifier update#\"\"" */,
 								"", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction

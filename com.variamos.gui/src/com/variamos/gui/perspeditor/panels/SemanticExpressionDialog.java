@@ -108,6 +108,8 @@ public class SemanticExpressionDialog extends JDialog {
 			solutionPanel.setMaximumSize(new Dimension(900, 200));
 			JTextField iden = new JTextField();
 			iden.setSize(100, 40);
+			iden.setToolTipText("Identifier of the semantic expression, must be"
+					+ " unique within a concept scope");
 			iden.setText(semanticExpression.getIdentifier());
 			iden.addFocusListener(new FocusListener() {
 				@Override
@@ -127,6 +129,27 @@ public class SemanticExpressionDialog extends JDialog {
 					.getVariabilityVertex());
 			showExpression(semanticExpression, element, solutionPanel,
 					OpersExprType.BOOLEXP, 255);
+
+			JTextField natLangDesc = new JTextField();
+			natLangDesc
+					.setToolTipText("Natural language description for relaxable"
+							+ " expressions of multi-verification operations");
+			natLangDesc.setSize(100, 40);
+			natLangDesc.setText(semanticExpression.getNaturalLangDesc());
+			natLangDesc.addFocusListener(new FocusListener() {
+				@Override
+				public void focusGained(FocusEvent e) {
+				}
+
+				@Override
+				public void focusLost(FocusEvent event) {
+					String item = ((JTextField) event.getSource()).getText();
+					if (item != null) {
+						semanticExpression.setNaturalLangDesc(item);
+					}
+				}
+			});
+			solutionPanel.add(natLangDesc);
 
 			solutionPanel.addPropertyChangeListener("value",
 					new PropertyChangeListener() {
@@ -311,9 +334,11 @@ public class SemanticExpressionDialog extends JDialog {
 		JComboBox<String> leftSide = createSidesCombo(semanticExpression,
 				element, true, recursiveElement != null ? true : false,
 				fixedType);
+		leftSide.setToolTipText("Type for the left side of the expression");
 		JComboBox<String> rightSide = createSidesCombo(semanticExpression,
 				element, false, recursiveElement != null ? true : false,
 				fixedType);
+		rightSide.setToolTipText("Type for the right side of the expression");
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBackground(new Color(color, color, color));
 		leftPanel.addMouseListener(new MouseListener() {

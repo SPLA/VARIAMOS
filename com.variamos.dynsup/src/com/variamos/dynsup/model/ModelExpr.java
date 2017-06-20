@@ -1981,12 +1981,13 @@ public class ModelExpr implements Serializable, Cloneable {
 			InstElement leftInstElement;
 			if (instElement.getTargetRelations().size() == 0)
 				break;
+			if (instElement.getTargetRelations().size() == 0)
+				break;
 			if (instElement instanceof InstPairwiseRel)
 				leftInstElement = instElement.getTargetRelations().get(pos);
-			else if (instElement.getTargetRelations().size() == 0)
-				break;
-			leftInstElement = instElement.getTargetRelations().get(pos)
-					.getTargetRelations().get(0);
+			else
+				leftInstElement = instElement.getTargetRelations().get(pos)
+						.getTargetRelations().get(0);
 			if (leftIterInstance + 1 < leftInstElement.getInstances(refas)
 					&& !iterExpression) {
 
@@ -2006,10 +2007,9 @@ public class ModelExpr implements Serializable, Cloneable {
 				break;
 			if (instElement instanceof InstPairwiseRel)
 				leftInstElement = instElement.getSourceRelations().get(pos);
-			else if (instElement.getSourceRelations().size() == 0)
-				break;
-			leftInstElement = instElement.getSourceRelations().get(pos)
-					.getSourceRelations().get(0);
+			else
+				leftInstElement = instElement.getSourceRelations().get(pos)
+						.getSourceRelations().get(0);
 			if (leftIterInstance + 1 < leftInstElement.getInstances(refas)
 					&& !iterExpression) {
 				leftInstanceExpression = new ModelExpr(refas, false,
