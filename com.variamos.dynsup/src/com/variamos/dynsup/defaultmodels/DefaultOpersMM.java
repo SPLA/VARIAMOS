@@ -10789,8 +10789,40 @@ public class DefaultOpersMM {
 				instVertexHHGR, t1, t2);
 
 		t1 = new OpersExpr("040 Ver/Val RANGEHardRel", refas
-				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexHHGR, instVertexHHGR, "OSel", true, t1);
+				.getSemanticExpressionTypes().get("Implies"), instVertexHHGR,
+				instVertexHHGR, "OSel", true, t1);
+
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexHC,
+				instVertexHC, "Sel", true, "FalseVal");
+
+		t1 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexHHGR, instVertexHC, t1, 1);
+
+		t1 = new OpersExpr("040xex Ver/Val RANGEHardRel", refas
+				.getSemanticExpressionTypes().get("Implies"), instVertexHHGR,
+				instVertexHHGR, "OSel", false, t1);
 
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);

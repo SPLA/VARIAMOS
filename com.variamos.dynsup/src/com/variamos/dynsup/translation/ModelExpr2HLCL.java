@@ -520,6 +520,68 @@ public class ModelExpr2HLCL {
 		return 0;
 	}
 
+	// Dynamic implementation to export
+	public Map<String, Map<String, Integer>> execExport(
+			ProgressMonitor progressMonitor, InstElement operation,
+			InstElement suboper) throws InterruptedException {
+		int iter = 0;
+		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
+		elements = new HashMap<String, Map<String, Integer>>();
+		int result = 0;
+		boolean first = true;
+		int cont = 0;
+		while (result == 0 && !progressMonitor.isCanceled()) {
+			progressMonitor.setNote("Solutions processed: " + cont++
+					+ "(total unknown)");
+			if (first) {
+				result = execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION,
+						operation, suboper);
+				first = false;
+			} else
+				result = execute(progressMonitor, ModelExpr2HLCL.NEXT_SOLUTION,
+						operation, suboper);
+			if (result == 0 && !progressMonitor.isCanceled()) {
+				updateGUIElements(null, null, null);
+				Map<String, Integer> newMap = new TreeMap<String, Integer>();
+				for (InstElement instVertex : refas
+						.getVariabilityVertexCollection()) {
+					if (instVertex.getInstAttribute("exportOnConfig") != null
+							&& instVertex.getInstAttribute("exportOnConfig")
+									.getAsBoolean()) {
+						String instId = instVertex.getIdentifier();
+						if (instVertex.getIdentifier().contains("Variable")) {
+							Object oo = instVertex.getInstAttribute("value")
+									.getValue();
+							Integer o = null;
+							if (oo instanceof Integer) {
+								o = (Integer) instVertex.getInstAttribute(
+										"value").getValue();
+
+							} else {
+								o = Integer.valueOf((String) instVertex
+										.getInstAttribute("value").getValue());
+							}
+
+							newMap.put(instId, o);
+						} else {
+							Boolean o = (Boolean) instVertex.getInstAttribute(
+									"SimulSel").getValue();
+							Integer integer;
+							if (o.booleanValue())
+								integer = 1;
+							else
+								integer = 0;
+							newMap.put(instId, integer);
+						}
+					}
+				}
+				iter++;
+				elements.put(iter + "", newMap);
+			}
+		}
+		return elements;
+	}
+
 	// static call implementation
 	// No longer needed when the dynamic implementation is completed
 	public boolean execute(ProgressMonitor progressMonitor, String element,
@@ -1466,7 +1528,7 @@ public class ModelExpr2HLCL {
 				result = execute(progressMonitor, element,
 						ModelExpr2HLCL.NEXT_SOLUTION, type);
 			if (result && !progressMonitor.isCanceled()) {
-				updateGUIElements(null, null);
+				updateGUIElements(null, null, null);
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
 				for (InstElement instVertex : refas
 						.getVariabilityVertexCollection()) {

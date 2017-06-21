@@ -100,7 +100,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private boolean update;
 	private Component parentComponent;
 	private ModelInstance refasModel;
-	// private String file;
+	private String file;
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
 	private boolean terminated = false;
@@ -113,7 +113,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public SolverOpersTask(ProgressMonitor progressMonitor,
 			ModelInstance refasModel, ModelExpr2HLCL refas2hlcl,
 			HlclProgram configHlclProgram, boolean firstSimulExec,
-			List<String> operations, Configuration lastConfiguration) {
+			List<String> operations, Configuration lastConfiguration,
+			String filename) {
 
 		this.refasModel = refasModel;
 		this.progressMonitor = progressMonitor;
@@ -125,6 +126,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		this.update = false;
 		this.operationsNames = operations;
 		this.lastConfiguration = lastConfiguration;
+		this.file = filename;
 	}
 
 	public SolverOpersTask(ProgressMonitor progressMonitor,
@@ -187,13 +189,13 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return null;
 	}
 
-	// TODO Modify for dynamic operations
-	@Deprecated
-	public boolean saveConfiguration(String file) throws InterruptedException {
+	// for dynamic operations
+	public boolean saveConfiguration(String file, InstElement operation,
+			InstElement suboper) throws InterruptedException {
 		setProgress(1);
 		progressMonitor.setNote("Solutions processed: 0");
-		Map<String, Map<String, Integer>> elements = refas2hlcl
-				.execCompleteSimul(progressMonitor);
+		Map<String, Map<String, Integer>> elements = refas2hlcl.execExport(
+				progressMonitor, operation, suboper);
 		setProgress(95);
 		progressMonitor
 				.setNote("Total Solutions processed: " + elements.size());
@@ -370,12 +372,12 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							result = refas2hlcl.execute(progressMonitor,
 									ModelExpr2HLCL.ONE_SOLUTION, operationObj,
 									instsuboperations.get(suboper
-											.getIdentifier())); // typ
+											.getIdentifier()));
 						} else if (type
 								.equals(StringUtils
 										.formatEnumValue(OperationSubActionType.Export_Solutions
 												.toString()))) {
-
+							saveConfiguration(file, operationObj, suboper);
 						} else if (type
 								.equals(StringUtils
 										.formatEnumValue(OperationSubActionType.Single_Update

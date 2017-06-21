@@ -1784,7 +1784,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	// TODO support ALL operations dynamically, not only the first
 
-	public void callOperations(List<String> operations) {
+	public void callOperations(List<String> operations, String filename) {
 		// FIXME support multiple models selected from the menu not only REFAS
 		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
 		// use the first node as the REFAS node - fixme
@@ -1797,12 +1797,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		boolean first = true;
 		if (operations.get(0).startsWith("N:"))
 			first = false;
-		executeOperationsThead(first, operations);
+		executeOperationsThead(first, operations, filename);
 	}
 
 	// Dynamic operation's definition
 	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution,
-			List<String> operations) {
+			List<String> operations, String filename) {
 
 		if (!firstSimulExecution && semTask != null) {
 			semTask.setFirstSimulExec(false);
@@ -1817,7 +1817,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setProgress(1);
 			semTask = new SolverOpersTask(progressMonitor, refasModel,
 					refas2hlcl, configHlclProgram, firstSimulExecution,
-					operations, lastConfiguration);
+					operations, lastConfiguration, filename);
 
 			semTask.addPropertyChangeListener(this);
 			semTask.execute();
