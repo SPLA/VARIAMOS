@@ -570,12 +570,14 @@ public class ElementDesignPanel extends JPanel {
 															.getValueObject())
 															.getInstSemanticElementId();
 													for (InstElement e : pwrList) {
-														String ee = (String) e
-																.getInstAttribute(
-																		"OperationsMMType")
-																.getValue();
-														if (ee.equals(val))
-															sel = e;
+														if (e.getInstAttribute("OperationsMMType") != null) {
+															String ee = (String) e
+																	.getInstAttribute(
+																			"OperationsMMType")
+																	.getValue();
+															if (ee.equals(val))
+																sel = e;
+														}
 													}
 													finalEditElm
 															.setTransSupInstElement(sel);

@@ -96,6 +96,9 @@ public class ModelExpr implements Serializable, Cloneable {
 	private ModelInstance refas;
 	private int expressionInstance = -1;
 	private boolean iterInstance;
+	private String sourceInstanceId = "";
+	private String targetInstanceId = "";
+	private String elementInstanceId = "";
 
 	public String getLastLeft() {
 		return lastLeft;
@@ -1919,6 +1922,13 @@ public class ModelExpr implements Serializable, Cloneable {
 
 	public void createFromSemanticExpression(InstElement instElement, int pos,
 			int instanceExpression, boolean iterExpression, int leftIterInstance) {
+		if (instElement.getSourceRelations().size() != 0)
+			this.setSourceInstanceId(instElement.getSourceRelations().get(0)
+					.getIdentifier());
+		if (instElement.getTargetRelations().size() != 0)
+			this.setTargetInstanceId(instElement.getTargetRelations().get(0)
+					.getIdentifier());
+		this.setElementInstanceId(instElement.getIdentifier());
 		this.expressionInstance = instanceExpression;
 		ExpressionVertexType type = volatileSemanticExpression
 				.getLeftExpressionType();
@@ -2381,5 +2391,29 @@ public class ModelExpr implements Serializable, Cloneable {
 		if (rightType == ExpressionVertexType.RIGHTVARIABLE)
 			out.add(this.getRightElement());
 		return out;
+	}
+
+	public String getSourceInstanceId() {
+		return sourceInstanceId;
+	}
+
+	public void setSourceInstanceId(String sourceInstanceId) {
+		this.sourceInstanceId = sourceInstanceId;
+	}
+
+	public String getTargetInstanceId() {
+		return targetInstanceId;
+	}
+
+	public void setTargetInstanceId(String targetInstanceId) {
+		this.targetInstanceId = targetInstanceId;
+	}
+
+	public String getElementInstanceId() {
+		return elementInstanceId;
+	}
+
+	public void setElementInstanceId(String elementInstanceId) {
+		this.elementInstanceId = elementInstanceId;
 	}
 }

@@ -365,8 +365,21 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						if (showDashboard)
 							this.showDashboard = showDashboard;
 						if (type.equals(StringUtils
-								.formatEnumValue(OperationSubActionType.Single_Update
-										.toString()))
+								.formatEnumValue(OperationSubActionType.Number_Solutions
+										.toString()))) {
+							result = refas2hlcl.execute(progressMonitor,
+									ModelExpr2HLCL.ONE_SOLUTION, operationObj,
+									instsuboperations.get(suboper
+											.getIdentifier())); // typ
+						} else if (type
+								.equals(StringUtils
+										.formatEnumValue(OperationSubActionType.Export_Solutions
+												.toString()))) {
+
+						} else if (type
+								.equals(StringUtils
+										.formatEnumValue(OperationSubActionType.Single_Update
+												.toString()))
 								|| type.equals(StringUtils
 										.formatEnumValue(OperationSubActionType.Single_Verification
 												.toString()))
@@ -623,7 +636,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			HlclProgram fixedList = refas2hlcl.getHlclProgram(operation,
 					subOper.getIdentifier(), OperationSubActionExecType.NORMAL,
 					transExpSet);
-			Set<String> outIdentifiers = new TreeSet<String>();
+			Set<String> outIdentifiersSet = new TreeSet<String>();
+			ArrayList<String> outIdentifiersList = new ArrayList<String>();
 			String defects = "(";
 			HlclProgram modelToVerify = new HlclProgram();
 			modelToVerify.addAll(verifyList);
@@ -677,11 +691,36 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								if (progressMonitor.isCanceled())
 									throw (new InterruptedException());
 
-								System.out.println(relaxedList
-										.indexOf(expression));
+								ModelExpr modelExpression = relaxedMEList
+										.get(relaxedList.indexOf(expression));
+								// .getSemanticExpression();
+								// System.out.println(relaxedList
+								// .indexOf(expression));
 								Set<Identifier> iden = HlclUtil
 										.getUsedIdentifiers(expression);
 								Iterator iterIden = iden.iterator();
+
+								if (modelExpression.getElementInstanceId() != null) {
+									InstElement ie = refas2hlcl
+											.getRefas()
+											.getElement(
+													modelExpression
+															.getElementInstanceId());
+									if (ie.getInstAttribute(outAttribute) != null
+											&& outIdentifiersSet
+													.add(modelExpression
+															.getElementInstanceId())) {
+										if (natLanguage)
+											naturalLanguageHints
+													.add(modelExpression
+															.getSemanticExpression()
+															.getNaturalLangDesc());
+										outIdentifiersList.add(modelExpression
+												.getElementInstanceId());
+										defects += modelExpression
+												.getElementInstanceId() + ", ";
+									}
+								}
 
 								while (iterIden.hasNext()) {
 									Identifier newIden = (Identifier) iterIden
@@ -690,23 +729,23 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									InstElement ie = refas2hlcl.getRefas()
 											.getElement(o[0]);
 									if (ie.getInstAttribute(outAttribute) != null
-											&& outIdentifiers.add(o[0]))
+											&& outIdentifiersSet.add(o[0])) {
 										if (natLanguage)
 											naturalLanguageHints
-													.add(relaxedMEList
-															.get(relaxedList
-																	.indexOf(expression))
+													.add(modelExpression
 															.getSemanticExpression()
 															.getNaturalLangDesc());
-									defects += o[0] + ", ";
+										defects += o[0] + ", ";
+										outIdentifiersList.add(o[0]);
+									}
 								}
 							}
 						}
-						if (!outIdentifiers.isEmpty()) {
+						if (!outIdentifiersSet.isEmpty()) {
 							defects = defects
 									.substring(0, defects.length() - 2) + ")";
 							System.out.println(defects);
-							outResult = outIdentifiers.size();
+							outResult = outIdentifiersSet.size();
 						}
 					} while (indivRelExp && relaxedIter.hasNext());
 				} while (indivVerExp && verifyIter.hasNext());
@@ -714,10 +753,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				endSTime = System.currentTimeMillis();
 			}
 			if (natLanguage)
-				refas2hlcl.updateErrorMark(outIdentifiers, verifElement,
+				refas2hlcl.updateErrorMark(outIdentifiersList, verifElement,
 						naturalLanguageHints);
 			else
-				refas2hlcl.updateErrorMark(outIdentifiers, verifElement,
+				refas2hlcl.updateErrorMark(outIdentifiersList, verifElement,
 						verifHint);
 			if (updateOutAttributes)
 				refas2hlcl.updateGUIElements(outAttributes, null);

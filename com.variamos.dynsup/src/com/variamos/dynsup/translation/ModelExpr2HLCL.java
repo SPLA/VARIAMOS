@@ -1035,8 +1035,49 @@ public class ModelExpr2HLCL {
 		}
 
 		for (String identifier : identifiers) {
+
+			String description = defectDescriptions.get(pos++);
+
 			InstElement element = refas.getElement(identifier);
-			element.putDefect(defectId, defectDescriptions.get(pos++));
+
+			if (description.contains("#number#"))
+				description = description.replace("#number#",
+						identifiers.size() + "");
+
+			if (description.contains("#source#")
+					&& element.getSourceRelations().size() != 0)
+				if (element.getSourceRelations().get(0)
+						.getInstAttributeValue("name") != null)
+					description = description.replace("#source#",
+							element.getSourceRelations().get(0)
+									.getInstAttributeValue("name")
+									+ "");
+				else
+					description = description.replace("#source#", element
+							.getSourceRelations().get(0).getIdentifier()
+							+ "");
+			if (description.contains("#target#")
+					&& element.getTargetRelations().size() != 0)
+				if (element.getTargetRelations().get(0)
+						.getInstAttributeValue("name") != null)
+					description = description.replace("#target#",
+							element.getTargetRelations().get(0)
+									.getInstAttributeValue("name")
+									+ "");
+				else
+					description = description.replace("#target#", element
+							.getTargetRelations().get(0).getIdentifier()
+							+ "");
+
+			if (description.contains("#element#"))
+				if (element.getInstAttributeValue("name") != null)
+					description = description.replace("#element#",
+							element.getInstAttributeValue("name") + "");
+				else
+					description = description.replace("#element#",
+							element.getIdentifier() + "");
+
+			element.putDefect(defectId, description);
 		}
 	}
 
