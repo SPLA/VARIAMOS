@@ -994,6 +994,14 @@ public class ModelExpr2HLCL {
 			else
 				instVertex.removeDefect(defectId);
 		}
+		for (InstElement instVertex : refas.getInstGroupDependencies().values()) {
+
+			if (identifiers != null
+					&& identifiers.contains(instVertex.getIdentifier()))
+				instVertex.putDefect(defectId, description);
+			else
+				instVertex.removeDefect(defectId);
+		}
 		for (InstElement instVertex : refas.getConstraintInstEdges().values()) {
 
 			if (identifiers != null

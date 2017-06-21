@@ -1787,6 +1787,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void callOperations(List<String> operations) {
 		// FIXME support multiple models selected from the menu not only REFAS
 		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
+		// use the first node as the REFAS node - fixme
+		if (refas == null)
+			refas = refasModel.getSyntaxModel().getVertex("SMNode1");
 		InstConcept element = new InstConcept("REFAS1", refas);
 		element.createInstAttributes(null);
 		this.refasModel.getVariabilityVertex().put("REFAS1", element);

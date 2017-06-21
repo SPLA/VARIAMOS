@@ -72,6 +72,8 @@ public class SemanticExpressionDialog extends JDialog {
 		super(editor.getFrame(), "Meta-Model-Expression's Editor");
 		refasModel = editor.getEditedModel();
 		this.semanticExpressions = semanticExpressions;
+		if (this.semanticExpressions == null)
+			this.semanticExpressions = new ArrayList<OpersExpr>();
 		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, semanticExpressions);
 	}

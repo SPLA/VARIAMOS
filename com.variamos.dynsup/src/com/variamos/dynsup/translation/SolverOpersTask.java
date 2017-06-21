@@ -646,12 +646,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					do {
 						if (indivRelExp) {
 							relaxed = new HlclProgram();
-							fixed = new HlclProgram();
-							fixed.addAll(fixedList);
 							if (relaxedIter.hasNext()) {
-								fixed.addAll(relaxedList);
 								relaxed.add(relaxedIter.next());
-								fixed.removeAll(relaxed);
 							}
 						}
 						Defect defect = new Defect(verify);
@@ -687,9 +683,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							}
 						}
 						if (!outIdentifiers.isEmpty()) {
-							System.out.println(defects);
 							defects = defects
 									.substring(0, defects.length() - 2) + ")";
+							System.out.println(defects);
 							outResult = outIdentifiers.size();
 						}
 					} while (indivRelExp && relaxedIter.hasNext());

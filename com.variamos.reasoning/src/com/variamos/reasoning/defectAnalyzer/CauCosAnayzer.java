@@ -656,7 +656,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			long endTime = System.nanoTime();
 			long totalTime = endTime - startTime;
 			diagnosis.setCorrectionsProcessingTime(totalTime);
-			System.out.println(" Correctios time: " + totalTime);
+			System.out.println(" Correction time: " + totalTime);
 
 			// Causes
 			startTime = System.nanoTime();

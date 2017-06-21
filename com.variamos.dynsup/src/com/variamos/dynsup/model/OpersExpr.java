@@ -450,10 +450,9 @@ public class OpersExpr implements Serializable {
 	}
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
-
-	ExpressionVertexType leftExpressionType, InstElement leftSemanticElement,
-			OpersExpr semanticExpression, InstElement rightSemanticElement,
-			String rightAttribute) {
+			ExpressionVertexType leftExpressionType,
+			InstElement leftSemanticElement, OpersExpr semanticExpression,
+			InstElement rightSemanticElement, String rightAttribute) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		this.leftSemanticExpression = semanticExpression;
@@ -493,6 +492,23 @@ public class OpersExpr implements Serializable {
 		this.setLeftSemanticElement(leftSemanticElement);
 		this.leftAttributeName = attributeName;
 		setLeftExpressionType(leftExpressionVertexType);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof OpersExpr) {
+			OpersExpr exp = (OpersExpr) o;
+			boolean elem = false;
+			if (exp.getSemElemId() != null && this.getSemElemId() != null
+					&& exp.getSemElemId().equals(this.getSemElemId()))
+				elem = true;
+			if (exp.getSemElemId() == null && this.getSemElemId() == null)
+				elem = true;
+			if (elem)
+				return exp.getIdentifier().equals(this.getIdentifier());
+
+		}
+		return false;
 	}
 
 	/**

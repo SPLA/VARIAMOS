@@ -258,7 +258,6 @@ public class ElementsOperationAssociationPanel extends
 			if (dialog == 0 && el.getInstAttribute("opersExprs") != null)
 				for (InstAttribute v : (List<InstAttribute>) el
 						.getInstAttribute("opersExprs").getValue()) {
-					List<Integer> valuesOperColumns = new ArrayList<Integer>();
 
 					// Relation Type
 					AssociationRow attNode = new AssociationRow(
@@ -266,21 +265,24 @@ public class ElementsOperationAssociationPanel extends
 							false, domainOperColumns, null, v);
 
 					node.getChildren().add(attNode);
-					for (OpersExpr e : (List<OpersExpr>) v.getValue()) {
-						for (OpersSubOperationExpType operColumn : subOpersTypesColumns)
-							if (operColumn.hasSemanticExpression(e
-									.getIdentifier()))
-								valuesOperColumns.add(1);
-							else
-								valuesOperColumns.add(0);
+					if (v.getValue() != null)
+						for (OpersExpr e : (List<OpersExpr>) v.getValue()) {
+							List<Integer> valuesOperColumns = new ArrayList<Integer>();
+							for (OpersSubOperationExpType operColumn : subOpersTypesColumns)
+								if (operColumn.hasSemanticExpression(e
+										.getIdentifier()))
+									valuesOperColumns.add(1);
+								else
+									valuesOperColumns.add(0);
 
-						// Expression row
-						AssociationRow att2Node = new AssociationRow(
-								e.getIdentifier(), subOpersTypesColumns.size(),
-								true, domainOperColumns, valuesOperColumns, e);
+							// Expression row
+							AssociationRow att2Node = new AssociationRow(
+									e.getIdentifier(),
+									subOpersTypesColumns.size(), true,
+									domainOperColumns, valuesOperColumns, e);
 
-						attNode.getChildren().add(att2Node);
-					}
+							attNode.getChildren().add(att2Node);
+						}
 				}
 			// Add attributes
 			if (dialog == 1 && el.getEdOperEle() != null)
