@@ -210,6 +210,26 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return true;
 	}
 
+	// for dynamic operations
+	public boolean countConfigurations(InstElement operation,
+			InstElement suboper) throws InterruptedException {
+		setProgress(1);
+		progressMonitor.setNote("Solutions processed: 0");
+		Map<String, Map<String, Integer>> elements = refas2hlcl.execExport(
+				progressMonitor, operation, suboper);
+		setProgress(95);
+		progressMonitor
+				.setNote("Total Solutions processed: " + elements.size());
+		List<String> names = new ArrayList<String>();
+		for (String element : elements.get("1").keySet()) {
+			if (refasModel.getElement(element) != null)
+				names.add((String) refasModel.getElement(element)
+						.getInstAttribute("name").getValue());
+		}
+		errorMessage = "Total solutions:" + elements.size();
+		return true;
+	}
+
 	// TODO Modify for dynamic operations
 	@Deprecated
 	public void configModel() throws InterruptedException {
@@ -369,10 +389,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						if (type.equals(StringUtils
 								.formatEnumValue(OperationSubActionType.Number_Solutions
 										.toString()))) {
-							result = refas2hlcl.execute(progressMonitor,
-									ModelExpr2HLCL.ONE_SOLUTION, operationObj,
-									instsuboperations.get(suboper
-											.getIdentifier()));
+							countConfigurations(operationObj, suboper);
 						} else if (type
 								.equals(StringUtils
 										.formatEnumValue(OperationSubActionType.Export_Solutions
