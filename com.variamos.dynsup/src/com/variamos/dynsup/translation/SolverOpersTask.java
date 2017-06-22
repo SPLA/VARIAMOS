@@ -491,10 +491,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								coreOperName = (String) suboper
 										.getInstAttributeValue("defectsCoreOper");
 								if (coreOperName == null)
-									coreOperName = "UpdateCoreOper";
+									coreOperName = "Update Core Elements";
 								coreOperation = refas2hlcl.getRefas()
 										.getSyntaxModel().getOperationalModel()
-										.getElement(coreOperName);
+										.getVertexByName(coreOperName);
 								if (method.equals("getRedundancies")) {
 									constraitsToVerifyRedundacies = refas2hlcl
 											.getHlclProgram(
