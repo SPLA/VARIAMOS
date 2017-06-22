@@ -809,14 +809,18 @@ public class ModelExpr2HLCL {
 				String[] split = identifier.split("_");
 				String vertexId = split[0];
 				String attribute = split[1];
-				// System.out.println(vertexId + " " + attribute + " "
-				// + prologOut.get(identifier));
+				System.out.println(vertexId + " " + attribute + " "
+						+ prologOut.get(identifier));
 				InstElement vertex = refas.getElement(vertexId);
 				if (!vertexId.equals("Amodel")
 						&& (outVariables == null || outVariables.size() == 0
-								|| outVariables.contains(attribute) || (vertex
-								.getTransSupInstElement().getEdSyntaxEle()
-								.getInstSemanticElementId() != null
+								|| outVariables.contains(attribute) || (vertex != null
+								&& vertex.getTransSupInstElement() != null
+								&& vertex.getTransSupInstElement()
+										.getEdSyntaxEle() != null
+								&& vertex.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId() != null
 								&& vertex.getTransSupInstElement()
 										.getEdSyntaxEle()
 										.getInstSemanticElementId()

@@ -421,6 +421,16 @@ public class ModelInstance extends AbstractModel {
 		return out;
 	}
 
+	public InstElement getVertexByName(String elementName) {
+		for (InstElement e : variabilityInstVertex.values()) {
+			String name = (String) e.getInstAttributeValue("name");
+			if (name != null)
+				if (name.equals(elementName))
+					return e;
+		}
+		return null;
+	}
+
 	public Set<InstElement> getVertices() {
 		Set<InstElement> out = new HashSet<InstElement>();
 		out.addAll(variabilityInstVertex.values());

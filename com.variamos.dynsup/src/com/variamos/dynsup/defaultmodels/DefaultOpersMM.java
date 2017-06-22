@@ -1681,7 +1681,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("CLCoreOper");
+					.setValue("ClCoreOper");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outCl");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -1792,7 +1792,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getDeadElements
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("CLCoreOper");
+					.setValue("ClCoreOper");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outCl");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -3701,10 +3701,10 @@ public class DefaultOpersMM {
 			sasverSDCoreOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction
+			sasverClallOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling
+			sasverClallOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverConflClSDOperationSubAction
