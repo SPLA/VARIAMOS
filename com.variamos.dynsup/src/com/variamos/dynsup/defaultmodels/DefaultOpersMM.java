@@ -7061,6 +7061,21 @@ public class DefaultOpersMM {
 		instVertexF = new InstConcept("Feature", metaMetaInstConcept,
 				semFeature);
 
+		attribute = new ElemAttribute("structVal", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "No loops validation",
+				"", 0, new RangeDomain(0, 40, 0), 0, -1, "false", "", -1, "",
+				"");
+		semFeature.putSemanticAttribute("structVal", attribute);
+		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperationSubActionRed
+				.addOutAttribute(new OpersIOAttribute(semFeature
+						.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperMVUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+
 		attribute = new ElemAttribute("HasParent", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "Has Parent", "", true,
 				0, -1, "", "", -1, "", "");
@@ -12240,6 +12255,7 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 		sasverNoLoopsOperSubActionMVRelaxable.addSemanticExpression(t1);
+		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
 		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("implementedBy", new ElemAttribute(
@@ -12621,7 +12637,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instVertexCG, true);
 		instEdge.setSourceRelation(instSemvarcntxPairwiseRel, true);
 
-		OpersConcept directSGSGSemEdge = new OpersConcept("SoftgoalPWAsso");
+		OpersConcept directSGSGSemEdge = new OpersConcept("SoftgoalPW");
 
 		attribute = new ElemAttribute("outConflSG", "Boolean",
 				AttributeType.OPERATION, false,

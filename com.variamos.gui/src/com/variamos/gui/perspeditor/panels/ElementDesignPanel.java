@@ -312,15 +312,19 @@ public class ElementDesignPanel extends JPanel {
 					for (InstAttribute instAttribute : visible) {
 						if (instAttribute != null
 								&& instAttribute.getAttribute() instanceof ElemAttribute
-								&& (instAttribute.getAttribute()
+								&& (instAttribute
+										.getAttribute()
 										.getAttributeType()
-										.equals(AttributeType.SYNTAX)
+										.equals(AttributeType.SYNTAX.toString())
 										|| instAttribute
 												.getAttribute()
 												.getAttributeType()
-												.equals(AttributeType.OPERATION) || instAttribute
-										.getAttribute().getAttributeType()
-										.equals(AttributeType.CONFIGURATION))) {
+												.equals(AttributeType.OPERATION
+														.toString()) || instAttribute
+										.getAttribute()
+										.getAttributeType()
+										.equals(AttributeType.CONFIGURATION
+												.toString()))) {
 							if (instAttribute.getIdentifier().equals(
 									SyntaxElement.VAR_USERIDENTIFIER)
 									&& instAttribute.getValue() == null) {

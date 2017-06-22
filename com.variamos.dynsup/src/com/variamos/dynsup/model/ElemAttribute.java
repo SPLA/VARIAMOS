@@ -77,7 +77,7 @@ public class ElemAttribute implements Serializable {
 	 */
 	private String name;
 
-	private AttributeType attributeType;
+	private String attributeType;
 	/**
 	 * Attribute type (String, Integer, Boolean, Set, Class, MClass,
 	 * Enumeration, MEnumeration)
@@ -159,7 +159,15 @@ public class ElemAttribute implements Serializable {
 	 */
 	VAR_TYPE = "Type",
 	/**
-	 * Name of the element affect properties
+	 * Name of Attribute Type
+	 */
+	VAR_ATTRIBUTE_TYPE = "AttributeType",
+	/**
+	 * Name of Attribute Type
+	 */
+	VAR_ATTRIBUTE_TYPENAME = "Attribute Type",
+	/**
+	 * Dyplay Name of the element affect properties
 	 */
 	VAR_AFFECTPROPS = "AffectProps",
 	/**
@@ -735,7 +743,7 @@ public class ElemAttribute implements Serializable {
 		super();
 		this.name = name;
 		this.type = type;
-		this.attributeType = attributeType;
+		this.attributeType = attributeType.toString();
 		this.affectProperties = affectProperties;
 		this.displayName = displayName;
 		this.toolTipText = toolTipText;
@@ -765,6 +773,9 @@ public class ElemAttribute implements Serializable {
 				VAR_NAME, "String", VAR_NAME, name));
 		dynamicAttributeComponentsMap.put(VAR_TYPE, new ElemAttribAttribute(
 				VAR_TYPE, "String", VAR_TYPE, type));
+		dynamicAttributeComponentsMap.put(VAR_ATTRIBUTE_TYPE,
+				new ElemAttribAttribute(VAR_ATTRIBUTE_TYPE, "String",
+						VAR_ATTRIBUTE_TYPENAME, attributeType.toString()));
 		dynamicAttributeComponentsMap.put(VAR_AFFECTPROPS,
 				new ElemAttribAttribute(VAR_AFFECTPROPS, "Boolean",
 						VAR_AFFECTPROPSNAME, affectProperties));
@@ -924,11 +935,11 @@ public class ElemAttribute implements Serializable {
 
 	}
 
-	public AttributeType getAttributeType() {
+	public String getAttributeType() {
 		return attributeType;
 	}
 
-	public void setAttributeType(AttributeType attributeType) {
+	public void setAttributeType(String attributeType) {
 		this.attributeType = attributeType;
 	}
 

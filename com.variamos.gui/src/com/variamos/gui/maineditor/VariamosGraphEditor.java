@@ -1224,7 +1224,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// variablesPanel.add(new JLabel(v.getName() + ":: "));
 				if (instAttribute.getAttribute() instanceof ElemAttribute
 						&& instAttribute.getAttribute().getAttributeType()
-								.equals(AttributeType.GLOBALCONFIG)) {
+								.equals(AttributeType.GLOBALCONFIG.toString())) {
 					JLabel label = new JLabel(instAttribute.getDisplayName()
 							+ ": ");
 					elementConfPropSubPanel.add(label);
@@ -1428,8 +1428,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// GARA
 				// variablesPanel.add(new JLabel(v.getName() + ":: "));
 				if (instAttribute.getAttribute() instanceof ElemAttribute
-						&& instAttribute.getAttribute().getAttributeType()
-								.equals(AttributeType.EXECCURRENTSTATE)) {
+						&& instAttribute
+								.getAttribute()
+								.getAttributeType()
+								.equals(AttributeType.EXECCURRENTSTATE
+										.toString())) {
 					JLabel label = new JLabel(instAttribute.getDisplayName()
 							+ ": ");
 					elementSimPropSubPanel.add(label);

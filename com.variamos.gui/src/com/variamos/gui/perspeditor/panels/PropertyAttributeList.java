@@ -149,6 +149,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 
 		final IntInstAttribute name = att.get("Name");
 		final IntInstAttribute type = att.get("Type");
+		final IntInstAttribute attributeType = att.get("AttributeType");
 		final IntInstAttribute ClassCanName = att.get("ClassCanName");
 		final IntInstAttribute MetaCInstType = att.get("MetaCInstType");
 		final IntInstAttribute displayName = att.get("DispName");
@@ -185,8 +186,8 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		attributeEdition.loadElementAttributes(editor, editable, name,
-				displayName, toolTip, type, ClassCanName, MetaCInstType,
-				defaultValue, domain, hint, propTabPosition,
+				displayName, toolTip, type, attributeType, ClassCanName,
+				MetaCInstType, defaultValue, domain, hint, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
 				elementDisplayCondition, domFiltOwn, domFiltRel, domDefVal);
@@ -219,6 +220,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 				v.setElementDisplayCondition((String) elementDisplayCondition
 						.getValue());
 				v.setType((String) type.getValue());
+				v.setAttributeType((String) attributeType.getValue());
 				v.setClassCanonicalName((String) ClassCanName.getValue());
 				v.setMetaConceptInstanceType((String) MetaCInstType.getValue());
 				v.setDefaultValue(defaultValue.getValue());

@@ -696,8 +696,11 @@ public class ModelExpr2HLCL {
 						continue;
 					// System.out.println(vertexId + " " + attribute);
 					if (instAttribute.getAttribute() instanceof ElemAttribute
-							&& instAttribute.getAttribute().getAttributeType()
-									.equals(AttributeType.EXECCURRENTSTATE)
+							&& instAttribute
+									.getAttribute()
+									.getAttributeType()
+									.equals(AttributeType.EXECCURRENTSTATE
+											.toString())
 							&& instAttribute.getType().equals("Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
@@ -810,7 +813,7 @@ public class ModelExpr2HLCL {
 				// + prologOut.get(identifier));
 				InstElement vertex = refas.getElement(vertexId);
 				if (!vertexId.equals("Amodel")
-						&& (outVariables == null
+						&& (outVariables == null || outVariables.size() == 0
 								|| outVariables.contains(attribute) || (vertex
 								.getTransSupInstElement().getEdSyntaxEle()
 								.getInstSemanticElementId() != null
@@ -1528,7 +1531,7 @@ public class ModelExpr2HLCL {
 				result = execute(progressMonitor, element,
 						ModelExpr2HLCL.NEXT_SOLUTION, type);
 			if (result && !progressMonitor.isCanceled()) {
-				updateGUIElements(null, null, null);
+				updateGUIElements(null, null);
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
 				for (InstElement instVertex : refas
 						.getVariabilityVertexCollection()) {
