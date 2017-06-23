@@ -14,6 +14,22 @@ public class RangeDomain implements Domain, Serializable {
 	protected float upperValue;
 	protected int precision;
 
+	public int getPrecision() {
+		return precision;
+	}
+
+	public void setPrecision(int precision) {
+		this.precision = precision;
+	}
+
+	public void setLowerValue(float lowerValue) {
+		this.lowerValue = lowerValue;
+	}
+
+	public void setUpperValue(float upperValue) {
+		this.upperValue = upperValue;
+	}
+
 	public RangeDomain(float lowerValue, float upperValue, int precision) {
 		super();
 		this.lowerValue = lowerValue;
@@ -99,7 +115,10 @@ public class RangeDomain implements Domain, Serializable {
 
 	@Override
 	public String getStringRepresentation() {
-		return lowerValue + " - " + upperValue;
+		if (precision == 0)
+			return (int) lowerValue + ".." + (int) upperValue;
+
+		return lowerValue + ".." + upperValue;
 	}
 
 	@Override

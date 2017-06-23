@@ -13,6 +13,7 @@ import javax.swing.JList;
 
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
+import com.variamos.dynsup.model.ElemAttribAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -20,6 +21,8 @@ import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.AttributeEditionPanel.DialogButtonAction;
+import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.DomainParser;
 
 /**
  * A class to support the property of syntax and semantic concepts for modeling.
@@ -155,6 +158,11 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 		final IntInstAttribute displayName = att.get("DispName");
 		final IntInstAttribute defaultValue = att.get("DefaultValue");
 		final IntInstAttribute domain = att.get("Domain");
+		final IntInstAttribute domainStr = new ElemAttribAttribute("Domain",
+				"String", "Domain", "");
+		if (domain.getValue() != null)
+			domainStr.setValue(((Domain) domain.getValue())
+					.getStringRepresentation());
 		final IntInstAttribute hint = att.get("Hint");
 		final IntInstAttribute toolTip = att.get("toolTipText");
 		final IntInstAttribute domFiltOwn = att.get("domFiltOwnFields");
@@ -187,7 +195,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 
 		attributeEdition.loadElementAttributes(editor, editable, name,
 				displayName, toolTip, type, attributeType, ClassCanName,
-				MetaCInstType, defaultValue, domain, hint, propTabPosition,
+				MetaCInstType, defaultValue, domainStr, hint, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
 				elementDisplayCondition, domFiltOwn, domFiltRel, domDefVal);
@@ -202,7 +210,9 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 				ElemAttribute v = buffer[0];
 				v.setName((String) name.getValue());
 				v.setDisplayName((String) displayName.getValue());
-				// v.setDomain((Domain)domain.getValue());
+				v.setDomain(DomainParser.parseDomain(
+						((String) domainStr.getValue()), 0));
+				domain.setValue(v.getDomain());
 				v.setHint((String) hint.getValue());
 				v.setToolTipText((String) toolTip.getValue());
 				v.setDomainFiltersOwnFields((String) domFiltOwn.getValue());

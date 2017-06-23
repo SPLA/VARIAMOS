@@ -35,7 +35,7 @@ public class ComposedDomain implements Domain {
 		for (int i = 0; i < domains.size(); i++) {
 			str.append(domains.get(i).getStringRepresentation());
 			if (i < domains.size() - 1)
-				str.append(", ");
+				str.append(",");
 		}
 
 		return str.toString();

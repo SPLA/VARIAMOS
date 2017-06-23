@@ -1353,7 +1353,7 @@ public class DefaultOpersMM {
 									.toString());
 
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("SDCoreOper");
+					.setValue("Identify SoftDeps on the Model");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outSd");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -1467,7 +1467,7 @@ public class DefaultOpersMM {
 									.toString());
 
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("SDCoreOper");
+					.setValue("Identify SoftDeps on the Model");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outSd");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -1681,7 +1681,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("ClCoreOper");
+					.setValue("Identify Claims on the Model");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outCl");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -1792,7 +1792,7 @@ public class DefaultOpersMM {
 							OperationSubActionDefectsVerifierMethodType.getDeadElements
 									.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("ClCoreOper");
+					.setValue("Identify Claims on the Model");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outCl");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
@@ -2018,7 +2018,7 @@ public class DefaultOpersMM {
 									.toString());
 
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("OperCoreOper");
+					.setValue("Identify Operat. on the Model");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"Sel");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
