@@ -256,7 +256,11 @@ public class ModelInstance extends AbstractModel {
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstElement)
-			if (element.getTransSupportMetaElement().getUserIdentifier() == null)
+			if (element.getTransSupInstElement()
+					.getInstAttributeValue("userId") != null)
+				classId = (String) element.getTransSupInstElement()
+						.getInstAttributeValue("userId");
+			else if (element.getTransSupportMetaElement().getUserIdentifier() == null)
 				classId = element.getTransSupportMetaElement()
 						.getAutoIdentifier();
 			else
