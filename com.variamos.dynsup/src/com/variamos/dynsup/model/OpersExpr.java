@@ -665,6 +665,7 @@ public class OpersExpr implements Serializable {
 			InstElement semanticElement, InstElement leftSemanticElement,
 			OpersExpr semanticExpression, InstElement rightSemanticElement,
 			String rightAttribute) {
+
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		this.leftSemanticExpression = semanticExpression;

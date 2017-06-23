@@ -1991,8 +1991,6 @@ public class ModelExpr implements Serializable, Cloneable {
 			InstElement leftInstElement;
 			if (instElement.getTargetRelations().size() == 0)
 				break;
-			if (instElement.getTargetRelations().size() == 0)
-				break;
 			if (instElement instanceof InstPairwiseRel)
 				leftInstElement = instElement.getTargetRelations().get(pos);
 			else
