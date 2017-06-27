@@ -790,6 +790,40 @@ public class ModelExpr2HLCL {
 				outVariables, null, instSubOper);
 	}
 
+	public int getSingleOutValue(List<String> outVariables,
+			InstElement instOperSubAction) {
+		if (configuration != null) {
+			Map<String, Number> prologOut;
+			prologOut = configuration.getConfiguration();
+			for (String identifier : prologOut.keySet()) {
+				String[] split = identifier.split("_");
+				String vertexId = split[0];
+				String attribute = split[1];
+				InstElement vertex = refas.getElement(vertexId);
+				if (outVariables.contains(attribute) && vertexId != null) {
+					InstAttribute instAttribute = vertex
+							.getInstAttribute(attribute);
+					if (instAttribute != null
+							&& instAttribute.getType().equals("Boolean")) {
+						// System.out.println(prologOut.get(identifier));
+						int val = (int) Float.parseFloat(prologOut
+								.get(identifier) == null ? "0" : prologOut
+								.get(identifier) + "");
+						if (val == 1)
+							return 1;
+						else if (val == 0)
+							return 0;
+					} else if (instAttribute != null
+							&& instAttribute.getType().equals("Integer"))
+						return (int) Float.parseFloat(prologOut.get(identifier)
+								+ "");
+				}
+
+			}
+		}
+		return 0;
+	}
+
 	/**
 	 * Updates the GUI with the configuration
 	 */
@@ -809,8 +843,8 @@ public class ModelExpr2HLCL {
 				String[] split = identifier.split("_");
 				String vertexId = split[0];
 				String attribute = split[1];
-				System.out.println(vertexId + " " + attribute + " "
-						+ prologOut.get(identifier));
+				// System.out.println(vertexId + " " + attribute + " "
+				// + prologOut.get(identifier));
 				InstElement vertex = refas.getElement(vertexId);
 				if (!vertexId.equals("Amodel")
 						&& (outVariables == null || outVariables.size() == 0

@@ -210,8 +210,12 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 				ElemAttribute v = buffer[0];
 				v.setName((String) name.getValue());
 				v.setDisplayName((String) displayName.getValue());
-				v.setDomain(DomainParser.parseDomain(
-						((String) domainStr.getValue()), 0));
+				if (domainStr.getValue() != null
+						&& !domainStr.getValue().equals(""))
+					v.setDomain(DomainParser.parseDomain(
+							((String) domainStr.getValue()), 0));
+				else
+					v.setDomain(null);
 				domain.setValue(v.getDomain());
 				v.setHint((String) hint.getValue());
 				v.setToolTipText((String) toolTip.getValue());

@@ -22,6 +22,7 @@ import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
+import com.variamos.dynsup.types.OperationActionType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.OperationSubActionType;
 import com.variamos.hlcl.BooleanExpression;
@@ -74,6 +75,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return completedMessage;
 	}
 
+	public int[] getResults() {
+		return results;
+	}
+
 	public String getErrorMessage() {
 		return errorMessage;
 	}
@@ -105,6 +110,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private boolean next = true;
 	private boolean terminated = false;
 	private boolean correctExecution = true;
+	private int results[] = null;
 
 	public boolean isCorrectExecution() {
 		return correctExecution;
@@ -360,6 +366,15 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				Set<InstElement> suboperationsObjs = new TreeSet<InstElement>();
 				Map<String, InstElement> instsuboperations = new HashMap<String, InstElement>();
 				// Auto sorting with treeset
+				String operType = (String) operationObj
+						.getInstAttributeValue("operType");
+				boolean computationalAnalysis = false;
+				if (operType.equals(OperationActionType.Computational_Analysis
+						.toString())) {
+					computationalAnalysis = true;
+					results = new int[2];
+				}
+				int subOperIndex = 0;
 				for (InstElement operpair : operationObj.getTargetRelations()) {
 					InstElement suboper = operpair.getTargetRelations().get(0);
 					instsuboperations.put(suboper.getIdentifier(), suboper);
@@ -379,8 +394,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						// .getInstAttributeValue("type")));
 						String type = (String) suboper
 								.getInstAttributeValue("type");
-						completedMessage = (String) suboper
-								.getInstAttributeValue("completedMessage");
 						boolean showDashboard = (boolean) suboper
 								.getInstAttributeValue("showDashboard");
 						boolean simul = false;
@@ -526,9 +539,28 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							if (simul)
 								lastConfiguration = refas2hlcl
 										.getConfiguration();
-							// if (update) {
-							refas2hlcl.updateGUIElements(null, outVariables,
-									suboper);
+							if (computationalAnalysis) {
+								results[subOperIndex++] = refas2hlcl
+										.getSingleOutValue(outVariables,
+												suboper);
+								if (subOperIndex == 2) {
+									completedMessage = (String) suboper
+											.getInstAttributeValue("completedMessage");
+									if (completedMessage
+											.contains("#numerator#"))
+										completedMessage = errorMessage
+												.replace("#numerator#",
+														results[0] + "");
+									if (completedMessage
+											.contains("#denominator#"))
+										completedMessage = errorMessage
+												.replace("#denominator#",
+														results[1] + "");
+								}
+							} else {
+								refas2hlcl.updateGUIElements(null,
+										outVariables, suboper);
+							}
 							// messagesArea.setText(refas2hlcl.getText());
 							// bringUpTab(mxResources.get("elementSimPropTab"));
 							// editPropertiesRefas(editor.lastEditableElement);
@@ -581,6 +613,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						ConsoleTextArea.addText(e.getMessage());
 						ConsoleTextArea.addText(e.getStackTrace());
 					}
+
+					// Only two suboperations allowed for computational analysis
+					if (subOperIndex == 2)
+						break;
 				}
 				if (!firstSimulExec && result == 1)
 					// Update GUI after first execution, editor is not notify

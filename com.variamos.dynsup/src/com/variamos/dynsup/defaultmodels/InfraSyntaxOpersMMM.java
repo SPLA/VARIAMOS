@@ -16,6 +16,7 @@ import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationActionType;
+import com.variamos.dynsup.types.OperationComputationAnalysisType;
 import com.variamos.dynsup.types.OperationExecType;
 import com.variamos.dynsup.types.OperationSubActionDefectsVerifierMethodType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
@@ -534,36 +535,44 @@ public class InfraSyntaxOpersMMM {
 				infraSyntaxOpersM2MetaModel);
 		variabilityInstVertex.put("OMModel", instInfraSyntaxOpersM2MetaModel);
 
-		SyntaxElement infraSyntaxOpersM2OperAction = new SyntaxElement(
-				'A',
-				"OMOperation",
-				true,
-				true,
-				"OMOperation",
+		SyntaxElement infraSyntaxOpersM2OperAction = new SyntaxElement('A',
+				"OMOperation", true, true, "OMOperation",
 				"sinfrasyntaxopersm2oper",
-				"Is an executable action over a visual model composed of one or several suboperations",
-				100, 75, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, null, true);
+				"Is an executable action over a visual model composed of one"
+						+ " or several suboperations", 100, 75,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("operType",
 				new ElemAttribute("operType", "Enumeration",
-						AttributeType.OPERATION, false, "Operation Type",
-						"Currently ignored by the implementation",
+						AttributeType.OPERATION, true, "Operation Type",
+						"Sequential execution (verification, validation)",
 						OperationActionType.class.getCanonicalName(),
 						OperationActionType.Verification, "", 0, 4, "", "", -1,
 						"", ""));
 		infraSyntaxOpersM2OperAction
 				.addModelingAttribute(
-						"execType",
+						"analysisComputationType",
 						new ElemAttribute(
-								"execType",
+								"analysisComputationType",
 								"Enumeration",
 								AttributeType.OPERATION,
 								false,
-								"Execution Type",
-								"Currently ignored by the implementation (on_demand assumed)",
-								OperationExecType.class.getCanonicalName(),
-								"on demand", "", 0, 5, "false", "", -1, "", ""));
+								"Computational Analysis",
+								"Type of quotient applied between suboper 1 and suboper2",
+								OperationComputationAnalysisType.class
+										.getCanonicalName(), "", "", 0, 11,
+								"operType#==#Computational analysis# ",
+								"operType#==#Computational analysis# ", -1, "",
+								""));
+
+		infraSyntaxOpersM2OperAction.addModelingAttribute("execType",
+				new ElemAttribute("execType", "Enumeration",
+						AttributeType.OPERATION, false, "Execution Type",
+						"Currently ignored by the implementation "
+								+ "(on_demand assumed)",
+						OperationExecType.class.getCanonicalName(),
+						"on demand", "", 0, 5, "false", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
 						false, "Name", "", null, 0, 6, "", "", -1, "", ""));
@@ -585,40 +594,26 @@ public class InfraSyntaxOpersMMM {
 						"Show/Hide this operation in the menu", true, 0, 9, "",
 						"", -1, "", ""));
 
-		infraSyntaxOpersM2OperAction
-				.addModelingAttribute(
-						"iteration",
-						new ElemAttribute(
-								"iteration",
-								"Boolean",
-								AttributeType.OPERATION,
-								false,
-								"Iterate Button",
-								"Specifies if an iteration option should be included (for validation through simulation)",
-								false, 0, 9, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperAction.addModelingAttribute("iteration",
+				new ElemAttribute("iteration", "Boolean",
+						AttributeType.OPERATION, false, "Iterate Button",
+						"Specifies if an iteration option should be included"
+								+ " (for validation through simulation)",
+						false, 0, 9, "", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperAction
-				.addModelingAttribute(
-						"iterationName",
-						new ElemAttribute(
-								"iterationName",
-								"String",
-								AttributeType.OPERATION,
-								false,
-								"Iterate Name",
-								"Name to show on the menu for the iteration opcion (e.g., next solution)",
-								null, 0, -1, "false", "", -1, "", ""));
+		infraSyntaxOpersM2OperAction.addModelingAttribute("iterationName",
+				new ElemAttribute("iterationName", "String",
+						AttributeType.OPERATION, false, "Iterate Name",
+						"Name to show on the menu for the iteration opcion "
+								+ "(e.g., next solution)", null, 0, -1,
+						"false", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperAction
-				.addModelingAttribute(
-						"prevSpacer",
-						new ElemAttribute(
-								"prevSpacer",
-								"Boolean",
-								AttributeType.OPERATION,
-								false,
-								"Add Previous Spacer when presenting this operation in the menu",
-								"", false, 0, -1, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperAction.addModelingAttribute("prevSpacer",
+				new ElemAttribute("prevSpacer", "Boolean",
+						AttributeType.OPERATION, false,
+						"Add Previous Spacer when presenting this operation"
+								+ " in the menu", "", false, 0, -1, "", "", -1,
+						"", ""));
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -654,12 +649,12 @@ public class InfraSyntaxOpersMMM {
 				new ElemAttribute("index", "Integer", AttributeType.OPERATION,
 						false, "Position",
 						"Defines the order of execution between suboperations",
-						1, 0, -1, "", "", -1, "", ""));
+						1, 0, 6, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",
 						AttributeType.OPERATION, false, "Iterate Sub-Oper", "",
-						false, 0, 9, "", "", -1, "", ""));
+						false, 0, 8, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				"completedMessage", new ElemAttribute("completedMessage",
 						"String", AttributeType.OPERATION, false,
@@ -671,7 +666,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("showDashboard",
 				new ElemAttribute("showDashboard", "Boolean",
 						AttributeType.OPERATION, false, "ShowDashboard", "",
-						false, 0, 9, "", "", -1, "", ""));
+						false, 0, 12, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("type",
 				new ElemAttribute("type", "Enumeration",
@@ -679,7 +674,7 @@ public class InfraSyntaxOpersMMM {
 						"Type of Suboperation: determines the path of "
 								+ "the execution model",
 						OperationSubActionType.class.getCanonicalName(),
-						"Single update", "", 0, 10, "", "", 10, "\ntype: #"
+						"Single update", "", 0, 4, "", "", 10, "\ntype: #"
 								+ "type" + "#all#", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
@@ -696,7 +691,7 @@ public class InfraSyntaxOpersMMM {
 								"",
 								"",
 								0,
-								11,
+								5,
 								"type#!=#Multi verification# "/*
 															 * "type#==#Defects verifier error$type#==#Defects verifier update# "
 															 */

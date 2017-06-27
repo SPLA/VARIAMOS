@@ -672,7 +672,23 @@ public class ModelExpr implements Serializable, Cloneable {
 					.getLeftSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFSUBTITERCONVARIABLE:
-			expInstElement = elements.get(pos);
+			InstElement metaElement = null;
+			List<InstElement> parents = null;
+			// FIXME include the following validation for other iterative
+			// alternatives
+			pos--;
+			do {
+				pos++;
+				if (elements.size() == pos)
+					break;
+				expInstElement = elements.get(pos);
+				metaElement = getSemanticExpression().getLeftSemanticElement();
+				parents = expInstElement.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
+				parents.add(expInstElement.getTransSupportMetaElement()
+						.getTransInstSemanticElement());
+			} while (!parents.contains(metaElement));
+
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 
 			break;

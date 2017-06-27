@@ -749,69 +749,47 @@ public class OpersExpr implements Serializable {
 	public boolean isValidExpression() {
 		switch (volatileLeftExpType) {
 		case LEFTVARIABLE:
+
+		case LEFTUNIQUEINCCONVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
+
+		case LEFTSUBITERANYVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
+
+		case LEFTITERANYCONVARIABLE:
+		case LEFTITERINCCONVARIABLE:
+		case LEFTITEROUTCONVARIABLE:
+		case LEFTITERCONCEPTVARIABLE:
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
+
 		case LEFTCONCEPTVARIABLE:
-		case LEFTITERCONCEPTVARIABLE:
-		case LEFTUNIQUEINCCONVARIABLE:
-		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTUNIQUEINCRELVARIABLE:
 		case LEFTUNIQUEOUTRELVARIABLE:
 			if (volatileLeftSemanticElement == null)
 				return false;
 		case LEFTBOOLEANEXPRESSION:
-			break;
-		case LEFTITERANYCONVARIABLE:
-			break;
-		case LEFTSUBITERANYVARIABLE:
-			break;
-		case LEFSUBTITERCONVARIABLE:
-			break;
-		case LEFTSUBITERINCCONVARIABLE:
-			break;
-		case LEFTITERINCCONVARIABLE:
-			break;
-		case LEFTSUBITERINCRELVARIABLE:
-			break;
-		case LEFTSUBITEROUTCONVARIABLE:
-			break;
-		case LEFTITEROUTCONVARIABLE:
-			break;
-		case LEFTSUBITEROUTRELVARIABLE:
-			break;
 		case LEFTMODELVARS:
-			break;
 		case LEFTNUMERICVALUE:
-			break;
 		case LEFTSTRINGVALUE:
-			break;
 		case LEFTSUBEXPRESSION:
-			break;
 		case LEFTVARIABLEVALUE:
-			break;
 		case RIGHTBOOLEANEXPRESSION:
-			break;
 		case RIGHTCONCEPTVARIABLE:
-			break;
 		case RIGHTMODELVARS:
-			break;
 		case RIGHTNUMERICVALUE:
-			break;
 		case RIGHTSTRINGVALUE:
-			break;
 		case RIGHTSUBEXPRESSION:
-			break;
 		case RIGHTUNIQUEINCCONVARIABLE:
-			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
-			break;
 		case RIGHTUNIQUEOUTCONVARIABLE:
-			break;
 		case RIGHTUNIQUEOUTRELVARIABLE:
-			break;
 		case RIGHTVARIABLE:
-			break;
 		case RIGHTVARIABLEVALUE:
 			break;
 		default:
@@ -827,65 +805,40 @@ public class OpersExpr implements Serializable {
 			if (volatileRightSemanticElement == null)
 				return false;
 		case LEFTBOOLEANEXPRESSION:
-			break;
 		case LEFTCONCEPTVARIABLE:
-			break;
+
 		case LEFTITERANYCONVARIABLE:
-			break;
-		case LEFTSUBITERANYVARIABLE:
-			break;
 		case LEFTITERANYRELVARIABLE:
-			break;
 		case LEFTITERCONCEPTVARIABLE:
-			break;
-		case LEFSUBTITERCONVARIABLE:
-			break;
-		case LEFTSUBITERINCCONVARIABLE:
-			break;
 		case LEFTITERINCCONVARIABLE:
-			break;
-		case LEFTSUBITERINCRELVARIABLE:
-			break;
-		case LEFTITERINCRELVARIABLE:
-			break;
-		case LEFTSUBITEROUTCONVARIABLE:
-			break;
 		case LEFTITEROUTCONVARIABLE:
-			break;
-		case LEFTSUBITEROUTRELVARIABLE:
-			break;
+		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
-			break;
+
+		case LEFTSUBITERANYVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
+
 		case LEFTMODELVARS:
-			break;
 		case LEFTNUMERICVALUE:
-			break;
 		case LEFTSTRINGVALUE:
-			break;
 		case LEFTSUBEXPRESSION:
-			break;
+
 		case LEFTUNIQUEINCCONVARIABLE:
-			break;
 		case LEFTUNIQUEINCRELVARIABLE:
-			break;
 		case LEFTUNIQUEOUTCONVARIABLE:
-			break;
 		case LEFTUNIQUEOUTRELVARIABLE:
-			break;
+
 		case LEFTVARIABLE:
-			break;
 		case LEFTVARIABLEVALUE:
-			break;
 		case RIGHTBOOLEANEXPRESSION:
-			break;
 		case RIGHTMODELVARS:
-			break;
 		case RIGHTNUMERICVALUE:
-			break;
 		case RIGHTSTRINGVALUE:
-			break;
 		case RIGHTSUBEXPRESSION:
-			break;
 		case RIGHTVARIABLEVALUE:
 			break;
 		default:
@@ -1066,17 +1019,19 @@ public class OpersExpr implements Serializable {
 				|| type == ExpressionVertexType.LEFTITEROUTSUBEXP
 				|| type == ExpressionVertexType.LEFSUBTITERINCSUBEXP
 				|| type == ExpressionVertexType.LEFTSUBITEROUTSUBEXP
-				|| type == ExpressionVertexType.LEFTITERCONCEPTVARIABLE
 				|| type == ExpressionVertexType.LEFSUBTITERCONVARIABLE
 				|| type == ExpressionVertexType.LEFTSUBITERINCCONVARIABLE
 				|| type == ExpressionVertexType.LEFTSUBITEROUTCONVARIABLE
 				|| type == ExpressionVertexType.LEFTSUBITERINCRELVARIABLE
 				|| type == ExpressionVertexType.LEFTSUBITEROUTRELVARIABLE
 				|| type == ExpressionVertexType.LEFTSUBITERANYVARIABLE
+
+				|| type == ExpressionVertexType.LEFTITERCONCEPTVARIABLE
 				|| type == ExpressionVertexType.LEFTITERINCCONVARIABLE
 				|| type == ExpressionVertexType.LEFTITEROUTCONVARIABLE
 				|| type == ExpressionVertexType.LEFTITERINCRELVARIABLE
 				|| type == ExpressionVertexType.LEFTITEROUTRELVARIABLE
+				|| type == ExpressionVertexType.LEFTITERANYCONVARIABLE
 				|| type == ExpressionVertexType.LEFTITERANYRELVARIABLE)
 			this.leftSemanticExpression = new OpersExpr(id, volSemElement);
 		if (type == ExpressionVertexType.LEFTNUMERICVALUE)
@@ -1311,19 +1266,25 @@ public class OpersExpr implements Serializable {
 		String variable = null;
 		switch (expressionVertexType) {
 
+		case LEFTVARIABLE:
+		case LEFTCONCEPTVARIABLE:
+
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
-		case LEFTVARIABLE:
-		case LEFTCONCEPTVARIABLE:
+		case LEFTITERANYCONVARIABLE:
 		case LEFTITERCONCEPTVARIABLE:
+		case LEFTITERINCCONVARIABLE:
+		case LEFTITEROUTCONVARIABLE:
+
 		case LEFSUBTITERCONVARIABLE:
 		case LEFTSUBITERINCCONVARIABLE:
 		case LEFTSUBITEROUTCONVARIABLE:
 		case LEFTSUBITERINCRELVARIABLE:
 		case LEFTSUBITEROUTRELVARIABLE:
+		case LEFTSUBITERANYVARIABLE:
+
 		case LEFTUNIQUEOUTCONVARIABLE:
-		case LEFTITERINCCONVARIABLE:
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTRELVARIABLE:
 		case LEFTUNIQUEINCRELVARIABLE:
@@ -1391,15 +1352,25 @@ public class OpersExpr implements Serializable {
 		switch (expressionVertexType) {
 		case LEFTVARIABLE:
 		case LEFTVARIABLEVALUE:
+		case LEFTCONCEPTVARIABLE:
+
+		case LEFSUBTITERCONVARIABLE:
 		case LEFTSUBITERINCCONVARIABLE:
 		case LEFTSUBITEROUTCONVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
+		case LEFTSUBITERANYVARIABLE:
+
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
+		case LEFTITERINCCONVARIABLE:
+		case LEFTITEROUTCONVARIABLE:
 		case LEFTITERANYRELVARIABLE:
+		case LEFTITERANYCONVARIABLE:
+		case LEFTITERCONCEPTVARIABLE:
+
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
-		case LEFTCONCEPTVARIABLE:
-		case LEFTITERCONCEPTVARIABLE:
 		case LEFTUNIQUEINCRELVARIABLE:
 		case LEFTUNIQUEOUTRELVARIABLE:
 			this.setLeftSemanticElement(intSemanticElement);
@@ -1420,13 +1391,23 @@ public class OpersExpr implements Serializable {
 			ExpressionVertexType expressionVertexType, char elementType) {
 		switch (expressionVertexType) {
 		case LEFTVARIABLE:
+		case LEFTCONCEPTVARIABLE:
+
 		case LEFTSUBITERINCCONVARIABLE:
 		case LEFTSUBITEROUTCONVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
+		case LEFTSUBITERANYVARIABLE:
+
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
+		case LEFTITERINCCONVARIABLE:
+		case LEFTITEROUTCONVARIABLE:
 		case LEFTITERANYRELVARIABLE:
-		case LEFTCONCEPTVARIABLE:
+		case LEFTITERANYCONVARIABLE:
 		case LEFTITERCONCEPTVARIABLE:
+
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTUNIQUEINCRELVARIABLE:
@@ -1510,6 +1491,7 @@ public class OpersExpr implements Serializable {
 				break;
 			case LEFSUBTITERCONVARIABLE:
 				out += "LeftSubIterConceptVar" + ":";
+				out += this.getLeftSemanticElementId() + ":";
 				out += getLeftAttributeName();
 				break;
 
