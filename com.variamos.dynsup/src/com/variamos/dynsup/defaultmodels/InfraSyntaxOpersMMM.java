@@ -558,7 +558,7 @@ public class InfraSyntaxOpersMMM {
 								"Enumeration",
 								AttributeType.OPERATION,
 								false,
-								"Computational Analysis",
+								"Simple quotient",
 								"Type of quotient applied between suboper 1 and suboper2",
 								OperationComputationAnalysisType.class
 										.getCanonicalName(), "", "", 0, 11,
@@ -880,7 +880,7 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("labelId",
 				new ElemAttribute("labelId", "String", AttributeType.OPERATION,
-						false, "Label ID", "", null, 0, 5, "", "", -1, "", ""));
+						false, "Label ID", "", "L1", 0, 5, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperLabeling
 				.addModelingAttribute(

@@ -23,6 +23,7 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.types.OperationActionType;
+import com.variamos.dynsup.types.OperationComputationAnalysisType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.OperationSubActionType;
 import com.variamos.hlcl.BooleanExpression;
@@ -368,9 +369,13 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				// Auto sorting with treeset
 				String operType = (String) operationObj
 						.getInstAttributeValue("operType");
+				String computationalType = (String) operationObj
+						.getInstAttributeValue("analysisComputationType");
 				boolean computationalAnalysis = false;
-				if (operType.equals(OperationActionType.Computational_Analysis
-						.toString())) {
+				if (operType
+						.equals(StringUtils
+								.formatEnumValue(OperationActionType.Computational_Analysis
+										.toString()))) {
 					computationalAnalysis = true;
 					results = new int[2];
 				}
@@ -419,7 +424,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										.formatEnumValue(OperationSubActionType.Iterative_Update
 												.toString()))) {
 							simul = true;
-							if (lastConfiguration == null) {
+							if (lastConfiguration == null || firstSimulExec) {
 								result = refas2hlcl.execute(progressMonitor,
 										ModelExpr2HLCL.ONE_SOLUTION,
 										operationObj, instsuboperations
@@ -548,14 +553,50 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 											.getInstAttributeValue("completedMessage");
 									if (completedMessage
 											.contains("#numerator#"))
-										completedMessage = errorMessage
+										completedMessage = completedMessage
 												.replace("#numerator#",
 														results[0] + "");
 									if (completedMessage
 											.contains("#denominator#"))
-										completedMessage = errorMessage
+										completedMessage = completedMessage
 												.replace("#denominator#",
 														results[1] + "");
+									if (completedMessage.contains("#result#")) {
+										if (computationalType
+												.equals(StringUtils
+														.formatEnumValue(OperationComputationAnalysisType.Simple_Quotient
+																.toString())))
+											completedMessage = completedMessage
+													.replace(
+															"#result#",
+															results[0]
+																	/ results[1]
+																	+ "");
+										else if (computationalType
+												.equals(StringUtils
+														.formatEnumValue(OperationComputationAnalysisType.One_Less_Quotient
+																.toString())))
+											completedMessage = completedMessage
+													.replace(
+															"#result#",
+															(1 - results[0]
+																	/ results[1])
+																	+ "");
+										else if (computationalType
+												.equals(StringUtils
+														.formatEnumValue(OperationComputationAnalysisType.Quotient_denominator_exp_base_2
+																.toString())))
+											completedMessage = completedMessage
+													.replace(
+															"#result#",
+															results[0]
+																	/ Math.pow(
+																			2,
+																			results[1])
+																	+ "");
+
+									}
+
 								}
 							} else {
 								refas2hlcl.updateGUIElements(null,
