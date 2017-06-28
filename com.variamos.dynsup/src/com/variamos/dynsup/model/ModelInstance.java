@@ -256,7 +256,11 @@ public class ModelInstance extends AbstractModel {
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstElement)
-			if (element.getTransSupportMetaElement().getUserIdentifier() == null)
+			if (element.getTransSupInstElement()
+					.getInstAttributeValue("userId") != null)
+				classId = (String) element.getTransSupInstElement()
+						.getInstAttributeValue("userId");
+			else if (element.getTransSupportMetaElement().getUserIdentifier() == null)
 				classId = element.getTransSupportMetaElement()
 						.getAutoIdentifier();
 			else
@@ -419,6 +423,16 @@ public class ModelInstance extends AbstractModel {
 		if (out == null)
 			out = instGroupDependencies.get(vertexId);
 		return out;
+	}
+
+	public InstElement getVertexByName(String elementName) {
+		for (InstElement e : variabilityInstVertex.values()) {
+			String name = (String) e.getInstAttributeValue("name");
+			if (name != null)
+				if (name.equals(elementName))
+					return e;
+		}
+		return null;
 	}
 
 	public Set<InstElement> getVertices() {

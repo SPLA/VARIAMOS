@@ -20,6 +20,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
@@ -282,6 +283,17 @@ public class ModelExpr2HLCL {
 		return hlclProgram;
 	}
 
+	public List<ModelExpr> getInstanceExpressions(InstElement operation,
+			String subOperation, OperationSubActionExecType operExecType) {
+		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+				refas, operation, null, null);
+		transExpSet.addExpressions(refas, null, subOperation, operExecType);
+		List<ModelExpr> ts = transExpSet.getInstanceExpressions(subOperation
+				+ "-" + operExecType);
+
+		return ts;
+	}
+
 	// Static call
 	public HlclProgram getHlclProgram(String element, int execType,
 			InstElement instElement) {
@@ -508,6 +520,68 @@ public class ModelExpr2HLCL {
 		return 0;
 	}
 
+	// Dynamic implementation to export
+	public Map<String, Map<String, Integer>> execExport(
+			ProgressMonitor progressMonitor, InstElement operation,
+			InstElement suboper) throws InterruptedException {
+		int iter = 0;
+		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
+		elements = new HashMap<String, Map<String, Integer>>();
+		int result = 0;
+		boolean first = true;
+		int cont = 0;
+		while (result == 0 && !progressMonitor.isCanceled()) {
+			progressMonitor.setNote("Solutions processed: " + cont++
+					+ "(total unknown)");
+			if (first) {
+				result = execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION,
+						operation, suboper);
+				first = false;
+			} else
+				result = execute(progressMonitor, ModelExpr2HLCL.NEXT_SOLUTION,
+						operation, suboper);
+			if (result == 0 && !progressMonitor.isCanceled()) {
+				updateGUIElements(null, null, null);
+				Map<String, Integer> newMap = new TreeMap<String, Integer>();
+				for (InstElement instVertex : refas
+						.getVariabilityVertexCollection()) {
+					if (instVertex.getInstAttribute("exportOnConfig") != null
+							&& instVertex.getInstAttribute("exportOnConfig")
+									.getAsBoolean()) {
+						String instId = instVertex.getIdentifier();
+						if (instVertex.getIdentifier().contains("Variable")) {
+							Object oo = instVertex.getInstAttribute("value")
+									.getValue();
+							Integer o = null;
+							if (oo instanceof Integer) {
+								o = (Integer) instVertex.getInstAttribute(
+										"value").getValue();
+
+							} else {
+								o = Integer.valueOf((String) instVertex
+										.getInstAttribute("value").getValue());
+							}
+
+							newMap.put(instId, o);
+						} else {
+							Boolean o = (Boolean) instVertex.getInstAttribute(
+									"SimulSel").getValue();
+							Integer integer;
+							if (o.booleanValue())
+								integer = 1;
+							else
+								integer = 0;
+							newMap.put(instId, integer);
+						}
+					}
+				}
+				iter++;
+				elements.put(iter + "", newMap);
+			}
+		}
+		return elements;
+	}
+
 	// static call implementation
 	// No longer needed when the dynamic implementation is completed
 	public boolean execute(ProgressMonitor progressMonitor, String element,
@@ -622,8 +696,11 @@ public class ModelExpr2HLCL {
 						continue;
 					// System.out.println(vertexId + " " + attribute);
 					if (instAttribute.getAttribute() instanceof ElemAttribute
-							&& instAttribute.getAttribute().getAttributeType()
-									.equals(AttributeType.EXECCURRENTSTATE)
+							&& instAttribute
+									.getAttribute()
+									.getAttributeType()
+									.equals(AttributeType.EXECCURRENTSTATE
+											.toString())
 							&& instAttribute.getType().equals("Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
@@ -713,6 +790,40 @@ public class ModelExpr2HLCL {
 				outVariables, null, instSubOper);
 	}
 
+	public int getSingleOutValue(List<String> outVariables,
+			InstElement instOperSubAction) {
+		if (configuration != null) {
+			Map<String, Number> prologOut;
+			prologOut = configuration.getConfiguration();
+			for (String identifier : prologOut.keySet()) {
+				String[] split = identifier.split("_");
+				String vertexId = split[0];
+				String attribute = split[1];
+				InstElement vertex = refas.getElement(vertexId);
+				if (outVariables.contains(attribute) && vertexId != null) {
+					InstAttribute instAttribute = vertex
+							.getInstAttribute(attribute);
+					if (instAttribute != null
+							&& instAttribute.getType().equals("Boolean")) {
+						// System.out.println(prologOut.get(identifier));
+						int val = (int) Float.parseFloat(prologOut
+								.get(identifier) == null ? "0" : prologOut
+								.get(identifier) + "");
+						if (val == 1)
+							return 1;
+						else if (val == 0)
+							return 0;
+					} else if (instAttribute != null
+							&& instAttribute.getType().equals("Integer"))
+						return (int) Float.parseFloat(prologOut.get(identifier)
+								+ "");
+				}
+
+			}
+		}
+		return 0;
+	}
+
 	/**
 	 * Updates the GUI with the configuration
 	 */
@@ -736,10 +847,14 @@ public class ModelExpr2HLCL {
 				// + prologOut.get(identifier));
 				InstElement vertex = refas.getElement(vertexId);
 				if (!vertexId.equals("Amodel")
-						&& (outVariables == null
-								|| outVariables.contains(attribute) || (vertex
-								.getTransSupInstElement().getEdSyntaxEle()
-								.getInstSemanticElementId() != null
+						&& (outVariables == null || outVariables.size() == 0
+								|| outVariables.contains(attribute) || (vertex != null
+								&& vertex.getTransSupInstElement() != null
+								&& vertex.getTransSupInstElement()
+										.getEdSyntaxEle() != null
+								&& vertex.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId() != null
 								&& vertex.getTransSupInstElement()
 										.getEdSyntaxEle()
 										.getInstSemanticElementId()
@@ -1011,6 +1126,62 @@ public class ModelExpr2HLCL {
 				instVertex.removeDefect(defectId);
 		}
 
+	}
+
+	public void updateErrorMark(Collection<String> identifiers,
+			String defectId, ArrayList<String> defectDescriptions) {
+		// Call the SWIProlog and obtain the result
+
+		int pos = 0;
+		for (InstElement instVertex : refas.getElements()) {
+			instVertex.removeDefect(defectId);
+		}
+
+		for (String identifier : identifiers) {
+
+			String description = defectDescriptions.get(pos++);
+
+			InstElement element = refas.getElement(identifier);
+
+			if (description.contains("#number#"))
+				description = description.replace("#number#",
+						identifiers.size() + "");
+
+			if (description.contains("#source#")
+					&& element.getSourceRelations().size() != 0)
+				if (element.getSourceRelations().get(0)
+						.getInstAttributeValue("name") != null)
+					description = description.replace("#source#",
+							element.getSourceRelations().get(0)
+									.getInstAttributeValue("name")
+									+ "");
+				else
+					description = description.replace("#source#", element
+							.getSourceRelations().get(0).getIdentifier()
+							+ "");
+			if (description.contains("#target#")
+					&& element.getTargetRelations().size() != 0)
+				if (element.getTargetRelations().get(0)
+						.getInstAttributeValue("name") != null)
+					description = description.replace("#target#",
+							element.getTargetRelations().get(0)
+									.getInstAttributeValue("name")
+									+ "");
+				else
+					description = description.replace("#target#", element
+							.getTargetRelations().get(0).getIdentifier()
+							+ "");
+
+			if (description.contains("#element#"))
+				if (element.getInstAttributeValue("name") != null)
+					description = description.replace("#element#",
+							element.getInstAttributeValue("name") + "");
+				else
+					description = description.replace("#element#",
+							element.getIdentifier() + "");
+
+			element.putDefect(defectId, description);
+		}
 	}
 
 	/**

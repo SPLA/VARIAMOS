@@ -639,11 +639,12 @@ public class SharedActions {
 								"com.variamos.dynsup.model.ModelExpr")) {
 							// getIdentifier().equals("ConditionalExpression"))
 							// {
-							ModelExpr instanceExpression = (ModelExpr) ia
-									.getValue();
-							if (instanceExpression != null)
-								instanceExpression.loadVolatileElements(refas
-										.getVariabilityVertex());
+							Object instanceExpression = ia.getValue();
+							if (instanceExpression != null
+									&& !instanceExpression.equals(""))
+								((ModelExpr) instanceExpression)
+										.loadVolatileElements(refas
+												.getVariabilityVertex());
 						}
 
 						if (ia.getIdentifier().equals("exptype")) {

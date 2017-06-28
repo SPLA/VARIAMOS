@@ -312,15 +312,19 @@ public class ElementDesignPanel extends JPanel {
 					for (InstAttribute instAttribute : visible) {
 						if (instAttribute != null
 								&& instAttribute.getAttribute() instanceof ElemAttribute
-								&& (instAttribute.getAttribute()
+								&& (instAttribute
+										.getAttribute()
 										.getAttributeType()
-										.equals(AttributeType.SYNTAX)
+										.equals(AttributeType.SYNTAX.toString())
 										|| instAttribute
 												.getAttribute()
 												.getAttributeType()
-												.equals(AttributeType.OPERATION) || instAttribute
-										.getAttribute().getAttributeType()
-										.equals(AttributeType.CONFIGURATION))) {
+												.equals(AttributeType.OPERATION
+														.toString()) || instAttribute
+										.getAttribute()
+										.getAttributeType()
+										.equals(AttributeType.CONFIGURATION
+												.toString()))) {
 							if (instAttribute.getIdentifier().equals(
 									SyntaxElement.VAR_USERIDENTIFIER)
 									&& instAttribute.getValue() == null) {
@@ -570,12 +574,14 @@ public class ElementDesignPanel extends JPanel {
 															.getValueObject())
 															.getInstSemanticElementId();
 													for (InstElement e : pwrList) {
-														String ee = (String) e
-																.getInstAttribute(
-																		"OperationsMMType")
-																.getValue();
-														if (ee.equals(val))
-															sel = e;
+														if (e.getInstAttribute("OperationsMMType") != null) {
+															String ee = (String) e
+																	.getInstAttribute(
+																			"OperationsMMType")
+																	.getValue();
+															if (ee.equals(val))
+																sel = e;
+														}
 													}
 													finalEditElm
 															.setTransSupInstElement(sel);
@@ -877,9 +883,9 @@ public class ElementDesignPanel extends JPanel {
 			elementDesPropSubPanel.setMaximumSize(new Dimension(330,
 					designPanelElements * 28));
 			contentPanel1.add(elementDesPropSubPanel);
-			contentPanel1.setMaximumSize(new Dimension(330, 450));
-			contentPanel1.setPreferredSize(new Dimension(330, 450));
-			contentPanel1.setMinimumSize(new Dimension(330, 450));
+			contentPanel1.setMaximumSize(new Dimension(330, 550));
+			contentPanel1.setPreferredSize(new Dimension(330, 550));
+			contentPanel1.setMinimumSize(new Dimension(330, 550));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);

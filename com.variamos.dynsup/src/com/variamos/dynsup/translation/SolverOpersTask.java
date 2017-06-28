@@ -18,9 +18,12 @@ import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.util.StringUtils;
 import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
+import com.variamos.dynsup.types.OperationActionType;
+import com.variamos.dynsup.types.OperationComputationAnalysisType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.OperationSubActionType;
 import com.variamos.hlcl.BooleanExpression;
@@ -58,7 +61,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private ModelExpr2HLCL refas2hlcl;
 	private HlclProgram configHlclProgram;
 	private boolean invalidConfigHlclProgram;
-	private List<String> outVariables = null;
+	private List<String> outVariables = new ArrayList<String>();
 	private List<String> defectsFreeIdsName = null;
 
 	public List<String> getOutVariables() {
@@ -71,6 +74,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	public String getCompletedMessage() {
 		return completedMessage;
+	}
+
+	public int[] getResults() {
+		return results;
 	}
 
 	public String getErrorMessage() {
@@ -99,11 +106,12 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private boolean update;
 	private Component parentComponent;
 	private ModelInstance refasModel;
-	// private String file;
+	private String file;
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
 	private boolean terminated = false;
-	private boolean correctExecution;
+	private boolean correctExecution = true;
+	private int results[] = null;
 
 	public boolean isCorrectExecution() {
 		return correctExecution;
@@ -112,7 +120,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public SolverOpersTask(ProgressMonitor progressMonitor,
 			ModelInstance refasModel, ModelExpr2HLCL refas2hlcl,
 			HlclProgram configHlclProgram, boolean firstSimulExec,
-			List<String> operations, Configuration lastConfiguration) {
+			List<String> operations, Configuration lastConfiguration,
+			String filename) {
 
 		this.refasModel = refasModel;
 		this.progressMonitor = progressMonitor;
@@ -124,6 +133,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		this.update = false;
 		this.operationsNames = operations;
 		this.lastConfiguration = lastConfiguration;
+		this.file = filename;
 	}
 
 	public SolverOpersTask(ProgressMonitor progressMonitor,
@@ -186,13 +196,13 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return null;
 	}
 
-	// TODO Modify for dynamic operations
-	@Deprecated
-	public boolean saveConfiguration(String file) throws InterruptedException {
+	// for dynamic operations
+	public boolean saveConfiguration(String file, InstElement operation,
+			InstElement suboper) throws InterruptedException {
 		setProgress(1);
 		progressMonitor.setNote("Solutions processed: 0");
-		Map<String, Map<String, Integer>> elements = refas2hlcl
-				.execCompleteSimul(progressMonitor);
+		Map<String, Map<String, Integer>> elements = refas2hlcl.execExport(
+				progressMonitor, operation, suboper);
 		setProgress(95);
 		progressMonitor
 				.setNote("Total Solutions processed: " + elements.size());
@@ -205,6 +215,26 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		ExportConfiguration export = new ExportConfiguration();
 		export.exportConfiguration(elements, names, file);
 		return true;
+	}
+
+	// for dynamic operations
+	public int countConfigurations(InstElement operation, InstElement suboper)
+			throws InterruptedException {
+		setProgress(1);
+		progressMonitor.setNote("Solutions processed: 0");
+		Map<String, Map<String, Integer>> elements = refas2hlcl.execExport(
+				progressMonitor, operation, suboper);
+		setProgress(95);
+		progressMonitor
+				.setNote("Total Solutions processed: " + elements.size());
+		List<String> names = new ArrayList<String>();
+		for (String element : elements.get("1").keySet()) {
+			if (refasModel.getElement(element) != null)
+				names.add((String) refasModel.getElement(element)
+						.getInstAttribute("name").getValue());
+		}
+		errorMessage = "Total solutions:" + elements.size();
+		return elements.size();
 	}
 
 	// TODO Modify for dynamic operations
@@ -337,6 +367,19 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				Set<InstElement> suboperationsObjs = new TreeSet<InstElement>();
 				Map<String, InstElement> instsuboperations = new HashMap<String, InstElement>();
 				// Auto sorting with treeset
+				String operType = (String) operationObj
+						.getInstAttributeValue("operType");
+				String computationalType = (String) operationObj
+						.getInstAttributeValue("analysisComputationType");
+				boolean computationalAnalysis = false;
+				if (operType
+						.equals(StringUtils
+								.formatEnumValue(OperationActionType.Computational_Analysis
+										.toString()))) {
+					computationalAnalysis = true;
+					results = new int[2];
+				}
+				int subOperIndex = 0;
 				for (InstElement operpair : operationObj.getTargetRelations()) {
 					InstElement suboper = operpair.getTargetRelations().get(0);
 					instsuboperations.put(suboper.getIdentifier(), suboper);
@@ -346,7 +389,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				InstElement lastSubOper = null;
 				for (InstElement suboper : suboperationsObjs) {
 					lastSubOper = suboper;
-					if (result == -1)
+					if (result == -1
+							&& operationObj.getInstAttributeValue("operType")
+									.equals("Validation"))
 						break;
 					try {
 						// Validation operations
@@ -354,23 +399,36 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						// .getInstAttributeValue("type")));
 						String type = (String) suboper
 								.getInstAttributeValue("type");
-						completedMessage = (String) suboper
-								.getInstAttributeValue("completedMessage");
 						boolean showDashboard = (boolean) suboper
 								.getInstAttributeValue("showDashboard");
+						boolean simul = false;
 						if (showDashboard)
 							this.showDashboard = showDashboard;
 						if (type.equals(StringUtils
-								.formatEnumValue(OperationSubActionType.Single_Update
-										.toString()))
+								.formatEnumValue(OperationSubActionType.Number_Solutions
+										.toString()))) {
+							if (computationalAnalysis)
+								results[subOperIndex++] = countConfigurations(
+										operationObj, suboper);
+							else
+								countConfigurations(operationObj, suboper);
+						} else if (type
+								.equals(StringUtils
+										.formatEnumValue(OperationSubActionType.Export_Solutions
+												.toString()))) {
+							saveConfiguration(file, operationObj, suboper);
+						} else if (type
+								.equals(StringUtils
+										.formatEnumValue(OperationSubActionType.Single_Update
+												.toString()))
 								|| type.equals(StringUtils
 										.formatEnumValue(OperationSubActionType.Single_Verification
 												.toString()))
 								|| type.equals(StringUtils
 										.formatEnumValue(OperationSubActionType.Iterative_Update
 												.toString()))) {
-
-							if (lastConfiguration == null) {
+							simul = true;
+							if (lastConfiguration == null || firstSimulExec) {
 								result = refas2hlcl.execute(progressMonitor,
 										ModelExpr2HLCL.ONE_SOLUTION,
 										operationObj, instsuboperations
@@ -399,6 +457,12 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									.getInstAttributeValue("errorHint");
 							String modeStr = suboper.getInstAttributeValue(
 									"mode").toString();
+							boolean updateOutAttributes = (boolean) suboper
+									.getInstAttributeValue("updateOutAttributes");
+							String outAttribute = (String) suboper
+									.getInstAttributeValue("outAttribute");
+							boolean natLanguage = (boolean) suboper
+									.getInstAttributeValue("useNatLangExprDesc");
 							DefectAnalyzerMode mode = null;
 							for (DefectAnalyzerMode m : DefectAnalyzerMode
 									.values()) {
@@ -416,8 +480,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									.getEdOperEle()).getOutAttributes();
 							result = cauCos(0, operationObj, suboper,
 									errorHint, outAttributes,
+									updateOutAttributes, outAttribute,
 									operationsNames.size(), mode, indivVerExp,
-									indivRelExp);
+									indivRelExp, natLanguage);
 							terminated = true;
 						} // Verification operations with DefectsVerifier
 						else if (type
@@ -448,10 +513,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								coreOperName = (String) suboper
 										.getInstAttributeValue("defectsCoreOper");
 								if (coreOperName == null)
-									coreOperName = "UpdateCoreOper";
+									coreOperName = "Update Core Elements";
 								coreOperation = refas2hlcl.getRefas()
 										.getSyntaxModel().getOperationalModel()
-										.getElement(coreOperName);
+										.getVertexByName(coreOperName);
 								if (method.equals("getRedundancies")) {
 									constraitsToVerifyRedundacies = refas2hlcl
 											.getHlclProgram(
@@ -460,9 +525,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 													OperationSubActionExecType.TOVERIFY,
 													null);
 								}
-							} else
-								updateOutAttributes = (boolean) suboper
-										.getInstAttributeValue("updateOutAttributes");
+							}
+							updateOutAttributes = (boolean) suboper
+									.getInstAttributeValue("updateOutAttributes");
 
 							List<OpersIOAttribute> outAttributes = ((OpersSubOperation) suboper
 									.getEdOperEle()).getOutAttributes();
@@ -480,15 +545,76 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							update = true;
 							outVariables = refas2hlcl.getOutVariables(
 									operationName, suboper.getIdentifier());
-							lastConfiguration = refas2hlcl.getConfiguration();
-							// if (update) {
-							refas2hlcl.updateGUIElements(null, outVariables,
-									suboper);
+							if (simul)
+								lastConfiguration = refas2hlcl
+										.getConfiguration();
+							if (computationalAnalysis) {
+								if (!type
+										.equals(StringUtils
+												.formatEnumValue(OperationSubActionType.Number_Solutions
+														.toString())))
+									results[subOperIndex++] = refas2hlcl
+											.getSingleOutValue(outVariables,
+													suboper);
+								if (subOperIndex == 2) {
+									completedMessage = (String) suboper
+											.getInstAttributeValue("completedMessage");
+									if (completedMessage
+											.contains("#numerator#"))
+										completedMessage = completedMessage
+												.replace("#numerator#",
+														results[0] + "");
+									if (completedMessage
+											.contains("#denominator#"))
+										completedMessage = completedMessage
+												.replace("#denominator#",
+														results[1] + "");
+									if (completedMessage.contains("#result#")) {
+										if (computationalType
+												.equals(StringUtils
+														.formatEnumValue(OperationComputationAnalysisType.Simple_Quotient
+																.toString())))
+											completedMessage = completedMessage
+													.replace(
+															"#result#",
+															(results[0] * 1f)
+																	/ results[1]
+																	+ "");
+										else if (computationalType
+												.equals(StringUtils
+														.formatEnumValue(OperationComputationAnalysisType.One_Less_Quotient
+																.toString())))
+											completedMessage = completedMessage
+													.replace(
+															"#result#",
+															(1 - results[0]
+																	/ results[1])
+																	+ "");
+										else if (computationalType
+												.equals(StringUtils
+														.formatEnumValue(OperationComputationAnalysisType.Quotient_denominator_exp_base_2
+																.toString())))
+											completedMessage = completedMessage
+													.replace(
+															"#result#",
+															results[0]
+																	/ Math.pow(
+																			2,
+																			results[1])
+																	+ "");
+
+									}
+
+								}
+							} else {
+								refas2hlcl.updateGUIElements(null,
+										outVariables, suboper);
+							}
 							// messagesArea.setText(refas2hlcl.getText());
 							// bringUpTab(mxResources.get("elementSimPropTab"));
 							// editPropertiesRefas(editor.lastEditableElement);
 							// }
-							correctExecution = true;
+							// correctExecution = true;
 							long endTime = System.currentTimeMillis();
 							executionTime = this.operationsNames.get(0)
 									+ (endTime - iniTime)
@@ -499,7 +625,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						} else {
 							if (result == -1)
 								if (firstSimulExec && lastConfiguration == null) {
-									errorMessage = (String) suboper
+									errorMessage += (String) suboper
 											.getInstAttributeValue("errorText");
 									errorTitle = (String) suboper
 											.getInstAttributeValue("errorTitle");
@@ -512,26 +638,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								}
 							if (result >= 1)
 								if (firstSimulExec && lastConfiguration == null) {
-									errorMessage = (String) suboper
-											.getInstAttributeValue("errorMsg");
-									if (errorMessage.contains("#number#"))
-										errorMessage = errorMessage.replace(
-												"#number#", result + "");
-									errorTitle = (String) suboper
-											.getInstAttributeValue("errorTitle");
-									correctExecution = false;
-									// terminated = true;
-								} else {
-									errorMessage = "No more solutions found";
-									errorTitle = "Simulation Message";
-									correctExecution = false;
-								}
-							if (result >= 1)
-								if (firstSimulExec && lastConfiguration == null) {
-									outVariables = refas2hlcl.getOutVariables(
-											operationName,
-											suboper.getIdentifier());
-									errorMessage = (String) suboper
+									outVariables.addAll(refas2hlcl
+											.getOutVariables(operationName,
+													suboper.getIdentifier()));
+									errorMessage += (String) suboper
 											.getInstAttributeValue("errorMsg");
 									if (errorMessage.contains("#number#"))
 										errorMessage = errorMessage.replace(
@@ -552,6 +662,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						ConsoleTextArea.addText(e.getMessage());
 						ConsoleTextArea.addText(e.getStackTrace());
 					}
+
+					// Only two suboperations allowed for computational analysis
+					if (subOperIndex == 2)
+						break;
 				}
 				if (!firstSimulExec && result == 1)
 					// Update GUI after first execution, editor is not notify
@@ -581,7 +695,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		int result = 0;
 		executionTime = "";
 
-		if (coreOperation == null)
+		if (coreOperation == null && !method.equals("getRedundancies"))
 			result = defectExecution(operation, subOper, method, outAttributes,
 					numberOperations, outAttribute, updateOutAttributes);
 
@@ -598,8 +712,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	private int cauCos(int type, InstElement operation, InstElement subOper,
 			String verifHint, List<OpersIOAttribute> outAttributes,
+			boolean updateOutAttributes, String outAttribute,
 			int numberOperations, DefectAnalyzerMode mode, boolean indivVerExp,
-			boolean indivRelExp) throws InterruptedException {
+			boolean indivRelExp, boolean natLanguage)
+			throws InterruptedException {
 		int outResult = 0;
 		executionTime = "";
 
@@ -618,10 +734,14 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			HlclProgram relaxedList = refas2hlcl.getHlclProgram(operation,
 					subOper.getIdentifier(),
 					OperationSubActionExecType.RELAXABLE, transExpSet);
+			List<ModelExpr> relaxedMEList = refas2hlcl.getInstanceExpressions(
+					operation, subOper.getIdentifier(),
+					OperationSubActionExecType.RELAXABLE);
 			HlclProgram fixedList = refas2hlcl.getHlclProgram(operation,
 					subOper.getIdentifier(), OperationSubActionExecType.NORMAL,
 					transExpSet);
-			Set<String> outIdentifiers = new TreeSet<String>();
+			Set<String> outIdentifiersSet = new TreeSet<String>();
+			ArrayList<String> outIdentifiersList = new ArrayList<String>();
 			String defects = "(";
 			HlclProgram modelToVerify = new HlclProgram();
 			modelToVerify.addAll(verifyList);
@@ -633,6 +753,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			Defect voidModel = verifier.isVoid();
 			Iterator<BooleanExpression> verifyIter = verifyList.iterator();
 			Iterator<BooleanExpression> relaxedIter = relaxedList.iterator();
+			ArrayList<String> naturalLanguageHints = new ArrayList<String>();
 			if (voidModel != null) {
 				List<BooleanExpression> verify = verifyList;
 				HlclProgram relaxed = relaxedList;
@@ -673,27 +794,76 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							for (BooleanExpression expression : corr) {
 								if (progressMonitor.isCanceled())
 									throw (new InterruptedException());
+
+								ModelExpr modelExpression = relaxedMEList
+										.get(relaxedList.indexOf(expression));
+								// .getSemanticExpression();
+								// System.out.println(relaxedList
+								// .indexOf(expression));
 								Set<Identifier> iden = HlclUtil
 										.getUsedIdentifiers(expression);
-								Identifier firsIden = iden.iterator().next();
-								String[] o = firsIden.getId().split("_");
+								Iterator iterIden = iden.iterator();
 
-								if (outIdentifiers.add(o[0]))
-									defects += o[0] + ", ";
+								if (modelExpression.getElementInstanceId() != null) {
+									InstElement ie = refas2hlcl
+											.getRefas()
+											.getElement(
+													modelExpression
+															.getElementInstanceId());
+									if (ie.getInstAttribute(outAttribute) != null
+											&& outIdentifiersSet
+													.add(modelExpression
+															.getElementInstanceId())) {
+										if (natLanguage)
+											naturalLanguageHints
+													.add(modelExpression
+															.getSemanticExpression()
+															.getNaturalLangDesc());
+										outIdentifiersList.add(modelExpression
+												.getElementInstanceId());
+										defects += modelExpression
+												.getElementInstanceId() + ", ";
+									}
+								}
+
+								while (iterIden.hasNext()) {
+									Identifier newIden = (Identifier) iterIden
+											.next();
+									String[] o = newIden.getId().split("_");
+									InstElement ie = refas2hlcl.getRefas()
+											.getElement(o[0]);
+									if (ie.getInstAttribute(outAttribute) != null
+											&& outIdentifiersSet.add(o[0])) {
+										if (natLanguage)
+											naturalLanguageHints
+													.add(modelExpression
+															.getSemanticExpression()
+															.getNaturalLangDesc());
+										defects += o[0] + ", ";
+										outIdentifiersList.add(o[0]);
+									}
+								}
 							}
 						}
-						if (!outIdentifiers.isEmpty()) {
+						if (!outIdentifiersSet.isEmpty()) {
 							defects = defects
 									.substring(0, defects.length() - 2) + ")";
 							System.out.println(defects);
-							outResult = outIdentifiers.size();
+							outResult = outIdentifiersSet.size();
 						}
 					} while (indivRelExp && relaxedIter.hasNext());
 				} while (indivVerExp && verifyIter.hasNext());
 			} else {
 				endSTime = System.currentTimeMillis();
 			}
-			refas2hlcl.updateErrorMark(outIdentifiers, verifElement, verifHint);
+			if (natLanguage)
+				refas2hlcl.updateErrorMark(outIdentifiersList, verifElement,
+						naturalLanguageHints);
+			else
+				refas2hlcl.updateErrorMark(outIdentifiersList, verifElement,
+						verifHint);
+			if (updateOutAttributes)
+				refas2hlcl.updateGUIElements(outAttributes, null);
 		} catch (FunctionalException e) {
 			endSTime = System.currentTimeMillis();
 			outResult = -1;
@@ -777,8 +947,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						break;
 					case "getAllNonAttainableDomains":
 						coreIds = defectVerifier
-
-						.getAllNonAttainableDomains(freeIdentifiers);
+								.getAllNonAttainableDomains(freeIdentifiers);
 						break;
 					default:
 						throw new FunctionalException();
@@ -849,40 +1018,42 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		// FIXME call with core once, not here
 
 		IntDefectsVerifier defectVerifier = null;
-		List<String> freeIdsNames = null;
+		List<String> freeIdsNames = new ArrayList<String>();
 		List<String> defectsNames = new ArrayList<String>();
 		long falseOTime = 0;
 
-		InstElement coreSubOper = coreOperation.getTargetRelations().get(0)
-				.getTargetRelations().get(0);
-		String coreOutAttribute = (String) coreSubOper
-				.getInstAttributeValue("outAttribute");
-		boolean updateCoreOutAttribute = (boolean) coreSubOper
-				.getInstAttributeValue("updateOutAttributes");
-		if (reuseIds && defectsFreeIdsName != null) {
-			freeIdsNames = new ArrayList<String>();
-			freeIdsNames.addAll(defectsFreeIdsName);
-		} else {
-			result = refas2hlcl.execute(progressMonitor, 0, coreOperation,
-					coreSubOper);
-			if (result == 0) {
-				// FIXME update outAttributes for CoreOper
-				if (updateCoreOutAttribute)
-					refas2hlcl.updateGUIElements(outAttributes, null);
-				Map<String, Number> currentResult = refas2hlcl.getResult();
-				freeIdsNames = getFreeIdentifiers(currentResult,
-						coreOutAttribute, outAttribute);
-			} else
-				return -1;
-		}
-		if (freeIdsNames != null) {
-			Set<Identifier> freeIdentifiers = new HashSet<Identifier>();
-			for (String freeIdentifier : freeIdsNames) {
-				if (!freeIdentifier.startsWith("FeatOT"))
-					freeIdentifiers.add(f.newIdentifier(freeIdentifier));
+		if (!method.equals("getRedundancies")) {
+			InstElement coreSubOper = coreOperation.getTargetRelations().get(0)
+					.getTargetRelations().get(0);
+			String coreOutAttribute = (String) coreSubOper
+					.getInstAttributeValue("outAttribute");
+			boolean updateCoreOutAttribute = (boolean) coreSubOper
+					.getInstAttributeValue("updateOutAttributes");
+			if (reuseIds && defectsFreeIdsName != null) {
+				freeIdsNames.addAll(defectsFreeIdsName);
+			} else {
+				result = refas2hlcl.execute(progressMonitor, 0, coreOperation,
+						coreSubOper);
+				if (result == 0) {
+					// FIXME update outAttributes for CoreOper
+					if (updateCoreOutAttribute)
+						refas2hlcl.updateGUIElements(outAttributes, null);
+					Map<String, Number> currentResult = refas2hlcl.getResult();
+					freeIdsNames = getFreeIdentifiers(currentResult,
+							coreOutAttribute, outAttribute);
+				} else
+					return -1;
 			}
+		}
+		if (freeIdsNames != null || method.equals("getRedundancies")) {
+			Set<Identifier> freeIdentifiers = new HashSet<Identifier>();
+			if (!method.equals("getRedundancies"))
+				for (String freeIdentifier : freeIdsNames) {
+					if (!freeIdentifier.startsWith("FeatOT"))
+						freeIdentifiers.add(f.newIdentifier(freeIdentifier));
+				}
 
-			if (freeIdsNames.size() > 0) {
+			if (freeIdsNames.size() > 0 || method.equals("getRedundancies")) {
 				try {
 					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram(operation,
@@ -903,36 +1074,39 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								.getDeadElements(freeIdentifiers);
 						break;
 					case "getRedundancies":
+						// TODO add this code to an option to see redundant
+						// instead of
+						// non-redundant - parentOper uses this function
 
 						defects = defectVerifier
 								.getRedundancies(constraitsToVerifyRedundacies);
 						// for (Defect defect : defects)
 						// constraitsToVerifyRedundacies.removeAll(defect
 						// .getVerificationExpressions());
-						// TODO add option to see redundant instead of
-						// non-redundant - parentOper uses this function
-						defects.clear();
-						if (constraitsToVerifyRedundacies.size() > 0) {
-							List<String> newDefectsNames = new ArrayList<String>();
-							List<String> newDefectsIds = new ArrayList<String>();
-							for (BooleanExpression conceptVariable : constraitsToVerifyRedundacies) {
-								// FIXME better support for expression and other
-								// fields
-								String[] conceptId = conceptVariable.toString()
-										.split("_");
-								conceptId = conceptId[0].toString().split("=");
-								newDefectsNames
-										.add(conceptId[conceptId.length - 1]);
-								newDefectsIds
-										.add(conceptId[conceptId.length - 1]
-												+ "_Sel");
-							}
-							defectsNames.addAll(newDefectsNames);
-							freeIdsNames.removeAll(newDefectsIds);
-							if (updateIds)
-								defectsFreeIdsName = freeIdsNames;
-							result = defects.size();
-						}
+						// defects.clear();
+						// if (constraitsToVerifyRedundacies.size() > 0) {
+						// List<String> newDefectsNames = new
+						// ArrayList<String>();
+						// List<String> newDefectsIds = new ArrayList<String>();
+						// for (BooleanExpression conceptVariable :
+						// constraitsToVerifyRedundacies) {
+						// // FIXME better support for expression and other
+						// // fields
+						// String[] conceptId = conceptVariable.toString()
+						// .split("_");
+						// conceptId = conceptId[0].toString().split("=");
+						// newDefectsNames
+						// .add(conceptId[conceptId.length - 1]);
+						// newDefectsIds
+						// .add(conceptId[conceptId.length - 1]
+						// + "_Sel");
+						// }
+						// defectsNames.addAll(newDefectsNames);
+						// freeIdsNames.removeAll(newDefectsIds);
+						// if (updateIds)
+						// defectsFreeIdsName = freeIdsNames;
+						// result = defects.size();
+						// }
 						break;
 					case "getAllNonAttainableDomains":
 						defects = defectVerifier
@@ -944,13 +1118,25 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 					falseOTime = defectVerifier.getSolverTime() / 1000000;
 					if (defects.size() > 0) {
-						List<String> newDefectsNames = new ArrayList<String>();
+						Set<String> newDefectsNames = new HashSet<String>();
 						List<String> newDefectsIds = new ArrayList<String>();
 						for (Defect conceptVariable : defects) {
-							String[] conceptId = conceptVariable.getId().split(
-									"_");
-							newDefectsNames.add(conceptId[0]);
-							newDefectsIds.add(conceptVariable.getId());
+							if (method.equals("getRedundancies")) {
+								String[] conceptId = conceptVariable.toString()
+										.split("_");
+								conceptId = conceptId[0].toString().split("=");
+								newDefectsNames
+										.add(conceptId[conceptId.length - 1]);
+								newDefectsIds
+										.add(conceptId[conceptId.length - 1]
+												+ "_Sel");
+
+							} else {
+								String[] conceptId = conceptVariable.getId()
+										.split("_");
+								newDefectsNames.add(conceptId[0]);
+								newDefectsIds.add(conceptVariable.getId());
+							}
 						}
 						defectsNames.addAll(newDefectsNames);
 						freeIdsNames.removeAll(newDefectsIds);

@@ -21,6 +21,7 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
+import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -171,6 +172,16 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				&& val instanceof InstConcept && parentCell.getValue() != null) {
 			try {
 				InstConcept instConcept = (InstConcept) val;
+
+				for (InstAttribute ia : instConcept.getInstAttributes()
+						.values()) {
+					if (ia.getType() != null && ia.getType().equals("Boolean")
+							&& ia.getValue() instanceof String)
+						if (((String) ia.getValue()).equals("0"))
+							ia.setValue(false);
+						else
+							ia.setValue(true);
+				}
 				String backtophint = "", backbottomhint = "";
 
 				String sim_core = imagesBasePath + "sim_core.png";
@@ -212,10 +223,10 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									"Required").getValue()) {
 						sim_backcolor = sim_core_req;
 						backtophint = "Required (by manual selection)";
-					} else if (!(boolean) instConcept
-							.getInstAttribute("Active").getValue()) {
-						sim_backcolor = sim_inactive;
-						backtophint = "Inactive by user";
+						// } else if (!(boolean) instConcept
+						// .getInstAttribute("Active").getValue()) {
+						// sim_backcolor = sim_inactive;
+						// backtophint = "Inactive by user";
 					} else if ((boolean) instConcept.getInstAttribute("Dead")
 							.getValue()) {
 						sim_backcolor = sim_dead;

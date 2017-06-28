@@ -606,6 +606,10 @@ public class SyntaxElement implements Serializable {
 		return visible;
 	}
 
+	public boolean setVisible(boolean visible) {
+		return this.visible = visible;
+	}
+
 	public String getDescription() {
 		return description;
 	}
