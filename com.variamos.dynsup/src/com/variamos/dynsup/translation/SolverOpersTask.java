@@ -569,7 +569,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 											completedMessage = completedMessage
 													.replace(
 															"#result#",
-															results[0]
+															(results[0] * 1f)
 																	/ results[1]
 																	+ "");
 										else if (computationalType

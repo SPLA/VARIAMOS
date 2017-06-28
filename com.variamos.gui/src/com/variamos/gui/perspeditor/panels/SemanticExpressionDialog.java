@@ -519,6 +519,11 @@ public class SemanticExpressionDialog extends JDialog {
 			{
 				if (semanticExpression != null
 						&& semanticExpression.getSemanticExpressionType() != null) {
+					JComboBox<String> conceptCombo = createCombo(
+							semanticExpression, element, fixedType,
+							semanticExpression.getLeftValidExpressions(), true,
+							'C', true);
+					leftPanel.add(conceptCombo);
 					leftPanel.add(createCombo(semanticExpression, element,
 							fixedType,
 							semanticExpression.getLeftValidExpressions(),
@@ -1085,16 +1090,19 @@ public class SemanticExpressionDialog extends JDialog {
 
 			break;
 		case LEFTITERCONCEPTVARIABLE:
-			instElements = refasModel.getVariabilityVertexCollection();
+		case LEFSUBTITERCONVARIABLE:
+			// instElements = refasModel.getVariabilityVertexCollection();
 			instElement = semanticExpression.getLeftSemanticElement();
-			break;
+			// break;
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (((element instanceof InstConcept && (sourceRelation
-						.getSupInstEleId().equals("OMConcept") || sourceRelation
+						.getSupInstEleId().equals("OMConcept")
+						|| sourceRelation.getSupInstEleId().equals(
+								"OMnmConcept") || sourceRelation
 						.getSupInstEleId().equals("OMOTRel"))))
 						|| (element instanceof InstPairwiseRel && sourceRelation
 								.getSupInstEleId().equals("OMPWRel")))
@@ -1112,9 +1120,8 @@ public class SemanticExpressionDialog extends JDialog {
 					.getVariabilityVertexCollection())
 				if (sourceRelation.getSupInstEleId().equals("OMConcept")
 						|| sourceRelation.getSupInstEleId().equals(
-								"OMInfConcept")
-						|| sourceRelation.getSupInstEleId().equals(
-								"InfraSyntaxOpersM2OTRel"))
+								"OMnmConcept")
+						|| sourceRelation.getSupInstEleId().equals("OMOTRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
