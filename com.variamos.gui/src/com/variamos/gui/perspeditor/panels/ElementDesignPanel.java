@@ -879,9 +879,9 @@ public class ElementDesignPanel extends JPanel {
 			// e.add(contentPanel1);
 			// e.setVisible(true);
 			elementDesPropSubPanel.setPreferredSize(new Dimension(330,
-					designPanelElements * 26));
+					designPanelElements * 28));
 			elementDesPropSubPanel.setMaximumSize(new Dimension(330,
-					designPanelElements * 26));
+					designPanelElements * 28));
 			contentPanel1.add(elementDesPropSubPanel);
 			contentPanel1.setMaximumSize(new Dimension(330, 550));
 			contentPanel1.setPreferredSize(new Dimension(330, 550));

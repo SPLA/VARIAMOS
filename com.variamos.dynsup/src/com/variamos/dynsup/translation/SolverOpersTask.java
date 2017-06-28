@@ -218,8 +218,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	}
 
 	// for dynamic operations
-	public boolean countConfigurations(InstElement operation,
-			InstElement suboper) throws InterruptedException {
+	public int countConfigurations(InstElement operation, InstElement suboper)
+			throws InterruptedException {
 		setProgress(1);
 		progressMonitor.setNote("Solutions processed: 0");
 		Map<String, Map<String, Integer>> elements = refas2hlcl.execExport(
@@ -234,7 +234,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						.getInstAttribute("name").getValue());
 		}
 		errorMessage = "Total solutions:" + elements.size();
-		return true;
+		return elements.size();
 	}
 
 	// TODO Modify for dynamic operations
@@ -407,7 +407,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						if (type.equals(StringUtils
 								.formatEnumValue(OperationSubActionType.Number_Solutions
 										.toString()))) {
-							countConfigurations(operationObj, suboper);
+							if (computationalAnalysis)
+								results[subOperIndex++] = countConfigurations(
+										operationObj, suboper);
+							else
+								countConfigurations(operationObj, suboper);
 						} else if (type
 								.equals(StringUtils
 										.formatEnumValue(OperationSubActionType.Export_Solutions
@@ -545,9 +549,13 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								lastConfiguration = refas2hlcl
 										.getConfiguration();
 							if (computationalAnalysis) {
-								results[subOperIndex++] = refas2hlcl
-										.getSingleOutValue(outVariables,
-												suboper);
+								if (!type
+										.equals(StringUtils
+												.formatEnumValue(OperationSubActionType.Number_Solutions
+														.toString())))
+									results[subOperIndex++] = refas2hlcl
+											.getSingleOutValue(outVariables,
+													suboper);
 								if (subOperIndex == 2) {
 									completedMessage = (String) suboper
 											.getInstAttributeValue("completedMessage");
