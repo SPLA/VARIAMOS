@@ -30,15 +30,99 @@ import com.variamos.hlcl.RangeDomain;
 import com.variamos.hlcl.StringDomain;
 
 public class DefaultOpersMM {
+
+	// Initial analysis
+
+	protected static OpersConcept voidModelOper = null;
+	protected static OpersSubOperationExpType voidModelSubOperNormal = null;
+	protected static OpersSubOperation voidModelSubOperationAction = null;
+	protected static OpersLabeling voidModelOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	protected static OpersConcept validProductElemOper = null;
+	protected static OpersSubOperationExpType validProductSubOperNormal = null;
+	protected static OpersSubOperation validProductSubOperationAction = null;
+	protected static OpersLabeling validProductOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	protected static OpersConcept validPartialConfOper = null;
+	protected static OpersSubOperationExpType validPartialConfSubOperNormal = null;
+	protected static OpersSubOperation validPartialConfSubOperationAction = null;
+	protected static OpersLabeling validPartialConfOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	protected static OpersConcept allProductsOper = null;
+	protected static OpersSubOperationExpType allProductsSubOperNormal = null;
+	protected static OpersSubOperation allProductsSubOperationAction = null;
+	protected static OpersLabeling allProductsOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	protected static OpersConcept numProductsOper = null;
+	protected static OpersSubOperationExpType numProductsSubOperNormal = null;
+	protected static OpersSubOperation numProductsSubOperationAction = null;
+	protected static OpersLabeling numProductsOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	protected static OpersConcept filterOper = null;
+	protected static OpersSubOperationExpType filterSubOperNormal = null;
+	protected static OpersSubOperation filterSubOperationAction = null;
+	protected static OpersLabeling filterOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	// End initial analysis
+
+	// Anormalities detection
 	protected static OpersConcept verifDeadElemOper = null;
 	protected static OpersSubOperationExpType verifDeadElemSubOperNormal = null;
+	protected static OpersSubOperation verifDeadElemSubOperationAction = null;
+	protected static OpersLabeling verifDeadElemOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	protected static OpersConcept condDeadElemOper = null;
+	protected static OpersSubOperationExpType condDeadElemSubOperNormal = null;
+	protected static OpersSubOperation condDeadElemSubOperationAction = null;
+	protected static OpersLabeling condDeadElemOperUniqueLabeling = new OpersLabeling(
+			"unique");
 
 	protected static OpersConcept verifFalseOptOper = null;
 	protected static OpersSubOperationExpType verifFalseOptOperSubActionNormal = null;
+	protected static OpersSubOperation verifFalseOptSubOperationAction = null;
+	protected static OpersLabeling verifFalseOptElemOperUniqueLabeling = new OpersLabeling(
+			"unique");
 
-	protected static OpersConcept verifParentsOper = null;
-	protected static OpersSubOperationExpType verifParentsOperSubActionNormal = null;
-	protected static OpersSubOperationExpType verifParentsOperSubActionToVerify = null;
+	protected static OpersConcept wrongCardOptOper = null;
+	protected static OpersSubOperationExpType wrongCardOperSubActionNormal = null;
+	protected static OpersSubOperationExpType wrongCardOperSubActionRelaxable = null;
+	protected static OpersSubOperation wrongCardSubOperationAction = null;
+	protected static OpersLabeling wrongCardElemOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	protected static OpersConcept redundanOptOper = null;
+	protected static OpersSubOperationExpType redundanOperSubActionNormal = null;
+	protected static OpersSubOperationExpType redundanOperSubActionToVerify = null;
+	protected static OpersSubOperation redundanSubOperationAction = null;
+	protected static OpersLabeling redundanOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	// End Anormalities detection
+
+	// Core features
+
+	protected static OpersConcept updCoreOper = null;
+	protected static OpersSubOperationExpType updCoreOptSubOperNormal = null;
+	protected static OpersSubOperation updateCoreSubOperationAction = null;
+	protected static OpersLabeling updateCoreOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	// Variant features
+
+	protected static OpersConcept variantOper = null;
+	protected static OpersSubOperationExpType variantOptSubOperNormal = null;
+	protected static OpersSubOperation varianSubOperationAction = null;
+	protected static OpersLabeling variantOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	// Computational Analysis
 
 	protected static OpersConcept homogeneityOper = null;
 	protected static OpersSubOperation homogeneitySubOperationAction1 = null;
@@ -90,6 +174,30 @@ public class DefaultOpersMM {
 	protected static OpersLabeling ecrOperUniqueLabeling2 = new OpersLabeling(
 			"unique");
 
+	// End computational analysis
+
+	// Lowest Common Ancestor
+
+	protected static OpersConcept lcaOper = null;
+	protected static OpersSubOperationExpType lcaSubOperNormal = null;
+	protected static OpersSubOperation lcaSubOperationAction = null;
+	protected static OpersLabeling lcaOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	// Root feature
+
+	protected static OpersConcept rootOper = null;
+	protected static OpersSubOperationExpType rootSubOperNormal = null;
+	protected static OpersSubOperation rootSubOperationAction = null;
+	protected static OpersLabeling rootOperUniqueLabeling = new OpersLabeling(
+			"unique");
+
+	// Other opers
+
+	protected static OpersConcept verifParentsOper = null;
+	protected static OpersSubOperationExpType verifParentsOperSubActionNormal = null;
+	protected static OpersSubOperationExpType verifParentsOperSubActionToVerify = null;
+
 	protected static OpersConcept verifRootOper = null;
 	protected static OpersSubOperationExpType verifRootOperSubActionNormal = null;
 	protected static OpersSubOperationExpType verifRootOperSubActionRelaxable = null;
@@ -108,9 +216,6 @@ public class DefaultOpersMM {
 	protected static OpersConcept configPermOper = null;
 
 	protected static OpersSubOperationExpType configPermanentOptOperSubActionNormal = null;
-
-	protected static OpersConcept updCoreOper = null;
-	protected static OpersSubOperationExpType updCoreOptSubOperNormal = null;
 
 	protected static OpersConcept sasverSDallOper = null;
 	protected static OpersSubOperationExpType sasverSDallOperSubActionNormal = null;
@@ -167,9 +272,6 @@ public class DefaultOpersMM {
 	protected static OpersSubOperation simSceSubOperationAction = null;
 	protected static OpersSubOperation verifRootSubOperationAction = null;
 	protected static OpersSubOperation verifParentsSubOperationAction = null;
-	protected static OpersSubOperation updateCoreSubOperationAction = null;
-	protected static OpersSubOperation verifFalseOptSubOperationAction = null;
-	protected static OpersSubOperation verifDeadElemSubOperationAction = null;
 
 	protected static OpersSubOperation sasverSDCoreOperationSubAction = null;
 	protected static OpersSubOperation sasverSDallOperationSubAction = null;
@@ -200,12 +302,6 @@ public class DefaultOpersMM {
 	// define
 	// max
 	// for SG
-	protected static OpersLabeling updateCoreOperUniqueLabeling = new OpersLabeling(
-			"unique");
-	protected static OpersLabeling verifDeadElemOperUniqueLabeling = new OpersLabeling(
-			"unique");
-	protected static OpersLabeling verifFalseOptElemOperUniqueLabeling = new OpersLabeling(
-			"unique");
 	protected static OpersLabeling verifParentsElemOperUniqueLabeling = new OpersLabeling(
 			"unique");
 	protected static OpersLabeling sasverSDCoreOperUniqueLabeling = new OpersLabeling(
@@ -357,8 +453,6 @@ public class DefaultOpersMM {
 
 			OpersLabeling operationLabeling = new OpersLabeling("unique");
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			InstConcept instLabeling = new InstConcept("None-lab",
 					metaLabeling, operationLabeling);
 
@@ -461,7 +555,6 @@ public class DefaultOpersMM {
 			//
 			// OpersLabeling operationLabeling = new OpersLabeling("unique");
 			//
-			// // operationSubAction.addOperationLabeling(operationLabeling);
 			//
 			// InstConcept instLabeling = new InstConcept(
 			// "BasSim-Pre-Validation-lab", metaLabeling,
@@ -524,8 +617,6 @@ public class DefaultOpersMM {
 							""), instOperSubOperationExpType));
 
 			simulPreUpdateOperUniLab = new OpersLabeling("unique");
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("BasSim-pre-update-lab",
 					metaLabeling, simulPreUpdateOperUniLab);
@@ -1046,8 +1137,6 @@ public class DefaultOpersMM {
 							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
-
-			// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("SimSce-exec-lab1", metaLabeling,
 					simsceExecOperLabeling1);
@@ -3004,6 +3093,123 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
+			// Variant Features variantOper
+
+			updCoreOper = new OpersConcept("VariantOper");
+
+			instOperationAction = new InstConcept("VariantOper",
+					metaOperationAction, updCoreOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("VariantOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Identify Variant Features");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-menu-Variant",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-Variant");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			updateCoreSubOperationAction = new OpersSubOperation(1,
+					"VariantSubOper");
+			// updateCoreOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("VariantSubOper",
+					metaOperationSubAction, updateCoreSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Variant Features result");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier no errors");
+			instOperationSubAction.getInstAttribute("errorHint").setValue(
+					"Variant Features");
+			instOperationSubAction.getInstAttribute("errorMsg").setValue(
+					" #number# variant features identified.");
+
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
+									.toString());
+
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"Core");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(true);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+			if (newOpers)
+				refas.getVariabilityVertex().put("VariantSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("upd-variant", instEdgeOper);
+			instEdgeOper.setIdentifier("upd-variant");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			updCoreOptSubOperNormal = new OpersSubOperationExpType();
+			updCoreOptSubOperNormal.setIdentifier("NORMAL");
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, updCoreOptSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			updateCoreOperUniqueLabeling = new OpersLabeling("unique");
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("Upd-variant-lab", metaLabeling,
+					updateCoreOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Upd-variant-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("upd-variant-lab-pw",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("upd-variant-lab-pw");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Dead elements
+
 			verifDeadElemOper = new OpersConcept("IdentifyDeadOper");
 
 			instOperationAction = new InstConcept("IdentifyDeadOper",
@@ -3109,6 +3315,124 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
+			// Conditional Dead elements
+
+			verifDeadElemOper = new OpersConcept("CondDeadOper");
+
+			instOperationAction = new InstConcept("CondDeadOper",
+					metaOperationAction, verifDeadElemOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("CondDeadOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Identify Conditional Dead Elements");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-menu-conddead",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-conddead");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			verifDeadElemSubOperationAction = new OpersSubOperation(1,
+					"CondDeadSubOper");
+			// verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("CondDeadSubOper",
+					metaOperationSubAction, verifDeadElemSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("errorHint").setValue(
+					"Conditional Dead element.");
+			instOperationSubAction.getInstAttribute("errorMsg").setValue(
+					" #number# conditional dead elements identified.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier error");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getDeadElements
+									.toString());
+			instOperationSubAction.getInstAttribute("defectsCoreOper")
+					.setValue("Update Core Elements");
+			// FIXME new core oper including Conf selected
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"Sel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("CondDeadSubOper",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges()
+						.put("ver-conddead", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-conddead");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			verifDeadElemSubOperNormal = new OpersSubOperationExpType();
+			verifDeadElemSubOperNormal.setIdentifier("NORMAL");
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, verifDeadElemSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			instLabeling = new InstConcept("Ver-conddead-lab", metaLabeling,
+					verifDeadElemOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-conddead-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-conddead-lab-pw",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-conddead-lab-pw");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// False optional
+
 			verifFalseOptOper = new OpersConcept("IdentifyFalseOper");
 			instOperationAction = new InstConcept("IdentifyFalseOper",
 					metaOperationAction, verifFalseOptOper);
@@ -3194,12 +3518,10 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			operationLabeling = new OpersLabeling("unique");
-
 			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("Ver-false-lab", metaLabeling,
-					operationLabeling);
+					verifFalseOptElemOperUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
 			instLabeling.getInstAttribute("position").setValue(1);
@@ -3209,9 +3531,255 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("Ver-false-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
+
 			refas.getConstraintInstEdges()
 					.put("ver-false-lab-pw", instEdgeOper);
 			instEdgeOper.setIdentifier("ver-false-lab-pw");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Wrong Cardinalities
+
+			wrongCardOptOper = new OpersConcept("WrongcardOper");
+
+			instOperationAction = new InstConcept("WrongcardOper",
+					metaOperationAction, wrongCardOptOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("WrongcardOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify Wrong Cardinalities");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-menu-Wrongcard",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-Wrongcard");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			wrongCardSubOperationAction = new OpersSubOperation(1,
+					"WrongcardSubOper");
+			// verifRootOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("WrongcardSubOper",
+					metaOperationSubAction, wrongCardSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction
+					.getInstAttribute("errorHint")
+					.setValue(
+							"This is a root concept or it has no root. None or more than one root concepts identified.");
+			instOperationSubAction
+					.getInstAttribute("errorMsg")
+					.setValue(
+							"No root or #number# roots identified.\n Please keep only one root concept.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Multi verification");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("WrongcardSubOper",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-wrongcard",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-wrongcard");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			wrongCardOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, wrongCardOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			wrongCardOperSubActionRelaxable = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, wrongCardOperSubActionRelaxable);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("Ver-wrongcard-lab", metaLabeling,
+					wrongCardElemOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-wrongcard-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-wrongcard-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-wrongcard-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Redundancies
+
+			redundanOptOper = new OpersConcept("RedundOper");
+
+			instOperationAction = new InstConcept("RedundOper",
+					metaOperationAction, redundanOptOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("RedundOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify Redundancies");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-menu-Redund",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-Redund");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			redundanSubOperationAction = new OpersSubOperation(1,
+					"RedundSubOper");
+			// verifRootOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("RedundSubOper",
+					metaOperationSubAction, redundanSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction
+					.getInstAttribute("errorHint")
+					.setValue(
+							"This is a root concept or it has no root. None or more than one root concepts identified.");
+			instOperationSubAction
+					.getInstAttribute("errorMsg")
+					.setValue(
+							"No root or #number# roots identified.\n Please keep only one root concept.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Multi verification");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("RedundSubOper",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-redund", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-redund");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			redundanOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, redundanOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			redundanOperSubActionToVerify = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, redundanOperSubActionToVerify);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("TOVERIFY");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("Ver-redund-lab", metaLabeling,
+					redundanOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex()
+						.put("Ver-redund-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ver-redund-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-redund-lab");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -3230,6 +3798,575 @@ public class DefaultOpersMM {
 			instOperationGroup.getInstAttribute("name").setValue("FM Analysis");
 			instOperationGroup.getInstAttribute("shortcut").setValue("V");
 
+			// Void model
+
+			voidModelOper = new OpersConcept("VoidModelOper");
+
+			instOperationAction = new InstConcept("VoidModelOper",
+					metaOperationAction, voidModelOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("VoidModelOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify Void Model");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("voidmodel-menu",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("voidmodel-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			voidModelSubOperationAction = new OpersSubOperation(3,
+					"VoidModelSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("VoidModelSubOper",
+					metaOperationSubAction, voidModelSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"The model evaluated is void");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("VoidModelSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("voidmodel-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("voidmodel-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			voidModelSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, voidModelSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// simulOperationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("VoidModel-lab", metaLabeling,
+					voidModelOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("VoidModel-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("VoidModel-lab-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("VoidModel-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Valid Product
+
+			validProductElemOper = new OpersConcept("ValidProductOper");
+
+			instOperationAction = new InstConcept("ValidProductOper",
+					metaOperationAction, validProductElemOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidProductOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify Valid Product");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("validProduct-menu",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("validProduct-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			validProductSubOperationAction = new OpersSubOperation(3,
+					"ValidProductSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("ValidProductSubOper",
+					metaOperationSubAction, validProductSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"The product evaluated is void");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidProductSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("validProduct-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("validProduct-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			validProductSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, validProductSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// simulOperationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("ValidProduct-lab", metaLabeling,
+					validProductOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidProduct-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ValidProduct-lab-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ValidProduct-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Valid Partial Configuration
+
+			validPartialConfOper = new OpersConcept("ValidPartialConfOper");
+
+			instOperationAction = new InstConcept("ValidPartialConfOper",
+					metaOperationAction, validPartialConfOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidPartialConfOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify Valid Partial Configuration");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ValidPartialConf-menu",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ValidPartialConf-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			validPartialConfSubOperationAction = new OpersSubOperation(3,
+					"ValidPartialConfSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("ValidPartialConfSubOper",
+					metaOperationSubAction, validPartialConfSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"The product evaluated is void");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidPartialConfSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ValidPartialConf-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ValidPartialConf-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			validPartialConfSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, validPartialConfSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// simulOperationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("ValidPartialConf-lab",
+					metaLabeling, validPartialConfOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidPartialConf-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ValidPartialConf-lab-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ValidPartialConf-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// All Products
+
+			allProductsOper = new OpersConcept("AllProductsOper");
+
+			instOperationAction = new InstConcept("AllProductsOper",
+					metaOperationAction, allProductsOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("AllProductsOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Export All Products");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("AllProducts-menu",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("AllProducts-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			allProductsSubOperationAction = new OpersSubOperation(3,
+					"AllProductsSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("AllProductsSubOper",
+					metaOperationSubAction, allProductsSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"Error found exporting the products");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Export solutions");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("AllProductsSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("AllProducts-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("AllProducts-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			allProductsSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, allProductsSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// simulOperationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("AllProducts-lab", metaLabeling,
+					allProductsOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("AllProducts-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("AllProducts-lab-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("AllProducts-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Number of Products
+
+			numProductsOper = new OpersConcept("NumProductsOper");
+
+			instOperationAction = new InstConcept("NumProductsOper",
+					metaOperationAction, numProductsOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("NumProductsOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Number of Products");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("NumProducts-menu",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("NumProducts-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			numProductsSubOperationAction = new OpersSubOperation(3,
+					"NumProductsSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("NumProductsSubOper",
+					metaOperationSubAction, numProductsSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"Error found counting the products");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Number solutions");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("NumProductsSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("NumProducts-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("NumProducts-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			allProductsSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, allProductsSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// simulOperationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("NumProducts-lab", metaLabeling,
+					allProductsOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("NumProducts-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("NumProducts-lab-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("NumProducts-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Filter
+
+			filterOper = new OpersConcept("FilterOper");
+
+			instOperationAction = new InstConcept("FilterOper",
+					metaOperationAction, filterOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("FilterOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Export Filtered Products");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("FilterProducts-menu",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("AllProducts-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			filterSubOperationAction = new OpersSubOperation(3,
+					"FilterProductsSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("FilterProductsSubOper",
+					metaOperationSubAction, filterSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"Error found exporting the filtered products");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Export solutions");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("FilterProductsSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("FilterProducts-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("FilterProducts-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			filterSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, filterSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// simulOperationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("FilterProducts-lab", metaLabeling,
+					filterOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("FilterProducts-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("FilterProducts-lab-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("FilterProducts-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
 			// Homogeneity
 
 			homogeneityOper = new OpersConcept("HomogeneityOper");
@@ -3242,7 +4379,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Computational_Analysis.toString());
 			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("Simple quotient");
+					.setValue("One less quotient");
 			instOperationAction.getInstAttribute("name").setValue(
 					"Calculate Homogeneity");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3355,7 +4492,7 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					"Number solutions");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("completedMessage")
@@ -3396,8 +4533,6 @@ public class DefaultOpersMM {
 							""), instOperSubOperationExpType));
 
 			homogoneityOperUniqueLabeling2 = new OpersLabeling("unique");
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("Ver-homog-lab2", metaLabeling,
 					homogoneityOperUniqueLabeling2);
@@ -3466,7 +4601,7 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					"Number solutions");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -3506,8 +4641,6 @@ public class DefaultOpersMM {
 
 			commonalityOperUniqueLabeling1 = new OpersLabeling("unique");
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-Common-lab1", metaLabeling,
 					commonalityOperUniqueLabeling1);
 
@@ -3544,7 +4677,7 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					"Number solutions");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("completedMessage")
@@ -3588,8 +4721,6 @@ public class DefaultOpersMM {
 
 			commonalityOperUniqueLabeling2 = new OpersLabeling("unique");
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-common-lab2", metaLabeling,
 					commonalityOperUniqueLabeling2);
 
@@ -3622,7 +4753,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OperationActionType.Computational_Analysis.toString());
 			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("Simple quotient");
+					.setValue("Quotient denominator exp base 2");
 			instOperationAction.getInstAttribute("name").setValue(
 					"Calculate the Variability Factor");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3657,7 +4788,7 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					"Number solutions");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -3697,8 +4828,6 @@ public class DefaultOpersMM {
 							""), instOperSubOperationExpType));
 
 			variabfactorOperUniqueLabeling1 = new OpersLabeling("unique");
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("Ver-VariabFactor-lab1",
 					metaLabeling, variabfactorOperUniqueLabeling1);
@@ -3780,8 +4909,6 @@ public class DefaultOpersMM {
 
 			variabfactorOperUniqueLabeling2 = new OpersLabeling("unique");
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-VariabFactor-lab2",
 					metaLabeling, variabfactorOperUniqueLabeling2);
 
@@ -3851,7 +4978,7 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					"Number solutions");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -3892,8 +5019,6 @@ public class DefaultOpersMM {
 
 			degreeOrthoOperUniqueLabeling1 = new OpersLabeling("unique");
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-degreeOrtho-lab1",
 					metaLabeling, degreeOrthoOperUniqueLabeling1);
 
@@ -3930,7 +5055,7 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					"Number solutions");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction
@@ -3974,8 +5099,6 @@ public class DefaultOpersMM {
 							""), instOperSubOperationExpType));
 
 			degreeOrthoOperUniqueLabeling2 = new OpersLabeling("unique");
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("Ver-degreeOrtho-lab2",
 					metaLabeling, degreeOrthoOperUniqueLabeling2);
@@ -4083,8 +5206,6 @@ public class DefaultOpersMM {
 
 			ecrOperUniqueLabeling1 = new OpersLabeling("unique");
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-ECR-lab1", metaLabeling,
 					ecrOperUniqueLabeling1);
 
@@ -4161,8 +5282,6 @@ public class DefaultOpersMM {
 
 			ecrOperUniqueLabeling2 = new OpersLabeling("unique");
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-ECR-lab2", metaLabeling,
 					ecrOperUniqueLabeling2);
 
@@ -4178,6 +5297,183 @@ public class DefaultOpersMM {
 				refas.getConstraintInstEdges()
 						.put("ver-ECR-lab2", instEdgeOper);
 			instEdgeOper.setIdentifier("ver-ECR-lab2");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Lowest Common Ancestor
+
+			lcaOper = new OpersConcept("LCAOper");
+
+			instOperationAction = new InstConcept("LCAOper",
+					metaOperationAction, lcaOper);
+			if (newOpers)
+				refas.getVariabilityVertex()
+						.put("LCAOper", instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Identiy Lowest Common Ancestor");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("lca-menu", instEdgeOper);
+			instEdgeOper.setIdentifier("lca-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			lcaSubOperationAction = new OpersSubOperation(3, "LCASubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("LCASubOper",
+					metaOperationSubAction, lcaSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"Error identifing the LCA");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("LCASubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("lca-rel", instEdgeOper);
+			instEdgeOper.setIdentifier("lca-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			lcaSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, lcaSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			instLabeling = new InstConcept("lca-lab", metaLabeling,
+					lcaOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("lca-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("lca-lab-rel", instEdgeOper);
+			instEdgeOper.setIdentifier("lca-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Root Features
+
+			rootOper = new OpersConcept("RootOper");
+
+			instOperationAction = new InstConcept("RootOper",
+					metaOperationAction, rootOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("RootOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify Root Feature");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("Root-menu", instEdgeOper);
+			instEdgeOper.setIdentifier("Root-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			rootSubOperationAction = new OpersSubOperation(3, "RootSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("RootSubOper",
+					metaOperationSubAction, rootSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"The execution encountered an error");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("RootSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("Root-rel", instEdgeOper);
+			instEdgeOper.setIdentifier("Root-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			rootSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, rootSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			instLabeling = new InstConcept("Root-lab", metaLabeling,
+					rootOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Root-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges()
+						.put("Root-lab-rel", instEdgeOper);
+			instEdgeOper.setIdentifier("Root-lab-rel");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -4293,8 +5589,6 @@ public class DefaultOpersMM {
 							""), instOperSubOperationExpType));
 
 			verifParentsElemOperUniqueLabeling = new OpersLabeling("unique");
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("Ver-par-lab", metaLabeling,
 					verifParentsElemOperUniqueLabeling);
@@ -4425,8 +5719,6 @@ public class DefaultOpersMM {
 
 			operationLabeling = new OpersLabeling("unique");
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-root-lab", metaLabeling,
 					operationLabeling);
 
@@ -4537,8 +5829,6 @@ public class DefaultOpersMM {
 
 			operationLabeling = new OpersLabeling("unique");
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Conf-temp-lab", metaLabeling,
 					operationLabeling);
 
@@ -4634,8 +5924,6 @@ public class DefaultOpersMM {
 			operationLabeling = new OpersLabeling("unique");
 
 			semanticExpressions = new ArrayList<OpersExpr>();
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("Conf-perm-lab", metaLabeling,
 					operationLabeling);
