@@ -64,6 +64,7 @@ public class OperationAction extends AbstractEditorAction {
 		String filename = null;
 		InstElement operationObj = vg.getRefas2hlcl().getRefas()
 				.getSyntaxModel().getOperationalModel().getElement(operation);
+
 		if (operationObj != null
 				&& operationObj.getInstAttributeValue("operType").equals(
 						OperationActionType.Export.toString())) {
