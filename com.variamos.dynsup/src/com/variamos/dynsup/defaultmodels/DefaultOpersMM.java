@@ -3137,7 +3137,8 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("ver-menu-Variant");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			variantSubOperationAction = new OpersSubOperation(1,
 					"VariantSubOper");
@@ -3254,7 +3255,6 @@ public class DefaultOpersMM {
 
 			verifDeadElemSubOperationAction = new OpersSubOperation(1,
 					"IdentifyDeadSubOper");
-			// verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("IdentifyDeadSubOper",
 					metaOperationSubAction, verifDeadElemSubOperationAction);
@@ -3423,8 +3423,6 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-false-lab", metaLabeling,
 					verifFalseOptElemOperUniqueLabeling);
 
@@ -3468,11 +3466,11 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("ver-menu-Wrongcard");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			wrongCardSubOperationAction = new OpersSubOperation(1,
 					"WrongcardSubOper");
-			// verifRootOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("WrongcardSubOper",
 					metaOperationSubAction, wrongCardSubOperationAction);
@@ -3553,8 +3551,6 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-wrongcard-lab", metaLabeling,
 					wrongCardElemOperUniqueLabeling);
 
@@ -3599,7 +3595,8 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("ver-menu-Redund");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			redundanSubOperationAction = new OpersSubOperation(1,
 					"RedundSubOper");
@@ -3678,8 +3675,6 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-redund-lab", metaLabeling,
 					redundanOperUniqueLabeling);
 
@@ -3721,7 +3716,8 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("ver-menu-falsepl");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			verifFalsePLSubOperationAction = new OpersSubOperation(1,
 					"IdentifyFalsePLSubOper");
@@ -3802,8 +3798,6 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			// operationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("Ver-falsepl-lab", metaLabeling,
 					verifFalsePLElemOperUniqueLabeling);
 
@@ -3828,7 +3822,7 @@ public class DefaultOpersMM {
 
 			operationMenu = new OpersConcept("FMVerification");
 
-			instOperationGroup = new InstConcept("VFMerification",
+			instOperationGroup = new InstConcept("FMVerification",
 					metaOperationMenu, operationMenu);
 			refas.getVariabilityVertex().put("FMVerification",
 					instOperationGroup);
@@ -3863,11 +3857,11 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("voidmodel-menu");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			voidModelSubOperationAction = new OpersSubOperation(3,
 					"VoidModelSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("VoidModelSubOper",
 					metaOperationSubAction, voidModelSubOperationAction);
@@ -3911,8 +3905,6 @@ public class DefaultOpersMM {
 							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
-
-			// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("VoidModel-lab", metaLabeling,
 					voidModelOperUniqueLabeling);
@@ -3958,11 +3950,11 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("AllProducts-menu");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			allProductsSubOperationAction = new OpersSubOperation(3,
 					"AllProductsSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("AllProductsSubOper",
 					metaOperationSubAction, allProductsSubOperationAction);
@@ -4053,7 +4045,8 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("NumProducts-menu");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			numProductsSubOperationAction = new OpersSubOperation(3,
 					"NumProductsSubOper");
@@ -4153,8 +4146,7 @@ public class DefaultOpersMM {
 						instEdgeOper);
 			instEdgeOper.setIdentifier("ver-menu-homog");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			if (newOpers)
-				instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
 			if (newOpers)
 				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
@@ -4232,8 +4224,6 @@ public class DefaultOpersMM {
 							""), instOperSubOperationExpType));
 
 			homogoneityOperUniqueLabeling1 = new OpersLabeling("unique");
-
-			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("Ver-homog-lab1", metaLabeling,
 					homogoneityOperUniqueLabeling1);
@@ -4363,8 +4353,7 @@ public class DefaultOpersMM {
 						instEdgeOper);
 			instEdgeOper.setIdentifier("ver-menu-VariabFactor");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			if (newOpers)
-				instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
 			if (newOpers)
 				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
@@ -4556,8 +4545,7 @@ public class DefaultOpersMM {
 						instEdgeOper);
 			instEdgeOper.setIdentifier("ver-menu-degreeOrtho");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			if (newOpers)
-				instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
 			if (newOpers)
 				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
@@ -4747,8 +4735,7 @@ public class DefaultOpersMM {
 						.put("ver-menu-ECR", instEdgeOper);
 			instEdgeOper.setIdentifier("ver-menu-ECR");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			if (newOpers)
-				instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
 			if (newOpers)
 				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
@@ -4923,10 +4910,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("lca-menu");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			lcaSubOperationAction = new OpersSubOperation(3, "LCASubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("LCASubOper",
 					metaOperationSubAction, lcaSubOperationAction);
@@ -5012,10 +4999,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("Root-menu");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			rootSubOperationAction = new OpersSubOperation(3, "RootSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("RootSubOper",
 					metaOperationSubAction, rootSubOperationAction);
@@ -5344,7 +5331,9 @@ public class DefaultOpersMM {
 
 			instOperationGroup = new InstConcept("FMConfVerif",
 					metaOperationMenu, operationMenu);
-			refas.getVariabilityVertex().put("FMConfVerif", instOperationGroup);
+			if (newOpers)
+				refas.getVariabilityVertex().put("FMConfVerif",
+						instOperationGroup);
 
 			instOperationGroup.getInstAttribute("visible").setValue(true);
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
@@ -5376,11 +5365,11 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("validProduct-menu");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			validProductSubOperationAction = new OpersSubOperation(3,
 					"ValidProductSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("ValidProductSubOper",
 					metaOperationSubAction, validProductSubOperationAction);
@@ -5424,8 +5413,6 @@ public class DefaultOpersMM {
 							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
-
-			// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("ValidProduct-lab", metaLabeling,
 					validProductOperUniqueLabeling);
@@ -5472,11 +5459,11 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("ValidPartialConf-menu");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			validPartialConfSubOperationAction = new OpersSubOperation(3,
 					"ValidPartialConfSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("ValidPartialConfSubOper",
 					metaOperationSubAction, validPartialConfSubOperationAction);
@@ -5520,8 +5507,6 @@ public class DefaultOpersMM {
 							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
-
-			// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("ValidPartialConf-lab",
 					metaLabeling, validPartialConfOperUniqueLabeling);
@@ -5568,11 +5553,11 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("AllProducts-menu");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			filterSubOperationAction = new OpersSubOperation(3,
 					"FilterProductsSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("FilterProductsSubOper",
 					metaOperationSubAction, filterSubOperationAction);
@@ -5617,8 +5602,6 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("FilterProducts-lab", metaLabeling,
 					filterOperUniqueLabeling);
 
@@ -5641,10 +5624,10 @@ public class DefaultOpersMM {
 
 			// Conditional Dead elements
 
-			verifDeadElemOper = new OpersConcept("CondDeadOper");
+			condDeadElemOper = new OpersConcept("CondDeadOper");
 
 			instOperationAction = new InstConcept("CondDeadOper",
-					metaOperationAction, verifDeadElemOper);
+					metaOperationAction, condDeadElemOper);
 			if (newOpers)
 				refas.getVariabilityVertex().put("CondDeadOper",
 						instOperationAction);
@@ -5664,14 +5647,14 @@ public class DefaultOpersMM {
 			instEdgeOper.setIdentifier("ver-menu-conddead");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-			verifDeadElemSubOperationAction = new OpersSubOperation(1,
+			condDeadElemSubOperationAction = new OpersSubOperation(1,
 					"CondDeadSubOper");
-			// verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("CondDeadSubOper",
-					metaOperationSubAction, verifDeadElemSubOperationAction);
+					metaOperationSubAction, condDeadElemSubOperationAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("errorTitle").setValue(
 					"Model Verification Error");
@@ -5720,11 +5703,11 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
-			verifDeadElemSubOperNormal = new OpersSubOperationExpType();
-			verifDeadElemSubOperNormal.setIdentifier("NORMAL");
+			condDeadElemSubOperNormal = new OpersSubOperationExpType();
+			condDeadElemSubOperNormal.setIdentifier("NORMAL");
 
 			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, verifDeadElemSubOperNormal);
+					metaExpType, condDeadElemSubOperNormal);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
@@ -5737,7 +5720,7 @@ public class DefaultOpersMM {
 							""), instOperSubOperationExpType));
 
 			instLabeling = new InstConcept("Ver-conddead-lab", metaLabeling,
-					verifDeadElemOperUniqueLabeling);
+					condDeadElemOperUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
 			instLabeling.getInstAttribute("position").setValue(1);
@@ -5787,14 +5770,12 @@ public class DefaultOpersMM {
 						instEdgeOper);
 			instEdgeOper.setIdentifier("ver-menu-Common");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			if (newOpers)
-				instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
 			if (newOpers)
 				instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 			commonalitySubOperationAction1 = new OpersSubOperation(1,
 					"CommonSubOper1");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("CommonSubOper1",
 					metaOperationSubAction, commonalitySubOperationAction1);
@@ -5870,7 +5851,6 @@ public class DefaultOpersMM {
 
 			commonalitySubOperationAction2 = new OpersSubOperation(1,
 					"CommonSubOper2");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("CommonSubOper2",
 					metaOperationSubAction, commonalitySubOperationAction2);
@@ -6081,7 +6061,6 @@ public class DefaultOpersMM {
 
 			operationSubAction = new OpersSubOperation(1,
 					"ConfigurePermanentSubOper");
-			// configPermanentOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept(
 					"ConfigurePermanentSubOper", metaOperationSubAction,
