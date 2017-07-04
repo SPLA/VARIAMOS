@@ -6313,6 +6313,12 @@ public class DefaultOpersMM {
 			verifDeadElemOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6521,6 +6527,12 @@ public class DefaultOpersMM {
 			verifDeadElemOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 		}
 		ElemAttribute attributeSel = new ElemAttribute("Sel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", "",
@@ -6634,6 +6646,12 @@ public class DefaultOpersMM {
 			verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
 					true));
+			condDeadElemSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
 					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attributeSel.getName(), true));
@@ -7015,6 +7033,12 @@ public class DefaultOpersMM {
 			degreeOrthoOperUniqueLabeling1
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			verifFalsePLSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7201,6 +7225,12 @@ public class DefaultOpersMM {
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			verifFalsePLSubOperationAction
@@ -7508,6 +7538,12 @@ public class DefaultOpersMM {
 			verifDeadElemOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 		}
 
 		attribute = new ElemAttribute("Required", "Boolean",
@@ -7723,6 +7759,12 @@ public class DefaultOpersMM {
 			verifDeadElemOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 		}
 
 		attribute = new ElemAttribute("Core", "Boolean",
@@ -7923,6 +7965,12 @@ public class DefaultOpersMM {
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			verifDeadElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
@@ -8682,6 +8730,10 @@ public class DefaultOpersMM {
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
@@ -9480,6 +9532,10 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		}
 
 		attribute = new ElemAttribute("HighRange", "Integer",
@@ -9646,6 +9702,10 @@ public class DefaultOpersMM {
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
 			verifDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			condDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			condDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		}
 
@@ -10747,6 +10807,7 @@ public class DefaultOpersMM {
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverClallOperSubActionNormal.addSemanticExpression(t1);
 		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
@@ -10924,6 +10985,7 @@ public class DefaultOpersMM {
 		allProductsSubOperNormal.addSemanticExpression(t1);
 		numProductsSubOperNormal.addSemanticExpression(t1);
 		filterSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
 		redundanOperSubActionNormal.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
@@ -10945,6 +11007,7 @@ public class DefaultOpersMM {
 				0);
 
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 
 		voidModelSubOperNormal.addSemanticExpression(t1);
@@ -11020,6 +11083,17 @@ public class DefaultOpersMM {
 		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
+				instVertexGE, instVertexGE, instVertexGE, "Core", "ConfSel");
+
+		t1 = new OpersExpr("#NEW Val - Selected (Core, ConfSel)", refas
+				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
+				instVertexGE, "Sel", false, t1);
+
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 
 		semExpr.add(t1);
 
@@ -11726,6 +11800,10 @@ public class DefaultOpersMM {
 				semRFeature.getIdentifier(), attribute.getName(), true));
 		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semRFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
 
 		refas.getVariabilityVertex().put("RootFeature", instVertexRF);
 
@@ -11793,6 +11871,10 @@ public class DefaultOpersMM {
 		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semGFeature.getIdentifier(), attribute.getName(), true));
 		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semGFeature.getIdentifier(), attribute.getName(), true));
 
 		refas.getVariabilityVertex().put("GeneralFeature", instVertexGF);
@@ -11864,6 +11946,10 @@ public class DefaultOpersMM {
 				semLFeature.getIdentifier(), attribute.getName(), true));
 		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semLFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
 
 		refas.getVariabilityVertex().put("LeafFeature", instVertexLF);
 
@@ -11919,6 +12005,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -11961,6 +12048,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12082,6 +12170,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12124,6 +12213,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12206,6 +12296,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12248,6 +12339,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12310,6 +12402,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12351,6 +12444,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12498,6 +12592,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12544,6 +12639,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12619,6 +12715,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12672,6 +12769,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12835,6 +12933,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -12922,6 +13021,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -13016,6 +13116,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -13073,6 +13174,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
@@ -13163,6 +13265,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
@@ -13211,6 +13314,7 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
