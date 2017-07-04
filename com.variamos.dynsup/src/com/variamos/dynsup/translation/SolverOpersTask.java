@@ -222,19 +222,12 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			throws InterruptedException {
 		setProgress(1);
 		progressMonitor.setNote("Solutions processed: 0");
-		Map<String, Map<String, Integer>> elements = refas2hlcl.execExport(
-				progressMonitor, operation, suboper);
+		int elements = refas2hlcl
+				.execCount(progressMonitor, operation, suboper);
 		setProgress(95);
-		progressMonitor
-				.setNote("Total Solutions processed: " + elements.size());
-		List<String> names = new ArrayList<String>();
-		for (String element : elements.get("1").keySet()) {
-			if (refasModel.getElement(element) != null)
-				names.add((String) refasModel.getElement(element)
-						.getInstAttribute("name").getValue());
-		}
-		errorMessage = "Total solutions:" + elements.size();
-		return elements.size();
+		progressMonitor.setNote("Total Solutions processed: " + elements);
+		completedMessage = "Total solutions: " + elements;
+		return elements;
 	}
 
 	// TODO Modify for dynamic operations
@@ -407,10 +400,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						if (type.equals(StringUtils
 								.formatEnumValue(OperationSubActionType.Number_Solutions
 										.toString()))) {
-							if (computationalAnalysis)
+							if (computationalAnalysis) {
 								results[subOperIndex++] = countConfigurations(
 										operationObj, suboper);
-							else
+								result = 0;
+							} else
 								countConfigurations(operationObj, suboper);
 						} else if (type
 								.equals(StringUtils
@@ -505,7 +499,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							String coreOperName = null;
 							InstElement coreOperation = null;
 							boolean updateOutAttributes = false;
-
 							List<BooleanExpression> constraitsToVerifyRedundacies = null;
 							if (type.equals(StringUtils
 									.formatEnumValue(OperationSubActionType.Defects_Verifier_Error
@@ -517,7 +510,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								coreOperation = refas2hlcl.getRefas()
 										.getSyntaxModel().getOperationalModel()
 										.getVertexByName(coreOperName);
-								if (method.equals("getRedundancies")) {
+								if (method.equals("getRedundancies")
+										|| method.equals("getFalsePLs")) {
 									constraitsToVerifyRedundacies = refas2hlcl
 											.getHlclProgram(
 													operationObj,
@@ -556,7 +550,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									results[subOperIndex++] = refas2hlcl
 											.getSingleOutValue(outVariables,
 													suboper);
-								if (subOperIndex == 2) {
+								if (suboper
+										.getInstAttributeValue("completedMessage") != null
+										&& !((String) suboper
+												.getInstAttributeValue("completedMessage"))
+												.equals("")) {
 									completedMessage = (String) suboper
 											.getInstAttributeValue("completedMessage");
 									if (completedMessage
@@ -570,38 +568,42 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 												.replace("#denominator#",
 														results[1] + "");
 									if (completedMessage.contains("#result#")) {
-										if (computationalType
-												.equals(StringUtils
-														.formatEnumValue(OperationComputationAnalysisType.Simple_Quotient
-																.toString())))
-											completedMessage = completedMessage
-													.replace(
-															"#result#",
-															(results[0] * 1f)
-																	/ results[1]
-																	+ "");
-										else if (computationalType
-												.equals(StringUtils
-														.formatEnumValue(OperationComputationAnalysisType.One_Less_Quotient
-																.toString())))
-											completedMessage = completedMessage
-													.replace(
-															"#result#",
-															(1 - results[0]
-																	/ results[1])
-																	+ "");
-										else if (computationalType
-												.equals(StringUtils
-														.formatEnumValue(OperationComputationAnalysisType.Quotient_denominator_exp_base_2
-																.toString())))
-											completedMessage = completedMessage
-													.replace(
-															"#result#",
-															results[0]
-																	/ Math.pow(
-																			2,
-																			results[1])
-																	+ "");
+										if (results[1] == 0)
+											errorMessage = "Division by zero";
+										else {
+											if (computationalType
+													.equals(StringUtils
+															.formatEnumValue(OperationComputationAnalysisType.Simple_Quotient
+																	.toString())))
+												completedMessage = completedMessage
+														.replace(
+																"#result#",
+																(results[0] * 1f)
+																		/ results[1]
+																		+ "");
+											else if (computationalType
+													.equals(StringUtils
+															.formatEnumValue(OperationComputationAnalysisType.One_Less_Quotient
+																	.toString())))
+												completedMessage = completedMessage
+														.replace(
+																"#result#",
+																(1 - (results[0] * 1f)
+																		/ results[1])
+																		+ "");
+											else if (computationalType
+													.equals(StringUtils
+															.formatEnumValue(OperationComputationAnalysisType.Quotient_denominator_exp_base_2
+																	.toString())))
+												completedMessage = completedMessage
+														.replace(
+																"#result#",
+																(results[0] * 1f)
+																		/ Math.pow(
+																				2,
+																				results[1])
+																		+ "");
+										}
 
 									}
 
@@ -637,7 +639,69 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									correctExecution = false;
 								}
 							if (result >= 1)
-								if (firstSimulExec && lastConfiguration == null) {
+								if (computationalAnalysis) {
+									results[subOperIndex++] = result;
+									if (suboper
+											.getInstAttributeValue("completedMessage") != null
+											&& !((String) suboper
+													.getInstAttributeValue("completedMessage"))
+													.equals("")) {
+										completedMessage = (String) suboper
+												.getInstAttributeValue("completedMessage");
+										if (completedMessage
+												.contains("#numerator#"))
+											completedMessage = completedMessage
+													.replace("#numerator#",
+															results[0] + "");
+										if (completedMessage
+												.contains("#denominator#"))
+											completedMessage = completedMessage
+													.replace("#denominator#",
+															results[1] + "");
+										if (completedMessage
+												.contains("#result#")) {
+											if (results[1] == 0)
+												errorMessage = "Division by zero";
+											else {
+												if (computationalType
+														.equals(StringUtils
+																.formatEnumValue(OperationComputationAnalysisType.Simple_Quotient
+																		.toString())))
+													completedMessage = completedMessage
+															.replace(
+																	"#result#",
+																	(results[0] * 1f)
+																			/ results[1]
+																			+ "");
+												else if (computationalType
+														.equals(StringUtils
+																.formatEnumValue(OperationComputationAnalysisType.One_Less_Quotient
+																		.toString())))
+													completedMessage = completedMessage
+															.replace(
+																	"#result#",
+																	(1 - (results[0] * 1f)
+																			/ results[1])
+																			+ "");
+												else if (computationalType
+														.equals(StringUtils
+																.formatEnumValue(OperationComputationAnalysisType.Quotient_denominator_exp_base_2
+																		.toString())))
+													completedMessage = completedMessage
+															.replace(
+																	"#result#",
+																	(results[0] * 1f)
+																			/ Math.pow(
+																					2,
+																					results[1])
+																			+ "");
+											}
+
+										}
+
+									}
+								} else if (firstSimulExec
+										&& lastConfiguration == null) {
 									outVariables.addAll(refas2hlcl
 											.getOutVariables(operationName,
 													suboper.getIdentifier()));
@@ -695,7 +759,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		int result = 0;
 		executionTime = "";
 
-		if (coreOperation == null && !method.equals("getRedundancies"))
+		if (coreOperation == null && !method.equals("getRedundancies")
+				&& !method.equals("getFalsePLs"))
 			result = defectExecution(operation, subOper, method, outAttributes,
 					numberOperations, outAttribute, updateOutAttributes);
 
@@ -967,7 +1032,13 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						freeIdsNames.removeAll(newDefectsIds);
 						defectsFreeIdsName = freeIdsNames;
 						result = coreIds.size();
-					}
+					} else if (subOper
+							.getInstAttributeValue("completedMessage") != null
+							&& !((String) subOper
+									.getInstAttributeValue("completedMessage"))
+									.equals(""))
+						completedMessage = (String) subOper
+								.getInstAttributeValue("completedMessage");
 					task += 100 / numberOperations;
 					setProgress((int) task);
 				} catch (FunctionalException e) {
@@ -1022,7 +1093,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		List<String> defectsNames = new ArrayList<String>();
 		long falseOTime = 0;
 
-		if (!method.equals("getRedundancies")) {
+		if (!method.equals("getRedundancies") && !method.equals("getFalsePLs")) {
 			InstElement coreSubOper = coreOperation.getTargetRelations().get(0)
 					.getTargetRelations().get(0);
 			String coreOutAttribute = (String) coreSubOper
@@ -1045,15 +1116,18 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					return -1;
 			}
 		}
-		if (freeIdsNames != null || method.equals("getRedundancies")) {
+		if (freeIdsNames != null || method.equals("getRedundancies")
+				|| method.equals("getFalsePLs")) {
 			Set<Identifier> freeIdentifiers = new HashSet<Identifier>();
-			if (!method.equals("getRedundancies"))
+			if (!method.equals("getRedundancies")
+					&& !method.equals("getFalsePLs"))
 				for (String freeIdentifier : freeIdsNames) {
 					if (!freeIdentifier.startsWith("FeatOT"))
 						freeIdentifiers.add(f.newIdentifier(freeIdentifier));
 				}
 
-			if (freeIdsNames.size() > 0 || method.equals("getRedundancies")) {
+			if (freeIdsNames.size() > 0 || method.equals("getRedundancies")
+					|| method.equals("getFalsePLs")) {
 				try {
 					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram(operation,
@@ -1108,6 +1182,14 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						// result = defects.size();
 						// }
 						break;
+					case "getFalsePLs":
+						// TODO add this code to an option to see redundant
+						// instead of
+						// non-redundant - parentOper uses this function
+
+						defects = defectVerifier
+								.getFalsePLs(constraitsToVerifyRedundacies);
+						break;
 					case "getAllNonAttainableDomains":
 						defects = defectVerifier
 								.getAllNonAttainableDomains(freeIdentifiers);
@@ -1121,7 +1203,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						Set<String> newDefectsNames = new HashSet<String>();
 						List<String> newDefectsIds = new ArrayList<String>();
 						for (Defect conceptVariable : defects) {
-							if (method.equals("getRedundancies")) {
+							if (method.equals("getRedundancies")
+									|| method.equals("getFalsePLs")) {
 								String[] conceptId = conceptVariable.toString()
 										.split("_");
 								conceptId = conceptId[0].toString().split("=");
@@ -1143,8 +1226,13 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						if (updateIds)
 							defectsFreeIdsName = freeIdsNames;
 						result = defects.size();
-					}
-
+					} else if (subOper
+							.getInstAttributeValue("completedMessage") != null
+							&& !((String) subOper
+									.getInstAttributeValue("completedMessage"))
+									.equals(""))
+						completedMessage = (String) subOper
+								.getInstAttributeValue("completedMessage");
 					task += 100 / numberOperations;
 					setProgress((int) task);
 					System.out.println(defectsNames);

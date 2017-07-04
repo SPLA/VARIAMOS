@@ -248,7 +248,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		if (!singleParameter) {
 			parameter2 = semanticExpressionType.getRightExpressionClass();
 			if (expressionTerms.size() < 2)
-				System.out.println("ERRD");
+				System.out.println("ERROR IN NUMBER OF TERMS");
 			if (expressionTerms.size() < 2 || expressionTerms.get(0) == null
 					|| expressionTerms.get(1) == null) {
 				System.out.println("ERR: expression ignored "

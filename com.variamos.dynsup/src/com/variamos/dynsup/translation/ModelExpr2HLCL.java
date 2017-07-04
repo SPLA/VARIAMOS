@@ -466,7 +466,7 @@ public class ModelExpr2HLCL {
 			HlclProgram exp = getHlclProgram(operation,
 					suboper.getIdentifier(), OperationSubActionExecType.NORMAL,
 					transExpSet);
-			if (exp.size() > 1) {
+			if (exp.size() >= 1) {
 
 				hlclProgram = exp;
 				List<Labeling> labelings = transExpSet.getLabelings(refas,
@@ -541,6 +541,8 @@ public class ModelExpr2HLCL {
 				result = execute(progressMonitor, ModelExpr2HLCL.NEXT_SOLUTION,
 						operation, suboper);
 			if (result == 0 && !progressMonitor.isCanceled()) {
+				String outAttribute = (String) suboper
+						.getInstAttributeValue("outAttribute");
 				updateGUIElements(null, null, null);
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
 				for (InstElement instVertex : refas
@@ -565,7 +567,7 @@ public class ModelExpr2HLCL {
 							newMap.put(instId, o);
 						} else {
 							Boolean o = (Boolean) instVertex.getInstAttribute(
-									"SimulSel").getValue();
+									outAttribute).getValue();
 							Integer integer;
 							if (o.booleanValue())
 								integer = 1;
@@ -580,6 +582,33 @@ public class ModelExpr2HLCL {
 			}
 		}
 		return elements;
+	}
+
+	// Dynamic implementation to export
+	public int execCount(ProgressMonitor progressMonitor,
+			InstElement operation, InstElement suboper)
+			throws InterruptedException {
+		int iter = 0;
+		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
+		elements = new HashMap<String, Map<String, Integer>>();
+		int result = 0;
+		boolean first = true;
+		int cont = 0;
+		while (result == 0 && !progressMonitor.isCanceled()) {
+			progressMonitor.setNote("Solutions processed: " + cont++
+					+ "(total unknown)");
+			if (first) {
+				result = execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION,
+						operation, suboper);
+				first = false;
+			} else
+				result = execute(progressMonitor, ModelExpr2HLCL.NEXT_SOLUTION,
+						operation, suboper);
+			if (result == 0 && !progressMonitor.isCanceled()) {
+				iter++;
+			}
+		}
+		return iter;
 	}
 
 	// static call implementation
@@ -740,15 +769,22 @@ public class ModelExpr2HLCL {
 	 * Resets the GUI errors
 	 */
 	public void cleanGUIErrors() {
-		// Call the SWIProlog and obtain the result
-		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getElements()) {
 			instVertex.clearDefects();
 			if (instVertex.getInstAttribute("Dead") != null)
 				instVertex.getInstAttribute("Dead").setValue(false);
 			if (instVertex.getInstAttribute("Core") != null)
 				instVertex.getInstAttribute("Core").setValue(false);
+			if (instVertex.getInstAttribute("OCore") != null)
+				instVertex.getInstAttribute("OCore").setValue(false);
 			if (instVertex.getInstAttribute("Sel") != null)
 				instVertex.getInstAttribute("Sel").setValue(false);
+			if (instVertex.getInstAttribute("OSel") != null)
+				instVertex.getInstAttribute("OSel").setValue(false);
+			if (instVertex.getInstAttribute("Var") != null)
+				instVertex.getInstAttribute("Var").setValue(false);
+			if (instVertex.getInstAttribute("PSel") != null)
+				instVertex.getInstAttribute("PSel").setValue(false);
 			if (instVertex.getInstAttribute("SimulSel") != null)
 				instVertex.getInstAttribute("SimulSel").setValue(false);
 			if (instVertex.getInstAttribute("NNotSel") != null)
@@ -757,15 +793,6 @@ public class ModelExpr2HLCL {
 				instVertex.getInstAttribute("TestConfSel").setValue(false);
 			if (instVertex.getInstAttribute("TestConfNotSel") != null)
 				instVertex.getInstAttribute("TestConfNotSel").setValue(false);
-		}
-		for (InstElement instVertex : refas.getConstraintInstEdges().values()) {
-			instVertex.clearDefects();
-			if (instVertex.getInstAttribute("Dead") != null)
-				instVertex.getInstAttribute("Dead").setValue(false);
-			if (instVertex.getInstAttribute("Core") != null)
-				instVertex.getInstAttribute("Core").setValue(false);
-			if (instVertex.getInstAttribute("Sel") != null)
-				instVertex.getInstAttribute("Sel").setValue(false);
 		}
 	}
 
@@ -1091,9 +1118,11 @@ public class ModelExpr2HLCL {
 	 */
 	public void updateErrorMark(Collection<String> identifiers,
 			String defectId, String defectDescription) {
-		// Call the SWIProlog and obtain the result
 
 		String description = null;
+
+		if (defectDescription == null || defectDescription.equals(""))
+			return;
 
 		if (defectDescription.contains("#number#"))
 			description = defectDescription.replace("#number#",
