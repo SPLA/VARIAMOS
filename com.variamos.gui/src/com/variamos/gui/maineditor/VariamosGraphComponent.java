@@ -235,6 +235,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()) {
 						sim_backcolor = sim_prohibit;
 						backtophint = "Prohibit element";
+					} else if (instConcept.getInstAttribute("Var") != null
+							&& (boolean) instConcept.getInstAttribute("Var")
+									.getValue()) {
+						sim_backcolor = sim_inactive;
+						backtophint = "Variant Feature";
 					} else if ((boolean) instConcept.getInstAttribute("Exclu")
 							.getValue()) {
 						sim_backcolor = sim_notavailable;

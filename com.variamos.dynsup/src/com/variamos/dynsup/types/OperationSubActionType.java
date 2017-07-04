@@ -6,7 +6,7 @@ public enum OperationSubActionType {
 
 	Number_Solutions, Export_Solutions,
 
-	Defects_Verifier_Update, Defects_Verifier_Error, Defects_Verifier_No_Error,
+	Defects_Verifier_Update, Defects_Verifier_Error, Defects_Verifier,
 
 	Multi_Verification
 }

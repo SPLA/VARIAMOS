@@ -457,7 +457,7 @@ public class InfraSyntaxOpersMMM {
 								"menuType",
 								"String",
 								AttributeType.OPERATION,
-								"Perspective to diplay",
+								"Perspective to display",
 								"Supported option are 2 (Modeling) and 4 (Model Configuration/Simulation)",
 								"4", false, d, 0, 5, "", "", -1, "", ""));
 

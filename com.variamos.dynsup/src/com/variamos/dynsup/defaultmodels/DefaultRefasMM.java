@@ -2679,7 +2679,7 @@ public class DefaultRefasMM {
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
 				DefaultOpersMM.instVertexHC, DefaultOpersMM.instVertexHC,
-				"Sel", true, "FalseVal");
+				"Sel", true, 0);
 
 		t1 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -2689,7 +2689,7 @@ public class DefaultRefasMM {
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
 				DefaultOpersMM.instVertexHC, DefaultOpersMM.instVertexHC,
-				"Sel", true, "FalseVal");
+				"Sel", true, 0);
 
 		t2 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -2736,7 +2736,7 @@ public class DefaultRefasMM {
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
 				DefaultOpersMM.instVertexHC, DefaultOpersMM.instVertexHC,
-				"Sel", true, "FalseVal");
+				"Sel", true, 0);
 
 		t1 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -2799,6 +2799,35 @@ public class DefaultRefasMM {
 				t1, t2);
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexHHGR,
+				DefaultOpersMM.instVertexHC, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card low", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
+				instVertexHHGR, t2, instVertexHHGR, "LowRange", "This relation"
+						+ " has a wrong cardinality in the LowRange value");
+
+		DefaultOpersMM.wrongCardOperSubActionRelaxable
+				.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexHHGR,
+				DefaultOpersMM.instVertexHC, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card high", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
+				instVertexHHGR, t2, instVertexHHGR, "HighRange",
+				"This relation"
+						+ " has a wrong cardinality in the HighRange value");
+
+		DefaultOpersMM.wrongCardOperSubActionRelaxable
+				.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
@@ -7253,6 +7282,35 @@ public class DefaultRefasMM {
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexCLGR,
+				instVertexOper, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card low", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
+				instVertexCLGR, t2, instVertexCLGR, "LowRange", "This relation"
+						+ " has a wrong cardinality in the LowRange value");
+
+		DefaultOpersMM.wrongCardOperSubActionRelaxable
+				.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexCLGR,
+				instVertexOper, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card high", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
+				instVertexCLGR, t2, instVertexCLGR, "HighRange",
+				"This relation"
+						+ " has a wrong cardinality in the HighRange value");
+
+		DefaultOpersMM.wrongCardOperSubActionRelaxable
+				.addSemanticExpression(t1);
+		semExpr.add(t1);
+
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
@@ -9446,6 +9504,36 @@ public class DefaultRefasMM {
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
+				instVertexAssOPERGR, instVertexAsset, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card low", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexAssOPERGR, instVertexAssOPERGR, t2,
+				instVertexAssOPERGR, "LowRange", "This relation"
+						+ " has a wrong cardinality in the LowRange value");
+
+		DefaultOpersMM.wrongCardOperSubActionRelaxable
+				.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
+				instVertexAssOPERGR, instVertexAsset, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card high", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexAssOPERGR, instVertexAssOPERGR, t2,
+				instVertexAssOPERGR, "HighRange", "This relation"
+						+ " has a wrong cardinality in the HighRange value");
+
+		DefaultOpersMM.wrongCardOperSubActionRelaxable
+				.addSemanticExpression(t1);
+		semExpr.add(t1);
+
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
@@ -9968,6 +10056,36 @@ public class DefaultRefasMM {
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
+				instVertexAsLFGR, instVertexAsset, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card low", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
+				instVertexAsLFGR, t2, instVertexAsLFGR, "LowRange",
+				"This relation"
+						+ " has a wrong cardinality in the LowRange value");
+
+		DefaultOpersMM.wrongCardOperSubActionRelaxable
+				.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
+				instVertexAsLFGR, instVertexAsset, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card high", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
+				instVertexAsLFGR, t2, instVertexAsLFGR, "HighRange",
+				"This relation"
+						+ " has a wrong cardinality in the HighRange value");
+
+		DefaultOpersMM.wrongCardOperSubActionRelaxable
+				.addSemanticExpression(t1);
+		semExpr.add(t1);
+
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
@@ -10455,6 +10573,33 @@ public class DefaultRefasMM {
 		// refasModel.getIdentifier(), attribute.getName(), true));
 		refasModel.putSemanticAttribute("TotalOrder", attribute);
 
+		attribute = new ElemAttribute("totalFeatures", "Integer",
+				AttributeType.EXECCURRENTSTATE, "***TotalFeatures***", "", 0,
+				false, new RangeDomain(0, 2000, 0), 2, -1, "", "", -1, "", "");
+		// simulationExecOperUniqueLabeling.addAttribute(new
+		// OpersIOAttribute(
+		// refasModel.getIdentifier(), attribute.getName(), true));
+		refasModel.putSemanticAttribute("totalFeatures", attribute);
+
+		DefaultOpersMM.variabfactorSubOperationAction2
+				.addOutAttribute(new OpersIOAttribute(refasModel
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.variabfactorOperUniqueLabeling2
+				.addAttribute(new OpersIOAttribute(refasModel.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.ecrSubOperationAction1
+				.addOutAttribute(new OpersIOAttribute(refasModel
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.ecrOperUniqueLabeling1
+				.addAttribute(new OpersIOAttribute(refasModel.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.ecrSubOperationAction2
+				.addOutAttribute(new OpersIOAttribute(refasModel
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.ecrOperUniqueLabeling2
+				.addAttribute(new OpersIOAttribute(refasModel.getIdentifier(),
+						attribute.getName(), true));
+
 		semExpr = new ArrayList<OpersExpr>();
 
 		DefaultOpersMM.simsceExecOperLab2.setSemanticExpressions(semExpr);
@@ -10494,7 +10639,7 @@ public class DefaultRefasMM {
 		// DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		// DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
-		semExpr.add(t1);
+		// semExpr.add(t1);
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
@@ -10507,6 +10652,34 @@ public class DefaultRefasMM {
 
 		DefaultOpersMM.verifRootSubOperVeri.addSemanticExpression(t1);
 
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
+				DefaultOpersMM.instVertexF, "TrueVal", 0);
+
+		t1 = new OpersExpr("#NEW totalFeatures Den", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
+				instRefasModel, t1, "totalFeatures");
+
+		DefaultOpersMM.variabfactorOperSubActionNormal2
+				.addSemanticExpression(t1);
+		DefaultOpersMM.ecrOperSubActionNormal2.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
+				DefaultOpersMM.instVertexF, "crossRel", 0);
+
+		t1 = new OpersExpr("#NEW totalFeatures Num", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
+				instRefasModel, t1, "totalFeatures");
+
+		DefaultOpersMM.ecrOperSubActionNormal1.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
@@ -10535,8 +10708,7 @@ public class DefaultRefasMM {
 		// semExpr.add(t1);
 
 		// --------------------------
-		semExpr = new ArrayList<OpersExpr>(); // FIXME not used
-
+		semExpr = new ArrayList<OpersExpr>();
 		DefaultOpersMM.simulExecOperUniLab.setSemanticExpressions(semExpr);
 
 		t1 = new OpersExpr("sub",
@@ -10558,8 +10730,7 @@ public class DefaultRefasMM {
 		//
 		// semExpr.add(t1);
 
-		semExpr = new ArrayList<OpersExpr>(); // FIXME not used
-
+		semExpr = new ArrayList<OpersExpr>();
 		DefaultOpersMM.simsceExecOperLab2.setSemanticExpressions(semExpr);
 
 		t1 = new OpersExpr("OrderLab...", refas.getSemanticExpressionTypes()

@@ -3,6 +3,7 @@ package com.variamos.dynsup.defaultmodels;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.variamos.core.util.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -34,38 +35,38 @@ public class DefaultOpersMM {
 	// Initial analysis
 
 	protected static OpersConcept voidModelOper = null;
-	protected static OpersSubOperationExpType voidModelSubOperNormal = null;
 	protected static OpersSubOperation voidModelSubOperationAction = null;
+	protected static OpersSubOperationExpType voidModelSubOperNormal = null;
 	protected static OpersLabeling voidModelOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	protected static OpersConcept validProductElemOper = null;
-	protected static OpersSubOperationExpType validProductSubOperNormal = null;
 	protected static OpersSubOperation validProductSubOperationAction = null;
+	protected static OpersSubOperationExpType validProductSubOperNormal = null;
 	protected static OpersLabeling validProductOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	protected static OpersConcept validPartialConfOper = null;
-	protected static OpersSubOperationExpType validPartialConfSubOperNormal = null;
 	protected static OpersSubOperation validPartialConfSubOperationAction = null;
+	protected static OpersSubOperationExpType validPartialConfSubOperNormal = null;
 	protected static OpersLabeling validPartialConfOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	protected static OpersConcept allProductsOper = null;
-	protected static OpersSubOperationExpType allProductsSubOperNormal = null;
 	protected static OpersSubOperation allProductsSubOperationAction = null;
+	protected static OpersSubOperationExpType allProductsSubOperNormal = null;
 	protected static OpersLabeling allProductsOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	protected static OpersConcept numProductsOper = null;
-	protected static OpersSubOperationExpType numProductsSubOperNormal = null;
 	protected static OpersSubOperation numProductsSubOperationAction = null;
+	protected static OpersSubOperationExpType numProductsSubOperNormal = null;
 	protected static OpersLabeling numProductsOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	protected static OpersConcept filterOper = null;
-	protected static OpersSubOperationExpType filterSubOperNormal = null;
 	protected static OpersSubOperation filterSubOperationAction = null;
+	protected static OpersSubOperationExpType filterSubOperNormal = null;
 	protected static OpersLabeling filterOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
@@ -73,34 +74,34 @@ public class DefaultOpersMM {
 
 	// Anormalities detection
 	protected static OpersConcept verifDeadElemOper = null;
-	protected static OpersSubOperationExpType verifDeadElemSubOperNormal = null;
 	protected static OpersSubOperation verifDeadElemSubOperationAction = null;
+	protected static OpersSubOperationExpType verifDeadElemSubOperNormal = null;
 	protected static OpersLabeling verifDeadElemOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	protected static OpersConcept condDeadElemOper = null;
-	protected static OpersSubOperationExpType condDeadElemSubOperNormal = null;
 	protected static OpersSubOperation condDeadElemSubOperationAction = null;
+	protected static OpersSubOperationExpType condDeadElemSubOperNormal = null;
 	protected static OpersLabeling condDeadElemOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	protected static OpersConcept verifFalseOptOper = null;
-	protected static OpersSubOperationExpType verifFalseOptOperSubActionNormal = null;
 	protected static OpersSubOperation verifFalseOptSubOperationAction = null;
+	protected static OpersSubOperationExpType verifFalseOptOperSubActionNormal = null;
 	protected static OpersLabeling verifFalseOptElemOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	protected static OpersConcept wrongCardOptOper = null;
+	protected static OpersSubOperation wrongCardSubOperationAction = null;
 	protected static OpersSubOperationExpType wrongCardOperSubActionNormal = null;
 	protected static OpersSubOperationExpType wrongCardOperSubActionRelaxable = null;
-	protected static OpersSubOperation wrongCardSubOperationAction = null;
 	protected static OpersLabeling wrongCardElemOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	protected static OpersConcept redundanOptOper = null;
+	protected static OpersSubOperation redundanSubOperationAction = null;
 	protected static OpersSubOperationExpType redundanOperSubActionNormal = null;
 	protected static OpersSubOperationExpType redundanOperSubActionToVerify = null;
-	protected static OpersSubOperation redundanSubOperationAction = null;
 	protected static OpersLabeling redundanOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
@@ -109,16 +110,16 @@ public class DefaultOpersMM {
 	// Core features
 
 	protected static OpersConcept updCoreOper = null;
-	protected static OpersSubOperationExpType updCoreOptSubOperNormal = null;
 	protected static OpersSubOperation updateCoreSubOperationAction = null;
+	protected static OpersSubOperationExpType updCoreOptSubOperNormal = null;
 	protected static OpersLabeling updateCoreOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	// Variant features
 
 	protected static OpersConcept variantOper = null;
+	protected static OpersSubOperation variantSubOperationAction = null;
 	protected static OpersSubOperationExpType variantOptSubOperNormal = null;
-	protected static OpersSubOperation varianSubOperationAction = null;
 	protected static OpersLabeling variantOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
@@ -128,6 +129,7 @@ public class DefaultOpersMM {
 	protected static OpersSubOperation homogeneitySubOperationAction1 = null;
 	protected static OpersSubOperation homogeneitySubOperationAction2 = null;
 	protected static OpersSubOperationExpType homogeneityOperSubActionNormal1 = null;
+	protected static OpersSubOperationExpType homogeneityOperSubActionToVerify1 = null;
 	protected static OpersSubOperationExpType homogeneityOperSubActionNormal2 = null;
 	protected static OpersLabeling homogoneityOperUniqueLabeling1 = new OpersLabeling(
 			"unique");
@@ -179,20 +181,27 @@ public class DefaultOpersMM {
 	// Lowest Common Ancestor
 
 	protected static OpersConcept lcaOper = null;
-	protected static OpersSubOperationExpType lcaSubOperNormal = null;
 	protected static OpersSubOperation lcaSubOperationAction = null;
+	protected static OpersSubOperationExpType lcaSubOperNormal = null;
 	protected static OpersLabeling lcaOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	// Root feature
 
 	protected static OpersConcept rootOper = null;
-	protected static OpersSubOperationExpType rootSubOperNormal = null;
 	protected static OpersSubOperation rootSubOperationAction = null;
+	protected static OpersSubOperationExpType rootSubOperNormal = null;
 	protected static OpersLabeling rootOperUniqueLabeling = new OpersLabeling(
 			"unique");
 
 	// Other opers
+
+	protected static OpersConcept verifFalsePLOper = null;
+	protected static OpersSubOperation verifFalsePLSubOperationAction = null;
+	protected static OpersSubOperationExpType verifFalsePLOperSubActionNormal = null;
+	protected static OpersSubOperationExpType verifFalsePLOperSubActionToVerify = null;
+	protected static OpersLabeling verifFalsePLElemOperUniqueLabeling = new OpersLabeling(
+			"unique");
 
 	protected static OpersConcept verifParentsOper = null;
 	protected static OpersSubOperationExpType verifParentsOperSubActionNormal = null;
@@ -1450,6 +1459,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(2);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-sd-all", instEdgeOper);
@@ -1560,6 +1570,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(4);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-sd-never", instEdgeOper);
@@ -1777,6 +1788,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(6);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-cl-all", instEdgeOper);
@@ -1888,6 +1900,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(8);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-cl-never", instEdgeOper);
@@ -2227,6 +2240,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(10);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-no-loops", instEdgeOper);
@@ -2461,6 +2475,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(12);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-sg-confl", instEdgeOper);
@@ -2597,6 +2612,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(14);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-confl-cl", instEdgeOper);
@@ -2734,6 +2750,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(16);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-confl-clsd",
@@ -2872,6 +2889,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(18);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-confl-sd", instEdgeOper);
@@ -3005,6 +3023,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(1);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("ver-menu-upd", instEdgeOper);
@@ -3095,10 +3114,10 @@ public class DefaultOpersMM {
 
 			// Variant Features variantOper
 
-			updCoreOper = new OpersConcept("VariantOper");
+			variantOper = new OpersConcept("VariantOper");
 
 			instOperationAction = new InstConcept("VariantOper",
-					metaOperationAction, updCoreOper);
+					metaOperationAction, variantOper);
 			if (newOpers)
 				refas.getVariabilityVertex().put("VariantOper",
 						instOperationAction);
@@ -3109,6 +3128,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(2);
 
 			instEdgeOper = new InstPairwiseRel();
 			if (newOpers)
@@ -3119,12 +3139,12 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationAction, true);
 			instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-			updateCoreSubOperationAction = new OpersSubOperation(1,
+			variantSubOperationAction = new OpersSubOperation(1,
 					"VariantSubOper");
 			// updateCoreOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("VariantSubOper",
-					metaOperationSubAction, updateCoreSubOperationAction);
+					metaOperationSubAction, variantSubOperationAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("errorTitle").setValue(
 					"Variant Features result");
@@ -3135,11 +3155,11 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier no errors");
+					"Defects verifier update");
 			instOperationSubAction.getInstAttribute("errorHint").setValue(
 					"Variant Features");
-			instOperationSubAction.getInstAttribute("errorMsg").setValue(
-					" #number# variant features identified.");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue(" Variant features identified in gray.");
 
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
@@ -3150,7 +3170,7 @@ public class DefaultOpersMM {
 									.toString());
 
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"Core");
+					"Var");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
 					.setValue(true);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -3168,11 +3188,11 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
-			updCoreOptSubOperNormal = new OpersSubOperationExpType();
-			updCoreOptSubOperNormal.setIdentifier("NORMAL");
+			variantOptSubOperNormal = new OpersSubOperationExpType();
+			variantOptSubOperNormal.setIdentifier("NORMAL");
 
 			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, updCoreOptSubOperNormal);
+					metaExpType, variantOptSubOperNormal);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
@@ -3184,12 +3204,12 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			updateCoreOperUniqueLabeling = new OpersLabeling("unique");
+			variantOperUniqueLabeling = new OpersLabeling("unique");
 
 			// operationSubAction.addOperationLabeling(operationLabeling);
 
 			instLabeling = new InstConcept("Upd-variant-lab", metaLabeling,
-					updateCoreOperUniqueLabeling);
+					variantOperUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
 			instLabeling.getInstAttribute("position").setValue(1);
@@ -3223,6 +3243,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(3);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("ver-menu-dead", instEdgeOper);
@@ -3311,122 +3332,6 @@ public class DefaultOpersMM {
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("ver-dead-lab-pw", instEdgeOper);
 			instEdgeOper.setIdentifier("ver-dead-lab-pw");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			// Conditional Dead elements
-
-			verifDeadElemOper = new OpersConcept("CondDeadOper");
-
-			instOperationAction = new InstConcept("CondDeadOper",
-					metaOperationAction, verifDeadElemOper);
-			if (newOpers)
-				refas.getVariabilityVertex().put("CondDeadOper",
-						instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
-			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Conditional Dead Elements");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-menu-conddead",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-menu-conddead");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			verifDeadElemSubOperationAction = new OpersSubOperation(1,
-					"CondDeadSubOper");
-			// verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("CondDeadSubOper",
-					metaOperationSubAction, verifDeadElemSubOperationAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("errorHint").setValue(
-					"Conditional Dead element.");
-			instOperationSubAction.getInstAttribute("errorMsg").setValue(
-					" #number# conditional dead elements identified.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getDeadElements
-									.toString());
-			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("Update Core Elements");
-			// FIXME new core oper including Conf selected
-			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("No errors found");
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"Sel");
-			instOperationSubAction.getInstAttribute("updateOutAttributes")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("CondDeadSubOper",
-						instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("index").setValue(1);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges()
-						.put("ver-conddead", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-conddead");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			verifDeadElemSubOperNormal = new OpersSubOperationExpType();
-			verifDeadElemSubOperNormal.setIdentifier("NORMAL");
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, verifDeadElemSubOperNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			instLabeling = new InstConcept("Ver-conddead-lab", metaLabeling,
-					verifDeadElemOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("Ver-conddead-lab",
-						instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-conddead-lab-pw",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-conddead-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -3580,22 +3485,29 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction
-					.getInstAttribute("errorHint")
-					.setValue(
-							"This is a root concept or it has no root. None or more than one root concepts identified.");
+			instOperationSubAction.getInstAttribute("errorHint").setValue(
+					"This over two relation has wrong cardinalities.");
 			instOperationSubAction
 					.getInstAttribute("errorMsg")
 					.setValue(
-							"No root or #number# roots identified.\n Please keep only one root concept.");
+							"#number# relations with wrong cardinalities.\n Please review the relations with error marks.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Multi verification");
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"OSel");
+			instOperationSubAction.getInstAttribute("indivVerExp").setValue(
+					true);
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
 			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("No errors found");
+					.setValue("");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
+			instOperationSubAction.getInstAttribute("useNatLangExprDesc")
+					.setValue(true);
+
 			if (newOpers)
 				refas.getVariabilityVertex().put("WrongcardSubOper",
 						instOperationSubAction);
@@ -3691,7 +3603,6 @@ public class DefaultOpersMM {
 
 			redundanSubOperationAction = new OpersSubOperation(1,
 					"RedundSubOper");
-			// verifRootOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("RedundSubOper",
 					metaOperationSubAction, redundanSubOperationAction);
@@ -3704,18 +3615,21 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction
-					.getInstAttribute("errorHint")
-					.setValue(
-							"This is a root concept or it has no root. None or more than one root concepts identified.");
+			instOperationSubAction.getInstAttribute("errorHint").setValue(
+					"This element has redundant relations.");
 			instOperationSubAction
 					.getInstAttribute("errorMsg")
 					.setValue(
-							"No root or #number# roots identified.\n Please keep only one root concept.");
+							"#number# redundancies identified.\n Please keep only one root concept.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Multi verification");
+					"Defects verifier error");
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getRedundancies
+									.toString());
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -3784,6 +3698,132 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
+			// False PL
+
+			verifFalsePLOper = new OpersConcept("IdentifyFalsePL");
+			instOperationAction = new InstConcept("IdentifyFalsePL",
+					metaOperationAction, verifFalsePLOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("IdentifyFalsePL",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Identify False Product Line");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-menu-falsepl",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-falsepl");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			verifFalsePLSubOperationAction = new OpersSubOperation(1,
+					"IdentifyFalsePLSubOper");
+			instOperationSubAction = new InstConcept("IdentifyFalsePLSubOper",
+					metaOperationSubAction, verifFalsePLSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("errorHint").setValue(
+					"This is a unique feature");
+			instOperationSubAction
+					.getInstAttribute("errorMsg")
+					.setValue(
+							"Please review the model relations. This is a false product line model.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier error");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalsePLs
+									.toString());
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"Sel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("IdentifyFalsePLSubOper",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-falsepl", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-falsepl");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			verifFalsePLOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, verifFalsePLOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			verifFalsePLOperSubActionToVerify = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, verifFalsePLOperSubActionToVerify);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("TOVERIFY");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// operationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("Ver-falsepl-lab", metaLabeling,
+					verifFalsePLElemOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-falsple-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-falsepl-lab-pw",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-falsepl-lab-pw");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
 			// ----------------------------------------------------------
 
 			operationMenu = new OpersConcept("FMVerification");
@@ -3814,6 +3854,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(1);
 
 			instEdgeOper = new InstPairwiseRel();
 			if (newOpers)
@@ -3838,7 +3879,7 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Single update");
 			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("");
+					.setValue("The model is not void");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration").setValue(true);
@@ -3892,196 +3933,6 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-			// Valid Product
-
-			validProductElemOper = new OpersConcept("ValidProductOper");
-
-			instOperationAction = new InstConcept("ValidProductOper",
-					metaOperationAction, validProductElemOper);
-			if (newOpers)
-				refas.getVariabilityVertex().put("ValidProductOper",
-						instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
-			instOperationAction.getInstAttribute("name").setValue(
-					"Verify Valid Product");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("validProduct-menu",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("validProduct-menu");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			validProductSubOperationAction = new OpersSubOperation(3,
-					"ValidProductSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("ValidProductSubOper",
-					metaOperationSubAction, validProductSubOperationAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction.getInstAttribute("errorText").setValue(
-					"The product evaluated is void");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration").setValue(true);
-			instOperationSubAction.getInstAttribute("index").setValue(3);
-			if (newOpers)
-				refas.getVariabilityVertex().put("ValidProductSubOper",
-						instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("validProduct-rel",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("validProduct-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			validProductSubOperNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, validProductSubOperNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("ValidProduct-lab", metaLabeling,
-					validProductOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("ValidProduct-lab",
-						instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ValidProduct-lab-rel",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ValidProduct-lab-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			// Valid Partial Configuration
-
-			validPartialConfOper = new OpersConcept("ValidPartialConfOper");
-
-			instOperationAction = new InstConcept("ValidPartialConfOper",
-					metaOperationAction, validPartialConfOper);
-			if (newOpers)
-				refas.getVariabilityVertex().put("ValidPartialConfOper",
-						instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
-			instOperationAction.getInstAttribute("name").setValue(
-					"Verify Valid Partial Configuration");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ValidPartialConf-menu",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ValidPartialConf-menu");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			validPartialConfSubOperationAction = new OpersSubOperation(3,
-					"ValidPartialConfSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("ValidPartialConfSubOper",
-					metaOperationSubAction, validPartialConfSubOperationAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction.getInstAttribute("errorText").setValue(
-					"The product evaluated is void");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration").setValue(true);
-			instOperationSubAction.getInstAttribute("index").setValue(3);
-			if (newOpers)
-				refas.getVariabilityVertex().put("ValidPartialConfSubOper",
-						instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ValidPartialConf-rel",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ValidPartialConf-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			validPartialConfSubOperNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, validPartialConfSubOperNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("ValidPartialConf-lab",
-					metaLabeling, validPartialConfOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("ValidPartialConf-lab",
-						instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ValidPartialConf-lab-rel",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ValidPartialConf-lab-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
 			// All Products
 
 			allProductsOper = new OpersConcept("AllProductsOper");
@@ -4092,12 +3943,13 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("AllProductsOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OperationActionType.Export.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Export All Products");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(4);
 
 			instEdgeOper = new InstPairwiseRel();
 			if (newOpers)
@@ -4122,7 +3974,7 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Export solutions");
 			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("");
+					.setValue("Solutions exported successfully");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration").setValue(true);
@@ -4217,7 +4069,7 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("type").setValue(
 					"Number solutions");
 			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("");
+					.setValue("#number# products from the FM");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration").setValue(true);
@@ -4235,10 +4087,10 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			instEdgeOper.setSourceRelation(instOperationAction, true);
 
-			allProductsSubOperNormal = new OpersSubOperationExpType();
+			numProductsSubOperNormal = new OpersSubOperationExpType();
 
 			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, allProductsSubOperNormal);
+					metaExpType, numProductsSubOperNormal);
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
@@ -4250,10 +4102,8 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
 			instLabeling = new InstConcept("NumProducts-lab", metaLabeling,
-					allProductsOperUniqueLabeling);
+					numProductsOperUniqueLabeling);
 
 			instLabeling.getInstAttribute("labelId").setValue("L1");
 			instLabeling.getInstAttribute("position").setValue(1);
@@ -4272,101 +4122,6 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-			// Filter
-
-			filterOper = new OpersConcept("FilterOper");
-
-			instOperationAction = new InstConcept("FilterOper",
-					metaOperationAction, filterOper);
-			if (newOpers)
-				refas.getVariabilityVertex().put("FilterOper",
-						instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
-			instOperationAction.getInstAttribute("name").setValue(
-					"Export Filtered Products");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("FilterProducts-menu",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("AllProducts-menu");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			filterSubOperationAction = new OpersSubOperation(3,
-					"FilterProductsSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("FilterProductsSubOper",
-					metaOperationSubAction, filterSubOperationAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction.getInstAttribute("errorText").setValue(
-					"Error found exporting the filtered products");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Export solutions");
-			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration").setValue(true);
-			instOperationSubAction.getInstAttribute("index").setValue(3);
-			if (newOpers)
-				refas.getVariabilityVertex().put("FilterProductsSubOper",
-						instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("FilterProducts-rel",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("FilterProducts-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			filterSubOperNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, filterSubOperNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			// simulOperationSubAction.addOperationLabeling(operationLabeling);
-
-			instLabeling = new InstConcept("FilterProducts-lab", metaLabeling,
-					filterOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("FilterProducts-lab",
-						instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("FilterProducts-lab-rel",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("FilterProducts-lab-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
 			// Homogeneity
 
 			homogeneityOper = new OpersConcept("HomogeneityOper");
@@ -4376,8 +4131,12 @@ public class DefaultOpersMM {
 			if (newOpers)
 				refas.getVariabilityVertex().put("HomogeneityOper",
 						instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Computational_Analysis.toString());
+			instOperationAction
+					.getInstAttribute("operType")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OperationActionType.Computational_Analysis
+											.toString()));
 			instOperationAction.getInstAttribute("analysisComputationType")
 					.setValue("One less quotient");
 			instOperationAction.getInstAttribute("name").setValue(
@@ -4386,6 +4145,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(true);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(24);
 
 			instEdgeOper = new InstPairwiseRel();
 			if (newOpers)
@@ -4400,7 +4160,6 @@ public class DefaultOpersMM {
 
 			homogeneitySubOperationAction1 = new OpersSubOperation(1,
 					"HomogeneitySubOper1");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("HomogeneitySubOper1",
 					metaOperationSubAction, homogeneitySubOperationAction1);
@@ -4414,13 +4173,18 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getFalsePLs
+									.toString());
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"NSel");
+					"Sel");
 			instOperationSubAction.getInstAttribute("updateOutAttributes")
 					.setValue(false);
 			if (newOpers)
@@ -4444,6 +4208,21 @@ public class DefaultOpersMM {
 
 			instOperSubOperationExpType.getInstAttribute("suboperexptype")
 					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			homogeneityOperSubActionToVerify1 = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, homogeneityOperSubActionToVerify1);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("TOVERIFY");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -4478,7 +4257,6 @@ public class DefaultOpersMM {
 
 			homogeneitySubOperationAction2 = new OpersSubOperation(1,
 					"HomogeneitySubOper2");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
 
 			instOperationSubAction = new InstConcept("HomogeneitySubOper2",
 					metaOperationSubAction, homogeneitySubOperationAction2);
@@ -4554,6 +4332,1430 @@ public class DefaultOpersMM {
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
+			// Variability factor
+
+			variabfactorOper = new OpersConcept("VariabFactorOper");
+
+			instOperationAction = new InstConcept("VariabFactorOper",
+					metaOperationAction, variabfactorOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("VariabFactorOper",
+						instOperationAction);
+			instOperationAction
+					.getInstAttribute("operType")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OperationActionType.Computational_Analysis
+											.toString()));
+			instOperationAction.getInstAttribute("analysisComputationType")
+					.setValue("Quotient denominator exp base 2");
+			instOperationAction.getInstAttribute("name").setValue(
+					"Calculate the Variability Factor");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("visible").setValue(true);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(26);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-menu-VariabFactor",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-VariabFactor");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			if (newOpers)
+				instEdgeOper.setTargetRelation(instOperationAction, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			variabfactorSubOperationAction1 = new OpersSubOperation(1,
+					"VariabFactorSubOper1");
+
+			instOperationSubAction = new InstConcept("VariabFactorSubOper1",
+					metaOperationSubAction, variabfactorSubOperationAction1);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Number solutions");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"NSel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("VariabFactorSubOper1",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-VariabFactor1",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-VariabFactor1");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			variabfactorOperSubActionNormal1 = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, variabfactorOperSubActionNormal1);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			variabfactorOperUniqueLabeling1 = new OpersLabeling("unique");
+
+			instLabeling = new InstConcept("Ver-VariabFactor-lab1",
+					metaLabeling, variabfactorOperUniqueLabeling1);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-VariabFactor-lab1",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-VariabFactor-lab1",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-VariabFactor-lab1");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			variabfactorSubOperationAction2 = new OpersSubOperation(1,
+					"VariabFactorSubOper2");
+
+			instOperationSubAction = new InstConcept("VariabFactorSubOper2",
+					metaOperationSubAction, variabfactorSubOperationAction2);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Calculation Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction
+					.getInstAttribute("completedMessage")
+					.setValue("The varibility factor of this model is #result#");
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"totalFeatures");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("VariabFactorSubOper2",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-VariabFactor2",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-VariabFactor2");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			variabfactorOperSubActionNormal2 = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, variabfactorOperSubActionNormal2);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			variabfactorOperUniqueLabeling2 = new OpersLabeling("unique");
+
+			instLabeling = new InstConcept("Ver-VariabFactor-lab2",
+					metaLabeling, variabfactorOperUniqueLabeling2);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-VariabFactor-lab2",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-VariabFactor-lab2",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-VariabFactor-lab2");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Degree of orthogonality
+
+			degreeOrthoOper = new OpersConcept("degreeOrthoOper");
+
+			instOperationAction = new InstConcept("degreeOrthoOper",
+					metaOperationAction, degreeOrthoOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("degreeOrthoOper",
+						instOperationAction);
+			instOperationAction
+					.getInstAttribute("operType")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OperationActionType.Computational_Analysis
+											.toString()));
+			instOperationAction.getInstAttribute("analysisComputationType")
+					.setValue("Simple quotient");
+			instOperationAction
+					.getInstAttribute("name")
+					.setValue(
+							"Calculate the degree of orthogonality (requires a selected feature)");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("visible").setValue(true);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(27);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-menu-degreeOrtho",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-degreeOrtho");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			if (newOpers)
+				instEdgeOper.setTargetRelation(instOperationAction, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			degreeOrthoSubOperationAction1 = new OpersSubOperation(1,
+					"degreeOrthoSubOper1");
+
+			instOperationSubAction = new InstConcept("degreeOrthoSubOper1",
+					metaOperationSubAction, degreeOrthoSubOperationAction1);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Number solutions");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"NSel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("degreeOrthoSubOper1",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-degreeOrtho1",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-degreeOrtho1");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			degreeOrthoOperSubActionNormal1 = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, degreeOrthoOperSubActionNormal1);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			degreeOrthoOperUniqueLabeling1 = new OpersLabeling("unique");
+
+			instLabeling = new InstConcept("Ver-degreeOrtho-lab1",
+					metaLabeling, degreeOrthoOperUniqueLabeling1);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-degreeOrtho-lab1",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-degreeOrtho-lab1",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-degreeOrtho-lab1");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			degreeOrthoSubOperationAction2 = new OpersSubOperation(1,
+					"degreeOrthoSubOper2");
+
+			instOperationSubAction = new InstConcept("degreeOrthoSubOper2",
+					metaOperationSubAction, degreeOrthoSubOperationAction2);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Calculation Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Number solutions");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction
+					.getInstAttribute("completedMessage")
+					.setValue(
+							"The degree of orthogonality of this model considering the selected feature is #result#");
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"DSel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("degreeOrthoSubOper2",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-degreeOrtho2",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-degreeOrtho2");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			degreeOrthoOperSubActionNormal2 = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, degreeOrthoOperSubActionNormal2);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			degreeOrthoOperUniqueLabeling2 = new OpersLabeling("unique");
+
+			instLabeling = new InstConcept("Ver-degreeOrtho-lab2",
+					metaLabeling, degreeOrthoOperUniqueLabeling2);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-degreeOrtho-lab2",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-degreeOrtho-lab2",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-degreeOrtho-lab2");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Extra Constraint representativeness
+
+			ecrOper = new OpersConcept("ECROper");
+
+			instOperationAction = new InstConcept("ECROper",
+					metaOperationAction, ecrOper);
+			if (newOpers)
+				refas.getVariabilityVertex()
+						.put("ECROper", instOperationAction);
+			instOperationAction
+					.getInstAttribute("operType")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OperationActionType.Computational_Analysis
+											.toString()));
+			instOperationAction.getInstAttribute("analysisComputationType")
+					.setValue("Simple quotient");
+			instOperationAction.getInstAttribute("name").setValue(
+					"Calculate Extra Constraint representativeness (ECR)");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("visible").setValue(true);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges()
+						.put("ver-menu-ECR", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-ECR");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			if (newOpers)
+				instEdgeOper.setTargetRelation(instOperationAction, true);
+			if (newOpers)
+				instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			ecrSubOperationAction1 = new OpersSubOperation(1, "ECRSubOper1");
+
+			instOperationSubAction = new InstConcept("ECRSubOper1",
+					metaOperationSubAction, ecrSubOperationAction1);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"totalFeatures");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ECRSubOper1",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-ECR1", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-ECR1");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			ecrOperSubActionNormal1 = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, ecrOperSubActionNormal1);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			ecrOperUniqueLabeling1 = new OpersLabeling("unique");
+
+			instLabeling = new InstConcept("Ver-ECR-lab1", metaLabeling,
+					ecrOperUniqueLabeling1);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-ECR-lab1", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges()
+						.put("ver-ECR-lab1", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-ECR-lab1");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			ecrSubOperationAction2 = new OpersSubOperation(1, "ECRSubOper2");
+
+			instOperationSubAction = new InstConcept("ECRSubOper2",
+					metaOperationSubAction, ecrSubOperationAction2);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Calculation Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("The ECR of this model is #result#");
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"totalFeatures");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ECRSubOper2",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-ECR2", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-ECR2");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			ecrOperSubActionNormal2 = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, ecrOperSubActionNormal2);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			ecrOperUniqueLabeling2 = new OpersLabeling("unique");
+
+			instLabeling = new InstConcept("Ver-ECR-lab2", metaLabeling,
+					ecrOperUniqueLabeling2);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-ECR-lab2", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges()
+						.put("ver-ECR-lab2", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-ECR-lab2");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Lowest Common Ancestor
+
+			lcaOper = new OpersConcept("LCAOper");
+
+			instOperationAction = new InstConcept("LCAOper",
+					metaOperationAction, lcaOper);
+			if (newOpers)
+				refas.getVariabilityVertex()
+						.put("LCAOper", instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Identiy Lowest Common Ancestor");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("lca-menu", instEdgeOper);
+			instEdgeOper.setIdentifier("lca-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			lcaSubOperationAction = new OpersSubOperation(3, "LCASubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("LCASubOper",
+					metaOperationSubAction, lcaSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"Error identifing the LCA");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("LCASubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("lca-rel", instEdgeOper);
+			instEdgeOper.setIdentifier("lca-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			lcaSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, lcaSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			instLabeling = new InstConcept("lca-lab", metaLabeling,
+					lcaOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("lca-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("lca-lab-rel", instEdgeOper);
+			instEdgeOper.setIdentifier("lca-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Root Features
+
+			rootOper = new OpersConcept("RootOper");
+
+			instOperationAction = new InstConcept("RootOper",
+					metaOperationAction, rootOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("RootOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify Root Feature");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(30);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("Root-menu", instEdgeOper);
+			instEdgeOper.setIdentifier("Root-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			rootSubOperationAction = new OpersSubOperation(3, "RootSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("RootSubOper",
+					metaOperationSubAction, rootSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"The execution encountered an error");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("RootSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("Root-rel", instEdgeOper);
+			instEdgeOper.setIdentifier("Root-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			rootSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, rootSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			instLabeling = new InstConcept("Root-lab", metaLabeling,
+					rootOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Root-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges()
+						.put("Root-lab-rel", instEdgeOper);
+			instEdgeOper.setIdentifier("Root-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Old operations for FM
+
+			verifParentsOper = new OpersConcept("IdentifyWithoutParentsOper");
+
+			instOperationAction = new InstConcept("IdentifyWithoutParentsOper",
+					metaOperationAction, verifParentsOper);
+
+			refas.getVariabilityVertex().put("IdentifyWithoutParentsOper",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Identify Elements Without Parents");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("visible").setValue(true);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(31);
+
+			instEdgeOper = new InstPairwiseRel();
+
+			refas.getConstraintInstEdges().put("ver-menu-pare", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-pare");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			verifParentsSubOperationAction = new OpersSubOperation(1,
+					"IdentifyWithoutParentsSubOper");
+
+			instOperationSubAction = new InstConcept(
+					"IdentifyWithoutParentsSubOper", metaOperationSubAction,
+					verifParentsSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("errorHint").setValue(
+					"This concept requires a parent.");
+			instOperationSubAction
+					.getInstAttribute("errorMsg")
+					.setValue(
+							"#number# concepts without a parent or with more than one"
+									+ " parent identified.\n Please add/remove appropiated relations.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier error");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getRedundancies
+									.toString());
+			instOperationSubAction.getInstAttribute("defectsCoreOper")
+					.setValue("Update Core Elements");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"Sel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+
+			refas.getVariabilityVertex().put("IdentifyWithoutParentsSubOper",
+					instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ver-par", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-par");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			verifParentsOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, verifParentsOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			verifParentsOperSubActionToVerify = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, verifParentsOperSubActionToVerify);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("TOVERIFY");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			verifParentsElemOperUniqueLabeling = new OpersLabeling("unique");
+
+			instLabeling = new InstConcept("Ver-par-lab", metaLabeling,
+					verifParentsElemOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("Ver-par-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ver-par-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-par-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			verifRootOper = new OpersConcept("VerifySingleRootOper");
+
+			instOperationAction = new InstConcept("VerifySingleRootOper",
+					metaOperationAction, verifRootOper);
+			refas.getVariabilityVertex().put("VerifySingleRootOper",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify a Single Root");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(32);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ver-menu-root", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-root");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			verifRootSubOperationAction = new OpersSubOperation(1,
+					"VerifySingleRootSubOper");
+			// verifRootOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("VerifySingleRootSubOper",
+					metaOperationSubAction, verifRootSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction
+					.getInstAttribute("errorHint")
+					.setValue(
+							"This is a root concept or it has no root. None or more than one root concepts identified.");
+			instOperationSubAction
+					.getInstAttribute("errorMsg")
+					.setValue(
+							"No root or #number# roots identified.\n Please keep only one root concept.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Multi verification");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+
+			refas.getVariabilityVertex().put("VerifySingleRootSubOper",
+					instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ver-root", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-root");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			verifRootOperSubActionNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, verifRootOperSubActionNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			verifRootOperSubActionRelaxable = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, verifRootOperSubActionRelaxable);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("RELAXABLE");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			verifRootSubOperVeri = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, verifRootSubOperVeri);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("VERIFICATION");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			operationLabeling = new OpersLabeling("unique");
+
+			instLabeling = new InstConcept("Ver-root-lab", metaLabeling,
+					operationLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+
+			refas.getVariabilityVertex().put("Ver-root-lab", instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ver-root-lab", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-root-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// ----------------------------------------------------------
+
+			operationMenu = new OpersConcept("FMConfVerif");
+
+			instOperationGroup = new InstConcept("FMConfVerif",
+					metaOperationMenu, operationMenu);
+			refas.getVariabilityVertex().put("FMConfVerif", instOperationGroup);
+
+			instOperationGroup.getInstAttribute("visible").setValue(true);
+			instOperationGroup.getInstAttribute("menuType").setValue("4");
+			instOperationGroup.getInstAttribute("name").setValue("FM Analysis");
+			instOperationGroup.getInstAttribute("shortcut").setValue("V");
+
+			// Valid Product
+
+			validProductElemOper = new OpersConcept("ValidProductOper");
+
+			instOperationAction = new InstConcept("ValidProductOper",
+					metaOperationAction, validProductElemOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidProductOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify Valid Product");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(2);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("validProduct-menu",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("validProduct-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			validProductSubOperationAction = new OpersSubOperation(3,
+					"ValidProductSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("ValidProductSubOper",
+					metaOperationSubAction, validProductSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"The product evaluated is not complete");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("The product is valid");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidProductSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("validProduct-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("validProduct-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			validProductSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, validProductSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// simulOperationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("ValidProduct-lab", metaLabeling,
+					validProductOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidProduct-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ValidProduct-lab-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ValidProduct-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Valid Partial Configuration
+
+			validPartialConfOper = new OpersConcept("ValidPartialConfOper");
+
+			instOperationAction = new InstConcept("ValidPartialConfOper",
+					metaOperationAction, validPartialConfOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidPartialConfOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Verify Valid Partial Configuration");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(3);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ValidPartialConf-menu",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ValidPartialConf-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			validPartialConfSubOperationAction = new OpersSubOperation(3,
+					"ValidPartialConfSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("ValidPartialConfSubOper",
+					metaOperationSubAction, validPartialConfSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"The partial configuration evaluated is invalid");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Single update");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("Valid partial configuration");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidPartialConfSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ValidPartialConf-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ValidPartialConf-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			validPartialConfSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, validPartialConfSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// simulOperationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("ValidPartialConf-lab",
+					metaLabeling, validPartialConfOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("ValidPartialConf-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ValidPartialConf-lab-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ValidPartialConf-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Filter
+
+			filterOper = new OpersConcept("FilterOper");
+
+			instOperationAction = new InstConcept("FilterOper",
+					metaOperationAction, filterOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("FilterOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Export.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Export Filtered Products");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(6);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("FilterProducts-menu",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("AllProducts-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			filterSubOperationAction = new OpersSubOperation(3,
+					"FilterProductsSubOper");
+			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("FilterProductsSubOper",
+					metaOperationSubAction, filterSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction.getInstAttribute("errorText").setValue(
+					"Error found exporting the filtered products");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Export solutions");
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("Products exported successfully");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+			if (newOpers)
+				refas.getVariabilityVertex().put("FilterProductsSubOper",
+						instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("FilterProducts-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("FilterProducts-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			filterSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, filterSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			// simulOperationSubAction.addOperationLabeling(operationLabeling);
+
+			instLabeling = new InstConcept("FilterProducts-lab", metaLabeling,
+					filterOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("FilterProducts-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("FilterProducts-lab-rel",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("FilterProducts-lab-rel");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
+			// Conditional Dead elements
+
+			verifDeadElemOper = new OpersConcept("CondDeadOper");
+
+			instOperationAction = new InstConcept("CondDeadOper",
+					metaOperationAction, verifDeadElemOper);
+			if (newOpers)
+				refas.getVariabilityVertex().put("CondDeadOper",
+						instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OperationActionType.Verification.toString());
+			instOperationAction.getInstAttribute("name").setValue(
+					"Identify Conditional Dead Elements");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(8);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-menu-conddead",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-menu-conddead");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+
+			verifDeadElemSubOperationAction = new OpersSubOperation(1,
+					"CondDeadSubOper");
+			// verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
+
+			instOperationSubAction = new InstConcept("CondDeadSubOper",
+					metaOperationSubAction, verifDeadElemSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Verification Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+			instOperationSubAction.getInstAttribute("errorHint").setValue(
+					"Conditional Dead element.");
+			instOperationSubAction.getInstAttribute("errorMsg").setValue(
+					" #number# conditional dead elements identified.");
+			instOperationSubAction.getInstAttribute("type").setValue(
+					"Defects verifier error");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					false);
+			instOperationSubAction
+					.getInstAttribute("defectsVerifierMethod")
+					.setValue(
+							OperationSubActionDefectsVerifierMethodType.getDeadElements
+									.toString());
+			instOperationSubAction.getInstAttribute("defectsCoreOper")
+					.setValue("Update Core Elements");
+			// FIXME new core oper including Conf selected
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("No errors found");
+			instOperationSubAction.getInstAttribute("outAttribute").setValue(
+					"Sel");
+			instOperationSubAction.getInstAttribute("updateOutAttributes")
+					.setValue(false);
+			instOperationSubAction.getInstAttribute("iteration")
+					.setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("CondDeadSubOper",
+						instOperationSubAction);
+
+			instOperationSubAction.getInstAttribute("index").setValue(1);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges()
+						.put("ver-conddead", instEdgeOper);
+			instEdgeOper.setIdentifier("ver-conddead");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			verifDeadElemSubOperNormal = new OpersSubOperationExpType();
+			verifDeadElemSubOperNormal.setIdentifier("NORMAL");
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, verifDeadElemSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			instLabeling = new InstConcept("Ver-conddead-lab", metaLabeling,
+					verifDeadElemOperUniqueLabeling);
+
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(false);
+			if (newOpers)
+				refas.getVariabilityVertex().put("Ver-conddead-lab",
+						instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			if (newOpers)
+				refas.getConstraintInstEdges().put("ver-conddead-lab-pw",
+						instEdgeOper);
+			instEdgeOper.setIdentifier("ver-conddead-lab-pw");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+
 			// Commonality
 
 			commonalityOper = new OpersConcept("CommonOper");
@@ -4563,8 +5765,12 @@ public class DefaultOpersMM {
 			if (newOpers)
 				refas.getVariabilityVertex().put("CommonOper",
 						instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Computational_Analysis.toString());
+			instOperationAction
+					.getInstAttribute("operType")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OperationActionType.Computational_Analysis
+											.toString()));
 			instOperationAction.getInstAttribute("analysisComputationType")
 					.setValue("Simple quotient");
 			instOperationAction.getInstAttribute("name").setValue(
@@ -4573,6 +5779,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("visible").setValue(true);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
+			instOperationAction.getInstAttribute("position").setValue(25);
 
 			instEdgeOper = new InstPairwiseRel();
 			if (newOpers)
@@ -4737,1001 +5944,6 @@ public class DefaultOpersMM {
 				refas.getConstraintInstEdges().put("ver-common-lab2",
 						instEdgeOper);
 			instEdgeOper.setIdentifier("ver-common-lab2");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			// Variability factor
-
-			variabfactorOper = new OpersConcept("VariabFactorOper");
-
-			instOperationAction = new InstConcept("VariabFactorOper",
-					metaOperationAction, variabfactorOper);
-			if (newOpers)
-				refas.getVariabilityVertex().put("VariabFactorOper",
-						instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Computational_Analysis.toString());
-			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("Quotient denominator exp base 2");
-			instOperationAction.getInstAttribute("name").setValue(
-					"Calculate the Variability Factor");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("visible").setValue(true);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-menu-VariabFactor",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-menu-VariabFactor");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			if (newOpers)
-				instEdgeOper.setTargetRelation(instOperationAction, true);
-			if (newOpers)
-				instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			variabfactorSubOperationAction1 = new OpersSubOperation(1,
-					"VariabFactorSubOper1");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("VariabFactorSubOper1",
-					metaOperationSubAction, variabfactorSubOperationAction1);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"NSel");
-			instOperationSubAction.getInstAttribute("updateOutAttributes")
-					.setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("VariabFactorSubOper1",
-						instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("index").setValue(1);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-VariabFactor1",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-VariabFactor1");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			variabfactorOperSubActionNormal1 = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, variabfactorOperSubActionNormal1);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			variabfactorOperUniqueLabeling1 = new OpersLabeling("unique");
-
-			instLabeling = new InstConcept("Ver-VariabFactor-lab1",
-					metaLabeling, variabfactorOperUniqueLabeling1);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("Ver-VariabFactor-lab1",
-						instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-VariabFactor-lab1",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-VariabFactor-lab1");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			variabfactorSubOperationAction2 = new OpersSubOperation(1,
-					"VariabFactorSubOper2");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("VariabFactorSubOper2",
-					metaOperationSubAction, variabfactorSubOperationAction2);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Calculation Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction
-					.getInstAttribute("completedMessage")
-					.setValue("The varibility factor of this model is #result#");
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"DSel");
-			instOperationSubAction.getInstAttribute("updateOutAttributes")
-					.setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("VariabFactorSubOper2",
-						instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("index").setValue(1);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-VariabFactor2",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-VariabFactor2");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			variabfactorOperSubActionNormal2 = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, variabfactorOperSubActionNormal2);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			variabfactorOperUniqueLabeling2 = new OpersLabeling("unique");
-
-			instLabeling = new InstConcept("Ver-VariabFactor-lab2",
-					metaLabeling, variabfactorOperUniqueLabeling2);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("Ver-VariabFactor-lab2",
-						instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-VariabFactor-lab2",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-VariabFactor-lab2");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			// Degree of orthogonality
-
-			degreeOrthoOper = new OpersConcept("degreeOrthoOper");
-
-			instOperationAction = new InstConcept("degreeOrthoOper",
-					metaOperationAction, degreeOrthoOper);
-			if (newOpers)
-				refas.getVariabilityVertex().put("degreeOrthoOper",
-						instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Computational_Analysis.toString());
-			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("Simple quotient");
-			instOperationAction
-					.getInstAttribute("name")
-					.setValue(
-							"Calculate the degree of orthogonality (requires a selected feature)");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("visible").setValue(true);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-menu-degreeOrtho",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-menu-degreeOrtho");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			if (newOpers)
-				instEdgeOper.setTargetRelation(instOperationAction, true);
-			if (newOpers)
-				instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			degreeOrthoSubOperationAction1 = new OpersSubOperation(1,
-					"degreeOrthoSubOper1");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("degreeOrthoSubOper1",
-					metaOperationSubAction, degreeOrthoSubOperationAction1);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"NSel");
-			instOperationSubAction.getInstAttribute("updateOutAttributes")
-					.setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("degreeOrthoSubOper1",
-						instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("index").setValue(1);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-degreeOrtho1",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-degreeOrtho1");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			degreeOrthoOperSubActionNormal1 = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, degreeOrthoOperSubActionNormal1);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			degreeOrthoOperUniqueLabeling1 = new OpersLabeling("unique");
-
-			instLabeling = new InstConcept("Ver-degreeOrtho-lab1",
-					metaLabeling, degreeOrthoOperUniqueLabeling1);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("Ver-degreeOrtho-lab1",
-						instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-degreeOrtho-lab1",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-degreeOrtho-lab1");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			degreeOrthoSubOperationAction2 = new OpersSubOperation(1,
-					"degreeOrthoSubOper2");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("degreeOrthoSubOper2",
-					metaOperationSubAction, degreeOrthoSubOperationAction2);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Calculation Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction
-					.getInstAttribute("completedMessage")
-					.setValue(
-							"The degree of orthogonality of this model considering the selected feature is #result#");
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"DSel");
-			instOperationSubAction.getInstAttribute("updateOutAttributes")
-					.setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("degreeOrthoSubOper2",
-						instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("index").setValue(1);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-degreeOrtho2",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-degreeOrtho2");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			degreeOrthoOperSubActionNormal2 = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, degreeOrthoOperSubActionNormal2);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			degreeOrthoOperUniqueLabeling2 = new OpersLabeling("unique");
-
-			instLabeling = new InstConcept("Ver-degreeOrtho-lab2",
-					metaLabeling, degreeOrthoOperUniqueLabeling2);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("Ver-degreeOrtho-lab2",
-						instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-degreeOrtho-lab2",
-						instEdgeOper);
-			instEdgeOper.setIdentifier("ver-degreeOrtho-lab2");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			// Extra Constraint representativeness
-
-			ecrOper = new OpersConcept("ECROper");
-
-			instOperationAction = new InstConcept("ECROper",
-					metaOperationAction, ecrOper);
-			if (newOpers)
-				refas.getVariabilityVertex()
-						.put("ECROper", instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Computational_Analysis.toString());
-			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("Simple quotient");
-			instOperationAction.getInstAttribute("name").setValue(
-					"Calculate Extra Constraint representativeness (ECR)");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("visible").setValue(true);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges()
-						.put("ver-menu-ECR", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-menu-ECR");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			if (newOpers)
-				instEdgeOper.setTargetRelation(instOperationAction, true);
-			if (newOpers)
-				instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			ecrSubOperationAction1 = new OpersSubOperation(1, "ECRSubOper1");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("ECRSubOper1",
-					metaOperationSubAction, ecrSubOperationAction1);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"NSel");
-			instOperationSubAction.getInstAttribute("updateOutAttributes")
-					.setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("ECRSubOper1",
-						instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("index").setValue(1);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-ECR1", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-ECR1");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			ecrOperSubActionNormal1 = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, ecrOperSubActionNormal1);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			ecrOperUniqueLabeling1 = new OpersLabeling("unique");
-
-			instLabeling = new InstConcept("Ver-ECR-lab1", metaLabeling,
-					ecrOperUniqueLabeling1);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("Ver-ECR-lab1", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges()
-						.put("ver-ECR-lab1", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-ECR-lab1");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			ecrSubOperationAction2 = new OpersSubOperation(1, "ECRSubOper2");
-			// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("ECRSubOper2",
-					metaOperationSubAction, ecrSubOperationAction2);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Calculation Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("The ECR of this model is #result#");
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"DSel");
-			instOperationSubAction.getInstAttribute("updateOutAttributes")
-					.setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("ECRSubOper2",
-						instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("index").setValue(1);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("ver-ECR2", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-ECR2");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			ecrOperSubActionNormal2 = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, ecrOperSubActionNormal2);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			ecrOperUniqueLabeling2 = new OpersLabeling("unique");
-
-			instLabeling = new InstConcept("Ver-ECR-lab2", metaLabeling,
-					ecrOperUniqueLabeling2);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("Ver-ECR-lab2", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges()
-						.put("ver-ECR-lab2", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-ECR-lab2");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			// Lowest Common Ancestor
-
-			lcaOper = new OpersConcept("LCAOper");
-
-			instOperationAction = new InstConcept("LCAOper",
-					metaOperationAction, lcaOper);
-			if (newOpers)
-				refas.getVariabilityVertex()
-						.put("LCAOper", instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
-			instOperationAction.getInstAttribute("name").setValue(
-					"Identiy Lowest Common Ancestor");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("lca-menu", instEdgeOper);
-			instEdgeOper.setIdentifier("lca-menu");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			lcaSubOperationAction = new OpersSubOperation(3, "LCASubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("LCASubOper",
-					metaOperationSubAction, lcaSubOperationAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction.getInstAttribute("errorText").setValue(
-					"Error identifing the LCA");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration").setValue(true);
-			instOperationSubAction.getInstAttribute("index").setValue(3);
-			if (newOpers)
-				refas.getVariabilityVertex().put("LCASubOper",
-						instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("lca-rel", instEdgeOper);
-			instEdgeOper.setIdentifier("lca-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			lcaSubOperNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, lcaSubOperNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			instLabeling = new InstConcept("lca-lab", metaLabeling,
-					lcaOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("lca-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("lca-lab-rel", instEdgeOper);
-			instEdgeOper.setIdentifier("lca-lab-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			// Root Features
-
-			rootOper = new OpersConcept("RootOper");
-
-			instOperationAction = new InstConcept("RootOper",
-					metaOperationAction, rootOper);
-			if (newOpers)
-				refas.getVariabilityVertex().put("RootOper",
-						instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
-			instOperationAction.getInstAttribute("name").setValue(
-					"Verify Root Feature");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("Root-menu", instEdgeOper);
-			instEdgeOper.setIdentifier("Root-menu");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			rootSubOperationAction = new OpersSubOperation(3, "RootSubOper");
-			// simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("RootSubOper",
-					metaOperationSubAction, rootSubOperationAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction.getInstAttribute("errorText").setValue(
-					"The execution encountered an error");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
-			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration").setValue(true);
-			instOperationSubAction.getInstAttribute("index").setValue(3);
-			if (newOpers)
-				refas.getVariabilityVertex().put("RootSubOper",
-						instOperationSubAction);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges().put("Root-rel", instEdgeOper);
-			instEdgeOper.setIdentifier("Root-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			rootSubOperNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, rootSubOperNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			instLabeling = new InstConcept("Root-lab", metaLabeling,
-					rootOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex().put("Root-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			if (newOpers)
-				refas.getConstraintInstEdges()
-						.put("Root-lab-rel", instEdgeOper);
-			instEdgeOper.setIdentifier("Root-lab-rel");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			// Old operations for FM
-
-			verifParentsOper = new OpersConcept("IdentifyWithoutParentsOper");
-
-			instOperationAction = new InstConcept("IdentifyWithoutParentsOper",
-					metaOperationAction, verifParentsOper);
-
-			refas.getVariabilityVertex().put("IdentifyWithoutParentsOper",
-					instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
-			instOperationAction.getInstAttribute("name").setValue(
-					"Identify Elements Without Parents");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("visible").setValue(true);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-
-			refas.getConstraintInstEdges().put("ver-menu-pare", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-menu-pare");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			verifParentsSubOperationAction = new OpersSubOperation(1,
-					"IdentifyWithoutParentsSubOper");
-
-			instOperationSubAction = new InstConcept(
-					"IdentifyWithoutParentsSubOper", metaOperationSubAction,
-					verifParentsSubOperationAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("errorHint").setValue(
-					"This concept requires a parent.");
-			instOperationSubAction
-					.getInstAttribute("errorMsg")
-					.setValue(
-							"#number# concepts without a parent or with more than one"
-									+ " parent identified.\n Please add/remove appropiated relations.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getRedundancies
-									.toString());
-			instOperationSubAction.getInstAttribute("defectsCoreOper")
-					.setValue("Update Core Elements");
-			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("No errors found");
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-			instOperationSubAction.getInstAttribute("outAttribute").setValue(
-					"Sel");
-			instOperationSubAction.getInstAttribute("updateOutAttributes")
-					.setValue(false);
-
-			refas.getVariabilityVertex().put("IdentifyWithoutParentsSubOper",
-					instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("index").setValue(1);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ver-par", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-par");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			verifParentsOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, verifParentsOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			verifParentsOperSubActionToVerify = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, verifParentsOperSubActionToVerify);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("TOVERIFY");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			verifParentsElemOperUniqueLabeling = new OpersLabeling("unique");
-
-			instLabeling = new InstConcept("Ver-par-lab", metaLabeling,
-					verifParentsElemOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex().put("Ver-par-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ver-par-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-par-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
-
-			verifRootOper = new OpersConcept("VerifySingleRootOper");
-
-			instOperationAction = new InstConcept("VerifySingleRootOper",
-					metaOperationAction, verifRootOper);
-			refas.getVariabilityVertex().put("VerifySingleRootOper",
-					instOperationAction);
-			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
-			instOperationAction.getInstAttribute("name").setValue(
-					"Verify a Single Root");
-			instOperationAction.getInstAttribute("shortcut").setValue("S");
-			instOperationAction.getInstAttribute("iteration").setValue(false);
-			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ver-menu-root", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-menu-root");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationAction, true);
-			instEdgeOper.setSourceRelation(instOperationGroup, true);
-
-			verifRootSubOperationAction = new OpersSubOperation(1,
-					"VerifySingleRootSubOper");
-			// verifRootOperationAction.addExpressionSubAction(operationSubAction);
-
-			instOperationSubAction = new InstConcept("VerifySingleRootSubOper",
-					metaOperationSubAction, verifRootSubOperationAction);
-			instOperationSubAction.getInstAttribute("name").setValue(" ");
-			instOperationSubAction.getInstAttribute("errorTitle").setValue(
-					"Model Verification Error");
-			instOperationSubAction
-					.getInstAttribute("errorText")
-					.setValue(
-							"Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction
-					.getInstAttribute("errorHint")
-					.setValue(
-							"This is a root concept or it has no root. None or more than one root concepts identified.");
-			instOperationSubAction
-					.getInstAttribute("errorMsg")
-					.setValue(
-							"No root or #number# roots identified.\n Please keep only one root concept.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Multi verification");
-			instOperationSubAction.getInstAttribute("completedMessage")
-					.setValue("No errors found");
-			instOperationSubAction.getInstAttribute("showDashboard").setValue(
-					false);
-			instOperationSubAction.getInstAttribute("iteration")
-					.setValue(false);
-
-			refas.getVariabilityVertex().put("VerifySingleRootSubOper",
-					instOperationSubAction);
-
-			instOperationSubAction.getInstAttribute("index").setValue(1);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ver-root", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-root");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instOperationSubAction, true);
-			instEdgeOper.setSourceRelation(instOperationAction, true);
-
-			verifRootOperSubActionNormal = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, verifRootOperSubActionNormal);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("NORMAL");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			verifRootOperSubActionRelaxable = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, verifRootOperSubActionRelaxable);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("RELAXABLE");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			verifRootSubOperVeri = new OpersSubOperationExpType();
-
-			instOperSubOperationExpType = new InstConcept("exptype",
-					metaExpType, verifRootSubOperVeri);
-
-			instOperSubOperationExpType.getInstAttribute("suboperexptype")
-					.setValue("VERIFICATION");
-
-			((List<InstAttribute>) instOperationSubAction
-					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1", new ElemAttribute("EnumValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
-							""), instOperSubOperationExpType));
-
-			operationLabeling = new OpersLabeling("unique");
-
-			instLabeling = new InstConcept("Ver-root-lab", metaLabeling,
-					operationLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-
-			refas.getVariabilityVertex().put("Ver-root-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ver-root-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-root-lab");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
@@ -5971,6 +6183,102 @@ public class DefaultOpersMM {
 		semNmMetaConcept.putSemanticAttribute("TrueVal", attribute);
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			ecrSubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			ecrOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -5987,6 +6295,12 @@ public class DefaultOpersMM {
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperationSubAction
@@ -6033,6 +6347,96 @@ public class DefaultOpersMM {
 		semNmMetaConcept.putSemanticAttribute("FalseVal", attribute);
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			ecrSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			ecrOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6049,6 +6453,12 @@ public class DefaultOpersMM {
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperUniqueLabeling
@@ -6140,6 +6550,96 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropVisibleAttribute("01#" + "Sel");
 
 		if (!empty) {
+			wrongCardSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			wrongCardElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			voidModelSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			validProductSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attributeSel.getName(), true));
+			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			validPartialConfSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attributeSel.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attributeSel.getName(), true));
+			allProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			numProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			filterSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			redundanSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attributeSel.getName(), true));
+			variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			degreeOrthoSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attributeSel.getName(), true));
+			degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
+					true));
+			verifFalsePLSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 					semNmMetaConcept.getIdentifier(), attributeSel.getName(),
 					true));
@@ -6245,6 +6745,90 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropVisibleAttribute("02#" + "Exclu");
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6374,6 +6958,90 @@ public class DefaultOpersMM {
 				+ "Core" + "#==#" + "false" + "#" + "false");
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6478,6 +7146,90 @@ public class DefaultOpersMM {
 				+ "Active" + "#==#" + "true" + "#" + "false");
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6579,6 +7331,90 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropEditableAttribute("08#" + "Proh");
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6595,6 +7431,12 @@ public class DefaultOpersMM {
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperationSubAction
@@ -6698,6 +7540,90 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropVisibleAttribute("04#" + "Required");
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6714,6 +7640,12 @@ public class DefaultOpersMM {
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			verifParentsSubOperationAction
@@ -6822,6 +7754,90 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropVisibleAttribute("07#" + "Core");
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6838,6 +7854,12 @@ public class DefaultOpersMM {
 					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperationSubAction
@@ -6932,6 +7954,21 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 		}
 
+		attribute = new ElemAttribute("Var", "Boolean",
+				AttributeType.OPERATION, false, "Is a Varian Feature",
+				"Variant Feature identified by the variant operation", false,
+				2, -1, "false", "", -1, "", "");
+		semNmMetaConcept.putSemanticAttribute("Var", attribute);
+
+		if (!empty) {
+			variantSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+		}
+
 		attribute = new ElemAttribute("Dead", "Boolean",
 				AttributeType.OPERATION, false, "Is a Dead Concept",
 				"Dead element defined by core update operation", false, 2, 8,
@@ -6941,6 +7978,90 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropVisibleAttribute("08#" + "Dead");
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7043,6 +8164,90 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropVisibleAttribute("05#" + "SimulSel");
 
 		if (!empty) {
+			voidModelSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7352,6 +8557,66 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("TrueVal", attribute);
 
 		if (!empty) {
+			voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
 					.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
@@ -7364,6 +8629,12 @@ public class DefaultOpersMM {
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			variantSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -7447,6 +8718,66 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("FalseVal", attribute);
 
 		if (!empty) {
+			voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
 					.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
@@ -7540,6 +8871,73 @@ public class DefaultOpersMM {
 
 		semInfraOTRel.putSemanticAttribute("OSel", attribute);
 		if (!empty) {
+			voidModelSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
 					.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
@@ -7631,7 +9029,12 @@ public class DefaultOpersMM {
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-
+			variantSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -7642,22 +9045,51 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			// verifDeadElemSubOperationAction
-			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
-			// .getIdentifier(), attribute.getName(), true));
-			// verifDeadElemOperUniqueLabeling.addAttribute(new
-			// OpersIOAttribute(
-			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			// verifFalseOptSubOperationAction
-			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
-			// .getIdentifier(), attribute.getName(), true));
-			// verifFalseOptElemOperUniqueLabeling
-			// .addAttribute(new OpersIOAttribute(semInfraOTRel
-			// .getIdentifier(), attribute.getName(), true));
+
 		}
 		semInfraOTRel.putSemanticAttribute("OCore", attribute);
 
 		if (!empty) {
+			// voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// validProductSubOperationAction.addIntAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// validPartialConfSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// validPartialConfOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// allProductsSubOperationAction.addInAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// numProductsSubOperationAction.addInAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// filterSubOperationAction.addInAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// variabfactorSubOperationAction1
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// variabfactorOperUniqueLabeling1.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// degreeOrthoSubOperationAction1.addInAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
@@ -7740,8 +9172,74 @@ public class DefaultOpersMM {
 					.getIdentifier(), attribute.getName(), true));
 		}
 		semInfraOTRel.putSemanticAttribute("Exclu", attribute);
+		// FIXME review three input of this attribute
 
 		if (!empty) {
+			voidModelSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
@@ -7846,6 +9344,70 @@ public class DefaultOpersMM {
 		// semInfraOTRel.addPanelSpacersAttribute(" [#" + "LowRange" + "#");
 
 		if (!empty) {
+			wrongCardSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			wrongCardElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
 					.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
@@ -7922,6 +9484,12 @@ public class DefaultOpersMM {
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			variantSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			variantOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			verifFalseOptSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -7953,6 +9521,70 @@ public class DefaultOpersMM {
 		// semInfraOTRel.addPanelSpacersAttribute("-#" + "HighRange" + "#]");
 
 		if (!empty) {
+			wrongCardSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			wrongCardElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			validPartialConfSubOperationAction
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			validPartialConfOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			homogoneityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			commonalityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			variabfactorSubOperationAction1
+					.addInAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
+			variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semInfraOTRel
+							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
 					.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
@@ -8175,6 +9807,20 @@ public class DefaultOpersMM {
 				t2, t1);
 
 		semanticExpressions.add(t1);
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// verifDeadElemOperSubActionNormal.addSemanticExpression(t1);
@@ -8328,6 +9974,61 @@ public class DefaultOpersMM {
 		semVariable.putSemanticAttribute("value", attribute);
 		semVariable.addPropVisibleAttribute("07#" + "value");
 		semVariable.addPropVisibleAttribute("07#" + "value");
+		voidModelSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		validProductSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		validPartialConfSubOperationAction
+				.addOutAttribute(new OpersIOAttribute(semVariable
+						.getIdentifier(), attribute.getName(), true));
+		validPartialConfOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		allProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		numProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		filterSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
+		redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction1.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction2.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		homogoneityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction1.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		commonalityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction2.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		commonalityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		variabfactorSubOperationAction1.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		degreeOrthoSubOperationAction1.addOutAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semInfraOTRel.getIdentifier(), attribute.getName(), true));
+		verifFalsePLElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
@@ -8441,6 +10142,62 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
 				+ "variableType" + "#==#" + "Float");
 
+		voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		validPartialConfSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		validPartialConfOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		filterSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
+		redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		homogoneityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		commonalityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		commonalityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		variabfactorSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		verifFalsePLElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
 		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semVariable
@@ -8641,6 +10398,61 @@ public class DefaultOpersMM {
 		semLowVariable.putSemanticAttribute("value", attribute);
 		semLowVariable.addPropVisibleAttribute("07#" + "value");
 		semLowVariable.addPropVisibleAttribute("07#" + "value");
+		voidModelSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		validProductSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		validPartialConfSubOperationAction
+				.addOutAttribute(new OpersIOAttribute(semLowVariable
+						.getIdentifier(), attribute.getName(), true));
+		validPartialConfOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		allProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		numProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		filterSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction1.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction2.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		homogoneityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction1.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		commonalityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction2.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		commonalityOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		variabfactorSubOperationAction1.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		variabfactorOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		degreeOrthoSubOperationAction1.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		degreeOrthoOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
+		verifFalsePLElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLowVariable.getIdentifier(), attribute.getName(), true));
 		simulExecOperUniLab.addAttribute(new OpersIOAttribute(semLowVariable
 				.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(
@@ -8938,6 +10750,20 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
 				instVertexGE, instVertexGE, "Required", "Sel");
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
@@ -8978,6 +10804,7 @@ public class DefaultOpersMM {
 				instVertexGE, instVertexGE, "Required", "Core");
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		variantOptSubOperNormal.addSemanticExpression(t1);
 		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
@@ -9046,17 +10873,56 @@ public class DefaultOpersMM {
 		// semExpr.add(t2);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, instVertexGE, instVertexGE, "SimulSel", "Core");
+
+		t2 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), instVertexGE, 1, false, t1);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
 				instVertexGE, instVertexGE, instVertexGE, "ConfSel", "SimulSel");
 
-		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, instVertexGE, "Core", true, t1);
+		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+				"LessOrEquals"), instVertexGE, 1, false, t1);
 
-		t1 = new OpersExpr("003 Val - Core+ConfigSel+NextReqSel <=1", refas
-				.getSemanticExpressionTypes().get("LessOrEquals"),
-				instVertexGE, 1, false, t1);
+		t1 = new OpersExpr(
+				"003 Val - Core+SimulSel <=1 ConfigSel+SimulSel <=1", refas
+						.getSemanticExpressionTypes().get("And"), instVertexGE,
+				t1, t2);
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("#NEW ConfSel <==>Sel", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexGE, instVertexGE, instVertexGE, "ConfSel", "Sel");
+
+		validProductSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Sum"),
+				instVertexGE, instVertexGE, instVertexGE, "Var", "Core");
+
+		t1 = new OpersExpr("#NEW  Core + Var = 1", refas
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE, t1,
+				1);
+
+		variantOptSubOperNormal.addSemanticExpression(t1);
+		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		// t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Or"),
@@ -9073,6 +10939,20 @@ public class DefaultOpersMM {
 				refas.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexGE, instVertexGE, "Exclu", true, t1);
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -9087,6 +10967,21 @@ public class DefaultOpersMM {
 
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
@@ -9113,6 +11008,7 @@ public class DefaultOpersMM {
 				0);
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		// t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
@@ -9129,6 +11025,20 @@ public class DefaultOpersMM {
 				refas.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexGE, instVertexGE, "Sel", true, t1);
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -9142,6 +11052,20 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE, 0,
 				false, t1);
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -9294,6 +11218,8 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"), instVertexHC,
 				instVertexGE, "Order", true, t1);
 
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -9348,6 +11274,153 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 
+		OpersConcept directFeaFeatVertSemEdge = new OpersConcept(
+				"ParentFeaturePW");
+		//
+		// attribute = new ElemAttribute("PSel", "Boolean",
+		// AttributeType.EXECCURRENTSTATE, false, "***Selected***",
+		// "Element selected for this solution (green)", false, 2, -1, "",
+		// "", -1, "", "");
+		//
+		// directFeaFeatVertSemEdge.putSemanticAttribute("PSel", attribute);
+		//
+		// simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// simsceExecOperLab2.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverSDCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverSDneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverClCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverClneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverCoreOpersOperationSubAction.addOutAttribute(new
+		// OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverAllOpersOperationSubAction.addOutAttribute(new
+		// OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverNoLoopsOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(semGeneralPair
+		// .getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+		// OpersIOAttribute(
+		// semGeneralPair.getIdentifier(), attribute.getName(), true));
+		// sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverConflClSDOperationSubAction.addOutAttribute(new
+		// OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverConflClOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverConflSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+		// sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+		// true));
+
+		attribute = new ElemAttribute("outStructVal", "Boolean",
+				AttributeType.OPERATION, false,
+				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
+				"level#all#", "");
+		directFeaFeatVertSemEdge
+				.putSemanticAttribute("outStructVal", attribute);
+		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverNoLoopsOperationSubActionRed
+				.addOutAttribute(new OpersIOAttribute(directFeaFeatVertSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		sasverNoLoopsOperMVUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+
+		attribute = new ElemAttribute("crossRel", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false,
+				"CrossRelations identification", "", 0, 0, -1, "false", "", -1,
+				"", "");
+
+		directFeaFeatVertSemEdge.putSemanticAttribute("crossRel", attribute);
+		ecrSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+		ecrOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+
+		InstConcept instDirFeaFeatVertSemEdge = new InstConcept(
+				"ParentFeaturePW", metaMetaPairwiseRelation,
+				directFeaFeatVertSemEdge);
+
+		InstPairwiseRel instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ffptoip", instEdge);
+		instEdge.setIdentifier("ffptoip");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instNmMetaPW, true);
+		instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
+
 		OpersConcept semFeature = new OpersConcept("Feature");
 		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semFeature
 				.getIdentifier(), "Sel", true));
@@ -9369,6 +11442,17 @@ public class DefaultOpersMM {
 				semFeature.getIdentifier(), attribute.getName(), true));
 		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semFeature.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("crossRel", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false,
+				"CrossRelations identification", "", 0, 0, -1, "false", "", -1,
+				"", "");
+
+		semFeature.putSemanticAttribute("crossRel", attribute);
+		ecrSubOperationAction1.addOutAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+		ecrOperUniqueLabeling1.addAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("HasParent", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "Has Parent", "", true,
@@ -9411,6 +11495,8 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"), instVertexF,
 				instVertexGE, "Order", true, t1);
 
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -9491,12 +11577,27 @@ public class DefaultOpersMM {
 		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
 				.get("Equals"), instVertexF, instVertexF, "Core", true, 1);
 
-		t1 = new OpersExpr("012 Ver/Val - Root Implies Req", refas
+		t1 = new OpersExpr("012 Ver/Val - Root Implies Core", refas
 				.getSemanticExpressionTypes().get("Implies"), instVertexF, t1,
 				t3);
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		variantOptSubOperNormal.addSemanticExpression(t1);
 		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
 		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
@@ -9511,6 +11612,55 @@ public class DefaultOpersMM {
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
+				"NotEquals"), instVertexF, instVertexF, "FeatureType", "Root");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexF, instVertexF, "Core", true, 0);
+
+		t1 = new OpersExpr("#NEW FM analysis - !Root Implies !Core", refas
+				.getSemanticExpressionTypes().get("Implies"), instVertexF, t1,
+				t3);
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTSUBITERINCRELVARIABLE, instVertexF,
+				instDirFeaFeatVertSemEdge, "crossRel", true, "FalseVal");
+
+		t1 = new OpersExpr("#NEW crossRel", refas.getSemanticExpressionTypes()
+				.get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexF,
+				instVertexF, t1, "crossRel");
+
+		DefaultOpersMM.ecrOperSubActionNormal1.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTSUBITERINCRELVARIABLE, instVertexF,
+				instDirFeaFeatVertSemEdge, "crossRel", true, "FalseVal");
+
+		t1 = new OpersExpr("#NEW true for homogeneity", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexF, instVertexF, instVertexF, "Sel", "TrueVal");
+
+		homogeneityOperSubActionToVerify1.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		// t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
@@ -9528,7 +11678,7 @@ public class DefaultOpersMM {
 
 		refas.getVariabilityVertex().put("Feature", instVertexF);
 
-		InstPairwiseRel instEdge = new InstPairwiseRel();
+		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("ftoge", instEdge);
 		instEdge.setIdentifier("ftoge");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
@@ -9551,11 +11701,41 @@ public class DefaultOpersMM {
 				null, 2, -1, "", "", -1, "", "");
 
 		semRFeature.putSemanticAttribute("FeatureType", attribute);
+		voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		validPartialConfSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		filterSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		variabfactorSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
 		verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semRFeature.getIdentifier(), attribute.getName(), true));
 		verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semRFeature.getIdentifier(), attribute.getName(), true));
 		updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		variantSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semRFeature.getIdentifier(), attribute.getName(), true));
 		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semRFeature.getIdentifier(), attribute.getName(), true));
@@ -9564,6 +11744,8 @@ public class DefaultOpersMM {
 		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semRFeature.getIdentifier(), attribute.getName(), true));
 		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semRFeature.getIdentifier(), attribute.getName(), true));
 
 		refas.getVariabilityVertex().put("RootFeature", instVertexRF);
@@ -9586,11 +11768,42 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, "Feature Type", "", "General", false,
 				null, 2, -1, "", "", -1, "", "");
 		semGFeature.putSemanticAttribute("FeatureType", attribute);
+		voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		validPartialConfSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		filterSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		variabfactorSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+
 		verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semGFeature.getIdentifier(), attribute.getName(), true));
 		verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semGFeature.getIdentifier(), attribute.getName(), true));
 		updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		variantSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semGFeature.getIdentifier(), attribute.getName(), true));
 		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGFeature.getIdentifier(), attribute.getName(), true));
@@ -9599,6 +11812,8 @@ public class DefaultOpersMM {
 		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semGFeature.getIdentifier(), attribute.getName(), true));
 		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semGFeature.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semGFeature.getIdentifier(), attribute.getName(), true));
 
 		refas.getVariabilityVertex().put("GeneralFeature", instVertexGF);
@@ -9621,19 +11836,54 @@ public class DefaultOpersMM {
 				AttributeType.OPERATION, "Feature Type", "", "Leaf", false,
 				null, 2, -1, "", "", -1, "", "");
 		semLFeature.putSemanticAttribute("FeatureType", attribute);
+		voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		validPartialConfSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		filterSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semRFeature.getIdentifier(), attribute.getName(), true));
+		redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		variabfactorSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+
 		verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semLFeature.getIdentifier(), attribute.getName(), true));
 		verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semLFeature.getIdentifier(), attribute.getName(), true));
 		updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semLFeature.getIdentifier(), attribute.getName(), true));
-		sasverSDCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		variantSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semLFeature.getIdentifier(), attribute.getName(), true));
-		sasverClCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semLFeature.getIdentifier(), attribute.getName(), true));
 		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semLFeature.getIdentifier(), attribute.getName(), true));
 		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semLFeature.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semLFeature.getIdentifier(), attribute.getName(), true));
 
 		refas.getVariabilityVertex().put("LeafFeature", instVertexLF);
@@ -9644,139 +11894,6 @@ public class DefaultOpersMM {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
 		instEdge.setTargetRelation(instVertexF, true);
 		instEdge.setSourceRelation(instVertexLF, true);
-
-		OpersConcept directFeaFeatVertSemEdge = new OpersConcept(
-				"ParentFeaturePW");
-		//
-		// attribute = new ElemAttribute("PSel", "Boolean",
-		// AttributeType.EXECCURRENTSTATE, false, "***Selected***",
-		// "Element selected for this solution (green)", false, 2, -1, "",
-		// "", -1, "", "");
-		//
-		// directFeaFeatVertSemEdge.putSemanticAttribute("PSel", attribute);
-		//
-		// simulExecOperUniLab.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// simsceExecOperLab2.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverSDCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverSDallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverSDallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverSDneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverSDneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverClCoreOperationSubAction.addOutAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverClallOperationSubAction.addOutAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverClallOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverClneverOperationSubAction.addOutAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverClneverOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverCoreOpersOperationSubAction.addOutAttribute(new
-		// OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverCoreOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverAllOpersOperationSubAction.addOutAttribute(new
-		// OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverAllOpersOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		// directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-		// true));
-		// sasverNoLoopsOperationSubAction
-		// .addOutAttribute(new OpersIOAttribute(semGeneralPair
-		// .getIdentifier(), attribute.getName(), true));
-		// sasverNoLoopsOperUniqueLabeling.addAttribute(new
-		// OpersIOAttribute(
-		// semGeneralPair.getIdentifier(), attribute.getName(), true));
-		sasverSGConflOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverConflClSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverConflClSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverConflClOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverConflSDOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-
-		attribute = new ElemAttribute("outStructVal", "Boolean",
-				AttributeType.OPERATION, false,
-				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
-				"level#all#", "");
-		directFeaFeatVertSemEdge
-				.putSemanticAttribute("outStructVal", attribute);
-		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverNoLoopsOperationSubActionRed
-				.addOutAttribute(new OpersIOAttribute(directFeaFeatVertSemEdge
-						.getIdentifier(), attribute.getName(), true));
-		sasverNoLoopsOperMVUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-		sasverNoLoopsOperRedUniqueLabeling.addAttribute(new OpersIOAttribute(
-				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
-				true));
-
-		InstConcept instDirFeaFeatVertSemEdge = new InstConcept(
-				"ParentFeaturePW", metaMetaPairwiseRelation,
-				directFeaFeatVertSemEdge);
-
-		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("ffptoip", instEdge);
-		instEdge.setIdentifier("ffptoip");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-		instEdge.setTargetRelation(instNmMetaPW, true);
-		instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
 
 		InstAttribute ia = instDirFeaFeatVertSemEdge
 				.getInstAttribute("relTypesAttr");
@@ -9804,6 +11921,22 @@ public class DefaultOpersMM {
 				"Sel");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9830,6 +11963,22 @@ public class DefaultOpersMM {
 				"Sel");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9883,6 +12032,22 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		variantOptSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
+		// validProductSubOperNormal.addSemanticExpression(t1);
+		// validPartialConfSubOperNormal.addSemanticExpression(t1);
+		// allProductsSubOperNormal.addSemanticExpression(t1);
+		// numProductsSubOperNormal.addSemanticExpression(t1);
+		// filterSubOperNormal.addSemanticExpression(t1);
+		// verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionToVerify.addSemanticExpression(t1);
+		// homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		// homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		// commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		// commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		// variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		// degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -9897,6 +12062,15 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		variantOptSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
+		// validProductSubOperNormal.addSemanticExpression(t1);
+		// validPartialConfSubOperNormal.addSemanticExpression(t1);
+		// allProductsSubOperNormal.addSemanticExpression(t1);
+		// numProductsSubOperNormal.addSemanticExpression(t1);
+		// filterSubOperNormal.addSemanticExpression(t1);
+		// variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		// degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -9910,6 +12084,22 @@ public class DefaultOpersMM {
 				"Exclu");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9936,6 +12126,22 @@ public class DefaultOpersMM {
 				"Exclu", "Exclu");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10002,6 +12208,22 @@ public class DefaultOpersMM {
 				"Sel");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10028,6 +12250,22 @@ public class DefaultOpersMM {
 				"Sel");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10074,6 +12312,22 @@ public class DefaultOpersMM {
 				"Exclu");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10100,6 +12354,21 @@ public class DefaultOpersMM {
 				"Exclu", "Exclu");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10177,6 +12446,20 @@ public class DefaultOpersMM {
 
 		OpersConcept directFeatFeatSideSemEdge = new OpersConcept(
 				"CrossTreeFeaturePW");
+
+		attribute = new ElemAttribute("crossRel", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false,
+				"CrossRelations identification", "", 1, 0, -1, "false", "", -1,
+				"", "");
+
+		directFeatFeatSideSemEdge.putSemanticAttribute("crossRel", attribute);
+		ecrSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				directFeatFeatSideSemEdge.getIdentifier(), attribute.getName(),
+				true));
+		ecrOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				directFeatFeatSideSemEdge.getIdentifier(), attribute.getName(),
+				true));
+
 		InstConcept instDirFeatFeatSideSemEdge = new InstConcept(
 				"CrossTreeFeaturePW", metaMetaPairwiseRelation,
 				directFeatFeatSideSemEdge);
@@ -10217,6 +12500,22 @@ public class DefaultOpersMM {
 				instDirFeatFeatSideSemEdge, 1, false, t1);
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10234,6 +12533,7 @@ public class DefaultOpersMM {
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		wrongCardOperSubActionRelaxable.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -10246,6 +12546,22 @@ public class DefaultOpersMM {
 				instDirFeatFeatSideSemEdge, 1, false, t1);
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10263,6 +12579,7 @@ public class DefaultOpersMM {
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		wrongCardOperSubActionRelaxable.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("172 Val - Exclu = False", refas
 				.getSemanticExpressionTypes().get("Equals"),
@@ -10271,6 +12588,21 @@ public class DefaultOpersMM {
 				instDirFeatFeatSideSemEdge, instVertexFFGR, instVertexF,
 				"Exclu", "FalseVal");
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -10289,6 +12621,22 @@ public class DefaultOpersMM {
 				"Sel");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10306,6 +12654,7 @@ public class DefaultOpersMM {
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		wrongCardOperSubActionRelaxable.addSemanticExpression(t1);
 
 		// t1 = new OpersExpr("requires",
 		// refas.getSemanticExpressionTypes().get(
@@ -10325,6 +12674,22 @@ public class DefaultOpersMM {
 				"OSel", "Sel");
 
 		semExpr.add(t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10342,6 +12707,7 @@ public class DefaultOpersMM {
 		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		wrongCardOperSubActionRelaxable.addSemanticExpression(t1);
 
 		// t1 = new OpersExpr("requires",
 		// refas.getSemanticExpressionTypes().get(
@@ -10360,6 +12726,20 @@ public class DefaultOpersMM {
 				instDirFeatFeatSideSemEdge, instVertexFFGR, instVertexF,
 				"Exclu", "FalseVal");
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
@@ -10458,6 +12838,21 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
 				instVertexFFGR, t1, "OSel");
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10489,6 +12884,7 @@ public class DefaultOpersMM {
 
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
@@ -10529,6 +12925,21 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
 				instVertexF, t1, "OSel");
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10608,6 +13019,21 @@ public class DefaultOpersMM {
 
 		// FIXME review if instVertexFFGR or Feature
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10650,6 +13076,21 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
 				instVertexF, t1, 1);
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10704,7 +13145,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
-				instVertexF, null, "Sel", "FalseVal", true);
+				instVertexF, null, "Sel", 0, true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -10712,7 +13153,7 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
-				instVertexF, null, "Sel", "FalseVal", true);
+				instVertexF, null, "Sel", 0, true);
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -10725,6 +13166,69 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexFFGR, instVertexFFGR, "OSel", true, t1);
 
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
+				DefaultOpersMM.instVertexHC, DefaultOpersMM.instVertexF, "Sel",
+				true, 0);
+
+		t1 = new OpersExpr("incon", refas.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexFFGR, DefaultOpersMM.instVertexHC, t1, 1);
+
+		t1 = new OpersExpr("040xex Ver/Val RANGEHardRel", refas
+				.getSemanticExpressionTypes().get("Implies"), instVertexFFGR,
+				instVertexFFGR, "OSel", false, t1);
+
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionToVerify.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
+		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
+		commonalityOperSubActionNormal1.addSemanticExpression(t1);
+		commonalityOperSubActionNormal2.addSemanticExpression(t1);
+		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
+		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10777,6 +13281,34 @@ public class DefaultOpersMM {
 				t1, t2);
 
 		updCoreOptSubOperNormal.addSemanticExpression(t1);
+		variantOptSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
+				instVertexF, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card low", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
+				instVertexFFGR, t2, instVertexFFGR, "LowRange", "This relation"
+						+ " has a wrong cardinality in the LowRange value");
+
+		wrongCardOperSubActionRelaxable.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
+				instVertexF, null, "Sel", 0, true);
+
+		t1 = new OpersExpr("#NEW wrong card high", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR,
+				instVertexFFGR, t2, instVertexFFGR, "HighRange",
+				"This relation"
+						+ " has a wrong cardinality in the HighRange value");
+
+		wrongCardOperSubActionRelaxable.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		ias.add(new InstAttribute("range", new ElemAttribute("range",
@@ -10790,8 +13322,24 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instNmMetaOT, true);
 		instEdge.setSourceRelation(instVertexFFGR, true);
 
+		OpersConcept defaultFeatureToFeatureOT = new OpersConcept(
+				"FeatureToFeatureOT");
+
+		attribute = new ElemAttribute("crossRel", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false,
+				"CrossRelations identification", "", 0, 0, -1, "false", "", -1,
+				"", "");
+
+		defaultFeatureToFeatureOT.putSemanticAttribute("crossRel", attribute);
+		ecrSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				defaultFeatureToFeatureOT.getIdentifier(), attribute.getName(),
+				true));
+		ecrOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
+				defaultFeatureToFeatureOT.getIdentifier(), attribute.getName(),
+				true));
+
 		InstConcept instFeatFeatFFFGR = new InstConcept("FeatureToFeatureOT",
-				metaMetaPairwiseRelation);
+				metaMetaPairwiseRelation, defaultFeatureToFeatureOT);
 		refas.getVariabilityVertex().put("FeatFeatToOTAssoPWAsso",
 				instFeatFeatFFFGR);
 
