@@ -341,6 +341,7 @@ public class DefaultOpersMM {
 			"unique");
 	protected static OpersLabeling sasverConflSDOperUniqueLabeling = new OpersLabeling(
 			"unique");
+
 	protected static InstElement metaMetaModel = null;
 	protected static InstElement metaOperationMenu = null;
 	protected static InstElement metaOperationAction = null;
@@ -357,13 +358,16 @@ public class DefaultOpersMM {
 	protected static InstPairwiseRel metaPairwRelOCExt = null;
 	protected static InstPairwiseRel metaPairwRelAso = null;
 
+	protected static OpersConcept refasModel = new OpersConcept("REFAS");
+	protected static InstConcept instRefasModel = null;
+
 	protected static InstConcept instVertexGE = null;
 	protected static InstConcept instVertexSG = null;
 	protected static InstConcept instVertexF = null;
 	protected static InstConcept instVertexHC = null;
 
 	public static void createOpersMetaModel(ModelInstance refas, boolean empty) {
-		createOpersMetaModelOpers(refas, empty, false);
+		createOpersMetaModelOpers(refas, empty, true);
 		createSemanticNmMetaModel(refas, empty);
 		if (!empty) {
 			createGeneralMetaModel(refas);
@@ -10637,6 +10641,9 @@ public class DefaultOpersMM {
 
 		ElemAttribute attribute = null;
 
+		instRefasModel = new InstConcept("REFAS", DefaultOpersMM.metaMetaModel,
+				refasModel);
+
 		OpersConcept semGeneralElement = new OpersConcept("GeneralConcept");
 		// From refas name depends all the static operations, do not change
 		// it
@@ -11437,6 +11444,18 @@ public class DefaultOpersMM {
 				"level#all#", "");
 		directFeaFeatVertSemEdge
 				.putSemanticAttribute("outStructVal", attribute);
+		lcaSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+		lcaOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+		rootSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
+		rootOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
+				true));
 		sasverNoLoopsOperationSubActionMV.addOutAttribute(new OpersIOAttribute(
 				directFeaFeatVertSemEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -11480,6 +11499,41 @@ public class DefaultOpersMM {
 
 		instVertexF = new InstConcept("Feature", metaMetaInstConcept,
 				semFeature);
+
+		attribute = new ElemAttribute("anaSel", "Boolean",
+				AttributeType.SYNTAX, false, "Selected for Analysis Oper", "",
+				false, 0, 10, "", "", -1, "", "");
+		semFeature.putSemanticAttribute("anaSel", attribute);
+		degreeOrthoSubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		degreeOrthoOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		lcaSubOperationAction.addInAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+		lcaOperUniqueLabeling.addAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+		rootSubOperationAction.addInAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+		rootOperUniqueLabeling.addAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("anaOut", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false,
+				"Selected from Analysis Oper", "", false, 0, -1, "false", "",
+				-1, "", "");
+		semFeature.putSemanticAttribute("anaOut", attribute);
+		degreeOrthoSubOperationAction2.addOutAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		degreeOrthoOperUniqueLabeling2.addAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		lcaSubOperationAction.addOutAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+		lcaOperUniqueLabeling.addAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+		rootSubOperationAction.addOutAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+		rootOperUniqueLabeling.addAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("structVal", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "No loops validation",
@@ -11715,6 +11769,35 @@ public class DefaultOpersMM {
 
 		homogeneityOperSubActionToVerify1.addSemanticExpression(t1);
 		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
+				ExpressionVertexType.LEFTSUBITERINCRELVARIABLE, instVertexF,
+				instDirFeaFeatVertSemEdge, "outStructVal", true, "FalseVal");
+
+		t1 = new OpersExpr("#NEW structAnaOut Root", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexF,
+				instDirFeaFeatVertSemEdge, t1, "anaOut");
+
+		semExpr.add(t1);
+		rootSubOperNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTSUBITERINCRELVARIABLE, instVertexF,
+				instDirFeaFeatVertSemEdge, "outStructVal", true, 0);
+
+		t1 = new OpersExpr("sub LCA", refas.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTITERINCRELVARIABLE,
+				ExpressionVertexType.RIGHTMODELVARS, instVertexF,
+				instDirFeaFeatVertSemEdge, instRefasModel, t1, "anaElems");
+
+		t1 = new OpersExpr("#NEW structAnaOut LCA", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexF, instVertexF, "anaOut", true, t1);
+
+		semExpr.add(t1);
+		lcaSubOperNormal.addSemanticExpression(t1);
 
 		// t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 		// "Equals"), instVertexGE, "IsRootFeature", true, 1);
@@ -12246,6 +12329,17 @@ public class DefaultOpersMM {
 		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
 		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
+		t1 = new OpersExpr("#NEW structValMan for Analysis", "", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE,
+				instDirFeaFeatVertSemEdge, instVertexF,
+				instDirFeaFeatVertSemEdge, "anaSel", "outStructVal");
+
+		semExpr.add(t1);
+		lcaSubOperNormal.addSemanticExpression(t1);
+		rootSubOperNormal.addSemanticExpression(t1);
+
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", 1);
@@ -12477,6 +12571,17 @@ public class DefaultOpersMM {
 		sasverNoLoopsOperSubActionRedNormal.addSemanticExpression(t1);
 		sasverNoLoopsOperSubActionRedToVerify.addSemanticExpression(t1);
 
+		t1 = new OpersExpr("#NEW structValOpt for Analysis", "", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE,
+				instDirFeaFeatVertSemEdge, instVertexF,
+				instDirFeaFeatVertSemEdge, "anaSel", "outStructVal");
+
+		semExpr.add(t1);
+		lcaSubOperNormal.addSemanticExpression(t1);
+		rootSubOperNormal.addSemanticExpression(t1);
+
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "structVal", 1);
@@ -12682,6 +12787,16 @@ public class DefaultOpersMM {
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
+		t1 = new OpersExpr("#NEW structValExclu for Analysis", "", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTCONCEPTVARIABLE,
+				instDirFeaFeatVertSemEdge, instDirFeaFeatVertSemEdge,
+				"outStructVal", 0);
+
+		semExpr.add(t1);
+		lcaSubOperNormal.addSemanticExpression(t1);
+		rootSubOperNormal.addSemanticExpression(t1);
+
 		ias.add(new InstAttribute("excludes", new ElemAttribute("excludes",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "excludes",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
@@ -12820,6 +12935,16 @@ public class DefaultOpersMM {
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
+
+		t1 = new OpersExpr("#NEW structValReq for Analysis", "", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTCONCEPTVARIABLE,
+				instDirFeaFeatVertSemEdge, instDirFeaFeatVertSemEdge,
+				"outStructVal", 0);
+
+		semExpr.add(t1);
+		lcaSubOperNormal.addSemanticExpression(t1);
+		rootSubOperNormal.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,

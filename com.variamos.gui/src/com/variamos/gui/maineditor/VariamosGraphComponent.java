@@ -182,12 +182,13 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						else
 							ia.setValue(true);
 				}
-				String backtophint = "", backbottomhint = "";
+				String backtophint = "", sidehint = "";
 
 				String sim_core = imagesBasePath + "sim_core.png";
 				String sim_core_req = imagesBasePath + "sim_core_req.png";
 				String sim_dead = imagesBasePath + "sim_dead.png";
 				String sim_inactive = imagesBasePath + "sim_inactive.png";
+				String sim_outmessage = imagesBasePath + "sim_outmessage.png";
 				String sim_normal = imagesBasePath + "sim_normal.png";
 				String sim_notavailable = imagesBasePath
 						+ "sim_notavailable.png";
@@ -240,6 +241,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									.getValue()) {
 						sim_backcolor = sim_inactive;
 						backtophint = "Variant Feature";
+					} else if (instConcept.getInstAttribute("anaOut") != null
+							&& (boolean) instConcept.getInstAttribute("anaOut")
+									.getValue()) {
+						sim_backcolor = sim_outmessage;
+						backtophint = "Analysis Selected Element";
 					} else if ((boolean) instConcept.getInstAttribute("Exclu")
 							.getValue()) {
 						sim_backcolor = sim_notavailable;
@@ -323,7 +329,6 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								mxGraphComponent.class
 										.getResource(sim_red2_tmp)),
 								"Configuration Not Selected (Only testing)");
-						backbottomhint = "Configuration Not Selected (Only testing)";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -337,7 +342,6 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class.getResource(sim_red2)),
 								"Configuration Not Selected");
-						backbottomhint = "Configuration Not Selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);

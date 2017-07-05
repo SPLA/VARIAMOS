@@ -10563,15 +10563,13 @@ public class DefaultRefasMM {
 
 		ElemAttribute attribute = null;
 
-		OpersConcept refasModel = new OpersConcept("REFAS");
-
 		attribute = new ElemAttribute("TotalOrder", "Integer",
 				AttributeType.EXECCURRENTSTATE, "***TotalOrder***", "", 0,
 				false, new RangeDomain(0, 2000, 0), 2, -1, "", "", -1, "", "");
 		// simulationExecOperUniqueLabeling.addAttribute(new
 		// OpersIOAttribute(
 		// refasModel.getIdentifier(), attribute.getName(), true));
-		refasModel.putSemanticAttribute("TotalOrder", attribute);
+		DefaultOpersMM.refasModel.putSemanticAttribute("TotalOrder", attribute);
 
 		attribute = new ElemAttribute("totalFeatures", "Integer",
 				AttributeType.EXECCURRENTSTATE, "***TotalFeatures***", "", 0,
@@ -10579,43 +10577,67 @@ public class DefaultRefasMM {
 		// simulationExecOperUniqueLabeling.addAttribute(new
 		// OpersIOAttribute(
 		// refasModel.getIdentifier(), attribute.getName(), true));
-		refasModel.putSemanticAttribute("totalFeatures", attribute);
+		DefaultOpersMM.refasModel.putSemanticAttribute("totalFeatures",
+				attribute);
 
 		DefaultOpersMM.variabfactorSubOperationAction2
-				.addOutAttribute(new OpersIOAttribute(refasModel
+				.addOutAttribute(new OpersIOAttribute(DefaultOpersMM.refasModel
 						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.variabfactorOperUniqueLabeling2
-				.addAttribute(new OpersIOAttribute(refasModel.getIdentifier(),
-						attribute.getName(), true));
+				.addAttribute(new OpersIOAttribute(DefaultOpersMM.refasModel
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.ecrSubOperationAction1
-				.addOutAttribute(new OpersIOAttribute(refasModel
+				.addOutAttribute(new OpersIOAttribute(DefaultOpersMM.refasModel
 						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.ecrOperUniqueLabeling1
-				.addAttribute(new OpersIOAttribute(refasModel.getIdentifier(),
-						attribute.getName(), true));
+				.addAttribute(new OpersIOAttribute(DefaultOpersMM.refasModel
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.ecrSubOperationAction2
-				.addOutAttribute(new OpersIOAttribute(refasModel
+				.addOutAttribute(new OpersIOAttribute(DefaultOpersMM.refasModel
 						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.ecrOperUniqueLabeling2
-				.addAttribute(new OpersIOAttribute(refasModel.getIdentifier(),
-						attribute.getName(), true));
+				.addAttribute(new OpersIOAttribute(DefaultOpersMM.refasModel
+						.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("anaElems", "Integer",
+				AttributeType.EXECCURRENTSTATE,
+				"***AnalysisSelectedElements***", "", 0, false,
+				new RangeDomain(0, 2000, 0), 2, -1, "", "", -1, "", "");
+		DefaultOpersMM.refasModel.putSemanticAttribute("anaElems", attribute);
+		DefaultOpersMM.lcaSubOperationAction
+				.addOutAttribute(new OpersIOAttribute(DefaultOpersMM.refasModel
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.lcaOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				DefaultOpersMM.refasModel.getIdentifier(), attribute.getName(),
+				true));
+		DefaultOpersMM.rootSubOperationAction
+				.addOutAttribute(new OpersIOAttribute(DefaultOpersMM.refasModel
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.rootOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(DefaultOpersMM.refasModel
+						.getIdentifier(), attribute.getName(), true));
+		// simulationExecOperUniqueLabeling.addAttribute(new
+		// OpersIOAttribute(
+		// refasModel.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.refasModel.putSemanticAttribute("totalFeatures",
+				attribute);
 
 		semExpr = new ArrayList<OpersExpr>();
 
 		DefaultOpersMM.simsceExecOperLab2.setSemanticExpressions(semExpr);
 
-		InstConcept instRefasModel = null;
-		instRefasModel = new InstConcept("REFAS", DefaultOpersMM.metaMetaModel,
-				refasModel);
-		refas.getVariabilityVertex().put("REFAS", instRefasModel);
+		refas.getVariabilityVertex()
+				.put("REFAS", DefaultOpersMM.instRefasModel);
 
 		OpersExpr t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFSUBTITERCONVARIABLE,
-				instRefasModel, DefaultOpersMM.instVertexSG, "Sel", 0);
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexSG,
+				"Sel", 0);
 
 		t1 = new OpersExpr("max soft goals", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
-				instRefasModel, DefaultOpersMM.instVertexSG, t1, 0);
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexSG, t1,
+				0);
 
 		// semExpr.add(t1); // FIXME not used
 
@@ -10623,7 +10645,7 @@ public class DefaultRefasMM {
 
 		semExpr = new ArrayList<OpersExpr>();
 
-		refasModel.setSemanticExpressions(semExpr);
+		DefaultOpersMM.refasModel.setSemanticExpressions(semExpr);
 
 		// t1 = new OpersExpr("sub",
 		// refas.getSemanticExpressionTypes().get("Sum"),
@@ -10643,12 +10665,14 @@ public class DefaultRefasMM {
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
-				DefaultOpersMM.instVertexF, "IsRootFeature", 0);
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE,
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexF,
+				"IsRootFeature", 0);
 
 		t1 = new OpersExpr("014 Roots", refas.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
-				instRefasModel, DefaultOpersMM.instVertexF, t1, 1);
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexF, t1,
+				1);
 
 		DefaultOpersMM.verifRootSubOperVeri.addSemanticExpression(t1);
 
@@ -10656,13 +10680,15 @@ public class DefaultRefasMM {
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
-				DefaultOpersMM.instVertexF, "TrueVal", 0);
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE,
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexF,
+				"TrueVal", 0);
 
 		t1 = new OpersExpr("#NEW totalFeatures Den", refas
 				.getSemanticExpressionTypes().get("Equals"),
-				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
-				instRefasModel, t1, "totalFeatures");
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instRefasModel,
+				t1, "totalFeatures");
 
 		DefaultOpersMM.variabfactorOperSubActionNormal2
 				.addSemanticExpression(t1);
@@ -10671,24 +10697,44 @@ public class DefaultRefasMM {
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
-				DefaultOpersMM.instVertexF, "crossRel", 0);
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE,
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexF,
+				"anaSel", 0);
+
+		t1 = new OpersExpr("#NEW anaSel total", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instRefasModel,
+				t1, "anaElems");
+
+		DefaultOpersMM.lcaSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.rootSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE,
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexF,
+				"crossRel", 0);
 
 		t1 = new OpersExpr("#NEW totalFeatures Num", refas
 				.getSemanticExpressionTypes().get("Equals"),
-				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
-				instRefasModel, t1, "totalFeatures");
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instRefasModel,
+				t1, "totalFeatures");
 
 		DefaultOpersMM.ecrOperSubActionNormal1.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
 				"Product"), ExpressionVertexType.LEFSUBTITERCONVARIABLE,
-				instRefasModel, DefaultOpersMM.instVertexF, "HasParent", 1);
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexF,
+				"HasParent", 1);
 
 		t1 = new OpersExpr("Parents", refas.getSemanticExpressionTypes().get(
 				"Less"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
-				instRefasModel, DefaultOpersMM.instVertexF, t1, 1);
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexF, t1,
+				1);
 
 		// verifParentsOperSubActionVerification.addSemanticExpression(t1);
 
@@ -10696,12 +10742,14 @@ public class DefaultRefasMM {
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
-				DefaultOpersMM.instVertexGE, "Core", 0);
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE,
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexGE,
+				"Core", 0);
 
 		t1 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instRefasModel, instRefasModel, t1, "TotalOrder");
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instRefasModel,
+				t1, "TotalOrder");
 
 		// DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
 
@@ -10713,8 +10761,9 @@ public class DefaultRefasMM {
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFSUBTITERCONVARIABLE, instRefasModel,
-				DefaultOpersMM.instVertexGE, "Order", 0);
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE,
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexGE,
+				"Order", 0);
 
 		// t1 = new OpersExpr("OrderMin",
 		// refas.getSemanticExpressionTypes().get(
@@ -10735,7 +10784,8 @@ public class DefaultRefasMM {
 
 		t1 = new OpersExpr("OrderLab...", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFSUBTITERCONVARIABLE,
-				instRefasModel, DefaultOpersMM.instVertexSG, "Sel", 0);
+				DefaultOpersMM.instRefasModel, DefaultOpersMM.instVertexSG,
+				"Sel", 0);
 
 		semExpr.add(t1);
 	}
