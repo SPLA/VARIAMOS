@@ -1921,7 +1921,7 @@ public class DefaultRefasMM {
 		semSoftDependency.addPropVisibleAttribute("01#" + "CompExp");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		OpersConcept semHardOverTwoRelation = new OpersConcept("SMOverTwo");// hardSemOverTwoRelList);
+		OpersConcept semHardOverTwoRelation = new OpersConcept("HardOT");// hardSemOverTwoRelList);
 
 		attribute = new ElemAttribute("structVal", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "No loops validation",

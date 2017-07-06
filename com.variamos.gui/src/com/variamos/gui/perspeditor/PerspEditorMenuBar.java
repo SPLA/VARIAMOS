@@ -263,7 +263,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 		if (editor.getPerspective() == 2 || (editor.getPerspective() == 4)) {
 			List<InstElement> menus = ((VariamosGraphEditor) editor)
 					.getEditedModel().getOperationalModel()
-					.getVariabilityVertex("OMOperGroup");
+					.getVariabilityVertex("OpMOperGroup");
 			int cantMenu = 1;
 			String pre1 = "", pre2 = "";
 

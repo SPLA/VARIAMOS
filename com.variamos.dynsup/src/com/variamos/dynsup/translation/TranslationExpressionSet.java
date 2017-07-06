@@ -102,7 +102,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		List<LiteralBooleanExpression> outLiteral = new ArrayList<LiteralBooleanExpression>();
 
 		// List<InstElement> semModel =
-		// refas.getVariabilityVertex("OMModel");
+		// refas.getVariabilityVertex("OpMModel");
 		// for (InstElement oper : semModel) {
 		// InstElement oper2 = refas.getElement("REFAS1");
 		// IntSemanticElement semModelElement =
@@ -116,7 +116,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		// }
 
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("OMOperation");
+				.getVariabilityVertex("OpMOperation");
 		// InstElement operAction = null;
 		InstElement operSubAction = null;
 		// for (InstElement oper : operActions) {
@@ -449,7 +449,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			OperationSubActionExecType expressionType) {
 
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("OMOperation");
+				.getVariabilityVertex("OpMOperation");
 		// InstElement operAction = null;
 		OpersSubOperation operSubAction = null;
 		InstElement instOperSubAction = null;

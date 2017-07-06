@@ -429,8 +429,26 @@ public abstract class InstElement implements Serializable, Cloneable,
 						i = getEdSyntaxEle()
 								.getSemanticAttribute(attributeName);
 					String v = "";
-					if (i != null)
+					if (i != null) {
 						v = ":" + i.getType();
+						if (i.getType().equals("Enumeration")) {
+							String classN = i.getClassCanonicalName()
+									.substring(
+											i.getClassCanonicalName()
+													.lastIndexOf(".") + 1,
+											i.getClassCanonicalName().length());
+							v += "<" + classN + ">";
+						}
+						if (i.getType().equals("Set")) {
+							String classN = i.getClassCanonicalName()
+									.substring(
+											i.getClassCanonicalName()
+													.lastIndexOf(".") + 1,
+											i.getClassCanonicalName().length());
+							v += "<" + classN + ">";
+						}
+
+					}
 					// System.out.println(attributeName);
 					out2 += attributeName + v + "\n";
 				}

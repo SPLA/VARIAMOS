@@ -367,7 +367,7 @@ public class DefaultOpersMM {
 	protected static InstConcept instVertexHC = null;
 
 	public static void createOpersMetaModel(ModelInstance refas, boolean empty) {
-		createOpersMetaModelOpers(refas, empty, true);
+		createOpersMetaModelOpers(refas, empty, false);
 		createSemanticNmMetaModel(refas, empty);
 		if (!empty) {
 			createGeneralMetaModel(refas);
@@ -380,40 +380,43 @@ public class DefaultOpersMM {
 	@SuppressWarnings("unchecked")
 	private static void createOpersMetaModelOpers(ModelInstance refas,
 			boolean empty, boolean newOpers) {
-		metaMetaModel = (refas.getSyntaxModel().getVertex("OMModel"));
-		metaOperationMenu = (refas.getSyntaxModel().getVertex("OMOperGroup"));
-		metaOperationAction = (refas.getSyntaxModel().getVertex("OMOperation"));
-		metaOperationSubAction = (refas.getSyntaxModel().getVertex("OMSubOper"));
-		metaLabeling = (refas.getSyntaxModel().getVertex("OMLabeling"));
-		metaExpType = (refas.getSyntaxModel().getVertex("OMExpType"));
+		metaMetaModel = (refas.getSyntaxModel().getVertex("OpMModel"));
+		metaOperationMenu = (refas.getSyntaxModel().getVertex("OpMOperGroup"));
+		metaOperationAction = (refas.getSyntaxModel().getVertex("OpMOperation"));
+		metaOperationSubAction = (refas.getSyntaxModel()
+				.getVertex("OpMSubOper"));
+		metaLabeling = (refas.getSyntaxModel().getVertex("OpMLabeling"));
+		metaExpType = (refas.getSyntaxModel().getVertex("OpMExpType"));
 
 		// MetaEnumeration metaEnumeration = (MetaEnumeration) ((InstConcept)
 		// refas
 		// .getSyntaxModel().getVertex("TypeEnumeration"))
 		// .getEditableMetaElement();
 		metaMetaInstConcept = ((InstConcept) refas.getSyntaxModel().getVertex(
-				"OMConcept"));
-		metaMetaPairwiseRelation = (refas.getSyntaxModel().getVertex("OMPWRel"));
+				"SeMConcept"));
+		metaMetaPairwiseRelation = (refas.getSyntaxModel()
+				.getVertex("SeMPWRel"));
 		metaMetaInstOverTwoRel = ((InstConcept) refas.getSyntaxModel()
-				.getVertex("OMOTRel"));
+				.getVertex("SeMOTRel"));
 
-		infraMetaMetaConcept = (refas.getSyntaxModel().getVertex("OMnmConcept"));
+		infraMetaMetaConcept = (refas.getSyntaxModel()
+				.getVertex("SeMnmConcept"));
 		infraMetaMetaPairwiseRelation = (refas.getSyntaxModel()
-				.getVertex("OMnmPWRel"));
+				.getVertex("SeMnmPWRel"));
 		infraMetaMetaOverTwoRelation = (refas.getSyntaxModel()
-				.getVertex("OMnmOTRel"));
+				.getVertex("SeMnmOTRel"));
 
 		metaPairwRelCCExt = (refas.getSyntaxModel()
-				.getConstraintInstEdge("OMExtCEdge"));
+				.getConstraintInstEdge("SeMExtCEdge"));
 		metaPairwRelOCExt = (refas.getSyntaxModel()
 
-		.getConstraintInstEdge("OMExtOTCEdge")); // FIXME separate OT
+		.getConstraintInstEdge("SeMExtOTCEdge")); // FIXME separate OT
 													// from OT and OT
 													// from C.
 													// OMExtOTOTEdge
 
 		metaPairwRelAso = (refas.getSyntaxModel()
-				.getConstraintInstEdge("OMAsoEdge"));
+				.getConstraintInstEdge("SeMAsoEdge"));
 
 		/*
 		 * attribute = new ElemAttribute("TotalOpt", "Integer",
@@ -10290,7 +10293,7 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("LowLevelExprSubOper", "Class",
 				AttributeType.OPERATION, false, "SubOper",
 				"Sub Operation to include this low-level expressions",
-				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 3, "", "variableType" + "#==#" + "LowLevel expression", -1,
 				"", "");
 		semVariable.putSemanticAttribute("LowLevelExprSubOper", attribute);
@@ -10305,7 +10308,7 @@ public class DefaultOpersMM {
 				false,
 				"Out SubOper",
 				"Sub operation to include the low-level variable calculated (in a low level expression)",
-				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 4, "", "variableType" + "#==#" + "LowLevel variable", -1,
 				"", "");
 		semVariable.putSemanticAttribute("LowLevelVarOutSubOper", attribute);
@@ -10320,9 +10323,9 @@ public class DefaultOpersMM {
 				false,
 				"Output Labeling",
 				"Labeling with only a set of output variables (i.e., without sorting) for a sub operation",
-				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
-				0, 5, "", "variableType" + "#==#" + "LowLevel variable", -1,
-				"", "");
+				OpersLabeling.class.getCanonicalName(), "OpMLabeling", null,
+				"", 0, 5, "", "variableType" + "#==#" + "LowLevel variable",
+				-1, "", "");
 		semVariable.putSemanticAttribute("LowLevelOutVarLabel", attribute);
 		semVariable.addPropEditableAttribute("05#" + "LowLevelOutVarLabel");
 		semVariable.addPropVisibleAttribute("05#" + "LowLevelOutVarLabel" + "#"
@@ -10335,7 +10338,7 @@ public class DefaultOpersMM {
 				false,
 				"Input SubOper as low var",
 				"Sub Operation to include the low-level variable with a fixed or previously calculated value",
-				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 6, "", "variableType" + "#==#" + "LowLevel variable", -1,
 				"", "");
 		semVariable.putSemanticAttribute("LowLevelVarInSubOper", attribute);
@@ -10346,9 +10349,9 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("LowLevelInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as low var",
 				"Labeling with only a set of variables for input suboper",
-				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
-				0, 7, "", "variableType" + "#==#" + "LowLevel variable", -1,
-				"", "");
+				OpersLabeling.class.getCanonicalName(), "OpMLabeling", null,
+				"", 0, 7, "", "variableType" + "#==#" + "LowLevel variable",
+				-1, "", "");
 		semVariable.putSemanticAttribute("LowLevelInVarLabel", attribute);
 		semVariable.addPropEditableAttribute("07#" + "LowLevelInVarLabel");
 		semVariable.addPropVisibleAttribute("07#" + "LowLevelInVarLabel" + "#"
@@ -10361,7 +10364,7 @@ public class DefaultOpersMM {
 				false,
 				"Input SubOper as int",
 				"Sub Operation to include the low-level variable previous calculated, in a low level expression, as Integer",
-				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 8, "", "variableType" + "#==#" + "LowLevel variable", -1,
 				"", "");
 		semVariable.putSemanticAttribute("IntegerVarInSubOper", attribute);
@@ -10372,9 +10375,9 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("IntegerInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as int",
 				"Labeling with only a set of variables for input suboper",
-				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
-				0, 9, "", "variableType" + "#==#" + "LowLevel variable", -1,
-				"", "");
+				OpersLabeling.class.getCanonicalName(), "OpMLabeling", null,
+				"", 0, 9, "", "variableType" + "#==#" + "LowLevel variable",
+				-1, "", "");
 		semVariable.putSemanticAttribute("IntegerInVarLabel", attribute);
 		semVariable.addPropEditableAttribute("09#" + "IntegerInVarLabel");
 		semVariable.addPropVisibleAttribute("09#" + "IntegerInVarLabel" + "#"
@@ -10420,7 +10423,7 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("LowLevelExprSubOper", "Class",
 				AttributeType.OPERATION, false, "SubOper",
 				"Sub Operation to include this low-level expressions",
-				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 3, "", "", -1, "", "");
 		semLowExp.putSemanticAttribute("LowLevelExprSubOper", attribute);
 		semLowExp.addPropEditableAttribute("03#" + "LowLevelExprSubOper");
@@ -10512,7 +10515,7 @@ public class DefaultOpersMM {
 				false,
 				"Out SubOper",
 				"Sub operation to include the low-level variable calculated (in a low level expression)",
-				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 4, "", "variableType" + "#==#" + "LowLevel variable", -1,
 				"", "");
 		semLowVariable.putSemanticAttribute("LowLevelVarOutSubOper", attribute);
@@ -10527,8 +10530,8 @@ public class DefaultOpersMM {
 				false,
 				"Output Labeling",
 				"Labeling with only a set of output variables (i.e., without sorting) for a sub operation",
-				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
-				0, 5, "", "", -1, "", "");
+				OpersLabeling.class.getCanonicalName(), "OpMLabeling", null,
+				"", 0, 5, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("LowLevelOutVarLabel", attribute);
 		semLowVariable.addPropEditableAttribute("05#" + "LowLevelOutVarLabel");
 		semLowVariable.addPropVisibleAttribute("05#" + "LowLevelOutVarLabel");
@@ -10540,7 +10543,7 @@ public class DefaultOpersMM {
 				false,
 				"Input SubOper as low var",
 				"Sub Operation to include the low-level variable with a fixed or previously calculated value",
-				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 6, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("LowLevelVarInSubOper", attribute);
 		semLowVariable.addPropEditableAttribute("06#" + "LowLevelVarInSubOper");
@@ -10550,8 +10553,8 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("LowLevelInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as low var",
 				"Labeling with only a set of variables for input suboper",
-				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
-				0, 7, "", "", -1, "", "");
+				OpersLabeling.class.getCanonicalName(), "OpMLabeling", null,
+				"", 0, 7, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("LowLevelInVarLabel", attribute);
 		semLowVariable.addPropEditableAttribute("07#" + "LowLevelInVarLabel");
 		semLowVariable.addPropVisibleAttribute("07#" + "LowLevelInVarLabel");
@@ -10563,7 +10566,7 @@ public class DefaultOpersMM {
 				false,
 				"Input SubOper as int",
 				"Sub Operation to include the low-level variable previous calculated, in a low level expression, as Integer",
-				OpersConcept.class.getCanonicalName(), "OMSubOper", null, "",
+				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 8, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("IntegerVarInSubOper", attribute);
 		semLowVariable.addPropEditableAttribute("08#" + "IntegerVarInSubOper");
@@ -10572,8 +10575,8 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("IntegerInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as int",
 				"Labeling with only a set of variables for input suboper",
-				OpersLabeling.class.getCanonicalName(), "OMLabeling", null, "",
-				0, 9, "", "", -1, "", "");
+				OpersLabeling.class.getCanonicalName(), "OpMLabeling", null,
+				"", 0, 9, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("IntegerInVarLabel", attribute);
 		semLowVariable.addPropEditableAttribute("09#" + "IntegerInVarLabel");
 		semLowVariable.addPropVisibleAttribute("09#" + "IntegerInVarLabel");

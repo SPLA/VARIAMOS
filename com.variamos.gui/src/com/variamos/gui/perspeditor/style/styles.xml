@@ -226,6 +226,16 @@
 		<add as="fillColor" value="white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>	
+	<add as="infrasyntaxm2microconcept">
+		<add as="shape" value="microconcept"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="top"/>
+		<add as="fillColor" value="white"/>		
+		<add as="strokeColor" value="black"/>
+	</add>	
 	<!-- End REFAS Infra Syntax Meta-Meta-Model styles in use -->
 	
 		<!-- Begin REFAS Infra Syntax Opers Meta-Meta-Model styles in use -->

@@ -80,7 +80,7 @@ public class ElementsOperationAssociationPanel extends
 
 		final JComboBox<String> combo = new JComboBox<String>();
 		operActions = editor.getEditedModel().getVariabilityVertex(
-				"OMOperation");
+				"OpMOperation");
 
 		for (InstElement operAction : operActions) {
 			combo.addItem(operAction.getIdentifier());
@@ -210,10 +210,10 @@ public class ElementsOperationAssociationPanel extends
 
 		for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 			InstElement et = el.getTransSupInstElement();
-			if (et.getIdentifier().equals("OMSubOper")
-					|| et.getIdentifier().equals("OMLabeling")
-					|| et.getIdentifier().equals("OMOperation")
-					|| et.getIdentifier().equals("OMOperGroup"))
+			if (et.getIdentifier().equals("OpMSubOper")
+					|| et.getIdentifier().equals("OpMLabeling")
+					|| et.getIdentifier().equals("OpMOperation")
+					|| et.getIdentifier().equals("OpMOperGroup"))
 				continue;
 			AssociationRow node = null;
 

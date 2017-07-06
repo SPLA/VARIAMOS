@@ -432,7 +432,7 @@ public class ModelExpr2HLCL {
 	public List<String> getOutVariables(String operation, String subAction) {
 		List<String> out = new ArrayList<String>();
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("OMOperation");
+				.getVariabilityVertex("OpMOperation");
 		InstElement operAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {

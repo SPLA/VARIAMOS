@@ -254,7 +254,7 @@ public class ClassWidget extends WidgetR {
 							// System.out.println(concept.getEdOperEle());
 							if (instAttribute.getAttribute()
 									.getMetaConceptInstanceType()
-									.equals("OMLabeling")
+									.equals("OpMLabeling")
 									&& concept.getEdOperEle() instanceof OpersLabeling) {
 								// OpersLabeling.validateSubOper()
 								// instAttribute.
