@@ -22,8 +22,9 @@ import com.variamos.dynsup.model.OpersVariable;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ExpressionVertexType;
-import com.variamos.dynsup.types.OperationActionType;
-import com.variamos.dynsup.types.OperationSubActionDefectsVerifierMethodType;
+import com.variamos.dynsup.types.OpersDefectType;
+import com.variamos.dynsup.types.OpersOpType;
+import com.variamos.dynsup.types.OpersSubOpType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.dynsup.types.VariableType;
 import com.variamos.hlcl.LabelingOrder;
@@ -380,7 +381,7 @@ public class DefaultOpersMM {
 	@SuppressWarnings("unchecked")
 	private static void createOpersMetaModelOpers(ModelInstance refas,
 			boolean empty, boolean newOpers) {
-		metaMetaModel = (refas.getSyntaxModel().getVertex("OpMModel"));
+		metaMetaModel = (refas.getSyntaxModel().getVertex("SeMModel"));
 		metaOperationMenu = (refas.getSyntaxModel().getVertex("OpMOperGroup"));
 		metaOperationAction = (refas.getSyntaxModel().getVertex("OpMOperation"));
 		metaOperationSubAction = (refas.getSyntaxModel()
@@ -508,7 +509,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("BasicSimulOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Validation.toString());
+					OpersOpType.Validation.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Start Simulation (Dynamic)");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -600,7 +601,8 @@ public class DefaultOpersMM {
 					simulPreUpdateSubOperationAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -691,7 +693,9 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Iterative update");
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Iterate_Solutions
+									.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -952,7 +956,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("SceSimulOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Validation.toString());
+					OpersOpType.Validation.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Start Simulation (Dynamic)");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -1121,7 +1125,9 @@ public class DefaultOpersMM {
 									+ "\n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Iterative update");
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Iterate_Solutions
+									.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -1356,7 +1362,7 @@ public class DefaultOpersMM {
 					metaOperationAction, sasverSDCoreOper);
 			refas.getVariabilityVertex().put("SDCoreOper", instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify SoftDeps on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -1388,15 +1394,16 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier update");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.UpdModel_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalseOptionalElements.toString());
 
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outSd");
@@ -1460,7 +1467,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("SDAlwaysActOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify SoftDeps Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -1497,15 +1504,16 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalseOptionalElements.toString());
 
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("Identify SoftDeps on the Model");
@@ -1571,7 +1579,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("SDneverActOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify SoftDeps Never Allowed");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -1612,15 +1620,16 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getDeadElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getDeadElements.toString());
 
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("Identify SoftDeps on the Model");
@@ -1685,7 +1694,7 @@ public class DefaultOpersMM {
 					metaOperationAction, sasverClCoreOperationAction);
 			refas.getVariabilityVertex().put("ClCoreOper", instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Claims on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -1715,15 +1724,16 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier update");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.UpdModel_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalseOptionalElements.toString());
 
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"outCl");
@@ -1789,7 +1799,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("ClAlwaysActOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Claims Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -1826,17 +1836,18 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalseOptionalElements.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("Identify Claims on the Model");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -1901,7 +1912,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("ClNeverActOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Claims Never Allowed");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -1938,17 +1949,18 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getDeadElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getDeadElements.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("Identify Claims on the Model");
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -2017,7 +2029,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("OperCoreOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Operat. on the Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -2048,15 +2060,17 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier update");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+
+							StringUtils
+									.formatEnumValue(OpersSubOpType.UpdModel_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalseOptionalElements.toString());
 
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"Sel");
@@ -2124,7 +2138,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("AllOpersActivated",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Operat. Always Active");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -2165,15 +2179,17 @@ public class DefaultOpersMM {
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getDeadElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getDeadElements.toString());
 
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("Identify Operat. on the Model");
@@ -2241,7 +2257,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("NoLoopsStructRelOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Loops in Struct. Rels");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -2286,7 +2302,10 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Multi verification");
+
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Multi_Verification
+									.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -2387,13 +2406,15 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent or the operation has "
 									+ "errors. \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was partially updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
 			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
+					.getInstAttribute("type")
 					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getRedundancies
-									.toString());
+
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getRedundancies.toString());
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -2476,7 +2497,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("SGConflictsOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify SG Contribs with Conflict");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -2514,7 +2535,10 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Multi verification");
+
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Multi_Verification
+									.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -2613,7 +2637,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("ConflictClOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Conflicts with Claims");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -2651,7 +2675,10 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Multi verification");
+
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Multi_Verification
+									.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -2751,7 +2778,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("ConflictClSdOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Claims & SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -2790,7 +2817,10 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Multi verification");
+
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Multi_Verification
+									.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -2890,7 +2920,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("ConflictSdOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -2928,7 +2958,10 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Multi verification");
+
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Multi_Verification
+									.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -3024,7 +3057,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("UpdateCoreOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Update Core Elements");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3054,15 +3087,16 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier update");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.UpdModel_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalseOptionalElements.toString());
 
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"Core");
@@ -3129,7 +3163,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("VariantOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Variant Features");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3162,8 +3196,12 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier update");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.UpdModel_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("errorHint").setValue(
 					"Variant Features");
 			instOperationSubAction.getInstAttribute("completedMessage")
@@ -3171,11 +3209,8 @@ public class DefaultOpersMM {
 
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalseOptionalElements.toString());
 
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"Var");
@@ -3245,7 +3280,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("IdentifyDeadOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Dead Elements");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3278,15 +3313,16 @@ public class DefaultOpersMM {
 					"Dead element.");
 			instOperationSubAction.getInstAttribute("errorMsg").setValue(
 					" #number# dead elements identified.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getDeadElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getDeadElements.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("Update Core Elements");
 			instOperationSubAction.getInstAttribute("completedMessage")
@@ -3351,7 +3387,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("IdentifyFalseOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify False Optionals");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3384,17 +3420,18 @@ public class DefaultOpersMM {
 					.getInstAttribute("errorMsg")
 					.setValue(
 							"Please review required attributes and relations. #number# false optional concept(s) identified.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalseOptionalElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalseOptionalElements.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("Update Core Elements");
 			instOperationSubAction.getInstAttribute("iteration")
@@ -3459,7 +3496,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("WrongcardOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Verify Wrong Cardinalities");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3497,7 +3534,9 @@ public class DefaultOpersMM {
 					.setValue(
 							"#number# relations with wrong cardinalities.\n Please review the relations with error marks.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Multi verification");
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Multi_Verification
+									.toString()));
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
 					"OSel");
 			instOperationSubAction.getInstAttribute("indivVerExp").setValue(
@@ -3588,7 +3627,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("RedundOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Verify Redundancies");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3625,15 +3664,16 @@ public class DefaultOpersMM {
 					.getInstAttribute("errorMsg")
 					.setValue(
 							"#number# redundancies identified.\n Please keep only one root concept.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getRedundancies
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getRedundancies.toString());
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -3709,7 +3749,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("IdentifyFalsePL",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify False Product Line");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3745,17 +3785,18 @@ public class DefaultOpersMM {
 					.getInstAttribute("errorMsg")
 					.setValue(
 							"Please review the model relations. This is a false product line model.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalsePLs
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalsePLs.toString());
 			instOperationSubAction.getInstAttribute("iteration")
 					.setValue(false);
 			instOperationSubAction.getInstAttribute("outAttribute").setValue(
@@ -3849,7 +3890,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("VoidModelOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Verify Void Model");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3878,7 +3919,8 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("errorText").setValue(
 					"The model evaluated is void");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("The model is not void");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -3942,7 +3984,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("AllProductsOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Export.toString());
+					OpersOpType.Export.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Export All Products");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -3971,7 +4013,8 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("errorText").setValue(
 					"Error found exporting the products");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Export solutions");
+					StringUtils.formatEnumValue(OpersSubOpType.Export_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("Solutions exported successfully");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -4038,7 +4081,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("NumProductsOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Number of Products");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -4067,7 +4110,8 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("errorText").setValue(
 					"Error found counting the products");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
+					StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("#number# products from the FM");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -4131,14 +4175,12 @@ public class DefaultOpersMM {
 			if (newOpers)
 				refas.getVariabilityVertex().put("HomogeneityOper",
 						instOperationAction);
-			instOperationAction
-					.getInstAttribute("operType")
-					.setValue(
-							StringUtils
-									.formatEnumValue(OperationActionType.Computational_Analysis
-											.toString()));
-			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("One less quotient");
+			instOperationAction.getInstAttribute("operType").setValue(
+					StringUtils
+							.formatEnumValue(OpersOpType.Computational_Analysis
+									.toString()));
+			instOperationAction.getInstAttribute("compType").setValue(
+					"One less quotient");
 			instOperationAction.getInstAttribute("name").setValue(
 					"Calculate Homogeneity");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -4171,13 +4213,14 @@ public class DefaultOpersMM {
 							"Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
 			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
+					.getInstAttribute("type")
 					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getFalsePLs
-									.toString());
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getFalsePLs.toString());
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -4267,7 +4310,8 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
+					StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("completedMessage")
@@ -4338,14 +4382,12 @@ public class DefaultOpersMM {
 			if (newOpers)
 				refas.getVariabilityVertex().put("VariabFactorOper",
 						instOperationAction);
-			instOperationAction
-					.getInstAttribute("operType")
-					.setValue(
-							StringUtils
-									.formatEnumValue(OperationActionType.Computational_Analysis
-											.toString()));
-			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("Quotient denominator exp base 2");
+			instOperationAction.getInstAttribute("operType").setValue(
+					StringUtils
+							.formatEnumValue(OpersOpType.Computational_Analysis
+									.toString()));
+			instOperationAction.getInstAttribute("compType").setValue(
+					"Quotient denominator exp base 2");
 			instOperationAction.getInstAttribute("name").setValue(
 					"Calculate the Variability Factor");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -4379,7 +4421,8 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
+					StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -4455,7 +4498,8 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction
@@ -4528,14 +4572,12 @@ public class DefaultOpersMM {
 			if (newOpers)
 				refas.getVariabilityVertex().put("degreeOrthoOper",
 						instOperationAction);
-			instOperationAction
-					.getInstAttribute("operType")
-					.setValue(
-							StringUtils
-									.formatEnumValue(OperationActionType.Computational_Analysis
-											.toString()));
-			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("Simple quotient");
+			instOperationAction.getInstAttribute("operType").setValue(
+					StringUtils
+							.formatEnumValue(OpersOpType.Computational_Analysis
+									.toString()));
+			instOperationAction.getInstAttribute("compType").setValue(
+					"Simple quotient");
 			instOperationAction
 					.getInstAttribute("name")
 					.setValue(
@@ -4571,7 +4613,8 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
+					StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -4647,7 +4690,8 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
+					StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction
@@ -4721,14 +4765,12 @@ public class DefaultOpersMM {
 			if (newOpers)
 				refas.getVariabilityVertex()
 						.put("ECROper", instOperationAction);
-			instOperationAction
-					.getInstAttribute("operType")
-					.setValue(
-							StringUtils
-									.formatEnumValue(OperationActionType.Computational_Analysis
-											.toString()));
-			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("Simple quotient");
+			instOperationAction.getInstAttribute("operType").setValue(
+					StringUtils
+							.formatEnumValue(OpersOpType.Computational_Analysis
+									.toString()));
+			instOperationAction.getInstAttribute("compType").setValue(
+					"Simple quotient");
 			instOperationAction.getInstAttribute("name").setValue(
 					"Calculate Extra Constraint representativeness (ECR)");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -4760,7 +4802,8 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -4833,7 +4876,8 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("completedMessage")
@@ -4904,7 +4948,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex()
 						.put("LCAOper", instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identiy Lowest Common Ancestor");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -4930,7 +4974,8 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("errorText").setValue(
 					"Error identifing the LCA");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -4992,7 +5037,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("RootOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Verify Root Feature");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -5019,7 +5064,8 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("errorText").setValue(
 					"The execution encountered an error");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -5082,7 +5128,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("IdentifyWithoutParentsOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Elements Without Parents");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -5121,15 +5167,16 @@ public class DefaultOpersMM {
 					.setValue(
 							"#number# concepts without a parent or with more than one"
 									+ " parent identified.\n Please add/remove appropiated relations.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getRedundancies
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getRedundancies.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("Update Core Elements");
 			instOperationSubAction.getInstAttribute("completedMessage")
@@ -5209,7 +5256,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("VerifySingleRootOper",
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Verify a Single Root");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -5248,7 +5295,9 @@ public class DefaultOpersMM {
 					.setValue(
 							"No root or #number# roots identified.\n Please keep only one root concept.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Multi verification");
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Multi_Verification
+									.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -5357,7 +5406,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("ValidProductOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Verify Valid Product");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -5386,7 +5435,8 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("errorText").setValue(
 					"The product evaluated is not complete");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("The product is valid");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -5451,7 +5501,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("ValidPartialConfOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Verify Valid Partial Configuration");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -5480,7 +5530,8 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("errorText").setValue(
 					"The partial configuration evaluated is invalid");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("Valid partial configuration");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -5545,7 +5596,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("FilterOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Export.toString());
+					OpersOpType.Export.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Export Filtered Products");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -5574,7 +5625,8 @@ public class DefaultOpersMM {
 			instOperationSubAction.getInstAttribute("errorText").setValue(
 					"Error found exporting the filtered products");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Export solutions");
+					StringUtils.formatEnumValue(OpersSubOpType.Export_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("completedMessage")
 					.setValue("Products exported successfully");
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
@@ -5639,7 +5691,7 @@ public class DefaultOpersMM {
 				refas.getVariabilityVertex().put("CondDeadOper",
 						instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
-					OperationActionType.Verification.toString());
+					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("name").setValue(
 					"Identify Conditional Dead Elements");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -5675,15 +5727,16 @@ public class DefaultOpersMM {
 					"Conditional Dead element.");
 			instOperationSubAction.getInstAttribute("errorMsg").setValue(
 					" #number# conditional dead elements identified.");
-			instOperationSubAction.getInstAttribute("type").setValue(
-					"Defects verifier error");
+			instOperationSubAction
+					.getInstAttribute("type")
+					.setValue(
+							StringUtils
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+											.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
-			instOperationSubAction
-					.getInstAttribute("defectsVerifierMethod")
-					.setValue(
-							OperationSubActionDefectsVerifierMethodType.getDeadElements
-									.toString());
+			instOperationSubAction.getInstAttribute("defectType").setValue(
+					OpersDefectType.getDeadElements.toString());
 			instOperationSubAction.getInstAttribute("defectsCoreOper")
 					.setValue("Update Core Elements");
 			// FIXME new core oper including Conf selected
@@ -5755,14 +5808,12 @@ public class DefaultOpersMM {
 			if (newOpers)
 				refas.getVariabilityVertex().put("CommonOper",
 						instOperationAction);
-			instOperationAction
-					.getInstAttribute("operType")
-					.setValue(
-							StringUtils
-									.formatEnumValue(OperationActionType.Computational_Analysis
-											.toString()));
-			instOperationAction.getInstAttribute("analysisComputationType")
-					.setValue("Simple quotient");
+			instOperationAction.getInstAttribute("operType").setValue(
+					StringUtils
+							.formatEnumValue(OpersOpType.Computational_Analysis
+									.toString()));
+			instOperationAction.getInstAttribute("compType").setValue(
+					"Simple quotient");
 			instOperationAction.getInstAttribute("name").setValue(
 					"Calculate Commonality");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
@@ -5796,7 +5847,8 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
+					StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -5871,7 +5923,8 @@ public class DefaultOpersMM {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Number solutions");
+					StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("completedMessage")
@@ -5993,7 +6046,8 @@ public class DefaultOpersMM {
 									+ "\n inconsistent. Please review the selection and "
 									+ "try again. \nAttributes values were not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")
@@ -6086,7 +6140,8 @@ public class DefaultOpersMM {
 									+ "\n inconsistent. Please review the selection and "
 									+ "try again. \nAttributes values were not updated.");
 			instOperationSubAction.getInstAttribute("type").setValue(
-					"Single update");
+					StringUtils.formatEnumValue(OpersSubOpType.First_Solution
+							.toString()));
 			instOperationSubAction.getInstAttribute("showDashboard").setValue(
 					false);
 			instOperationSubAction.getInstAttribute("iteration")

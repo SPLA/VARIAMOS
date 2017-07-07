@@ -34,7 +34,7 @@ import com.variamos.dynsup.staticexprsup.AbstractBooleanExpression;
 import com.variamos.dynsup.staticexprsup.AbstractComparisonExpression;
 import com.variamos.dynsup.staticexprsup.AbstractExpression;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
@@ -258,7 +258,7 @@ public class ModelExpr2HLCL {
 
 	// Dynamic call with TranslationExpressionSet
 	public HlclProgram getHlclProgram(InstElement operation,
-			String subOperation, OperationSubActionExecType operExecType,
+			String subOperation, OpersSubOpExecType operExecType,
 			TranslationExpressionSet transExpSet) {
 		if (transExpSet == null)
 			transExpSet = new TranslationExpressionSet(refas, operation, null,
@@ -284,7 +284,7 @@ public class ModelExpr2HLCL {
 	}
 
 	public List<ModelExpr> getInstanceExpressions(InstElement operation,
-			String subOperation, OperationSubActionExecType operExecType) {
+			String subOperation, OpersSubOpExecType operExecType) {
 		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
 				refas, operation, null, null);
 		transExpSet.addExpressions(refas, null, subOperation, operExecType);
@@ -327,7 +327,7 @@ public class ModelExpr2HLCL {
 
 	// Static and Dynamic calls
 	private void fillHlclProgram(String element, String subOperation,
-			OperationSubActionExecType operExecType, HlclProgram hlclProgram,
+			OpersSubOpExecType operExecType, HlclProgram hlclProgram,
 			Map<String, ElementExpressionSet> constraintGroups) {
 		List<AbstractExpression> staticTransformations = new ArrayList<AbstractExpression>();
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
@@ -464,7 +464,7 @@ public class ModelExpr2HLCL {
 			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
 					refas, operation, null, null);
 			HlclProgram exp = getHlclProgram(operation,
-					suboper.getIdentifier(), OperationSubActionExecType.NORMAL,
+					suboper.getIdentifier(), OpersSubOpExecType.NORMAL,
 					transExpSet);
 			if (exp.size() >= 1) {
 

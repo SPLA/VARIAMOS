@@ -20,7 +20,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
@@ -120,8 +120,8 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 				JLabel lbl = (JLabel) super.getListCellRendererComponent(list,
 						value, index, isSelected, cellHasFocus);
 				Object attvalue = ((InstAttribute) value).getValue();
-				if (attvalue instanceof OperationSubActionExecType)
-					lbl.setText(((OperationSubActionExecType) attvalue)
+				if (attvalue instanceof OpersSubOpExecType)
+					lbl.setText(((OpersSubOpExecType) attvalue)
 							.toString());
 				if (attvalue instanceof LabelingOrder)
 					lbl.setText(((LabelingOrder) attvalue).toString());
@@ -211,7 +211,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 				InstAttribute v = buffer[0];
 				List<InstAttribute> attributes = null;
 				if (attributeName.equals("exptype")) {
-					OperationSubActionExecType ex = OperationSubActionExecType
+					OpersSubOpExecType ex = OpersSubOpExecType
 							.valueOf((String) instName.getValue());
 					if (v.getValue() instanceof String
 							|| !((String) ((InstElement) v.getValue())

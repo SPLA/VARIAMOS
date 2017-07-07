@@ -15,12 +15,12 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.OperationActionType;
-import com.variamos.dynsup.types.OperationComputationAnalysisType;
-import com.variamos.dynsup.types.OperationExecType;
-import com.variamos.dynsup.types.OperationSubActionDefectsVerifierMethodType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
-import com.variamos.dynsup.types.OperationSubActionType;
+import com.variamos.dynsup.types.OpersComputationType;
+import com.variamos.dynsup.types.OpersDefectType;
+import com.variamos.dynsup.types.OpersExecType;
+import com.variamos.dynsup.types.OpersOpType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
+import com.variamos.dynsup.types.OpersSubOpType;
 import com.variamos.hlcl.IntervalDomain;
 import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
 
@@ -515,7 +515,7 @@ public class InfraSyntaxOpersMMM {
 				instInfraSyntaxOpersM2OperGroup);
 
 		SyntaxElement infraSyntaxOpersM2MetaModel = new SyntaxElement('C',
-				"OpMModel", true, true, "OpMModel",
+				"SeMModel", true, true, "SeMModel",
 				"infrasyntaxopersm2miniconcept", "Semantic Model", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
@@ -531,9 +531,9 @@ public class InfraSyntaxOpersMMM {
 				"");
 
 		InstConcept instInfraSyntaxOpersM2MetaModel = new InstConcept(
-				"OpMModel", basicOpersSyntaxM3Concept,
+				"SeMModel", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2MetaModel);
-		variabilityInstVertex.put("OpMModel", instInfraSyntaxOpersM2MetaModel);
+		variabilityInstVertex.put("SeMModel", instInfraSyntaxOpersM2MetaModel);
 
 		SyntaxElement infraSyntaxOpersM2OperAction = new SyntaxElement('A',
 				"OpMOperation", true, true, "OpMOperation",
@@ -543,36 +543,37 @@ public class InfraSyntaxOpersMMM {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxOpersM2OperAction.addModelingAttribute("operType",
-				new ElemAttribute("operType", "Enumeration",
-						AttributeType.OPERATION, true, "Operation Type",
+		infraSyntaxOpersM2OperAction
+				.addModelingAttribute("operType", new ElemAttribute("operType",
+						"Enumeration", AttributeType.OPERATION, true,
+						"Operation Type",
 						"Sequential execution (verification, validation)",
-						OperationActionType.class.getCanonicalName(),
-						OperationActionType.Verification, "", 0, 4, "", "", -1,
-						"", ""));
+						OpersOpType.class.getCanonicalName(),
+						OpersOpType.Verification, "", 0, 4, "", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction
 				.addModelingAttribute(
-						"analysisComputationType",
+						"compType",
 						new ElemAttribute(
-								"analysisComputationType",
+								"compType",
 								"Enumeration",
 								AttributeType.OPERATION,
 								false,
 								"Simple quotient",
 								"Type of quotient applied between suboper 1 and suboper2",
-								OperationComputationAnalysisType.class
-										.getCanonicalName(), "", "", 0, 11,
+								OpersComputationType.class.getCanonicalName(),
+								"", "", 0, 11,
 								"operType#==#Computational analysis# ",
 								"operType#==#Computational analysis# ", -1, "",
 								""));
 
-		infraSyntaxOpersM2OperAction.addModelingAttribute("execType",
+		infraSyntaxOpersM2OperAction.addModelingAttribute(
+				"execType",
 				new ElemAttribute("execType", "Enumeration",
 						AttributeType.OPERATION, false, "Execution Type",
 						"Currently ignored by the implementation "
-								+ "(on_demand assumed)",
-						OperationExecType.class.getCanonicalName(),
-						"on demand", "", 0, 5, "false", "", -1, "", ""));
+								+ "(on_demand assumed)", OpersExecType.class
+								.getCanonicalName(), "on demand", "", 0, 5,
+						"false", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
 						false, "Name", "", null, 0, 6, "", "", -1, "", ""));
@@ -668,26 +669,25 @@ public class InfraSyntaxOpersMMM {
 						AttributeType.OPERATION, false, "ShowDashboard", "",
 						false, 0, 12, "", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("type",
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"type",
 				new ElemAttribute("type", "Enumeration",
 						AttributeType.OPERATION, true, "Type",
 						"Type of Suboperation: determines the path of "
-								+ "the execution model",
-						OperationSubActionType.class.getCanonicalName(),
-						"Single update", "", 0, 4, "", "", 10, "\ntype: #"
-								+ "type" + "#all#", ""));
+								+ "the execution model", OpersSubOpType.class
+								.getCanonicalName(), "Single update", "", 0, 4,
+						"", "", 10, "\ntype: #" + "type" + "#all#", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
-						"defectsVerifierMethod",
+						"defectType",
 						new ElemAttribute(
-								"defectsVerifierMethod",
+								"defectType",
 								"Enumeration",
 								AttributeType.OPERATION,
 								false,
 								"DefectsVerif. Method",
 								"Specifies the method from the Defects Verifier to use",
-								OperationSubActionDefectsVerifierMethodType.class
-										.getCanonicalName(),
+								OpersDefectType.class.getCanonicalName(),
 								"",
 								"",
 								0,
@@ -698,8 +698,7 @@ public class InfraSyntaxOpersMMM {
 								,
 								"type#!=#Multi verification# "
 								/* "type#==#Defects verifier error$type#==#Defects verifier update# " */,
-								11, "\nMethod: #" + "defectsVerifierMethod"
-										+ "#all#",
+								11, "\nMethod: #" + "defectType" + "#all#",
 								"type#==#Defects verifier error$type#==#Defects verifier update"));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
@@ -947,18 +946,22 @@ public class InfraSyntaxOpersMMM {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxOpersM2ExpType.addModelingAttribute(
-				"suboperexptype",
-				new ElemAttribute("suboperexptype", "Enumeration",
-						AttributeType.OPERATION, false, "Expression Type", "",
-						OperationSubActionExecType.class.getCanonicalName(),
-						new InstAttribute("enumName", new ElemAttribute(
-								"EnumNameValue", "Enumeration",
-								AttributeType.SYNTAX, false, "Value Name", "",
-								OperationSubActionExecType.class
-										.getCanonicalName(), "", "RELAXABLE",
-								1, -1, "", "", -1, "", ""), ""), "", 0, 6, "",
-						"", 7, "", ""));
+		infraSyntaxOpersM2ExpType
+				.addModelingAttribute(
+						"suboperexptype",
+						new ElemAttribute("suboperexptype", "Enumeration",
+								AttributeType.OPERATION, false,
+								"Expression Type", "", OpersSubOpExecType.class
+										.getCanonicalName(), new InstAttribute(
+										"enumName", new ElemAttribute(
+												"EnumNameValue", "Enumeration",
+												AttributeType.SYNTAX, false,
+												"Value Name", "",
+												OpersSubOpExecType.class
+														.getCanonicalName(),
+												"", "RELAXABLE", 1, -1, "", "",
+												-1, "", ""), ""), "", 0, 6, "",
+								"", 7, "", ""));
 
 		InstConcept instInfraSyntaxOpersM2ExpType = new InstConcept(
 				"OpMExpType", basicOpersSyntaxM3Concept,

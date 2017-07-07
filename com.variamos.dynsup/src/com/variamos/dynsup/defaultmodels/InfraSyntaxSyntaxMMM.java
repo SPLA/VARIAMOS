@@ -11,7 +11,6 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.ConceptType;
 
 public class InfraSyntaxSyntaxMMM {
 	public static void createSyntaxSyntaxMetaMetaModel(
@@ -47,10 +46,10 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "Description", "", "", 0,
 						5, "", "", -1, "", ""));
 
-		infraSyntaxM2Node.addModelingAttribute("MetaType", new ElemAttribute(
-				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
-				"MetaConcept Type", "", ConceptType.class.getCanonicalName(),
-				"SyntaxConcept", "", 0, 0, "false", "", -1, "", ""));
+		// infraSyntaxM2Node.addModelingAttribute("MetaType", new ElemAttribute(
+		// "MetaType", "Enumeration", AttributeType.SYNTAX, false,
+		// "MetaConcept Type", "", ConceptType.class.getCanonicalName(),
+		// "SyntaxConcept", "", 0, 0, "false", "", -1, "", ""));
 
 		infraSyntaxM2Node.addModelingAttribute("Visible", new ElemAttribute(
 				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
@@ -71,9 +70,10 @@ public class InfraSyntaxSyntaxMMM {
 				"Image", "String", AttributeType.SYNTAX, false, "Image File",
 				"", "/com/variamos/gui/perspeditor/images/claim.png", 0, 8, "",
 				"", -1, "", ""));
-		infraSyntaxM2Node.addModelingAttribute("TopConcept", new ElemAttribute(
-				"TopConcept", "Boolean", AttributeType.SYNTAX, false,
-				"Is Top Concept", "", true, 0, 9, "", "", -1, "", ""));
+		// infraSyntaxM2Node.addModelingAttribute("TopConcept", new
+		// ElemAttribute(
+		// "TopConcept", "Boolean", AttributeType.SYNTAX, false,
+		// "Is Top Concept", "", true, 0, 9, "", "", -1, "", ""));
 		infraSyntaxM2Node.addModelingAttribute("BackgroundColor",
 				new ElemAttribute("BackgroundColor", "String",
 						AttributeType.SYNTAX, false, "Background Color", "",
@@ -86,9 +86,10 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2Node.addModelingAttribute("Resizable", new ElemAttribute(
 				"Resizable", "Boolean", AttributeType.SYNTAX, false,
 				"Is Resizable", "", true, 0, 12, "", "", -1, "", ""));
+
 		infraSyntaxM2Node.addModelingAttribute("value", new ElemAttribute(
-				"value", "Set", AttributeType.SYNTAX, false, "values", "", "",
-				0, -1, "", "", -1, "", ""));
+				"value", "Set", AttributeType.SYNTAX, false,
+				"dynamic meta-attributes", "", "", 0, -1, "", "", -1, "", ""));
 
 		infraSyntaxM2Node.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
@@ -437,10 +438,10 @@ public class InfraSyntaxSyntaxMMM {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 3, null, true);
 
-		infraSyntaxM2View.addModelingAttribute("MetaType", new ElemAttribute(
-				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
-				"MetaConcept Type", "", ConceptType.class.getCanonicalName(),
-				"SyntaxView", "", 0, 0, "false", "", -1, "", ""));
+		// infraSyntaxM2View.addModelingAttribute("MetaType", new ElemAttribute(
+		// "MetaType", "Enumeration", AttributeType.SYNTAX, false,
+		// "MetaConcept Type", "", ConceptType.class.getCanonicalName(),
+		// "SyntaxView", "", 0, 0, "false", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("index", new ElemAttribute(
 				"index", "Integer", AttributeType.SYNTAX, false, "View index",
 				"", 3, 0, 2, "", "", -1, "", ""));
@@ -478,14 +479,12 @@ public class InfraSyntaxSyntaxMMM {
 				new ElemAttribute("PaletteNames", "String",
 						AttributeType.SYNTAX, false, "Palette Name", "", "", 0,
 						3, "", "", 5, "{Palettes:#" + "PaletteNames"
-								+ "<<SyMView>>\n#all#}\n\n", "PaletteNames"
-								+ "#!=#" + ""));
+								+ "#all#\n\n", "PaletteNames" + "#!=#" + ""));
 
 		infraSyntaxM2View.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "#"
-						+ SyntaxElement.VAR_USERIDENTIFIER
-						+ "<<SyMView>>\n#all#\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SyMView>>\n#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		// infraSyntaxM2View.addPanelVisibleAttribute("04#"
 		// + SyntaxElement.VAR_USERIDENTIFIER);
@@ -535,10 +534,10 @@ public class InfraSyntaxSyntaxMMM {
 				"Image", "String", AttributeType.SYNTAX, false, "Image File",
 				"", "/com/variamos/gui/perspeditor/images/claim.png", 0, 8, "",
 				"", -1, "", ""));
-		infraSyntaxM2OTRel.addModelingAttribute("TopConcept",
-				new ElemAttribute("TopConcept", "Boolean",
-						AttributeType.SYNTAX, false, "Is Top Concept", "",
-						true, 0, -1, "", "", -1, "", ""));
+		// infraSyntaxM2OTRel.addModelingAttribute("TopConcept",
+		// new ElemAttribute("TopConcept", "Boolean",
+		// AttributeType.SYNTAX, false, "Is Top Concept", "",
+		// true, 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2OTRel.addModelingAttribute("BackgroundColor",
 				new ElemAttribute("BackgroundColor", "String",
 						AttributeType.SYNTAX, false, "Background Color", "",
@@ -599,11 +598,11 @@ public class InfraSyntaxSyntaxMMM {
 				"infrasyntaxm2microconcept", "Extend relation", 80, 50,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
-		infraSyntaxM2ExtendsRelation.addModelingAttribute("MetaType",
-				new ElemAttribute("MetaType", "Enumeration",
-						AttributeType.SYNTAX, false, "MetaConcept Type", "",
-						ConceptType.class.getCanonicalName(), "SyntaxEnum", "",
-						0, 0, "false", "", -1, "", ""));
+		// infraSyntaxM2ExtendsRelation.addModelingAttribute("MetaType",
+		// new ElemAttribute("MetaType", "Enumeration",
+		// AttributeType.SYNTAX, false, "MetaConcept Type", "",
+		// ConceptType.class.getCanonicalName(), "SyntaxEnum", "",
+		// 0, 0, "false", "", -1, "", ""));
 		// semElementNoSyntax.putSemanticAttribute("Identifier",
 		// new ElemAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
@@ -656,11 +655,11 @@ public class InfraSyntaxSyntaxMMM {
 				40, "/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxM2ViewConceptAsso.addModelingAttribute("MetaType",
-				new ElemAttribute("MetaType", "Enumeration",
-						AttributeType.SYNTAX, false, "MetaConcept Type", "",
-						ConceptType.class.getCanonicalName(), "SyntaxEnum", "",
-						"", 0, -1, "", "", -1, "", ""));
+		// infraSyntaxM2ViewConceptAsso.addModelingAttribute("MetaType",
+		// new ElemAttribute("MetaType", "Enumeration",
+		// AttributeType.SYNTAX, false, "MetaConcept Type", "",
+		// ConceptType.class.getCanonicalName(), "SyntaxEnum", "",
+		// "", 0, -1, "", "", -1, "", ""));
 		// semElementNoSyntax.putSemanticAttribute("Identifier",
 		// new ElemAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
@@ -737,10 +736,11 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "Description", "", "", 0,
 						5, "", "", -1, "", ""));
 
-		infraSyntaxM2PWRel.addModelingAttribute("MetaType", new ElemAttribute(
-				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
-				"MetaPWAsso Type", "", ConceptType.class.getCanonicalName(),
-				"SyntaxConcept", "", 0, 0, "false", "", -1, "", ""));
+		// infraSyntaxM2PWRel.addModelingAttribute("MetaType", new
+		// ElemAttribute(
+		// "MetaType", "Enumeration", AttributeType.SYNTAX, false,
+		// "MetaPWAsso Type", "", ConceptType.class.getCanonicalName(),
+		// "SyntaxConcept", "", 0, 0, "false", "", -1, "", ""));
 
 		infraSyntaxM2PWRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",

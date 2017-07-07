@@ -235,11 +235,14 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				// This calls Pull on each parameter
 				dialog.getParameters();
 				InstAttribute v = buffer[0];
-				List<InstAttribute> attributes = ((List<InstAttribute>) element
-						.getInstAttributes()
-						.get(SyntaxElement.VAR_METAENUMVALUE).getValue());
+				InstAttribute att = element.getInstAttributes().get(
+						SyntaxElement.VAR_METAENUMVALUE);
+				if (att != null) {
+					List<InstAttribute> attributes = (List<InstAttribute>) att
+							.getValue();
+					attributes.remove(v);
 
-				attributes.remove(v);
+				}
 
 				((DefaultListModel<InstAttribute>) getModel()).removeElement(v);
 

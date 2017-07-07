@@ -422,6 +422,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("userId")
+						&& !attributeName.equals("value")
+						&& !attributeName.equals("dummy")
 						&& !attributeName.equals("description")) {
 					ElemAttribute i = getEdSyntaxEle().getModelingAttribute(
 							attributeName, syntaxParents);
@@ -440,17 +442,25 @@ public abstract class InstElement implements Serializable, Cloneable,
 							v += "<" + classN + ">";
 						}
 						if (i.getType().equals("Set")) {
-							String classN = i.getClassCanonicalName()
-									.substring(
-											i.getClassCanonicalName()
-													.lastIndexOf(".") + 1,
-											i.getClassCanonicalName().length());
-							v += "<" + classN + ">";
+							String classN = "";
+							if (i.getClassCanonicalName() != null) {
+								classN = i.getClassCanonicalName().substring(
+										i.getClassCanonicalName().lastIndexOf(
+												".") + 1,
+										i.getClassCanonicalName().length());
+								v += "<" + classN + ">";
+							}
+
 						}
 
 					}
 					// System.out.println(attributeName);
-					out2 += attributeName + v + "\n";
+					if (attributeName.length() > 1)
+						out2 += attributeName.substring(0, 1).toLowerCase()
+								+ attributeName.substring(1) + v + "\n";
+					else
+						out2 += attributeName + v + "\n";
+					// out2 += attributeName + v + "\n";
 				}
 			}
 		}

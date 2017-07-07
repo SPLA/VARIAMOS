@@ -40,7 +40,7 @@ import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -1006,7 +1006,7 @@ public class ElementDesignPanel extends JPanel {
 							editor,
 							instCell,
 							"exptype",
-							OperationSubActionExecType.class.getCanonicalName(),
+							OpersSubOpExecType.class.getCanonicalName(),
 							editor.getEditedModel().getSyntaxModel()
 									.getVertex("OpMExpType"));
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));

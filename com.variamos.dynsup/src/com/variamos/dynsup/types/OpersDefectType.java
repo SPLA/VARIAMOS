@@ -1,6 +1,6 @@
 package com.variamos.dynsup.types;
 
 //FIXME move to an OMMEnum
-public enum OperationSubActionDefectsVerifierMethodType {
+public enum OpersDefectType {
 	getDeadElements, getFalseOptionalElements, getRedundancies, getAllNonAttainableDomains, getFalsePLs
 }

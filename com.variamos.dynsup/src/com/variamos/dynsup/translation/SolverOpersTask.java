@@ -22,10 +22,10 @@ import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
-import com.variamos.dynsup.types.OperationActionType;
-import com.variamos.dynsup.types.OperationComputationAnalysisType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
-import com.variamos.dynsup.types.OperationSubActionType;
+import com.variamos.dynsup.types.OpersComputationType;
+import com.variamos.dynsup.types.OpersOpType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
+import com.variamos.dynsup.types.OpersSubOpType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
@@ -363,12 +363,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				String operType = (String) operationObj
 						.getInstAttributeValue("operType");
 				String computationalType = (String) operationObj
-						.getInstAttributeValue("analysisComputationType");
+						.getInstAttributeValue("compType");
 				boolean computationalAnalysis = false;
-				if (operType
-						.equals(StringUtils
-								.formatEnumValue(OperationActionType.Computational_Analysis
-										.toString()))) {
+				if (operType.equals(StringUtils
+						.formatEnumValue(OpersOpType.Computational_Analysis
+								.toString()))) {
 					computationalAnalysis = true;
 					results = new int[2];
 				}
@@ -398,7 +397,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						if (showDashboard)
 							this.showDashboard = showDashboard;
 						if (type.equals(StringUtils
-								.formatEnumValue(OperationSubActionType.Number_Solutions
+								.formatEnumValue(OpersSubOpType.Number_Solutions
 										.toString()))) {
 							if (computationalAnalysis) {
 								results[subOperIndex++] = countConfigurations(
@@ -408,18 +407,14 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								countConfigurations(operationObj, suboper);
 						} else if (type
 								.equals(StringUtils
-										.formatEnumValue(OperationSubActionType.Export_Solutions
+										.formatEnumValue(OpersSubOpType.Export_Solutions
 												.toString()))) {
 							saveConfiguration(file, operationObj, suboper);
-						} else if (type
-								.equals(StringUtils
-										.formatEnumValue(OperationSubActionType.Single_Update
-												.toString()))
+						} else if (type.equals(StringUtils
+								.formatEnumValue(OpersSubOpType.First_Solution
+										.toString()))
 								|| type.equals(StringUtils
-										.formatEnumValue(OperationSubActionType.Single_Verification
-												.toString()))
-								|| type.equals(StringUtils
-										.formatEnumValue(OperationSubActionType.Iterative_Update
+										.formatEnumValue(OpersSubOpType.Iterate_Solutions
 												.toString()))) {
 							simul = true;
 							if (lastConfiguration == null || firstSimulExec) {
@@ -445,7 +440,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						// Verification operations with CauCos
 						else if (type
 								.equals(StringUtils
-										.formatEnumValue(OperationSubActionType.Multi_Verification
+										.formatEnumValue(OpersSubOpType.Multi_Verification
 												.toString()))) {
 							String errorHint = (String) suboper
 									.getInstAttributeValue("errorHint");
@@ -481,13 +476,13 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						} // Verification operations with DefectsVerifier
 						else if (type
 								.equals(StringUtils
-										.formatEnumValue(OperationSubActionType.Defects_Verifier_Error
+										.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
 												.toString()))
 								|| type.equals(StringUtils
-										.formatEnumValue(OperationSubActionType.Defects_Verifier_Update
+										.formatEnumValue(OpersSubOpType.UpdModel_Defects_Verif
 												.toString()))) {
 							String method = (String) suboper
-									.getInstAttributeValue("defectsVerifierMethod");
+									.getInstAttributeValue("defVerifMethod");
 							String errorHint = (String) suboper
 									.getInstAttributeValue("errorHint");
 							String outAttribute = (String) suboper
@@ -501,7 +496,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							boolean updateOutAttributes = false;
 							List<BooleanExpression> constraitsToVerifyRedundacies = null;
 							if (type.equals(StringUtils
-									.formatEnumValue(OperationSubActionType.Defects_Verifier_Error
+									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
 											.toString()))) {
 								coreOperName = (String) suboper
 										.getInstAttributeValue("defectsCoreOper");
@@ -516,7 +511,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 											.getHlclProgram(
 													operationObj,
 													suboper.getIdentifier(),
-													OperationSubActionExecType.TOVERIFY,
+													OpersSubOpExecType.TOVERIFY,
 													null);
 								}
 							}
@@ -545,7 +540,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							if (computationalAnalysis) {
 								if (!type
 										.equals(StringUtils
-												.formatEnumValue(OperationSubActionType.Number_Solutions
+												.formatEnumValue(OpersSubOpType.Number_Solutions
 														.toString())))
 									results[subOperIndex++] = refas2hlcl
 											.getSingleOutValue(outVariables,
@@ -573,7 +568,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										else {
 											if (computationalType
 													.equals(StringUtils
-															.formatEnumValue(OperationComputationAnalysisType.Simple_Quotient
+															.formatEnumValue(OpersComputationType.Simple_Quotient
 																	.toString())))
 												completedMessage = completedMessage
 														.replace(
@@ -583,7 +578,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 																		+ "");
 											else if (computationalType
 													.equals(StringUtils
-															.formatEnumValue(OperationComputationAnalysisType.One_Less_Quotient
+															.formatEnumValue(OpersComputationType.One_Less_Quotient
 																	.toString())))
 												completedMessage = completedMessage
 														.replace(
@@ -593,7 +588,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 																		+ "");
 											else if (computationalType
 													.equals(StringUtils
-															.formatEnumValue(OperationComputationAnalysisType.Quotient_denominator_exp_base_2
+															.formatEnumValue(OpersComputationType.Quotient_denominator_exp_base_2
 																	.toString())))
 												completedMessage = completedMessage
 														.replace(
@@ -665,7 +660,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 											else {
 												if (computationalType
 														.equals(StringUtils
-																.formatEnumValue(OperationComputationAnalysisType.Simple_Quotient
+																.formatEnumValue(OpersComputationType.Simple_Quotient
 																		.toString())))
 													completedMessage = completedMessage
 															.replace(
@@ -675,7 +670,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 																			+ "");
 												else if (computationalType
 														.equals(StringUtils
-																.formatEnumValue(OperationComputationAnalysisType.One_Less_Quotient
+																.formatEnumValue(OpersComputationType.One_Less_Quotient
 																		.toString())))
 													completedMessage = completedMessage
 															.replace(
@@ -685,7 +680,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 																			+ "");
 												else if (computationalType
 														.equals(StringUtils
-																.formatEnumValue(OperationComputationAnalysisType.Quotient_denominator_exp_base_2
+																.formatEnumValue(OpersComputationType.Quotient_denominator_exp_base_2
 																		.toString())))
 													completedMessage = completedMessage
 															.replace(
@@ -761,6 +756,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 		if (coreOperation == null && !method.equals("getRedundancies")
 				&& !method.equals("getFalsePLs"))
+			// Update core
 			result = defectExecution(operation, subOper, method, outAttributes,
 					numberOperations, outAttribute, updateOutAttributes);
 
@@ -795,15 +791,15 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					refasModel, operation, null, null);
 			List<BooleanExpression> verifyList = refas2hlcl.getHlclProgram(
 					operation, subOper.getIdentifier(),
-					OperationSubActionExecType.VERIFICATION, transExpSet);
+					OpersSubOpExecType.VERIFICATION, transExpSet);
 			HlclProgram relaxedList = refas2hlcl.getHlclProgram(operation,
-					subOper.getIdentifier(),
-					OperationSubActionExecType.RELAXABLE, transExpSet);
+					subOper.getIdentifier(), OpersSubOpExecType.RELAXABLE,
+					transExpSet);
 			List<ModelExpr> relaxedMEList = refas2hlcl.getInstanceExpressions(
 					operation, subOper.getIdentifier(),
-					OperationSubActionExecType.RELAXABLE);
+					OpersSubOpExecType.RELAXABLE);
 			HlclProgram fixedList = refas2hlcl.getHlclProgram(operation,
-					subOper.getIdentifier(), OperationSubActionExecType.NORMAL,
+					subOper.getIdentifier(), OpersSubOpExecType.NORMAL,
 					transExpSet);
 			Set<String> outIdentifiersSet = new TreeSet<String>();
 			ArrayList<String> outIdentifiersList = new ArrayList<String>();
@@ -993,7 +989,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram(operation,
 									subOper.getIdentifier(),
-									OperationSubActionExecType.NORMAL, null),
+									OpersSubOpExecType.NORMAL, null),
 							SolverEditorType.SWI_PROLOG, parentComponent,
 							"dynamic verification:" + operation);
 
@@ -1132,7 +1128,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram(operation,
 									subOper.getIdentifier(),
-									OperationSubActionExecType.NORMAL, null),
+									OpersSubOpExecType.NORMAL, null),
 							SolverEditorType.SWI_PROLOG, parentComponent,
 							"dynamic verification:" + operation);
 

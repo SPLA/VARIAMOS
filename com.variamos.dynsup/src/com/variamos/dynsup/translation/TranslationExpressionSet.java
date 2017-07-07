@@ -20,7 +20,7 @@ import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.types.ExpressionVertexType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
@@ -94,7 +94,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 	public void addExpressions(ModelInstance refas, InstElement instElement,
-			String subAction, OperationSubActionExecType expressionType) {
+			String subAction, OpersSubOpExecType expressionType) {
 
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
 		List<ModelExpr> outLow = new ArrayList<ModelExpr>();
@@ -102,7 +102,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		List<LiteralBooleanExpression> outLiteral = new ArrayList<LiteralBooleanExpression>();
 
 		// List<InstElement> semModel =
-		// refas.getVariabilityVertex("OpMModel");
+		// refas.getVariabilityVertex("SeMModel");
 		// for (InstElement oper : semModel) {
 		// InstElement oper2 = refas.getElement("REFAS1");
 		// IntSemanticElement semModelElement =
@@ -446,7 +446,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 	public List<Labeling> getLabelings(ModelInstance refas, String subAction,
-			OperationSubActionExecType expressionType) {
+			OpersSubOpExecType expressionType) {
 
 		List<InstElement> operActions = refas.getOperationalModel()
 				.getVariabilityVertex("OpMOperation");

@@ -131,6 +131,8 @@ public class MainFrame extends JFrame {
 			case 2:// syntax 3
 				System.out.print("Loading Syntax Meta-Model Perspective...");
 				abstractModel = syntaxSuperstructure;
+				// TO View SyntaxMM in Syntax Perspective
+				// abstractModel = syntaxInfrastructure;
 
 				// TO View OperMM in Syntax Perspective
 				// abstractModel = new ModelInstance(
