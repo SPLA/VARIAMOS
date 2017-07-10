@@ -482,7 +482,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										.formatEnumValue(OpersSubOpType.UpdModel_Defects_Verif
 												.toString()))) {
 							String method = (String) suboper
-									.getInstAttributeValue("defVerifMethod");
+									.getInstAttributeValue("defectType");
 							String errorHint = (String) suboper
 									.getInstAttributeValue("errorHint");
 							String outAttribute = (String) suboper
