@@ -258,12 +258,14 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						backtophint = "Not selected";
 					}
 					// if (!backtophint.equals("")) {
+					// if (sim_normal != sim_backcolor) {
 					mxCellOverlay over2 = new mxCellOverlay(new ImageIcon(
 							mxGraphComponent.class.getResource(sim_backcolor)),
 							backtophint);
 					over2.setVerticalAlign(mxConstants.ALIGN_TOP);
 					over2.setAlign(mxConstants.ALIGN_CENTER);
 					addCellOverlay(childCell, over2);
+					// }
 					// }
 					if ((boolean) instConcept.getInstAttribute("Required")
 							.getValue()) {

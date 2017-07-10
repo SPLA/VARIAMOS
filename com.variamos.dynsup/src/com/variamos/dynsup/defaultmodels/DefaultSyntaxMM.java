@@ -37,17 +37,17 @@ public class DefaultSyntaxMM {
 		// Model concept
 
 		InstConcept semREFAS = ((InstConcept) refas.getOperationalModel()
-				.getVertex("REFAS"));
+				.getVertex("GeneralModel"));
 
-		SyntaxElement syntaxRefas = new SyntaxElement('C', "REFAS", false,
-				true, "REFAS", "plnode", "Applies REFAS", 100, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", true,
+		SyntaxElement syntaxRefas = new SyntaxElement('C', "GeneralModel",
+				false, true, "GeneralModel", "plnode", "Applies REFAS and FM",
+				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semREFAS, true);
 
-		InstConcept instRefas = new InstConcept("REFAS",
+		InstConcept instRefas = new InstConcept("GeneralModel",
 				supportMetaElementConcept, syntaxRefas);
 
-		refas.getVariabilityVertex().put("REFAS", instRefas);
+		refas.getVariabilityVertex().put("GeneralModel", instRefas);
 
 		// *************************---------------****************************
 		// *************************---------------****************************

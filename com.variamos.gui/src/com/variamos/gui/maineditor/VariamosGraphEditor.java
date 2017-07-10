@@ -1789,7 +1789,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void callOperations(List<String> operations, String filename) {
 		// FIXME support multiple models selected from the menu not only REFAS
-		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
+		InstElement refas = refasModel.getSyntaxModel().getVertex(
+				"GeneralModel");
 		// use the first node as the REFAS node - fixme
 		if (refas == null)
 			refas = refasModel.getSyntaxModel().getVertex("SMNode1");
@@ -2268,7 +2269,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								operExpType = (OpersSubOperationExpType) ((InstConcept) att
 										.getValue()).getEdOperEle();
 								subOperExpTypeName = attObj;
-								// System.out.println(attObj);
+								System.out.println(attObj);
 								expressions += operExpType
 										.getSemanticExpressions().size();
 								for (OpersExpr opExp : operExpType
@@ -2285,12 +2286,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 					}
 
-					// System.out.println(el.getIdentifier() + " " +
-					// expressions);
+					System.out.println(el.getIdentifier() + " " + expressions);
 				}
 			}
-			// for (String opExp : expressionsS)
-			// System.out.println(opExp);
+			for (String opExp : expressionsS)
+				System.out.println(opExp);
 		}
 
 	}
