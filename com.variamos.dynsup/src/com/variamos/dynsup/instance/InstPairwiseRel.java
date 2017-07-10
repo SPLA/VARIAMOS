@@ -55,7 +55,7 @@ public class InstPairwiseRel extends InstElement {
 	 * Name of the MetaPairwiseRelation object for both semantic and instance
 	 * objects
 	 */
-	VAR_METAPAIRWISE_NAME = "Meta Relation",
+	VAR_METAPAIRWISE_NAME = "Relation Group",
 	/**
 	 * Canonical class name of MetaPairwiseRelation
 	 */

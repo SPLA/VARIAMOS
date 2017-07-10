@@ -110,16 +110,16 @@ public class DefaultSyntaxMM {
 
 		// TODO include different visibility for extended attribute
 		syntaxFeature.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		// syntaxFeature.addPanelVisibleAttribute("04#"
 		// + SyntaxElement.VAR_USERIDENTIFIER);
 		// syntaxFeature.addPanelSpacersAttribute("#"
 		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
-		syntaxFeature.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, 3, "", "", -1, "", "");
+		syntaxFeature.addModelingAttribute("name", "String", false,
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 
 		// syntaxFeature.addPanelVisibleAttribute("03#" + "name");
 
@@ -172,16 +172,16 @@ public class DefaultSyntaxMM {
 
 		// TODO include different visibility for extended attribute
 		syntaxFeature.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		// syntaxFeature.addPanelVisibleAttribute("04#"
 		// + SyntaxElement.VAR_USERIDENTIFIER);
 		// syntaxFeature.addPanelSpacersAttribute("#"
 		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
-		syntaxFeature.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, 3, "", "", -1, "", "");
+		syntaxFeature.addModelingAttribute("name", "String", false,
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 
 		// syntaxFeature.addPanelVisibleAttribute("03#" + "name");
 
@@ -237,11 +237,11 @@ public class DefaultSyntaxMM {
 		// TODO include different visibility for extended attribute
 		syntaxVariabilityArtifact.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 2, "", "", 4, "#"
+				"Display Name", "", "", 0, 2, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, 3, "", "", -1, "", "");
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 
 		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
@@ -264,7 +264,7 @@ public class DefaultSyntaxMM {
 
 		syntaxRootFeature.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 2, "", "", 4, "#"
+				"Display Name", "", "", 0, 2, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		InstConcept instVertexRF = new InstConcept("RootFeature",
@@ -279,7 +279,7 @@ public class DefaultSyntaxMM {
 
 		syntaxGeneralFeature.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 2, "", "", 4, "#"
+				"Display Name", "", "", 0, 2, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		InstConcept instVertexGF = new InstConcept("GeneralFeature",
@@ -292,8 +292,8 @@ public class DefaultSyntaxMM {
 				Color.BLUE.toString(), 3, semLFeature, true);
 
 		syntaxVertexLF.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		InstConcept instVertexLF = new InstConcept("LeafFeature",
 				supportMetaElementConcept, syntaxVertexLF);
@@ -359,8 +359,8 @@ public class DefaultSyntaxMM {
 				Color.BLUE.toString(), 3, semGoal, true);
 
 		syntaxGoal.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		InstConcept instVertexG = new InstConcept("Goal",
 				supportMetaElementConcept, syntaxGoal);
@@ -967,11 +967,11 @@ public class DefaultSyntaxMM {
 
 		sOperationalization.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 2, "", "", 4, "#"
+				"Display Name", "", "", 0, 2, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		sOperationalization.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, 3, "", "", -1, "", "");
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 
 		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
@@ -980,7 +980,7 @@ public class DefaultSyntaxMM {
 		// syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
 
 		sOperationalization.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, 3, "", "", -1, "", "");
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 
 		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
@@ -1047,8 +1047,8 @@ public class DefaultSyntaxMM {
 		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO
 		syntaxAssumption.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		InstConcept instVertexAssum = new InstConcept("Assu",
 				supportMetaElementConcept, syntaxAssumption);
@@ -1416,11 +1416,11 @@ public class DefaultSyntaxMM {
 		// TODO
 
 		syntaxSoftGoal.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
-		syntaxSoftGoal.addModelingAttribute("name", "String", false, "Name",
-				"", "", 0, 3, "", "", -1, "", "");
+		syntaxSoftGoal.addModelingAttribute("name", "String", false,
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 		// syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
 
 		// syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
@@ -1797,11 +1797,11 @@ public class DefaultSyntaxMM {
 		// TODO
 		syntaxContextGroup.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 2, "", "", 4, "#"
+				"Display Name", "", "", 0, 2, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		syntaxContextGroup.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, 3, "", "", -1, "", "");
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 
 		InstConcept instVertexCG = new InstConcept("CG",
 				supportMetaElementConcept, syntaxContextGroup);
@@ -1850,11 +1850,11 @@ public class DefaultSyntaxMM {
 		// TODO
 		syntaxAbsVariable.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 2, "", "", 4, "#"
+				"Display Name", "", "", 0, 2, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
 
-		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
-				"", "", 0, 3, "", "", -1, "", "");
+		syntaxAbsVariable.addModelingAttribute("name", "String", false,
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 		syntaxAbsVariable.addModelingAttribute("type", "String", false,
 				"TypeS", "", "", 0, -1, "", "", -1, "", "");
 		syntaxAbsVariable.addModelingAttribute("domain", "String", false,
@@ -2012,8 +2012,8 @@ public class DefaultSyntaxMM {
 		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
 		SyntaxElement syntaxMetaChildView = new SyntaxElement('V',
 				"FullContext", "Context with Enumerations", "Context Palette",
@@ -2342,11 +2342,11 @@ public class DefaultSyntaxMM {
 		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 		// TODO
 		syntaxClaim.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
+				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
 
-		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, 3, "", "", -1, "", "");
+		syntaxClaim.addModelingAttribute("name", "String", false,
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 
 		syntaxClaim.addModelingAttribute("condExpText", new ElemAttribute(
 				"condExpText", "String", AttributeType.SYNTAX, false,
@@ -2475,11 +2475,11 @@ public class DefaultSyntaxMM {
 		// TODO
 		syntaxSoftDependency.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 2, "", "", 4, "#"
+				"Display Name", "", "", 0, 2, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
 
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, 3, "", "", -1, "", "");
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 
 		syntaxSoftDependency.addModelingAttribute("condExpText",
 				new ElemAttribute("condExpText", "String",
@@ -2919,11 +2919,11 @@ public class DefaultSyntaxMM {
 		// + SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 		// TODO
 		syntaxAsset.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
-				"String", false, "User Identifier", "", "", 0, 2, "", "", 4,
-				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
-		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "",
-				"", 0, 3, "", "", -1, "", "");
+		syntaxAsset.addModelingAttribute("name", "String", false,
+				"Description", "", "", 0, 3, "", "", -1, "", "");
 		// syntaxAsset.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 

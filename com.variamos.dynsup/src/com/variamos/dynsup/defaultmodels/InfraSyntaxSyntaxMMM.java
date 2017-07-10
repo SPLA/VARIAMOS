@@ -53,7 +53,8 @@ public class InfraSyntaxSyntaxMMM {
 
 		infraSyntaxM2Node.addModelingAttribute("Visible", new ElemAttribute(
 				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
-				"", true, 0, 2, "", "", -1, "", ""));
+				"Shows/Hides the view in the modeling perspective", true, 0, 2,
+				"", "", -1, "", ""));
 		infraSyntaxM2Node.addModelingAttribute("Name", new ElemAttribute(
 				"Name", "String", AttributeType.SYNTAX, false,
 				"Meta Concept Name", "", "", 0, 3, "", "", -1, "", ""));
@@ -444,16 +445,19 @@ public class InfraSyntaxSyntaxMMM {
 		// "SyntaxView", "", 0, 0, "false", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("index", new ElemAttribute(
 				"index", "Integer", AttributeType.SYNTAX, false, "View index",
-				"", 3, 0, 2, "", "", -1, "", ""));
+				"Position of the view in the modeling perspective (relative"
+						+ " to other views)", 3, 0, 2, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Identifier", new ElemAttribute(
 				"Identifier", "String", AttributeType.SYNTAX, false,
 				"View Identifier", "", "", 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Visible", new ElemAttribute(
 				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
-				"", true, 0, 3, "", "", -1, "", ""));
+				"Shows/Hides the view in the modeling perspective", true, 0, 3,
+				"", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Name", new ElemAttribute(
-				"Name", "String", AttributeType.SYNTAX, false, "View name", "",
-				"", 0, 5, "", "", -1, "", ""));
+				"Name", "String", AttributeType.SYNTAX, false, "View name",
+				"Name to display in the palette of the view (Modeling"
+						+ " perspectiv)", "", 0, 5, "", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("Style", new ElemAttribute(
 				"Style", "String", AttributeType.SYNTAX, false,
 				"Drawing Style", "", "refasclaim", 0, -1, "", "", -1, "", ""));
@@ -517,23 +521,30 @@ public class InfraSyntaxSyntaxMMM {
 		// "", "", -1, "", ""));
 		infraSyntaxM2OTRel.addModelingAttribute("Visible", new ElemAttribute(
 				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
-				"", true, 0, 2, "", "", -1, "", ""));
+				"Shows/Hides the element in the modeling perspective", true, 0,
+				2, "", "", -1, "", ""));
 		infraSyntaxM2OTRel.addModelingAttribute("Name", new ElemAttribute(
 				"Name", "String", AttributeType.SYNTAX, false, "MConcept Name",
 				"", "", 0, 3, "", "", -1, "", ""));
 		infraSyntaxM2OTRel.addModelingAttribute("Style", new ElemAttribute(
 				"Style", "String", AttributeType.SYNTAX, false,
-				"Drawing Style", "", "refasclaim", 0, 4, "", "", -1, "", ""));
+				"Drawing Style",
+				"Style to render the element on the modeling perspective",
+				"refasclaim", 0, 4, "", "", -1, "", ""));
 		infraSyntaxM2OTRel.addModelingAttribute("Width", new ElemAttribute(
 				"Width", "Integer", AttributeType.SYNTAX, false,
-				"Initial Width", "", 130, 0, 6, "", "", -1, "", ""));
+				"Default width of the element", "", 130, 0, 6, "", "", -1, "",
+				""));
 		infraSyntaxM2OTRel.addModelingAttribute("Height", new ElemAttribute(
 				"Height", "Integer", AttributeType.SYNTAX, false,
-				"Initial Height", "", 90, 0, 7, "", "", -1, "", ""));
+				"Default height of the element", "", 90, 0, 7, "", "", -1, "",
+				""));
 		infraSyntaxM2OTRel.addModelingAttribute("Image", new ElemAttribute(
 				"Image", "String", AttributeType.SYNTAX, false, "Image File",
-				"", "/com/variamos/gui/perspeditor/images/claim.png", 0, 8, "",
-				"", -1, "", ""));
+				"Icon image for the element on the palette of the"
+						+ " modeling perspective ",
+				"/com/variamos/gui/perspeditor/images/claim.png", 0, 8, "", "",
+				-1, "", ""));
 		// infraSyntaxM2OTRel.addModelingAttribute("TopConcept",
 		// new ElemAttribute("TopConcept", "Boolean",
 		// AttributeType.SYNTAX, false, "Is Top Concept", "",
@@ -608,14 +619,16 @@ public class InfraSyntaxSyntaxMMM {
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2ExtendsRelation.addModelingAttribute("Visible",
 				new ElemAttribute("Visible", "Boolean", AttributeType.SYNTAX,
-						false, "Visible", "", true, 0, 2, "", "", -1, "", ""));
+						false, "Visible",
+						"Shows/Hides the view in the modeling perspective",
+						true, 0, 2, "", "", -1, "", ""));
 		infraSyntaxM2ExtendsRelation.addModelingAttribute("Name",
 				new ElemAttribute("Name", "String", AttributeType.SYNTAX,
-						false, "Concept Name", "", "", 0, 3, "", "", 1,
+						false, "Concept Name", "", "", 0, -1, "", "", 1,
 						"<<SyMExtends>>\n#Name#all#\n\n", ""));
 		infraSyntaxM2ExtendsRelation.addModelingAttribute("value",
 				new ElemAttribute("value", "Set", AttributeType.SYNTAX, false,
-						"values", "", "", 0, 6, "", "", -1, "", ""));
+						"values", "", "", 0, -1, "", "", -1, "", ""));
 		// semElementNoSyntax.putSemanticAttribute("dummy", new ElemAttribute(
 		// "dummy", "String", AttributeType.SYNTAX, false, "dummy", "", 0,
 		// -1, "", "", -1, "", ""));
@@ -665,7 +678,9 @@ public class InfraSyntaxSyntaxMMM {
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("Visible",
 				new ElemAttribute("Visible", "Boolean", AttributeType.SYNTAX,
-						false, "Visible", "", true, 0, 2, "", "", -1, "", ""));
+						false, "Visible",
+						"Shows/Hides the view in the modeling perspective",
+						true, 0, 2, "", "", -1, "", ""));
 		infraSyntaxM2ViewConceptAsso
 				.addModelingAttribute("Name", new ElemAttribute("Name",
 						"String", AttributeType.SYNTAX, false, "Concept Name",
@@ -759,7 +774,8 @@ public class InfraSyntaxSyntaxMMM {
 						-1, "", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("Visible", new ElemAttribute(
 				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
-				"", true, 0, 2, "", "", -1, "", ""));
+				"Shows/Hides the view in the modeling perspective", true, 0, 2,
+				"", "", -1, "", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("Name", new ElemAttribute(
 				"Name", "String", AttributeType.SYNTAX, false,
 				"Meta Association Name", "", "", 0, 3, "", "", -1, "", ""));
@@ -787,7 +803,7 @@ public class InfraSyntaxSyntaxMMM {
 						11, "", "", -1, "", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("value", new ElemAttribute(
 				"value", "Set", AttributeType.SYNTAX, false, "values", "", "",
-				0, 14, "", "", -1, "", ""));
+				0, -1, "", "", -1, "", ""));
 
 		infraSyntaxM2PWRel.addModelingAttribute("Type", new ElemAttribute(
 				"Type", "String", AttributeType.SYNTAX, false, "Relation Type",

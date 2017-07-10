@@ -288,10 +288,10 @@ public class PerspEditorMenuBar extends JMenuBar {
 										+ menuElement.getInstAttribute("name")
 												.getValue()));
 						// menu.setMnemonic();
-						for (InstElement oper : menuElement
+						for (InstElement operRel : menuElement
 								.getTargetRelations()) {
 							if (i == 0) {
-								InstElement e = oper.getTargetRelations()
+								InstElement e = operRel.getTargetRelations()
 										.get(0);
 								if (!(boolean) e.getInstAttribute("visible")
 										.getValue())
@@ -325,7 +325,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 								// new OperationAction(), null));
 							} else {
 								JCheckBoxMenuItem item = new JCheckBoxMenuItem(
-										oper.getTargetRelations().get(0)
+										operRel.getTargetRelations().get(0)
 												.getIdentifier());
 								item.setState(true);
 								item.addActionListener(new ActionListener() {

@@ -424,8 +424,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 												.get(suboper.getIdentifier())); // type
 
 							} else {
-								if ((boolean) suboper
-										.getInstAttributeValue("iteration")) {
+								if (type.equals(StringUtils
+										.formatEnumValue(OpersSubOpType.Iterate_Solutions
+												.toString()))) {
 									this.reloadDashBoardConcepts = false;
 									result = refas2hlcl.execute(
 											progressMonitor,

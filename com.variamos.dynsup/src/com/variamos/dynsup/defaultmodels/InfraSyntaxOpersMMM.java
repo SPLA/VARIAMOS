@@ -576,7 +576,8 @@ public class InfraSyntaxOpersMMM {
 						"false", "", -1, "", ""));
 		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", "", null, 0, 6, "", "", -1, "", ""));
+						false, "Display Name", "", null, 0, 6, "", "", -1, "",
+						""));
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("shortcut",
 				new ElemAttribute("shortcut", "String",
@@ -598,13 +599,14 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",
 						AttributeType.OPERATION, false, "Iterate Button",
-						"Specifies if an iteration option should be included"
-								+ " (for validation through simulation)",
-						false, 0, 9, "", "", -1, "", ""));
+						"Select this option if the operation includes "
+								+ "an Iterative Solutions sub-operation"
+								+ " to display the next menu", false, 0, 9, "",
+						"", -1, "", ""));
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("iterationName",
 				new ElemAttribute("iterationName", "String",
-						AttributeType.OPERATION, false, "Iterate Name",
+						AttributeType.OPERATION, false, "Iteration Name",
 						"Name to show on the menu for the iteration opcion "
 								+ "(e.g., next solution)", null, 0, -1,
 						"false", "", -1, "", ""));
@@ -643,19 +645,22 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
 						false, "Name",
-						"Name to identify / display for the operation", null,
-						0, -1, "", "", -1, "", ""));
+						"Name to identify and display  the operation", null, 0,
+						-1, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("index",
 				new ElemAttribute("index", "Integer", AttributeType.OPERATION,
-						false, "Position",
+						false, "Execution Order",
 						"Defines the order of execution between suboperations",
 						1, 0, 6, "", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
-				new ElemAttribute("iteration", "Boolean",
-						AttributeType.OPERATION, false, "Iterate Sub-Oper", "",
-						false, 0, 8, "", "", -1, "", ""));
+		// infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
+		// new ElemAttribute("iteration", "Boolean",
+		// AttributeType.OPERATION, false, "Iterative Sub-Oper",
+		// "Select this option if the operation include "
+		// + "an Iterative Solutions sub-operation"
+		// + " to display the next menu", false, 0, 8, "",
+		// "", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				"completedMessage", new ElemAttribute("completedMessage",
 						"String", AttributeType.OPERATION, false,
@@ -672,34 +677,28 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				"type",
 				new ElemAttribute("type", "Enumeration",
-						AttributeType.OPERATION, true, "Type",
-						"Type of Suboperation: determines the path of "
+						AttributeType.OPERATION, true, "Algorithm Type",
+						"Algorithm ype for the Suboperation: determines the path for "
 								+ "the execution model", OpersSubOpType.class
-								.getCanonicalName(), "Single update", "", 0, 4,
-						"", "", 10, "\ntype: #" + "type" + "#all#", ""));
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute(
-						"defectType",
-						new ElemAttribute(
-								"defectType",
-								"Enumeration",
-								AttributeType.OPERATION,
-								false,
-								"DefectsVerif. Method",
-								"Specifies the method from the Defects Verifier to use",
-								OpersDefectType.class.getCanonicalName(),
-								"",
-								"",
-								0,
-								5,
-								"type#!=#Multi verification# "/*
-															 * "type#==#Defects verifier error$type#==#Defects verifier update# "
-															 */
-								,
-								"type#!=#Multi verification# "
-								/* "type#==#Defects verifier error$type#==#Defects verifier update# " */,
-								11, "\nMethod: #" + "defectType" + "#all#",
-								"type#==#Defects verifier error$type#==#Defects verifier update"));
+								.getCanonicalName(), "First solution", "", 0,
+						4, "", "", 10, "\ntype: #" + "type" + "#all#", ""));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("defectType",
+				new ElemAttribute("defectType", "Enumeration",
+						AttributeType.OPERATION, false, "DefectsVerif. Method",
+						"Specifies the method of the Defects Verifier to use",
+						OpersDefectType.class.getCanonicalName(), "", "", 0, 5,
+						"type#!=#Multi verification# "
+						/*
+						 * "type#==#IdDef defects verif$ type#==#Defects
+						 * verifier update# "
+						 */
+						, "type#!=#Multi verification# "
+						/*
+						 * "type#==#IdDef defects verif$typ e#==#Defects
+						 * verifier update# "
+						 */, 11, "\nMethod: #" + "defectType" + "#all#",
+						"type#==#IdDef defects verif$type#"
+								+ "==#UpdModel defects verif"));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				"defectsCoreOper",
@@ -710,10 +709,10 @@ public class InfraSyntaxOpersMMM {
 								+ " free identifiers", InstConcept.class
 								.getCanonicalName(), "OpMOperation",
 						"Update Core Elements", "", 0, 11,
-						"type#==#Defects verifier error#\"\"",
-						"type#==#Defects verifier error#\"\"", 12,
-						"\ncoreOper: #" + "defectsCoreOper" + "#all#",
-						"type#==#Defects verifier error"));
+						"type#==#IdDef defects verif#\"\"",
+						"type#==#IdDef defects verif#\"\"", 12, "\ncoreOper: #"
+								+ "defectsCoreOper" + "#all#",
+						"type#==#IdDef defects verif"));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("outAttribute",
 				new ElemAttribute("outAttribute", "String",
@@ -721,13 +720,13 @@ public class InfraSyntaxOpersMMM {
 						"Attribute to validate the elements with errors, must "
 								+ "be an output attributes with 0,1 domain",
 						"Sel", 0, 11, /*
-									 * "type#==#Defects verifier error$" +
-									 * "type#==#Defects verifier update$" +
+									 * "type#==#IdDef defects verif$" +
+									 * "type#==#UpdModel defects verif$" +
 									 * "type#==#Multi verification# "
 									 */"", "", 13, "\noutAtt: #"
 								+ "outAttribute" + "#all#",
-						"type#==#Defects verifier error$"
-								+ "type#==#Defects verifier update$"
+						"type#==#IdDef defects verif$"
+								+ "type#==#UpdModel defects verif$"
 								+ "type#==#Multi verification"));
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("indivVerExp",
 				new ElemAttribute("indivVerExp", "Boolean",
@@ -757,23 +756,17 @@ public class InfraSyntaxOpersMMM {
 								false, 0, 11, "type#==#Multi verification# ",
 								"type#==#Multi verification# ", -1, "", ""));
 
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute(
-						"updateOutAttributes",
-						new ElemAttribute(
-								"updateOutAttributes",
-								"Boolean",
-								AttributeType.OPERATION,
-								false,
-								"Update Out Attribs",
-								"Use Update Output Attributes to update the results on the model",
-								"",
-								false,
-								"",
-								0,
-								11,
-								"type#!=#Multi verification# "/* "type#==#Defects verifier error$type#==#Defects verifier update#\"\"" */,
-								"", -1, "", ""));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"updateOutAttributes", new ElemAttribute("updateOutAttributes",
+						"Boolean", AttributeType.OPERATION, false,
+						"Update Out Attribs",
+						"Use Update Output Attributes to update the "
+								+ "results on the model", "", false, "", 0, 11,
+						"type#!=#Multi verification# "
+						/*
+						 * "type#==#IdDef defects verif$type#== #Defects
+						 * verifier update#\"\""
+						 */, "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
@@ -791,7 +784,7 @@ public class InfraSyntaxOpersMMM {
 								false,
 								0,
 								12,
-								"type#==#Defects verifier error$type#==#Defects verifier update#false",
+								"type#==#IdDef defects verif$type#==#UpdModel defects verif#false",
 								"", -1, "", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addModelingAttribute(
@@ -809,14 +802,20 @@ public class InfraSyntaxOpersMMM {
 								false,
 								0,
 								13,
-								"type#==#Defects verifier error$type#==#Defects verifier update#false",
+								"type#==#IdDef defects verif$type#==#UpdModel defects verif#false",
 								"", -1, "", ""));
 
-		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorTitle",
-				new ElemAttribute("errorTitle", "String",
-						AttributeType.OPERATION, false, "Error title text",
-						"Title of the dialog box", "", 0, 14, "", "", -1, "",
-						""));
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute(
+						"errorTitle",
+						new ElemAttribute(
+								"errorTitle",
+								"String",
+								AttributeType.OPERATION,
+								false,
+								"Error title text",
+								"Title of the dialog box when operation returns an error",
+								"", 0, 14, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorText",
 				new ElemAttribute("errorText", "String",
@@ -839,13 +838,14 @@ public class InfraSyntaxOpersMMM {
 								AttributeType.OPERATION,
 								false,
 								"Defects Model",
-								"",
+								"Complete explores all the combination of errors, partial"
+										+ " stops with the first set of error, incomplete"
+										+ " identifies up to a number of error",
 								DefectAnalyzerMode.class.getCanonicalName(),
 								StringUtils
 										.formatEnumValue(DefectAnalyzerMode.INCOMPLETE_FAST
-												.toString()),
-								"Complete explores all the combination of errors, partial stops with the first set of error, incomplete identifies up to a number of error",
-								0, 16, "", "", -1, "", ""));
+												.toString()), "", 0, 16, "",
+								"", -1, "", ""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("errorMsg",
 				new ElemAttribute("errorMsg", "String",
@@ -879,31 +879,25 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("labelId",
 				new ElemAttribute("labelId", "String", AttributeType.OPERATION,
-						false, "Label ID", "", "L1", 0, 5, "", "", -1, "", ""));
+						false, "Label ID",
+						"Identifier for the set of variables. Must"
+								+ " be unique if multiple labeling exist.",
+						"L1", 0, 5, "", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperLabeling
-				.addModelingAttribute(
-						"outputSet",
-						new ElemAttribute(
-								"outputSet",
-								"Boolean",
-								AttributeType.OPERATION,
-								false,
-								"Output Set",
-								"Include set of variables in the constraint program call to obtain the variables",
-								true, 0, 6, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperLabeling.addModelingAttribute("outputSet",
+				new ElemAttribute("outputSet", "Boolean",
+						AttributeType.OPERATION, false, "Output Set",
+						"Include set of variables in the constraint"
+								+ " program call to obtain the variables",
+						true, 0, 6, "", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperLabeling
-				.addModelingAttribute(
-						"includeLabel",
-						new ElemAttribute(
-								"includeLabel",
-								"Boolean",
-								AttributeType.OPERATION,
-								true,
-								"Include Label",
-								"Include label in the constraint program (or only define the set of variables)",
-								true, 0, 7, "", "", -1, "", ""));
+		infraSyntaxOpersM2OperLabeling.addModelingAttribute("includeLabel",
+				new ElemAttribute("includeLabel", "Boolean",
+						AttributeType.OPERATION, true, "Include Label",
+						"Include label in the constraint program."
+								+ " In not selected, only define the"
+								+ " set of variables", true, 0, 7, "", "", -1,
+						"", ""));
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("position",
 				new ElemAttribute("position", "Integer",
@@ -912,13 +906,21 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("once",
 				new ElemAttribute("once", "Boolean", AttributeType.OPERATION,
-						false, "Once", "", false, 0, 8, "includeLabel" + "#==#"
-								+ "true", "", -1, "", ""));
+						false, "Once",
+						"Obtain only the first value for the variables"
+								+ " included in this labeling. By default"
+								+ " obtains the complete combination of"
+								+ " values allowed", false, 0, 8,
+						"includeLabel" + "#==#" + "true", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("order",
 				new ElemAttribute("order", "Boolean", AttributeType.OPERATION,
-						false, "Order", "", false, 0, 9, "includeLabel"
-								+ "#==#" + "true", "", -1, "", ""));
+						false, "Order",
+						"Include sort function to order solutions."
+								+ " Include an sort order function in the "
+								+ "column on the right for each order"
+								+ " meta-expression.", false, 0, 9,
+						"includeLabel" + "#==#" + "true", "", -1, "", ""));
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
 				"sortorder",
