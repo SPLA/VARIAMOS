@@ -1177,8 +1177,17 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getLeftSemanticExpression().getRightNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
 				if (pos == -1 || !iter)
 					out.add(getIdentifier(expressionType, pos, -1));
 				break;
@@ -1237,8 +1246,18 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getLeftSemanticExpression().getRightNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
+
 				if (pos == -1 || !iter)
 					out.add(rightInstanceExpression.createExpression(0, -1));
 				break;
@@ -1274,16 +1293,22 @@ public class ModelExpr implements Serializable, Cloneable {
 						}
 					}
 				}
-				if (pos == -1 || !iter)
-					out.add(getIdentifier(expressionType, pos, leftIterInstance));
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.newIdentifier(this.getRightElement()
-							.getIdentifier()
-							+ getSemanticExpression()
-									.getLeftSemanticExpression()
-									.getRightAttributeName()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
+				if (pos == -1 || !iter)
+					out.add(getIdentifier(expressionType, pos, leftIterInstance));
 				break;
 
 			case RIGHTNUMERICVALUE:
@@ -1320,8 +1345,17 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getLeftSemanticExpression().getRightNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
 				break;
 			case RIGHTNUMERICFLOATVALUE:
 				if (iter) {
@@ -1357,8 +1391,18 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.floatNumber(getSemanticExpression()
-							.getLeftSemanticExpression().getRightFloatNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.floatNumber(getSemanticExpression()
+								.getLeftSemanticExpression()
+								.getRightFloatNumber()));
+					}
 
 				break;
 			case RIGHTVARIABLEVALUE:
@@ -1396,8 +1440,17 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getLeftSemanticExpression().getRightNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
 				break;
 			default:
 				break;

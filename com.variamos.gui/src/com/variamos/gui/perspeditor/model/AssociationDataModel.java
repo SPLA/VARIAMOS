@@ -112,7 +112,7 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 		AssociationRow n = (AssociationRow) node;
 
 		if (column == 0)
-			return n.getName();
+			return n.getFullId();
 		else
 			return n.getValue(column);
 

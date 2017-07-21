@@ -526,9 +526,6 @@ public class DefaultSyntaxMM {
 		InstElement directFeatFeatVertSemEdge = refas.getOperationalModel()
 				.getVertex("ParentFeaturePW");
 
-		InstElement directFeatFeatSideSemEdge = refas.getOperationalModel()
-				.getVertex("CrossTreeFeaturePW");
-
 		SyntaxElement metaFeatVertPairwiseRel = new SyntaxElement('P',
 				"Structural", true, true, "Feature Child Relation", "",
 				"Direct relation between two"
@@ -537,11 +534,19 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				directFeatFeatVertSemEdge);
 
-		// InstConcept instFeatVertPairWiseRel = new InstConcept(
-		// "Feature Child Relation", supportMetaElementPairwise,
-		// metaFeatVertPairwiseRel);
-		// refas.getVariabilityVertex().put("Feature Child Relation",
-		// instFeatVertPairWiseRel);
+		InstElement groupFeatOTFeatVertSemEdge = refas.getOperationalModel()
+				.getVertex("ParentFeatureOTToFeature");
+
+		SyntaxElement metaFeatParentfromOTRel = new SyntaxElement('P',
+				"Structural", true, true, "Feature Child Relation", "",
+				"Direct relation between two"
+						+ " feature concepts. Defines different types of"
+						+ " relations", 50, 50,
+				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				groupFeatOTFeatVertSemEdge);
+
+		InstElement directFeatFeatSideSemEdge = refas.getOperationalModel()
+				.getVertex("CrossTreeFeaturePW");
 
 		SyntaxElement metaFeatSidePairwiseRel = new SyntaxElement('P',
 				"TraversalF", true, true, "Traversal", "",
@@ -551,11 +556,16 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				directFeatFeatSideSemEdge);
 
-		// InstConcept instFeatSidePairWiseRel = new InstConcept(
-		// "Feature Side Relation", supportMetaElementPairwise,
-		// metaFeatSidePairwiseRel);
-		// refas.getVariabilityVertex().put("Feature Side Relation",
-		// instFeatSidePairWiseRel);
+		InstElement groupFeatOTFeatSideSemEdge = refas.getOperationalModel()
+				.getVertex("CrossFeatureOTToFeature");
+
+		SyntaxElement metaFeatCrossTreeFromOTRel = new SyntaxElement('P',
+				"TraversalF", true, true, "Traversal", "",
+				"Direct relation between two"
+						+ " feature concepts. Defines different types of"
+						+ " relations", 70, 50,
+				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				groupFeatOTFeatSideSemEdge);
 
 		InstConcept instDirSideRelation = new InstConcept("TraversalF",
 				supportMetaElementPairwise, metaFeatSidePairwiseRel);
@@ -742,7 +752,7 @@ public class DefaultSyntaxMM {
 		// .put("GrpVertRelation", instGrpVertRelation);
 
 		InstConcept instGrpStrucRelation = new InstConcept("GrpStrucRelation",
-				supportMetaElementPairwise, metaFeatVertPairwiseRel);
+				supportMetaElementPairwise, metaFeatParentfromOTRel);
 
 		instGrpStrucRelation.setInstAttribute("Type", "Structural");
 		instGrpStrucRelation.setInstAttribute("SourceCardinality", "[1..1]");
@@ -752,7 +762,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpSideFeatPairWiseRel = new InstConcept(
 				"GrpSideFeatRelation", supportMetaElementPairwise,
-				metaFeatSidePairwiseRel);
+				metaFeatCrossTreeFromOTRel);
 		instGrpSideFeatPairWiseRel.setInstAttribute("Type", "SideRelations");
 		instGrpSideFeatPairWiseRel.setInstAttribute("SourceCardinality",
 				"[0..*]");
@@ -2199,9 +2209,25 @@ public class DefaultSyntaxMM {
 		instViewC = new InstConcept("SoftGoalsSatisficing", metaView,
 				syntaxMetaView);
 
+		InstElement semOperToOperClaimOTPW = refas.getOperationalModel()
+				.getVertex("OperToOperClaimOTPW");
+
+		SyntaxElement metaOperToOperCLClaimPairwiseRel = new SyntaxElement(
+				'P',
+				"Group Relation",
+				true,
+				true,
+				"OpertoOperClaimOTRelation",
+				"",
+				"Represent the relation between"
+						+ " an operationalizations and a claim. The operationalization(s)"
+						+ " is required to satisfy a claim", 60, 50,
+				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				semOperToOperClaimOTPW);
+
 		InstConcept instGroupOperClaimPairWiseRel = new InstConcept(
 				"OperClaim Group Relation", supportMetaElementPairwise,
-				metaGroupHardPairwiseRel);
+				metaOperToOperCLClaimPairwiseRel);
 
 		instGroupOperClaimPairWiseRel.setInstAttribute("Type", "Default");
 		instGroupOperClaimPairWiseRel.setInstAttribute("SourceCardinality",

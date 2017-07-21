@@ -1535,7 +1535,10 @@ public class ModelExpr2HLCL {
 		if (progressMonitor.isCanceled())
 			throw (new InterruptedException());
 		if (evaluatedSet.add(target)) {
-			if ((!target.getInstAttribute("Sel").getAsBoolean()
+			if ((target.getInstAttribute("Sel") != null
+					&& target.getInstAttribute("Core") != null
+					&& target.getInstAttribute("Exclu") != null
+					&& !target.getInstAttribute("Sel").getAsBoolean()
 					&& !target.getInstAttribute("Core").getAsBoolean() && !target
 					.getInstAttribute("Exclu").getAsBoolean())
 					|| target.getIdentifier().startsWith("FeatOT")
@@ -1598,7 +1601,7 @@ public class ModelExpr2HLCL {
 				result = execute(progressMonitor, element,
 						ModelExpr2HLCL.NEXT_SOLUTION, type);
 			if (result && !progressMonitor.isCanceled()) {
-				updateGUIElements(null, null);
+				updateGUIElements(null, null, null);
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
 				for (InstElement instVertex : refas
 						.getVariabilityVertexCollection()) {

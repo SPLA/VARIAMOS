@@ -207,11 +207,12 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		progressMonitor
 				.setNote("Total Solutions processed: " + elements.size());
 		List<String> names = new ArrayList<String>();
-		for (String element : elements.get("1").keySet()) {
-			if (refasModel.getElement(element) != null)
-				names.add((String) refasModel.getElement(element)
-						.getInstAttribute("name").getValue());
-		}
+		if (elements.size() != 0)
+			for (String element : elements.get("1").keySet()) {
+				if (refasModel.getElement(element) != null)
+					names.add((String) refasModel.getElement(element)
+							.getInstAttribute("name").getValue());
+			}
 		ExportConfiguration export = new ExportConfiguration();
 		export.exportConfiguration(elements, names, file);
 		return true;
