@@ -78,6 +78,10 @@ public class Identifier implements BooleanExpression, NumericExpression,
 	public String toString() {
 		return "Identifier [id=" + id + "]";
 	}
+	
+	public String toString2() {
+		return  id ;
+	}
 
 	public Domain getDomain() {
 		return domain;

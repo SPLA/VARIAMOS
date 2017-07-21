@@ -41,6 +41,10 @@ public class NumericIdentifier implements NumericExpression {
 	public String toString() {
 		return "NumericIdentifier [value=" + intValue + "]";
 	}
+	
+	public String toString2() {
+		return  intValue+"";
+	}
 
 	@Override
 	public boolean equals(Object obj) {

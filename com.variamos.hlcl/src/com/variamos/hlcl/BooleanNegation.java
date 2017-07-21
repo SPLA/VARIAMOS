@@ -40,6 +40,7 @@ public class BooleanNegation implements BooleanExpression {
 				+ "negation" + "]";
 	}
 
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

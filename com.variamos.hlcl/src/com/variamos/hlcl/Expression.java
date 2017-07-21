@@ -7,4 +7,5 @@ public interface Expression {
 	 * @return true if the expression has all the components
 	 */
 	boolean isValidExpression();
+	
 }

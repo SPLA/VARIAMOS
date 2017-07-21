@@ -45,7 +45,9 @@ public class TestCompiler {
 		ProductLine pl = reader.readFile("fm.splx");
 		HlclProgram prog = Pl2Hlcl.transformExact(pl);
 		Hlcl2GnuPrologExact t = new Hlcl2GnuPrologExact();
+		System.out.println("GNU");
 		System.out.println(t.transform(prog));
+		System.out.println();
 	}
 	
 	@Test
@@ -54,9 +56,11 @@ public class TestCompiler {
 		ProductLine pl = reader.readFile("fm.splx");
 		HlclProgram prog = Pl2Hlcl.transform(pl);
 		Hlcl2GnuProlog t = new Hlcl2GnuProlog();
+		System.out.println("GNU");
 		System.out.println(t.transform(prog));
+		System.out.println();
 	}
-	
+	@Test
 	public void SWIPrologTransformer() throws FeatureModelException{
 		SXFMReader reader = new SXFMReader();
 		ProductLine pl = reader.readFile("fm.splx");
@@ -64,6 +68,7 @@ public class TestCompiler {
 		Hlcl2SWIProlog t = new Hlcl2SWIProlog();
 		System.out.println("SWI");
 		System.out.println(t.transform(prog));
+		System.out.println();
 	}
 	
 

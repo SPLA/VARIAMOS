@@ -30,6 +30,7 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 			StringBuilder insideLabeling = new StringBuilder();
 			if (params.isFdLabeling()) {
 				footerExpression.append(LABELING);
+				
 
 				if (params.isFf()) {
 					insideLabeling.append(FF);
@@ -46,6 +47,7 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 					if (params.isFf()) {
 						insideLabeling.append(COMMA);
 					}
+					
 
 					int idx = 0;
 					if (params.isOrder())
@@ -78,6 +80,13 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 					footerExpression.append(insideLabeling);
 					footerExpression.append(CLOSE_BRACKET);
 					footerExpression.append(COMMA);
+				}
+				// avillota included these lines
+				else{ //In the case that there is no a labeling strategy 
+					footerExpression.append(OPEN_BRACKET);
+					footerExpression.append(CLOSE_BRACKET);
+					footerExpression.append(COMMA);
+					
 				}
 				footerExpression.append(INVOCATION);
 				footerExpression.append(CLOSE_PARENHESIS);
