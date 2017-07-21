@@ -1124,6 +1124,9 @@ public class ModelExpr2HLCL {
 		if (defectDescription == null || defectDescription.equals(""))
 			return;
 
+		if (defectDescription == null || defectDescription.equals(""))
+			return;
+
 		if (defectDescription.contains("#number#"))
 			description = defectDescription.replace("#number#",
 					identifiers.size() + "");

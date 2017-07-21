@@ -591,7 +591,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 											else if (computationalType
 													.equals(StringUtils
 															.formatEnumValue(OpersComputationType.Quotient_denominator_exp_base_2
-																	.toString())))
+
+															.toString())))
 												completedMessage = completedMessage
 														.replace(
 																"#result#",
