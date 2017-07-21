@@ -394,6 +394,12 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								.getInstAttributeValue("type");
 						boolean showDashboard = (boolean) suboper
 								.getInstAttributeValue("showDashboard");
+						if (suboper.getInstAttributeValue("completedMessage") != null
+								&& !((String) suboper
+										.getInstAttributeValue("completedMessage"))
+										.equals(""))
+							completedMessage = (String) suboper
+									.getInstAttributeValue("completedMessage");
 						boolean simul = false;
 						if (showDashboard)
 							this.showDashboard = showDashboard;
