@@ -102,7 +102,7 @@ public class IntervalDomain implements Domain, Serializable {
 		for (int i = 0; i < rangeValues.size(); i++) {
 			str.append(rangeValues.get(i));
 			if (i < rangeValues.size() - 1)
-				str.append(", ");
+				str.append(",");
 		}
 
 		return str.toString();

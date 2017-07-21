@@ -45,10 +45,10 @@ public class InfraBasicSyntaxMMMM {
 						AttributeType.SYNTAX, false, "Description", "", "", 0,
 						-1, "", "", -1, "", ""));
 
-		basicOpersSyntaxM3Concept.addModelingAttribute("MetaType",
-				new ElemAttribute("MetaType", "Enumeration",
-						AttributeType.SYNTAX, false, "SyntaxConcept Type", "",
-						"SyntaxConcept", "", "", 0, -1, "", "", -1, "", ""));
+		// basicOpersSyntaxM3Concept.addModelingAttribute("MetaType",
+		// new ElemAttribute("MetaType", "Enumeration",
+		// AttributeType.SYNTAX, false, "SyntaxConcept Type", "",
+		// "SyntaxConcept", "", "", 0, -1, "", "", -1, "", ""));
 		// metaBasicConcept.addModelingAttribute("Identifier",
 		// new ElemAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
@@ -80,10 +80,10 @@ public class InfraBasicSyntaxMMMM {
 						false, "Image File", "",
 						"/com/variamos/gui/perspeditor/images/claim.png", 0,
 						-1, "", "", -1, "", ""));
-		basicOpersSyntaxM3Concept.addModelingAttribute("TopConcept",
-				new ElemAttribute("TopConcept", "Boolean",
-						AttributeType.SYNTAX, false, "Is Top Concept", "",
-						true, 0, -1, "", "", -1, "", ""));
+		// basicOpersSyntaxM3Concept.addModelingAttribute("TopConcept",
+		// new ElemAttribute("TopConcept", "Boolean",
+		// AttributeType.SYNTAX, false, "Is Top Concept", "",
+		// true, 0, -1, "", "", -1, "", ""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("BackgroundColor",
 				new ElemAttribute("BackgroundColor", "String",
 						AttributeType.SYNTAX, false, "Background Color", "",
@@ -133,10 +133,10 @@ public class InfraBasicSyntaxMMMM {
 						AttributeType.SYNTAX, false, "Description", "", "", 0,
 						-1, "", "", -1, "", ""));
 
-		basicOpersSyntaxM3Enum.addModelingAttribute("MetaType",
-				new ElemAttribute("MetaType", "Enumeration",
-						AttributeType.SYNTAX, false, "SyntaxConcept Type", "",
-						"SyntaxConcept", "", "", 0, -1, "", "", -1, "", ""));
+		// basicOpersSyntaxM3Enum.addModelingAttribute("MetaType",
+		// new ElemAttribute("MetaType", "Enumeration",
+		// AttributeType.SYNTAX, false, "SyntaxConcept Type", "",
+		// "SyntaxConcept", "", "", 0, -1, "", "", -1, "", ""));
 		// metaBasicConcept.addModelingAttribute("Identifier",
 		// new ElemAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
@@ -164,10 +164,10 @@ public class InfraBasicSyntaxMMMM {
 				"Image", "String", AttributeType.SYNTAX, false, "Image File",
 				"", "/com/variamos/gui/perspeditor/images/claim.png", 0, -1,
 				"", "", -1, "", ""));
-		basicOpersSyntaxM3Enum.addModelingAttribute("TopConcept",
-				new ElemAttribute("TopConcept", "Boolean",
-						AttributeType.SYNTAX, false, "Is Top Concept", "",
-						true, 0, -1, "", "", -1, "", ""));
+		// basicOpersSyntaxM3Enum.addModelingAttribute("TopConcept",
+		// new ElemAttribute("TopConcept", "Boolean",
+		// AttributeType.SYNTAX, false, "Is Top Concept", "",
+		// true, 0, -1, "", "", -1, "", ""));
 		basicOpersSyntaxM3Enum.addModelingAttribute("BackgroundColor",
 				new ElemAttribute("BackgroundColor", "String",
 						AttributeType.SYNTAX, false, "Background Color", "",

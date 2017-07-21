@@ -26,7 +26,7 @@ import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.io.ConsoleTextArea;
@@ -639,11 +639,12 @@ public class SharedActions {
 								"com.variamos.dynsup.model.ModelExpr")) {
 							// getIdentifier().equals("ConditionalExpression"))
 							// {
-							ModelExpr instanceExpression = (ModelExpr) ia
-									.getValue();
-							if (instanceExpression != null)
-								instanceExpression.loadVolatileElements(refas
-										.getVariabilityVertex());
+							Object instanceExpression = ia.getValue();
+							if (instanceExpression != null
+									&& !instanceExpression.equals(""))
+								((ModelExpr) instanceExpression)
+										.loadVolatileElements(refas
+												.getVariabilityVertex());
 						}
 
 						if (ia.getIdentifier().equals("exptype")) {
@@ -668,7 +669,7 @@ public class SharedActions {
 											"EnumNameValue", "Enumeration",
 											AttributeType.SYNTAX, false,
 											"Value Name", "",
-											OperationSubActionExecType.class
+											OpersSubOpExecType.class
 													.getCanonicalName(), "",
 											"RELAXABLE", 1, -1, "", "", -1, "",
 											""));
@@ -694,7 +695,7 @@ public class SharedActions {
 											"EnumNameValue", "Enumeration",
 											AttributeType.SYNTAX, false,
 											"Value Name", "",
-											OperationSubActionExecType.class
+											OpersSubOpExecType.class
 													.getCanonicalName(), "",
 											"RELAXABLE", 1, -1, "", "", -1, "",
 											""));
@@ -713,7 +714,7 @@ public class SharedActions {
 								att.setAttribute(new ElemAttribute(values[0],
 										"String", AttributeType.SYNTAX, false,
 										values[1], "",
-										OperationSubActionExecType.class
+										OpersSubOpExecType.class
 												.getCanonicalName(), "", "", 1,
 										-1, "", "", -1, "", ""));
 

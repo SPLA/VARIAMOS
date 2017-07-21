@@ -133,7 +133,7 @@ public class ModelInstance extends AbstractModel {
 	public String getInstViewName(int modelViewInd, int modelViewSubInd) {
 		// List<InstView> instViews = this.getSyntaxRefas().getInstViews();
 		List<InstElement> instViews = this.getSyntaxModel()
-				.getVariabilityVertex("SMView");
+				.getVariabilityVertex("SyMView");
 		if (modelViewInd == -1)
 			if (instViews.size() > 0)
 				return instViews.get(0).getEdSyntaxEle().getAutoIdentifier();
@@ -156,7 +156,7 @@ public class ModelInstance extends AbstractModel {
 	public String getInstViewPalettesName(int modelViewInd, int modelViewSubInd) {
 		// List<InstView> instViews = this.getSyntaxRefas().getInstViews();
 		List<InstElement> instViews = this.getSyntaxModel()
-				.getVariabilityVertex("SMView");
+				.getVariabilityVertex("SyMView");
 		if (modelViewInd == -1)
 			if (instViews.size() > 0)
 				return instViews.get(0).getEdSyntaxEle().getPaletteName();
@@ -256,7 +256,11 @@ public class ModelInstance extends AbstractModel {
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstElement)
-			if (element.getTransSupportMetaElement().getUserIdentifier() == null)
+			if (element.getTransSupInstElement()
+					.getInstAttributeValue("userId") != null)
+				classId = (String) element.getTransSupInstElement()
+						.getInstAttributeValue("userId");
+			else if (element.getTransSupportMetaElement().getUserIdentifier() == null)
 				classId = element.getTransSupportMetaElement()
 						.getAutoIdentifier();
 			else
@@ -421,6 +425,16 @@ public class ModelInstance extends AbstractModel {
 		return out;
 	}
 
+	public InstElement getVertexByName(String elementName) {
+		for (InstElement e : variabilityInstVertex.values()) {
+			String name = (String) e.getInstAttributeValue("name");
+			if (name != null)
+				if (name.equals(elementName))
+					return e;
+		}
+		return null;
+	}
+
 	public Set<InstElement> getVertices() {
 		Set<InstElement> out = new HashSet<InstElement>();
 		out.addAll(variabilityInstVertex.values());
@@ -480,7 +494,7 @@ public class ModelInstance extends AbstractModel {
 
 	public List<String> modelElements(int modelViewInd, int modelViewSubInd) {
 		List<String> elements = new ArrayList<String>();
-		List<InstElement> views = this.getVariabilityVertex("SMView");
+		List<InstElement> views = this.getVariabilityVertex("SyMView");
 		// modelViewInd = -1; // TODO for initial testing, delete
 		if (modelViewInd == -1) {
 			for (InstElement instVertex : variabilityInstVertex.values()) {
@@ -653,7 +667,7 @@ public class ModelInstance extends AbstractModel {
 			for (InstElement element : rel)
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupInstEleId().equals("SMExtend")) {
+								.getSupInstEleId().equals("SyMExtend")) {
 					out.putAll(getValidPairwiseRelations(element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), instElement2,
@@ -665,7 +679,7 @@ public class ModelInstance extends AbstractModel {
 			for (InstElement element : rel) {
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupInstEleId().equals("SMExtend")) {
+								.getSupInstEleId().equals("SyMExtend")) {
 					out.putAll(getValidPairwiseRelations(instElement, element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), false));
@@ -741,7 +755,7 @@ public class ModelInstance extends AbstractModel {
 			for (InstElement element : rel) {
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupInstEleId().equals("SMExtend")) {
+								.getSupInstEleId().equals("SyMExtend")) {
 					InstElement out = (getValidMetaPairwiseRelation(
 							instElement, element.getTargetRelations().get(0)
 									.getTargetRelations().get(0)
@@ -757,7 +771,7 @@ public class ModelInstance extends AbstractModel {
 			for (InstElement element : rel)
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupInstEleId().equals("SMExtend")) {
+								.getSupInstEleId().equals("SyMExtend")) {
 					return (getValidMetaPairwiseRelation(element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), instElement2,
@@ -785,7 +799,7 @@ public class ModelInstance extends AbstractModel {
 		for (InstElement element : rel) {
 			if (element.getTargetRelations().get(0).getSupInstEleId() != null
 					&& element.getTargetRelations().get(0).getSupInstEleId()
-							.equals("SMExtend")) {
+							.equals("SyMExtend")) {
 				InstElement parent = element.getTargetRelations().get(0)
 						.getTargetRelations().get(0).getTargetRelations()
 						.get(0);
@@ -821,7 +835,7 @@ public class ModelInstance extends AbstractModel {
 	public boolean elementsValidation(String element, int modelViewInd,
 			int modelViewSubInd) {
 
-		List<InstElement> views = this.getVariabilityVertex("SMView");
+		List<InstElement> views = this.getVariabilityVertex("SyMView");
 		// FIXME Find views by stereotype, not by instViews object
 		if (modelViewInd < views.size() && modelViewSubInd == -1) {
 			for (InstElement instElement : views.get(modelViewInd)

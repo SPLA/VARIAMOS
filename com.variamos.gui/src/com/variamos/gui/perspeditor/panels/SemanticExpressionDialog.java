@@ -31,9 +31,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersExpr;
@@ -108,6 +106,8 @@ public class SemanticExpressionDialog extends JDialog {
 			solutionPanel.setMaximumSize(new Dimension(900, 200));
 			JTextField iden = new JTextField();
 			iden.setSize(100, 40);
+			iden.setToolTipText("Identifier of the semantic expression, must be"
+					+ " unique within a concept scope");
 			iden.setText(semanticExpression.getIdentifier());
 			iden.addFocusListener(new FocusListener() {
 				@Override
@@ -127,6 +127,27 @@ public class SemanticExpressionDialog extends JDialog {
 					.getVariabilityVertex());
 			showExpression(semanticExpression, element, solutionPanel,
 					OpersExprType.BOOLEXP, 255);
+
+			JTextField natLangDesc = new JTextField();
+			natLangDesc
+					.setToolTipText("Natural language description for relaxable"
+							+ " expressions of multi-verification operations");
+			natLangDesc.setSize(100, 40);
+			natLangDesc.setText(semanticExpression.getNaturalLangDesc());
+			natLangDesc.addFocusListener(new FocusListener() {
+				@Override
+				public void focusGained(FocusEvent e) {
+				}
+
+				@Override
+				public void focusLost(FocusEvent event) {
+					String item = ((JTextField) event.getSource()).getText();
+					if (item != null) {
+						semanticExpression.setNaturalLangDesc(item);
+					}
+				}
+			});
+			solutionPanel.add(natLangDesc);
 
 			solutionPanel.addPropertyChangeListener("value",
 					new PropertyChangeListener() {
@@ -311,9 +332,11 @@ public class SemanticExpressionDialog extends JDialog {
 		JComboBox<String> leftSide = createSidesCombo(semanticExpression,
 				element, true, recursiveElement != null ? true : false,
 				fixedType);
+		leftSide.setToolTipText("Type for the left side of the expression");
 		JComboBox<String> rightSide = createSidesCombo(semanticExpression,
 				element, false, recursiveElement != null ? true : false,
 				fixedType);
+		rightSide.setToolTipText("Type for the right side of the expression");
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBackground(new Color(color, color, color));
 		leftPanel.addMouseListener(new MouseListener() {
@@ -494,6 +517,11 @@ public class SemanticExpressionDialog extends JDialog {
 			{
 				if (semanticExpression != null
 						&& semanticExpression.getSemanticExpressionType() != null) {
+					JComboBox<String> conceptCombo = createCombo(
+							semanticExpression, element, fixedType,
+							semanticExpression.getLeftValidExpressions(), true,
+							'C', true);
+					leftPanel.add(conceptCombo);
 					leftPanel.add(createCombo(semanticExpression, element,
 							fixedType,
 							semanticExpression.getLeftValidExpressions(),
@@ -659,7 +687,7 @@ public class SemanticExpressionDialog extends JDialog {
 				InstElement recElement = refasModel
 						.getVertex((String) conceptCombo.getSelectedItem());
 				showExpression(semanticExpression.getLeftSemanticExpression(),
-						recElement, recElement, subIterType, leftPanel,
+						element, recElement, subIterType, leftPanel,
 						semanticExpression.getLeftValidExpressions(),
 						color > 20 ? color - 15 : color > 5 ? color - 5 : color);
 				semanticExpression.setLeftExpressionType(iterativeType);
@@ -1060,19 +1088,25 @@ public class SemanticExpressionDialog extends JDialog {
 
 			break;
 		case LEFTITERCONCEPTVARIABLE:
-			instElements = refasModel.getVariabilityVertexCollection();
+		case LEFSUBTITERCONVARIABLE:
+			// instElements = refasModel.getVariabilityVertexCollection();
 			instElement = semanticExpression.getLeftSemanticElement();
-			break;
+			// break;
 		case LEFTITERINCRELVARIABLE:
+		case LEFTSUBITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
+		case LEFTSUBITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
+		case LEFTSUBITERANYRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (((element instanceof InstConcept && (sourceRelation
-						.getSupInstEleId().equals("OMConcept") || sourceRelation
-						.getSupInstEleId().equals("OMOTRel"))))
-						|| (element instanceof InstPairwiseRel && sourceRelation
-								.getSupInstEleId().equals("OMPWRel")))
+				if (((element.getSupInstEleId().equals("SeMPWRel") && (sourceRelation
+						.getSupInstEleId().equals("SeMConcept")
+						|| sourceRelation.getSupInstEleId().equals(
+								"SeMnmConcept") || sourceRelation
+						.getSupInstEleId().equals("SeMOTRel"))))
+						|| (!element.getSupInstEleId().equals("SeMPWRel") && sourceRelation
+								.getSupInstEleId().equals("SeMPWRel")))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCCONVARIABLE:
@@ -1080,16 +1114,17 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTITERINCCONVARIABLE:
+		case LEFTSUBITERINCCONVARIABLE:
 		case LEFTITEROUTCONVARIABLE:
+		case LEFTSUBITEROUTCONVARIABLE:
 		case LEFTITERINCSUBEXP:
 		case LEFTITEROUTSUBEXP:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupInstEleId().equals("OMConcept")
+				if (sourceRelation.getSupInstEleId().equals("SeMConcept")
 						|| sourceRelation.getSupInstEleId().equals(
-								"OMInfConcept")
-						|| sourceRelation.getSupInstEleId().equals(
-								"InfraSyntaxOpersM2OTRel"))
+								"SeMnmConcept")
+						|| sourceRelation.getSupInstEleId().equals("SeMOTRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
@@ -1098,7 +1133,7 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupInstEleId().equals("OMPWRel"))
+				if (sourceRelation.getSupInstEleId().equals("SeMPWRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:

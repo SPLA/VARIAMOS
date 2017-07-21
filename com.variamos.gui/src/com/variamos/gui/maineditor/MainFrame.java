@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20170616-1400";
+	private String variamosBuild = "20170721-0210";
 	private String downloadId = "499";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
 		this.setSize(1166, 768);
 
 		System.out
-				.println("Loading Syntax, Semantic and Operations Infrastructure...");
+				.print("Loading Syntax, Semantic and Operations Infrastructure...");
 		ModelInstance InfraBasicSyntax = new ModelInstance(
 				PerspectiveType.INFRASTRUCTUREBASICSYNTAX, metaExpressionTypes);
 		ModelInstance syntaxInfrastructure = new ModelInstance(
@@ -98,9 +98,12 @@ public class MainFrame extends JFrame {
 		Color bgColor = null;
 		VariamosGraphEditor modelEditor = null;
 		String perspTitle = "";
+		System.out.println(" done");
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
 			case 0: // operations 1
+				System.out
+						.print("Loading Semantic and Operations Meta-Models Perspective...");
 				abstractModel = new ModelInstance(metaExpressionTypes,
 						operationsInfrastructure);
 				semanticSuperstructure = abstractModel;
@@ -111,11 +114,10 @@ public class MainFrame extends JFrame {
 				bgColor = new Color(252, 233, 252);
 				perspTitle = "Operations - VariaMos " + variamosVersionNumber
 						+ "b" + variamosBuild;
-				System.out
-						.println("Loading Semantic and Operations Meta-Models Perspective...");
 				break;
 
 			case 1:// modeling 2
+				System.out.print("Loading Modeling Perspective...");
 				abstractModel = new ModelInstance(PerspectiveType.MODELING,
 						metaExpressionTypes, syntaxSuperstructure,
 						semanticSuperstructure);
@@ -123,12 +125,14 @@ public class MainFrame extends JFrame {
 				bgColor = new Color(236, 238, 255);
 				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber
 						+ "b" + variamosBuild;
-				System.out.println("Loading Modeling Perspective...");
 				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
 			case 2:// syntax 3
+				System.out.print("Loading Syntax Meta-Model Perspective...");
 				abstractModel = syntaxSuperstructure;
+				// TO View SyntaxMM in Syntax Perspective
+				// abstractModel = syntaxInfrastructure;
 
 				// TO View OperMM in Syntax Perspective
 				// abstractModel = new ModelInstance(
@@ -138,18 +142,17 @@ public class MainFrame extends JFrame {
 				bgColor = new Color(255, 255, 245);
 				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b"
 						+ variamosBuild;
-				System.out.println("Loading Syntax Meta-Model Perspective...");
 				break;
 
 			case 3:// simulation 4
+				System.out
+						.print("Loading Configuration and Simulation Perspective...");
 				abstractModel = new ModelInstance(
 						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
 						syntaxSuperstructure, semanticSuperstructure);
 				bgColor = new Color(236, 252, 255);
 				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber
 						+ "b" + variamosBuild;
-				System.out
-						.println("Loading Configuration and Simulation Perspective...");
 				break;
 			}
 
@@ -172,7 +175,7 @@ public class MainFrame extends JFrame {
 			graphEditors.add(editor);
 
 			editorsMenu.add(new PerspEditorMenuBar(graphEditors.get(i)));
-
+			System.out.println(" done");
 			editor.updateView();
 		}
 

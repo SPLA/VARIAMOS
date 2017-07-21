@@ -242,7 +242,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		List<InstElement> instViews = null;
 		if (refasModel.getSyntaxModel() != null)
 			instViews = refasModel.getSyntaxModel().getVariabilityVertex(
-					"SMView");
+					"SyMView");
 		if (instViews != null)
 			if (instViews.size() == 0) {
 				center.setDividerLocation(0);
@@ -256,7 +256,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				mxCell parent = (mxCell) root.getChildAt(0);
 				for (InstElement instElement : instViews) {
 
-					if (instElement.getSupInstEleId().equals("SMView")) {
+					if (instElement.getSupInstEleId().equals("SyMView")) {
 						if (parent.getChildCount() <= i
 								&& parent.getId().equals("1")) {
 							mxCell child = new mxCell(new InstCell(null, null,
@@ -324,7 +324,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							// TODO change to RefasModel
 							List<InstElement> finalInstViews = refasModel
 									.getSyntaxModel().getVariabilityVertex(
-											"SMView");
+											"SyMView");
 							VariamosGraphEditor editor = getEditor();
 							((MainFrame) editor.getFrame()).waitingCursor(true);
 							int modelInd = getModelViewIndex();
@@ -1224,7 +1224,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// variablesPanel.add(new JLabel(v.getName() + ":: "));
 				if (instAttribute.getAttribute() instanceof ElemAttribute
 						&& instAttribute.getAttribute().getAttributeType()
-								.equals(AttributeType.GLOBALCONFIG)) {
+								.equals(AttributeType.GLOBALCONFIG.toString())) {
 					JLabel label = new JLabel(instAttribute.getDisplayName()
 							+ ": ");
 					elementConfPropSubPanel.add(label);
@@ -1428,8 +1428,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// GARA
 				// variablesPanel.add(new JLabel(v.getName() + ":: "));
 				if (instAttribute.getAttribute() instanceof ElemAttribute
-						&& instAttribute.getAttribute().getAttributeType()
-								.equals(AttributeType.EXECCURRENTSTATE)) {
+						&& instAttribute
+								.getAttribute()
+								.getAttributeType()
+								.equals(AttributeType.EXECCURRENTSTATE
+										.toString())) {
 					JLabel label = new JLabel(instAttribute.getDisplayName()
 							+ ": ");
 					elementSimPropSubPanel.add(label);
@@ -1784,9 +1787,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	// TODO support ALL operations dynamically, not only the first
 
-	public void callOperations(List<String> operations) {
+	public void callOperations(List<String> operations, String filename) {
 		// FIXME support multiple models selected from the menu not only REFAS
-		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
+		InstElement refas = refasModel.getSyntaxModel().getVertex(
+				"GeneralModel");
 		// use the first node as the REFAS node - fixme
 		if (refas == null)
 			refas = refasModel.getSyntaxModel().getVertex("SMNode1");
@@ -1797,12 +1801,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		boolean first = true;
 		if (operations.get(0).startsWith("N:"))
 			first = false;
-		executeOperationsThead(first, operations);
+		executeOperationsThead(first, operations, filename);
 	}
 
 	// Dynamic operation's definition
 	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution,
-			List<String> operations) {
+			List<String> operations, String filename) {
 
 		if (!firstSimulExecution && semTask != null) {
 			semTask.setFirstSimulExec(false);
@@ -1817,7 +1821,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setProgress(1);
 			semTask = new SolverOpersTask(progressMonitor, refasModel,
 					refas2hlcl, configHlclProgram, firstSimulExecution,
-					operations, lastConfiguration);
+					operations, lastConfiguration, filename);
 
 			semTask.addPropertyChangeListener(this);
 			semTask.execute();
@@ -2169,7 +2173,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public List<InstElement> getInstViews() {
-		return refasModel.getSyntaxModel().getVariabilityVertex("SMView");
+		return refasModel.getSyntaxModel().getVariabilityVertex("SyMView");
 	}
 
 	public void setProgressMonitor(ProgressMonitor progressMonitor) {
@@ -2214,7 +2218,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			mainFrame.setPerspective(2);
 			VariamosGraphEditor ed = mainFrame.getEditor(2);
 			List<InstElement> views = ed.getEditedModel().getSyntaxModel()
-					.getVariabilityVertex("SMView");
+					.getVariabilityVertex("SyMView");
 			if (views.size() == 0) {
 				JOptionPane.showMessageDialog(this,
 						mxResources.get("nometamodelerror"),
@@ -2247,7 +2251,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			TreeSet<String> expressionsS = new TreeSet<String>();
 			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 				InstElement et = el.getTransSupInstElement();
-				if (et.getIdentifier().equals("OMOperation")
+				if (et.getIdentifier().equals("OpMOperation")
 						|| el.getIdentifier().equals("VerifyParentsOper")) {
 					int expressions = 0;
 					for (InstElement rel : el.getTargetRelations()) {
@@ -2265,7 +2269,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								operExpType = (OpersSubOperationExpType) ((InstConcept) att
 										.getValue()).getEdOperEle();
 								subOperExpTypeName = attObj;
-								// System.out.println(attObj);
+								System.out.println(attObj);
 								expressions += operExpType
 										.getSemanticExpressions().size();
 								for (OpersExpr opExp : operExpType
@@ -2282,12 +2286,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 					}
 
-					// System.out.println(el.getIdentifier() + " " +
-					// expressions);
+					System.out.println(el.getIdentifier() + " " + expressions);
 				}
 			}
-			// for (String opExp : expressionsS)
-			// System.out.println(opExp);
+			for (String opExp : expressionsS)
+				System.out.println(opExp);
 		}
 
 	}

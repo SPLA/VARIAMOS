@@ -107,6 +107,7 @@ public class SWIPrologSolver implements Solver {
 			}
 			// Creates the query
 			consultProgram(config, options);
+			System.out.println("");
 		}
 	}
 
@@ -133,7 +134,7 @@ public class SWIPrologSolver implements Solver {
 						modifiedCopy, options);
 				programPath = createPrologFile(modifiedCopy, params);
 				Set<Identifier> identifiers = HlclUtil
-						.getUsedIdentifiers(hlclProgram);
+						.getUsedIdentifiers(modifiedCopy);
 				// Variables map is mandatory for dynamic configurations
 				for (Identifier id : identifiers) {
 					vars.put(id.getId(), new Variable(id.getId()));
@@ -544,7 +545,7 @@ public class SWIPrologSolver implements Solver {
 	public boolean hasSolution() {
 		if (qr != null) {
 			synchronized (monitor) {
-				return qr.hasSolution();
+				return qr.hasNext();
 			}
 		} else {
 			throw new TechnicalException("Solve method was not invoked");

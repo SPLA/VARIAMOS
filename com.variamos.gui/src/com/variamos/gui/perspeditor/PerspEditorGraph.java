@@ -108,7 +108,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		List<InstElement> views = null;
 		if (modelInstance.getSyntaxModel() != null)
 			views = modelInstance.getSyntaxModel().getVariabilityVertex(
-					"SMView");
+					"SyMView");
 		int pos = 0;
 		if (views != null && views.size() == 0) {
 			// Load Syntax and Semantic
@@ -134,7 +134,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			}
 			/*
 			 * for (InstView instView :
-			 * refasModel.getVariabilityVertex("SMView")) { if
+			 * refasModel.getVariabilityVertex("SyMView")) { if
 			 * (instView.getChildViews().size() == 0) { mxCell child = new
 			 * mxCell(instView.getIdentifier()); child.setValue(new
 			 * InstCell(child, instView, false)); addCell(child); String id =

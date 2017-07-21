@@ -78,8 +78,10 @@ public class SolverOperationsUtil {
 		while (count <= 2) {
 			configuration = solver.getSolution();
 			if (configuration != null) {
+				// System.out.println(configuration);
 				count++;
-			}
+			} else
+				break;
 		}
 		if (count >= 2) {
 			return true;
@@ -88,5 +90,4 @@ public class SolverOperationsUtil {
 		}
 
 	}
-
 }

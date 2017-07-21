@@ -96,6 +96,9 @@ public class ModelExpr implements Serializable, Cloneable {
 	private ModelInstance refas;
 	private int expressionInstance = -1;
 	private boolean iterInstance;
+	private String sourceInstanceId = "";
+	private String targetInstanceId = "";
+	private String elementInstanceId = "";
 
 	public String getLastLeft() {
 		return lastLeft;
@@ -245,7 +248,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		if (!singleParameter) {
 			parameter2 = semanticExpressionType.getRightExpressionClass();
 			if (expressionTerms.size() < 2)
-				System.out.println("ERRD");
+				System.out.println("ERROR IN NUMBER OF TERMS");
 			if (expressionTerms.size() < 2 || expressionTerms.get(0) == null
 					|| expressionTerms.get(1) == null) {
 				System.out.println("ERR: expression ignored "
@@ -669,7 +672,23 @@ public class ModelExpr implements Serializable, Cloneable {
 					.getLeftSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFSUBTITERCONVARIABLE:
-			expInstElement = elements.get(pos);
+			InstElement metaElement = null;
+			List<InstElement> parents = null;
+			// FIXME include the following validation for other iterative
+			// alternatives
+			pos--;
+			do {
+				pos++;
+				if (elements.size() == pos)
+					break;
+				expInstElement = elements.get(pos);
+				metaElement = getSemanticExpression().getLeftSemanticElement();
+				parents = expInstElement.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
+				parents.add(expInstElement.getTransSupportMetaElement()
+						.getTransInstSemanticElement());
+			} while (!parents.contains(metaElement));
+
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 
 			break;
@@ -722,6 +741,13 @@ public class ModelExpr implements Serializable, Cloneable {
 				expInstElement = incExpDirInstElement;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
+		case RIGHTMODELVARS:
+			expInstElement = refas.getVariabilityVertexMC(
+					this.getSemanticExpression().getRightSemanticElementId())
+					.get(0);
+			expAttributeName = getSemanticExpression().getRightAttributeName();
+			break;
+
 		case RIGHTVARIABLE:
 			expInstElement = volatileRightInstElement;
 			expAttributeName = getSemanticExpression().getRightAttributeName();
@@ -768,8 +794,6 @@ public class ModelExpr implements Serializable, Cloneable {
 		case LEFTVARIABLEVALUE:
 			break;
 		case RIGHTBOOLEANEXPRESSION:
-			break;
-		case RIGHTMODELVARS:
 			break;
 		case RIGHTNUMERICVALUE:
 			break;
@@ -1153,8 +1177,17 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getLeftSemanticExpression().getRightNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
 				if (pos == -1 || !iter)
 					out.add(getIdentifier(expressionType, pos, -1));
 				break;
@@ -1213,11 +1246,22 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getLeftSemanticExpression().getRightNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
+
 				if (pos == -1 || !iter)
 					out.add(rightInstanceExpression.createExpression(0, -1));
 				break;
+			case RIGHTMODELVARS:
 			case RIGHTCONCEPTVARIABLE:
 				if (iter) {
 					if (leftInstanceExpression == null)
@@ -1249,14 +1293,24 @@ public class ModelExpr implements Serializable, Cloneable {
 						}
 					}
 				}
-				if (pos == -1 || !iter)
-					out.add(getIdentifier(expressionType, pos, leftIterInstance));
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getLeftSemanticExpression().getRightNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
+				if (pos == -1 || !iter)
+					out.add(getIdentifier(expressionType, pos, leftIterInstance));
 				break;
+
 			case RIGHTNUMERICVALUE:
 				if (iter) {
 					if (pos < size) {
@@ -1291,8 +1345,17 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getLeftSemanticExpression().getRightNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
 				break;
 			case RIGHTNUMERICFLOATVALUE:
 				if (iter) {
@@ -1328,8 +1391,18 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.floatNumber(getSemanticExpression()
-							.getLeftSemanticExpression().getRightFloatNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.floatNumber(getSemanticExpression()
+								.getLeftSemanticExpression()
+								.getRightFloatNumber()));
+					}
 
 				break;
 			case RIGHTVARIABLEVALUE:
@@ -1367,8 +1440,17 @@ public class ModelExpr implements Serializable, Cloneable {
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getLeftSemanticExpression().getRightNumber()));
+					if (getSemanticExpression().getLeftSemanticExpression()
+							.getRightAttributeName() != null) {
+						out.add(hlclFactory.newIdentifier(this
+								.getRightElement().getIdentifier()
+								+ getSemanticExpression()
+										.getLeftSemanticExpression()
+										.getRightAttributeName()));
+					} else {
+						out.add(hlclFactory.number(getSemanticExpression()
+								.getLeftSemanticExpression().getRightNumber()));
+					}
 				break;
 			default:
 				break;
@@ -1877,6 +1959,8 @@ public class ModelExpr implements Serializable, Cloneable {
 				out += getRightAttributeName();
 				break;
 			case RIGHTMODELVARS:
+				out += this.getRightInstElementId() + ":";
+				out += getRightAttributeName();
 				break;
 			case RIGHTNUMERICVALUE:
 				break;
@@ -1919,6 +2003,13 @@ public class ModelExpr implements Serializable, Cloneable {
 
 	public void createFromSemanticExpression(InstElement instElement, int pos,
 			int instanceExpression, boolean iterExpression, int leftIterInstance) {
+		if (instElement.getSourceRelations().size() != 0)
+			this.setSourceInstanceId(instElement.getSourceRelations().get(0)
+					.getIdentifier());
+		if (instElement.getTargetRelations().size() != 0)
+			this.setTargetInstanceId(instElement.getTargetRelations().get(0)
+					.getIdentifier());
+		this.setElementInstanceId(instElement.getIdentifier());
 		this.expressionInstance = instanceExpression;
 		ExpressionVertexType type = volatileSemanticExpression
 				.getLeftExpressionType();
@@ -1983,10 +2074,9 @@ public class ModelExpr implements Serializable, Cloneable {
 				break;
 			if (instElement instanceof InstPairwiseRel)
 				leftInstElement = instElement.getTargetRelations().get(pos);
-			else if (instElement.getTargetRelations().size() == 0)
-				break;
-			leftInstElement = instElement.getTargetRelations().get(pos)
-					.getTargetRelations().get(0);
+			else
+				leftInstElement = instElement.getTargetRelations().get(pos)
+						.getTargetRelations().get(0);
 			if (leftIterInstance + 1 < leftInstElement.getInstances(refas)
 					&& !iterExpression) {
 
@@ -2006,10 +2096,9 @@ public class ModelExpr implements Serializable, Cloneable {
 				break;
 			if (instElement instanceof InstPairwiseRel)
 				leftInstElement = instElement.getSourceRelations().get(pos);
-			else if (instElement.getSourceRelations().size() == 0)
-				break;
-			leftInstElement = instElement.getSourceRelations().get(pos)
-					.getSourceRelations().get(0);
+			else
+				leftInstElement = instElement.getSourceRelations().get(pos)
+						.getSourceRelations().get(0);
 			if (leftIterInstance + 1 < leftInstElement.getInstances(refas)
 					&& !iterExpression) {
 				leftInstanceExpression = new ModelExpr(refas, false,
@@ -2086,8 +2175,12 @@ public class ModelExpr implements Serializable, Cloneable {
 		case LEFTITERINCSUBEXP:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getSourceRelations().size()) {
-				InstElement leftInstElement = instElement.getSourceRelations()
-						.get(pos).getSourceRelations().get(0);
+				InstElement leftInstElement = null;
+				if (type.equals(ExpressionVertexType.LEFTITERINCCONVARIABLE))
+					leftInstElement = instElement.getSourceRelations().get(pos)
+							.getSourceRelations().get(0);
+				if (type.equals(ExpressionVertexType.LEFTITERINCRELVARIABLE))
+					leftInstElement = instElement.getSourceRelations().get(pos);
 				leftInstanceExpression = new ModelExpr(refas, false, this
 						.getSemanticExpression().getLeftSemanticExpression(),
 						iterInstance);
@@ -2108,8 +2201,12 @@ public class ModelExpr implements Serializable, Cloneable {
 		case LEFTSUBITERINCRELVARIABLE:
 			this.volatileLeftInstElement = instElement;
 			if (pos < instElement.getSourceRelations().size()) {
-				InstElement leftInstElement = instElement.getSourceRelations()
-						.get(pos).getSourceRelations().get(0);
+				InstElement leftInstElement = null;
+				if (type.equals(ExpressionVertexType.LEFTSUBITERINCCONVARIABLE))
+					leftInstElement = instElement.getSourceRelations().get(pos)
+							.getSourceRelations().get(0);
+				if (type.equals(ExpressionVertexType.LEFTSUBITERINCRELVARIABLE))
+					leftInstElement = instElement.getSourceRelations().get(pos);
 				leftInstanceExpression = new ModelExpr(refas, false,
 						this.getSemanticExpression(), iterInstance);
 				if (leftIterInstance + 1 < leftInstElement.getInstances(refas)
@@ -2282,6 +2379,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		case RIGHTVARIABLEVALUE:
 		case RIGHTSTRINGVALUE:
 			this.rightValue = volatileSemanticExpression.getRightString();
+		case RIGHTMODELVARS:
 		case RIGHTVARIABLE:
 		case RIGHTCONCEPTVARIABLE:
 		case RIGHTUNIQUEOUTRELVARIABLE:
@@ -2342,8 +2440,6 @@ public class ModelExpr implements Serializable, Cloneable {
 			break;
 		case RIGHTBOOLEANEXPRESSION:
 			break;
-		case RIGHTMODELVARS:
-			break;
 		default:
 			break;
 		}
@@ -2381,5 +2477,29 @@ public class ModelExpr implements Serializable, Cloneable {
 		if (rightType == ExpressionVertexType.RIGHTVARIABLE)
 			out.add(this.getRightElement());
 		return out;
+	}
+
+	public String getSourceInstanceId() {
+		return sourceInstanceId;
+	}
+
+	public void setSourceInstanceId(String sourceInstanceId) {
+		this.sourceInstanceId = sourceInstanceId;
+	}
+
+	public String getTargetInstanceId() {
+		return targetInstanceId;
+	}
+
+	public void setTargetInstanceId(String targetInstanceId) {
+		this.targetInstanceId = targetInstanceId;
+	}
+
+	public String getElementInstanceId() {
+		return elementInstanceId;
+	}
+
+	public void setElementInstanceId(String elementInstanceId) {
+		this.elementInstanceId = elementInstanceId;
 	}
 }

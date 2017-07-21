@@ -80,7 +80,7 @@ public class ElementsOperationAssociationPanel extends
 
 		final JComboBox<String> combo = new JComboBox<String>();
 		operActions = editor.getEditedModel().getVariabilityVertex(
-				"OMOperation");
+				"OpMOperation");
 
 		for (InstElement operAction : operActions) {
 			combo.addItem(operAction.getIdentifier());
@@ -199,33 +199,33 @@ public class ElementsOperationAssociationPanel extends
 		AssociationDataModel dataModel = null;
 
 		if (dialog == 0)
-			root = new AssociationRow("", subOpersTypesColumns.size(), false,
-					domainOperColumns, null, null);
+			root = new AssociationRow(null, "", subOpersTypesColumns.size(),
+					false, domainOperColumns, null, null);
 		if (dialog == 1)
-			root = new AssociationRow("", operIO.size(), false, domainOperIO,
-					null, null);
+			root = new AssociationRow(null, "", operIO.size(), false,
+					domainOperIO, null, null);
 		if (dialog == 2)
-			root = new AssociationRow("", operLabelNames.size(), false,
+			root = new AssociationRow(null, "", operLabelNames.size(), false,
 					domainOperLabels, null, null);
 
 		for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 			InstElement et = el.getTransSupInstElement();
-			if (et.getIdentifier().equals("OMSubOper")
-					|| et.getIdentifier().equals("OMLabeling")
-					|| et.getIdentifier().equals("OMOperation")
-					|| et.getIdentifier().equals("OMOperGroup"))
+			if (et.getIdentifier().equals("OpMSubOper")
+					|| et.getIdentifier().equals("OpMLabeling")
+					|| et.getIdentifier().equals("OpMOperation")
+					|| et.getIdentifier().equals("OpMOperGroup"))
 				continue;
 			AssociationRow node = null;
 
 			if (dialog == 0)
-				node = new AssociationRow(el.getIdentifier(),
+				node = new AssociationRow(el, el.getIdentifier(),
 						subOpersTypesColumns.size(), false, domainOperColumns,
 						null, el);
 			if (dialog == 1)
-				node = new AssociationRow(el.getIdentifier(), operIO.size(),
-						false, domainOperIO, null, el);
+				node = new AssociationRow(el, el.getIdentifier(),
+						operIO.size(), false, domainOperIO, null, el);
 			if (dialog == 2)
-				node = new AssociationRow(el.getIdentifier(),
+				node = new AssociationRow(el, el.getIdentifier(),
 						operLabelNames.size(), false, domainOperLabels, null,
 						el);
 			// node.setVariable(var);
@@ -247,7 +247,7 @@ public class ElementsOperationAssociationPanel extends
 						else
 							valuesOperColumns.add(0);
 
-					AssociationRow attNode = new AssociationRow(
+					AssociationRow attNode = new AssociationRow(el,
 							v.getIdentifier(), subOpersTypesColumns.size(),
 							true, domainOperColumns, valuesOperColumns, v);
 
@@ -260,7 +260,7 @@ public class ElementsOperationAssociationPanel extends
 						.getInstAttribute("opersExprs").getValue()) {
 
 					// Relation Type
-					AssociationRow attNode = new AssociationRow(
+					AssociationRow attNode = new AssociationRow(el,
 							v.getIdentifier(), subOpersTypesColumns.size(),
 							false, domainOperColumns, null, v);
 
@@ -276,7 +276,7 @@ public class ElementsOperationAssociationPanel extends
 									valuesOperColumns.add(0);
 
 							// Expression row
-							AssociationRow att2Node = new AssociationRow(
+							AssociationRow att2Node = new AssociationRow(el,
 									e.getIdentifier(),
 									subOpersTypesColumns.size(), true,
 									domainOperColumns, valuesOperColumns, e);
@@ -302,8 +302,8 @@ public class ElementsOperationAssociationPanel extends
 						else
 							valuesVarColumns.add(0);
 					}
-					AssociationRow attNode = new AssociationRow(v.getName(),
-							operIO.size(), true, domainOperIO,
+					AssociationRow attNode = new AssociationRow(el,
+							v.getName(), operIO.size(), true, domainOperIO,
 							valuesVarColumns, el);
 					node.getChildren().add(attNode);
 
@@ -321,9 +321,9 @@ public class ElementsOperationAssociationPanel extends
 							valuesVarColums.add(1);
 						else
 							valuesVarColums.add(0);
-					AssociationRow attNode = new AssociationRow(v.getName(),
-							operLabelNames.size(), true, domainOperLabels,
-							valuesVarColums, el);
+					AssociationRow attNode = new AssociationRow(el,
+							v.getName(), operLabelNames.size(), true,
+							domainOperLabels, valuesVarColums, el);
 					node.getChildren().add(attNode);
 				}
 

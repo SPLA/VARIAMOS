@@ -40,7 +40,7 @@ import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -179,13 +179,13 @@ public class ElementDesignPanel extends JPanel {
 
 				if (editElm.getEdOperEle() != null
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMLabeling")
+								.equals("OpMLabeling")
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMSubOper")
+								.equals("OpMSubOper")
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMOperation")
+								.equals("OpMOperation")
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMOperGroup")) {
+								.equals("OpMOperGroup")) {
 
 					elementDesPropSubPanel.add(new JLabel("Meta-Model-Expr."));
 					JButton button = new JButton("Meta-Model-Expr. Editor...");
@@ -232,7 +232,7 @@ public class ElementDesignPanel extends JPanel {
 				}
 				if (editElm.getEdOperEle() != null
 						&& editElm.getTransSupportMetaElement().getName()
-								.equals("OMLabeling")) {
+								.equals("OpMLabeling")) {
 					elementDesPropSubPanel.add(new JLabel("Order Meta-Expr."));
 					JButton button = new JButton("Order Meta-Expr. Editor...");
 					if (editor.getPerspective() == 4)
@@ -312,15 +312,19 @@ public class ElementDesignPanel extends JPanel {
 					for (InstAttribute instAttribute : visible) {
 						if (instAttribute != null
 								&& instAttribute.getAttribute() instanceof ElemAttribute
-								&& (instAttribute.getAttribute()
+								&& (instAttribute
+										.getAttribute()
 										.getAttributeType()
-										.equals(AttributeType.SYNTAX)
+										.equals(AttributeType.SYNTAX.toString())
 										|| instAttribute
 												.getAttribute()
 												.getAttributeType()
-												.equals(AttributeType.OPERATION) || instAttribute
-										.getAttribute().getAttributeType()
-										.equals(AttributeType.CONFIGURATION))) {
+												.equals(AttributeType.OPERATION
+														.toString()) || instAttribute
+										.getAttribute()
+										.getAttributeType()
+										.equals(AttributeType.CONFIGURATION
+												.toString()))) {
 							if (instAttribute.getIdentifier().equals(
 									SyntaxElement.VAR_USERIDENTIFIER)
 									&& instAttribute.getValue() == null) {
@@ -570,12 +574,14 @@ public class ElementDesignPanel extends JPanel {
 															.getValueObject())
 															.getInstSemanticElementId();
 													for (InstElement e : pwrList) {
-														String ee = (String) e
-																.getInstAttribute(
-																		"OperationsMMType")
-																.getValue();
-														if (ee.equals(val))
-															sel = e;
+														if (e.getInstAttribute("OperationsMMType") != null) {
+															String ee = (String) e
+																	.getInstAttribute(
+																			"OperationsMMType")
+																	.getValue();
+															if (ee.equals(val))
+																sel = e;
+														}
 													}
 													finalEditElm
 															.setTransSupInstElement(sel);
@@ -877,9 +883,9 @@ public class ElementDesignPanel extends JPanel {
 			elementDesPropSubPanel.setMaximumSize(new Dimension(330,
 					designPanelElements * 28));
 			contentPanel1.add(elementDesPropSubPanel);
-			contentPanel1.setMaximumSize(new Dimension(330, 450));
-			contentPanel1.setPreferredSize(new Dimension(330, 450));
-			contentPanel1.setMinimumSize(new Dimension(330, 450));
+			contentPanel1.setMaximumSize(new Dimension(330, 550));
+			contentPanel1.setPreferredSize(new Dimension(330, 550));
+			contentPanel1.setMinimumSize(new Dimension(330, 550));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -995,19 +1001,19 @@ public class ElementDesignPanel extends JPanel {
 				JList attList = null;
 				if (editElm.getTransSupportMetaElement() != null
 						&& editElm.getTransSupportMetaElement().getName()
-								.equals("OMSubOper")) {
+								.equals("OpMSubOper")) {
 					attList = new MetaEnumTypeAttributeList(
 							editor,
 							instCell,
 							"exptype",
-							OperationSubActionExecType.class.getCanonicalName(),
+							OpersSubOpExecType.class.getCanonicalName(),
 							editor.getEditedModel().getSyntaxModel()
-									.getVertex("OMExpType"));
+									.getVertex("OpMExpType"));
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
 				} else if (editElm.getTransSupportMetaElement() != null
 						&& editElm.getTransSupportMetaElement().getName()
-								.equals("OMLabeling")) {
+								.equals("OpMLabeling")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"sortorder",
 							LabelingOrder.class.getCanonicalName(), null);
@@ -1056,8 +1062,8 @@ public class ElementDesignPanel extends JPanel {
 
 			}
 			if (editElm.getSupInstEleId() != null
-					&& (editElm.getSupInstEleId().equals("OMPWRel") || editElm
-							.getSupInstEleId().equals("OMOTRel"))) {
+					&& (editElm.getSupInstEleId().equals("SeMPWRel") || editElm
+							.getSupInstEleId().equals("SeMOTRel"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 450;
