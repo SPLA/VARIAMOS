@@ -253,6 +253,7 @@ public class OpersExpr implements Serializable {
 		this.semanticExpressionType = semanticExpressionType;
 		this.setSemanticElement(semanticElement);
 		this.setLeftSemanticElement(leftSemanticElement);
+		this.setRightSemanticElement(semanticElement);
 		this.leftAttributeName = leftAttributeName;
 		this.rightNumber = rightNumber;
 		setLeftExpressionType(expressionVertexType);
@@ -310,12 +311,14 @@ public class OpersExpr implements Serializable {
 			this.leftAttributeName = attributeName;
 			this.rightNumber = number;
 			setLeftExpressionType(expressionVertexType);
+			this.setRightSemanticElement(semanticElement);
 			setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 		} else {
 			this.setRightSemanticElement(semanticConElement);
 			this.rightAttributeName = attributeName;
 			this.leftNumber = number;
 			setRightExpressionType(expressionVertexType);
+			this.setLeftSemanticElement(semanticElement);
 			setLeftExpressionType(ExpressionVertexType.LEFTNUMERICVALUE);
 		}
 	}
@@ -383,14 +386,12 @@ public class OpersExpr implements Serializable {
 			this.rightNumber = attributeValue;
 			setLeftExpressionType(expressionVertexType);
 			setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
-			setRightSemanticElement(semanticConElement);
 		} else {
 			this.setRightSemanticElement(semanticConElement);
 			this.rightAttributeName = attributeName1;
 			this.leftNumber = attributeValue;
 			setRightExpressionType(expressionVertexType);
 			setLeftExpressionType(ExpressionVertexType.LEFTNUMERICVALUE);
-			setLeftSemanticElement(semanticConElement);
 		}
 	}
 

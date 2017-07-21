@@ -550,12 +550,29 @@ public class ElementDesignPanel extends JPanel {
 														&& !elementAttribute
 																.getIdentifier()
 																.equals("description")) {
-													elementAttribute
-															.setValue(AbstractElement.multiLine(
-																	elementAttribute
-																			.toString(),
-																	(int) instCell
-																			.getWidth() / 8));
+													if (!elementAttribute
+															.getIdentifier()
+															.equals("completedMessage")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorText")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorMsg")) {
+														elementAttribute
+																.setValue(AbstractElement
+																		.multiLine(
+																				elementAttribute
+																						.toString(),
+																				(int) instCell
+																						.getWidth() / 8));
+													} else
+														elementAttribute
+																.setValue(AbstractElement
+																		.multiLine(
+																				elementAttribute
+																						.toString(),
+																				100));
 
 												}
 												// FIXME use the same solution
@@ -616,12 +633,29 @@ public class ElementDesignPanel extends JPanel {
 														&& !elementAttribute
 																.getIdentifier()
 																.equals("description")) {
-													elementAttribute
-															.setValue(AbstractElement.multiLine(
-																	elementAttribute
-																			.toString(),
-																	(int) instCell
-																			.getWidth() / 8));
+													if (!elementAttribute
+															.getIdentifier()
+															.equals("completedMessage")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorText")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorMsg")) {
+														elementAttribute
+																.setValue(AbstractElement
+																		.multiLine(
+																				elementAttribute
+																						.toString(),
+																				(int) instCell
+																						.getWidth() / 8));
+													} else
+														elementAttribute
+																.setValue(AbstractElement
+																		.multiLine(
+																				elementAttribute
+																						.toString(),
+																				100));
 
 												}
 												// Divide lines every 15
@@ -807,10 +841,26 @@ public class ElementDesignPanel extends JPanel {
 								if (elementAttribute.getType().equals("String")
 										&& !elementAttribute.getIdentifier()
 												.equals("description")) {
-									elementAttribute
-											.setValue(AbstractElement.multiLine(
-													elementAttribute.toString(),
-													(int) instCell.getWidth() / 8));
+									if (!elementAttribute.getIdentifier()
+											.equals("completedMessage")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorText")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorMsg")) {
+										elementAttribute
+												.setValue(AbstractElement.multiLine(
+														elementAttribute
+																.toString(),
+														(int) instCell
+																.getWidth() / 8));
+									} else
+										elementAttribute
+												.setValue(AbstractElement.multiLine(
+														elementAttribute
+																.toString(),
+														100));
 
 								}
 								// GARA
@@ -1002,12 +1052,10 @@ public class ElementDesignPanel extends JPanel {
 				if (editElm.getTransSupportMetaElement() != null
 						&& editElm.getTransSupportMetaElement().getName()
 								.equals("OpMSubOper")) {
-					attList = new MetaEnumTypeAttributeList(
-							editor,
-							instCell,
+					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"exptype",
-							OpersSubOpExecType.class.getCanonicalName(),
-							editor.getEditedModel().getSyntaxModel()
+							OpersSubOpExecType.class.getCanonicalName(), editor
+									.getEditedModel().getSyntaxModel()
 									.getVertex("OpMExpType"));
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));

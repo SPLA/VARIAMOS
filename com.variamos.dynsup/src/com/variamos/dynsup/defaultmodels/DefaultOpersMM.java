@@ -11017,6 +11017,13 @@ public class DefaultOpersMM {
 
 		ElemAttribute attribute = null;
 
+		OpersConcept semFeature = new OpersConcept("Feature");
+		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), "Sel", true));
+
+		instVertexF = new InstConcept("Feature", metaMetaInstConcept,
+				semFeature);
+
 		OpersConcept semFeatOverTwoRelation = new OpersConcept("FeatureOT");// featSemOverTwoRelList);
 		InstConcept instVertexFFGR = new InstConcept("FeatureOT",
 				semFeatOverTwoRelation, metaMetaInstOverTwoRel);
@@ -11079,7 +11086,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("047NEW VerPar - isSructParent", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTITEROUTRELVARIABLE, instVertexFFGR,
-				instNmMetaPW, "oOutAnaSel", true, t1);
+				instVertexFFGR, t1, "oOutAnaSel");
 
 		verifParentsOperSubActionNormal.addSemanticExpression(t1);
 
@@ -11100,7 +11107,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
-				instVertexF, "tmpAnaSel", true, 0);
+				instVertexF, null, "tmpAnaSel", 0, true);
 
 		t1 = new OpersExpr("Core", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -11108,7 +11115,7 @@ public class DefaultOpersMM {
 
 		OpersExpr t3 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexFFGR, instVertexF, "inAnaSel", true, 0);
+				instVertexFFGR, instVertexF, null, "inAnaSel", 0, true);
 
 		t3 = new OpersExpr("Core", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -11119,12 +11126,12 @@ public class DefaultOpersMM {
 				t1);
 
 		t1 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexFFGR, instVertexFFGR, t1, "oTmpAnaSel");
+				"Equals"), instVertexFFGR, instVertexFFGR, "oTmpAnaSel", true,
+				t1);
 
 		OpersExpr t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexFFGR, instVertexF, "outAnaSel", true, 0);
+				instVertexFFGR, instVertexF, null, "outAnaSel", 0, true);
 
 		t2 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -11145,7 +11152,7 @@ public class DefaultOpersMM {
 		t2 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
-				instVertexF, "outAnaSel", true, 0);
+				instVertexF, null, "outAnaSel", 0, true);
 
 		t2 = new OpersExpr("Core", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -11210,13 +11217,6 @@ public class DefaultOpersMM {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
 		instEdge.setTargetRelation(instNmMetaPW, true);
 		instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
-
-		OpersConcept semFeature = new OpersConcept("Feature");
-		simsceExecOperLab2.addAttribute(new OpersIOAttribute(semFeature
-				.getIdentifier(), "Sel", true));
-
-		instVertexF = new InstConcept("Feature", metaMetaInstConcept,
-				semFeature);
 
 		attribute = new ElemAttribute("inAnaSel", "Boolean",
 				AttributeType.SYNTAX, false, "Selected for Analysis",
@@ -11337,13 +11337,14 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("And"),
-				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexF,
-				instNmMetaPW, "TrueVal", true, t1);
+				ExpressionVertexType.LEFTITERINCRELVARIABLE,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexF, instVertexF,
+				instNmMetaPW, t1, "TrueVal");
 
 		t2 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
 				ExpressionVertexType.LEFTVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instVertexF, instVertexF,
-				instVertexF, "outAnaSel", "isRootElement");
+				instVertexF, "outAnaSel", "IsRootFeature");
 
 		t1 = new OpersExpr("014NEW VerPar - isSructParent", refas
 				.getSemanticExpressionTypes().get("Implies"), instVertexF, t2,

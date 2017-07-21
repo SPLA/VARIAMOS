@@ -1103,10 +1103,12 @@ public class SemanticExpressionDialog extends JDialog {
 				if (((element.getSupInstEleId().equals("SeMPWRel") && (sourceRelation
 						.getSupInstEleId().equals("SeMConcept")
 						|| sourceRelation.getSupInstEleId().equals(
-								"SeMnmConcept") || sourceRelation
-						.getSupInstEleId().equals("SeMOTRel"))))
-						|| (!element.getSupInstEleId().equals("SeMPWRel") && sourceRelation
-								.getSupInstEleId().equals("SeMPWRel")))
+								"SeMnmConcept")
+						|| sourceRelation.getSupInstEleId().equals("SeMOTRel") || sourceRelation
+						.getSupInstEleId().equals("SeMnmOTRel"))))
+						|| (!element.getSupInstEleId().equals("SeMPWRel") && (sourceRelation
+								.getSupInstEleId().equals("SeMPWRel") || sourceRelation
+								.getSupInstEleId().equals("SeMnmPWRel"))))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCCONVARIABLE:
@@ -1124,7 +1126,9 @@ public class SemanticExpressionDialog extends JDialog {
 				if (sourceRelation.getSupInstEleId().equals("SeMConcept")
 						|| sourceRelation.getSupInstEleId().equals(
 								"SeMnmConcept")
-						|| sourceRelation.getSupInstEleId().equals("SeMOTRel"))
+						|| sourceRelation.getSupInstEleId().equals("SeMOTRel")
+						|| sourceRelation.getSupInstEleId()
+								.equals("SeMnmOTRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
@@ -1133,7 +1137,9 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupInstEleId().equals("SeMPWRel"))
+				if (sourceRelation.getSupInstEleId().equals("SeMPWRel")
+						|| sourceRelation.getSupInstEleId()
+								.equals("SeMnmPWRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:
