@@ -1,7 +1,7 @@
 package com.variamos.dynsup.types;
 
 //FIXME move to an OMMEnum
-public enum OperationActionType {
+public enum OpersOpType {
 	// Analyze, Configure,
 	Computational_Analysis, Verification, Export, Validation
 	// _no_Dashboard, Validation_with_Dashboard,

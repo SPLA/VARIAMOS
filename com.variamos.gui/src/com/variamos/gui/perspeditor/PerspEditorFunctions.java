@@ -287,7 +287,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 									if (pairwiseRelation.getSupInstEleId() == null
 											|| !pairwiseRelation
 													.getSupInstEleId().equals(
-															"SMViewNode")
+															"SyMViewNode")
 											|| pairwiseRelation
 													.getSourceRelations()
 													.size() == 0

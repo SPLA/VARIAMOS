@@ -11,7 +11,7 @@ import javax.swing.filechooser.FileFilter;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.types.OperationActionType;
+import com.variamos.dynsup.types.OpersOpType;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.MainFrame;
@@ -67,7 +67,7 @@ public class OperationAction extends AbstractEditorAction {
 
 		if (operationObj != null
 				&& operationObj.getInstAttributeValue("operType").equals(
-						OperationActionType.Export.toString())) {
+						OpersOpType.Export.toString())) {
 
 			// boolean dialogShown = false;
 

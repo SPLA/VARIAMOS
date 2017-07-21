@@ -16,6 +16,7 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxCellOverlay;
+import com.mxgraph.swing.util.mxICellOverlay;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
@@ -182,12 +183,13 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						else
 							ia.setValue(true);
 				}
-				String backtophint = "", backbottomhint = "";
+				String backtophint = "", sidehint = "";
 
 				String sim_core = imagesBasePath + "sim_core.png";
 				String sim_core_req = imagesBasePath + "sim_core_req.png";
 				String sim_dead = imagesBasePath + "sim_dead.png";
 				String sim_inactive = imagesBasePath + "sim_inactive.png";
+				String sim_outmessage = imagesBasePath + "outmessage.png";
 				String sim_normal = imagesBasePath + "sim_normal.png";
 				String sim_notavailable = imagesBasePath
 						+ "sim_notavailable.png";
@@ -252,6 +254,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						backtophint = "Not selected";
 					}
 					// if (!backtophint.equals("")) {
+					// if (sim_normal != sim_backcolor) {
 					mxCellOverlay over2 = new mxCellOverlay(new ImageIcon(
 							mxGraphComponent.class.getResource(sim_backcolor)),
 							backtophint);
@@ -259,6 +262,54 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					over2.setAlign(mxConstants.ALIGN_CENTER);
 					addCellOverlay(childCell, over2);
 					// }
+					// }
+					if (instConcept.getInstAttribute("outAnaSel") != null) {
+
+						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+								mxGraphComponent.class
+										.getResource(sim_outmessage)),
+								"Element Selected from Analysis");
+						over3.setVerticalAlign(mxConstants.ALIGN_MIDDLE);
+						over3.setAlign(mxConstants.ALIGN_RIGHT);
+						if ((boolean) instConcept.getInstAttribute("outAnaSel")
+								.getValue())
+							addCellOverlay(childCell, over3);
+						else {
+							for (mxICellOverlay o : this
+									.getCellOverlays(childCell)) {
+								if (((mxCellOverlay) o).getVerticalAlign()
+										.equals(mxConstants.ALIGN_MIDDLE)
+										&& ((mxCellOverlay) o)
+												.getAlign()
+												.equals(mxConstants.ALIGN_RIGHT))
+									removeCellOverlay(childCell, o);
+							}
+						}
+					}
+
+					if (instConcept.getInstAttribute("inAnaSel") != null) {
+
+						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+								mxGraphComponent.class
+										.getResource(sim_outmessage)),
+								"Element Selected for Analysis");
+						over3.setVerticalAlign(mxConstants.ALIGN_MIDDLE);
+						over3.setAlign(mxConstants.ALIGN_LEFT);
+						if ((boolean) instConcept.getInstAttribute("inAnaSel")
+								.getValue())
+							addCellOverlay(childCell, over3);
+						else {
+							for (mxICellOverlay o : this
+									.getCellOverlays(childCell)) {
+								if (((mxCellOverlay) o).getVerticalAlign()
+										.equals(mxConstants.ALIGN_MIDDLE)
+										&& ((mxCellOverlay) o).getAlign()
+												.equals(mxConstants.ALIGN_LEFT))
+									removeCellOverlay(childCell, o);
+							}
+						}
+					}
+
 					if ((boolean) instConcept.getInstAttribute("Required")
 							.getValue()) {
 						mxCellOverlay over3 = new mxCellOverlay(
@@ -323,7 +374,6 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								mxGraphComponent.class
 										.getResource(sim_red2_tmp)),
 								"Configuration Not Selected (Only testing)");
-						backbottomhint = "Configuration Not Selected (Only testing)";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -337,7 +387,6 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class.getResource(sim_red2)),
 								"Configuration Not Selected");
-						backbottomhint = "Configuration Not Selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);

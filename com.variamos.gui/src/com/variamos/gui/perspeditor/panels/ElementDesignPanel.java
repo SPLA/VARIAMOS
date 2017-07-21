@@ -40,7 +40,7 @@ import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -179,13 +179,13 @@ public class ElementDesignPanel extends JPanel {
 
 				if (editElm.getEdOperEle() != null
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMLabeling")
+								.equals("OpMLabeling")
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMSubOper")
+								.equals("OpMSubOper")
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMOperation")
+								.equals("OpMOperation")
 						&& !editElm.getTransSupportMetaElement().getName()
-								.equals("OMOperGroup")) {
+								.equals("OpMOperGroup")) {
 
 					elementDesPropSubPanel.add(new JLabel("Meta-Model-Expr."));
 					JButton button = new JButton("Meta-Model-Expr. Editor...");
@@ -232,7 +232,7 @@ public class ElementDesignPanel extends JPanel {
 				}
 				if (editElm.getEdOperEle() != null
 						&& editElm.getTransSupportMetaElement().getName()
-								.equals("OMLabeling")) {
+								.equals("OpMLabeling")) {
 					elementDesPropSubPanel.add(new JLabel("Order Meta-Expr."));
 					JButton button = new JButton("Order Meta-Expr. Editor...");
 					if (editor.getPerspective() == 4)
@@ -1001,19 +1001,19 @@ public class ElementDesignPanel extends JPanel {
 				JList attList = null;
 				if (editElm.getTransSupportMetaElement() != null
 						&& editElm.getTransSupportMetaElement().getName()
-								.equals("OMSubOper")) {
+								.equals("OpMSubOper")) {
 					attList = new MetaEnumTypeAttributeList(
 							editor,
 							instCell,
 							"exptype",
-							OperationSubActionExecType.class.getCanonicalName(),
+							OpersSubOpExecType.class.getCanonicalName(),
 							editor.getEditedModel().getSyntaxModel()
-									.getVertex("OMExpType"));
+									.getVertex("OpMExpType"));
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
 				} else if (editElm.getTransSupportMetaElement() != null
 						&& editElm.getTransSupportMetaElement().getName()
-								.equals("OMLabeling")) {
+								.equals("OpMLabeling")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"sortorder",
 							LabelingOrder.class.getCanonicalName(), null);
@@ -1062,8 +1062,8 @@ public class ElementDesignPanel extends JPanel {
 
 			}
 			if (editElm.getSupInstEleId() != null
-					&& (editElm.getSupInstEleId().equals("OMPWRel") || editElm
-							.getSupInstEleId().equals("OMOTRel"))) {
+					&& (editElm.getSupInstEleId().equals("SeMPWRel") || editElm
+							.getSupInstEleId().equals("SeMOTRel"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 450;

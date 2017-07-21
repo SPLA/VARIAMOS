@@ -282,7 +282,7 @@ public class OpersExpr implements Serializable {
 		this.setLeftSemanticElement(leftSemanticElement);
 		this.leftAttributeName = leftAttributeName;
 		this.rightAttributeName = rightAttributeName;
-		this.setRightSemanticElement();
+		this.setRightSemanticElement(semanticElement);
 		setLeftExpressionType(expressionVertexType);
 		setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
 	}
@@ -443,6 +443,23 @@ public class OpersExpr implements Serializable {
 		this.setRightSemanticElement(semanticConElement);
 		setLeftExpressionType(expressionVertexType);
 		setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
+	}
+
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
+			ExpressionVertexType leftExpressionVertexType,
+			ExpressionVertexType rightExpressionVertexType,
+			InstElement semanticElement, InstElement semanticLeftConElement,
+			InstElement semanticRightConElement, OpersExpr semanticExpression,
+			String rightAttribute) {
+		this.identifier = identifier;
+		this.setSemanticElement(semanticElement);
+		this.setLeftSemanticExpression(semanticExpression);
+		this.semanticExpressionType = semanticExpressionType;
+		this.setLeftSemanticElement(semanticLeftConElement);
+		this.rightAttributeName = rightAttribute;
+		this.setRightSemanticElement(semanticRightConElement);
+		setLeftExpressionType(leftExpressionVertexType);
+		setRightExpressionType(rightExpressionVertexType);
 	}
 
 	public OpersExpr(String identifier, String naturalLangDesc,
@@ -665,8 +682,8 @@ public class OpersExpr implements Serializable {
 			InstElement semanticElement, InstElement leftSemanticElement,
 			OpersExpr semanticExpression, InstElement rightSemanticElement,
 			String rightAttribute) {
-
 		this.identifier = identifier;
+		this.setSemanticElement(semanticElement);
 		this.semanticExpressionType = semanticExpressionType;
 		this.leftSemanticExpression = semanticExpression;
 		setLeftExpressionType(leftExpressionType);
@@ -796,6 +813,7 @@ public class OpersExpr implements Serializable {
 			break;
 		}
 		switch (volatileRightExpType) {
+		case RIGHTMODELVARS:
 		case RIGHTVARIABLE:
 		case RIGHTCONCEPTVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
@@ -835,7 +853,6 @@ public class OpersExpr implements Serializable {
 		case LEFTVARIABLE:
 		case LEFTVARIABLEVALUE:
 		case RIGHTBOOLEANEXPRESSION:
-		case RIGHTMODELVARS:
 		case RIGHTNUMERICVALUE:
 		case RIGHTSTRINGVALUE:
 		case RIGHTSUBEXPRESSION:
@@ -1197,6 +1214,7 @@ public class OpersExpr implements Serializable {
 			if (volatileLeftSemanticElement != null)
 				return volatileLeftSemanticElement.getIdentifier();
 			break;
+		case RIGHTMODELVARS:
 		case RIGHTVARIABLE:
 		case RIGHTCONCEPTVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
@@ -1224,6 +1242,7 @@ public class OpersExpr implements Serializable {
 		case LEFTUNIQUEOUTRELVARIABLE:
 		case LEFTUNIQUEINCRELVARIABLE:
 			return volatileLeftSemanticElement;
+		case RIGHTMODELVARS:
 		case RIGHTVARIABLE:
 		case RIGHTCONCEPTVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
@@ -1293,6 +1312,7 @@ public class OpersExpr implements Serializable {
 				variable = getLeftAttributeName();
 			}
 			break;
+		case RIGHTMODELVARS:
 		case RIGHTCONCEPTVARIABLE:
 		case RIGHTVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
@@ -1331,7 +1351,7 @@ public class OpersExpr implements Serializable {
 				concept = volatileLeftSemanticElement;
 			}
 			break;
-
+		case RIGHTMODELVARS:
 		case RIGHTCONCEPTVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
@@ -1414,6 +1434,7 @@ public class OpersExpr implements Serializable {
 		case LEFTUNIQUEOUTRELVARIABLE:
 			this.setLeftAttributeName(attributeName);
 			break;
+		case RIGHTMODELVARS:
 		case RIGHTVARIABLE:
 		case RIGHTCONCEPTVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
@@ -1599,6 +1620,9 @@ public class OpersExpr implements Serializable {
 				break;
 			case RIGHTMODELVARS:
 				out += "RightModelVars" + ":";
+
+				out += this.getRightSemanticElementId() + ":";
+				out += getRightAttributeName();
 				break;
 			case RIGHTNUMERICVALUE:
 				out += rightNumber;
