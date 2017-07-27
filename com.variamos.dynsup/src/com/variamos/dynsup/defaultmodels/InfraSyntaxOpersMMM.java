@@ -480,8 +480,8 @@ public class InfraSyntaxOpersMMM {
 						"Currently ignored by the implementation", false, 0,
 						10, "false", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperGroup.addModelingAttribute("name",
-				new ElemAttribute("name", "String", AttributeType.OPERATION,
+		infraSyntaxOpersM2OperGroup.addModelingAttribute("opgname",
+				new ElemAttribute("opgname", "String", AttributeType.OPERATION,
 						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("shortcut",
@@ -574,8 +574,8 @@ public class InfraSyntaxOpersMMM {
 								+ "(on_demand assumed)", OpersExecType.class
 								.getCanonicalName(), "on demand", "", 0, 5,
 						"false", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
-				new ElemAttribute("name", "String", AttributeType.OPERATION,
+		infraSyntaxOpersM2OperAction.addModelingAttribute("opname",
+				new ElemAttribute("opname", "String", AttributeType.OPERATION,
 						false, "Display Name", "", null, 0, 6, "", "", -1, "",
 						""));
 

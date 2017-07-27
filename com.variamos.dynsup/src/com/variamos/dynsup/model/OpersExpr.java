@@ -107,6 +107,8 @@ public class OpersExpr implements Serializable {
 	}
 
 	public OpersExpr(InstElement instElement) {
+		identifier = "     ";
+		naturalLangDesc = "     ";
 		this.setSemanticElement(instElement);
 		this.setLeftSemanticElement(instElement);
 		this.setRightSemanticElement(instElement);
@@ -751,7 +753,11 @@ public class OpersExpr implements Serializable {
 					&& exp.getSemElemId().equals(this.getSemElemId()))
 				elem = true;
 			if (exp.getSemElemId() == null && this.getSemElemId() == null)
-				elem = true;
+				return true;
+			if (exp.getIdentifier() == null && this.getIdentifier() == null)
+				return true;
+			if (exp.getIdentifier() == null || this.getIdentifier() == null)
+				return false;
 			if (elem)
 				return exp.getIdentifier().equals(this.getIdentifier());
 

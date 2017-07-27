@@ -336,7 +336,12 @@ public class SemanticExpressionDialog extends JDialog {
 		JComboBox<String> rightSide = createSidesCombo(semanticExpression,
 				element, false, recursiveElement != null ? true : false,
 				fixedType);
-		rightSide.setToolTipText("Type for the right side of the expression");
+		if (recursiveElement != null)
+			rightSide
+					.setToolTipText("Type for the right side of the expression - It is the default/last operand in the iterative expression");
+		else
+			rightSide
+					.setToolTipText("Type for the right side of the expression");
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBackground(new Color(color, color, color));
 		leftPanel.addMouseListener(new MouseListener() {

@@ -552,7 +552,13 @@ public class ElementDesignPanel extends JPanel {
 																.equals("description")) {
 													if (!elementAttribute
 															.getIdentifier()
-															.equals("completedMessage")
+															.equals("opname")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("opgname")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("completedMessage")
 															&& !elementAttribute
 																	.getIdentifier()
 																	.equals("errorText")
@@ -635,7 +641,13 @@ public class ElementDesignPanel extends JPanel {
 																.equals("description")) {
 													if (!elementAttribute
 															.getIdentifier()
-															.equals("completedMessage")
+															.equals("opname")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("opgname")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("completedMessage")
 															&& !elementAttribute
 																	.getIdentifier()
 																	.equals("errorText")
@@ -842,7 +854,13 @@ public class ElementDesignPanel extends JPanel {
 										&& !elementAttribute.getIdentifier()
 												.equals("description")) {
 									if (!elementAttribute.getIdentifier()
-											.equals("completedMessage")
+											.equals("opname")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"opgname")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"completedMessage")
 											&& !elementAttribute
 													.getIdentifier().equals(
 															"errorText")
