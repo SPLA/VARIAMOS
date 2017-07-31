@@ -315,15 +315,10 @@ public class ElementDesignPanel extends JPanel {
 								&& (instAttribute
 										.getAttribute()
 										.getAttributeType()
-										.equals(AttributeType.SYNTAX.toString())
-										|| instAttribute
-												.getAttribute()
-												.getAttributeType()
-												.equals(AttributeType.OPERATION
-														.toString()) || instAttribute
+										.equals(AttributeType.SYNTAX.toString()) || instAttribute
 										.getAttribute()
 										.getAttributeType()
-										.equals(AttributeType.CONFIGURATION
+										.equals(AttributeType.OPERATION
 												.toString()))) {
 							if (instAttribute.getIdentifier().equals(
 									SyntaxElement.VAR_USERIDENTIFIER)
