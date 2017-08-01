@@ -36,6 +36,7 @@ import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -588,21 +589,63 @@ public class ElementDesignPanel extends JPanel {
 													List<InstElement> pwrList = (elementAttribute)
 															.getValidationMEList();
 													InstElement sel = null;
-													String val = ((SyntaxElement) elementAttribute
-															.getValueObject())
-															.getInstSemanticElementId();
-													for (InstElement e : pwrList) {
-														if (e.getInstAttribute("OperationsMMType") != null) {
-															String ee = (String) e
-																	.getInstAttribute(
-																			"OperationsMMType")
-																	.getValue();
-															if (ee.equals(val))
-																sel = e;
+													if (((SyntaxElement) elementAttribute
+															.getValueObject()) != null) {
+														String val = ((SyntaxElement) elementAttribute
+																.getValueObject())
+																.getInstSemanticElementId();
+														for (InstElement e : pwrList) {
+															if (e.getInstAttribute("OperationsMMType") != null) {
+																String ee = (String) e
+																		.getInstAttribute(
+																				"OperationsMMType")
+																		.getValue();
+																if (ee.equals(val))
+																	sel = e;
+															} else if (e
+																	.getEdSyntaxEle() != null) {
+																if (e.getEdSyntaxEle()
+																		.getAutoIdentifier()
+																		.equals(val))
+																// if
+																// (e.getTransSupInstElement()
+																// != null)
+																// sel =
+																// e.getTransSupInstElement();
+																// else
+																{
+																	ModelInstance moI = finalEditor
+																			.getEditedModel()
+																			.getSyntaxModel();
+																	// for
+																	// (InstElement
+																	// ee : moI
+																	// .getConstraintInstEdgesCollection())
+																	// {
+																	// if
+																	// (e.getEdSyntaxEle()
+																	// .getAutoIdentifier()
+																	// .equals(val))
+																	// sel = ee;
+																	// }
+																	if (sel == null) {
+																		InstElement instSupportElement = moI
+																				.getConstraintInstEdge(val);
+																		if (instSupportElement == null) {
+																			System.err
+																					.println("PWRel Null"
+																							+ val);
+																			return;
+																		} else {
+																			sel = instSupportElement;
+																		}
+																	}
+																}
+															}
 														}
+														finalEditElm
+																.setTransSupInstElement(sel);
 													}
-													finalEditElm
-															.setTransSupInstElement(sel);
 												}
 												// FIXME end
 

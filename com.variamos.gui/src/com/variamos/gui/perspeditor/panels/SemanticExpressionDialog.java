@@ -455,7 +455,7 @@ public class SemanticExpressionDialog extends JDialog {
 				rightSide.setSelectedItem("This Concept Variable");
 				break;
 			case RIGHTMODELVARS:
-				leftSide.setSelectedItem("A Model Variable");
+				rightSide.setSelectedItem("A Model Variable");
 				break;
 			case RIGHTNUMERICVALUE:
 				rightSide.setSelectedItem("Number");
@@ -841,6 +841,25 @@ public class SemanticExpressionDialog extends JDialog {
 							false, 'C', false));
 					semanticExpression
 							.setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
+				}
+			}
+			if (rightSide.getSelectedItem().equals("A Model Variable")) {
+				{
+					if (semanticExpression != null
+							&& semanticExpression.getSemanticExpressionType() != null) {
+						JComboBox<String> conceptCombo = createCombo(
+								semanticExpression, element,
+								ExpressionVertexType.RIGHTMODELVARS,
+								semanticExpression.getRightValidExpressions(),
+								true, 'C', true);
+						rightPanel.add(conceptCombo);
+						rightPanel.add(createCombo(semanticExpression, element,
+								ExpressionVertexType.RIGHTMODELVARS,
+								semanticExpression.getRightValidExpressions(),
+								false, 'C', true));
+						semanticExpression
+								.setRightExpressionType(ExpressionVertexType.RIGHTMODELVARS);
+					}
 				}
 			}
 
