@@ -120,6 +120,31 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		}
 		return out;
 	}
+	
+	@Override
+	// jcmunoz: new method to support additional constraints in the verification
+	// of voids
+	public List<Defect> getVoids(
+			List<BooleanExpression> additionalConstraints) {
+		List<Defect> out = new ArrayList<Defect>();
+		if (additionalConstraints == null || additionalConstraints.size() == 0) {
+			boolean isVoid = !solver.isSatisfiable(model);
+			if (isVoid)
+				out.add(new VoidModel());
+			return out;
+		}
+
+		for (BooleanExpression additional : additionalConstraints) {
+			HlclProgram testModel = new HlclProgram();
+			testModel.addAll(model);
+			testModel.add(additional);
+
+			boolean isVoid = !solver.isSatisfiable(testModel);
+			if (isVoid)
+				out.add(new VoidModel(additional));
+		}
+		return out;
+	}
 
 	private boolean existValue(Identifier identifier, int valueToTest) {
 		// Cada vez que se hace una configuración se bloquean valores no tener
