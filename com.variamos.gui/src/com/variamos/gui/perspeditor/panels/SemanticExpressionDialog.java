@@ -857,12 +857,12 @@ public class SemanticExpressionDialog extends JDialog {
 								semanticExpression, element,
 								ExpressionVertexType.RIGHTMODELVARS,
 								semanticExpression.getRightValidExpressions(),
-								true, 'C', true);
+								true, 'C', false);
 						rightPanel.add(conceptCombo);
 						rightPanel.add(createCombo(semanticExpression, element,
 								ExpressionVertexType.RIGHTMODELVARS,
 								semanticExpression.getRightValidExpressions(),
-								false, 'C', true));
+								false, 'C', false));
 						semanticExpression
 								.setRightExpressionType(ExpressionVertexType.RIGHTMODELVARS);
 					}
