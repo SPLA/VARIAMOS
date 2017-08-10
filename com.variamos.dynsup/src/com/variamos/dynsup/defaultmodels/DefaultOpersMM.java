@@ -5031,7 +5031,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("operType").setValue(
 					OpersOpType.Verification.toString());
 			instOperationAction.getInstAttribute("opname").setValue(
-					"Verify Root Feature");
+					"Direct Root Feature");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
@@ -6855,13 +6855,9 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("ConfSel", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configuration Selected",
 				"Manually/Implication selected for this configuration", false,
-				2, 15, "Active" + "#==#" + "true" + "#" + "false", "Core"
-						+ "#==#" + "false#false", -1, "", "");
+				2, 15, "Active" + "#==#" + "true" + "#" + "false", "Active"
+						+ "#==#" + "true#false", -1, "", "");
 		semNmMetaConcept.putSemanticAttribute("ConfSel", attribute);
-		semNmMetaConcept.addPropVisibleAttribute("15#" + "ConfSel" + "#"
-				+ "Active" + "#==#" + "true" + "#" + "false");
-		semNmMetaConcept.addPropEditableAttribute("15#" + "ConfSel" + "#"
-				+ "Core" + "#==#" + "false" + "#" + "false");
 
 		if (!empty) {
 			voidModelSubOperationAction
@@ -6900,12 +6896,12 @@ public class DefaultOpersMM {
 			filterOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
-			redundanSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			redundanOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// redundanSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// redundanOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			homogeneitySubOperationAction1
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7094,12 +7090,12 @@ public class DefaultOpersMM {
 			filterOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
-			redundanSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			redundanOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// redundanSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// redundanOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			homogeneitySubOperationAction1
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7501,12 +7497,12 @@ public class DefaultOpersMM {
 			filterOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
-			redundanSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			redundanOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// redundanSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// redundanOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			homogeneitySubOperationAction1
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7728,12 +7724,12 @@ public class DefaultOpersMM {
 			filterOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
-			redundanSubOperationAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			redundanOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// redundanSubOperationAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// redundanOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			homogeneitySubOperationAction1
 					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7905,7 +7901,7 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("Var", "Boolean",
-				AttributeType.OPERATION, false, "Is a Varian Feature",
+				AttributeType.OPERATION, false, "Is a Variant Feature",
 				"Variant Feature identified by the variant operation", false,
 				2, -1, "false", "", -1, "", "");
 		semNmMetaConcept.putSemanticAttribute("Var", attribute);
@@ -8150,12 +8146,12 @@ public class DefaultOpersMM {
 			filterOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
-			redundanSubOperationAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			redundanOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// redundanSubOperationAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// redundanOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			homogeneitySubOperationAction1
 					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -8533,10 +8529,10 @@ public class DefaultOpersMM {
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			homogoneityOperUniqueLabeling1.addAttribute(new OpersIOAttribute(
@@ -10583,7 +10579,7 @@ public class DefaultOpersMM {
 		numProductsSubOperNormal.addSemanticExpression(t1);
 		filterSubOperNormal.addSemanticExpression(t1);
 		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
-		redundanOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionNormal.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
 		commonalityOperSubActionNormal1.addSemanticExpression(t1);
@@ -10662,7 +10658,7 @@ public class DefaultOpersMM {
 		numProductsSubOperNormal.addSemanticExpression(t1);
 		filterSubOperNormal.addSemanticExpression(t1);
 		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
-		redundanOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionNormal.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
 		commonalityOperSubActionNormal1.addSemanticExpression(t1);
@@ -10713,7 +10709,7 @@ public class DefaultOpersMM {
 		filterSubOperNormal.addSemanticExpression(t1);
 		condDeadElemSubOperNormal.addSemanticExpression(t1);
 		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
-		redundanOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionNormal.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
 		commonalityOperSubActionNormal1.addSemanticExpression(t1);
@@ -10800,7 +10796,7 @@ public class DefaultOpersMM {
 		numProductsSubOperNormal.addSemanticExpression(t1);
 		filterSubOperNormal.addSemanticExpression(t1);
 		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
-		redundanOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionNormal.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
 		commonalityOperSubActionNormal1.addSemanticExpression(t1);
@@ -11332,8 +11328,9 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
 				"Product"), instVertexGE, instVertexGE, "SimulSel", true, 2);
 
-		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexF, t1, 0);
+		// t1 = new OpersExpr("3",
+		// refas.getSemanticExpressionTypes().get("Sum"),
+		// instVertexF, t1, 0);
 
 		// t1 = new OpersExpr("4",
 		// refas.getSemanticExpressionTypes().get("Sum"),
@@ -11441,7 +11438,7 @@ public class DefaultOpersMM {
 		numProductsSubOperNormal.addSemanticExpression(t1);
 		filterSubOperNormal.addSemanticExpression(t1);
 		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
-		redundanOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionNormal.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
 		commonalityOperSubActionNormal1.addSemanticExpression(t1);
@@ -11484,7 +11481,7 @@ public class DefaultOpersMM {
 		numProductsSubOperNormal.addSemanticExpression(t1);
 		filterSubOperNormal.addSemanticExpression(t1);
 		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
-		redundanOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionNormal.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
 		commonalityOperSubActionNormal1.addSemanticExpression(t1);
@@ -11901,7 +11898,7 @@ public class DefaultOpersMM {
 		numProductsSubOperNormal.addSemanticExpression(t1);
 		filterSubOperNormal.addSemanticExpression(t1);
 		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
-		redundanOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionNormal.addSemanticExpression(t1);
 		// redundanOperSubActionToVerify.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
@@ -12088,7 +12085,7 @@ public class DefaultOpersMM {
 		numProductsSubOperNormal.addSemanticExpression(t1);
 		filterSubOperNormal.addSemanticExpression(t1);
 		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
-		redundanOperSubActionNormal.addSemanticExpression(t1);
+		// redundanOperSubActionNormal.addSemanticExpression(t1);
 		// redundanOperSubActionToVerify.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal1.addSemanticExpression(t1);
 		homogeneityOperSubActionNormal2.addSemanticExpression(t1);
@@ -12162,7 +12159,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				instDirFeaFeatVertSemEdge, t1, t2);
 
-		t1 = new OpersExpr("#028b### structValMan for Analysis", "", refas
+		t1 = new OpersExpr("#### structValMan for Analysis", "", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.RIGHTVARIABLE, instDirFeaFeatVertSemEdge,
 				instDirFeaFeatVertSemEdge, "pTmpAnaSel", false, t1);
@@ -12171,7 +12168,7 @@ public class DefaultOpersMM {
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instDirFeaFeatVertSemEdge, instVertexF, "outAnaSel", 0);
 
-		t1 = new OpersExpr("#0034bNEW structValMan for Analysis", "", refas
+		t1 = new OpersExpr("#034bNEW structValMan for Analysis", "", refas
 				.getSemanticExpressionTypes().get("Implies"),
 				instDirFeaFeatVertSemEdge, t2, t1);
 
@@ -13265,7 +13262,12 @@ public class DefaultOpersMM {
 		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
 		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
-		// FIXME
+		// FIXME test
+
+		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instParFeatFeatFGRF, instVertexF, "structVal", 1);
+
 		t1 = new OpersExpr(
 				"060NNEW NoLoop structValMan",
 				"To eliminate the structural loop remove this structural relation (mandatory between "
