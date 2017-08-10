@@ -563,23 +563,22 @@ public class ElementDesignPanel extends JPanel {
 																	.equals("errorMsg")
 															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("iterationName")																	
+																	.equals("iterationName")
 															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("completedMessage")																
-																	&& !elementAttribute
+																	.equals("completedMessage")
+															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("errorTitle")																	
-																	&& !elementAttribute
+																	.equals("errorTitle")
+															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("errorText")																	
-																	&& !elementAttribute
+																	.equals("errorText")
+															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("errorHint")																	
-																	&& !elementAttribute
+																	.equals("errorHint")
+															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("errorMsg")
-																	) {
+																	.equals("errorMsg")) {
 														elementAttribute
 																.setValue(AbstractElement
 																		.multiLine(
@@ -713,20 +712,20 @@ public class ElementDesignPanel extends JPanel {
 																	.equals("errorMsg")
 															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("iterationName")																	
+																	.equals("iterationName")
 															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("completedMessage")																
-																	&& !elementAttribute
+																	.equals("completedMessage")
+															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("errorTitle")																	
-																	&& !elementAttribute
+																	.equals("errorTitle")
+															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("errorText")																	
-																	&& !elementAttribute
+																	.equals("errorText")
+															&& !elementAttribute
 																	.getIdentifier()
-																	.equals("errorHint")																	
-																	&& !elementAttribute
+																	.equals("errorHint")
+															&& !elementAttribute
 																	.getIdentifier()
 																	.equals("errorMsg")) {
 														elementAttribute
@@ -942,24 +941,24 @@ public class ElementDesignPanel extends JPanel {
 											&& !elementAttribute
 													.getIdentifier().equals(
 															"errorMsg")
-															&& !elementAttribute
-															.getIdentifier()
-															.equals("iterationName")																	
-															&& !elementAttribute
-															.getIdentifier()
-															.equals("completedMessage")																	
-															&& !elementAttribute
-															.getIdentifier()
-															.equals("errorTitle")																	
-															&& !elementAttribute
-															.getIdentifier()
-															.equals("errorText")																	
-															&& !elementAttribute
-															.getIdentifier()
-															.equals("errorHint")																	
-															&& !elementAttribute
-															.getIdentifier()
-															.equals("errorMsg")) {
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"iterationName")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"completedMessage")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorTitle")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorText")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorHint")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorMsg")) {
 										elementAttribute
 												.setValue(AbstractElement.multiLine(
 														elementAttribute

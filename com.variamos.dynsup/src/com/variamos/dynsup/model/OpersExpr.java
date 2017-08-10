@@ -1387,7 +1387,6 @@ public class OpersExpr implements Serializable {
 			}
 			break;
 		case RIGHTMODELVARS:
-
 		case RIGHTCONCEPTVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
