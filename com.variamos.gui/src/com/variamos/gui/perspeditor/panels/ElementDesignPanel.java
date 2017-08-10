@@ -36,6 +36,7 @@ import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -315,15 +316,10 @@ public class ElementDesignPanel extends JPanel {
 								&& (instAttribute
 										.getAttribute()
 										.getAttributeType()
-										.equals(AttributeType.SYNTAX.toString())
-										|| instAttribute
-												.getAttribute()
-												.getAttributeType()
-												.equals(AttributeType.OPERATION
-														.toString()) || instAttribute
+										.equals(AttributeType.SYNTAX.toString()) || instAttribute
 										.getAttribute()
 										.getAttributeType()
-										.equals(AttributeType.CONFIGURATION
+										.equals(AttributeType.OPERATION
 												.toString()))) {
 							if (instAttribute.getIdentifier().equals(
 									SyntaxElement.VAR_USERIDENTIFIER)
@@ -550,12 +546,53 @@ public class ElementDesignPanel extends JPanel {
 														&& !elementAttribute
 																.getIdentifier()
 																.equals("description")) {
-													elementAttribute
-															.setValue(AbstractElement.multiLine(
-																	elementAttribute
-																			.toString(),
-																	(int) instCell
-																			.getWidth() / 8));
+													if (!elementAttribute
+															.getIdentifier()
+															.equals("opname")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("opgname")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("completedMessage")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorText")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorMsg")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("iterationName")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("completedMessage")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorTitle")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorText")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorHint")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorMsg")) {
+														elementAttribute
+																.setValue(AbstractElement
+																		.multiLine(
+																				elementAttribute
+																						.toString(),
+																				(int) instCell
+																						.getWidth() / 8));
+													} else
+														elementAttribute
+																.setValue(AbstractElement
+																		.multiLine(
+																				elementAttribute
+																						.toString(),
+																				100));
 
 												}
 												// FIXME use the same solution
@@ -570,21 +607,63 @@ public class ElementDesignPanel extends JPanel {
 													List<InstElement> pwrList = (elementAttribute)
 															.getValidationMEList();
 													InstElement sel = null;
-													String val = ((SyntaxElement) elementAttribute
-															.getValueObject())
-															.getInstSemanticElementId();
-													for (InstElement e : pwrList) {
-														if (e.getInstAttribute("OperationsMMType") != null) {
-															String ee = (String) e
-																	.getInstAttribute(
-																			"OperationsMMType")
-																	.getValue();
-															if (ee.equals(val))
-																sel = e;
+													if (((SyntaxElement) elementAttribute
+															.getValueObject()) != null) {
+														String val = ((SyntaxElement) elementAttribute
+																.getValueObject())
+																.getInstSemanticElementId();
+														for (InstElement e : pwrList) {
+															if (e.getInstAttribute("OperationsMMType") != null) {
+																String ee = (String) e
+																		.getInstAttribute(
+																				"OperationsMMType")
+																		.getValue();
+																if (ee.equals(val))
+																	sel = e;
+															} else if (e
+																	.getEdSyntaxEle() != null) {
+																if (e.getEdSyntaxEle()
+																		.getAutoIdentifier()
+																		.equals(val))
+																// if
+																// (e.getTransSupInstElement()
+																// != null)
+																// sel =
+																// e.getTransSupInstElement();
+																// else
+																{
+																	ModelInstance moI = finalEditor
+																			.getEditedModel()
+																			.getSyntaxModel();
+																	// for
+																	// (InstElement
+																	// ee : moI
+																	// .getConstraintInstEdgesCollection())
+																	// {
+																	// if
+																	// (e.getEdSyntaxEle()
+																	// .getAutoIdentifier()
+																	// .equals(val))
+																	// sel = ee;
+																	// }
+																	if (sel == null) {
+																		InstElement instSupportElement = moI
+																				.getConstraintInstEdge(val);
+																		if (instSupportElement == null) {
+																			System.err
+																					.println("PWRel Null"
+																							+ val);
+																			return;
+																		} else {
+																			sel = instSupportElement;
+																		}
+																	}
+																}
+															}
 														}
+														finalEditElm
+																.setTransSupInstElement(sel);
 													}
-													finalEditElm
-															.setTransSupInstElement(sel);
 												}
 												// FIXME end
 
@@ -616,12 +695,53 @@ public class ElementDesignPanel extends JPanel {
 														&& !elementAttribute
 																.getIdentifier()
 																.equals("description")) {
-													elementAttribute
-															.setValue(AbstractElement.multiLine(
-																	elementAttribute
-																			.toString(),
-																	(int) instCell
-																			.getWidth() / 8));
+													if (!elementAttribute
+															.getIdentifier()
+															.equals("opname")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("opgname")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("completedMessage")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorText")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorMsg")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("iterationName")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("completedMessage")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorTitle")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorText")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorHint")
+															&& !elementAttribute
+																	.getIdentifier()
+																	.equals("errorMsg")) {
+														elementAttribute
+																.setValue(AbstractElement
+																		.multiLine(
+																				elementAttribute
+																						.toString(),
+																				(int) instCell
+																						.getWidth() / 8));
+													} else
+														elementAttribute
+																.setValue(AbstractElement
+																		.multiLine(
+																				elementAttribute
+																						.toString(),
+																				100));
 
 												}
 												// Divide lines every 15
@@ -807,10 +927,50 @@ public class ElementDesignPanel extends JPanel {
 								if (elementAttribute.getType().equals("String")
 										&& !elementAttribute.getIdentifier()
 												.equals("description")) {
-									elementAttribute
-											.setValue(AbstractElement.multiLine(
-													elementAttribute.toString(),
-													(int) instCell.getWidth() / 8));
+									if (!elementAttribute.getIdentifier()
+											.equals("opname")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"opgname")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"completedMessage")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorText")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorMsg")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"iterationName")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"completedMessage")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorTitle")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorText")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorHint")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"errorMsg")) {
+										elementAttribute
+												.setValue(AbstractElement.multiLine(
+														elementAttribute
+																.toString(),
+														(int) instCell
+																.getWidth() / 8));
+									} else
+										elementAttribute
+												.setValue(AbstractElement.multiLine(
+														elementAttribute
+																.toString(),
+														100));
 
 								}
 								// GARA
@@ -1002,12 +1162,10 @@ public class ElementDesignPanel extends JPanel {
 				if (editElm.getTransSupportMetaElement() != null
 						&& editElm.getTransSupportMetaElement().getName()
 								.equals("OpMSubOper")) {
-					attList = new MetaEnumTypeAttributeList(
-							editor,
-							instCell,
+					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"exptype",
-							OpersSubOpExecType.class.getCanonicalName(),
-							editor.getEditedModel().getSyntaxModel()
+							OpersSubOpExecType.class.getCanonicalName(), editor
+									.getEditedModel().getSyntaxModel()
 									.getVertex("OpMExpType"));
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
@@ -1039,17 +1197,20 @@ public class ElementDesignPanel extends JPanel {
 								attributeEdition);
 				}
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(650, 350));
-				attPanel.setMaximumSize(new Dimension(650, 350));
+				attPanel.setPreferredSize(new Dimension(600, 350));
+				attPanel.setMaximumSize(new Dimension(600, 350));
+				attPanel.setAutoscrolls(true);
+				attributeEdition.setAutoscrolls(true);
 				JScrollPane jj = new JScrollPane(attList);
 				jj.setAutoscrolls(true);
+				attPanel.add(new JLabel(""));
 				attPanel.add(jj);
 				jj = new JScrollPane(attributeEdition);
 				jj.setAutoscrolls(true);
 				attPanel.add(jj);
-				attPanel.add(jj);
+				attPanel.add(new JLabel(""));
 
-				SpringUtilities.makeCompactGrid(attPanel, 2, 2, 4, 4, 4, 4);
+				SpringUtilities.makeCompactGrid(attPanel, 2, 3, 4, 4, 4, 4);
 
 				contentPanel3.add(attPanel);
 				mainPanel.add(rootPanel3);

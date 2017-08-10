@@ -57,8 +57,8 @@ public class SemanticExpressionDialog extends JDialog {
 	private ModelInstance refasModel;
 	private boolean displayConceptName = false;
 	private boolean displayVariableName = false;
-	private int width = 950;
-	private int height = 300;
+	private int width = 1350;
+	private int height = 760;
 	boolean initializing = false;
 
 	static interface SemanticExpressionButtonAction {
@@ -89,7 +89,6 @@ public class SemanticExpressionDialog extends JDialog {
 		this.getContentPane().removeAll();
 		// removeAll();
 		setLayout(new BorderLayout());
-
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 
@@ -210,7 +209,8 @@ public class SemanticExpressionDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				finalSemanticExpressions.add(new OpersExpr(element));
+				finalSemanticExpressions.add(new OpersExpr(element, refasModel
+						.getSemanticExpressionTypes().get("Equals")));
 
 				new Thread() {
 					@Override
@@ -336,7 +336,12 @@ public class SemanticExpressionDialog extends JDialog {
 		JComboBox<String> rightSide = createSidesCombo(semanticExpression,
 				element, false, recursiveElement != null ? true : false,
 				fixedType);
-		rightSide.setToolTipText("Type for the right side of the expression");
+		if (recursiveElement != null)
+			rightSide
+					.setToolTipText("Type for the right side of the expression - It is the default/last operand in the iterative expression");
+		else
+			rightSide
+					.setToolTipText("Type for the right side of the expression");
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBackground(new Color(color, color, color));
 		leftPanel.addMouseListener(new MouseListener() {
@@ -388,6 +393,9 @@ public class SemanticExpressionDialog extends JDialog {
 			case LEFTVARIABLE:
 				leftSide.setSelectedItem("This Concept Variable");
 				break;
+			case LEFTMODELVARS:
+				leftSide.setSelectedItem("A Model Variable");
+				break;
 			case LEFTNUMERICVALUE:
 				leftSide.setSelectedItem("Number");
 				break;
@@ -396,7 +404,7 @@ public class SemanticExpressionDialog extends JDialog {
 				break;
 
 			case LEFTITERCONCEPTVARIABLE:
-				leftSide.setSelectedItem("A Concept Type Variable");
+				leftSide.setSelectedItem("A Concept Type Variable - Iterative");
 				break;
 			case LEFTITERINCSUBEXP:
 				leftSide.setSelectedItem("Source Variables - Iterative (SubExp)");
@@ -446,6 +454,9 @@ public class SemanticExpressionDialog extends JDialog {
 			case RIGHTVARIABLE:
 				rightSide.setSelectedItem("This Concept Variable");
 				break;
+			case RIGHTMODELVARS:
+				rightSide.setSelectedItem("A Model Variable");
+				break;
 			case RIGHTNUMERICVALUE:
 				rightSide.setSelectedItem("Number");
 				break;
@@ -474,7 +485,9 @@ public class SemanticExpressionDialog extends JDialog {
 			if (semanticExpression.getSemanticExpressionType() != null) {
 				if (semanticExpression.getLeftSemanticExpression() == null)
 					semanticExpression.setLeftSemanticExpression(
-							ExpressionVertexType.LEFTSUBEXPRESSION, null,
+							ExpressionVertexType.LEFTSUBEXPRESSION,
+							refasModel.getSemanticExpressionTypes().get(
+									"Equals"),
 							semanticExpression.getIdentifier() + "Sub");
 				showExpression(semanticExpression.getLeftSemanticExpression(),
 						element, leftPanel,
@@ -510,6 +523,25 @@ public class SemanticExpressionDialog extends JDialog {
 							false, 'C', true));
 					semanticExpression
 							.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
+				}
+			}
+		}
+		if (leftSide.getSelectedItem().equals("A Model Variable")) {
+			{
+				if (semanticExpression != null
+						&& semanticExpression.getSemanticExpressionType() != null) {
+					JComboBox<String> conceptCombo = createCombo(
+							semanticExpression, element,
+							ExpressionVertexType.LEFTMODELVARS,
+							semanticExpression.getLeftValidExpressions(), true,
+							'C', true);
+					leftPanel.add(conceptCombo);
+					leftPanel.add(createCombo(semanticExpression, element,
+							ExpressionVertexType.LEFTMODELVARS,
+							semanticExpression.getLeftValidExpressions(),
+							false, 'C', true));
+					semanticExpression
+							.setLeftExpressionType(ExpressionVertexType.LEFTMODELVARS);
 				}
 			}
 		}
@@ -669,7 +701,8 @@ public class SemanticExpressionDialog extends JDialog {
 			iterativeType = ExpressionVertexType.LEFTITERANYRELVARIABLE;
 			subIterType = ExpressionVertexType.LEFTSUBITERANYVARIABLE;
 		}
-		if (leftSide.getSelectedItem().equals("A Concept Type Variable")) {
+		if (leftSide.getSelectedItem().equals(
+				"A Concept Type Variable - Iterative")) {
 			iterativeType = ExpressionVertexType.LEFTITERCONCEPTVARIABLE;
 			subIterType = ExpressionVertexType.LEFSUBTITERCONVARIABLE;
 		}
@@ -677,17 +710,19 @@ public class SemanticExpressionDialog extends JDialog {
 			if (semanticExpression.getSemanticExpressionType() != null) {
 
 				if (semanticExpression.getLeftSemanticExpression() == null)
-					semanticExpression.setLeftSemanticExpression(iterativeType,
-							null, "id");
-				JComboBox<String> conceptCombo = createCombo(
-						semanticExpression, element, iterativeType,
-						semanticExpression.getLeftValidExpressions(), true,
-						'C', true);
-				leftPanel.add(conceptCombo);
-				InstElement recElement = refasModel
-						.getVertex((String) conceptCombo.getSelectedItem());
+					semanticExpression.setLeftSemanticExpression(
+							iterativeType,
+							refasModel.getSemanticExpressionTypes().get(
+									"Equals"), "id");
+				// JComboBox<String> conceptCombo = createCombo(
+				// semanticExpression, element, iterativeType,
+				// semanticExpression.getLeftValidExpressions(), true,
+				// 'C', true);
+				// leftPanel.add(conceptCombo);
+				// InstElement recElement = refasModel
+				// .getVertex((String) conceptCombo.getSelectedItem());
 				showExpression(semanticExpression.getLeftSemanticExpression(),
-						element, recElement, subIterType, leftPanel,
+						element, null/* recElement */, subIterType, leftPanel,
 						semanticExpression.getLeftValidExpressions(),
 						color > 20 ? color - 15 : color > 5 ? color - 5 : color);
 				semanticExpression.setLeftExpressionType(iterativeType);
@@ -770,7 +805,9 @@ public class SemanticExpressionDialog extends JDialog {
 				if (semanticExpression.getSemanticExpressionType() != null) {
 					if (semanticExpression.getRightSemanticExpression() == null)
 						semanticExpression.setRightSemanticExpression(
-								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
+								ExpressionVertexType.RIGHTSUBEXPRESSION,
+								refasModel.getSemanticExpressionTypes().get(
+										"Equals"),
 								semanticExpression.getIdentifier() + "Sub");
 					showExpression(
 							semanticExpression.getRightSemanticExpression(),
@@ -810,6 +847,25 @@ public class SemanticExpressionDialog extends JDialog {
 							false, 'C', false));
 					semanticExpression
 							.setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
+				}
+			}
+			if (rightSide.getSelectedItem().equals("A Model Variable")) {
+				{
+					if (semanticExpression != null
+							&& semanticExpression.getSemanticExpressionType() != null) {
+						JComboBox<String> conceptCombo = createCombo(
+								semanticExpression, element,
+								ExpressionVertexType.RIGHTMODELVARS,
+								semanticExpression.getRightValidExpressions(),
+								true, 'C', true);
+						rightPanel.add(conceptCombo);
+						rightPanel.add(createCombo(semanticExpression, element,
+								ExpressionVertexType.RIGHTMODELVARS,
+								semanticExpression.getRightValidExpressions(),
+								false, 'C', true));
+						semanticExpression
+								.setRightExpressionType(ExpressionVertexType.RIGHTMODELVARS);
+					}
 				}
 			}
 
@@ -1087,28 +1143,36 @@ public class SemanticExpressionDialog extends JDialog {
 			 */
 
 			break;
-		case LEFTITERCONCEPTVARIABLE:
-		case LEFSUBTITERCONVARIABLE:
-			// instElements = refasModel.getVariabilityVertexCollection();
-			instElement = semanticExpression.getLeftSemanticElement();
-			// break;
+		case LEFTMODELVARS:
+		case RIGHTMODELVARS:
+			for (InstElement modInstElement : refasModel
+					.getVariabilityVertexCollection())
+				if (modInstElement.getSupInstEleId().equals("SeMModel"))
+					instElements.add(modInstElement);
+			break;
 		case LEFTITERINCRELVARIABLE:
 		case LEFTSUBITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTSUBITEROUTRELVARIABLE:
 		case LEFTITERANYRELVARIABLE:
 		case LEFTSUBITERANYRELVARIABLE:
-			for (InstElement sourceRelation : refasModel
+			for (InstElement itInstElement : refasModel
 					.getVariabilityVertexCollection())
-				if (((element.getSupInstEleId().equals("SeMPWRel") && (sourceRelation
+				if (((element.getSupInstEleId().equals("SeMPWRel") && (itInstElement
 						.getSupInstEleId().equals("SeMConcept")
-						|| sourceRelation.getSupInstEleId().equals(
-								"SeMnmConcept") || sourceRelation
-						.getSupInstEleId().equals("SeMOTRel"))))
-						|| (!element.getSupInstEleId().equals("SeMPWRel") && sourceRelation
-								.getSupInstEleId().equals("SeMPWRel")))
-					instElements.add(sourceRelation);// .getSourceRelations().get(0));
+						|| itInstElement.getSupInstEleId().equals(
+								"SeMnmConcept")
+						|| itInstElement.getSupInstEleId().equals("SeMOTRel") || itInstElement
+						.getSupInstEleId().equals("SeMnmOTRel"))))
+						|| (!element.getSupInstEleId().equals("SeMPWRel") && (itInstElement
+								.getSupInstEleId().equals("SeMPWRel") || itInstElement
+								.getSupInstEleId().equals("SeMnmPWRel"))))
+					instElements.add(itInstElement);// .getSourceRelations().get(0));
 			break;
+		case LEFTITERCONCEPTVARIABLE:
+		case LEFSUBTITERCONVARIABLE:
+			// instElements = refasModel.getVariabilityVertexCollection();
+			instElement = semanticExpression.getLeftSemanticElement();
 		case RIGHTUNIQUEINCCONVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
 		case LEFTUNIQUEINCCONVARIABLE:
@@ -1119,13 +1183,15 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTSUBITEROUTCONVARIABLE:
 		case LEFTITERINCSUBEXP:
 		case LEFTITEROUTSUBEXP:
-			for (InstElement sourceRelation : refasModel
+			for (InstElement uniqInstElement : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupInstEleId().equals("SeMConcept")
-						|| sourceRelation.getSupInstEleId().equals(
+				if (uniqInstElement.getSupInstEleId().equals("SeMConcept")
+						|| uniqInstElement.getSupInstEleId().equals(
 								"SeMnmConcept")
-						|| sourceRelation.getSupInstEleId().equals("SeMOTRel"))
-					instElements.add(sourceRelation);// .getSourceRelations().get(0));
+						|| uniqInstElement.getSupInstEleId().equals("SeMOTRel")
+						|| uniqInstElement.getSupInstEleId().equals(
+								"SeMnmOTRel"))
+					instElements.add(uniqInstElement);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
 		case RIGHTUNIQUEOUTRELVARIABLE:
@@ -1133,9 +1199,12 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupInstEleId().equals("SeMPWRel"))
+				if (sourceRelation.getSupInstEleId().equals("SeMPWRel")
+						|| sourceRelation.getSupInstEleId()
+								.equals("SeMnmPWRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
+
 		default:
 		}
 		if (isConcept) {
@@ -1242,11 +1311,12 @@ public class SemanticExpressionDialog extends JDialog {
 			final boolean left, boolean relation, ExpressionVertexType fixed) {
 		JComboBox<String> combo = new JComboBox<String>();
 		combo.addItem("This Concept Variable");
+		combo.addItem("A Model Variable");
 		combo.addItem("SubExpression");
 		combo.addItem("Number");
 		combo.addItem("String");
 		if (left) {
-			combo.addItem("A Concept Type Variable");
+			combo.addItem("A Concept Type Variable - Iterative");
 			combo.addItem("Source Variables - Iterative (Concept)");
 			combo.addItem("Source Variables - Iterative (Relation)");
 			combo.addItem("Target Variables - Iterative (Concept)");
@@ -1275,13 +1345,28 @@ public class SemanticExpressionDialog extends JDialog {
 							semanticExpression.setLastRight(item);
 						switch (item) {
 						case "This Concept Variable":
-							if (left)
+							if (left) {
 								semanticExpression
 										.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
-							else
+								semanticExpression
+										.setLeftSemanticElement(element);
+							} else {
 								semanticExpression
 										.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+								semanticExpression
+										.setRightSemanticElement(element);
+							}
 							break;
+
+						case "A Model Variable":
+							if (left)
+								semanticExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFTMODELVARS);
+							else
+								semanticExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTMODELVARS);
+							break;
+
 						case "SubExpression":
 							if (left)
 								semanticExpression
@@ -1306,7 +1391,7 @@ public class SemanticExpressionDialog extends JDialog {
 								semanticExpression
 										.setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
 							break;
-						case "A Concept Type Variable":
+						case "A Concept Type Variable - Iterative":
 							semanticExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTITERCONCEPTVARIABLE);
 							break;

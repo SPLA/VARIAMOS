@@ -348,36 +348,116 @@ public class InfraSyntaxOpersMMM {
 						InstPairwiseRel.VAR_METAPAIRWISE_CLASS,
 						new SyntaxElement('P'), 0, 2, "", "", -1, "", ""));
 
+		SyntaxElement infraSyntaxOpersnmCEdge = new SyntaxElement(
+				'P',
+				"ExtendsRelation",
+				false,
+				true,
+				"Extends Relation",
+				"refasextends",
+				"Extends relation: relates to concepts to extend attributes and operation constraints",
+				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				instBasicOpersM2ExtRel);
+
+		infraSyntaxOpersnmCEdge.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+
 		rel = new InstPairwiseRel(basicOpersM2ExtRel);
-		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
+		rel.setEdSyntaxEle(infraSyntaxOpersnmCEdge);
 		rel.setIdentifier("SeMExtnmCEdge");
 		rel.setTargetRelation(instInfraSyntaxOpersM2nmConcept, true);
 		rel.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
 		constraintInstEdges.put("SeMExtnmCEdge", rel);
 
+		SyntaxElement infraSyntaxOpersOTCEdge = new SyntaxElement(
+				'P',
+				"ExtendsRelation",
+				false,
+				true,
+				"Extends Relation",
+				"refasextends",
+				"Extends relation: relates to concepts to extend attributes and operation constraints",
+				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				instBasicOpersM2ExtRel);
+
+		infraSyntaxOpersOTCEdge.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+
 		rel = new InstPairwiseRel(basicOpersM2ExtRel);
-		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
+		rel.setEdSyntaxEle(infraSyntaxOpersOTCEdge);
 		rel.setIdentifier("SeMExtOTCEdge");
 		rel.setTargetRelation(instInfraSyntaxOpersM2Concept, true);
 		rel.setSourceRelation(instInfraSyntaxOpersM2OTRel, true);
 		constraintInstEdges.put("SeMExtOTCEdge", rel);
 
+		SyntaxElement infraSyntaxOpersOTOdge = new SyntaxElement(
+				'P',
+				"ExtendsRelation",
+				false,
+				true,
+				"Extends Relation",
+				"refasextends",
+				"Extends relation: relates to concepts to extend attributes and operation constraints",
+				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				instBasicOpersM2ExtRel);
+
+		infraSyntaxOpersOTOdge.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+
 		rel = new InstPairwiseRel(basicOpersM2ExtRel);
-		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
+		rel.setEdSyntaxEle(infraSyntaxOpersOTOdge);
 		rel.setIdentifier("SeMExtOTOdge");
 		rel.setTargetRelation(instInfraSyntaxOpersM2OTRel, true);
 		rel.setSourceRelation(instInfraSyntaxOpersM2OTRel, true);
 		constraintInstEdges.put("SeMExtOTEdge", rel);
 
+		SyntaxElement infraSyntaxOpersOTEdge = new SyntaxElement(
+				'P',
+				"ExtendsRelation",
+				false,
+				true,
+				"Extends Relation",
+				"refasextends",
+				"Extends relation: relates to concepts to extend attributes and operation constraints",
+				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				instBasicOpersM2ExtRel);
+
+		infraSyntaxOpersOTEdge.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+
 		rel = new InstPairwiseRel(basicOpersM2ExtRel);
-		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
+		rel.setEdSyntaxEle(infraSyntaxOpersOTEdge);
 		rel.setIdentifier("SeMExtnmOTEdge");
 		rel.setTargetRelation(instInfraSyntaxOpersM2nmOTRel, true);
 		rel.setSourceRelation(instInfraSyntaxOpersM2OTRel, true);
 		constraintInstEdges.put("MExtnmOTEdge", rel);
 
+		SyntaxElement infraSyntaxOpersPIPRel = new SyntaxElement(
+				'P',
+				"ExtendsRelation",
+				false,
+				true,
+				"Extends Relation",
+				"refasextends",
+				"Extends relation: relates to concepts to extend attributes and operation constraints",
+				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				instBasicOpersM2ExtRel);
+
+		infraSyntaxOpersPIPRel.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 4, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+
 		rel = new InstPairwiseRel(basicOpersM2ExtRel);
-		rel.setEdSyntaxEle(infraSyntaxOpersM2ExtRel);
+		rel.setEdSyntaxEle(infraSyntaxOpersPIPRel);
 		rel.setIdentifier("ExtendsPIPRel");
 		rel.setTargetRelation(instInfraSyntaxOpersM2PWRel, true);
 		rel.setSourceRelation(instPairWiseRelation, true);
@@ -480,8 +560,8 @@ public class InfraSyntaxOpersMMM {
 						"Currently ignored by the implementation", false, 0,
 						10, "false", "", -1, "", ""));
 
-		infraSyntaxOpersM2OperGroup.addModelingAttribute("name",
-				new ElemAttribute("name", "String", AttributeType.OPERATION,
+		infraSyntaxOpersM2OperGroup.addModelingAttribute("opgname",
+				new ElemAttribute("opgname", "String", AttributeType.OPERATION,
 						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("shortcut",
@@ -574,8 +654,8 @@ public class InfraSyntaxOpersMMM {
 								+ "(on_demand assumed)", OpersExecType.class
 								.getCanonicalName(), "on demand", "", 0, 5,
 						"false", "", -1, "", ""));
-		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
-				new ElemAttribute("name", "String", AttributeType.OPERATION,
+		infraSyntaxOpersM2OperAction.addModelingAttribute("opname",
+				new ElemAttribute("opname", "String", AttributeType.OPERATION,
 						false, "Display Name", "", null, 0, 6, "", "", -1, "",
 						""));
 

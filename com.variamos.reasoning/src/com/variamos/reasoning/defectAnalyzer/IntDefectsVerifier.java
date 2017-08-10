@@ -105,5 +105,8 @@ public interface IntDefectsVerifier {
 	// jcmunoz: new method to support additional constraints in the verification
 	// of false product lines
 	List<Defect> getFalsePLs(List<BooleanExpression> additionalConstraints);
+	// jcmunoz: new method to support additional constraints in the verification
+	// of void models
+	List<Defect> getVoids(List<BooleanExpression> additionalConstraints);
 
 }
