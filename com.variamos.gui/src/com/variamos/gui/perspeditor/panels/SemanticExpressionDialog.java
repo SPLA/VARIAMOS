@@ -57,8 +57,8 @@ public class SemanticExpressionDialog extends JDialog {
 	private ModelInstance refasModel;
 	private boolean displayConceptName = false;
 	private boolean displayVariableName = false;
-	private int width = 950;
-	private int height = 300;
+	private int width = 1350;
+	private int height = 760;
 	boolean initializing = false;
 
 	static interface SemanticExpressionButtonAction {
@@ -89,7 +89,6 @@ public class SemanticExpressionDialog extends JDialog {
 		this.getContentPane().removeAll();
 		// removeAll();
 		setLayout(new BorderLayout());
-
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 
@@ -1340,11 +1339,17 @@ public class SemanticExpressionDialog extends JDialog {
 						switch (item) {
 						case "This Concept Variable":
 							if (left)
+							{
 								semanticExpression
 										.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
+								semanticExpression.setLeftSemanticElement(element);
+							}
 							else
+							{
 								semanticExpression
 										.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+							semanticExpression.setRightSemanticElement(element);
+						}
 							break;
 
 						case "A Model Variable":

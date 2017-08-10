@@ -11495,14 +11495,10 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTSUBITERINCRELVARIABLE, instVertexF,
 				instDirFeaFeatVertSemEdge, "pOutAnaSel", true, "FalseVal");
 
-		t1 = new OpersExpr("outAnaSel", refas.getSemanticExpressionTypes().get(
-				"Or"), ExpressionVertexType.LEFTITERINCRELVARIABLE,
-				instVertexF, instDirFeaFeatVertSemEdge, t1, "FalseVal");
-
 		t1 = new OpersExpr("#018NEW outAnaSel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				ExpressionVertexType.LEFTVARIABLE, instVertexF, instVertexF,
-				"outAnaSel", true, t1);
+				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexF, instVertexF,
+				"outAnaSel", false, t1);
 
 		ecrOperSubActionNormal1.addSemanticExpression(t1);
 		rootSubOperNormal.addSemanticExpression(t1);
