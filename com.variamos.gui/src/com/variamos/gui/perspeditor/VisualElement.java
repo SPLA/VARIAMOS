@@ -3,6 +3,7 @@ package com.variamos.gui.perspeditor;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -70,7 +71,15 @@ public class VisualElement implements Comparable<VisualElement> {
 					+ instElement.getInstAttribute("ClaimExpLevel")
 							.getAsInteger() + "}";
 		}
-		if (opersElement instanceof OpersVariable) {
+
+		List<InstElement> parents = instElement.getTransSupportMetaElement()
+				.getTransInstSemanticElement().getParentOpersConcept();
+		boolean child = false;
+		for (InstElement e : parents)
+			if (e.getIdentifier().equals("NmVariable"))
+				child = true;
+
+		if (opersElement instanceof OpersVariable || child) {
 			String out = " : ";
 			if (instElement.getInstAttribute("variableType").getValue()
 					.equals("Integer")) {
@@ -168,10 +177,22 @@ public class VisualElement implements Comparable<VisualElement> {
 
 	// FIXME: use an attribute to define attributes visible for dashboard
 	public int getCols() {
+
+		List<InstElement> parents = instElement.getTransSupportMetaElement()
+				.getTransInstSemanticElement().getParentOpersConcept();
+		boolean child = false;
+		for (InstElement e : parents)
+			if (e.getIdentifier().equals("NmVariable"))
+				child = true;
 		String opersId = opersElement.getIdentifier();
-		// FIXME validate considering parents and remove classes
-		if (opersId.equals("AbstVariable") || opersId.equals("SoftDependency")
-				|| opersId.equals("Claim"))
+		if (opersElement != null
+				&& ((opersElement.getIdentifier() != null && opersElement
+						.getIdentifier().equals("NmVariable")) || child
+
+				// if (opersId.equals("AbstVariable")
+				|| opersId != null
+						&& (opersId.equals("SoftDependency") || opersId
+								.equals("Claim"))))
 			return 2;
 		if (opersId.equals("Softgoal"))
 			return 1;

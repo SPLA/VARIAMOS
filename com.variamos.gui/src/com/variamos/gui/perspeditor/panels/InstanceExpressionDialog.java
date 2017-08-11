@@ -724,8 +724,15 @@ public class InstanceExpressionDialog extends JDialog {
 
 			OpersElement semElement2 = instVertex.getTransSupportMetaElement()
 					.getTransSemanticConcept();
+			List<InstElement> parents = instVertex.getTransSupportMetaElement()
+					.getTransInstSemanticElement().getParentOpersConcept();
+			boolean child = false;
+			for (InstElement e : parents)
+				if (e.getIdentifier().equals("NmVariable"))
+					child = true;
 			if (semElement2 != null
-					&& semElement2.getIdentifier().equals("NmVariable")) {
+					&& ((semElement2.getIdentifier() != null && semElement2
+							.getIdentifier().equals("NmVariable")) || child)) {
 				String variableType = (String) instVertex.getInstAttribute(
 						"variableType").getValue();
 				switch (variableType) {
@@ -818,8 +825,16 @@ public class InstanceExpressionDialog extends JDialog {
 					.getVariabilityVertexCollection()) {
 				OpersElement semElement2 = instVertex
 						.getTransSupportMetaElement().getTransSemanticConcept();
-				if (semElement2 != null && semElement2.getIdentifier() != null
-						&& semElement2.getIdentifier().equals("NmVariable")) {
+				List<InstElement> parents = instVertex
+						.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
+				boolean child = false;
+				for (InstElement e : parents)
+					if (e.getIdentifier().equals("NmVariable"))
+						child = true;
+				if (semElement2 != null
+						&& ((semElement2.getIdentifier() != null && semElement2
+								.getIdentifier().equals("NmVariable")) || child)) {
 					String instVertexId = null;
 					if (displayVariableName)
 						instVertexId = instVertex.getInstAttribute("userId")

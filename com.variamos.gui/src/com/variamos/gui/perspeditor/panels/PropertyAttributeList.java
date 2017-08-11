@@ -98,7 +98,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 
 		// setSize(new Dimension(150, 150));
 		setPreferredSize(new Dimension(150, varAttributes.size() * 18));
-		setMaximumSize(new Dimension(200, varAttributes.size() * 18));
+		setMaximumSize(new Dimension(150, varAttributes.size() * 18));
 		this.setAutoscrolls(true);
 
 		addMouseListener(new MouseAdapter() {

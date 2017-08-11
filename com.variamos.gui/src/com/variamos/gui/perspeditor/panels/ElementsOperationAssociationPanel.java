@@ -418,37 +418,40 @@ public class ElementsOperationAssociationPanel extends
 			else
 				subOper.removeSemanticExpression((OpersExpr) source);
 		}
-
+		String attribute = variable.getName();
+		if (attribute.indexOf("-") != -1)
+			attribute = attribute.substring(attribute.indexOf("-") + 1,
+					attribute.length());
 		if (dialog == 1) {
 			OpersSubOperation subOper = subOpers.get((column - 1) / 2);
 			if (value == 1)
 				if (column % 2 != 0)
 					subOper.addInAttribute(new OpersIOAttribute(
-							((InstElement) source).getIdentifier(), variable
-									.getName(), true));
+							((InstElement) source).getIdentifier(), attribute,
+							true));
 				else
 					subOper.addOutAttribute(new OpersIOAttribute(
-							((InstElement) source).getIdentifier(), variable
-									.getName(), true));
+							((InstElement) source).getIdentifier(), attribute,
+							true));
 			else if (column % 2 != 0)
 				subOper.removeInAttribute(new OpersIOAttribute(
-						((InstElement) source).getIdentifier(), variable
-								.getName(), true));
+						((InstElement) source).getIdentifier(), attribute, true));
 			else
 				subOper.removeOutAttribute(new OpersIOAttribute(
-						((InstElement) source).getIdentifier(), variable
-								.getName(), true));
+						((InstElement) source).getIdentifier(), attribute, true));
 		}
 		if (dialog == 2) {
 			OpersLabeling operLabeling = operLabels.get(column - 1);
 			if (value == 1)
-				operLabeling.addAttribute(new OpersIOAttribute(
-						((InstElement) source).getIdentifier(), variable
-								.getName(), true));
+				operLabeling
+						.addAttribute(new OpersIOAttribute(
+								((InstElement) source).getIdentifier(),
+								attribute, true));
 			else
-				operLabeling.removeAttribute(new OpersIOAttribute(
-						((InstElement) source).getIdentifier(), variable
-								.getName(), true));
+				operLabeling
+						.removeAttribute(new OpersIOAttribute(
+								((InstElement) source).getIdentifier(),
+								attribute, true));
 		}
 
 		// node.setStepEdited(index);

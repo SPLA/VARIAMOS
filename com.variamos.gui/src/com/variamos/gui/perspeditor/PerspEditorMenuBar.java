@@ -285,8 +285,8 @@ public class PerspEditorMenuBar extends JMenuBar {
 									.getPerspective() + "")) {
 						menu = (JMenu) menu.add(new JMenu(
 								(i == 0 ? pre1 : pre2)
-										+ menuElement.getInstAttribute("name")
-												.getValue()));
+										+ menuElement.getInstAttribute(
+												"opgname").getValue()));
 						// menu.setMnemonic();
 						for (InstElement operRel : menuElement
 								.getTargetRelations()) {
@@ -297,7 +297,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 										.getValue())
 									continue;
 								JMenuItem menuItem = new JMenuItem((String) e
-										.getInstAttribute("name").getValue());
+										.getInstAttribute("opname").getValue());
 
 								menuItem.setName(e.getIdentifier());
 								menuItem.setAction(editor.bind(menuItem,
@@ -305,7 +305,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 										new OperationAction(), null));
 								menu.add(menuItem);
 								menuItem.setText((String) e.getInstAttribute(
-										"name").getValue());
+										"opname").getValue());
 								boolean iterate = (boolean) e.getInstAttribute(
 										"iteration").getValue();
 								if (iterate) {

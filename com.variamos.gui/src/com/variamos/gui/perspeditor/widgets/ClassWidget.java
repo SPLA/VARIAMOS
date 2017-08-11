@@ -210,17 +210,37 @@ public class ClassWidget extends WidgetR {
 					for (InstVertex concept : list) {
 						instVertex.put(concept.getInstAttribute("identifier")
 								.toString(), concept);
-						String out = concept.getInstAttribute("name")
-								.toString();
-						txtValue.addItem(out);
-						if (instAttribute.getValue() != null
-								&& out.equals(instAttribute.getValue()))
-							txtValue.setSelectedItem(out);
-						if (instAttribute.getValue() == null
-								&& instAttribute.getAttributeDefaultValue() != null
-								&& out.equals(instAttribute
-										.getAttributeDefaultValue()))
-							txtValue.setSelectedItem(out);
+						System.out.println(concept.getInstAttribute(
+								"identifier").toString());
+						if (concept.getInstAttribute("name") != null) {
+							String out = concept.getInstAttribute("name")
+									.toString();
+							txtValue.addItem(out);
+
+							if (instAttribute.getValue() != null
+									&& out.equals(instAttribute.getValue()))
+								txtValue.setSelectedItem(out);
+							if (instAttribute.getValue() == null
+									&& instAttribute.getAttributeDefaultValue() != null
+									&& out.equals(instAttribute
+											.getAttributeDefaultValue()))
+								txtValue.setSelectedItem(out);
+						}
+						if (concept.getInstAttribute("opname") != null) {
+							String out = concept.getInstAttribute("opname")
+									.toString();
+							txtValue.addItem(out);
+
+							if (instAttribute.getValue() != null
+									&& out.equals(instAttribute.getValue()))
+								txtValue.setSelectedItem(out);
+							if (instAttribute.getValue() == null
+									&& instAttribute.getAttributeDefaultValue() != null
+									&& out.equals(instAttribute
+											.getAttributeDefaultValue()))
+								txtValue.setSelectedItem(out);
+						}
+
 					}
 				}
 			}

@@ -10172,7 +10172,7 @@ public class DefaultRefasMM {
 
 		semExpr = new ArrayList<OpersExpr>();
 
-		t1 = new OpersExpr("NA Ver/Val ANDfeatSetConcept", refas
+		t1 = new OpersExpr("NA (Ver/Val ANDfeatSetConcept)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
@@ -10208,7 +10208,7 @@ public class DefaultRefasMM {
 				.addSemanticExpression(t1);
 		semExpr.add(t1);
 
-		t1 = new OpersExpr("NA UpCore ANDFeOpCoreConcept", refas
+		t1 = new OpersExpr("NA (UpCore ANDFeOpCoreConcept)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
@@ -10222,7 +10222,7 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
 				instVertexAsLFGR, instVertexAsset, "Sel", true, "TrueVal");
 
-		t1 = new OpersExpr("NA Ver/Val - ANDOperOperGrRel", refas
+		t1 = new OpersExpr("NA (Ver/Val - ANDOperOperGrRel)", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
 				DefaultOpersMM.instVertexF, t1, "OSel");
@@ -10262,7 +10262,7 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
 				instVertexAsLFGR, instVertexAsset, "Core", true, "TrueVal");
 
-		t1 = new OpersExpr("NA ANDOperOperGrCoreRel", refas
+		t1 = new OpersExpr("NA (ANDOperOperGrCoreRel)", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
 				DefaultOpersMM.instVertexF, t1, "OCore");
@@ -10276,7 +10276,7 @@ public class DefaultRefasMM {
 
 		semExpr = new ArrayList<OpersExpr>();
 
-		t1 = new OpersExpr("NA OROperConcept", refas
+		t1 = new OpersExpr("NA (OROperConcept)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
@@ -10316,8 +10316,8 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
 				instVertexAsLFGR, instVertexAsset, "Sel", true, "False");
 
-		t1 = new OpersExpr("NA ORAssetRel", refas.getSemanticExpressionTypes()
-				.get("DoubleImplies"),
+		t1 = new OpersExpr("NA (ORAssetRel)", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
 				instVertexAsset, t1, "OSel");
 
@@ -10357,7 +10357,7 @@ public class DefaultRefasMM {
 
 		semExpr = new ArrayList<OpersExpr>();
 
-		t1 = new OpersExpr("NA MUTEXOperConcept", refas
+		t1 = new OpersExpr("NA (MUTEXOperConcept)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
@@ -10402,7 +10402,7 @@ public class DefaultRefasMM {
 				.get("Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexAsLFGR, instVertexAsset, t1, 1);
 
-		t1 = new OpersExpr("NA MUTEXhardRel", refas
+		t1 = new OpersExpr("NA (MUTEXhardRel)", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexAsLFGR, DefaultOpersMM.instVertexF, "Sel", true, t1);
 
@@ -10441,7 +10441,7 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
 				instVertexAsLFGR, instVertexAsset, "Sel", 0);
 
-		t1 = new OpersExpr("NA MUTEXrestric", refas
+		t1 = new OpersExpr("NA (MUTEXrestric)", refas
 				.getSemanticExpressionTypes().get("LessOrEquals"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
 				instVertexAsset, t1, 1);
@@ -10482,7 +10482,7 @@ public class DefaultRefasMM {
 
 		semExpr = new ArrayList<OpersExpr>();
 
-		t1 = new OpersExpr("NA RANGEOperConcept", refas
+		t1 = new OpersExpr("NA (RANGEOperConcept)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
@@ -10541,7 +10541,7 @@ public class DefaultRefasMM {
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
 				instVertexAsLFGR, t1, t3);
 
-		t1 = new OpersExpr("NA RANGEHardRel", refas
+		t1 = new OpersExpr("NA (RANGEHardRel)", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexAsLFGR, instVertexAsLFGR, "OSel", true, t1);
 
@@ -10702,7 +10702,7 @@ public class DefaultRefasMM {
 
 		semExpr = new ArrayList<OpersExpr>();
 
-		t1 = new OpersExpr("132 Ver/Val - AssetOperGRIMPSel", refas
+		t1 = new OpersExpr("132 (Ver/Val - AssetOperGRIMPSel)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
@@ -10739,7 +10739,7 @@ public class DefaultRefasMM {
 		DefaultOpersMM.sasverConflSDOperSubActionNormal
 				.addSemanticExpression(t1);
 
-		t1 = new OpersExpr("133 Ver/Val IMPNotAvailable", refas
+		t1 = new OpersExpr("133 (Ver/Val IMPNotAvailable)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
@@ -10781,7 +10781,7 @@ public class DefaultRefasMM {
 				instAssetOperGRAO, instVertexOper, "structVal", 1);
 
 		t1 = new OpersExpr(
-				"134 NoLoop structVal",
+				"134 (NoLoop structVal)",
 				"To eliminate the structural loop remove this structural relation (mandatory between "
 						+ "#source# and #target#) or remove another relation with error mark.",
 				refas.getSemanticExpressionTypes().get("Equals"),
@@ -11080,8 +11080,9 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexF,
 				"IsRootFeature", 0);
 
-		t1 = new OpersExpr("022NEW Roots", refas.getSemanticExpressionTypes()
-				.get("Equals"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
+		t1 = new OpersExpr("022 (NEW Roots)", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
 				DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexF,
 				t1, 1);
 
@@ -11095,7 +11096,7 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexF,
 				"TrueVal", 0);
 
-		t1 = new OpersExpr("#023NEW totalAnSel Den", refas
+		t1 = new OpersExpr("023 (NEW totalAnSel Den)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
 				DefaultOpersMM.instGeneralModel,
@@ -11112,7 +11113,7 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexF,
 				"inAnaSel", 0);
 
-		t1 = new OpersExpr("#024NEW inAnaSel total", refas
+		t1 = new OpersExpr("024 (NEW inAnaSel total)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
 				DefaultOpersMM.instGeneralModel,
@@ -11127,7 +11128,7 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexF,
 				"outAnaSel", 0);
 
-		t1 = new OpersExpr("#025NEW outAnaSel total", refas
+		t1 = new OpersExpr("025 (NEW outAnaSel total)", refas
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
 				DefaultOpersMM.instGeneralModel,
