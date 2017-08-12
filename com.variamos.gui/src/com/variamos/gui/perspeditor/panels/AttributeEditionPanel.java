@@ -44,27 +44,27 @@ public class AttributeEditionPanel extends JPanel {
 		panel.setLayout(new SpringLayout());
 
 		JPanel dummy = new JPanel();
-		dummy.setMinimumSize(new Dimension(70, 0));
-		dummy.setPreferredSize(new Dimension(80, 40));
-		dummy.setMaximumSize(new Dimension(80, 40));
+		dummy.setMinimumSize(new Dimension(20, 0));
+		dummy.setPreferredSize(new Dimension(20, 40));
+		dummy.setMaximumSize(new Dimension(20, 40));
 		panel.add(dummy);
 		dummy = new JPanel();
-		dummy.setMinimumSize(new Dimension(150, 0));
-		dummy.setPreferredSize(new Dimension(150, 40));
-		dummy.setMaximumSize(new Dimension(150, 40));
+		dummy.setMinimumSize(new Dimension(100, 0));
+		dummy.setPreferredSize(new Dimension(100, 40));
+		dummy.setMaximumSize(new Dimension(100, 40));
 		panel.add(dummy);
 		dummy = new JPanel();
-		dummy.setMinimumSize(new Dimension(50, 0));
-		dummy.setPreferredSize(new Dimension(50, 40));
-		dummy.setMaximumSize(new Dimension(50, 40));
+		dummy.setMinimumSize(new Dimension(20, 0));
+		dummy.setPreferredSize(new Dimension(20, 40));
+		dummy.setMaximumSize(new Dimension(20, 40));
 		panel.add(dummy);
 		this.setEnabled(false);
 		SpringUtilities.makeCompactGrid(panel, 1, 3, 4, 4, 4, 4);
 		add(panel, BorderLayout.CENTER);
 
-		this.setMinimumSize(new Dimension(450, 400));
-		this.setPreferredSize(new Dimension(450, 400));
-		this.setMaximumSize(new Dimension(450, 400));
+		this.setMinimumSize(new Dimension(200, 400));
+		this.setPreferredSize(new Dimension(200, 400));
+		this.setMaximumSize(new Dimension(200, 400));
 		this.setAutoscrolls(true);
 	}
 

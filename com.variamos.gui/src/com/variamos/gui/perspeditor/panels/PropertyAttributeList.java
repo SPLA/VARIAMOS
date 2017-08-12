@@ -20,7 +20,7 @@ import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.perspeditor.panels.AttributeEditionPanel.DialogButtonAction;
+import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
 import com.variamos.hlcl.Domain;
 import com.variamos.hlcl.DomainParser;
 
@@ -96,7 +96,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 
 		model.addElement(spoof);
 
-		// setSize(new Dimension(150, 150));
+		setSize(new Dimension(150, varAttributes.size() * 18));
 		setPreferredSize(new Dimension(150, varAttributes.size() * 18));
 		setMaximumSize(new Dimension(150, varAttributes.size() * 18));
 		this.setAutoscrolls(true);
@@ -133,13 +133,13 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 	protected void editItem(ElemAttribute var) {
 		final boolean insert = (var == null);
 		attributeEdition.setEnabled(true);
-		this.setEnabled(false);
+		// this.setEnabled(false);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			// Name
-			var = new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-					AttributeType.SYNTAX, false, "Enumeration Value", "", "",
-					1, -1, "", "", -1, "", "");
+			var = new ElemAttribute("NewAttribute", StringType.IDENTIFIER,
+					AttributeType.SYNTAX, false, "DisplayName", "", "", 1, -1,
+					"", "", -1, "", "");
 
 		}
 
@@ -193,19 +193,18 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 		// if(!insert)
 		// = var.getDomain().getStringRepresentation();
 
-		attributeEdition.loadElementAttributes(editor, editable, name,
+		final PropertyParameterDialog dialog = new PropertyParameterDialog(630,
+				400, "Meta-Attribute Editor", editor, instElement, name,
 				displayName, toolTip, type, attributeType, ClassCanName,
 				MetaCInstType, defaultValue, domainStr, hint, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
 				elementDisplayCondition, domFiltOwn, domFiltRel, domDefVal);
-		attributeEdition.revalidate();
-		attributeEdition.repaint();
-		attributeEdition.setOnAccept(new DialogButtonAction() {
+		dialog.setOnAccept(new DialogButtonAction() {
 			@Override
 			public boolean onAction() {
 				// This calls Pull on each parameter
-				attributeEdition.getParameters();
+				dialog.getParameters();
 
 				ElemAttribute v = buffer[0];
 				v.setName((String) name.getValue());
@@ -289,7 +288,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 			}
 		});
 
-		attributeEdition.setOnCancel(new DialogButtonAction() {
+		dialog.setOnCancel(new DialogButtonAction() {
 
 			@Override
 			public boolean onAction() {
@@ -298,11 +297,11 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 			}
 		});
 
-		attributeEdition.setOnDelete(new DialogButtonAction() {
+		dialog.setOnDelete(new DialogButtonAction() {
 
 			@Override
 			public boolean onAction() {
-				attributeEdition.getParameters();
+				dialog.getParameters();
 				DefaultListModel<ElemAttribute> ldm = ((DefaultListModel<ElemAttribute>) getModel());
 				int i = 0;
 				for (Object ea : ldm.toArray()) {
@@ -326,6 +325,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 				return true;
 			}
 		});
+		dialog.center();
 	}
 
 	protected void afterAction() {
