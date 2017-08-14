@@ -1211,6 +1211,7 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFSUBTITERCONVARIABLE:
 			// instElements = refasModel.getVariabilityVertexCollection();
 			// instElement = semanticExpression.getLeftSemanticElement();
+
 		case RIGHTUNIQUEINCCONVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
 			instElement = semanticExpression.getRightSemanticElement();
@@ -1407,14 +1408,18 @@ public class SemanticExpressionDialog extends JDialog {
 								semanticExpression
 										.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
 								semanticExpression
-										.setLeftSemanticElement(semanticExpression
-												.getSemanticElement());
+
+								.setLeftSemanticElement(semanticExpression
+										.getSemanticElement());
+
 							} else {
 								semanticExpression
 										.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
 								semanticExpression
-										.setRightSemanticElement(semanticExpression
-												.getSemanticElement());
+
+								.setRightSemanticElement(semanticExpression
+										.getSemanticElement());
+
 							}
 							break;
 
