@@ -11178,7 +11178,7 @@ public class DefaultOpersMM {
 				instVertexFFGR, "oOutAnaSel", true, t1);
 
 		ecrOperSubActionNormal1.addSemanticExpression(t1);
-		rootSubOperNormal.addSemanticExpression(t1);
+		// rootSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		OpersConcept directFeaFeatVertSemEdge = new OpersConcept(
@@ -11320,6 +11320,63 @@ public class DefaultOpersMM {
 		// simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
 		// semFeature.getIdentifier(), attribute.getName(), true));
 		verifRootSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("FeatureType", "String",
+				AttributeType.OPERATION, "Feature Type", "", "None", false,
+				null, 2, -1, "", "", -1, "", "");
+
+		semFeature.putSemanticAttribute("FeatureType", attribute);
+		voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		validPartialConfSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		filterSubOperationAction.addInAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		variabfactorSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		variantSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semFeature.getIdentifier(), attribute.getName(), true));
 
 		semExpr = new ArrayList<OpersExpr>();
@@ -11518,13 +11575,13 @@ public class DefaultOpersMM {
 				instDirFeaFeatVertSemEdge, "pTmpAnaSel", true, 0);
 
 		t1 = new OpersExpr("sub LCA", refas.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTITERINCRELVARIABLE,
-				ExpressionVertexType.RIGHTMODELVARS, instVertexF,
-				instDirFeaFeatVertSemEdge, instGeneralModel, t1, "totalAnaSel");
+				"Equals"), ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTMODELVARS, instVertexF, instVertexF,
+				instGeneralModel, "tmpAnaSel", "totalAnaSel");
 
 		t1 = new OpersExpr("020 (NEW outAnaOut LCA)", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexF, instVertexF, "outAnaSel", true, t1);
+				instVertexF, instVertexF, "outAnaSel", false, t1);
 
 		semExpr.add(t1);
 		lcaSubOperNormal.addSemanticExpression(t1);
@@ -13282,9 +13339,9 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instParFeatFeatFGRF,
 				instVertexFFGR, instParFeatFeatFGRF, "oOutAnaSel", "pOutAnaSel");
-		// FIXME replaced by 055TODEF
-		// semExpr.add(t1);
-		// rootSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+		rootSubOperNormal.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -13393,9 +13450,9 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instParFeatFeatFGRF,
 				instVertexFFGR, instParFeatFeatFGRF, "oOutAnaSel", "pOutAnaSel");
-		// FIXME replaced by 055TODEF
-		// semExpr.add(t1);
-		// rootSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+		rootSubOperNormal.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("062 (bNEW structValMan for Analysis)", "", refas
 				.getSemanticExpressionTypes().get("Equals"),

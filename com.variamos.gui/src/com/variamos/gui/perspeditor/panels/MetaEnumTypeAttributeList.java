@@ -121,8 +121,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 						value, index, isSelected, cellHasFocus);
 				Object attvalue = ((InstAttribute) value).getValue();
 				if (attvalue instanceof OpersSubOpExecType)
-					lbl.setText(((OpersSubOpExecType) attvalue)
-							.toString());
+					lbl.setText(((OpersSubOpExecType) attvalue).toString());
 				if (attvalue instanceof LabelingOrder)
 					lbl.setText(((LabelingOrder) attvalue).toString());
 				return lbl;
@@ -193,7 +192,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(130,
-				300, editor, element, instName);
+				300, "Expression Type Editor", editor, element, instName);
 		dialog.setOnAccept(new DialogButtonAction() {
 			@SuppressWarnings("unchecked")
 			@Override
