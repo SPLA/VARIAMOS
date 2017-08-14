@@ -11178,7 +11178,7 @@ public class DefaultOpersMM {
 				instVertexFFGR, "oOutAnaSel", true, t1);
 
 		ecrOperSubActionNormal1.addSemanticExpression(t1);
-		rootSubOperNormal.addSemanticExpression(t1);
+		// rootSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		OpersConcept directFeaFeatVertSemEdge = new OpersConcept(
@@ -11575,13 +11575,13 @@ public class DefaultOpersMM {
 				instDirFeaFeatVertSemEdge, "pTmpAnaSel", true, 0);
 
 		t1 = new OpersExpr("sub LCA", refas.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTITERINCRELVARIABLE,
-				ExpressionVertexType.RIGHTMODELVARS, instVertexF,
-				instDirFeaFeatVertSemEdge, instGeneralModel, t1, "totalAnaSel");
+				"Equals"), ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTMODELVARS, instVertexF, instVertexF,
+				instGeneralModel, "tmpAnaSel", "totalAnaSel");
 
 		t1 = new OpersExpr("020 (NEW outAnaOut LCA)", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexF, instVertexF, "outAnaSel", true, t1);
+				instVertexF, instVertexF, "outAnaSel", false, t1);
 
 		semExpr.add(t1);
 		lcaSubOperNormal.addSemanticExpression(t1);
@@ -13339,9 +13339,9 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instParFeatFeatFGRF,
 				instVertexFFGR, instParFeatFeatFGRF, "oOutAnaSel", "pOutAnaSel");
-		// FIXME replaced by 055TODEF
-		// semExpr.add(t1);
-		// rootSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+		rootSubOperNormal.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -13450,9 +13450,9 @@ public class DefaultOpersMM {
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instParFeatFeatFGRF,
 				instVertexFFGR, instParFeatFeatFGRF, "oOutAnaSel", "pOutAnaSel");
-		// FIXME replaced by 055TODEF
-		// semExpr.add(t1);
-		// rootSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+		rootSubOperNormal.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("062 (bNEW structValMan for Analysis)", "", refas
 				.getSemanticExpressionTypes().get("Equals"),
