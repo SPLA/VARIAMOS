@@ -163,6 +163,7 @@ public class SemanticExpressionDialog extends JDialog {
 		JPanel options = new JPanel();
 		JCheckBox conceptNamesCheck = new JCheckBox(
 				"Display user identifiers (not auto-identifiers)");
+		conceptNamesCheck.setEnabled(false);
 		if (displayConceptName)
 			conceptNamesCheck.setSelected(true);
 		options.add(conceptNamesCheck);
@@ -184,6 +185,7 @@ public class SemanticExpressionDialog extends JDialog {
 		});
 		JCheckBox varNamesCheck = new JCheckBox(
 				"Display Variable Names (not identifiers)");
+		varNamesCheck.setEnabled(false);
 		if (displayVariableName)
 			varNamesCheck.setSelected(true);
 		options.add(varNamesCheck);
@@ -551,7 +553,9 @@ public class SemanticExpressionDialog extends JDialog {
 							semanticExpression.getLeftValidExpressions(), true,
 							'C', true);
 					leftPanel.add(conceptCombo);
-					leftPanel.add(createCombo(semanticExpression, element,
+					InstElement recElement = refasModel
+							.getVertex((String) conceptCombo.getSelectedItem());
+					leftPanel.add(createCombo(semanticExpression, recElement,
 							ExpressionVertexType.LEFTMODELVARS,
 							semanticExpression.getLeftValidExpressions(),
 							false, 'C', true));
@@ -887,7 +891,11 @@ public class SemanticExpressionDialog extends JDialog {
 								semanticExpression.getRightValidExpressions(),
 								true, 'C', false);
 						rightPanel.add(conceptCombo);
-						rightPanel.add(createCombo(semanticExpression, element,
+						InstElement recElement = refasModel
+								.getVertex((String) conceptCombo
+										.getSelectedItem());
+						rightPanel.add(createCombo(semanticExpression,
+								recElement,
 								ExpressionVertexType.RIGHTMODELVARS,
 								semanticExpression.getRightValidExpressions(),
 								false, 'C', false));
@@ -1007,7 +1015,6 @@ public class SemanticExpressionDialog extends JDialog {
 							initialize(element, null);
 						}
 					}.start();
-					pack();
 					revalidate();
 					repaint();
 
@@ -1171,8 +1178,9 @@ public class SemanticExpressionDialog extends JDialog {
 			 */
 
 			break;
-		case LEFTMODELVARS:
 		case RIGHTMODELVARS:
+			instElement = semanticExpression.getRightSemanticElement();
+		case LEFTMODELVARS:
 			for (InstElement modInstElement : refasModel
 					.getVariabilityVertexCollection())
 				if (modInstElement.getSupInstEleId().equals("SeMModel"))
@@ -1186,13 +1194,15 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTSUBITERANYRELVARIABLE:
 			for (InstElement itInstElement : refasModel
 					.getVariabilityVertexCollection())
-				if (((element.getSupInstEleId().equals("SeMPWRel") && (itInstElement
-						.getSupInstEleId().equals("SeMConcept")
+				if (((semanticExpression.getSemanticElement().getSupInstEleId()
+						.equals("SeMPWRel") && (itInstElement.getSupInstEleId()
+						.equals("SeMConcept")
 						|| itInstElement.getSupInstEleId().equals(
 								"SeMnmConcept")
 						|| itInstElement.getSupInstEleId().equals("SeMOTRel") || itInstElement
 						.getSupInstEleId().equals("SeMnmOTRel"))))
-						|| (!element.getSupInstEleId().equals("SeMPWRel") && (itInstElement
+						|| (!semanticExpression.getSemanticElement()
+								.getSupInstEleId().equals("SeMPWRel") && (itInstElement
 								.getSupInstEleId().equals("SeMPWRel") || itInstElement
 								.getSupInstEleId().equals("SeMnmPWRel"))))
 					instElements.add(itInstElement);// .getSourceRelations().get(0));
@@ -1200,9 +1210,10 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTITERCONCEPTVARIABLE:
 		case LEFSUBTITERCONVARIABLE:
 			// instElements = refasModel.getVariabilityVertexCollection();
-			instElement = semanticExpression.getLeftSemanticElement();
+			// instElement = semanticExpression.getLeftSemanticElement();
 		case RIGHTUNIQUEINCCONVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
+			instElement = semanticExpression.getRightSemanticElement();
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTITERINCCONVARIABLE:
@@ -1223,6 +1234,7 @@ public class SemanticExpressionDialog extends JDialog {
 			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
 		case RIGHTUNIQUEOUTRELVARIABLE:
+			instElement = semanticExpression.getRightSemanticElement();
 		case LEFTUNIQUEINCRELVARIABLE:
 		case LEFTUNIQUEOUTRELVARIABLE:
 			for (InstElement sourceRelation : refasModel

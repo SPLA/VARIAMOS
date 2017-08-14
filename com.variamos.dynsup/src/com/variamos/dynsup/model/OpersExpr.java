@@ -1340,8 +1340,9 @@ public class OpersExpr implements Serializable {
 		case LEFTUNIQUEINCRELVARIABLE:
 			if (volatileLeftSemanticElement != null) {
 				concept = volatileLeftSemanticElement.getIdentifier();
-				variable = getLeftAttributeName();
 			}
+			variable = getLeftAttributeName();
+
 			break;
 		case RIGHTMODELVARS:
 		case RIGHTCONCEPTVARIABLE:
@@ -1352,8 +1353,9 @@ public class OpersExpr implements Serializable {
 		case RIGHTUNIQUEINCRELVARIABLE:
 			if (volatileRightSemanticElement != null) {
 				concept = volatileRightSemanticElement.getIdentifier();
-				variable = getRightAttributeName();
 			}
+			variable = getRightAttributeName();
+
 			break;
 		default:
 			return null;

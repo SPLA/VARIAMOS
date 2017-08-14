@@ -373,7 +373,7 @@ public class InstanceExpressionDialog extends JDialog {
 		JComboBox<String> rightSide = createSidesCombo(instanceExpression,
 				element, false);
 		JPanel leftPanel = new JPanel();
-		leftPanel.setBackground(new Color(color, color, color));
+		leftPanel.setBackground(Color.getHSBColor(0.45f, 0.27f, color / 255f));
 		leftPanel.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -527,7 +527,7 @@ public class InstanceExpressionDialog extends JDialog {
 		centerPanel.add(centerCombo);
 		basePanel.add(centerPanel);
 		JPanel rightPanel = new JPanel();
-		rightPanel.setBackground(new Color(color, color, color));
+		rightPanel.setBackground(Color.getHSBColor(0.65f, 0.27f, color / 255f));
 		rightPanel.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

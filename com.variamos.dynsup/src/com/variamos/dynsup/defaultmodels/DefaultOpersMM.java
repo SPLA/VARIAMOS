@@ -369,7 +369,7 @@ public class DefaultOpersMM {
 	protected static InstConcept instVertexHC = null;
 
 	public static void createOpersMetaModel(ModelInstance refas, boolean empty) {
-		createOpersMetaModelOpers(refas, empty, true);
+		createOpersMetaModelOpers(refas, empty, false);
 		createSemanticNmMetaModel(refas, empty);
 		if (!empty) {
 			createGeneralMetaModel(refas);
@@ -11320,6 +11320,63 @@ public class DefaultOpersMM {
 		// simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
 		// semFeature.getIdentifier(), attribute.getName(), true));
 		verifRootSubOperationAction.addOutAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("FeatureType", "String",
+				AttributeType.OPERATION, "Feature Type", "", "None", false,
+				null, 2, -1, "", "", -1, "", "");
+
+		semFeature.putSemanticAttribute("FeatureType", attribute);
+		voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		validPartialConfSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		allProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		numProductsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		filterSubOperationAction.addInAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		homogeneitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		commonalitySubOperationAction2.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		variabfactorSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		degreeOrthoSubOperationAction1.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifRootSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifParentsSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		updateCoreSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		variantSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+
+		sasverSDCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		sasverClCoreOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifFalseOptSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		verifFalsePLSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemSubOperationAction.addInAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		condDeadElemOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semFeature.getIdentifier(), attribute.getName(), true));
 
 		semExpr = new ArrayList<OpersExpr>();
