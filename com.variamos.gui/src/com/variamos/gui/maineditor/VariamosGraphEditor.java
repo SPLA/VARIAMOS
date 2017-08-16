@@ -2226,8 +2226,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						JOptionPane.INFORMATION_MESSAGE, null);
 				mainFrame.setPerspective(3);
 			} else {
-				ed.updateEditor();
 				ed.setVisibleModel(0, -1);
+				ed.updateEditor();
 				ed.defineViewTabs();
 				// System.out.println("modelingPerspButton");
 			}
