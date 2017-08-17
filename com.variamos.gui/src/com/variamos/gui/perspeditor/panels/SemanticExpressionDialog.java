@@ -1207,14 +1207,15 @@ public class SemanticExpressionDialog extends JDialog {
 								.getSupInstEleId().equals("SeMnmPWRel"))))
 					instElements.add(itInstElement);// .getSourceRelations().get(0));
 			break;
+
+		case RIGHTUNIQUEINCCONVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
+			instElement = semanticExpression.getRightSemanticElement();
 		case LEFTITERCONCEPTVARIABLE:
 		case LEFSUBTITERCONVARIABLE:
 			// instElements = refasModel.getVariabilityVertexCollection();
 			// instElement = semanticExpression.getLeftSemanticElement();
 
-		case RIGHTUNIQUEINCCONVARIABLE:
-		case RIGHTUNIQUEOUTCONVARIABLE:
-			instElement = semanticExpression.getRightSemanticElement();
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTITERINCCONVARIABLE:

@@ -4,9 +4,13 @@ package com.variamos.dynsup.types;
 public enum OpersSubOpType {
 	First_Solution, Iterate_Solutions,
 
-	Number_Solutions, Export_Solutions,
+	Number_Solutions,
+
+	Export_Solutions,
 
 	UpdModel_Defects_Verif, IdDef_Defects_Verif,
 
-	Multi_Verification
+	Multi_Verification,
+
+	UpdModel_Medic, Diagnosis_Medic
 }

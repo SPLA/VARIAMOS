@@ -172,10 +172,6 @@ public class ElementDesignPanel extends JPanel {
 			while (count < 4) {
 				designPanelElements = 0;
 
-				// Warning: Fix for Mac, do not delete it
-				if (editElm instanceof InstPairwiseRel)
-					designPanelElements++;
-
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 
 				List<InstAttribute> visibles = finalEditElm
@@ -524,28 +520,11 @@ public class ElementDesignPanel extends JPanel {
 																	.getEdSyntaxEle() != null) {
 																if (e.getEdSyntaxEle()
 																		.getAutoIdentifier()
-																		.equals(val))
-																// if
-																// (e.getTransSupInstElement()
-																// != null)
-																// sel =
-																// e.getTransSupInstElement();
-																// else
-																{
+																		.equals(val)) {
 																	ModelInstance moI = finalEditor
 																			.getEditedModel()
 																			.getSyntaxModel();
-																	// for
-																	// (InstElement
-																	// ee : moI
-																	// .getConstraintInstEdgesCollection())
-																	// {
-																	// if
-																	// (e.getEdSyntaxEle()
-																	// .getAutoIdentifier()
-																	// .equals(val))
-																	// sel = ee;
-																	// }
+
 																	if (sel == null) {
 																		InstElement instSupportElement = moI
 																				.getConstraintInstEdge(val);
@@ -561,8 +540,9 @@ public class ElementDesignPanel extends JPanel {
 																}
 															}
 														}
-														finalEditElm
-																.setTransSupInstElement(sel);
+														if (sel != null)
+															finalEditElm
+																	.setTransSupInstElement(sel);
 													}
 												}
 												// FIXME end
@@ -763,32 +743,7 @@ public class ElementDesignPanel extends JPanel {
 												}.start();
 											}
 										});
-								/*
-								 * if (widget.getEditor() instanceof JComboBox)
-								 * ((JComboBox) widget.getEditor())
-								 * .addActionListener(new ActionListener() {
-								 * public void actionPerformed( ActionEvent e) {
-								 * 
-								 * new Thread() { public void run() {
-								 * editorProperties( finalEditor, instCell); }
-								 * }.start(); } });
-								 */
-								/*
-								 * if (w.getEditor() instanceof JComboBox)
-								 * ((JComboBox) w.getEditor())
-								 * .addItemListener(new ItemListener() {
-								 * 
-								 * @Override public void
-								 * itemStateChanged(ItemEvent e) {
-								 * finalEditor.cleanNotificationBar(); //
-								 * finalEditor.identifyCoreConcepts(); //
-								 * finalEditor.executeSimulation(true, //
-								 * Refas2Hlcl.DESIGN_EXEC); new Thread() {
-								 * public void run() { editorProperties(
-								 * finalEditor, finalElm); } }.start(); }
-								 * 
-								 * });
-								 */
+
 								if (widget instanceof MClassWidget
 										|| widget instanceof MEnumerationWidget) {
 									widget.getEditor().setPreferredSize(
