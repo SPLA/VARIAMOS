@@ -35,8 +35,8 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 	private DialogButtonAction onClose;
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
-	private int width = 1100;
-	private int height = 650;
+	private int width = 1350;
+	private int height = 760;
 
 	static interface DialogButtonAction {
 		public boolean onAction();
@@ -49,13 +49,13 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 		setPreferredSize(new Dimension(width, height));
 		switch (dialog) {
 		case 0:
-			setTitle("Association of Concept’s Expressions to Operations");
+			setTitle("Association of Meta-Concept’s Meta-Expressions to Suboperations");
 			break;
 		case 1:
-			setTitle("Association of Concept’s Variables to Operations In/Out");
+			setTitle("Association of Meta-Concept’s Meta-Attributes to Subperations (Input/Output)");
 			break;
 		case 2:
-			setTitle("Association of Concept’s Variables to Labelings");
+			setTitle("Association of Meta-Concept’s Meta-Attributes to Labelings");
 			break;
 		}
 		setVisible(true);
