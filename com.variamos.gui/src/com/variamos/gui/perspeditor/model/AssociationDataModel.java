@@ -45,7 +45,7 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 			List<Domain> domains) {
 		super(root);
 		captions = new ArrayList<String>();
-		captions.add("Concept/Variable/Expression");
+		captions.add("Meta-Concept / Relation Type (optional) / Meta-Attribute or Meta-Expression");
 		captions.addAll(names);
 
 		types = new ArrayList<Class<?>>();

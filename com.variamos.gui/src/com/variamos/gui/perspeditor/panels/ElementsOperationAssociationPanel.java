@@ -55,8 +55,8 @@ public class ElementsOperationAssociationPanel extends
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
 	private int dialog = 0;
-	private int width = 980;
-	private int height = 500;
+	private int width = 1250;
+	private int height = 630;
 	List<InstElement> operActions = null;
 	private AssociationTreeTable table = null;
 	private List<OpersSubOperationExpType> subOpersTypesColumns = null;
@@ -87,7 +87,7 @@ public class ElementsOperationAssociationPanel extends
 		}
 		combo.setSelectedItem(combo.getItemAt(0));
 		JPanel topPanel = new JPanel();
-		topPanel.add(new JLabel("Operation"));
+		topPanel.add(new JLabel("Select the operation to display the options: "));
 		topPanel.add(combo);
 
 		generalPanel.add(topPanel, BorderLayout.NORTH);
@@ -101,7 +101,7 @@ public class ElementsOperationAssociationPanel extends
 						editor.getEditedModel(), operAction);
 				panel.removeAll();
 				table = tableN;
-				table.setPreferredSize(new Dimension(width, height + 1000));
+				table.setPreferredSize(new Dimension(width-25, height + 1300));
 				JScrollPane scrollPane = new JScrollPane(table);
 				scrollPane.setPreferredSize(new Dimension(width, height));
 				panel.add(scrollPane);
@@ -111,7 +111,7 @@ public class ElementsOperationAssociationPanel extends
 		});
 
 		table = createTable(editor.getEditedModel(), operActions.get(0));
-		table.setPreferredSize(new Dimension(width, height + 400));
+		table.setPreferredSize(new Dimension(width-25, height + 400));
 		panel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(width, height));
@@ -191,8 +191,8 @@ public class ElementsOperationAssociationPanel extends
 		for (String s : subOperColumnsNames) {
 			domainOperIO.add(BinaryDomain.INSTANCE);
 			domainOperIO.add(BinaryDomain.INSTANCE);
-			operIO.add(s + "ModelValue/\nFreeValue");
-			operIO.add(s + "UpdateModelValue");
+			operIO.add(s + ": Input from Model/\nFree Value");
+			operIO.add(s + ": Output to Model/\n Not output");
 		}
 
 		AssociationRow root = null;
