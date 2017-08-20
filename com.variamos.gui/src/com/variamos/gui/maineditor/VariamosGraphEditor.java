@@ -257,6 +257,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				for (InstElement instElement : instViews) {
 
 					if (instElement.getSupInstEleId().equals("SyMView")) {
+						if (instElement.getInstAttribute("Visible")
+								.getAsBoolean() == false)
+							continue;
 						if (parent.getChildCount() <= i
 								&& parent.getId().equals("1")) {
 							mxCell child = new mxCell(new InstCell(null, null,
@@ -329,6 +332,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							((MainFrame) editor.getFrame()).waitingCursor(true);
 							int modelInd = getModelViewIndex();
 							for (int i = 0; i < finalInstViews.size(); i++) {
+								if (finalInstViews.get(i)
+										.getInstAttribute("Visible")
+										.getAsBoolean() == false)
+									continue;
 								if (modelInd != i
 										&& modelsTabPane.getSelectedIndex() != -1
 										&& modelsTabPane.getTitleAt(

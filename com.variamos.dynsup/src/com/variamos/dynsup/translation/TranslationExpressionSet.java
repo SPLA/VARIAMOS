@@ -32,8 +32,8 @@ import com.variamos.hlcl.LiteralBooleanExpression;
 import com.variamos.hlcl.NumericExpression;
 
 /**
- * A class to represent the constraints. Part of PhD work at University of Paris
- * 1
+ * A class to represent the Model Expressions (instance of the Meta-Expression).
+ * Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 

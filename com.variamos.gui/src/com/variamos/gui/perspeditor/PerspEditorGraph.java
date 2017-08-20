@@ -206,6 +206,8 @@ public class PerspEditorGraph extends AbstractGraph {
 		if (views != null) {
 			for (@SuppressWarnings("unused")
 			InstElement view : views) {
+				if (view.getInstAttribute("Visible").getAsBoolean() == false)
+					continue;
 				mxCell child = new mxCell();
 				child.setValue(new InstCell(null, null, false));
 				child.setId("mv" + i);
