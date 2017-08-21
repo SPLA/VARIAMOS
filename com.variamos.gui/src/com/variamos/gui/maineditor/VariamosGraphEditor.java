@@ -2129,6 +2129,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		mainFrame.repaint();
 		// if (mainFrame.getPerspective()==1)
 		{
+
+			// ONLY to display the existing operations in the console
 			TreeSet<String> expressionsS = new TreeSet<String>();
 			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 				InstElement et = el.getTransSupInstElement();
@@ -2150,7 +2152,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								operExpType = (OpersSubOperationExpType) ((InstConcept) att
 										.getValue()).getEdOperEle();
 								subOperExpTypeName = attObj;
-								System.out.println(attObj);
+								// System.out.println(attObj);
 								expressions += operExpType
 										.getSemanticExpressions().size();
 								for (OpersExpr opExp : operExpType
@@ -2167,11 +2169,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 					}
 
-					System.out.println(el.getIdentifier() + " " + expressions);
+					// System.out.println(el.getIdentifier() + " " +
+					// expressions);
 				}
 			}
-			for (String opExp : expressionsS)
-				System.out.println(opExp);
+			// for (String opExp : expressionsS)
+			// System.out.println(opExp);
 		}
 
 	}
