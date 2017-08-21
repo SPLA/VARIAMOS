@@ -111,9 +111,9 @@ public class MainFrame extends JFrame {
 						PerspectiveType.SYNTAXSUPERSTRUCTURE,
 						metaExpressionTypes, syntaxInfrastructure,
 						semanticSuperstructure);
-				bgColor = new Color(252, 233, 252);
-				perspTitle = "Operations - VariaMos " + variamosVersionNumber
-						+ "b" + variamosBuild;
+				bgColor = new Color(255, 244, 255);
+				perspTitle = "Semantic & Operations - VariaMos "
+						+ variamosVersionNumber + "b" + variamosBuild;
 				break;
 
 			case 1:// modeling 2
@@ -122,7 +122,7 @@ public class MainFrame extends JFrame {
 						metaExpressionTypes, syntaxSuperstructure,
 						semanticSuperstructure);
 
-				bgColor = new Color(236, 238, 255);
+				bgColor = new Color(240, 244, 255);
 				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber
 						+ "b" + variamosBuild;
 				this.setTitle("New Diagram - " + perspTitle);
