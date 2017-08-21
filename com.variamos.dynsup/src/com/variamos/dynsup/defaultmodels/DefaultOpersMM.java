@@ -10,7 +10,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.LowExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
@@ -368,7 +368,7 @@ public class DefaultOpersMM {
 	protected static InstConcept instVertexF = null;
 	protected static InstConcept instVertexHC = null;
 
-	public static void createOpersMetaModel(ModelInstance refas, boolean empty) {
+	public static void createOpersMetaModel(InstanceModel refas, boolean empty) {
 		createOpersMetaModelOpers(refas, empty, false);
 		createSemanticNmMetaModel(refas, empty);
 		if (!empty) {
@@ -381,7 +381,7 @@ public class DefaultOpersMM {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void createOpersMetaModelOpers(ModelInstance refas,
+	private static void createOpersMetaModelOpers(InstanceModel refas,
 			boolean empty, boolean newOpers) {
 		metaMetaModel = (refas.getSyntaxModel().getVertex("SeMModel"));
 		metaOperationMenu = (refas.getSyntaxModel().getVertex("OpMOperGroup"));
@@ -6199,7 +6199,7 @@ public class DefaultOpersMM {
 	protected static InstConcept instVertexLowExp = null;
 	protected static InstConcept instVertexCG = null;
 
-	private static void createSemanticNmMetaModel(ModelInstance refas,
+	private static void createSemanticNmMetaModel(InstanceModel refas,
 			boolean empty) {
 		// FIXED concept's definition
 		ElemAttribute attribute = null;
@@ -10547,7 +10547,7 @@ public class DefaultOpersMM {
 		refas.getVariabilityVertex().put("NmConcernLevel", instVertexCG);
 	}
 
-	private static void createGeneralMetaModel(ModelInstance refas) {
+	private static void createGeneralMetaModel(InstanceModel refas) {
 		ArrayList<OpersExpr> semExpr = new ArrayList<OpersExpr>();
 
 		ElemAttribute attribute = null;
@@ -11011,7 +11011,7 @@ public class DefaultOpersMM {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void createFeatureMetaModel(ModelInstance refas) {
+	private static void createFeatureMetaModel(InstanceModel refas) {
 		ArrayList<OpersExpr> semExpr = new ArrayList<OpersExpr>();
 
 		ElemAttribute attribute = null;

@@ -1,7 +1,6 @@
 package com.variamos.gui.maineditor;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -40,7 +39,6 @@ import javax.swing.SpringLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
@@ -63,7 +61,7 @@ import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -91,14 +89,10 @@ import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.ConsoleTextArea;
-import com.variamos.io.SXFMReader;
 import com.variamos.solver.Configuration;
-
-import fm.FeatureModelException;
 
 /**
  * A class to represented the editor for each perspective. Part of PhD work at
@@ -129,7 +123,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
-	private ModelInstance refasModel;
+	private InstanceModel refasModel;
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
 	private SolverOpersTask semTask;
@@ -201,7 +195,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public VariamosGraphEditor(MainFrame frame, String perspTitle,
 			VariamosGraphComponent component, int perspective,
-			AbstractModel abstractModel) {
+			InstanceModel abstractModel) {
 		super(frame, perspTitle, component, perspective);
 
 		// Default defects validation
@@ -210,7 +204,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		defects.add("FalseOpt");
 		defects.add("Dead");
 
-		refasModel = (ModelInstance) abstractModel;
+		refasModel = abstractModel;
 		refas2hlcl = new ModelExpr2HLCL(refasModel);
 		configurator.setRefas2hlcl(refas2hlcl);
 
@@ -469,126 +463,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				getGraphComponent(), modelViewIndex);
 		this.setInvalidConfigHlclProgram(true);
 		this.updateTitle();
-	}
-
-	/**
-	 * @param appTitle
-	 * @param component
-	 *            New constructor to load directly files and perspectives
-	 * @throws FeatureModelException
-	 */
-	@Deprecated
-	public static VariamosGraphEditor loader(MainFrame frame, String appTitle,
-			String file, String perspective) throws FeatureModelException {
-		AbstractModel abstractModel = null;
-
-		int persp = 0;
-		if (perspective.equals("ProductLine")) {
-			persp = 0;
-			if (file != null) {
-				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readFile(file);
-			} else
-
-				abstractModel = new ProductLine();
-			ProductLineGraph plGraph = new ProductLineGraph();
-			// plGraph.add
-			VariamosGraphEditor vge = new VariamosGraphEditor(frame,
-					"Configurator - VariaMos", new VariamosGraphComponent(
-							plGraph, Color.WHITE), persp, abstractModel);
-			return vge;
-		} else if (perspective.equals("modeling")) {
-
-			System.out.println("Initializing modeling perspective...");
-			persp = 2;
-			PerspEditorGraph refasGraph = null;
-			if (file != null) {
-				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new ModelInstance(
-						PerspectiveType.MODELING, null));
-				refasGraph = new PerspEditorGraph(persp);
-			} else {
-				{
-					abstractModel = new ModelInstance(PerspectiveType.MODELING,
-							null);
-					refasGraph = new PerspEditorGraph(persp);
-
-				}
-
-				// ProductLineGraph plGraph2 = new ProductLineGraph();
-				VariamosGraphEditor vge2 = new VariamosGraphEditor(frame,
-						"Configurator - VariaMos", new VariamosGraphComponent(
-								refasGraph, Color.WHITE), persp, abstractModel);
-				vge2.createFrame().setVisible(true);
-				vge2.setVisibleModel(0, -1);
-				vge2.setDefaultButton();
-				vge2.setPerspective(2);
-				vge2.setGraphEditorFunctions(new PerspEditorFunctions(vge2));
-				vge2.updateEditor();
-
-				System.out.println("System Model perspective initialized.");
-				return vge2;
-			}
-		} else if (perspective.equals("metamodeling")) {
-
-			System.out.println("Initializing Syntax Meta-Model perspective...");
-			// todo: change for metamodeling
-			persp = 3;
-			PerspEditorGraph refasGraph = null;
-			if (file != null) {
-				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new ModelInstance(
-						PerspectiveType.MODELING, null));
-				refasGraph = new PerspEditorGraph(persp);
-			} else {
-				{
-					abstractModel = new ModelInstance(PerspectiveType.MODELING,
-							null);
-					refasGraph = new PerspEditorGraph(persp);
-
-				}
-
-				// ProductLineGraph plGraph2 = new ProductLineGraph();
-				VariamosGraphEditor vge2 = new VariamosGraphEditor(frame,
-						"Configurator - VariaMos", new VariamosGraphComponent(
-								refasGraph, Color.WHITE), persp, abstractModel);
-				vge2.createFrame().setVisible(true);
-				vge2.setVisibleModel(0, -1);
-				vge2.setPerspective(3);
-				vge2.setGraphEditorFunctions(new PerspEditorFunctions(vge2));
-				vge2.updateEditor();
-				mxCell root = new mxCell();
-				mxCell parent = new mxCell();
-				root.insert(parent);
-				InstAttribute att = new InstAttribute();
-				att.setInstAttributeAttribute("versionNumber",
-						MainFrame.getVariamosVersionNumber());
-				parent.setValue(att);
-				refasGraph.getModel().setRoot(root);
-				System.out
-						.println("Syntax Meta-Model perspective initialized.");
-				return vge2;
-			}
-		}
-		return null;
-	}
-
-	@Deprecated
-	public void editModel(ModelInstance pl) {
-		// productLineIndex.reset();
-		AbstractGraph abstractGraph = null;
-		// todo: review other perspectives
-		if (perspective == 0)
-			abstractGraph = new ProductLineGraph();
-		if (perspective == 2 || perspective == 1 || perspective == 3
-				|| perspective == 4)
-			abstractGraph = new PerspEditorGraph(perspective);
-		// abstractGraph = (AbstractGraph) getGraphComponent()
-		// .getGraph();
-		((VariamosGraphComponent) graphComponent).updateGraph(abstractGraph);
-		registerEvents();
-
-		abstractGraph.setModelInstance(pl);
 	}
 
 	public void resetView() {
@@ -946,7 +820,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
-	public ModelInstance getEditedModel() {
+	public InstanceModel getEditedModel() {
 		return refasModel;
 		/*
 		 * if (perspective == 0) return ((AbstractGraph)
@@ -1700,8 +1574,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
-	private void updateRefasModel(AbstractModel editedModel) {
-		refasModel = (ModelInstance) editedModel;
+	private void updateRefasModel(InstanceModel editedModel) {
+		refasModel = editedModel;
 		this.refas2hlcl.setRefas(refasModel);
 	}
 

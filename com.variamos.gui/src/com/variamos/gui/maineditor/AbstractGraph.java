@@ -2,7 +2,6 @@ package com.variamos.gui.maineditor;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
@@ -16,6 +15,7 @@ import com.mxgraph.shape.mxMarkerRegistry;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.view.mxGraph;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.pl.editor.shapes.OptionalMarker;
 
@@ -50,7 +50,7 @@ public abstract class AbstractGraph extends mxGraph {
 		addListeners();
 	}
 
-	public abstract void setModelInstance(AbstractModel abstractModel);
+	public abstract void setModelInstance(InstanceModel abstractModel);
 
 	private void addListeners() {
 		addListener(mxEvent.CELLS_REMOVED, new mxIEventListener() {
@@ -72,6 +72,7 @@ public abstract class AbstractGraph extends mxGraph {
 		});
 
 		addListener(mxEvent.CELL_CONNECTED, new mxIEventListener() {
+			@Override
 			public void invoke(Object sender, mxEventObject evt) {
 				mxCell cellC = (mxCell) evt.getProperty("terminal");
 				Object edge = cellC.getEdgeAt(cellC.getEdgeCount() - 1);
@@ -95,6 +96,7 @@ public abstract class AbstractGraph extends mxGraph {
 
 		addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
 
+			@Override
 			public void invoke(Object sender, mxEventObject evt) {
 				Object[] addedCells = (Object[]) evt.getProperty("cells");
 				mxCell parentCell = (mxCell) evt.getProperty("parent");
@@ -118,6 +120,7 @@ public abstract class AbstractGraph extends mxGraph {
 
 		addListener(mxEvent.CELLS_MOVED, new mxIEventListener() {
 
+			@Override
 			public void invoke(Object sender, mxEventObject evt) {
 				Object[] addedCells = (Object[]) evt.getProperty("cells");
 				mxCell parentCell = (mxCell) evt.getProperty("parent");

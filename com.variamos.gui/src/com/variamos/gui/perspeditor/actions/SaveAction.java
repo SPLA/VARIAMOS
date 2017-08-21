@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
-import com.cfm.common.AbstractModel;
+import com.cfm.productline.ProductLine;
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxSvgCanvas;
 import com.mxgraph.io.mxCodec;
@@ -125,9 +125,9 @@ public class SaveAction extends AbstractEditorAction {
 	/**
 	 * 
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
-		AbstractModel pl = null;
 
 		if (editor != null) {
 			final VariamosGraphEditor finalEditor = editor;
@@ -245,6 +245,7 @@ public class SaveAction extends AbstractEditorAction {
 					mxSvgCanvas canvas = (mxSvgCanvas) mxCellRenderer
 							.drawCells(graph, null, 1, null,
 									new CanvasFactory() {
+										@Override
 										public mxICanvas createCanvas(
 												int width, int height) {
 											mxSvgCanvas canvas = new mxSvgCanvas(
@@ -263,23 +264,23 @@ public class SaveAction extends AbstractEditorAction {
 
 					mxUtils.writeFile(mxXmlUtils.getXml(canvas.getDocument()),
 							filename);
-				} else if (ext.equalsIgnoreCase("sxfm")) {
-					SXFMWriter writer = new SXFMWriter();
-
-					mxUtils.writeFile(
-							writer.getSXFMContent(editor.getEditedModel()),
-							filename);
-				} else if (ext.equalsIgnoreCase("pl")) {
-					pl = editor.getEditedModel();
+					// } else if (ext.equalsIgnoreCase("sxfm")) {
+					// SXFMWriter writer = new SXFMWriter();
+					//
+					// mxUtils.writeFile(
+					// writer.getSXFMContent(editor.getEditedModel()),
+					// filename);
+					// } else if (ext.equalsIgnoreCase("pl")) {
+					// pl = editor.getEditedModel();
 					// pl.printDebug(System.out);
 					// ProductLineGraph plGraph = (ProductLineGraph)graph;
 					// generatePrologFile(plGraph.getProductLine(), filename);
-					generatePrologFile(pl, filename);
+					// generatePrologFile(pl, filename);
 				} else if (ext.equalsIgnoreCase(fileExtension)
 						|| ext.equalsIgnoreCase("xml")) {
 
-					FileTasks.saveAction(FileTasks.SAVE, filename, ext,
-							(VariamosGraphEditor) editor, graph);
+					FileTasks.saveAction(FileTasks.SAVE, filename, ext, editor,
+							graph);
 					/*
 					 * mxGraph outGraph = SharedActions.beforeGraphOperation(
 					 * graph, true, editor.getModelViewIndex(),
@@ -333,7 +334,7 @@ public class SaveAction extends AbstractEditorAction {
 		}
 	}
 
-	private void generatePrologFile(AbstractModel pl, String filename)
+	private void generatePrologFile(ProductLine pl, String filename)
 			throws IOException, FeatureModelException {
 		SXFMWriter writer = new SXFMWriter();
 		System.out.println(writer.getSXFMContent(pl));

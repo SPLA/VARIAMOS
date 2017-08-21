@@ -66,24 +66,22 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 
 			@Override
 			public void treeStructureChanged(TreeModelEvent arg0) {
-				AssociationDataModel.this.configurator.resizeColumns();
+
 			}
 
 			@Override
 			public void treeNodesRemoved(TreeModelEvent arg0) {
-				AssociationDataModel.this.configurator.resizeColumns();
 
 			}
 
 			@Override
 			public void treeNodesInserted(TreeModelEvent arg0) {
-				AssociationDataModel.this.configurator.resizeColumns();
 
 			}
 
 			@Override
 			public void treeNodesChanged(TreeModelEvent arg0) {
-				AssociationDataModel.this.configurator.resizeColumns();
+
 			}
 		});
 	}

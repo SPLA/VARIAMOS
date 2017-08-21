@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.staticexprsup.AbstractBooleanExpression;
 import com.variamos.dynsup.staticexprsup.AbstractNumericExpression;
@@ -24,7 +24,7 @@ import com.variamos.hlcl.RangeDomain;
 
 public class ModelExpressionSet extends ElementExpressionSet {
 
-	private ModelInstance refas;
+	private InstanceModel refas;
 	private Map<String, List<BooleanExpression>> booleanExpressions = new HashMap<String, List<BooleanExpression>>();
 
 	public List<BooleanExpression> getBooleanExpressionList(String element) {
@@ -33,7 +33,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 
 	public ModelExpressionSet(String identifier, String description,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			ModelInstance refas, int execType) {
+			InstanceModel refas, int execType) {
 		super(identifier, description, idMap, hlclFactory);
 		this.refas = refas;
 		defineExpressions(execType);

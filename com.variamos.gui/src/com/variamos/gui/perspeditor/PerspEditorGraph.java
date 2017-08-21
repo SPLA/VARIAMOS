@@ -14,7 +14,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
@@ -43,7 +42,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
@@ -55,7 +54,7 @@ public class PerspEditorGraph extends AbstractGraph {
 	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
-	private ModelInstance modelInstance = null;
+	private InstanceModel modelInstance = null;
 	private int modelViewIndex = 0;
 	private int modelViewSubIndex = -1;
 	private boolean validation = true;
@@ -90,7 +89,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		this.perspective = perspective;
 	}
 
-	public PerspEditorGraph(int perspective, ModelInstance refasModel) {
+	public PerspEditorGraph(int perspective, InstanceModel refasModel) {
 		init();
 		this.perspective = perspective;
 		this.modelInstance = refasModel;
@@ -384,7 +383,7 @@ public class PerspEditorGraph extends AbstractGraph {
 
 			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
 			InstPairwiseRel directRelation = new InstPairwiseRel(map, null);
-			ModelInstance refas = getModelInstance();
+			InstanceModel refas = getModelInstance();
 			List<InstElement> opersParents = null;
 			if (directRelation.getTransSupportMetaElement() != null
 					&& directRelation.getTransSupportMetaElement()
@@ -424,7 +423,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		if (value instanceof InstCell) {
 			InstPairwiseRel directRelation = (InstPairwiseRel) ((InstCell) value)
 					.getInstElement();
-			ModelInstance refas = getModelInstance();
+			InstanceModel refas = getModelInstance();
 			directRelation.clearRelations();
 			source.addTargetRelation(directRelation, true);
 			target.addSourceRelation(directRelation, true);
@@ -475,7 +474,7 @@ public class PerspEditorGraph extends AbstractGraph {
 				return true;
 		}
 		InstPairwiseRel directRelation = new InstPairwiseRel(map, null);
-		ModelInstance refas = getModelInstance();
+		InstanceModel refas = getModelInstance();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(new InstCell(cell, directRelation, false));
@@ -581,7 +580,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		if (value instanceof InstVertex) {
 			String id = null;
 			String elementIdentifier = null;
-			ModelInstance pl = getModelInstance();
+			InstanceModel pl = getModelInstance();
 			InstElement instElement = ((InstCell) cell.getValue())
 					.getInstElement();
 			if (cell.getGeometry() != null) {
@@ -625,7 +624,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		if (value instanceof InstVertex) {
 			String id = null;
 			String elementIdentifier = null;
-			ModelInstance pl = getModelInstance();
+			InstanceModel pl = getModelInstance();
 			InstElement instElement = ((InstCell) cell.getValue())
 					.getInstElement();
 			if (cell.getGeometry() != null) {
@@ -868,8 +867,8 @@ public class PerspEditorGraph extends AbstractGraph {
 	}
 
 	@Override
-	public void setModelInstance(AbstractModel pl) {
-		modelInstance = (ModelInstance) pl;
+	public void setModelInstance(InstanceModel pl) {
+		modelInstance = pl;
 		defineInitialGraph();
 		try {
 			mxGraphLayout layout = new mxOrganicLayout(this);
@@ -888,7 +887,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 	}
 
-	public ModelInstance getModelInstance() {
+	public InstanceModel getModelInstance() {
 		/*
 		 * if (refasModel == null) { refasModel = new
 		 * Refas(PerspectiveType.modeling); return refasModel; }

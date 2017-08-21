@@ -3,13 +3,13 @@ package com.variamos.solver;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.common.AbstractModel;
+import com.cfm.productline.ProductLine;
 import com.variamos.hlcl.HlclProgram;
 
 public interface Solver {
 
 	@Deprecated
-	public void setProductLine(AbstractModel pl);
+	public void setProductLine(ProductLine pl);
 
 	public void setHLCLProgram(HlclProgram hlclProgram);
 

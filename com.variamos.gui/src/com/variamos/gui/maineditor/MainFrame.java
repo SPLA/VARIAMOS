@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.core.enums.SolverEditorType;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
@@ -83,17 +83,17 @@ public class MainFrame extends JFrame {
 
 		System.out
 				.print("Loading Syntax, Semantic and Operations Infrastructure...");
-		ModelInstance InfraBasicSyntax = new ModelInstance(
+		InstanceModel InfraBasicSyntax = new InstanceModel(
 				PerspectiveType.INFRASTRUCTUREBASICSYNTAX, metaExpressionTypes);
-		ModelInstance syntaxInfrastructure = new ModelInstance(
+		InstanceModel syntaxInfrastructure = new InstanceModel(
 				PerspectiveType.SYNTAXINFRASTRUCTURE, metaExpressionTypes,
 				InfraBasicSyntax, null);
-		ModelInstance operationsInfrastructure = new ModelInstance(
+		InstanceModel operationsInfrastructure = new InstanceModel(
 				PerspectiveType.OPERATIONSINFRASTRUCTURE, metaExpressionTypes,
 				InfraBasicSyntax, null);
-		ModelInstance semanticSuperstructure = null;
-		ModelInstance syntaxSuperstructure = null;
-		ModelInstance abstractModel = null;
+		InstanceModel semanticSuperstructure = null;
+		InstanceModel syntaxSuperstructure = null;
+		InstanceModel abstractModel = null;
 		PerspEditorGraph refasGraph = null;
 		Color bgColor = null;
 		VariamosGraphEditor modelEditor = null;
@@ -104,10 +104,10 @@ public class MainFrame extends JFrame {
 			case 0: // operations 1
 				System.out
 						.print("Loading Semantic and Operations Meta-Models Perspective...");
-				abstractModel = new ModelInstance(metaExpressionTypes,
+				abstractModel = new InstanceModel(metaExpressionTypes,
 						operationsInfrastructure);
 				semanticSuperstructure = abstractModel;
-				syntaxSuperstructure = new ModelInstance(
+				syntaxSuperstructure = new InstanceModel(
 						PerspectiveType.SYNTAXSUPERSTRUCTURE,
 						metaExpressionTypes, syntaxInfrastructure,
 						semanticSuperstructure);
@@ -118,7 +118,7 @@ public class MainFrame extends JFrame {
 
 			case 1:// modeling 2
 				System.out.print("Loading Modeling Perspective...");
-				abstractModel = new ModelInstance(PerspectiveType.MODELING,
+				abstractModel = new InstanceModel(PerspectiveType.MODELING,
 						metaExpressionTypes, syntaxSuperstructure,
 						semanticSuperstructure);
 
@@ -147,7 +147,7 @@ public class MainFrame extends JFrame {
 			case 3:// simulation 4
 				System.out
 						.print("Loading Configuration and Simulation Perspective...");
-				abstractModel = new ModelInstance(
+				abstractModel = new InstanceModel(
 						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
 						syntaxSuperstructure, semanticSuperstructure);
 				bgColor = new Color(236, 252, 255);
