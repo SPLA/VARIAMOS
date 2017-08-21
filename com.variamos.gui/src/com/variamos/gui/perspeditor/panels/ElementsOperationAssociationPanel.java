@@ -32,8 +32,6 @@ import com.variamos.gui.perspeditor.model.AssociationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationTask;
 
 /**
  * A class to create the dialog to associate element's expressions to
