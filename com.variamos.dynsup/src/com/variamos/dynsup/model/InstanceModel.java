@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
@@ -37,10 +36,10 @@ import com.variamos.dynsup.types.PerspectiveType;
  * @version 1.1
  * @since 2014-11-10
  */
-public class ModelInstance extends AbstractModel {
+public class InstanceModel {
 
-	private ModelInstance syntaxModel;
-	private ModelInstance operationalModel;
+	private InstanceModel syntaxModel;
+	private InstanceModel operationalModel;
 	private Map<String, OpersExprType> semanticExpressionTypes;
 
 	/**
@@ -64,20 +63,20 @@ public class ModelInstance extends AbstractModel {
 
 	private PerspectiveType perspectiveType;
 
-	public ModelInstance(PerspectiveType perspectiveType,
+	public InstanceModel(PerspectiveType perspectiveType,
 			Map<String, OpersExprType> metaExpressionTypes) {
 		this(perspectiveType, metaExpressionTypes, null, null);
 	}
 
-	public ModelInstance(Map<String, OpersExprType> metaExpressionTypes,
-			ModelInstance syntaxRefas) {
+	public InstanceModel(Map<String, OpersExprType> metaExpressionTypes,
+			InstanceModel syntaxRefas) {
 		this(PerspectiveType.OPERATIONSSUPERSTRUCTURE, metaExpressionTypes,
 				syntaxRefas, null);
 	}
 
-	public ModelInstance(PerspectiveType perspectiveType,
+	public InstanceModel(PerspectiveType perspectiveType,
 			Map<String, OpersExprType> semanticExpressionTypes,
-			ModelInstance syntaxRefas, ModelInstance semanticRefas) {
+			InstanceModel syntaxRefas, InstanceModel semanticRefas) {
 		this.perspectiveType = perspectiveType;
 		this.syntaxModel = syntaxRefas;
 		this.semanticExpressionTypes = semanticExpressionTypes;
@@ -126,7 +125,7 @@ public class ModelInstance extends AbstractModel {
 
 	}
 
-	public ModelInstance getSyntaxModel() {
+	public InstanceModel getSyntaxModel() {
 		return syntaxModel;
 	}
 
@@ -180,7 +179,7 @@ public class ModelInstance extends AbstractModel {
 		return semanticExpressionTypes;
 	}
 
-	public ModelInstance getOperationalModel() {
+	public InstanceModel getOperationalModel() {
 		return operationalModel;
 	}
 
@@ -200,7 +199,6 @@ public class ModelInstance extends AbstractModel {
 		return constraintInstEdges.values();
 	}
 
-	@Override
 	@Deprecated
 	public Collection<Constraint> getConstraints() {
 		return null;
@@ -210,7 +208,6 @@ public class ModelInstance extends AbstractModel {
 
 	}
 
-	@Override
 	@Deprecated
 	public Collection<VariabilityElement> getVariabilityElements() {
 		return null;
@@ -401,18 +398,15 @@ public class ModelInstance extends AbstractModel {
 		return name;
 	}
 
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	@Override
 	public Map<String, Asset> getAssets() {
 		// TODO support HLCL
 		return null;
 	}
 
-	@Override
 	public Constraint getConstraint(String consId) {
 		// TODO support HLCL
 		return null;

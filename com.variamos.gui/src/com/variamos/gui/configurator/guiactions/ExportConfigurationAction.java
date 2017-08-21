@@ -12,8 +12,9 @@ import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 /**
- * To document. Copied from configurator actions. Part of PhD work at University
- * of Paris 1
+ * This action class support the export of configuration in the static operation
+ * called from the Basic simulation (static) menu. Copied from configurator
+ * actions. Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -44,6 +45,7 @@ public class ExportConfigurationAction extends AbstractEditorAction {
 	/**
 	 * 
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
 

@@ -7,8 +7,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +27,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
@@ -573,50 +570,49 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		lblStatus.setText(string);
 	}
 
-	@Override
-	public void configure(AbstractModel am) {
-		ProductLine pl = (ProductLine) am;
-		this.removeAll();
-		initComponents();
-		this.productLine = pl;
-		configurator.setSolverProductLine(pl);
-
-		List<VariabilityElement> ordered = new ArrayList<VariabilityElement>(
-				pl.getVariabilityElements());
-
-		Collections.sort(ordered, new Comparator<VariabilityElement>() {
-			@Override
-			public int compare(VariabilityElement ve1, VariabilityElement ve2) {
-				return ve1.getName().compareTo(ve2.getName());
-			}
-		});
-
-		for (VariabilityElement el : ordered) {
-			Variable var = new Variable();
-
-			var.setType(IntegerType.IDENTIFIER);
-			var.setName(el.getName());
-			// var.setName(el.getIdentifier());
-			var.setDomain(BinaryDomain.INSTANCE);
-			var.setValue(null);
-			// GARA
-			// System.out.println(el.getIdentifier());
-			ConfigurationNode node = new ConfigurationNode();
-			node.setVariable(var);
-
-			// Add Attributes
-			for (Variable v : el.getVarAttributes()) {
-				ConfigurationNode attNode = new ConfigurationNode();
-				attNode.setVariable(v);
-				node.getChildren().add(attNode);
-			}
-
-			root.getChildren().add(node);
-		}
-		table.expandRow(0);
-
-		resizeColumns();
-	}
+	// public void configure(AbstractModel am) {
+	// ProductLine pl = (ProductLine) am;
+	// this.removeAll();
+	// initComponents();
+	// this.productLine = pl;
+	// configurator.setSolverProductLine(pl);
+	//
+	// List<VariabilityElement> ordered = new ArrayList<VariabilityElement>(
+	// pl.getVariabilityElements());
+	//
+	// Collections.sort(ordered, new Comparator<VariabilityElement>() {
+	// @Override
+	// public int compare(VariabilityElement ve1, VariabilityElement ve2) {
+	// return ve1.getName().compareTo(ve2.getName());
+	// }
+	// });
+	//
+	// for (VariabilityElement el : ordered) {
+	// Variable var = new Variable();
+	//
+	// var.setType(IntegerType.IDENTIFIER);
+	// var.setName(el.getName());
+	// // var.setName(el.getIdentifier());
+	// var.setDomain(BinaryDomain.INSTANCE);
+	// var.setValue(null);
+	// // GARA
+	// // System.out.println(el.getIdentifier());
+	// ConfigurationNode node = new ConfigurationNode();
+	// node.setVariable(var);
+	//
+	// // Add Attributes
+	// for (Variable v : el.getVarAttributes()) {
+	// ConfigurationNode attNode = new ConfigurationNode();
+	// attNode.setVariable(v);
+	// node.getChildren().add(attNode);
+	// }
+	//
+	// root.getChildren().add(node);
+	// }
+	// table.expandRow(0);
+	//
+	// resizeColumns();
+	// }
 
 	public void populateNode(ProductLine pl, VariabilityElement ve,
 			ConfigurationNode parent, Set<String> visited) {

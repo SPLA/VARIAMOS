@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
@@ -37,12 +36,11 @@ public class Pl2Hlcl {
 		Map<String, Identifier> idMap = new HashMap<>();
 
 		// For each variability element create a variable
-		for (VariabilityElement elm : pl.getVariabilityElements())
-		{
+		for (VariabilityElement elm : pl.getVariabilityElements()) {
 			idMap.put(elm.getIdentifier(),
 					f.newIdentifier(elm.getIdentifier(), elm.getName()));
-			//idMap.put(elm.getIdentifier(),
-					//f.newIdentifier(elm.getName(), elm.getName()));
+			// idMap.put(elm.getIdentifier(),
+			// f.newIdentifier(elm.getName(), elm.getName()));
 		}
 
 		// For each constraint generate an expression.
@@ -51,73 +49,74 @@ public class Pl2Hlcl {
 
 		return prog;
 	}
-	
-	public static HlclProgram transformExact(AbstractModel pl){
+
+	public static HlclProgram transformExact(ProductLine pl) {
 		Map<String, Identifier> idMap = new HashMap<>();
-		
-		//Add a header for the program
-		//Create L
+
+		// Add a header for the program
+		// Create L
 		Identifier L = f.newIdentifier("L");
-		
-		//Create the function declaration
+
+		// Create the function declaration
 		SymbolicExpression se = f.newSymbolic("productline", L);
 		HlclFunction prog = new HlclFunction(f.declare(se));
-		
+
 		// For each variability element create a variable
-		for (VariabilityElement elm : pl.getVariabilityElements()){
+		for (VariabilityElement elm : pl.getVariabilityElements()) {
 			Identifier i = f.newIdentifier(elm.getIdentifier(), elm.getName());
 			idMap.put(elm.getIdentifier(), i);
-			
-			//Identifier i = f.newIdentifier(elm.getName(), elm.getName());
-			//idMap.put(elm.getName(), i);
-			
-			//Add a domain declaration for each variable.
-			prog.add(f.newSymbolic("fd_domain", i, f.newIdentifier("0"), f.newIdentifier("1")));
-			
-			//Get each attribute and create a variable as well.
-			for(Variable v : elm.getVarAttributes()){
+
+			// Identifier i = f.newIdentifier(elm.getName(), elm.getName());
+			// idMap.put(elm.getName(), i);
+
+			// Add a domain declaration for each variable.
+			prog.add(f.newSymbolic("fd_domain", i, f.newIdentifier("0"),
+					f.newIdentifier("1")));
+
+			// Get each attribute and create a variable as well.
+			for (Variable v : elm.getVarAttributes()) {
 				Identifier a = f.newIdentifier(v.getName());
 				idMap.put(v.getName(), a);
-				prog.add( f.newSymbolic("fd_domain", getDomainDefinition(a, v)));
+				prog.add(f.newSymbolic("fd_domain", getDomainDefinition(a, v)));
 			}
-			
-			//TODO Do Something with the assets?
+
+			// TODO Do Something with the assets?
 		}
-		
+
 		List<Identifier> ids = new ArrayList<>();
-		for(Identifier id : idMap.values() )
-		{
-			//System.out.println(id);
+		for (Identifier id : idMap.values()) {
+			// System.out.println(id);
 			ids.add(id);
 		}
-		
-		prog.add(0, f.assign(L, f.newList( ids )));
-		
+
+		prog.add(0, f.assign(L, f.newList(ids)));
+
 		// For each constraint generate an expression.
 		for (Constraint c : pl.getConstraints())
 			prog.add(transformConstraint(c, idMap));
-		
+
 		return prog;
 	}
 
 	private static Identifier[] getDomainDefinition(Identifier a, Variable v) {
-		
+
 		Identifier[] iden = new Identifier[v.getDomain().size() + 1];
 		iden[0] = a;
-		try{
-		int i = 0;
-		for(Integer val : v.getDomain().getPossibleValues() ){
-			iden[i + 1] = f.newIdentifier(String.valueOf(val));
-			i++;
-		}
-		}catch(Exception e){
-			System.out.println( "LOL" );
+		try {
+			int i = 0;
+			for (Integer val : v.getDomain().getPossibleValues()) {
+				iden[i + 1] = f.newIdentifier(String.valueOf(val));
+				i++;
+			}
+		} catch (Exception e) {
+			System.out.println("LOL");
 		}
 		return iden;
 	}
 
 	/**
 	 * Transform a Constraint of a Product Line in a BooleanExpression
+	 * 
 	 * @param c
 	 * @param idMap
 	 * @return
@@ -140,12 +139,12 @@ public class Pl2Hlcl {
 
 		if (c instanceof ExcludesConstraint)
 			return transformExcludes((ExcludesConstraint) c, idMap);
-		
+
 		// Generic constraint, we have to parse it
-		if( c instanceof GenericConstraint )
-			return parseConstraint( ((GenericConstraint)c).getText(), idMap);
-		
-		//We don't know this constraint type
+		if (c instanceof GenericConstraint)
+			return parseConstraint(((GenericConstraint) c).getText(), idMap);
+
+		// We don't know this constraint type
 		return null;
 	}
 

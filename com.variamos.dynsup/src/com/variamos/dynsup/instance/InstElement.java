@@ -15,7 +15,7 @@ import java.util.TreeMap;
 import com.cfm.productline.AbstractElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
@@ -1238,7 +1238,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 	// relation has the same scope
 	// TODO support aggregation of multiples scopes - this support a global and
 	// another scope only
-	public int getInstances(ModelInstance refas) {
+	public int getInstances(InstanceModel refas) {
 		int out = 1;
 		if (getInstAttribute("Scope") != null) {
 			boolean scope = (boolean) getInstAttributeValue("Scope");

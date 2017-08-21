@@ -8,7 +8,7 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersIOAttribute;
@@ -23,7 +23,7 @@ public class DefaultRefasMM {
 	private static InstConcept instVertexOper;
 
 	@SuppressWarnings("unchecked")
-	static void createREFASMetaModel(ModelInstance refas) {
+	static void createREFASMetaModel(InstanceModel refas) {
 
 		ArrayList<OpersExpr> semExpr = new ArrayList<OpersExpr>();
 
@@ -8938,7 +8938,7 @@ public class DefaultRefasMM {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void createRefasAssets(ModelInstance refas) {
+	public static void createRefasAssets(InstanceModel refas) {
 
 		ArrayList<OpersExpr> semExpr;
 
@@ -10961,7 +10961,7 @@ public class DefaultRefasMM {
 
 	}
 
-	static void createREFASMetaConcept(ModelInstance refas) {
+	static void createREFASMetaConcept(InstanceModel refas) {
 		ArrayList<OpersExpr> semExpr = new ArrayList<OpersExpr>();
 
 		ElemAttribute attribute = null;

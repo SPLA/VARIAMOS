@@ -10,7 +10,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.Editable;
@@ -26,8 +25,6 @@ import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.canvas.mxGraphicsCanvas2D;
 import com.mxgraph.examples.swing.Stencils;
 import com.mxgraph.io.mxCodec;
-import com.mxgraph.layout.mxFastOrganicLayout;
-import com.mxgraph.layout.mxGraphLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxStencil;
@@ -35,6 +32,7 @@ import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.GraphTree;
@@ -49,15 +47,15 @@ public class ProductLineGraph extends AbstractGraph {
 		init();
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 
 		// Loads the default styles sheet from an external file
 		// To draw elements on the Graph
 		mxCodec codec = new mxCodec();
-		Document doc = mxUtils.loadDocument(ProductLineGraph.class
-				.getResource("/com/variamos/gui/perspeditor/style/styles.xml")
-				.toString());
+		Document doc = mxUtils.loadDocument(ProductLineGraph.class.getResource(
+				"/com/variamos/gui/perspeditor/style/styles.xml").toString());
 		codec.decode(doc.getDocumentElement(), stylesheet);
 		loadStencil();
 	}
@@ -70,17 +68,19 @@ public class ProductLineGraph extends AbstractGraph {
 
 			doc = mxXmlUtils.parseXml(mxUtils.readFile(filename));
 
-			Element shapes = (Element) doc.getDocumentElement();
+			Element shapes = doc.getDocumentElement();
 			NodeList list = shapes.getElementsByTagName("shape");
 
 			for (int i = 0; i < list.getLength(); i++) {
 				Element shape = (Element) list.item(i);
 				mxStencilRegistry.addStencil(shape.getAttribute("name"),
 						new mxStencil(shape) {
+							@Override
 							protected mxGraphicsCanvas2D createCanvas(
 									final mxGraphics2DCanvas gc) {
 								// Redirects image loading to graphics canvas
 								return new mxGraphicsCanvas2D(gc.getGraphics()) {
+									@Override
 									protected Image loadImage(String src) {
 										// Adds image base path to relative
 										// image URLs
@@ -104,13 +104,15 @@ public class ProductLineGraph extends AbstractGraph {
 		}
 	}
 
-	public void setModelInstance(AbstractModel abstractModel) {
-		ProductLine pl = (ProductLine) abstractModel;
-		buildFromProductLine(pl);
-		mxGraphLayout layout = new mxFastOrganicLayout(this);
-		layout.execute(getDefaultParent());
+	@Override
+	public void setModelInstance(InstanceModel abstractModel) {
+		// ProductLine pl = (ProductLine) abstractModel;
+		// buildFromProductLine(pl);
+		// mxGraphLayout layout = new mxFastOrganicLayout(this);
+		// layout.execute(getDefaultParent());
 	}
 
+	@Override
 	public void setPLElementsVisibility(boolean visibility) {
 		Object[] vertices = mxGraphModel.getChildCells(getModel(),
 				getDefaultParent(), true, false);
@@ -143,6 +145,7 @@ public class ProductLineGraph extends AbstractGraph {
 		}
 	}
 
+	@Override
 	public void setAssetsVisibility(boolean visibility) {
 		Object[] vertices = mxGraphModel.getChildCells(getModel(),
 				getDefaultParent(), true, false);
@@ -163,6 +166,7 @@ public class ProductLineGraph extends AbstractGraph {
 		}
 	}
 
+	@Override
 	public ProductLine getProductLine() {
 		ProductLine pl = new ProductLine();
 
@@ -231,12 +235,13 @@ public class ProductLineGraph extends AbstractGraph {
 		return pl;
 	}
 
+	@Override
 	public void buildFromProductLine2(ProductLine pl, GraphTree pli) {
 
 		for (VariabilityElement vp : pl.getVariabilityElements()) {
 			DefaultMutableTreeNode root = pli.getRoot2();
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(vp);
-			root.add(node); 
+			root.add(node);
 			pli.getModel().nodeStructureChanged(root);
 		}
 	}
@@ -302,18 +307,22 @@ public class ProductLineGraph extends AbstractGraph {
 		}
 	}
 
+	@Override
 	public mxCell getCellById(String id) {
 		return (mxCell) ((mxGraphModel) getModel()).getCell(id);
 	}
 
+	@Override
 	public ConstraintMode getConsMode() {
 		return constraintAddingMode;
 	}
 
+	@Override
 	public void setConsMode(ConstraintMode consMode) {
 		this.constraintAddingMode = consMode;
 	}
 
+	@Override
 	public void connectDefaultConstraint(mxCell source, mxCell target) {
 		Constraint c = newConstraint(source.getId(), target.getId());
 
@@ -332,6 +341,7 @@ public class ProductLineGraph extends AbstractGraph {
 		insertEdge(null, "", "", constraintCell, target);
 	}
 
+	@Override
 	protected Constraint newConstraint(String idSource, String idTarget) {
 		Constraint c = new GenericConstraint();
 
@@ -501,6 +511,7 @@ public class ProductLineGraph extends AbstractGraph {
 		super.cellLabelChanged(cell, value, autoSize);
 	}
 
+	@Override
 	public void refreshVariable(Editable e) {
 
 		mxCell cell = getCellById(e.getIdentifier());

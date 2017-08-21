@@ -7,14 +7,14 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 
 public class InfraSyntaxSyntaxMMM {
 	public static void createSyntaxSyntaxMetaMetaModel(
-			ModelInstance modelInstance) {
+			InstanceModel modelInstance) {
 
 		Map<String, InstElement> variabilityInstVertex = modelInstance
 				.getVariabilityVertex();

@@ -16,12 +16,11 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
-import com.cfm.common.AbstractModel;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.staticexprsup.AbstractExpression;
 import com.variamos.dynsup.staticexprsup.NumberNumericExpression;
@@ -43,7 +42,7 @@ import com.variamos.hlcl.NumericIdentifier;
  */
 @SuppressWarnings("serial")
 public class StaticExpressionsPanel extends JPanel {
-	private ModelInstance refas;
+	private InstanceModel refas;
 
 	private JPanel solutionPanel;
 
@@ -67,14 +66,14 @@ public class StaticExpressionsPanel extends JPanel {
 
 	}
 
-	public ModelInstance getRefas() {
+	public InstanceModel getRefas() {
 		return this.refas;
 	}
 
-	public void configure(AbstractModel am, ElementExpressionSet expressionSet,
+	public void configure(InstanceModel am, ElementExpressionSet expressionSet,
 			InstElement element) {
 		this.expressionSet = expressionSet;
-		this.refas = (ModelInstance) am;
+		this.refas = am;
 		initialize(element);
 	}
 
@@ -304,7 +303,7 @@ public class StaticExpressionsPanel extends JPanel {
 		return combo;
 	}
 
-	public void setRefas(ModelInstance refas) {
+	public void setRefas(InstanceModel refas) {
 		this.refas = refas;
 	}
 }

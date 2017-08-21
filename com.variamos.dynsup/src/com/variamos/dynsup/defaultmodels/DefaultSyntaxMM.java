@@ -8,12 +8,12 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 
 public class DefaultSyntaxMM {
-	public static void createSyntaxMetaModel(ModelInstance refas) {
+	public static void createSyntaxMetaModel(InstanceModel refas) {
 
 		SyntaxElement syntaxMetaView = null;
 		InstElement metaView = refas.getSyntaxModel().getVertex("SyMView");

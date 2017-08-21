@@ -12,7 +12,7 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersLabeling;
@@ -32,8 +32,8 @@ import com.variamos.hlcl.LiteralBooleanExpression;
 import com.variamos.hlcl.NumericExpression;
 
 /**
- * A class to represent the constraints. Part of PhD work at University of Paris
- * 1
+ * A class to represent the Model Expressions (instance of the Meta-Expression).
+ * Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -72,7 +72,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * 
 	 */
 	private boolean optional = false;
-	private ModelInstance refas;
+	private InstanceModel refas;
 
 	/**
 	 * Assign the parameters on the abstract class
@@ -80,7 +80,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * @param operation
 	 * @param column
 	 */
-	public TranslationExpressionSet(ModelInstance refas, InstElement operation,
+	public TranslationExpressionSet(InstanceModel refas, InstElement operation,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
 		super(operation.getIdentifier(), mxResources.get("defect-concepts")
 				+ " " + operation, idMap, hlclFactory);
@@ -93,7 +93,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		this.operation = operation;
 	}
 
-	public void addExpressions(ModelInstance refas, InstElement instElement,
+	public void addExpressions(InstanceModel refas, InstElement instElement,
 			String subAction, OpersSubOpExecType expressionType) {
 
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
@@ -445,7 +445,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	}
 
-	public List<Labeling> getLabelings(ModelInstance refas, String subAction,
+	public List<Labeling> getLabelings(InstanceModel refas, String subAction,
 			OpersSubOpExecType expressionType) {
 
 		List<InstElement> operActions = refas.getOperationalModel()

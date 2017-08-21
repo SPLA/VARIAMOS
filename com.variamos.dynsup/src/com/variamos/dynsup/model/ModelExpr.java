@@ -93,7 +93,7 @@ public class ModelExpr implements Serializable, Cloneable {
 	private String leftInstElementId;
 
 	private int size = 0;
-	private ModelInstance refas;
+	private InstanceModel refas;
 	private int expressionInstance = -1;
 	private boolean iterInstance;
 	private String sourceInstanceId = "";
@@ -166,7 +166,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		semanticExpressionId = semanticExpression.getIdentifier();
 	}
 
-	public ModelExpr(ModelInstance refas, boolean customExpression,
+	public ModelExpr(InstanceModel refas, boolean customExpression,
 			OpersExpr semanticExpression, boolean iterInstance) {
 		this.refas = refas;
 		this.iterInstance = iterInstance;

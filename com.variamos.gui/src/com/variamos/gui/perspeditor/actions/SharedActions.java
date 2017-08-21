@@ -21,7 +21,7 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -487,7 +487,7 @@ public class SharedActions {
 
 	private static void loadSupportObjects(VariamosGraphEditor editor,
 			Object value, mxCell source, mxGraph graph) {
-		ModelInstance refas = ((PerspEditorGraph) editor.getGraphComponent()
+		InstanceModel refas = ((PerspEditorGraph) editor.getGraphComponent()
 				.getGraph()).getModelInstance();
 		InstCell instCell = ((InstCell) value);
 		InstElement instElement = null;

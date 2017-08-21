@@ -12,7 +12,7 @@ import javax.swing.ScrollPaneConstants;
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.types.EnumerationMultiSelectionType;
 import com.variamos.io.ConsoleTextArea;
 
@@ -42,7 +42,7 @@ public class MEnumerationWidget extends WidgetR {
 
 	@Override
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel,
+			InstanceModel semanticModel,
 			boolean showSimulationCustomizationBox, int perspective) {
 		super.configure(v, graph, semanticModel,
 				showSimulationCustomizationBox, perspective);
