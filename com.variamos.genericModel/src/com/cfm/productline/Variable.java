@@ -2,9 +2,8 @@ package com.cfm.productline;
 
 import java.io.Serializable;
 
-
-import com.cfm.hlcl.Domain;
 import com.cfm.productline.type.StringType;
+import com.variamos.hlcl.Domain;
 
 public class Variable implements Serializable{
 	private static final long serialVersionUID = 118894641885363593L;

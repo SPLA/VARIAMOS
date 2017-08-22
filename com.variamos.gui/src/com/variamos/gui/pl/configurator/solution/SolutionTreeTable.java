@@ -5,11 +5,11 @@ import java.util.List;
 
 import javax.swing.JTable;
 
-import com.cfm.productline.solver.Configuration;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.gui.treetable.core.TreeTableSelectionModel;
+import com.variamos.solver.Configuration;
 
 /**
  * @author unknown

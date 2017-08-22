@@ -11,157 +11,166 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import com.cfm.common.AbstractModel;
-import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.variamos.dynsup.model.InstanceModel;
 
 @SuppressWarnings("serial")
-public class GraphTree extends JTree{
-	
-	//private static final String SELECTED_NODE = "ProductLineIndex.SELECTED_NODE";
-	//private mxEventSource evtSource;
+public class GraphTree extends JTree {
+
+	// private static final String SELECTED_NODE =
+	// "ProductLineIndex.SELECTED_NODE";
+	// private mxEventSource evtSource;
 	private AbstractGraph graph;
-	
-	public void reset(){
-		
+
+	public void reset() {
+
 		DefaultMutableTreeNode root = getRoot();
-	    root.removeAllChildren();
-	    getModel().reload();
+		root.removeAllChildren();
+		getModel().reload();
 	}
-	
-	public GraphTree(){
-		//evtSource = new mxEventSource();
-		
+
+	public GraphTree() {
+		// evtSource = new mxEventSource();
+
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode();
 		DefaultTreeModel model = new DefaultTreeModel(root);
 		setModel(model);
-		
-		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		
-		MouseListener ml = new MouseAdapter() {
-		    public void mousePressed(MouseEvent e) {
-		        int selRow = getRowForLocation(e.getX(), e.getY());
-		        TreePath selPath = getPathForLocation(e.getX(), e.getY());
 
-		        if(selRow > 0) {
-		            if(e.getClickCount() == 1) {
-		            	//One click !! do nothing 
-		            }
-		            else if(e.getClickCount() == 2) {
-		            	DefaultMutableTreeNode selectedNode = ((DefaultMutableTreeNode)selPath.getLastPathComponent());
-		            	VariabilityElement v = (VariabilityElement)selectedNode.getUserObject();
-		            	//System.out.println(v.getName());
-		            	selectElement(v);
-		            	//evtSource.fireEvent(new mxEventObject(SELECTED_NODE, "node", v));
-		            }
-		        }
-		    }
+		getSelectionModel().setSelectionMode(
+				TreeSelectionModel.SINGLE_TREE_SELECTION);
+
+		MouseListener ml = new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				int selRow = getRowForLocation(e.getX(), e.getY());
+				TreePath selPath = getPathForLocation(e.getX(), e.getY());
+
+				if (selRow > 0) {
+					if (e.getClickCount() == 1) {
+						// One click !! do nothing
+					} else if (e.getClickCount() == 2) {
+						DefaultMutableTreeNode selectedNode = ((DefaultMutableTreeNode) selPath
+								.getLastPathComponent());
+						VariabilityElement v = (VariabilityElement) selectedNode
+								.getUserObject();
+						// System.out.println(v.getName());
+						selectElement(v);
+						// evtSource.fireEvent(new mxEventObject(SELECTED_NODE,
+						// "node", v));
+					}
+				}
+			}
 		};
-		
+
 		addMouseListener(ml);
 	}
-	
+
 	protected void selectElement(VariabilityElement elm) {
 		mxCell c = graph.getCellById(elm.getIdentifier());
-	//	System.out.println("Selecting: " + elm.getIdentifier() + " c: " + c);
+		// System.out.println("Selecting: " + elm.getIdentifier() + " c: " + c);
 		graph.setSelectionCell(c);
 	}
-	
-	protected DefaultMutableTreeNode findNode(String id){
+
+	protected DefaultMutableTreeNode findNode(String id) {
 		DefaultMutableTreeNode node = null;
 		DefaultMutableTreeNode root = getRoot();
-		
-		for(@SuppressWarnings("unchecked")
-		Enumeration<DefaultMutableTreeNode> e = root.depthFirstEnumeration(); e.hasMoreElements() ;){
+
+		for (@SuppressWarnings("unchecked")
+		Enumeration<DefaultMutableTreeNode> e = root.depthFirstEnumeration(); e
+				.hasMoreElements();) {
 			DefaultMutableTreeNode n = e.nextElement();
-			if( n.getUserObject() instanceof VariabilityElement){
+			if (n.getUserObject() instanceof VariabilityElement) {
 				VariabilityElement v = (VariabilityElement) n.getUserObject();
-				if( v.getIdentifier().equals(id) )
+				if (v.getIdentifier().equals(id))
 					return n;
 			}
 		}
-		
+
 		return node;
 	}
-	
-	public void populate(AbstractModel pl){
+
+	public void populate(InstanceModel pl) {
 		getRoot().setUserObject(pl);
 		getModel().nodeChanged(getRoot());
 	}
-	
-	public DefaultMutableTreeNode getRoot2(){
-		return ((DefaultMutableTreeNode)getModel().getRoot());
+
+	public DefaultMutableTreeNode getRoot2() {
+		return ((DefaultMutableTreeNode) getModel().getRoot());
 	}
-	
-	private DefaultMutableTreeNode getRoot(){
-		return ((DefaultMutableTreeNode)getModel().getRoot());
+
+	private DefaultMutableTreeNode getRoot() {
+		return ((DefaultMutableTreeNode) getModel().getRoot());
 	}
-	
-	public DefaultTreeModel getModel(){
+
+	@Override
+	public DefaultTreeModel getModel() {
 		return (DefaultTreeModel) super.getModel();
 	}
-	
-	public void bind(AbstractGraph graph){
+
+	public void bind(AbstractGraph graph) {
 		graph.addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
-			
+
 			@Override
 			public void invoke(Object sender, mxEventObject evt) {
-				for(Object obj : (Object[])evt.getProperty("cells")){
-					mxCell cell = (mxCell) obj; 
-					if( cell == null )
+				for (Object obj : (Object[]) evt.getProperty("cells")) {
+					mxCell cell = (mxCell) obj;
+					if (cell == null)
 						continue;
-					
-					if( cell.isEdge() )
+
+					if (cell.isEdge())
 						onAddedEdge(cell);
 					else
-						onAddedVertex( cell );
+						onAddedVertex(cell);
 				}
 
 			}
 		});
-		
+
 		graph.addListener(mxEvent.CELLS_REMOVED, new mxIEventListener() {
-			
+
 			@Override
 			public void invoke(Object sender, mxEventObject evt) {
-				for(Object obj : (Object[])evt.getProperty("cells")){
+				for (Object obj : (Object[]) evt.getProperty("cells")) {
 					mxCell cell = (mxCell) obj;
 					DefaultMutableTreeNode n = findNode(cell.getId());
-					if( n != null )
+					if (n != null)
 						getModel().removeNodeFromParent(n);
 				}
 			}
 		});
-		
-		graph.addListener(AbstractGraph.PL_EVT_NODE_CHANGE, new mxIEventListener() {
-			
-			@Override
-			public void invoke(Object sender, mxEventObject evt) {
-				Object elm = evt.getProperty("element");
-				if( elm instanceof VariabilityElement ){
-					VariabilityElement e = (VariabilityElement) elm;
-					DefaultMutableTreeNode n = findNode(e.getIdentifier());
-					if( n != null )
-						getModel().nodeChanged(n);
-				}
-			}
-		});
-		
+
+		graph.addListener(AbstractGraph.PL_EVT_NODE_CHANGE,
+				new mxIEventListener() {
+
+					@Override
+					public void invoke(Object sender, mxEventObject evt) {
+						Object elm = evt.getProperty("element");
+						if (elm instanceof VariabilityElement) {
+							VariabilityElement e = (VariabilityElement) elm;
+							DefaultMutableTreeNode n = findNode(e
+									.getIdentifier());
+							if (n != null)
+								getModel().nodeChanged(n);
+						}
+					}
+				});
+
 		this.graph = graph;
 	}
 
-	protected void onAddedEdge(mxCell cell){
-		
+	protected void onAddedEdge(mxCell cell) {
+
 	}
-	
+
 	protected void onAddedVertex(mxCell cell) {
-		if( ! (cell.getValue() instanceof VariabilityElement) )
+		if (!(cell.getValue() instanceof VariabilityElement))
 			return;
-		DefaultMutableTreeNode node = new DefaultMutableTreeNode(cell.getValue());
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode(
+				cell.getValue());
 		getRoot().add(node);
 		getModel().nodeStructureChanged(getRoot());
 	}

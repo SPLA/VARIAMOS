@@ -1,7 +1,6 @@
 package com.cfm.jgprolog.gnuprolog;
 
 import java.io.IOException;
-import java.net.URL;
 
 import com.cfm.jgprolog.core.PrologContext;
 import com.cfm.jgprolog.core.PrologEngine;

@@ -1,6 +1,6 @@
 package com.variamos.gui.pl.configurator.treetable;
 
-import com.cfm.hlcl.Domain;
+import com.variamos.hlcl.Domain;
 
 public class ConfigurationValue {
 	private Integer value;

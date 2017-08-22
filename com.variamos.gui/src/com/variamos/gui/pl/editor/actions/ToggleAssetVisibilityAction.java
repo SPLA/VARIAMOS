@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import com.mxgraph.swing.mxGraphComponent;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.AbstractGraph;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 
 @SuppressWarnings("serial")
 public class ToggleAssetVisibilityAction extends AbstractEditorAction {

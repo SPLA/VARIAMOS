@@ -6,12 +6,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
-import com.variamos.gui.maineditor.BasicGraphEditor;
-import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.pl.editor.ConfiguratorPanel;
-import com.variamos.pl.configurator.io.ConfigurationIO;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.DefaultFileFilter;
 
 //jcmunoz: Commented unused method and imports of the method
 /*import com.cfm.productline.ProductLine;
@@ -109,8 +107,8 @@ public class SaveConfigurationAction extends AbstractEditorAction {
 
 			try
 			{
-				ConfiguratorPanel configurator = getEditor(e).getConfigurator();
-				ConfigurationIO.saveToFile(configurator.getConfigurationDTO(), filename);
+				//ConfiguratorPanel configurator = getEditor(e).getConfigurator();
+				
 			}
 			catch (Throwable ex)
 			{

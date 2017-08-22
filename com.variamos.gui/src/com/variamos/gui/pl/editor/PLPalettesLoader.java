@@ -13,13 +13,10 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
+import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.EditorPalette;
-import com.variamos.pl.editor.logic.ConstraintMode;
-//import com.variamos.pl.editor.logic.PaletteDatabase;
-//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
-//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
-//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
 
+@Deprecated
 public class PLPalettesLoader {
 	public static void loadRegularPalette(EditorPalette palette, ProductLineGraph plgraph) {
 		//Load regular palette
