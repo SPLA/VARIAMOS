@@ -33,9 +33,9 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
-import com.variamos.solver.ConfigurationTask;
+import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.core.ConfigurationTask;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
 
 /**
  * @author unknown jcmunoz: commented unused methods
@@ -240,22 +240,22 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	 * solver.getSolution(); solutionPanel.addSolution(sol); sol.debugPrint();
 	 * i++; } solutionPanel.expand(); // }
 	 */
-	public ConfigurationOptions getCurrentOptions() {
-		ConfigurationOptions op = new ConfigurationOptions();
+	public ConfigurationOptionsDTO getCurrentOptions() {
+		ConfigurationOptionsDTO op = new ConfigurationOptionsDTO();
 		// for(int i = 0; i <
 		// ((DefaultListModel<String>)additionalConstraints.getModel()).size();i++)
 		// op.getAdditionalConstraints().add(((DefaultListModel<String>)additionalConstraints.getModel()).elementAt(i));
 		return op;
 	}
 
-	public Configuration getCurrentConfiguration() {
-		Configuration config = new Configuration();
+	public SolverSolution getCurrentConfiguration() {
+		SolverSolution config = new SolverSolution();
 		addToConfiguration(root, config);
 		return config;
 	}
 
 	protected static void addToConfiguration(ConfigurationNode node,
-			Configuration conf) {
+			SolverSolution conf) {
 		if (node.getVariable() != null) {
 			conf.set(node.getVariable().getName(), (Integer) node.getVariable()
 					.getValue());
@@ -282,7 +282,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	 * }
 	 */
 	@Override
-	public void addSolution(Configuration solution) {
+	public void addSolution(SolverSolution solution) {
 		configurator.addSolution(solution);
 	}
 
@@ -474,7 +474,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	public void reduceDomain() {
-		Configuration config = getCurrentConfiguration();
+		SolverSolution config = getCurrentConfiguration();
 		// config.debugPrint();
 		Map<String, List<Integer>> values = configurator.reduceDomain(config,
 				getCurrentOptions());
@@ -535,7 +535,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 				getCurrentOptions());
 	}
 
-	public List<Configuration> getSolutions() {
+	public List<SolverSolution> getSolutions() {
 		return solutionPanel.getAllSolutions();
 	}
 

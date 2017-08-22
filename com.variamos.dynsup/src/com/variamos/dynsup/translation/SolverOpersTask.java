@@ -42,7 +42,7 @@ import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
 import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
 import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
-import com.variamos.solver.Configuration;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * A class to support SwingWorkers for solver execution tasks using the semantic
@@ -100,7 +100,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private String completedMessage;
 	private String executionTime = "";
 	// private List<String> defects;
-	private Configuration lastConfiguration;
+	private SolverSolution lastConfiguration;
 	private String errorTitle = "";
 	private String errorMessage = "";
 	private boolean update;
@@ -120,7 +120,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public SolverOpersTask(ProgressMonitor progressMonitor,
 			InstanceModel refasModel, ModelExpr2HLCL refas2hlcl,
 			HlclProgram configHlclProgram, boolean firstSimulExec,
-			List<String> operations, Configuration lastConfiguration,
+			List<String> operations, SolverSolution lastConfiguration,
 			String filename) {
 
 		this.refasModel = refasModel;
@@ -169,7 +169,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return update;
 	}
 
-	public Configuration getLastConfiguration() {
+	public SolverSolution getLastConfiguration() {
 		return lastConfiguration;
 	}
 
@@ -261,7 +261,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		invalidConfigHlclProgram = false;
 		TreeMap<String, Number> configuredIdentNames = refas2hlcl
 				.getConfiguredIdentifier(elementSubSet);
-		Configuration config = new Configuration();
+		SolverSolution config = new SolverSolution();
 
 		config.setConfiguration(configuredIdentNames);
 

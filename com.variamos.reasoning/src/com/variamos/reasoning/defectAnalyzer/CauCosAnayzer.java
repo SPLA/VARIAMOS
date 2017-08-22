@@ -24,8 +24,8 @@ import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
 import com.variamos.reasoning.util.PowerSetUtil;
 import com.variamos.reasoning.util.SetUtil;
 import com.variamos.reasoning.util.SolverOperationsUtil;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
 
 public class CauCosAnayzer implements IntCauCosAnalyzer {
 
@@ -76,8 +76,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 			HlclProgram program = new HlclProgram();
 			program.addAll(modelCopy);
-			boolean isMCS = solver.isSatisfiable(program, new Configuration(),
-					new ConfigurationOptions());
+			boolean isMCS = solver.isSatisfiable(program, new SolverSolution(),
+					new ConfigurationOptionsDTO());
 
 			// Se retorna el resultado
 			return isMCS;

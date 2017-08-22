@@ -32,7 +32,7 @@ import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
 import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
 import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
-import com.variamos.solver.Configuration;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * A class to support SwingWorkers of solver execution tasks for static
@@ -66,7 +66,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private boolean reloadDashBoard;
 	private String executionTime = "";
 	private List<String> defects;
-	private Configuration lastConfiguration;
+	private SolverSolution lastConfiguration;
 	private String errorTitle = "";
 	private String errorMessage = "";
 	private boolean update;
@@ -86,7 +86,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			Component parentComponent, int execType, ModelExpr2HLCL refas2hlcl,
 			HlclProgram configHlclProgram, boolean invalidConfigHlclProgram,
 			boolean test, InstElement element, List<String> defects,
-			Configuration lastConfiguration) {
+			SolverSolution lastConfiguration) {
 		super();
 		this.progressMonitor = progressMonitor;
 		this.execType = execType;
@@ -103,7 +103,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	public SolverTasks(ProgressMonitor progressMonitor, int execType,
 			ModelExpr2HLCL refas2hlcl, HlclProgram configHlclProgram,
 			boolean firstSimulExec, boolean reloadDashBoard, boolean update,
-			String element, Configuration lastConfiguration) {
+			String element, SolverSolution lastConfiguration) {
 		this.progressMonitor = progressMonitor;
 		this.execType = execType;
 		this.refas2hlcl = refas2hlcl;
@@ -140,7 +140,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return update;
 	}
 
-	public Configuration getLastConfiguration() {
+	public SolverSolution getLastConfiguration() {
 		return lastConfiguration;
 	}
 
@@ -230,7 +230,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		invalidConfigHlclProgram = false;
 		TreeMap<String, Number> configuredIdentNames = refas2hlcl
 				.getConfiguredIdentifier(elementSubSet);
-		Configuration config = new Configuration();
+		SolverSolution config = new SolverSolution();
 
 		config.setConfiguration(configuredIdentNames);
 

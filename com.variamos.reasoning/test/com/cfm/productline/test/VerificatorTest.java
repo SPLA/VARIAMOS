@@ -34,8 +34,8 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
 import com.variamos.reasoning.transformer.VariabilityModelTransformer;
 import com.variamos.reasoning.util.ConstraintRepresentationUtil;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
 
 public class VerificatorTest {
 
@@ -200,10 +200,10 @@ public class VerificatorTest {
 		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
 
 		List<Defect> deadElements;
-		Configuration configuration= new Configuration();
+		SolverSolution configuration= new SolverSolution();
 		configuration.enforce("HTTPS");
 		try {
-			deadElements = verifier.getDeadElements(identifiers, new ConfigurationOptions(),configuration);
+			deadElements = verifier.getDeadElements(identifiers, new ConfigurationOptionsDTO(),configuration);
 			assertTrue(deadElements.size() == 25);
 		} catch (FunctionalException e) {
 			e.printStackTrace();
@@ -251,7 +251,7 @@ public class VerificatorTest {
 		try {
 			long startTime = System.currentTimeMillis();
 			falseOptionalElements = verifier
-					.getFalseOptionalElements(identifiers,new ConfigurationOptions(), new Configuration());
+					.getFalseOptionalElements(identifiers,new ConfigurationOptionsDTO(), new SolverSolution());
 			assertTrue(falseOptionalElements.size() == 15);
 			long endTime = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
@@ -301,10 +301,10 @@ public class VerificatorTest {
 		List<Defect> falseOptionalElements;
 		try {
 			long startTime = System.currentTimeMillis();
-			Configuration configuration= new Configuration();
+			SolverSolution configuration= new SolverSolution();
 			configuration.enforce("HTTPS");
 			falseOptionalElements = verifier
-					.getFalseOptionalElements(identifiers,new ConfigurationOptions(), configuration);
+					.getFalseOptionalElements(identifiers,new ConfigurationOptionsDTO(), configuration);
 			assertTrue(falseOptionalElements.size() == 20);
 			long endTime = System.currentTimeMillis();
 			long totalTime = endTime - startTime;

@@ -3,8 +3,8 @@ package com.variamos.gui.common.jelements;
 import javax.swing.JPanel;
 
 import com.cfm.productline.Variable;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationTask;
+import com.variamos.solver.core.ConfigurationTask;
+import com.variamos.solver.model.SolverSolution;
 
 public abstract class AbstractConfigurationPanel extends JPanel {
 	/**
@@ -14,7 +14,7 @@ public abstract class AbstractConfigurationPanel extends JPanel {
 
 	// public abstract void configure(AbstractModel am);
 
-	public abstract void addSolution(Configuration solution);
+	public abstract void addSolution(SolverSolution solution);
 
 	public abstract void taskCompleted(ConfigurationTask task, long timeMillis);
 

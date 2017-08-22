@@ -2,14 +2,14 @@ package com.variamos.reasoning.util;
 
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.hlcl.HlclProgram;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
-import com.variamos.solver.SWIPrologSolver;
-import com.variamos.solver.Solver;
+import com.variamos.solver.core.SWIPrologSolver;
+import com.variamos.solver.core.IntSolver;
+import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
 
 public class SolverOperationsUtil {
 
-	private Solver solver;
+	private IntSolver solver;
 
 	public SolverOperationsUtil() {
 		super();
@@ -25,23 +25,23 @@ public class SolverOperationsUtil {
 	
 	public boolean isSatisfiable(HlclProgram model) {
 		solver.setHLCLProgram(model);
-		solver.solve(new Configuration(), new ConfigurationOptions());
+		solver.solve(new SolverSolution(), new ConfigurationOptionsDTO());
 		return solver.hasSolution();
 
 	}
 
 	public boolean isSatisfiable(HlclProgram model,
-			Configuration configuration,
-			ConfigurationOptions configurationOptions) {
+			SolverSolution configuration,
+			ConfigurationOptionsDTO configurationOptions) {
 		solver.setHLCLProgram(model);
 		solver.solve(configuration, configurationOptions);
 		return solver.hasSolution();
 
 	}
 
-	public Configuration getConfiguration(HlclProgram model,
-			Configuration configuration,
-			ConfigurationOptions configurationOptions) {
+	public SolverSolution getConfiguration(HlclProgram model,
+			SolverSolution configuration,
+			ConfigurationOptionsDTO configurationOptions) {
 		solver.setHLCLProgram(model);
 		solver.solve(configuration, configurationOptions);
 		return solver.getSolution();
@@ -61,10 +61,10 @@ public class SolverOperationsUtil {
 	 */
 	public boolean isFalseProductLine(HlclProgram model) {
 
-		Configuration configuration = new Configuration();
+		SolverSolution configuration = new SolverSolution();
 		int count = 0;
 		solver.setHLCLProgram(model);
-		solver.solve(new Configuration(), new ConfigurationOptions());
+		solver.solve(new SolverSolution(), new ConfigurationOptionsDTO());
 		while (count <= 2) {
 			configuration = solver.getSolution();
 			if (configuration != null) {

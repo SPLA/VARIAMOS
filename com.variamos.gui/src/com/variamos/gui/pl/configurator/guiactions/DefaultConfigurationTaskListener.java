@@ -3,9 +3,9 @@ package com.variamos.gui.pl.configurator.guiactions;
 import javax.swing.SwingUtilities;
 
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationTask;
-import com.variamos.solver.ConfigurationTaskListener;
+import com.variamos.solver.core.ConfigurationTask;
+import com.variamos.solver.core.ConfigurationTaskListener;
+import com.variamos.solver.model.SolverSolution;
 
 public class DefaultConfigurationTaskListener implements
 		ConfigurationTaskListener {
@@ -18,7 +18,7 @@ public class DefaultConfigurationTaskListener implements
 	}
 	
 	@Override
-	public void onSolutionFound(final Configuration solution) {
+	public void onSolutionFound(final SolverSolution solution) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {

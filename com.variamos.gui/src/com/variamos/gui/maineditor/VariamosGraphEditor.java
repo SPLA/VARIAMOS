@@ -92,7 +92,7 @@ import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.ConsoleTextArea;
-import com.variamos.solver.Configuration;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * A class to represented the editor for each perspective. Part of PhD work at
@@ -147,7 +147,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private String editableElementType = null;
 
 	private String lastSolverInvocations = "";
-	private Configuration lastConfiguration;
+	private SolverSolution lastConfiguration;
 
 	private List<String> defects = new ArrayList<String>();
 

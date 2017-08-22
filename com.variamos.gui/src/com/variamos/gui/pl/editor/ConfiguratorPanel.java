@@ -43,8 +43,8 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationTask;
+import com.variamos.solver.core.ConfigurationTask;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * @author unknown jcmunoz: commented unused methods
@@ -417,7 +417,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 
 	}
 
-	private boolean processConfiguration(Configuration configuration) {
+	private boolean processConfiguration(SolverSolution configuration) {
 		TreeMap<String, Number> configSet = configuration.getConfiguration();
 		StringBuilder sb = new StringBuilder();
 		for (String identifier : configSet.keySet()) {
@@ -517,14 +517,14 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		cmdNextVar.setVisible(!availablesVars);
 	}
 
-	public Configuration getCurrentConfiguration() {
-		Configuration config = new Configuration();
+	public SolverSolution getCurrentConfiguration() {
+		SolverSolution config = new SolverSolution();
 		addToConfiguration(root, config);
 		return config;
 	}
 
 	protected static void addToConfiguration(ConfigurationNode node,
-			Configuration conf) {
+			SolverSolution conf) {
 		if (node.getVariable() != null) {
 			conf.set(node.getVariable().getName(), (Integer) node.getVariable()
 					.getValue());
@@ -535,7 +535,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	@Override
-	public void addSolution(Configuration solution) {
+	public void addSolution(SolverSolution solution) {
 		configurator.addSolution(solution);
 	}
 

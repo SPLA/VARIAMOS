@@ -7,13 +7,11 @@ import java.util.Map;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.variamos.configurator.io.ConfigurationDTO;
-//import com.cfm.productline.configurator.DomainAnnotation;
-//import com.cfm.productline.configurator.treetable.ConfigurationNode;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
-import com.variamos.solver.ConfigurationTask;
-import com.variamos.solver.ConfigurationTaskListener;
-import com.variamos.solver.Solver;
+import com.variamos.solver.core.ConfigurationTask;
+import com.variamos.solver.core.ConfigurationTaskListener;
+import com.variamos.solver.core.IntSolver;
+import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
 
 /**
  * @author unkwnown jcmunoz-diego: Splitted from class ConfiguratorPanel
@@ -21,8 +19,8 @@ import com.variamos.solver.Solver;
  *
  */
 public class Configurator {
-	private List<Configuration> products;
-	private Solver solver;
+	private List<SolverSolution> products;
+	private IntSolver solver;
 
 	public Configurator() {
 		// solver = new GNUPrologSolver(new GNUPrologContext());
@@ -39,14 +37,14 @@ public class Configurator {
 	// }
 
 	@SuppressWarnings("deprecation")
-	public Map<String, List<Integer>> reduceDomain(Configuration configuration,
-			ConfigurationOptions configOptions) {
+	public Map<String, List<Integer>> reduceDomain(SolverSolution configuration,
+			ConfigurationOptionsDTO configOptions) {
 		return solver.reduceDomain(configuration, configOptions);
 	}
 
-	public ArrayList<Configuration> solve(int numSol, Configuration config,
-			ConfigurationOptions options) {
-		ArrayList<Configuration> configurations = new ArrayList<Configuration>();
+	public ArrayList<SolverSolution> solve(int numSol, SolverSolution config,
+			ConfigurationOptionsDTO options) {
+		ArrayList<SolverSolution> configurations = new ArrayList<SolverSolution>();
 		config.debugPrint();
 
 		solver.solve(config, options);
@@ -57,7 +55,7 @@ public class Configurator {
 			return configurations;
 		}
 		while (solver.hasNextSolution() && i < numSol) {
-			Configuration sol = solver.getSolution();
+			SolverSolution sol = solver.getSolution();
 			configurations.add(sol);
 			// solutionPanel.addSolution(sol);
 			sol.debugPrint();
@@ -68,7 +66,7 @@ public class Configurator {
 		return configurations;
 	}
 
-	public void addSolution(Configuration solution) {
+	public void addSolution(SolverSolution solution) {
 		products.add(solution);
 	}
 
@@ -76,8 +74,8 @@ public class Configurator {
 	public boolean validateInvalid() {
 		for (VariabilityElement e : ((ProductLine) solver.getProductLine())
 				.getVariabilityElements()) {
-			for (Configuration conf : products) {
-				if (conf.stateOf(e.getIdentifier()) == Configuration.ENFORCED)
+			for (SolverSolution conf : products) {
+				if (conf.stateOf(e.getIdentifier()) == SolverSolution.ENFORCED)
 					return true;
 			}
 		}
@@ -89,8 +87,8 @@ public class Configurator {
 		return (ProductLine) solver.getProductLine();
 	}
 
-	public void performConfiguration(Configuration configuration,
-			ConfigurationOptions configOptions,
+	public void performConfiguration(SolverSolution configuration,
+			ConfigurationOptionsDTO configOptions,
 			ConfigurationTaskListener listener, ProductLine pl) {
 
 		//GNUPrologContext ctx = new GNUPrologContext();
@@ -120,8 +118,8 @@ public class Configurator {
 	 * }
 	 */
 
-	public ConfigurationDTO getConfigurationDTO(Configuration configuration,
-			ConfigurationOptions configOptions) {
+	public ConfigurationDTO getConfigurationDTO(SolverSolution configuration,
+			ConfigurationOptionsDTO configOptions) {
 		ConfigurationDTO dto = new ConfigurationDTO();
 		dto.setValues(configuration);
 		dto.setOptions(configOptions);

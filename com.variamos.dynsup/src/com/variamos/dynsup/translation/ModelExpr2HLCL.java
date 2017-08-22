@@ -44,10 +44,10 @@ import com.variamos.hlcl.Labeling;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 import com.variamos.io.ConsoleTextArea;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
-import com.variamos.solver.SWIPrologSolver;
-import com.variamos.solver.Solver;
+import com.variamos.solver.core.SWIPrologSolver;
+import com.variamos.solver.core.IntSolver;
+import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
 
 /**
  * Class to create the Hlcl program. Part of PhD work at University of Paris 1
@@ -64,15 +64,15 @@ public class ModelExpr2HLCL {
 	private HlclProgram hlclProgram = new HlclProgram();
 	private InstanceModel refas;
 	private Map<String, Identifier> idMap = new HashMap<>();
-	private Configuration configuration = new Configuration();
-	private Solver swiSolver;
+	private SolverSolution configuration = new SolverSolution();
+	private IntSolver swiSolver;
 	private long lastExecutionTime;
 
 	public long getLastExecutionTime() {
 		return lastExecutionTime;
 	}
 
-	public Configuration getConfiguration() {
+	public SolverSolution getConfiguration() {
 		return configuration;
 	}
 
@@ -458,7 +458,7 @@ public class ModelExpr2HLCL {
 		lastExecutionTime = 0;
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
-			configuration = new Configuration();
+			configuration = new SolverSolution();
 			// FIXME: execute for all sub-operations exp types?
 
 			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
@@ -476,14 +476,14 @@ public class ModelExpr2HLCL {
 				if (progressMonitor != null && progressMonitor.isCanceled())
 					throw (new InterruptedException());
 				try {
-					ConfigurationOptions configurationOptions = new ConfigurationOptions();
+					ConfigurationOptionsDTO configurationOptions = new ConfigurationOptionsDTO();
 					// FIXME support types other than normal
 					configurationOptions.setLabelings(labelings);
 					configurationOptions.setOrder(true);
 
 					configurationOptions.setStartFromZero(true);
 
-					swiSolver.solve(new Configuration(), configurationOptions);
+					swiSolver.solve(new SolverSolution(), configurationOptions);
 
 					lastExecutionTime = swiSolver.getLastExecutionTime();
 				} catch (Exception ex) {
@@ -618,7 +618,7 @@ public class ModelExpr2HLCL {
 		lastExecutionTime = 0;
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
-			configuration = new Configuration();
+			configuration = new SolverSolution();
 
 			hlclProgram = getHlclProgram(element, execType);
 
@@ -634,7 +634,7 @@ public class ModelExpr2HLCL {
 			if (progressMonitor != null && progressMonitor.isCanceled())
 				throw (new InterruptedException());
 			try {
-				ConfigurationOptions configurationOptions = new ConfigurationOptions();
+				ConfigurationOptionsDTO configurationOptions = new ConfigurationOptionsDTO();
 				switch (execType) {
 				case ModelExpr2HLCL.SIMUL_EXEC:
 				case ModelExpr2HLCL.SIMUL_EXPORT:
@@ -658,7 +658,7 @@ public class ModelExpr2HLCL {
 						iterVertex, "Opt"));
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
-				swiSolver.solve(new Configuration(), configurationOptions);
+				swiSolver.solve(new SolverSolution(), configurationOptions);
 				lastExecutionTime = swiSolver.getLastExecutionTime();
 			} catch (Exception e) {
 				ConsoleTextArea.addText(e.getStackTrace());

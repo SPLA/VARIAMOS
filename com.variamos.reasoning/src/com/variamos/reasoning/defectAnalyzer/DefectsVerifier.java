@@ -33,8 +33,8 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
 import com.variamos.reasoning.util.SolverOperationsUtil;
 import com.variamos.reasoning.util.VerifierUtilExpression;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
 
 public class DefectsVerifier implements IntDefectsVerifier {
 
@@ -190,12 +190,12 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 					// Se adiciona la restricción al conjunto de restricciones
 					// que representa el modelo de variabilidad
-					ConfigurationOptions options = new ConfigurationOptions();
+					ConfigurationOptionsDTO options = new ConfigurationOptionsDTO();
 					options.addAdditionalExpression(verificationExpression);
 
 					// Se obtiene una configuración del solver
-					Configuration configurationResult = solver
-							.getConfiguration(model, new Configuration(),
+					SolverSolution configurationResult = solver
+							.getConfiguration(model, new SolverSolution(),
 									options);
 
 					// Si se obtienen valores esto quiere decir q es
@@ -223,7 +223,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	}
 
-	private void updateEvaluatedDomainsMap(Configuration configuration) {
+	private void updateEvaluatedDomainsMap(SolverSolution configuration) {
 
 		TreeMap<String, Number> configurationValues = configuration
 				.getConfiguration();
@@ -264,13 +264,13 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	public Defect isDeadElement(Identifier identifier)
 			throws FunctionalException {
 
-		return isDeadElement(identifier, new ConfigurationOptions(),
-				new Configuration());
+		return isDeadElement(identifier, new ConfigurationOptionsDTO(),
+				new SolverSolution());
 	}
 
 	@Override
 	public Defect isDeadElement(Identifier identifier,
-			ConfigurationOptions options, Configuration configuration)
+			ConfigurationOptionsDTO options, SolverSolution configuration)
 			throws FunctionalException {
 
 		List<Integer> definedDomainValues = null;
@@ -278,14 +278,14 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		Domain domain = identifier.getDomain();
 		// Se obtienen los valores parametrizados para esta variable
 		definedDomainValues = domain.getPossibleValues();
-		Configuration configurationResult = null;
+		SolverSolution configurationResult = null;
 		int nonAttainableValue = 0;
 
 		if (configuration == null) {
-			configuration = new Configuration();
+			configuration = new SolverSolution();
 		}
 		if (options == null) {
-			options = new ConfigurationOptions();
+			options = new ConfigurationOptionsDTO();
 		}
 
 		for (Integer definedDomainValue : definedDomainValues) {
@@ -295,7 +295,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				// el valor
 				if (!existValue(identifier, definedDomainValue)) {
 
-					Configuration copy = new Configuration();
+					SolverSolution copy = new SolverSolution();
 					TreeMap<String, Number> configurationValues = new TreeMap<String, Number>();
 					configurationValues
 							.putAll(configuration.getConfiguration());
@@ -303,7 +303,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 					copy.set(identifier.getId(), definedDomainValue);
 
 					configurationResult = solver.getConfiguration(model, copy,
-							new ConfigurationOptions());
+							new ConfigurationOptionsDTO());
 					solverTime += solver.getLastExecutionTime();
 					if (configurationResult != null) {
 						// Los valores identificados se actualizan en el
@@ -484,34 +484,34 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	public Defect isFalseOptionalElement(Identifier identifier)
 			throws FunctionalException {
 
-		return isFalseOptionalElement(identifier, new ConfigurationOptions(),
-				new Configuration());
+		return isFalseOptionalElement(identifier, new ConfigurationOptionsDTO(),
+				new SolverSolution());
 	}
 
 	@Override
 	public Defect isFalseOptionalElement(Identifier identifier,
-			ConfigurationOptions options, Configuration configuration)
+			ConfigurationOptionsDTO options, SolverSolution configuration)
 			throws FunctionalException {
 
 		boolean createDefect = Boolean.FALSE;
 
 		if (configuration == null) {
-			configuration = new Configuration();
+			configuration = new SolverSolution();
 		}
 		if (options == null) {
-			options = new ConfigurationOptions();
+			options = new ConfigurationOptionsDTO();
 		}
 
 		// Se verifica si ya existe en el mapa el valor de cero para ese
 		// identificador
 		if (!existValue(identifier, 0)) {
 
-			Configuration copy = new Configuration();
+			SolverSolution copy = new SolverSolution();
 			TreeMap<String, Number> configurationValues = new TreeMap<String, Number>();
 			configurationValues.putAll(configuration.getConfiguration());
 			copy.setConfiguration(configurationValues);
 			copy.ban(identifier.getId());
-			Configuration configurationResult = solver.getConfiguration(model,
+			SolverSolution configurationResult = solver.getConfiguration(model,
 					copy, options);
 			solverTime += solver.getLastExecutionTime();
 
@@ -602,11 +602,11 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				negation = (BooleanNegation) f.not(reification);
 				negationList.add(negation);
 
-				ConfigurationOptions options = new ConfigurationOptions();
+				ConfigurationOptionsDTO options = new ConfigurationOptionsDTO();
 				options.addAllAdditionalExpression(negationList);
 
 				isSatisfiable = solver.isSatisfiable(modelWithoutRedundancy,
-						new Configuration(), options);
+						new SolverSolution(), options);
 
 				if (!isSatisfiable) {
 					// La restricción si es redundante pq el modelo se volvió
@@ -634,7 +634,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	@Override
 	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify,
-			ConfigurationOptions options, Configuration configuration)
+			ConfigurationOptionsDTO options, SolverSolution configuration)
 			throws FunctionalException, InterruptedException {
 		long initTotal = System.currentTimeMillis();
 		ProgressMonitor progressMonitor = null;
@@ -680,8 +680,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	@Override
 	public List<Defect> getFalseOptionalElements(
-			Set<Identifier> elementsToVerify, ConfigurationOptions options,
-			Configuration configuration) throws FunctionalException,
+			Set<Identifier> elementsToVerify, ConfigurationOptionsDTO options,
+			SolverSolution configuration) throws FunctionalException,
 			InterruptedException {
 		long initTotal = System.currentTimeMillis();
 		List<Defect> falseOptionalList = new ArrayList<Defect>();

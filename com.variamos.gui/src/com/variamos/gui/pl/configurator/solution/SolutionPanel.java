@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
-import com.variamos.solver.Configuration;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * @author unknown
@@ -32,12 +32,12 @@ public class SolutionPanel extends JPanel{
 		add(new JScrollPane(container), BorderLayout.CENTER);
 	}
 	
-	public void addSolution(Configuration solution){
+	public void addSolution(SolverSolution solution){
 		table.addSolution(solution);
 		
 	}
 	
-	public List<Configuration> getAllSolutions() {
+	public List<SolverSolution> getAllSolutions() {
 		return table.getAllSolutions();
 	}
 

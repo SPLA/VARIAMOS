@@ -1,34 +1,34 @@
 package com.variamos.configurator.io;
 
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
 
 public class ConfigurationDTO { 
-	private ConfigurationOptions options;
-	private Configuration values;
+	private ConfigurationOptionsDTO options;
+	private SolverSolution values;
 	
 	public ConfigurationDTO() {
-		options = new ConfigurationOptions();
-		values = new Configuration();
+		options = new ConfigurationOptionsDTO();
+		values = new SolverSolution();
 	}
 	
-	public ConfigurationDTO(ConfigurationOptions options, Configuration values) {
+	public ConfigurationDTO(ConfigurationOptionsDTO options, SolverSolution values) {
 		super();
 		this.options = options;
 		this.values = values;
 	}
 
 
-	public ConfigurationOptions getOptions() {
+	public ConfigurationOptionsDTO getOptions() {
 		return options;
 	}
-	public void setOptions(ConfigurationOptions options) {
+	public void setOptions(ConfigurationOptionsDTO options) {
 		this.options = options;
 	}
-	public Configuration getValues() {
+	public SolverSolution getValues() {
 		return values;
 	}
-	public void setValues(Configuration values) {
+	public void setValues(SolverSolution values) {
 		this.values = values;
 	}
 	

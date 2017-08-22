@@ -9,7 +9,7 @@ import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.gui.treetable.core.TreeTableSelectionModel;
-import com.variamos.solver.Configuration;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * @author unknown
@@ -40,7 +40,7 @@ public class SolutionTreeTable extends JTable{
 		setMinimumSize(new Dimension(400, 180));
 	}
 	
-	public void addSolution(Configuration conf){
+	public void addSolution(SolverSolution conf){
 		dataModel.addSolution(conf);
 		modelAdapter.fireTableStructureChanged();
 		modelAdapter.fireTableDataChanged();
@@ -51,7 +51,7 @@ public class SolutionTreeTable extends JTable{
 	public void expandRow(int row){
 		modelAdapter.expandRow(0);
 	}
-	public List<Configuration> getAllSolutions(){
+	public List<SolverSolution> getAllSolutions(){
 		return dataModel.getSolutions();
 	}
 	

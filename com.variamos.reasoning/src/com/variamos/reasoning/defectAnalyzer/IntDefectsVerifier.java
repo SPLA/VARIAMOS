@@ -8,8 +8,8 @@ import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Identifier;
 import com.variamos.reasoning.defectAnalyzer.dto.VerificationResult;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
 
 public interface IntDefectsVerifier {
 
@@ -45,14 +45,14 @@ public interface IntDefectsVerifier {
 			throws FunctionalException;
 
 	public Defect isDeadElement(Identifier identifier,
-			ConfigurationOptions options, Configuration configuration)
+			ConfigurationOptionsDTO options, SolverSolution configuration)
 			throws FunctionalException;
 
 	public Defect isFalseOptionalElement(Identifier identifier)
 			throws FunctionalException;
 
 	public Defect isFalseOptionalElement(Identifier identifier,
-			ConfigurationOptions options, Configuration configuration)
+			ConfigurationOptionsDTO options, SolverSolution configuration)
 			throws FunctionalException;
 
 	public Defect isRedundant(BooleanExpression expressionToVerify)
@@ -66,12 +66,12 @@ public interface IntDefectsVerifier {
 			InterruptedException;
 
 	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify,
-			ConfigurationOptions options, Configuration configuration)
+			ConfigurationOptionsDTO options, SolverSolution configuration)
 			throws FunctionalException, InterruptedException;
 
 	public List<Defect> getFalseOptionalElements(
-			Set<Identifier> elementsToVerify, ConfigurationOptions options,
-			Configuration configuration) throws FunctionalException,
+			Set<Identifier> elementsToVerify, ConfigurationOptionsDTO options,
+			SolverSolution configuration) throws FunctionalException,
 			InterruptedException;
 
 	public long getSolverTime();

@@ -6,14 +6,14 @@ import java.util.List;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModel;
-import com.variamos.solver.Configuration;
+import com.variamos.solver.model.SolverSolution;
 
 public class SolutionDataModel extends AbstractTreeTableModel{
 	
 	static protected String[] captions = { "Variable"};
 	static protected Class<?>[] types = { TreeTableModel.class};
 	
-	private List<Configuration> solutions;
+	private List<SolverSolution> solutions;
 	
 	public static final int COLUMN_NAME = 0;
 	
@@ -59,7 +59,7 @@ public class SolutionDataModel extends AbstractTreeTableModel{
 			return "";
 			
 		int index = column - 1;
-		Configuration conf = solutions.get(index);
+		SolverSolution conf = solutions.get(index);
 		return conf.stateOf(n.getName());
 		
 	}
@@ -96,11 +96,11 @@ public class SolutionDataModel extends AbstractTreeTableModel{
 		
 	}
 
-	public void addSolution(Configuration solution) {
+	public void addSolution(SolverSolution solution) {
 		solutions.add(solution);
 	}
 	
-	public List<Configuration> getSolutions(){
+	public List<SolverSolution> getSolutions(){
 		return solutions;
 	}
 

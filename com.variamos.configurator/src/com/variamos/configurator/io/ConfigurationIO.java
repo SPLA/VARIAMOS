@@ -11,7 +11,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.variamos.solver.Configuration;
+import com.variamos.solver.model.SolverSolution;
 
 public class ConfigurationIO {
 	public static void saveToFile(ConfigurationDTO dto, String fileAbsPath)
@@ -55,15 +55,15 @@ public class ConfigurationIO {
 		return out;
 	}
 
-	public static void saveSolutions(List<Configuration> solutions,
+	public static void saveSolutions(List<SolverSolution> solutions,
 			String fileAbsPath) throws FileNotFoundException {
 		// Create a csv file
 		PrintWriter out = new PrintWriter(new File(fileAbsPath));
-		Configuration first = solutions.get(0);
+		SolverSolution first = solutions.get(0);
 		for (String strName : first.getConfiguration().keySet()) {
 			out.print(strName);
 			out.print(",");
-			for (Configuration c : solutions) {
+			for (SolverSolution c : solutions) {
 				out.print(c.stateOf(strName));
 				out.print(",");
 			}
