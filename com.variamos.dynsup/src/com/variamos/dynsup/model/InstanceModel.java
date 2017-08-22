@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
@@ -37,10 +36,10 @@ import com.variamos.dynsup.types.PerspectiveType;
  * @version 1.1
  * @since 2014-11-10
  */
-public class ModelInstance extends AbstractModel {
+public class InstanceModel {
 
-	private ModelInstance syntaxModel;
-	private ModelInstance operationalModel;
+	private InstanceModel syntaxModel;
+	private InstanceModel operationalModel;
 	private Map<String, OpersExprType> semanticExpressionTypes;
 
 	/**
@@ -64,20 +63,20 @@ public class ModelInstance extends AbstractModel {
 
 	private PerspectiveType perspectiveType;
 
-	public ModelInstance(PerspectiveType perspectiveType,
+	public InstanceModel(PerspectiveType perspectiveType,
 			Map<String, OpersExprType> metaExpressionTypes) {
 		this(perspectiveType, metaExpressionTypes, null, null);
 	}
 
-	public ModelInstance(Map<String, OpersExprType> metaExpressionTypes,
-			ModelInstance syntaxRefas) {
+	public InstanceModel(Map<String, OpersExprType> metaExpressionTypes,
+			InstanceModel syntaxRefas) {
 		this(PerspectiveType.OPERATIONSSUPERSTRUCTURE, metaExpressionTypes,
 				syntaxRefas, null);
 	}
 
-	public ModelInstance(PerspectiveType perspectiveType,
+	public InstanceModel(PerspectiveType perspectiveType,
 			Map<String, OpersExprType> semanticExpressionTypes,
-			ModelInstance syntaxRefas, ModelInstance semanticRefas) {
+			InstanceModel syntaxRefas, InstanceModel semanticRefas) {
 		this.perspectiveType = perspectiveType;
 		this.syntaxModel = syntaxRefas;
 		this.semanticExpressionTypes = semanticExpressionTypes;
@@ -126,14 +125,14 @@ public class ModelInstance extends AbstractModel {
 
 	}
 
-	public ModelInstance getSyntaxModel() {
+	public InstanceModel getSyntaxModel() {
 		return syntaxModel;
 	}
 
 	public String getInstViewName(int modelViewInd, int modelViewSubInd) {
 		// List<InstView> instViews = this.getSyntaxRefas().getInstViews();
 		List<InstElement> instViews = this.getSyntaxModel()
-				.getVariabilityVertex("SMView");
+				.getVariabilityVertex("SyMView");
 		if (modelViewInd == -1)
 			if (instViews.size() > 0)
 				return instViews.get(0).getEdSyntaxEle().getAutoIdentifier();
@@ -156,7 +155,7 @@ public class ModelInstance extends AbstractModel {
 	public String getInstViewPalettesName(int modelViewInd, int modelViewSubInd) {
 		// List<InstView> instViews = this.getSyntaxRefas().getInstViews();
 		List<InstElement> instViews = this.getSyntaxModel()
-				.getVariabilityVertex("SMView");
+				.getVariabilityVertex("SyMView");
 		if (modelViewInd == -1)
 			if (instViews.size() > 0)
 				return instViews.get(0).getEdSyntaxEle().getPaletteName();
@@ -180,7 +179,7 @@ public class ModelInstance extends AbstractModel {
 		return semanticExpressionTypes;
 	}
 
-	public ModelInstance getOperationalModel() {
+	public InstanceModel getOperationalModel() {
 		return operationalModel;
 	}
 
@@ -200,7 +199,6 @@ public class ModelInstance extends AbstractModel {
 		return constraintInstEdges.values();
 	}
 
-	@Override
 	@Deprecated
 	public Collection<Constraint> getConstraints() {
 		return null;
@@ -210,7 +208,6 @@ public class ModelInstance extends AbstractModel {
 
 	}
 
-	@Override
 	@Deprecated
 	public Collection<VariabilityElement> getVariabilityElements() {
 		return null;
@@ -256,7 +253,11 @@ public class ModelInstance extends AbstractModel {
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstElement)
-			if (element.getTransSupportMetaElement().getUserIdentifier() == null)
+			if (element.getTransSupInstElement()
+					.getInstAttributeValue("userId") != null)
+				classId = (String) element.getTransSupInstElement()
+						.getInstAttributeValue("userId");
+			else if (element.getTransSupportMetaElement().getUserIdentifier() == null)
 				classId = element.getTransSupportMetaElement()
 						.getAutoIdentifier();
 			else
@@ -397,18 +398,15 @@ public class ModelInstance extends AbstractModel {
 		return name;
 	}
 
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	@Override
 	public Map<String, Asset> getAssets() {
 		// TODO support HLCL
 		return null;
 	}
 
-	@Override
 	public Constraint getConstraint(String consId) {
 		// TODO support HLCL
 		return null;
@@ -419,6 +417,16 @@ public class ModelInstance extends AbstractModel {
 		if (out == null)
 			out = instGroupDependencies.get(vertexId);
 		return out;
+	}
+
+	public InstElement getVertexByName(String elementName) {
+		for (InstElement e : variabilityInstVertex.values()) {
+			String name = (String) e.getInstAttributeValue("name");
+			if (name != null)
+				if (name.equals(elementName))
+					return e;
+		}
+		return null;
 	}
 
 	public Set<InstElement> getVertices() {
@@ -480,7 +488,7 @@ public class ModelInstance extends AbstractModel {
 
 	public List<String> modelElements(int modelViewInd, int modelViewSubInd) {
 		List<String> elements = new ArrayList<String>();
-		List<InstElement> views = this.getVariabilityVertex("SMView");
+		List<InstElement> views = this.getVariabilityVertex("SyMView");
 		// modelViewInd = -1; // TODO for initial testing, delete
 		if (modelViewInd == -1) {
 			for (InstElement instVertex : variabilityInstVertex.values()) {
@@ -653,7 +661,7 @@ public class ModelInstance extends AbstractModel {
 			for (InstElement element : rel)
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupInstEleId().equals("SMExtend")) {
+								.getSupInstEleId().equals("SyMExtend")) {
 					out.putAll(getValidPairwiseRelations(element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), instElement2,
@@ -665,7 +673,7 @@ public class ModelInstance extends AbstractModel {
 			for (InstElement element : rel) {
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupInstEleId().equals("SMExtend")) {
+								.getSupInstEleId().equals("SyMExtend")) {
 					out.putAll(getValidPairwiseRelations(instElement, element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), false));
@@ -741,7 +749,7 @@ public class ModelInstance extends AbstractModel {
 			for (InstElement element : rel) {
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupInstEleId().equals("SMExtend")) {
+								.getSupInstEleId().equals("SyMExtend")) {
 					InstElement out = (getValidMetaPairwiseRelation(
 							instElement, element.getTargetRelations().get(0)
 									.getTargetRelations().get(0)
@@ -757,7 +765,7 @@ public class ModelInstance extends AbstractModel {
 			for (InstElement element : rel)
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupInstEleId().equals("SMExtend")) {
+								.getSupInstEleId().equals("SyMExtend")) {
 					return (getValidMetaPairwiseRelation(element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), instElement2,
@@ -785,7 +793,7 @@ public class ModelInstance extends AbstractModel {
 		for (InstElement element : rel) {
 			if (element.getTargetRelations().get(0).getSupInstEleId() != null
 					&& element.getTargetRelations().get(0).getSupInstEleId()
-							.equals("SMExtend")) {
+							.equals("SyMExtend")) {
 				InstElement parent = element.getTargetRelations().get(0)
 						.getTargetRelations().get(0).getTargetRelations()
 						.get(0);
@@ -821,7 +829,7 @@ public class ModelInstance extends AbstractModel {
 	public boolean elementsValidation(String element, int modelViewInd,
 			int modelViewSubInd) {
 
-		List<InstElement> views = this.getVariabilityVertex("SMView");
+		List<InstElement> views = this.getVariabilityVertex("SyMView");
 		// FIXME Find views by stereotype, not by instViews object
 		if (modelViewInd < views.size() && modelViewSubInd == -1) {
 			for (InstElement instElement : views.get(modelViewInd)

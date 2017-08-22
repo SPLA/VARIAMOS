@@ -14,11 +14,12 @@ import com.variamos.solver.ConfigurationOptions;
 public interface IntDefectsVerifier {
 
 	/**
-	 * @return This operation returns TRUE if the hlclprogram does not define any products.
+	 * @return This operation returns TRUE if the hlclprogram does not define
+	 *         any products.
 	 *
 	 */
 	public Defect isVoid();
-	
+
 	/**
 	 * This operation takes a HLCLProgram as input and returns true if at most
 	 * one valid product can be configured with it
@@ -31,36 +32,54 @@ public interface IntDefectsVerifier {
 	public Defect isFalsePL();
 
 	/**
-	 * This method try to obtain a solution for each identifier . If no solution is found then the identifier is a dead element
+	 * This method try to obtain a solution for each identifier . If no solution
+	 * is found then the identifier is a dead element
+	 * 
 	 * @param model
 	 * @param identifier
-	 * @return null if the identifier is not dead, a DeadElement defect otherwise
+	 * @return null if the identifier is not dead, a DeadElement defect
+	 *         otherwise
 	 * @throws FunctionalException
 	 */
-	public Defect isDeadElement(Identifier identifier) throws FunctionalException;
-	public Defect isDeadElement(Identifier identifier, ConfigurationOptions options, Configuration configuration) throws FunctionalException;
+	public Defect isDeadElement(Identifier identifier)
+			throws FunctionalException;
 
+	public Defect isDeadElement(Identifier identifier,
+			ConfigurationOptions options, Configuration configuration)
+			throws FunctionalException;
 
-	public Defect isFalseOptionalElement(Identifier identifier) throws FunctionalException;
-	public Defect isFalseOptionalElement(Identifier identifier,ConfigurationOptions options, Configuration configuration) throws FunctionalException;
+	public Defect isFalseOptionalElement(Identifier identifier)
+			throws FunctionalException;
 
+	public Defect isFalseOptionalElement(Identifier identifier,
+			ConfigurationOptions options, Configuration configuration)
+			throws FunctionalException;
 
-	public Defect isRedundant(BooleanExpression expressionToVerify) throws FunctionalException;
+	public Defect isRedundant(BooleanExpression expressionToVerify)
+			throws FunctionalException;
 
-	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify) throws FunctionalException, InterruptedException;
+	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify)
+			throws FunctionalException, InterruptedException;
 
-	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify) throws FunctionalException, InterruptedException;
-	
-	
-	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify, ConfigurationOptions options, Configuration configuration) throws FunctionalException, InterruptedException;
+	public List<Defect> getFalseOptionalElements(
+			Set<Identifier> elementsToVerify) throws FunctionalException,
+			InterruptedException;
 
-	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify, ConfigurationOptions options, Configuration configuration) throws FunctionalException, InterruptedException;
-	
-	public long getSolverTime() ;
+	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify,
+			ConfigurationOptions options, Configuration configuration)
+			throws FunctionalException, InterruptedException;
 
-	public long getTotalTime() ;
-	
+	public List<Defect> getFalseOptionalElements(
+			Set<Identifier> elementsToVerify, ConfigurationOptions options,
+			Configuration configuration) throws FunctionalException,
+			InterruptedException;
+
+	public long getSolverTime();
+
+	public long getTotalTime();
+
 	public void resetTime();
+
 	/**
 	 * @param model
 	 *            expressed as Hlclprogram
@@ -68,14 +87,26 @@ public interface IntDefectsVerifier {
 	 *            : expressions to verify if they are redundant.
 	 * @return Defect
 	 */
-	public List<Defect> getRedundancies(List<BooleanExpression> constraitsToVerifyRedundacies) throws FunctionalException;
-	
-	public List<Defect> getAllNonAttainableDomains(	Set<Identifier> elementsToVerify) throws FunctionalException;
-	
-	public List<Defect> getNonAttainableDomains(Identifier identifier) throws FunctionalException ;
+	public List<Defect> getRedundancies(
+			List<BooleanExpression> constraitsToVerifyRedundacies)
+			throws FunctionalException;
 
-	public VerificationResult getDefects(
-			Set<Identifier> optionalElements,
-			Set<Identifier> deadElementsToVerify, List<BooleanExpression> constraintsToVerifyRedundancies) throws InterruptedException;
+	public List<Defect> getAllNonAttainableDomains(
+			Set<Identifier> elementsToVerify) throws FunctionalException;
+
+	public List<Defect> getNonAttainableDomains(Identifier identifier)
+			throws FunctionalException;
+
+	public VerificationResult getDefects(Set<Identifier> optionalElements,
+			Set<Identifier> deadElementsToVerify,
+			List<BooleanExpression> constraintsToVerifyRedundancies)
+			throws InterruptedException;
+
+	// jcmunoz: new method to support additional constraints in the verification
+	// of false product lines
+	List<Defect> getFalsePLs(List<BooleanExpression> additionalConstraints);
+	// jcmunoz: new method to support additional constraints in the verification
+	// of void models
+	List<Defect> getVoids(List<BooleanExpression> additionalConstraints);
 
 }

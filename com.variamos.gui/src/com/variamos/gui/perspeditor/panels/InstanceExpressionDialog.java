@@ -40,7 +40,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -62,7 +62,7 @@ public class InstanceExpressionDialog extends JDialog {
 	private InstanceExpressionButtonAction onAccept, onCancel, onDelete;
 	private ModelExpr selectedExpression;
 	private JPanel solutionPanel;
-	private ModelInstance refasModel;
+	private InstanceModel refasModel;
 	private boolean displayVariableName = true;
 	private int width = 950;
 	private int height = 400;
@@ -373,7 +373,7 @@ public class InstanceExpressionDialog extends JDialog {
 		JComboBox<String> rightSide = createSidesCombo(instanceExpression,
 				element, false);
 		JPanel leftPanel = new JPanel();
-		leftPanel.setBackground(new Color(color, color, color));
+		leftPanel.setBackground(Color.getHSBColor(0.45f, 0.27f, color / 255f));
 		leftPanel.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -527,7 +527,7 @@ public class InstanceExpressionDialog extends JDialog {
 		centerPanel.add(centerCombo);
 		basePanel.add(centerPanel);
 		JPanel rightPanel = new JPanel();
-		rightPanel.setBackground(new Color(color, color, color));
+		rightPanel.setBackground(Color.getHSBColor(0.65f, 0.27f, color / 255f));
 		rightPanel.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -724,8 +724,15 @@ public class InstanceExpressionDialog extends JDialog {
 
 			OpersElement semElement2 = instVertex.getTransSupportMetaElement()
 					.getTransSemanticConcept();
+			List<InstElement> parents = instVertex.getTransSupportMetaElement()
+					.getTransInstSemanticElement().getParentOpersConcept();
+			boolean child = false;
+			for (InstElement e : parents)
+				if (e.getIdentifier().equals("NmVariable"))
+					child = true;
 			if (semElement2 != null
-					&& semElement2.getIdentifier().equals("NmVariable")) {
+					&& ((semElement2.getIdentifier() != null && semElement2
+							.getIdentifier().equals("NmVariable")) || child)) {
 				String variableType = (String) instVertex.getInstAttribute(
 						"variableType").getValue();
 				switch (variableType) {
@@ -792,7 +799,8 @@ public class InstanceExpressionDialog extends JDialog {
 						.getSourceRelations().get(0).getInstAttribute("userId")
 						.toString();
 			if (element instanceof InstOverTwoRel
-					|| element.getTransSupportMetaElement().getType() == 'O')
+					|| element.getTransSupportMetaElement().getType() == 'O'
+					|| element.getTransSupportMetaElement().getType() == 'T')
 				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getInstAttribute("userId").toString();
@@ -803,7 +811,8 @@ public class InstanceExpressionDialog extends JDialog {
 				instRelElementId = ((InstPairwiseRel) element)
 						.getSourceRelations().get(0).getIdentifier();
 			if (element instanceof InstOverTwoRel
-					|| element.getTransSupportMetaElement().getType() == 'O')
+					|| element.getTransSupportMetaElement().getType() == 'O'
+					|| element.getTransSupportMetaElement().getType() == 'T')
 				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getIdentifier();
@@ -816,8 +825,16 @@ public class InstanceExpressionDialog extends JDialog {
 					.getVariabilityVertexCollection()) {
 				OpersElement semElement2 = instVertex
 						.getTransSupportMetaElement().getTransSemanticConcept();
+				List<InstElement> parents = instVertex
+						.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
+				boolean child = false;
+				for (InstElement e : parents)
+					if (e.getIdentifier().equals("NmVariable"))
+						child = true;
 				if (semElement2 != null
-						&& semElement2.getIdentifier().equals("NmVariable")) {
+						&& ((semElement2.getIdentifier() != null && semElement2
+								.getIdentifier().equals("NmVariable")) || child)) {
 					String instVertexId = null;
 					if (displayVariableName)
 						instVertexId = instVertex.getInstAttribute("userId")
@@ -1017,3 +1034,4 @@ public class InstanceExpressionDialog extends JDialog {
 		this.onCancel = onCancel;
 	}
 }
+

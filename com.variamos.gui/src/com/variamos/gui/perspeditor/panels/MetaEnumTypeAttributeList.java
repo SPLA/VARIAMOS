@@ -20,7 +20,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
@@ -99,6 +99,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 
 		addMouseListener(new MouseAdapter() {
 
+			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 					int index = locationToIndex(evt.getPoint());
@@ -119,9 +120,8 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 				JLabel lbl = (JLabel) super.getListCellRendererComponent(list,
 						value, index, isSelected, cellHasFocus);
 				Object attvalue = ((InstAttribute) value).getValue();
-				if (attvalue instanceof OperationSubActionExecType)
-					lbl.setText(((OperationSubActionExecType) attvalue)
-							.toString());
+				if (attvalue instanceof OpersSubOpExecType)
+					lbl.setText(((OpersSubOpExecType) attvalue).toString());
 				if (attvalue instanceof LabelingOrder)
 					lbl.setText(((LabelingOrder) attvalue).toString());
 				return lbl;
@@ -192,7 +192,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(130,
-				300, editor, element, instName);
+				300, "Expression Type Editor", editor, element, instName);
 		dialog.setOnAccept(new DialogButtonAction() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -210,18 +210,30 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 				InstAttribute v = buffer[0];
 				List<InstAttribute> attributes = null;
 				if (attributeName.equals("exptype")) {
-					OperationSubActionExecType ex = OperationSubActionExecType
+					OpersSubOpExecType ex = OpersSubOpExecType
 							.valueOf((String) instName.getValue());
-					InstElement e = new InstConcept("exptype",
-							infraSyntaxOpersM2Element,
-							new OpersSubOperationExpType());
-					e.getInstAttribute("suboperexptype").setValue(ex);
-					v.setValue(e);
+					if (v.getValue() instanceof String
+							|| !((String) ((InstElement) v.getValue())
+									.getInstAttribute("suboperexptype")
+									.getValue()).equals(instName.getValue())) {
 
+						OpersSubOperationExpType opexp = new OpersSubOperationExpType();
+						opexp.setIdentifier((String) instName.getValue());
+						InstElement e = new InstConcept("exptype",
+								infraSyntaxOpersM2Element, opexp);
+						e.getInstAttribute("suboperexptype").setValue(
+								ex.toString());
+						v.setValue(e);
+					} else {
+
+						InstAttribute ee = ((InstElement) v.getValue())
+								.getInstAttribute("suboperexptype");
+						ee.setValue(ex.toString());
+					}
 					attributes = ((List<InstAttribute>) element
 							.getInstAttributes().get(attributeName).getValue());
 				} else {
-					v.setValue((String) instName.getValue());
+					v.setValue(instName.getValue());
 
 					attributes = ((List<InstAttribute>) element
 							.getInstAttributes().get(attributeName).getValue());
@@ -269,6 +281,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 
 		final InstCell finalInstCell = instCell;
 		new Thread() {
+			@Override
 			public void run() {
 				try {
 					sleep(500);

@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
-import com.cfm.common.AbstractModel;
+import com.cfm.productline.ProductLine;
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxSvgCanvas;
 import com.mxgraph.io.mxCodec;
@@ -31,8 +31,6 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
-import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.io.SXFMWriter;
 
 import fm.FeatureModel;
@@ -43,15 +41,15 @@ import fm.XMLFeatureModel;
 @Deprecated
 public class SaveAction extends AbstractEditorAction {
 
-//	@Override
-//	public void actionPerformed(ActionEvent evt) {
-//		ConfiguratorEditor editor = getEditor(evt);
-//		ProductLineGraph graph = (ProductLineGraph) editor.getGraphComponent()
-//				.getGraph();
-//		ProductLine pl = graph.getProductLine();
-//		pl.printDebug(System.out);
-//	}
-	
+	// @Override
+	// public void actionPerformed(ActionEvent evt) {
+	// ConfiguratorEditor editor = getEditor(evt);
+	// ProductLineGraph graph = (ProductLineGraph) editor.getGraphComponent()
+	// .getGraph();
+	// ProductLine pl = graph.getProductLine();
+	// pl.printDebug(System.out);
+	// }
+
 	/**
 	 * 
 	 */
@@ -65,56 +63,46 @@ public class SaveAction extends AbstractEditorAction {
 	/**
 	 * 
 	 */
-	public SaveAction(boolean showDialog)
-	{
+	public SaveAction(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
 
 	/**
 	 * Saves XML+PNG format.
 	 */
-	protected void saveXmlPng(BasicGraphEditor editor, String filename,
-			Color bg) throws IOException
-	{
+	protected void saveXmlPng(BasicGraphEditor editor, String filename, Color bg)
+			throws IOException {
 		mxGraphComponent graphComponent = editor.getGraphComponent();
 		mxGraph graph = graphComponent.getGraph();
 
 		// Creates the image for the PNG file
-		BufferedImage image = mxCellRenderer.createBufferedImage(graph,
-				null, 1, bg, graphComponent.isAntiAlias(), null,
+		BufferedImage image = mxCellRenderer.createBufferedImage(graph, null,
+				1, bg, graphComponent.isAntiAlias(), null,
 				graphComponent.getCanvas());
 
 		// Creates the URL-encoded XML data
 		mxCodec codec = new mxCodec();
 		String xml = URLEncoder.encode(
 				mxXmlUtils.getXml(codec.encode(graph.getModel())), "UTF-8");
-		mxPngEncodeParam param = mxPngEncodeParam
-				.getDefaultEncodeParam(image);
+		mxPngEncodeParam param = mxPngEncodeParam.getDefaultEncodeParam(image);
 		param.setCompressedText(new String[] { "mxGraphModel", xml });
 
 		// Saves as a PNG file
-		FileOutputStream outputStream = new FileOutputStream(new File(
-				filename));
-		try
-		{
+		FileOutputStream outputStream = new FileOutputStream(new File(filename));
+		try {
 			mxPngImageEncoder encoder = new mxPngImageEncoder(outputStream,
 					param);
 
-			if (image != null)
-			{
+			if (image != null) {
 				encoder.encode(image);
 
 				editor.setModified(false);
 				editor.setCurrentFile(new File(filename));
-			}
-			else
-			{
+			} else {
 				JOptionPane.showMessageDialog(graphComponent,
 						mxResources.get("noImageData"));
 			}
-		}
-		finally
-		{
+		} finally {
 			outputStream.close();
 		}
 	}
@@ -122,79 +110,67 @@ public class SaveAction extends AbstractEditorAction {
 	/**
 	 * 
 	 */
-	public void actionPerformed(ActionEvent e)
-	{
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		BasicGraphEditor editor = getEditor(e);
-		VariamosGraphEditor editor2 = getEditor(e);
-		AbstractModel pl = null;
 
-		if (editor != null)
-		{
+		if (editor != null) {
 			mxGraphComponent graphComponent = editor.getGraphComponent();
 			mxGraph graph = graphComponent.getGraph();
 			FileFilter selectedFilter = null;
-//			DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".png",
-//					"PNG+XML " + mxResources.get("file") + " (.png)");
-//			FileFilter vmlFileFilter = new DefaultFileFilter(".html",
-//					"VML " + mxResources.get("file") + " (.html)");
+			// DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".png",
+			// "PNG+XML " + mxResources.get("file") + " (.png)");
+			// FileFilter vmlFileFilter = new DefaultFileFilter(".html",
+			// "VML " + mxResources.get("file") + " (.html)");
 			String filename = null;
 			boolean dialogShown = false;
 
-			if (showDialog || editor.getCurrentFile() == null)
-			{
+			if (showDialog || editor.getCurrentFile() == null) {
 				String wd;
 
-				if (lastDir != null)
-				{
+				if (lastDir != null) {
 					wd = lastDir;
-				}
-				else if (editor.getCurrentFile() != null)
-				{
+				} else if (editor.getCurrentFile() != null) {
 					wd = editor.getCurrentFile().getParent();
-				}
-				else
-				{
+				} else {
 					wd = System.getProperty("user.dir");
 				}
 
 				JFileChooser fc = new JFileChooser(wd);
 
 				// Adds the default file format
-				FileFilter defaultFilter = new DefaultFileFilter(
-						".plg", mxResources.get("defaultExtension")
-						+ " (.plg)");
+				FileFilter defaultFilter = new DefaultFileFilter(".plg",
+						mxResources.get("defaultExtension") + " (.plg)");
 				fc.addChoosableFileFilter(defaultFilter);
 
-				fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm", 
+				fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm",
 						mxResources.get("sxfmExtension") + " (.sxfm)"));
-				
-				fc.addChoosableFileFilter(new DefaultFileFilter(".pl", 
+
+				fc.addChoosableFileFilter(new DefaultFileFilter(".pl",
 						mxResources.get("prologExtension") + " (.pl)"));
-				
+
 				// Adds special vector graphics formats and HTML
-				fc.addChoosableFileFilter(new DefaultFileFilter(".svg",
-						"SVG " + mxResources.get("file") + " (.svg)"));
-				
+				fc.addChoosableFileFilter(new DefaultFileFilter(".svg", "SVG "
+						+ mxResources.get("file") + " (.svg)"));
+
 				// Adds a filter for each supported image format
 				Object[] imageFormats = ImageIO.getReaderFormatNames();
 
 				// Finds all distinct extensions
 				HashSet<String> formats = new HashSet<String>();
 
-				for (int i = 0; i < imageFormats.length; i++)
-				{
+				for (int i = 0; i < imageFormats.length; i++) {
 					String ext = imageFormats[i].toString().toLowerCase();
 					formats.add(ext);
 				}
 
 				imageFormats = formats.toArray();
 
-				for (int i = 0; i < imageFormats.length; i++)
-				{
+				for (int i = 0; i < imageFormats.length; i++) {
 					String ext = imageFormats[i].toString();
-					fc.addChoosableFileFilter(new DefaultFileFilter("."
-							+ ext, ext.toUpperCase() + " "
-							+ mxResources.get("file") + " (." + ext + ")"));
+					fc.addChoosableFileFilter(new DefaultFileFilter("." + ext,
+							ext.toUpperCase() + " " + mxResources.get("file")
+									+ " (." + ext + ")"));
 				}
 
 				// Adds filter that accepts all supported image formats
@@ -204,58 +180,48 @@ public class SaveAction extends AbstractEditorAction {
 				int rc = fc.showDialog(null, mxResources.get("save"));
 				dialogShown = true;
 
-				if (rc != JFileChooser.APPROVE_OPTION)
-				{
+				if (rc != JFileChooser.APPROVE_OPTION) {
 					return;
-				}
-				else
-				{
+				} else {
 					lastDir = fc.getSelectedFile().getParent();
 				}
 
 				filename = fc.getSelectedFile().getAbsolutePath();
 				selectedFilter = fc.getFileFilter();
 
-				if (selectedFilter instanceof DefaultFileFilter)
-				{
+				if (selectedFilter instanceof DefaultFileFilter) {
 					String ext = ((DefaultFileFilter) selectedFilter)
 							.getExtension();
 
-					if (!filename.toLowerCase().endsWith(ext))
-					{
+					if (!filename.toLowerCase().endsWith(ext)) {
 						filename += ext;
 					}
 				}
 
 				if (new File(filename).exists()
 						&& JOptionPane.showConfirmDialog(graphComponent,
-								mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION)
-				{
+								mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
 					return;
 				}
-			}
-			else
-			{
+			} else {
 				filename = editor.getCurrentFile().getAbsolutePath();
 			}
 
-			try
-			{
-				String ext = filename
-						.substring(filename.lastIndexOf('.') + 1);
+			try {
+				String ext = filename.substring(filename.lastIndexOf('.') + 1);
 
-				if (ext.equalsIgnoreCase("svg"))
-				{
+				if (ext.equalsIgnoreCase("svg")) {
 					mxSvgCanvas canvas = (mxSvgCanvas) mxCellRenderer
 							.drawCells(graph, null, 1, null,
-									new CanvasFactory()
-									{
+									new CanvasFactory() {
+										@Override
 										public mxICanvas createCanvas(
-												int width, int height)
-										{
+												int width, int height) {
 											mxSvgCanvas canvas = new mxSvgCanvas(
-													mxDomUtils.createSvgDocument(
-															width, height));
+													mxDomUtils
+															.createSvgDocument(
+																	width,
+																	height));
 											canvas.setEmbedded(true);
 
 											return canvas;
@@ -266,23 +232,23 @@ public class SaveAction extends AbstractEditorAction {
 					mxUtils.writeFile(mxXmlUtils.getXml(canvas.getDocument()),
 							filename);
 				}
-				else if (ext.equalsIgnoreCase("sxfm"))
-				{
-					SXFMWriter writer = new SXFMWriter();
-					ProductLineGraph plGraph = (ProductLineGraph)graph;
-					mxUtils.writeFile(writer.getSXFMContent(plGraph.getProductLine()), filename);
-				}
-				else if (ext.equalsIgnoreCase("pl"))
-				{
-					pl = editor2.getEditedModel();
-					//pl.printDebug(System.out);
-					//ProductLineGraph plGraph = (ProductLineGraph)graph;
-					//generatePrologFile(plGraph.getProductLine(), filename);
-					generatePrologFile(pl, filename);
-				}
+				// else if (ext.equalsIgnoreCase("sxfm")) {
+				// SXFMWriter writer = new SXFMWriter();
+				// ProductLineGraph plGraph = (ProductLineGraph) graph;
+				// mxUtils.writeFile(
+				// writer.getSXFMContent(plGraph.getProductLine()),
+				// filename);
+				// }
+				// else if (ext.equalsIgnoreCase("pl"))
+				// {
+				// pl = editor2.getEditedModel();
+				// //pl.printDebug(System.out);
+				// //ProductLineGraph plGraph = (ProductLineGraph)graph;
+				// //generatePrologFile(plGraph.getProductLine(), filename);
+				// generatePrologFile(pl, filename);
+				// }
 				else if (ext.equalsIgnoreCase("plg")
-						|| ext.equalsIgnoreCase("xml"))
-				{
+						|| ext.equalsIgnoreCase("xml")) {
 					mxCodec codec = new mxCodec();
 					String xml = mxXmlUtils.getXml(codec.encode(graph
 							.getModel()));
@@ -291,68 +257,59 @@ public class SaveAction extends AbstractEditorAction {
 
 					editor.setModified(false);
 					editor.setCurrentFile(new File(filename));
-				}
-				else
-				{
+				} else {
 					Color bg = null;
 
 					if ((!ext.equalsIgnoreCase("gif") && !ext
 							.equalsIgnoreCase("png"))
-							|| JOptionPane.showConfirmDialog(
-									graphComponent, mxResources
-											.get("transparentBackground")) != JOptionPane.YES_OPTION)
-					{
+							|| JOptionPane.showConfirmDialog(graphComponent,
+									mxResources.get("transparentBackground")) != JOptionPane.YES_OPTION) {
 						bg = graphComponent.getBackground();
 					}
 
 					if ((editor.getCurrentFile() != null
-									&& ext.equalsIgnoreCase("png") && !dialogShown))
-					{
+							&& ext.equalsIgnoreCase("png") && !dialogShown)) {
 						saveXmlPng(editor, filename, bg);
-					}
-					else
-					{
+					} else {
 						BufferedImage image = mxCellRenderer
 								.createBufferedImage(graph, null, 1, bg,
 										graphComponent.isAntiAlias(), null,
 										graphComponent.getCanvas());
 
-						if (image != null)
-						{
+						if (image != null) {
 							ImageIO.write(image, ext, new File(filename));
-						}
-						else
-						{
+						} else {
 							JOptionPane.showMessageDialog(graphComponent,
 									mxResources.get("noImageData"));
 						}
 					}
 				}
-			}
-			catch (Throwable ex)
-			{
+			} catch (Throwable ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(graphComponent,
-						ex.toString(), mxResources.get("error"),
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(graphComponent, ex.toString(),
+						mxResources.get("error"), JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
-	private void generatePrologFile(AbstractModel pl, String filename) throws IOException, FeatureModelException {
+	private void generatePrologFile(ProductLine pl, String filename)
+			throws IOException, FeatureModelException {
 		SXFMWriter writer = new SXFMWriter();
 		System.out.println(writer.getSXFMContent(pl));
-		
+
 		File f = File.createTempFile("test", "tmp");
 		writer.writeSXFM(pl, f);
-		
-		FeatureModel featureModel = new XMLFeatureModel(
-				f.getAbsolutePath(),
+
+		FeatureModel featureModel = new XMLFeatureModel(f.getAbsolutePath(),
 				XMLFeatureModel.USE_VARIABLE_NAME_AS_ID);
 		featureModel.loadModel();
-		
-/*		FeatureModelSPLOTransformer transformer = new FeatureModelSPLOTransformer();
-		mxUtils.writeFile(transformer.getPrologString(featureModel, PrologEditorType.GNU_PROLOG), filename);*/
+
+		/*
+		 * FeatureModelSPLOTransformer transformer = new
+		 * FeatureModelSPLOTransformer();
+		 * mxUtils.writeFile(transformer.getPrologString(featureModel,
+		 * PrologEditorType.GNU_PROLOG), filename);
+		 */
 	}
 
 }

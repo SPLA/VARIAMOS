@@ -15,18 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableColumnModel;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.Variable;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
-import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.model.AssociationDataModel;
 import com.variamos.gui.perspeditor.model.AssociationRow;
@@ -34,8 +32,6 @@ import com.variamos.gui.perspeditor.model.AssociationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationTask;
 
 /**
  * A class to create the dialog to associate element's expressions to
@@ -46,8 +42,8 @@ import com.variamos.solver.ConfigurationTask;
  * @version 1.1
  * @since 2015-11-05
  */
-public class ElementsOperationAssociationPanel extends
-		AbstractConfigurationPanel implements PropertyChangeListener {
+public class ElementsOperationAssociationPanel extends JPanel implements
+		PropertyChangeListener {
 	/**
 	 * 
 	 */
@@ -55,8 +51,8 @@ public class ElementsOperationAssociationPanel extends
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
 	private int dialog = 0;
-	private int width = 980;
-	private int height = 500;
+	private int width = 1250;
+	private int height = 630;
 	List<InstElement> operActions = null;
 	private AssociationTreeTable table = null;
 	private List<OpersSubOperationExpType> subOpersTypesColumns = null;
@@ -80,14 +76,14 @@ public class ElementsOperationAssociationPanel extends
 
 		final JComboBox<String> combo = new JComboBox<String>();
 		operActions = editor.getEditedModel().getVariabilityVertex(
-				"OMOperation");
+				"OpMOperation");
 
 		for (InstElement operAction : operActions) {
-			combo.addItem(operAction.getEdOperEle().getIdentifier());
+			combo.addItem(operAction.getIdentifier());
 		}
 		combo.setSelectedItem(combo.getItemAt(0));
 		JPanel topPanel = new JPanel();
-		topPanel.add(new JLabel("Operation"));
+		topPanel.add(new JLabel("Select the operation to display the options: "));
 		topPanel.add(combo);
 
 		generalPanel.add(topPanel, BorderLayout.NORTH);
@@ -101,7 +97,7 @@ public class ElementsOperationAssociationPanel extends
 						editor.getEditedModel(), operAction);
 				panel.removeAll();
 				table = tableN;
-				table.setPreferredSize(new Dimension(width, height + 1000));
+				table.setPreferredSize(new Dimension(width - 25, height + 1300));
 				JScrollPane scrollPane = new JScrollPane(table);
 				scrollPane.setPreferredSize(new Dimension(width, height));
 				panel.add(scrollPane);
@@ -111,7 +107,7 @@ public class ElementsOperationAssociationPanel extends
 		});
 
 		table = createTable(editor.getEditedModel(), operActions.get(0));
-		table.setPreferredSize(new Dimension(width, height + 400));
+		table.setPreferredSize(new Dimension(width - 25, height + 400));
 		panel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(width, height));
@@ -127,7 +123,7 @@ public class ElementsOperationAssociationPanel extends
 		repaint();
 	}
 
-	private AssociationTreeTable createTable(ModelInstance refasModel,
+	private AssociationTreeTable createTable(InstanceModel refasModel,
 			InstElement operAction) {
 		OpersSubOperation operSubAction = null;
 		List<String> subOperTypesColumnsNames = new ArrayList<String>();
@@ -148,14 +144,15 @@ public class ElementsOperationAssociationPanel extends
 			for (InstAttribute instatt : atttypes) {
 				subOperTypesColumnsNames.add(subOper.getIdentifier()
 						+ "-"
-						+ (String) ((InstElement) instatt.getValue())
-								.getInstAttributeValue("suboperexptype"));
+						+ ((InstElement) instatt.getValue())
+								.getInstAttributeValue("suboperexptype")
+								.toString());
 				subOpersTypesColumns
 						.add((OpersSubOperationExpType) ((InstElement) instatt
 								.getValue()).getEdOperEle());
 			}
 
-			subOperColumnsNames.add(operSubAction.getIdentifier());
+			subOperColumnsNames.add(subOper.getIdentifier());
 			subOpers.add(operSubAction);
 			// operLabelNames.addAll(operSubAction.getOperLabelNames());
 			// operLabels.addAll(operSubAction.getOperLabels());
@@ -166,8 +163,8 @@ public class ElementsOperationAssociationPanel extends
 				OpersLabeling operLab = (OpersLabeling) instOperLab
 						.getEdOperEle();
 				operLabs.add(operLab);
-				operLabsNames.add(operSubAction.getIdentifier() + "-"
-						+ operLab.getIdentifier());
+				operLabsNames.add(subOper.getIdentifier() + "-"
+						+ instOperLab.getIdentifier());
 
 			}
 
@@ -190,41 +187,41 @@ public class ElementsOperationAssociationPanel extends
 		for (String s : subOperColumnsNames) {
 			domainOperIO.add(BinaryDomain.INSTANCE);
 			domainOperIO.add(BinaryDomain.INSTANCE);
-			operIO.add(s + "ModelValue/\nFreeValue");
-			operIO.add(s + "UpdateModelValue");
+			operIO.add(s + ": Input from Model/\nFree Value");
+			operIO.add(s + ": Output to Model/\n Not output");
 		}
 
 		AssociationRow root = null;
 		AssociationDataModel dataModel = null;
 
 		if (dialog == 0)
-			root = new AssociationRow("", subOpersTypesColumns.size(), false,
-					domainOperColumns, null, null);
+			root = new AssociationRow(null, "", subOpersTypesColumns.size(),
+					false, domainOperColumns, null, null);
 		if (dialog == 1)
-			root = new AssociationRow("", operIO.size(), false, domainOperIO,
-					null, null);
+			root = new AssociationRow(null, "", operIO.size(), false,
+					domainOperIO, null, null);
 		if (dialog == 2)
-			root = new AssociationRow("", operLabelNames.size(), false,
+			root = new AssociationRow(null, "", operLabelNames.size(), false,
 					domainOperLabels, null, null);
 
 		for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 			InstElement et = el.getTransSupInstElement();
-			if (et.getIdentifier().equals("OMSubOper")
-					|| et.getIdentifier().equals("OMLabeling")
-					|| et.getIdentifier().equals("OMOperation")
-					|| et.getIdentifier().equals("OMOperGroup"))
+			if (et.getIdentifier().equals("OpMSubOper")
+					|| et.getIdentifier().equals("OpMLabeling")
+					|| et.getIdentifier().equals("OpMOperation")
+					|| et.getIdentifier().equals("OpMOperGroup"))
 				continue;
 			AssociationRow node = null;
 
 			if (dialog == 0)
-				node = new AssociationRow(el.getIdentifier(),
+				node = new AssociationRow(el, el.getIdentifier(),
 						subOpersTypesColumns.size(), false, domainOperColumns,
 						null, el);
 			if (dialog == 1)
-				node = new AssociationRow(el.getIdentifier(), operIO.size(),
-						false, domainOperIO, null, el);
+				node = new AssociationRow(el, el.getIdentifier(),
+						operIO.size(), false, domainOperIO, null, el);
 			if (dialog == 2)
-				node = new AssociationRow(el.getIdentifier(),
+				node = new AssociationRow(el, el.getIdentifier(),
 						operLabelNames.size(), false, domainOperLabels, null,
 						el);
 			// node.setVariable(var);
@@ -246,7 +243,7 @@ public class ElementsOperationAssociationPanel extends
 						else
 							valuesOperColumns.add(0);
 
-					AssociationRow attNode = new AssociationRow(
+					AssociationRow attNode = new AssociationRow(el,
 							v.getIdentifier(), subOpersTypesColumns.size(),
 							true, domainOperColumns, valuesOperColumns, v);
 
@@ -257,29 +254,31 @@ public class ElementsOperationAssociationPanel extends
 			if (dialog == 0 && el.getInstAttribute("opersExprs") != null)
 				for (InstAttribute v : (List<InstAttribute>) el
 						.getInstAttribute("opersExprs").getValue()) {
-					List<Integer> valuesOperColumns = new ArrayList<Integer>();
 
 					// Relation Type
-					AssociationRow attNode = new AssociationRow(
+					AssociationRow attNode = new AssociationRow(el,
 							v.getIdentifier(), subOpersTypesColumns.size(),
 							false, domainOperColumns, null, v);
 
 					node.getChildren().add(attNode);
-					for (OpersExpr e : (List<OpersExpr>) v.getValue()) {
-						for (OpersSubOperationExpType operColumn : subOpersTypesColumns)
-							if (operColumn.hasSemanticExpression(e
-									.getIdentifier()))
-								valuesOperColumns.add(1);
-							else
-								valuesOperColumns.add(0);
+					if (v.getValue() != null)
+						for (OpersExpr e : (List<OpersExpr>) v.getValue()) {
+							List<Integer> valuesOperColumns = new ArrayList<Integer>();
+							for (OpersSubOperationExpType operColumn : subOpersTypesColumns)
+								if (operColumn.hasSemanticExpression(e
+										.getIdentifier()))
+									valuesOperColumns.add(1);
+								else
+									valuesOperColumns.add(0);
 
-						// Expression row
-						AssociationRow att2Node = new AssociationRow(
-								e.getIdentifier(), subOpersTypesColumns.size(),
-								true, domainOperColumns, valuesOperColumns, e);
+							// Expression row
+							AssociationRow att2Node = new AssociationRow(el,
+									e.getIdentifier(),
+									subOpersTypesColumns.size(), true,
+									domainOperColumns, valuesOperColumns, e);
 
-						attNode.getChildren().add(att2Node);
-					}
+							attNode.getChildren().add(att2Node);
+						}
 				}
 			// Add attributes
 			if (dialog == 1 && el.getEdOperEle() != null)
@@ -299,8 +298,8 @@ public class ElementsOperationAssociationPanel extends
 						else
 							valuesVarColumns.add(0);
 					}
-					AssociationRow attNode = new AssociationRow(v.getName(),
-							operIO.size(), true, domainOperIO,
+					AssociationRow attNode = new AssociationRow(el,
+							v.getName(), operIO.size(), true, domainOperIO,
 							valuesVarColumns, el);
 					node.getChildren().add(attNode);
 
@@ -318,9 +317,9 @@ public class ElementsOperationAssociationPanel extends
 							valuesVarColums.add(1);
 						else
 							valuesVarColums.add(0);
-					AssociationRow attNode = new AssociationRow(v.getName(),
-							operLabelNames.size(), true, domainOperLabels,
-							valuesVarColums, el);
+					AssociationRow attNode = new AssociationRow(el,
+							v.getName(), operLabelNames.size(), true,
+							domainOperLabels, valuesVarColums, el);
 					node.getChildren().add(attNode);
 				}
 
@@ -365,43 +364,6 @@ public class ElementsOperationAssociationPanel extends
 
 	}
 
-	@Override
-	public void configure(AbstractModel am) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void addSolution(Configuration solution) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void taskCompleted(ConfigurationTask task, long timeMillis) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setStatus(String string) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void clearProducts() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resizeColumns() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setValueToVariable(Variable variable, Integer value,
 			int column, Object source) {
 		AssociationRow node = findConfigurationNodeFor(variable.getName());
@@ -415,37 +377,40 @@ public class ElementsOperationAssociationPanel extends
 			else
 				subOper.removeSemanticExpression((OpersExpr) source);
 		}
-
+		String attribute = variable.getName();
+		if (attribute.indexOf("-") != -1)
+			attribute = attribute.substring(attribute.indexOf("-") + 1,
+					attribute.length());
 		if (dialog == 1) {
 			OpersSubOperation subOper = subOpers.get((column - 1) / 2);
 			if (value == 1)
 				if (column % 2 != 0)
 					subOper.addInAttribute(new OpersIOAttribute(
-							((InstElement) source).getIdentifier(), variable
-									.getName(), true));
+							((InstElement) source).getIdentifier(), attribute,
+							true));
 				else
 					subOper.addOutAttribute(new OpersIOAttribute(
-							((InstElement) source).getIdentifier(), variable
-									.getName(), true));
+							((InstElement) source).getIdentifier(), attribute,
+							true));
 			else if (column % 2 != 0)
 				subOper.removeInAttribute(new OpersIOAttribute(
-						((InstElement) source).getIdentifier(), variable
-								.getName(), true));
+						((InstElement) source).getIdentifier(), attribute, true));
 			else
 				subOper.removeOutAttribute(new OpersIOAttribute(
-						((InstElement) source).getIdentifier(), variable
-								.getName(), true));
+						((InstElement) source).getIdentifier(), attribute, true));
 		}
 		if (dialog == 2) {
 			OpersLabeling operLabeling = operLabels.get(column - 1);
 			if (value == 1)
-				operLabeling.addAttribute(new OpersIOAttribute(
-						((InstElement) source).getIdentifier(), variable
-								.getName(), true));
+				operLabeling
+						.addAttribute(new OpersIOAttribute(
+								((InstElement) source).getIdentifier(),
+								attribute, true));
 			else
-				operLabeling.removeAttribute(new OpersIOAttribute(
-						((InstElement) source).getIdentifier(), variable
-								.getName(), true));
+				operLabeling
+						.removeAttribute(new OpersIOAttribute(
+								((InstElement) source).getIdentifier(),
+								attribute, true));
 		}
 
 		// node.setStepEdited(index);

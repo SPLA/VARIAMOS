@@ -94,6 +94,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 
 		addMouseListener(new MouseAdapter() {
 
+			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 					int index = locationToIndex(evt.getPoint());
@@ -190,9 +191,9 @@ public class VariableAttributeList extends JList<InstAttribute> {
 
 			// Name
 			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
-					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
-					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
-					""), "");
+					"NewAttribute", StringType.IDENTIFIER,
+					AttributeType.SYNTAX, false, "DisplayName", "", "", 1, -1,
+					"", "", -1, "", ""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("#");
 			instName.setValue(split[1]);
@@ -225,8 +226,8 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(350,
-				300, editor, element, instName, instValue, instExtVisible,
-				instExtControl, instVariableType, instContext,
+				300, "Variable Editor", editor, element, instName, instValue,
+				instExtVisible, instExtControl, instVariableType, instContext,
 				instVariableDomain, instEnumerationType,
 				instVariableConfigValue, instVariableConfigDomain);
 		dialog.setOnAccept(new DialogButtonAction() {
@@ -269,13 +270,13 @@ public class VariableAttributeList extends JList<InstAttribute> {
 						+ "#"
 						+ ((Integer) instValue.getValue()).intValue()
 						+ "#"
-						+ (Boolean) instExtVisible.getValue()
+						+ instExtVisible.getValue()
 						+ "#"
-						+ (Boolean) instExtControl.getValue()
+						+ instExtControl.getValue()
 						+ "#"
 						+ (String) instVariableType.getValue()
 						+ "#"
-						+ (Boolean) instContext.getValue()
+						+ instContext.getValue()
 						+ "#"
 						+ (String) instVariableDomain.getValue()
 						+ "#"
@@ -331,6 +332,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 
 		final InstCell finalInstCell = instCell;
 		new Thread() {
+			@Override
 			public void run() {
 				try {
 					sleep(500);

@@ -20,7 +20,7 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersLabeling;
@@ -60,7 +60,7 @@ public class ClassWidget extends WidgetR {
 
 	@Override
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel,
+			InstanceModel semanticModel,
 			boolean showSimulationCustomizationBox, int perspective) {
 		super.configure(v, graph, semanticModel,
 				showSimulationCustomizationBox, perspective);
@@ -210,17 +210,37 @@ public class ClassWidget extends WidgetR {
 					for (InstVertex concept : list) {
 						instVertex.put(concept.getInstAttribute("identifier")
 								.toString(), concept);
-						String out = concept.getInstAttribute("name")
-								.toString();
-						txtValue.addItem(out);
-						if (instAttribute.getValue() != null
-								&& out.equals(instAttribute.getValue()))
-							txtValue.setSelectedItem(out);
-						if (instAttribute.getValue() == null
-								&& instAttribute.getAttributeDefaultValue() != null
-								&& out.equals(instAttribute
-										.getAttributeDefaultValue()))
-							txtValue.setSelectedItem(out);
+						System.out.println(concept.getInstAttribute(
+								"identifier").toString());
+						if (concept.getInstAttribute("name") != null) {
+							String out = concept.getInstAttribute("name")
+									.toString();
+							txtValue.addItem(out);
+
+							if (instAttribute.getValue() != null
+									&& out.equals(instAttribute.getValue()))
+								txtValue.setSelectedItem(out);
+							if (instAttribute.getValue() == null
+									&& instAttribute.getAttributeDefaultValue() != null
+									&& out.equals(instAttribute
+											.getAttributeDefaultValue()))
+								txtValue.setSelectedItem(out);
+						}
+						if (concept.getInstAttribute("opname") != null) {
+							String out = concept.getInstAttribute("opname")
+									.toString();
+							txtValue.addItem(out);
+
+							if (instAttribute.getValue() != null
+									&& out.equals(instAttribute.getValue()))
+								txtValue.setSelectedItem(out);
+							if (instAttribute.getValue() == null
+									&& instAttribute.getAttributeDefaultValue() != null
+									&& out.equals(instAttribute
+											.getAttributeDefaultValue()))
+								txtValue.setSelectedItem(out);
+						}
+
 					}
 				}
 			}
@@ -254,7 +274,7 @@ public class ClassWidget extends WidgetR {
 							// System.out.println(concept.getEdOperEle());
 							if (instAttribute.getAttribute()
 									.getMetaConceptInstanceType()
-									.equals("OMLabeling")
+									.equals("OpMLabeling")
 									&& concept.getEdOperEle() instanceof OpersLabeling) {
 								// OpersLabeling.validateSubOper()
 								// instAttribute.
@@ -440,3 +460,4 @@ public class ClassWidget extends WidgetR {
 		return group;
 	}
 }
+

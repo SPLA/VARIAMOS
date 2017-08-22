@@ -230,11 +230,11 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(350,
-				300, editor, element, instIdentifier, instDisplayName,
-				instPanelName, instRelationExclusive, instSourceExclusive,
-				instTargetExclusive, instMinSourceCardinality,
-				instSourceCardinality, instMinTargetCardinality,
-				instTargetCardinality);
+				300, "Relation Type Editor", editor, element, instIdentifier,
+				instDisplayName, instPanelName, instRelationExclusive,
+				instSourceExclusive, instTargetExclusive,
+				instMinSourceCardinality, instSourceCardinality,
+				instMinTargetCardinality, instTargetCardinality);
 		dialog.setOnAccept(new DialogButtonAction() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -360,3 +360,4 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 	}
 
 }
+

@@ -38,7 +38,8 @@ public class OpersSubOperation extends OpersElement implements
 
 	public OpersSubOperation() {
 		super(null);
-		// TODO Auto-generated constructor stub
+		inAttributes = new ArrayList<OpersIOAttribute>();
+		outAttributes = new ArrayList<OpersIOAttribute>();
 	}
 
 	public int getPosition() {

@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
@@ -41,7 +40,7 @@ public class SyntaxElement implements Serializable {
 	/**
 			 * 
 			 */
-	VAR_DESCRIPTION = "Description";
+	VAR_DESCRIPTION = "description";
 	/**
 	 * 
 	 */
@@ -467,7 +466,7 @@ public class SyntaxElement implements Serializable {
 	}
 
 	public void setModelingAttributes(HashSet<ElemAttribute> modelingAttributes) {
-		this.modelingAttributes = new TreeMap<String, ElemAttribute>();
+		this.modelingAttributes = new HashMap<String, ElemAttribute>();
 		Iterator<ElemAttribute> iter = modelingAttributes.iterator();
 		while (iter.hasNext()) {
 			ElemAttribute att = iter.next();
@@ -606,6 +605,10 @@ public class SyntaxElement implements Serializable {
 		return visible;
 	}
 
+	public boolean setVisible(boolean visible) {
+		return this.visible = visible;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -615,8 +618,12 @@ public class SyntaxElement implements Serializable {
 	}
 
 	public List<InstAttribute> getOpersRelationTypes() {
+		if (getTransInstSemanticElement() == null)
+			return null;
 		InstAttribute ia = getTransInstSemanticElement().getInstAttribute(
 				"relTypesAttr");
+		if (ia == null)
+			return null;
 		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
 
 		return ias;
@@ -686,3 +693,4 @@ public class SyntaxElement implements Serializable {
 		return type;
 	}
 }
+

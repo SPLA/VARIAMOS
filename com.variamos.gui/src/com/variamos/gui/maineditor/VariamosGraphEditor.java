@@ -1,7 +1,6 @@
 package com.variamos.gui.maineditor;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -40,7 +39,6 @@ import javax.swing.SpringLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
@@ -63,7 +61,7 @@ import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -91,14 +89,10 @@ import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.ConsoleTextArea;
-import com.variamos.io.SXFMReader;
 import com.variamos.solver.Configuration;
-
-import fm.FeatureModelException;
 
 /**
  * A class to represented the editor for each perspective. Part of PhD work at
@@ -129,7 +123,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
-	private ModelInstance refasModel;
+	private InstanceModel refasModel;
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
 	private SolverOpersTask semTask;
@@ -201,7 +195,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public VariamosGraphEditor(MainFrame frame, String perspTitle,
 			VariamosGraphComponent component, int perspective,
-			AbstractModel abstractModel) {
+			InstanceModel abstractModel) {
 		super(frame, perspTitle, component, perspective);
 
 		// Default defects validation
@@ -210,7 +204,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		defects.add("FalseOpt");
 		defects.add("Dead");
 
-		refasModel = (ModelInstance) abstractModel;
+		refasModel = abstractModel;
 		refas2hlcl = new ModelExpr2HLCL(refasModel);
 		configurator.setRefas2hlcl(refas2hlcl);
 
@@ -242,7 +236,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		List<InstElement> instViews = null;
 		if (refasModel.getSyntaxModel() != null)
 			instViews = refasModel.getSyntaxModel().getVariabilityVertex(
-					"SMView");
+					"SyMView");
 		if (instViews != null)
 			if (instViews.size() == 0) {
 				center.setDividerLocation(0);
@@ -256,7 +250,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				mxCell parent = (mxCell) root.getChildAt(0);
 				for (InstElement instElement : instViews) {
 
-					if (instElement.getSupInstEleId().equals("SMView")) {
+					if (instElement.getSupInstEleId().equals("SyMView")) {
+						if (instElement.getInstAttribute("Visible")
+								.getAsBoolean() == false)
+							continue;
 						if (parent.getChildCount() <= i
 								&& parent.getId().equals("1")) {
 							mxCell child = new mxCell(new InstCell(null, null,
@@ -324,11 +321,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							// TODO change to RefasModel
 							List<InstElement> finalInstViews = refasModel
 									.getSyntaxModel().getVariabilityVertex(
-											"SMView");
+											"SyMView");
 							VariamosGraphEditor editor = getEditor();
 							((MainFrame) editor.getFrame()).waitingCursor(true);
 							int modelInd = getModelViewIndex();
 							for (int i = 0; i < finalInstViews.size(); i++) {
+								if (finalInstViews.get(i)
+										.getInstAttribute("Visible")
+										.getAsBoolean() == false)
+									continue;
 								if (modelInd != i
 										&& modelsTabPane.getSelectedIndex() != -1
 										&& modelsTabPane.getTitleAt(
@@ -462,126 +463,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				getGraphComponent(), modelViewIndex);
 		this.setInvalidConfigHlclProgram(true);
 		this.updateTitle();
-	}
-
-	/**
-	 * @param appTitle
-	 * @param component
-	 *            New constructor to load directly files and perspectives
-	 * @throws FeatureModelException
-	 */
-	@Deprecated
-	public static VariamosGraphEditor loader(MainFrame frame, String appTitle,
-			String file, String perspective) throws FeatureModelException {
-		AbstractModel abstractModel = null;
-
-		int persp = 0;
-		if (perspective.equals("ProductLine")) {
-			persp = 0;
-			if (file != null) {
-				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readFile(file);
-			} else
-
-				abstractModel = new ProductLine();
-			ProductLineGraph plGraph = new ProductLineGraph();
-			// plGraph.add
-			VariamosGraphEditor vge = new VariamosGraphEditor(frame,
-					"Configurator - VariaMos", new VariamosGraphComponent(
-							plGraph, Color.WHITE), persp, abstractModel);
-			return vge;
-		} else if (perspective.equals("modeling")) {
-
-			System.out.println("Initializing modeling perspective...");
-			persp = 2;
-			PerspEditorGraph refasGraph = null;
-			if (file != null) {
-				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new ModelInstance(
-						PerspectiveType.MODELING, null));
-				refasGraph = new PerspEditorGraph(persp);
-			} else {
-				{
-					abstractModel = new ModelInstance(PerspectiveType.MODELING,
-							null);
-					refasGraph = new PerspEditorGraph(persp);
-
-				}
-
-				// ProductLineGraph plGraph2 = new ProductLineGraph();
-				VariamosGraphEditor vge2 = new VariamosGraphEditor(frame,
-						"Configurator - VariaMos", new VariamosGraphComponent(
-								refasGraph, Color.WHITE), persp, abstractModel);
-				vge2.createFrame().setVisible(true);
-				vge2.setVisibleModel(0, -1);
-				vge2.setDefaultButton();
-				vge2.setPerspective(2);
-				vge2.setGraphEditorFunctions(new PerspEditorFunctions(vge2));
-				vge2.updateEditor();
-
-				System.out.println("System Model perspective initialized.");
-				return vge2;
-			}
-		} else if (perspective.equals("metamodeling")) {
-
-			System.out.println("Initializing Syntax Meta-Model perspective...");
-			// todo: change for metamodeling
-			persp = 3;
-			PerspEditorGraph refasGraph = null;
-			if (file != null) {
-				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new ModelInstance(
-						PerspectiveType.MODELING, null));
-				refasGraph = new PerspEditorGraph(persp);
-			} else {
-				{
-					abstractModel = new ModelInstance(PerspectiveType.MODELING,
-							null);
-					refasGraph = new PerspEditorGraph(persp);
-
-				}
-
-				// ProductLineGraph plGraph2 = new ProductLineGraph();
-				VariamosGraphEditor vge2 = new VariamosGraphEditor(frame,
-						"Configurator - VariaMos", new VariamosGraphComponent(
-								refasGraph, Color.WHITE), persp, abstractModel);
-				vge2.createFrame().setVisible(true);
-				vge2.setVisibleModel(0, -1);
-				vge2.setPerspective(3);
-				vge2.setGraphEditorFunctions(new PerspEditorFunctions(vge2));
-				vge2.updateEditor();
-				mxCell root = new mxCell();
-				mxCell parent = new mxCell();
-				root.insert(parent);
-				InstAttribute att = new InstAttribute();
-				att.setInstAttributeAttribute("versionNumber",
-						MainFrame.getVariamosVersionNumber());
-				parent.setValue(att);
-				refasGraph.getModel().setRoot(root);
-				System.out
-						.println("Syntax Meta-Model perspective initialized.");
-				return vge2;
-			}
-		}
-		return null;
-	}
-
-	@Deprecated
-	public void editModel(ModelInstance pl) {
-		// productLineIndex.reset();
-		AbstractGraph abstractGraph = null;
-		// todo: review other perspectives
-		if (perspective == 0)
-			abstractGraph = new ProductLineGraph();
-		if (perspective == 2 || perspective == 1 || perspective == 3
-				|| perspective == 4)
-			abstractGraph = new PerspEditorGraph(perspective);
-		// abstractGraph = (AbstractGraph) getGraphComponent()
-		// .getGraph();
-		((VariamosGraphComponent) graphComponent).updateGraph(abstractGraph);
-		registerEvents();
-
-		abstractGraph.setModelInstance(pl);
 	}
 
 	public void resetView() {
@@ -939,7 +820,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
-	public ModelInstance getEditedModel() {
+	public InstanceModel getEditedModel() {
 		return refasModel;
 		/*
 		 * if (perspective == 0) return ((AbstractGraph)
@@ -1131,8 +1012,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				}
 				instAttribute.updateValidationList(instElement, mapElements);
 
-				if (instAttribute.getType().equals(
-						"com.variamos.dynsup.model.ModelExpr")) {
+				if (instAttribute.getType() != null
+						&& instAttribute.getType().equals(
+								"com.variamos.dynsup.model.ModelExpr")) {
 					continue;
 				}
 
@@ -1223,7 +1105,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// variablesPanel.add(new JLabel(v.getName() + ":: "));
 				if (instAttribute.getAttribute() instanceof ElemAttribute
 						&& instAttribute.getAttribute().getAttributeType()
-								.equals(AttributeType.GLOBALCONFIG)) {
+								.equals(AttributeType.GLOBALCONFIG.toString())) {
 					JLabel label = new JLabel(instAttribute.getDisplayName()
 							+ ": ");
 					elementConfPropSubPanel.add(label);
@@ -1335,8 +1217,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				}
 				instAttribute.updateValidationList(instElement, mapElements);
 
-				if (instAttribute.getType().equals(
-						"com.variamos.dynsup.model.ModelExpr")) {
+				if (instAttribute.getType() != null
+						&& instAttribute.getType().equals(
+								"com.variamos.dynsup.model.ModelExpr")) {
 					continue;
 				}
 
@@ -1426,8 +1309,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// GARA
 				// variablesPanel.add(new JLabel(v.getName() + ":: "));
 				if (instAttribute.getAttribute() instanceof ElemAttribute
-						&& instAttribute.getAttribute().getAttributeType()
-								.equals(AttributeType.EXECCURRENTSTATE)) {
+						&& instAttribute
+								.getAttribute()
+								.getAttributeType()
+								.equals(AttributeType.EXECCURRENTSTATE
+										.toString())) {
 					JLabel label = new JLabel(instAttribute.getDisplayName()
 							+ ": ");
 					elementSimPropSubPanel.add(label);
@@ -1571,7 +1457,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					editableMetaElement.setPaletteName((String) instAttribute
 							.getValue());
 
-				if (instAttribute.getIdentifier().equals("Description"))
+				if (instAttribute.getIdentifier().equals("description"))
 					editableMetaElement.setDescription((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Width"))
@@ -1688,8 +1574,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
-	private void updateRefasModel(AbstractModel editedModel) {
-		refasModel = (ModelInstance) editedModel;
+	private void updateRefasModel(InstanceModel editedModel) {
+		refasModel = editedModel;
 		this.refas2hlcl.setRefas(refasModel);
 	}
 
@@ -1782,22 +1668,26 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	// TODO support ALL operations dynamically, not only the first
 
-	public void callOperations(List<String> operations) {
+	public void callOperations(List<String> operations, String filename) {
 		// FIXME support multiple models selected from the menu not only REFAS
-		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
+		InstElement refas = refasModel.getSyntaxModel().getVertex(
+				"GeneralModel");
+		// use the first node as the REFAS node - fixme
+		if (refas == null)
+			refas = refasModel.getSyntaxModel().getVertex("SMNode1");
 		InstConcept element = new InstConcept("REFAS1", refas);
 		element.createInstAttributes(null);
 		this.refasModel.getVariabilityVertex().put("REFAS1", element);
-		System.out.println(operations);
+		// System.out.println(operations);
 		boolean first = true;
 		if (operations.get(0).startsWith("N:"))
 			first = false;
-		executeOperationsThead(first, operations);
+		executeOperationsThead(first, operations, filename);
 	}
 
 	// Dynamic operation's definition
 	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution,
-			List<String> operations) {
+			List<String> operations, String filename) {
 
 		if (!firstSimulExecution && semTask != null) {
 			semTask.setFirstSimulExec(false);
@@ -1812,7 +1702,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setProgress(1);
 			semTask = new SolverOpersTask(progressMonitor, refasModel,
 					refas2hlcl, configHlclProgram, firstSimulExecution,
-					operations, lastConfiguration);
+					operations, lastConfiguration, filename);
 
 			semTask.addPropertyChangeListener(this);
 			semTask.execute();
@@ -2164,7 +2054,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public List<InstElement> getInstViews() {
-		return refasModel.getSyntaxModel().getVariabilityVertex("SMView");
+		return refasModel.getSyntaxModel().getVariabilityVertex("SyMView");
 	}
 
 	public void setProgressMonitor(ProgressMonitor progressMonitor) {
@@ -2209,7 +2099,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			mainFrame.setPerspective(2);
 			VariamosGraphEditor ed = mainFrame.getEditor(2);
 			List<InstElement> views = ed.getEditedModel().getSyntaxModel()
-					.getVariabilityVertex("SMView");
+					.getVariabilityVertex("SyMView");
 			if (views.size() == 0) {
 				JOptionPane.showMessageDialog(this,
 						mxResources.get("nometamodelerror"),
@@ -2217,8 +2107,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						JOptionPane.INFORMATION_MESSAGE, null);
 				mainFrame.setPerspective(3);
 			} else {
-				ed.updateEditor();
 				ed.setVisibleModel(0, -1);
+				ed.updateEditor();
 				ed.defineViewTabs();
 				// System.out.println("modelingPerspButton");
 			}
@@ -2239,10 +2129,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		mainFrame.repaint();
 		// if (mainFrame.getPerspective()==1)
 		{
+
+			// ONLY to display the existing operations in the console
 			TreeSet<String> expressionsS = new TreeSet<String>();
 			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
 				InstElement et = el.getTransSupInstElement();
-				if (et.getIdentifier().equals("OMOperation")
+				if (et.getIdentifier().equals("OpMOperation")
 						|| el.getIdentifier().equals("VerifyParentsOper")) {
 					int expressions = 0;
 					for (InstElement rel : el.getTargetRelations()) {
@@ -2252,7 +2144,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						OpersSubOperationExpType operExpType = null;
 						String subOperExpTypeName = null;
 						if (listatt != null) {
-							System.out.println(subOper.getIdentifier());
+							// System.out.println(subOper.getIdentifier());
 							for (InstAttribute att : listatt) {
 								String attObj = (String) ((InstConcept) att
 										.getValue())
@@ -2260,7 +2152,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								operExpType = (OpersSubOperationExpType) ((InstConcept) att
 										.getValue()).getEdOperEle();
 								subOperExpTypeName = attObj;
-								System.out.println(attObj);
+								// System.out.println(attObj);
 								expressions += operExpType
 										.getSemanticExpressions().size();
 								for (OpersExpr opExp : operExpType
@@ -2277,12 +2169,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 					}
 
-					System.out.println(el.getIdentifier() + " " + expressions);
+					// System.out.println(el.getIdentifier() + " " +
+					// expressions);
 				}
 			}
-			for (String opExp : expressionsS)
-				System.out.println(opExp);
+			// for (String opExp : expressionsS)
+			// System.out.println(opExp);
 		}
 
 	}
 }
+

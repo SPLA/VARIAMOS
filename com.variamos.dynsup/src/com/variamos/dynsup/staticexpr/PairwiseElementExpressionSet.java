@@ -171,6 +171,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				 * allList.add(out90);
 				 */
 				break;
+			case "excludes":
 			case "conflict":
 
 				sourcePositiveAttributeNames.add("Sel");
@@ -286,6 +287,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				allList.add(out44);
 				break;
 			case "implementation":
+			case "implementedBy":
 			case "means_ends":
 			case "delegation":
 			case "mandatory":
@@ -578,3 +580,4 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 
 	}
 }
+

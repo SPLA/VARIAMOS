@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 
 /**
  * A class to support set widgets on the interface. Copied from SetWidget from
@@ -53,7 +53,7 @@ public class SetWidget extends WidgetR {
 
 	@Override
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel,
+			InstanceModel semanticModel,
 			boolean showSimulationCustomizationBox, int perspective) {
 	}
 

@@ -36,10 +36,15 @@ public class AssociationRow {
 
 	protected List<AssociationRow> children;
 
-	public AssociationRow(String name, int size, boolean leaf,
-			List<Domain> domains, List<Integer> values, Object source) {
+	public AssociationRow(InstElement element, String name, int size,
+			boolean leaf, List<Domain> domains, List<Integer> values,
+			Object source) {
+		this.element = element;
 		this.leaf = leaf;
 		this.source = source;
+		String elemId = "";
+		if (element != null)
+			elemId = element.getIdentifier() + "-";
 		children = new ArrayList<>();
 		variables = new ArrayList<Variable>();
 		for (int i = 0; i < size; i++) {
@@ -48,15 +53,15 @@ public class AssociationRow {
 				defaultValue = 0;
 			Variable var = null;
 			if (domains.get(i) instanceof BinaryDomain) {
-				var = new Variable(name, defaultValue,
+				var = new Variable(elemId + name, defaultValue,
 						Integer.class.getTypeName());
 				var.setDomain(domains.get(i));
 			} else if (domains.get(i) instanceof IntervalDomain) {
-				var = new IntegerVariable(name, defaultValue,
+				var = new IntegerVariable(elemId + "-" + name, defaultValue,
 						Integer.class.getTypeName());
 				var.setDomain(domains.get(i));
 			} else {
-				var = new ElementVariable(name, defaultValue,
+				var = new ElementVariable(elemId + "-" + name, defaultValue,
 						String.class.getTypeName());
 				var.setDomain(domains.get(i));
 			}
@@ -68,6 +73,13 @@ public class AssociationRow {
 		this.name = name;
 		// DomainAnnotation def = new DomainAnnotation(0, Choice.CROSS, 5);
 		// domainAnnotations.add(def);
+	}
+
+	public String getFullId() {
+		if (element != null)
+			return element.getIdentifier() + "-" + name;
+		else
+			return name;
 	}
 
 	public String getName() {

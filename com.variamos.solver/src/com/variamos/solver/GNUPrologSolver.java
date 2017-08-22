@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.jgprolog.core.CompoundTerm;
 import com.cfm.jgprolog.core.IntegerTerm;
 import com.cfm.jgprolog.core.ListTerm;
@@ -24,6 +23,7 @@ import com.cfm.jgprolog.core.Term;
 import com.cfm.jgprolog.core.VariableSet;
 import com.cfm.jgprolog.core.VariableTerm;
 import com.cfm.productline.Asset;
+import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.variamos.compiler.prologEditors.Hlcl2GnuPrologExact;
 import com.variamos.compiler.prologEditors.PrologTransformParameters;
@@ -40,7 +40,7 @@ public class GNUPrologSolver implements Solver {
 
 	private PrologEngine prolog;
 	private PrologTermFactory ptf;
-	private AbstractModel pl;
+	private ProductLine pl;
 	private QueryResult qr;
 	private HlclProgram hlclProgram;
 
@@ -106,7 +106,7 @@ public class GNUPrologSolver implements Solver {
 	}
 
 	@Override
-	public void setProductLine(AbstractModel pl) {
+	public void setProductLine(ProductLine pl) {
 		this.pl = pl;
 	}
 
@@ -285,7 +285,7 @@ public class GNUPrologSolver implements Solver {
 	}
 
 	@Override
-	public AbstractModel getProductLine() {
+	public ProductLine getProductLine() {
 		return pl;
 	}
 

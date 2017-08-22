@@ -90,6 +90,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 
 		addMouseListener(new MouseAdapter() {
 
+			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 					int index = locationToIndex(evt.getPoint());
@@ -231,10 +232,10 @@ public class RelationTypesList extends JList<InstAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(400,
-				400, editor, element, instIdentifier, instDisplayName,
-				instRelExclusive, instSourceExclusive, instTargetExclusive,
-				instMinSourceCard, instMaxSourceCard, instMinTargetCard,
-				instMaxTargetCard, instSemanticExpressions);
+				400, "Relation Type Editor", editor, element, instIdentifier,
+				instDisplayName, instRelExclusive, instSourceExclusive,
+				instTargetExclusive, instMinSourceCard, instMaxSourceCard,
+				instMinTargetCard, instMaxTargetCard, instSemanticExpressions);
 		dialog.setOnAccept(new DialogButtonAction() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -276,9 +277,9 @@ public class RelationTypesList extends JList<InstAttribute> {
 				v.setDisplayName((String) instIdentifier.getValue());
 				v.setValue(instIdentifier.getValue() + "#"
 						+ instDisplayName.getValue() + "#"
-						+ (Boolean) instRelExclusive.getValue() + "#"
-						+ (Boolean) instSourceExclusive.getValue() + "#"
-						+ (Boolean) instTargetExclusive.getValue() + "#"
+						+ instRelExclusive.getValue() + "#"
+						+ instSourceExclusive.getValue() + "#"
+						+ instTargetExclusive.getValue() + "#"
 						+ ((Integer) instMinSourceCard.getValue()).intValue()
 						+ "#"
 						+ ((Integer) instMaxSourceCard.getValue()).intValue()
@@ -342,6 +343,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 
 		final InstCell finalInstCell = instCell;
 		new Thread() {
+			@Override
 			public void run() {
 				try {
 					sleep(500);

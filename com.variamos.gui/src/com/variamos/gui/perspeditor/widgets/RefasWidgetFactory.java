@@ -5,10 +5,11 @@ import java.util.Map;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.types.BooleanType;
 import com.variamos.dynsup.types.ClassMultiSelectionType;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
+import com.variamos.dynsup.types.DomainType;
 import com.variamos.dynsup.types.EnumerationMultiSelectionType;
 import com.variamos.dynsup.types.EnumerationSingleSelectionType;
 import com.variamos.dynsup.types.IntegerType;
@@ -31,7 +32,7 @@ import com.variamos.io.ConsoleTextArea;
 public class RefasWidgetFactory {
 	// private DomainRegister register;
 	mxGraph graph;
-	ModelInstance semanticModel;
+	InstanceModel semanticModel;
 	boolean showSimulationCustomizationBox;
 	private int perspective;
 
@@ -48,6 +49,7 @@ public class RefasWidgetFactory {
 		widgetReg = new HashMap<String, Class<? extends WidgetR>>();
 		widgetReg.put(IntegerType.IDENTIFIER, IntegerWidget.class);
 		widgetReg.put(StringType.IDENTIFIER, StringWidget.class);
+		widgetReg.put(DomainType.IDENTIFIER, StringWidget.class);
 		widgetReg.put(BooleanType.IDENTIFIER, BooleanWidget.class);
 		widgetReg.put(EnumerationSingleSelectionType.IDENTIFIER,
 				EnumerationWidget.class);

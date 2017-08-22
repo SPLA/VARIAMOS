@@ -15,7 +15,7 @@ import javax.swing.SwingWorker;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
@@ -71,7 +71,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private String errorMessage = "";
 	private boolean update;
 	private Component parentComponent;
-	private ModelInstance refasModel;
+	private InstanceModel refasModel;
 	private String file;
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
@@ -116,7 +116,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	}
 
 	public SolverTasks(ProgressMonitor progressMonitor, int execType,
-			ModelInstance refasModel, ModelExpr2HLCL refas2hlcl, String file) {
+			InstanceModel refasModel, ModelExpr2HLCL refas2hlcl, String file) {
 		this.progressMonitor = progressMonitor;
 		this.refasModel = refasModel;
 		this.execType = execType;

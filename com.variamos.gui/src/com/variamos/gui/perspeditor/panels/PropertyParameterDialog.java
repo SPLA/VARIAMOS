@@ -43,10 +43,10 @@ public class PropertyParameterDialog extends JDialog {
 		public boolean onAction();
 	}
 
-	public PropertyParameterDialog(int height, int width,
+	public PropertyParameterDialog(int height, int width, String dialogTitle,
 			final VariamosGraphEditor editor, final InstElement instElement,
 			IntInstAttribute... arguments) {
-		super(editor.getFrame(), "Enumeration Value");
+		super(editor.getFrame(), dialogTitle);
 
 		setLayout(new BorderLayout());
 
@@ -66,6 +66,7 @@ public class PropertyParameterDialog extends JDialog {
 				JButton jb = new JButton(elementAttribute.getDisplayName());
 				panel.add(jb);
 				jb.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 
 						if (elementAttribute.getValue() != null) {

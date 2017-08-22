@@ -12,7 +12,7 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersLabeling;
@@ -20,7 +20,7 @@ import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.types.ExpressionVertexType;
-import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
@@ -32,8 +32,8 @@ import com.variamos.hlcl.LiteralBooleanExpression;
 import com.variamos.hlcl.NumericExpression;
 
 /**
- * A class to represent the constraints. Part of PhD work at University of Paris
- * 1
+ * A class to represent the Model Expressions (instance of the Meta-Expression).
+ * Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -72,7 +72,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * 
 	 */
 	private boolean optional = false;
-	private ModelInstance refas;
+	private InstanceModel refas;
 
 	/**
 	 * Assign the parameters on the abstract class
@@ -80,7 +80,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * @param operation
 	 * @param column
 	 */
-	public TranslationExpressionSet(ModelInstance refas, InstElement operation,
+	public TranslationExpressionSet(InstanceModel refas, InstElement operation,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
 		super(operation.getIdentifier(), mxResources.get("defect-concepts")
 				+ " " + operation, idMap, hlclFactory);
@@ -93,8 +93,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		this.operation = operation;
 	}
 
-	public void addExpressions(ModelInstance refas, InstElement instElement,
-			String subAction, OperationSubActionExecType expressionType) {
+	public void addExpressions(InstanceModel refas, InstElement instElement,
+			String subAction, OpersSubOpExecType expressionType) {
 
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
 		List<ModelExpr> outLow = new ArrayList<ModelExpr>();
@@ -102,7 +102,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		List<LiteralBooleanExpression> outLiteral = new ArrayList<LiteralBooleanExpression>();
 
 		// List<InstElement> semModel =
-		// refas.getVariabilityVertex("OMModel");
+		// refas.getVariabilityVertex("SeMModel");
 		// for (InstElement oper : semModel) {
 		// InstElement oper2 = refas.getElement("REFAS1");
 		// IntSemanticElement semModelElement =
@@ -116,7 +116,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		// }
 
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("OMOperation");
+				.getVariabilityVertex("OpMOperation");
 		// InstElement operAction = null;
 		InstElement operSubAction = null;
 		// for (InstElement oper : operActions) {
@@ -148,8 +148,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			OpersSubOperationExpType operExpType = null;
 			String subOperExpTypeName = null;
 			for (InstAttribute att : listatt) {
-				String attObj = (String) ((InstConcept) att.getValue())
-						.getInstAttributeValue("suboperexptype");
+				String attObj = ((InstConcept) att.getValue())
+						.getInstAttributeValue("suboperexptype").toString();
 				if (attObj.equals(expressionType.toString())) {
 					operExpType = (OpersSubOperationExpType) ((InstConcept) att
 							.getValue()).getEdOperEle();
@@ -243,7 +243,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							}
 						} else if (instE.getTransSupInstElement()
 								.getEdSyntaxEle() == null)
-							System.out.println(instE.getIdentifier());
+							System.out.println("null syntax element for: "
+									+ instE.getIdentifier());
 						int expressionInstances = instE.getInstances(refas);
 
 						if (instE.getInstAttribute("variableType") == null
@@ -444,11 +445,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	}
 
-	public List<Labeling> getLabelings(ModelInstance refas, String subAction,
-			OperationSubActionExecType expressionType) {
+	public List<Labeling> getLabelings(InstanceModel refas, String subAction,
+			OpersSubOpExecType expressionType) {
 
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("OMOperation");
+				.getVariabilityVertex("OpMOperation");
 		// InstElement operAction = null;
 		OpersSubOperation operSubAction = null;
 		InstElement instOperSubAction = null;
@@ -497,6 +498,37 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										.equals("NmVariable")
 								&& instE.getInstAttribute("variableType")
 										.getValue().equals("LowLevel variable")
+								&& (instE
+										.getInstAttribute(
+												"LowLevelVarInSubOper")
+										.getValue()
+										.equals(instOperSubAction
+												.getDynamicAttribute("userId"))
+										&& instE.getInstAttribute(
+												"LowLevelInVarLabel")
+												.getValue()
+												.equals(operLab
+														.getDynamicAttribute("userId")) || instE
+										.getInstAttribute(
+												"LowLevelVarOutSubOper")
+										.getValue()
+										.equals(instOperSubAction
+												.getDynamicAttribute("userId"))
+										&& instE.getInstAttribute(
+												"LowLevelOutVarLabel")
+												.getValue()
+												.equals(operLab
+														.getDynamicAttribute("userId")))) {
+							Identifier id = f.newIdentifier(instE
+									.getIdentifier() + "_value");
+							ident.add(id);
+						}
+						if (instE.getTransSupInstElement().getEdSyntaxEle()
+								.getInstSemanticElementId() != null
+								&& instE.getTransSupInstElement()
+										.getEdSyntaxEle()
+										.getInstSemanticElementId()
+										.equals("NmLowVariable")
 								&& (instE
 										.getInstAttribute(
 												"LowLevelVarInSubOper")
@@ -576,9 +608,16 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					List<ModelExpr> instexp = createElementInstanceExpressions(
 							oper2, semExps, true, 1);
 					List<NumericExpression> explist = getNumericExpressions(instexp);
+					int position = 0;
+					if (operLab.getInstAttributeValue("position") instanceof String)
+						position = Integer.parseInt((String) operLab
+								.getInstAttributeValue("position"));
+					else
+						position = ((Integer) operLab
+								.getInstAttributeValue("position")).intValue();
 					Labeling lab = new Labeling(operLab.getIdentifier(),
 							(String) operLab.getInstAttributeValue("labelId"),
-							(int) operLab.getInstAttributeValue("position"),
+							position,
 							(boolean) operLab
 									.getInstAttributeValue("outputSet"),
 							(boolean) operLab

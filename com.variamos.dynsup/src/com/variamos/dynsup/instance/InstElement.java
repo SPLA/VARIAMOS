@@ -15,7 +15,7 @@ import java.util.TreeMap;
 import com.cfm.productline.AbstractElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
@@ -196,7 +196,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					instAttribute.setValue(edSyntaxEle.getName());
 				if (instAttribute.getIdentifier().equals("Style"))
 					instAttribute.setValue(edSyntaxEle.getStyle());
-				if (instAttribute.getIdentifier().equals("Description"))
+				if (instAttribute.getIdentifier().equals("description"))
 					instAttribute.setValue(edSyntaxEle.getDescription());
 				if (instAttribute.getIdentifier().equals("Width"))
 					instAttribute.setValue(edSyntaxEle.getWidth());
@@ -214,7 +214,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					if (instAttribute.getIdentifier().equals("Resizable"))
 						instAttribute.setValue(edSyntaxEle.isResizable());
 				}
-				if (instAttribute.getIdentifier().equals("Index"))
+				if (instAttribute.getIdentifier().equals("index"))
 					instAttribute.setValue(edSyntaxEle.getIndex());
 				if (instAttribute.getIdentifier().equals("PaletteNames"))
 					instAttribute.setValue(edSyntaxEle.getPaletteName());
@@ -422,17 +422,45 @@ public abstract class InstElement implements Serializable, Cloneable,
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("userId")
-						&& !attributeName.equals("Description")) {
+						&& !attributeName.equals("value")
+						&& !attributeName.equals("dummy")
+						&& !attributeName.equals("description")) {
 					ElemAttribute i = getEdSyntaxEle().getModelingAttribute(
 							attributeName, syntaxParents);
 					if (i == null)
 						i = getEdSyntaxEle()
 								.getSemanticAttribute(attributeName);
 					String v = "";
-					if (i != null)
+					if (i != null) {
 						v = ":" + i.getType();
+						if (i.getType().equals("Enumeration")) {
+							String classN = i.getClassCanonicalName()
+									.substring(
+											i.getClassCanonicalName()
+													.lastIndexOf(".") + 1,
+											i.getClassCanonicalName().length());
+							v += "<" + classN + ">";
+						}
+						if (i.getType().equals("Set")) {
+							String classN = "";
+							if (i.getClassCanonicalName() != null) {
+								classN = i.getClassCanonicalName().substring(
+										i.getClassCanonicalName().lastIndexOf(
+												".") + 1,
+										i.getClassCanonicalName().length());
+								v += "<" + classN + ">";
+							}
+
+						}
+
+					}
 					// System.out.println(attributeName);
-					out2 += attributeName + v + "\n";
+					if (attributeName.length() > 1)
+						out2 += attributeName.substring(0, 1).toLowerCase()
+								+ attributeName.substring(1) + v + "\n";
+					else
+						out2 += attributeName + v + "\n";
+					// out2 += attributeName + v + "\n";
 				}
 			}
 		}
@@ -445,10 +473,21 @@ public abstract class InstElement implements Serializable, Cloneable,
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("TrueVal")
-						&& !attributeName.equals("False")
+						&& !attributeName.equals("FalseVal")
 						&& !attributeName.equals("userId")
-						&& !attributeName.equals("Description"))
-					out2 += attributeName + "\n";
+						&& !attributeName.equals("Active")
+						&& !attributeName.equals("TestConfSel")
+						&& !attributeName.equals("exportOnConfig")
+						&& !attributeName.equals("isContext")
+						&& !attributeName.equals("ExportOnConfig")
+						&& !attributeName.equals("TestConfNotSel")
+						&& !attributeName.equals("description")) {
+					if (attributeName.length() > 1)
+						out2 += attributeName.substring(0, 1).toLowerCase()
+								+ attributeName.substring(1) + "\n";
+					else
+						out2 += attributeName + "\n";
+				}
 			}
 		}
 		// For all
@@ -582,6 +621,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 		List<InstAttribute> listEditableAttribs = new ArrayList<InstAttribute>();
 		for (InstAttribute instAttribute : instAttributes) {
+			if (instAttribute.getAttribute() == null)
+				continue;
 			String attri = instAttribute.getAttribute()
 					.getPropTabEditionCondition();
 			if (attri.equals("false"))
@@ -809,7 +850,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					int sp2 = spacer.indexOf("#", sp1 + 1);
 					int sp3 = spacer.indexOf("#", sp2 + 1);
 
-					out += spacer.substring(0, sp1);
+					out += spacer.substring(0, sp1).replace("/n", "\n");
 					if (name.equals("name")
 							&& getInstAttributes().get(name).toString().trim()
 									.equals(""))
@@ -858,8 +899,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 																	newIndex);
 												i++;
 											}
-
-											out += sValue.toString().trim()
+											out = sValue.toString().trim()
 													+ "\n";
 										}
 								} catch (Exception e) {
@@ -869,17 +909,26 @@ public abstract class InstElement implements Serializable, Cloneable,
 								// out = out.substring(0, out.length() - 2);
 							}
 
-							else
+							else {
+								// String outt =
+								// instAttribute.toString().trim();
+								// if (outt.length() > 1)
+								// out += outt.substring(0, 1).toLowerCase()
+								// + outt.substring(1);
+								// else
 								out += instAttribute.toString().trim();
+							}
 						}
 					}
 					while (sp3 != spacer.length()) {
 						int sp4 = spacer.indexOf("#", sp3 + 1);
 						if (sp4 == -1) {
-							out += spacer.substring(sp3 + 1);
+							out += spacer.substring(sp3 + 1)
+									.replace("/n", "\n");
 							break;
 						}
-						out += spacer.substring(sp3 + 1, sp4);
+						out += spacer.substring(sp3 + 1, sp4).replace("/n",
+								"\n");
 
 						sp3 = sp4;
 					}
@@ -1015,9 +1064,9 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 	@Override
 	public int compareTo(InstElement view) {
-		String index = this.getInstAttribute("Index").getValue()
+		String index = this.getInstAttribute("index").getValue()
 				+ this.getIdentifier();
-		String other = view.getInstAttribute("Index").getValue()
+		String other = view.getInstAttribute("index").getValue()
 				+ view.getIdentifier();
 		return index.compareTo(other);
 	}
@@ -1189,7 +1238,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 	// relation has the same scope
 	// TODO support aggregation of multiples scopes - this support a global and
 	// another scope only
-	public int getInstances(ModelInstance refas) {
+	public int getInstances(InstanceModel refas) {
 		int out = 1;
 		if (getInstAttribute("Scope") != null) {
 			boolean scope = (boolean) getInstAttributeValue("Scope");
@@ -1209,9 +1258,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 				}
 			}
 		}
-		if (// getTransSupportMetaElement() != null
-			// &&
-		getTransSupportMetaElement().getTransInstSemanticElement() != null) {
+		if (getTransSupportMetaElement() != null
+				&& getTransSupportMetaElement().getTransInstSemanticElement() != null) {
 			InstAttribute ia = getTransSupportMetaElement()
 					.getTransInstSemanticElement().getInstAttribute(
 							"opersExprs");

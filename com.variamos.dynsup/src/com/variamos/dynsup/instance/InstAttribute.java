@@ -291,7 +291,10 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 
 	public Object getEnumType() {
 		// TODO Auto-generated method stub
-		return volatileAttribute.getClassCanonicalName();
+		if (volatileAttribute != null)
+			return volatileAttribute.getClassCanonicalName();
+		System.out.println("null volatile att:" + this.getIdentifier());
+		return null;
 	}
 
 	@Override
@@ -462,13 +465,15 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					setValidationMEList(metaGD);
 				}
 			}
-		} else if (instElement.getTransSupportMetaElement().getType() == 'O') {
+		} else if (instElement.getTransSupportMetaElement().getType() == 'O'
+				|| instElement.getTransSupportMetaElement().getType() == 'T') {
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(
 							InstAttribute.class.getCanonicalName())) {
 				List<InstAttribute> semanticRelationTypes = instElement
 						.getTransSupportMetaElement().getOpersRelationTypes();
+				// System.out.println("semreltypes: " + semanticRelationTypes);
 				setOpersOverTwoRelList(semanticRelationTypes);
 			}
 		}

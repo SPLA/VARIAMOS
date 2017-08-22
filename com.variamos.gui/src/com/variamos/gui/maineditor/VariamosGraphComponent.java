@@ -16,11 +16,13 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxCellOverlay;
+import com.mxgraph.swing.util.mxICellOverlay;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
+import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -171,12 +173,23 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				&& val instanceof InstConcept && parentCell.getValue() != null) {
 			try {
 				InstConcept instConcept = (InstConcept) val;
-				String backtophint = "", backbottomhint = "";
+
+				for (InstAttribute ia : instConcept.getInstAttributes()
+						.values()) {
+					if (ia.getType() != null && ia.getType().equals("Boolean")
+							&& ia.getValue() instanceof String)
+						if (((String) ia.getValue()).equals("0"))
+							ia.setValue(false);
+						else
+							ia.setValue(true);
+				}
+				String backtophint = "", sidehint = "";
 
 				String sim_core = imagesBasePath + "sim_core.png";
 				String sim_core_req = imagesBasePath + "sim_core_req.png";
 				String sim_dead = imagesBasePath + "sim_dead.png";
 				String sim_inactive = imagesBasePath + "sim_inactive.png";
+				String sim_outmessage = imagesBasePath + "outmessage.png";
 				String sim_normal = imagesBasePath + "sim_normal.png";
 				String sim_notavailable = imagesBasePath
 						+ "sim_notavailable.png";
@@ -212,10 +225,10 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									"Required").getValue()) {
 						sim_backcolor = sim_core_req;
 						backtophint = "Required (by manual selection)";
-					} else if (!(boolean) instConcept
-							.getInstAttribute("Active").getValue()) {
-						sim_backcolor = sim_inactive;
-						backtophint = "Inactive by user";
+						// } else if (!(boolean) instConcept
+						// .getInstAttribute("Active").getValue()) {
+						// sim_backcolor = sim_inactive;
+						// backtophint = "Inactive by user";
 					} else if ((boolean) instConcept.getInstAttribute("Dead")
 							.getValue()) {
 						sim_backcolor = sim_dead;
@@ -224,6 +237,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()) {
 						sim_backcolor = sim_prohibit;
 						backtophint = "Prohibit element";
+					} else if (instConcept.getInstAttribute("Var") != null
+							&& (boolean) instConcept.getInstAttribute("Var")
+									.getValue()) {
+						sim_backcolor = sim_inactive;
+						backtophint = "Variant Feature";
 					} else if ((boolean) instConcept.getInstAttribute("Exclu")
 							.getValue()) {
 						sim_backcolor = sim_notavailable;
@@ -236,6 +254,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						backtophint = "Not selected";
 					}
 					// if (!backtophint.equals("")) {
+					// if (sim_normal != sim_backcolor) {
 					mxCellOverlay over2 = new mxCellOverlay(new ImageIcon(
 							mxGraphComponent.class.getResource(sim_backcolor)),
 							backtophint);
@@ -243,6 +262,54 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					over2.setAlign(mxConstants.ALIGN_CENTER);
 					addCellOverlay(childCell, over2);
 					// }
+					// }
+					if (instConcept.getInstAttribute("outAnaSel") != null) {
+
+						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+								mxGraphComponent.class
+										.getResource(sim_outmessage)),
+								"Element Selected from Analysis");
+						over3.setVerticalAlign(mxConstants.ALIGN_MIDDLE);
+						over3.setAlign(mxConstants.ALIGN_RIGHT);
+						if ((boolean) instConcept.getInstAttribute("outAnaSel")
+								.getValue())
+							addCellOverlay(childCell, over3);
+						else {
+							for (mxICellOverlay o : this
+									.getCellOverlays(childCell)) {
+								if (((mxCellOverlay) o).getVerticalAlign()
+										.equals(mxConstants.ALIGN_MIDDLE)
+										&& ((mxCellOverlay) o)
+												.getAlign()
+												.equals(mxConstants.ALIGN_RIGHT))
+									removeCellOverlay(childCell, o);
+							}
+						}
+					}
+
+					if (instConcept.getInstAttribute("inAnaSel") != null) {
+
+						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+								mxGraphComponent.class
+										.getResource(sim_outmessage)),
+								"Element Selected for Analysis");
+						over3.setVerticalAlign(mxConstants.ALIGN_MIDDLE);
+						over3.setAlign(mxConstants.ALIGN_LEFT);
+						if ((boolean) instConcept.getInstAttribute("inAnaSel")
+								.getValue())
+							addCellOverlay(childCell, over3);
+						else {
+							for (mxICellOverlay o : this
+									.getCellOverlays(childCell)) {
+								if (((mxCellOverlay) o).getVerticalAlign()
+										.equals(mxConstants.ALIGN_MIDDLE)
+										&& ((mxCellOverlay) o).getAlign()
+												.equals(mxConstants.ALIGN_LEFT))
+									removeCellOverlay(childCell, o);
+							}
+						}
+					}
+
 					if ((boolean) instConcept.getInstAttribute("Required")
 							.getValue()) {
 						mxCellOverlay over3 = new mxCellOverlay(
@@ -307,7 +374,6 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								mxGraphComponent.class
 										.getResource(sim_red2_tmp)),
 								"Configuration Not Selected (Only testing)");
-						backbottomhint = "Configuration Not Selected (Only testing)";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -321,25 +387,25 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class.getResource(sim_red2)),
 								"Configuration Not Selected");
-						backbottomhint = "Configuration Not Selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
 
-					if ((boolean) instConcept.getInstAttribute("NNotSel")
-							.getValue()) {
-						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
-								mxGraphComponent.class.getResource(sim_red3)),
-								backbottomhint + "Not selected");
-						backbottomhint = "Not selected";
-						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-						over3.setAlign(mxConstants.ALIGN_CENTER);
-						addCellOverlay(childCell, over3);
-					}
+					// if ((boolean) instConcept.getInstAttribute("NNotSel")
+					// .getValue()) {
+					// mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+					// mxGraphComponent.class.getResource(sim_red3)),
+					// backbottomhint + "Not selected");
+					// backbottomhint = "Not selected";
+					// over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+					// over3.setAlign(mxConstants.ALIGN_CENTER);
+					// addCellOverlay(childCell, over3);
+					// }
 				}
 			} catch (Exception e) {
-				System.out.println("Cell draw error");
+				System.out.println("Cell draw error 01");
+				e.printStackTrace();
 				// ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
@@ -382,7 +448,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				addCellOverlay(childCell, over3);
 
 			} catch (Exception e) {
-				System.out.println("Cell draw error");
+				System.out.println("Cell draw error 02");
 				// ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}

@@ -181,7 +181,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(130,
-				300, editor, element, instIdentifier, instName);
+				300, "Enumeration Value Editor", editor, element,
+				instIdentifier, instName);
 		dialog.setOnAccept(new DialogButtonAction() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -235,11 +236,14 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				// This calls Pull on each parameter
 				dialog.getParameters();
 				InstAttribute v = buffer[0];
-				List<InstAttribute> attributes = ((List<InstAttribute>) element
-						.getInstAttributes()
-						.get(SyntaxElement.VAR_METAENUMVALUE).getValue());
+				InstAttribute att = element.getInstAttributes().get(
+						SyntaxElement.VAR_METAENUMVALUE);
+				if (att != null) {
+					List<InstAttribute> attributes = (List<InstAttribute>) att
+							.getValue();
+					attributes.remove(v);
 
-				attributes.remove(v);
+				}
 
 				((DefaultListModel<InstAttribute>) getModel()).removeElement(v);
 
@@ -279,3 +283,4 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	}
 
 }
+

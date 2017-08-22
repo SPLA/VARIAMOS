@@ -263,7 +263,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 		if (editor.getPerspective() == 2 || (editor.getPerspective() == 4)) {
 			List<InstElement> menus = ((VariamosGraphEditor) editor)
 					.getEditedModel().getOperationalModel()
-					.getVariabilityVertex("OMOperGroup");
+					.getVariabilityVertex("OpMOperGroup");
 			int cantMenu = 1;
 			String pre1 = "", pre2 = "";
 
@@ -285,19 +285,19 @@ public class PerspEditorMenuBar extends JMenuBar {
 									.getPerspective() + "")) {
 						menu = (JMenu) menu.add(new JMenu(
 								(i == 0 ? pre1 : pre2)
-										+ menuElement.getInstAttribute("name")
-												.getValue()));
+										+ menuElement.getInstAttribute(
+												"opgname").getValue()));
 						// menu.setMnemonic();
-						for (InstElement oper : menuElement
+						for (InstElement operRel : menuElement
 								.getTargetRelations()) {
 							if (i == 0) {
-								InstElement e = oper.getTargetRelations()
+								InstElement e = operRel.getTargetRelations()
 										.get(0);
 								if (!(boolean) e.getInstAttribute("visible")
 										.getValue())
 									continue;
 								JMenuItem menuItem = new JMenuItem((String) e
-										.getInstAttribute("name").getValue());
+										.getInstAttribute("opname").getValue());
 
 								menuItem.setName(e.getIdentifier());
 								menuItem.setAction(editor.bind(menuItem,
@@ -305,7 +305,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 										new OperationAction(), null));
 								menu.add(menuItem);
 								menuItem.setText((String) e.getInstAttribute(
-										"name").getValue());
+										"opname").getValue());
 								boolean iterate = (boolean) e.getInstAttribute(
 										"iteration").getValue();
 								if (iterate) {
@@ -325,7 +325,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 								// new OperationAction(), null));
 							} else {
 								JCheckBoxMenuItem item = new JCheckBoxMenuItem(
-										oper.getTargetRelations().get(0)
+										operRel.getTargetRelations().get(0)
 												.getIdentifier());
 								item.setState(true);
 								item.addActionListener(new ActionListener() {
