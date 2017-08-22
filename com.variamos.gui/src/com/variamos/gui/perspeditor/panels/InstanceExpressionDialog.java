@@ -40,7 +40,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -62,7 +62,7 @@ public class InstanceExpressionDialog extends JDialog {
 	private InstanceExpressionButtonAction onAccept, onCancel, onDelete;
 	private ModelExpr selectedExpression;
 	private JPanel solutionPanel;
-	private ModelInstance refasModel;
+	private InstanceModel refasModel;
 	private boolean displayVariableName = true;
 	private int width = 950;
 	private int height = 400;

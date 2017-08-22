@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.VisualElement;
 
@@ -30,7 +30,7 @@ public class VariamosDashBoardFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1719783068334097524L;
 
-	private ModelInstance refasModel;
+	private InstanceModel refasModel;
 
 	private JPanel solutionPanel = new JPanel(new SpringLayout());
 
@@ -40,7 +40,7 @@ public class VariamosDashBoardFrame extends JFrame {
 
 	private boolean display = true;
 
-	public VariamosDashBoardFrame(ModelInstance refasModel) {
+	public VariamosDashBoardFrame(InstanceModel refasModel) {
 		this.refasModel = refasModel;
 		this.setTitle("Simulation DashBoard");
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -94,7 +94,7 @@ public class VariamosDashBoardFrame extends JFrame {
 		this.showNames = showNames;
 	}
 
-	public void updateDashBoard(ModelInstance refasModel,
+	public void updateDashBoard(InstanceModel refasModel,
 			boolean showDashboard, boolean updateConcepts, boolean updateValues) {
 		if (!showDashboard) {
 			this.setVisible(false);

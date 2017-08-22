@@ -34,9 +34,9 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -521,7 +521,8 @@ public class ElementDesignPanel extends JPanel {
 																if (e.getEdSyntaxEle()
 																		.getAutoIdentifier()
 																		.equals(val)) {
-																	ModelInstance moI = finalEditor
+
+																	InstanceModel moI = finalEditor
 																			.getEditedModel()
 																			.getSyntaxModel();
 

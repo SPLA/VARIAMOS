@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 
 @SuppressWarnings("serial")
 public abstract class WidgetR extends JPanel {
@@ -44,7 +44,7 @@ public abstract class WidgetR extends JPanel {
 	}
 
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel,
+			InstanceModel semanticModel,
 			boolean showSimulationCustomizationBox, int perspective) {
 		affectProperties = v.isAffectProperties();
 		if (showSimulationCustomizationBox)

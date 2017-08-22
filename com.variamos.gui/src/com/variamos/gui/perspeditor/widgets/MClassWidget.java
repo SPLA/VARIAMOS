@@ -22,7 +22,7 @@ import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.ClassMultiSelectionType;
@@ -53,7 +53,7 @@ public class MClassWidget extends WidgetR {
 
 	@Override
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel,
+			InstanceModel semanticModel,
 			boolean showSimulationCustomizationBox, int perspective) {
 		super.configure(v, graph, semanticModel,
 				showSimulationCustomizationBox, perspective);

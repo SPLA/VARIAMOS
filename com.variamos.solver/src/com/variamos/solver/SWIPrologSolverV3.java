@@ -16,7 +16,7 @@ import jpl.Term;
 import jpl.Util;
 import jpl.Variable;
 
-import com.cfm.common.AbstractModel;
+import com.cfm.productline.ProductLine;
 import com.variamos.compiler.prologEditors.Hlcl2SWIProlog;
 import com.variamos.compiler.prologEditors.PrologTransformParameters;
 import com.variamos.core.exceptions.TechnicalException;
@@ -75,7 +75,7 @@ public class SWIPrologSolverV3 implements Solver {
 
 	@Override
 	@Deprecated
-	public void setProductLine(AbstractModel pl) {
+	public void setProductLine(ProductLine pl) {
 		// TODO Auto-generated method stub
 
 	}

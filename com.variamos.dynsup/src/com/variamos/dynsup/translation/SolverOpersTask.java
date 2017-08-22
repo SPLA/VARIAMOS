@@ -19,7 +19,7 @@ import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.util.StringUtils;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.types.OpersComputationType;
@@ -105,7 +105,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private String errorMessage = "";
 	private boolean update;
 	private Component parentComponent;
-	private ModelInstance refasModel;
+	private InstanceModel refasModel;
 	private String file;
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
@@ -118,7 +118,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	}
 
 	public SolverOpersTask(ProgressMonitor progressMonitor,
-			ModelInstance refasModel, ModelExpr2HLCL refas2hlcl,
+			InstanceModel refasModel, ModelExpr2HLCL refas2hlcl,
 			HlclProgram configHlclProgram, boolean firstSimulExec,
 			List<String> operations, Configuration lastConfiguration,
 			String filename) {
@@ -137,7 +137,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	}
 
 	public SolverOpersTask(ProgressMonitor progressMonitor,
-			String operationIdentifier, ModelInstance refasModel,
+			String operationIdentifier, InstanceModel refasModel,
 			ModelExpr2HLCL refas2hlcl, String file) {
 		this.progressMonitor = progressMonitor;
 		this.refasModel = refasModel;
