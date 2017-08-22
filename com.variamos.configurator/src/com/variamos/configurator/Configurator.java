@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.jgprolog.gnuprolog.GNUPrologContext;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.variamos.configurator.io.ConfigurationDTO;
@@ -14,7 +13,6 @@ import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.ConfigurationTask;
 import com.variamos.solver.ConfigurationTaskListener;
-import com.variamos.solver.GNUPrologSolver;
 import com.variamos.solver.Solver;
 
 /**
@@ -95,8 +93,8 @@ public class Configurator {
 			ConfigurationOptions configOptions,
 			ConfigurationTaskListener listener, ProductLine pl) {
 
-		GNUPrologContext ctx = new GNUPrologContext();
-		GNUPrologSolver solver = new GNUPrologSolver(ctx);
+		//GNUPrologContext ctx = new GNUPrologContext();
+		//GNUPrologSolver solver = new GNUPrologSolver(ctx);
 		solver.setProductLine(pl);
 		configuration.debugPrint();
 		ConfigurationTask task = new ConfigurationTask(solver, configuration,
