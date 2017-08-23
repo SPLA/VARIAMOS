@@ -2,9 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.jgprolog.gnuprolog"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.hlcl"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.io"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.compiler"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
+	<classpathentry kind="lib" path="lib/SWIProlog/jpl742.jar"/>
+	<classpathentry kind="lib" path="lib/SWIProlog/jplV3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
