@@ -6,31 +6,16 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public abstract class Constraint implements Serializable, Editable{
-
-	protected String alias;
-
-	public String getClassId()
-	{
-		return "Co_";
-	
-	}
 	protected String identifier;
 	protected String text;
 	
 	public Constraint() {
 		super();
-		alias = this.getClass().getSimpleName();
 	}
 
-	public Constraint(String alias){
-		this ();
-		if (alias != null)
-			this.alias = alias;
+	public Constraint(String text){
+		this.text = text;
 	}
-	
-	public Constraint(String alias, String text){
-		this (alias);
-	}	
 	
 	public String getText() {
 		return text;
