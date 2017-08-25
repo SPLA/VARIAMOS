@@ -530,6 +530,7 @@ public class EditorActions {
 				DefaultFileFilter xmlPngFilter = new DefaultFileFilter("."
 						+ fileExtension, extensionName
 						+ mxResources.get("file") + " (." + fileExtension + ")");
+
 				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
 						"VML " + mxResources.get("file") + " (.html)");
 				String filename = null;

@@ -6,6 +6,7 @@ import com.cfm.productline.type.IntegerType;
 import com.cfm.productline.type.StringType;
 
 public class Asset implements Serializable, Editable{
+
 	private static final long serialVersionUID = -6535463614831756558L;
 	
 	private String identifier;

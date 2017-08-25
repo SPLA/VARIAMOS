@@ -8,5 +8,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.hlcl"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/com.variamos.io/lib/sxfm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

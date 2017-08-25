@@ -27,7 +27,7 @@ public class EditorPopupMenu extends JPopupMenu
 				"/com/mxgraph/examples/swing/images/undo.gif"));
 
 		addSeparator();
-		
+
 		add(
 				editor.bind(mxResources.get("cut"), TransferHandler
 						.getCutAction(),
