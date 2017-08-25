@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.cfm.productline.ProductLine;
-import com.cfm.productline.VariabilityElement;
 import com.variamos.configurator.io.ConfigurationDTO;
 import com.variamos.solver.core.ConfigurationTask;
 import com.variamos.solver.core.ConfigurationTaskListener;
 import com.variamos.solver.core.IntSolver;
-import com.variamos.solver.model.SolverSolution;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * @author unkwnown jcmunoz-diego: Splitted from class ConfiguratorPanel
@@ -72,28 +71,30 @@ public class Configurator {
 
 	@SuppressWarnings("deprecation")
 	public boolean validateInvalid() {
-		for (VariabilityElement e : ((ProductLine) solver.getProductLine())
-				.getVariabilityElements()) {
-			for (SolverSolution conf : products) {
-				if (conf.stateOf(e.getIdentifier()) == SolverSolution.ENFORCED)
-					return true;
-			}
-		}
+//		for (VariabilityElement e : ((ProductLine) solver.getProductLine())
+//				.getVariabilityElements()) {
+//			for (SolverSolution conf : products) {
+//				if (conf.stateOf(e.getIdentifier()) == SolverSolution.ENFORCED)
+//					return true;
+//			}
+//		}
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	public ProductLine getSolverProductLine() {
-		return (ProductLine) solver.getProductLine();
+//		return (ProductLine) solver.getProductLine();
+		return null;
 	}
 
+	@Deprecated
 	public void performConfiguration(SolverSolution configuration,
 			ConfigurationOptionsDTO configOptions,
 			ConfigurationTaskListener listener, ProductLine pl) {
 
 		//GNUPrologContext ctx = new GNUPrologContext();
 		//GNUPrologSolver solver = new GNUPrologSolver(ctx);
-		solver.setProductLine(pl);
+		//solver.setProductLine(pl);
 		configuration.debugPrint();
 		ConfigurationTask task = new ConfigurationTask(solver, configuration,
 				configOptions, listener);

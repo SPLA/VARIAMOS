@@ -8,6 +8,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import com.variamos.common.core.exceptions.TechnicalException;
+
 /**
  * Clase utilitaria para exportar resultados en una hoja de excel
  * 
@@ -45,14 +47,15 @@ public class ExportUtil {
 	 * @param libro
 	 * @param rutaResultados
 	 */
-	public static void guardarXls(HSSFWorkbook libro, String rutaResultados) {
+	public static void saveXls(HSSFWorkbook libro, String rutaResultados) {
 		// Se salva el libro.
 		try {
 			FileOutputStream elFichero = new FileOutputStream(rutaResultados);
 			libro.write(elFichero);
 			elFichero.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//FIXME: Improve how to lunch this exception. 
+			throw new TechnicalException(e.getMessage());
 		}
 	}
 
@@ -62,67 +65,67 @@ public class ExportUtil {
 	 * 
 	 * @param encabezadosList
 	 * @param filaInicialHoja
-	 * @param hoja
-	 * @param resultados
-	 * @param tiempoAnalisis
+	 * @param sheet
+	 * @param results
+	 * @param executionTime
 	 * @param cantidadModelos
 	 */
-	public static void adicionarInfoHoja(List<String> encabezados1List,
-			List<String> encabezados2List, HSSFSheet hoja,
-			List<List<String>> resultados, long tiempoAnalisis) {
+	public static void addInfoToSheet(List<String> heads1List,
+			List<String> heads2List, HSSFSheet sheet,
+			List<List<String>> results, long executionTime) {
 
 		int contadorCelda = 0;
 		int filaInicialHoja = 0;
 		// Información con los tiempos
 		// Fila con las estadísticas
-		HSSFRow estadisticasTitle = hoja.createRow(filaInicialHoja);
+		HSSFRow estadisticasTitle = sheet.createRow(filaInicialHoja);
 		HSSFCell celda0 = estadisticasTitle.createCell(0);
 		celda0.setCellValue("Statistics");
 		filaInicialHoja++;
 		// Solo si es mayor de cero se guarda como un resultado
-		if (resultados.size() > 0) {
-			HSSFRow modelCounter = hoja.createRow(filaInicialHoja);
+		if (results.size() > 0) {
+			HSSFRow modelCounter = sheet.createRow(filaInicialHoja);
 			HSSFCell modelCounterCell = modelCounter.createCell(0);
 			HSSFCell modelCounterValueCell = modelCounter.createCell(1);
 			modelCounterCell.setCellValue("Number of solutions");
-			modelCounterValueCell.setCellValue(resultados.size());
+			modelCounterValueCell.setCellValue(results.size());
 			filaInicialHoja++;
 		}
 
-		if (tiempoAnalisis > 0) {
-			HSSFRow tiempoPrueba = hoja.createRow(filaInicialHoja);
+		if (executionTime > 0) {
+			HSSFRow tiempoPrueba = sheet.createRow(filaInicialHoja);
 			HSSFCell timerCell = tiempoPrueba.createCell(0);
 			HSSFCell timerCellValue = tiempoPrueba.createCell(1);
 			timerCell.setCellValue("Required time: ");
 
-			int seconds = (int) ((tiempoAnalisis / 1000) % 60);
-			int minutes = (int) ((tiempoAnalisis / 1000) / 60);
+			int seconds = (int) ((executionTime / 1000) % 60);
+			int minutes = (int) ((executionTime / 1000) / 60);
 			timerCellValue.setCellValue("minutes " + minutes + "seg" + seconds
-					+ " mils " + " tiempo total (ms): " + tiempoAnalisis);
+					+ " mils " + " tiempo total (ms): " + executionTime);
 
 			filaInicialHoja++;
 		}
 
-		HSSFRow titulo = hoja.createRow(filaInicialHoja);
+		HSSFRow titulo = sheet.createRow(filaInicialHoja);
 		filaInicialHoja++;
-		for (String encabezado : encabezados1List) {
+		for (String encabezado : heads1List) {
 			HSSFCell tituloCell = titulo.createCell(contadorCelda);
 			tituloCell.setCellValue(encabezado);
 			contadorCelda++;
 		}
 		contadorCelda = 0;
-		HSSFRow names = hoja.createRow(filaInicialHoja);
+		HSSFRow names = sheet.createRow(filaInicialHoja);
 		filaInicialHoja++;
-		for (String encabezado : encabezados2List) {
+		for (String encabezado : heads2List) {
 			HSSFCell nameCell = names.createCell(contadorCelda);
 			nameCell.setCellValue(encabezado);
 			contadorCelda++;
 		}
 
-		for (List<String> filaResultados : resultados) {
+		for (List<String> filaResultados : results) {
 			if (filaInicialHoja == 65535)
 				break;
-			HSSFRow row = hoja.createRow(filaInicialHoja);
+			HSSFRow row = sheet.createRow(filaInicialHoja);
 			// Adiciona una fila a los resultados
 			createRow(row, filaResultados);
 			filaInicialHoja++;

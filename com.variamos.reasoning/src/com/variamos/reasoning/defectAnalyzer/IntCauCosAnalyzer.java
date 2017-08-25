@@ -2,13 +2,13 @@ package com.variamos.reasoning.defectAnalyzer;
 
 import java.util.List;
 
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.hlcl.HlclProgram;
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.reasoning.defectAnalyzer.dto.DefectAnalyzerResult;
 import com.variamos.reasoning.defectAnalyzer.model.CauCos;
 import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerModeEnum;
 
 public interface IntCauCosAnalyzer {
 
@@ -24,7 +24,7 @@ public interface IntCauCosAnalyzer {
 	 * @return
 	 */
 	public Diagnosis getCauCos(Defect defect, HlclProgram model,
-			HlclProgram fixedConstraints, DefectAnalyzerMode mode)
+			HlclProgram fixedConstraints, DefectAnalyzerModeEnum mode)
 			throws FunctionalException;
 
 	/**
@@ -36,15 +36,15 @@ public interface IntCauCosAnalyzer {
 	 * @throws FunctionalException
 	 */
 	public List<CauCos> getCorrections(Defect defect, HlclProgram model,
-			HlclProgram fixedConstraints, DefectAnalyzerMode mode)
+			HlclProgram fixedConstraints, DefectAnalyzerModeEnum mode)
 			throws FunctionalException;
 
 	public DefectAnalyzerResult getCauCos(List<Defect> defects,
 			HlclProgram model, HlclProgram fixedConstraints,
-			DefectAnalyzerMode mode) throws FunctionalException;
+			DefectAnalyzerModeEnum mode) throws FunctionalException;
 
 	public List<Diagnosis> getCorrections(List<Defect> defects,
 			HlclProgram model, HlclProgram fixedConstraints,
-			DefectAnalyzerMode mode) throws FunctionalException;
+			DefectAnalyzerModeEnum mode) throws FunctionalException;
 
 }

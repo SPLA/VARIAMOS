@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
 
 /**
  * A class to represent the dynamic types of expressions and their allowed types
@@ -59,15 +59,15 @@ public class OpersExprType implements Serializable {
 		this.arrayParameters = arrayParameters;
 	}
 
-	public Class<? extends Expression> getExpressionClass(int expressionType) {
+	public Class<? extends IntExpression> getExpressionClass(int expressionType) {
 		switch (expressionType) {
 		case LIT:
 		case BOOLEXP:
-			return BooleanExpression.class;
+			return IntBooleanExpression.class;
 		case NUMEXP:
-			return NumericExpression.class;
+			return IntNumericExpression.class;
 		case EXP:
-			return Expression.class;
+			return IntExpression.class;
 		case IDEN:
 			return Identifier.class;
 		default:
@@ -123,11 +123,11 @@ public class OpersExprType implements Serializable {
 		this.singleInExpression = singleInExpression;
 	}
 
-	public Class<? extends Expression> getLeftExpressionClass() {
+	public Class<? extends IntExpression> getLeftExpressionClass() {
 		return getExpressionClass(leftExpression);
 	}
 
-	public Class<? extends Expression> getRightExpressionClass() {
+	public Class<? extends IntExpression> getRightExpressionClass() {
 		return getExpressionClass(rightExpression);
 	}
 

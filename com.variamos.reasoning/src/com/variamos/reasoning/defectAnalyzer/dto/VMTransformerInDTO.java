@@ -1,8 +1,8 @@
 package com.variamos.reasoning.defectAnalyzer.dto;
 
 import com.cfm.productline.ProductLine;
-import com.variamos.core.enums.NotationType;
-import com.variamos.core.enums.SolverEditorType;
+import com.variamos.common.model.enums.NotationType;
+import com.variamos.common.model.enums.SolverEditorType;
 
 public class VMTransformerInDTO {
 	//Para transformar desde formato splot o Prolog

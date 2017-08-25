@@ -13,8 +13,8 @@ import javax.swing.tree.TreeModel;
 import com.cfm.productline.Variable;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.hlcl.BinaryDomain;
-import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.model.domains.BinaryDomain;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 /**
  * A class to render the icons of the tree for the Concepts expression
@@ -76,7 +76,7 @@ public class AssociationCellRenderer extends TreeTableCellRenderer implements
 				return lbl;
 			}
 
-			Domain domain = var.getDomain();
+			IntDomain domain = var.getDomain();
 			if (domain == null)
 				return lbl;
 

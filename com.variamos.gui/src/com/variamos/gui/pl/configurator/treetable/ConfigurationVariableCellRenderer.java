@@ -14,8 +14,8 @@ import com.cfm.productline.Variable;
 import com.variamos.configurator.Choice;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.hlcl.BinaryDomain;
-import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.model.domains.BinaryDomain;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 @SuppressWarnings({ "serial", "rawtypes" })
 public class ConfigurationVariableCellRenderer extends TreeTableCellRenderer
@@ -69,7 +69,7 @@ public class ConfigurationVariableCellRenderer extends TreeTableCellRenderer
 			return lbl;
 		}
 
-		Domain domain = var.getDomain();
+		IntDomain domain = var.getDomain();
 		if (domain == null)
 			return lbl;
 

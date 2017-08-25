@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 
 public class CauCos {
 
-	protected List<BooleanExpression> elements = new ArrayList<BooleanExpression>();
+	protected List<IntBooleanExpression> elements = new ArrayList<IntBooleanExpression>();
 	private static Long indx = 1L;
 	protected Long id;
 
@@ -19,7 +19,7 @@ public class CauCos {
 	}
 
 	
-	public CauCos(List<BooleanExpression> elements) {
+	public CauCos(List<IntBooleanExpression> elements) {
 		this();
 		this.elements = elements;
 	}
@@ -28,11 +28,11 @@ public class CauCos {
 		return elements.size();
 	}
 	
-	public List<BooleanExpression> getElements() {
+	public List<IntBooleanExpression> getElements() {
 		return elements;
 	}
 
-	public void setElements(List<BooleanExpression> elements) {
+	public void setElements(List<IntBooleanExpression> elements) {
 		this.elements = elements;
 	}
 
@@ -44,19 +44,19 @@ public class CauCos {
 		this.id = id;
 	}
 	
-	public boolean add(BooleanExpression e) {
+	public boolean add(IntBooleanExpression e) {
 		return elements.add(e);
 	}
 
-	public void add(int index, BooleanExpression element) {
+	public void add(int index, IntBooleanExpression element) {
 		elements.add(index, element);
 	}
 
-	public boolean addAll(Collection<? extends BooleanExpression> c) {
+	public boolean addAll(Collection<? extends IntBooleanExpression> c) {
 		return elements.addAll(c);
 	}
 
-	public boolean addAll(int index, Collection<? extends BooleanExpression> c) {
+	public boolean addAll(int index, Collection<? extends IntBooleanExpression> c) {
 		return elements.addAll(index, c);
 	}
 

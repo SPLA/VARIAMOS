@@ -18,15 +18,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.core.enums.SolverEditorType;
+import com.variamos.common.model.enums.SolverEditorType;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.expressions.HlclFactory;
 import com.variamos.io.ConsoleTextArea;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 
@@ -214,8 +214,7 @@ public class MainFrame extends JFrame {
 		HlclFactory f = new HlclFactory();
 		HlclProgram model = new HlclProgram();
 		model.add(f.equals(f.number(1), f.number(1)));
-		DefectsVerifier verifier = new DefectsVerifier(model,
-				SolverEditorType.SWI_PROLOG);
+		DefectsVerifier verifier = new DefectsVerifier(model);
 		verifier.isVoid();
 	}
 

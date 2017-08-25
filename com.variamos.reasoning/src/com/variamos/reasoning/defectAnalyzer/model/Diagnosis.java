@@ -3,7 +3,7 @@ package com.variamos.reasoning.defectAnalyzer.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
 
 /**
@@ -67,8 +67,8 @@ public class Diagnosis {
 		}
 	}
 
-	public void printCorrectionSet(List<BooleanExpression> expressios) {
-		for (BooleanExpression expression : expressios) {
+	public void printCorrectionSet(List<IntBooleanExpression> expressios) {
+		for (IntBooleanExpression expression : expressios) {
 			System.out.print(expression.toString());
 			System.out.print(" , ");
 			System.out.println();

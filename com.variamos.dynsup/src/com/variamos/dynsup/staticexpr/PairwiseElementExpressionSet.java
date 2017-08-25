@@ -25,8 +25,8 @@ import com.variamos.dynsup.staticexprsup.LessOrEqualsBooleanExpression;
 import com.variamos.dynsup.staticexprsup.NotBooleanExpression;
 import com.variamos.dynsup.staticexprsup.NumberNumericExpression;
 import com.variamos.dynsup.staticexprsup.SumNumericExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
 
 //TODO refactor: PairwiseElementExpressionSet
 /**

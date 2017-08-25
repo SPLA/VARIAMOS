@@ -16,7 +16,7 @@ import com.variamos.dynsup.statictypes.SatisficingType;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.dynsup.types.StringType;
-import com.variamos.hlcl.RangeDomain;
+import com.variamos.hlcl.model.domains.RangeDomain;
 
 public class DefaultRefasMM {
 

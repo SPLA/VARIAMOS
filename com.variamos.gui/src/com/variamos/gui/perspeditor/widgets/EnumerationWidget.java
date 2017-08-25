@@ -6,7 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.core.util.StringUtils;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.InstanceModel;

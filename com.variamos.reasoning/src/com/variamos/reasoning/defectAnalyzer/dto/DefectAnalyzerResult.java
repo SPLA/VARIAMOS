@@ -3,7 +3,7 @@ package com.variamos.reasoning.defectAnalyzer.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.reasoning.defectAnalyzer.model.ClassifiedElement;
 import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 

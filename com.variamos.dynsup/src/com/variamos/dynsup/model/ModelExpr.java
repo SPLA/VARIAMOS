@@ -16,12 +16,12 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.types.ExpressionVertexType;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.DomainParser;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.RangeDomain;
+import com.variamos.hlcl.core.DomainParser;
+import com.variamos.hlcl.model.domains.RangeDomain;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
 import com.variamos.io.ConsoleTextArea;
 
 /**
@@ -213,16 +213,16 @@ public class ModelExpr implements Serializable, Cloneable {
 		setLeftElement(vertex);
 	}
 
-	public Expression createSGSExpression(String element) {
+	public IntExpression createSGSExpression(String element) {
 		// System.out.println(element);
-		Expression condition = createExpression(0, -1);
+		IntExpression condition = createExpression(0, -1);
 		Identifier iden = hlclFactory.newIdentifier(element + "_CompExp");
 		// System.out.println(hlclFactory.doubleImplies(iden,
 		// (BooleanExpression) condition));
-		return hlclFactory.doubleImplies(iden, (BooleanExpression) condition);
+		return hlclFactory.doubleImplies(iden, (IntBooleanExpression) condition);
 	}
 
-	public Expression createSGSExpression() {
+	public IntExpression createSGSExpression() {
 		// System.out.println("PNT Struc: " + this.getSemanticExpressionId() +
 		// " "
 		// + this.expressionStructure());
@@ -230,9 +230,9 @@ public class ModelExpr implements Serializable, Cloneable {
 
 	}
 
-	public Expression createExpression(int pos, int leftIterInstance) {
+	public IntExpression createExpression(int pos, int leftIterInstance) {
 		int i = 0;
-		List<Expression> expressionTerms = expressionTerms(pos,
+		List<IntExpression> expressionTerms = expressionTerms(pos,
 				leftIterInstance, 0);
 		// System.out.println("ERR MODELEXP" + expressionTerms.get(0) + " "
 		// + expressionTerms.get(1));
@@ -242,7 +242,7 @@ public class ModelExpr implements Serializable, Cloneable {
 				.getSemanticExpressionType();
 		boolean singleParameter = semanticExpressionType.isSingleInExpression();
 		boolean arrayParameters = semanticExpressionType.isArrayParameters();
-		Class<? extends Expression> parameter1 = null, parameter2 = null;
+		Class<? extends IntExpression> parameter1 = null, parameter2 = null;
 		parameter1 = getSemanticExpression().getSemanticExpressionType()
 				.getLeftExpressionClass();
 		if (!singleParameter) {
@@ -305,7 +305,7 @@ public class ModelExpr implements Serializable, Cloneable {
 				// For negation, literal and number expressions
 				factoryMethod = hlclFactoryClass.getMethod(
 						semanticExpressionType.getMethod(), parameter1);
-				return (Expression) factoryMethod.invoke(hlclFactory,
+				return (IntExpression) factoryMethod.invoke(hlclFactory,
 						parameter1.cast(expressionTerms.get(0)));
 			} else if (arrayParameters) {
 				// For Sum and Product Expressions
@@ -318,7 +318,7 @@ public class ModelExpr implements Serializable, Cloneable {
 				factoryMethod = hlclFactoryClass.getMethod(
 						semanticExpressionType.getMethod(),
 						dynamicArrayObject.getClass());
-				return (Expression) factoryMethod.invoke(hlclFactory,
+				return (IntExpression) factoryMethod.invoke(hlclFactory,
 						dynamicArrayObject);
 
 			} else {
@@ -335,7 +335,7 @@ public class ModelExpr implements Serializable, Cloneable {
 				// // TODO Auto-generated catch block
 				// e.printStackTrace();
 				// }
-				return (Expression) factoryMethod.invoke(hlclFactory,
+				return (IntExpression) factoryMethod.invoke(hlclFactory,
 						parameter1.cast(expressionTerms.get(0)),
 						parameter2.cast(expressionTerms.get(1)));
 			}
@@ -1013,9 +1013,9 @@ public class ModelExpr implements Serializable, Cloneable {
 		return out;
 	}
 
-	private List<Expression> expressionTerms(int pos, int leftIterInstance,
+	private List<IntExpression> expressionTerms(int pos, int leftIterInstance,
 			int leftIterInstances) {
-		List<Expression> out = new ArrayList<Expression>();
+		List<IntExpression> out = new ArrayList<IntExpression>();
 
 		List<ExpressionVertexType> expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 

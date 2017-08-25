@@ -1,19 +1,19 @@
 package com.variamos.reasoning.defectAnalyzer.model;
 
-import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 
 public class Dependency implements Cloneable {
 
 	private String originalRelationShipText;
 	private Long relationShipNumber;
 
-	private BooleanExpression constraintExpression;
+	private IntBooleanExpression constraintExpression;
 
 	// Negación de la expresión. Sirve para identificar las redundancias
 	// automáticamente en modelos de caraacteristicas. En las otras notaciones
 	// si se debe escribir la expresión manualmente
 	
-	private BooleanExpression negationExpression;
+	private IntBooleanExpression negationExpression;
 
 
 	public Dependency() {
@@ -61,7 +61,7 @@ public class Dependency implements Cloneable {
 	/**
 	 * @return the constraintExpression
 	 */
-	public BooleanExpression getConstraintExpression() {
+	public IntBooleanExpression getConstraintExpression() {
 		return constraintExpression;
 	}
 
@@ -69,7 +69,7 @@ public class Dependency implements Cloneable {
 	 * @param constraintExpression
 	 *            the constraintExpression to set
 	 */
-	public void setConstraintExpression(BooleanExpression constraintExpression) {
+	public void setConstraintExpression(IntBooleanExpression constraintExpression) {
 		this.constraintExpression = constraintExpression;
 	}
 
@@ -148,7 +148,7 @@ public class Dependency implements Cloneable {
 	/**
 	 * @return the negationExpression
 	 */
-	public BooleanExpression getNegationExpression() {
+	public IntBooleanExpression getNegationExpression() {
 		return negationExpression;
 	}
 
@@ -156,7 +156,7 @@ public class Dependency implements Cloneable {
 	 * @param negationExpression
 	 *            the negationExpression to set
 	 */
-	public void setNegationExpression(BooleanExpression negationExpression) {
+	public void setNegationExpression(IntBooleanExpression negationExpression) {
 		this.negationExpression = negationExpression;
 	}
 

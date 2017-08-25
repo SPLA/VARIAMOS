@@ -1,8 +1,8 @@
 package com.variamos.reasoning.defectAnalyzer.model.defects;
 
-import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.model.VariabilityModel;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectTypeEnum;
 
 public class FalseProductLine extends Defect {
 
@@ -12,18 +12,18 @@ public class FalseProductLine extends Defect {
 	public FalseProductLine() {
 		super();
 		this.isFalsePL = Boolean.TRUE;
-		defectType = DefectType.FALSE_PRODUCT_LINE;
+		defectType = DefectTypeEnum.FALSE_PRODUCT_LINE;
 		id = "FalsePL: ";
 	}
 
 	// jcmunoz: added to support false product lines analysis for additional
 	// expressions
 	// to support the homogeneity analysis operation and other similar
-	public FalseProductLine(BooleanExpression additionalExpression) {
+	public FalseProductLine(IntBooleanExpression additionalExpression) {
 		super(additionalExpression);
 		this.isFalsePL = Boolean.TRUE;
 
-		defectType = DefectType.FALSE_PRODUCT_LINE;
+		defectType = DefectTypeEnum.FALSE_PRODUCT_LINE;
 		id = "FalsePL: " + additionalExpression.toString();
 	}
 
@@ -38,7 +38,7 @@ public class FalseProductLine extends Defect {
 	public FalseProductLine(VariabilityModel variabilityModel) {
 		super();
 		this.variabilityModel = variabilityModel;
-		defectType = DefectType.FALSE_PRODUCT_LINE;
+		defectType = DefectTypeEnum.FALSE_PRODUCT_LINE;
 
 	}
 

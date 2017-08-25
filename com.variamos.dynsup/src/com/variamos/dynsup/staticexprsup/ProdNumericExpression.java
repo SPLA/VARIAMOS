@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericExpression;
-import com.variamos.hlcl.NumericIdentifier;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
+import com.variamos.hlcl.model.expressions.NumericIdentifier;
 
 /**
  * Class to create the Prod expression. Part of PhD work at University of Paris
@@ -38,7 +38,7 @@ public class ProdNumericExpression extends AbstractNumericExpression {
 	}
 
 	public ProdNumericExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, BooleanExpression simpleExpression) {
+			boolean replaceRight, IntBooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
@@ -59,11 +59,11 @@ public class ProdNumericExpression extends AbstractNumericExpression {
 	}
 
 	@Override
-	public NumericExpression transform(HlclFactory f,
+	public IntNumericExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap) {
-		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.prod((NumericExpression) expressionTerms.get(0),
-				(NumericExpression) expressionTerms.get(1));
+		List<IntExpression> expressionTerms = expressionTerms(f, idMap);
+		return f.prod((IntNumericExpression) expressionTerms.get(0),
+				(IntNumericExpression) expressionTerms.get(1));
 	}
 
 }

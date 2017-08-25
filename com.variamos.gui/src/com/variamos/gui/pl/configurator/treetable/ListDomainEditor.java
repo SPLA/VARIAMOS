@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
 import com.variamos.configurator.DomainAnnotation;
-import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 @SuppressWarnings("serial")
 public class ListDomainEditor extends JPanel{
@@ -140,7 +140,7 @@ public class ListDomainEditor extends JPanel{
 			remove(disabled);
 		}
 		
-		Domain domain = node.getVariable().getDomain();
+		IntDomain domain = node.getVariable().getDomain();
 		List<Integer> values = domain.getPossibleValues();
 		List<Integer> disabledValues = new ArrayList<>();
 		

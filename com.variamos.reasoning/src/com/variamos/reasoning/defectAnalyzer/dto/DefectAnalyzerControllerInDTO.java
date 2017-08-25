@@ -1,6 +1,6 @@
 package com.variamos.reasoning.defectAnalyzer.dto;
 
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerModeEnum;
 
 public class DefectAnalyzerControllerInDTO extends VMAnalyzerInDTO {
 
@@ -17,7 +17,7 @@ public class DefectAnalyzerControllerInDTO extends VMAnalyzerInDTO {
 	private boolean analyzeRedundancies;
 
 
-	private DefectAnalyzerMode defectAnalyzerMode;
+	private DefectAnalyzerModeEnum defectAnalyzerMode;
 
 
 	/**
@@ -137,7 +137,7 @@ public class DefectAnalyzerControllerInDTO extends VMAnalyzerInDTO {
 	/**
 	 * @return the correctionSetIdentificationType
 	 */
-	public DefectAnalyzerMode getDefectAnalyzerMode() {
+	public DefectAnalyzerModeEnum getDefectAnalyzerMode() {
 		return defectAnalyzerMode;
 	}
 
@@ -146,7 +146,7 @@ public class DefectAnalyzerControllerInDTO extends VMAnalyzerInDTO {
 	 *            the correctionSetIdentificationType to set
 	 */
 	public void setDefectAnalyzerMode(
-			DefectAnalyzerMode defectAnalyzerMode) {
+			DefectAnalyzerModeEnum defectAnalyzerMode) {
 		this.defectAnalyzerMode = defectAnalyzerMode;
 	}
 

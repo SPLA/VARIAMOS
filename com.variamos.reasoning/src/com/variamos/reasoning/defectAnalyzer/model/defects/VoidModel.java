@@ -1,7 +1,7 @@
 package com.variamos.reasoning.defectAnalyzer.model.defects;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectTypeEnum;
 
 public class VoidModel extends Defect {
 
@@ -16,15 +16,15 @@ public class VoidModel extends Defect {
 	
 	public VoidModel() {
 		super();
-		defectType = DefectType.VOID_MODEL;
+		defectType = DefectTypeEnum.VOID_MODEL;
 		isVoidModel=Boolean.TRUE;
 		id="Void model";
 	}
 	
 	public VoidModel(
-	BooleanExpression additionalExpression) {
+	IntBooleanExpression additionalExpression) {
 		super(additionalExpression);
-		defectType = DefectType.VOID_MODEL;
+		defectType = DefectTypeEnum.VOID_MODEL;
 		isVoidModel=Boolean.TRUE;
 		id="Void model";
 	}

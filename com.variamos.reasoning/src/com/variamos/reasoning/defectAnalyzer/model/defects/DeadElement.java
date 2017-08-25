@@ -1,19 +1,19 @@
 package com.variamos.reasoning.defectAnalyzer.model.defects;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Identifier;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectTypeEnum;
 
 public class DeadElement extends Defect {
 
 	private Identifier deadIdentifier;
 
 	public DeadElement(Identifier deadIdentifier,
-			BooleanExpression verificationExpression) {
+			IntBooleanExpression verificationExpression) {
 		super();
 		this.deadIdentifier = deadIdentifier;
 		this.id = deadIdentifier.getId();
-		defectType = DefectType.DEAD_FEATURE;
+		defectType = DefectTypeEnum.DEAD_FEATURE;
 		setVerificationExpression(verificationExpression);
 	}
 

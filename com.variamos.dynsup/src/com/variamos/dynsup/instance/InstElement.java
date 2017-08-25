@@ -20,7 +20,7 @@ import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.hlcl.LabelingOrder;
+import com.variamos.hlcl.model.LabelingOrderEnum;
 
 /**
  * A class to represented modeling elements from meta model and semantic model
@@ -562,7 +562,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, syntaxParents),
-							new ArrayList<LabelingOrder>());
+							new ArrayList<LabelingOrderEnum>());
 				} else
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, syntaxParents), null);
@@ -602,7 +602,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					} else if (name.equals("sortorder")) {
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name),
-								new ArrayList<LabelingOrder>());
+								new ArrayList<LabelingOrderEnum>());
 					} else
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name), null);

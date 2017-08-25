@@ -1,20 +1,20 @@
 package com.variamos.reasoning.defectAnalyzer.model.defects;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Identifier;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectTypeEnum;
 
 public class NonAttainableDomain extends Defect {
 	private Identifier identifier;
 	private Integer unreachableValue;
 
 	public NonAttainableDomain(Identifier identifier, Integer unreachableValue,
-			BooleanExpression verificationExpression) {
+			IntBooleanExpression verificationExpression) {
 		super();
 		this.identifier = identifier;
 		this.id = identifier.getId() + " = " + unreachableValue.toString();
 		this.unreachableValue = unreachableValue;
-		defectType = DefectType.NON_ATTAINABLE_DOMAIN;
+		defectType = DefectTypeEnum.NON_ATTAINABLE_DOMAIN;
 	}
 
 	public Identifier getIdentifier() {

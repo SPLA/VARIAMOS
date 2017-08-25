@@ -5,6 +5,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/sxfm.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.11-20141221.jar"/>
 	<classpathentry kind="src" path="/com.variamos.genericModel"/>
-	<classpathentry kind="src" path="/com.variamos.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.common"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,9 +1,9 @@
 package com.variamos.reasoning.util;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericIdentifier;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.NumericIdentifier;
 import com.variamos.reasoning.defectAnalyzer.constants.TransformerConstants;
 import com.variamos.reasoning.defectAnalyzer.model.VariabilityElementDefAna;
 
@@ -13,25 +13,25 @@ public class VerifierUtilExpression {
 
 
 
-	public static BooleanExpression verifyAssignValueToVariabilityElementExpression(
+	public static IntBooleanExpression verifyAssignValueToVariabilityElementExpression(
 			Identifier element, int valueToVerify) {
 		NumericIdentifier nonValue = f.number(valueToVerify);
-		BooleanExpression numericExpression = f.equals(element, nonValue);
+		IntBooleanExpression numericExpression = f.equals(element, nonValue);
 		return numericExpression;
 	}
 	
-	public static BooleanExpression verifyFalseOptionalExpression(
+	public static IntBooleanExpression verifyFalseOptionalExpression(
 			Identifier element) {
 
 		// VariabilityElement = 0
 		NumericIdentifier nonValue = f
 				.number(TransformerConstants.NON_SELECTED_VALUE);
-		BooleanExpression numericExpression = f.equals(element, nonValue);
+		IntBooleanExpression numericExpression = f.equals(element, nonValue);
 		return numericExpression;
 	}
 
 
-	public static BooleanExpression verifyFalseOptionalExpression(
+	public static IntBooleanExpression verifyFalseOptionalExpression(
 			VariabilityElementDefAna variabilityElementDefAna) {
 
 		// VariabilityElement = 0
@@ -39,7 +39,7 @@ public class VerifierUtilExpression {
 				.newIdentifier(variabilityElementDefAna.getName());
 		NumericIdentifier nonValue = f
 				.number(TransformerConstants.NON_SELECTED_VALUE);
-		BooleanExpression numericExpression = f.equals(element, nonValue);
+		IntBooleanExpression numericExpression = f.equals(element, nonValue);
 		return numericExpression;
 	}
 

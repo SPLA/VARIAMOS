@@ -8,10 +8,10 @@ import java.util.Map;
 import com.variamos.dynsup.staticexprsup.AbstractBooleanExpression;
 import com.variamos.dynsup.staticexprsup.AbstractComparisonExpression;
 import com.variamos.dynsup.staticexprsup.AbstractExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntExpression;
 
 /**
  * A class to represent the constraints. Part of PhD work at University of Paris
@@ -148,8 +148,8 @@ public abstract class ElementExpressionSet {
 	 * 
 	 * @return
 	 */
-	public List<Expression> getExpressions() {
-		List<Expression> out = new ArrayList<Expression>();
+	public List<IntExpression> getExpressions() {
+		List<IntExpression> out = new ArrayList<IntExpression>();
 		for (AbstractExpression expression : elementExpressions) {
 			idMap.putAll(expression.getIdentifiers(hlclFactory));
 			out.add(expression.transform(hlclFactory, idMap));
@@ -157,8 +157,8 @@ public abstract class ElementExpressionSet {
 		return out;
 	}
 
-	public List<Expression> getExpressionsNegations() {
-		List<Expression> out = new ArrayList<Expression>();
+	public List<IntExpression> getExpressionsNegations() {
+		List<IntExpression> out = new ArrayList<IntExpression>();
 		for (AbstractExpression transformation : elementExpressions) {
 			idMap.putAll(transformation.getIdentifiers(hlclFactory));
 			if (transformation instanceof AbstractBooleanExpression)

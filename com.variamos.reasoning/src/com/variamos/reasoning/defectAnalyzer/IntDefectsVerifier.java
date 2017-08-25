@@ -3,13 +3,13 @@ package com.variamos.reasoning.defectAnalyzer;
 import java.util.List;
 import java.util.Set;
 
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Identifier;
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.dto.VerificationResult;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.solver.model.SolverSolution;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
 
 public interface IntDefectsVerifier {
 
@@ -55,7 +55,7 @@ public interface IntDefectsVerifier {
 			ConfigurationOptionsDTO options, SolverSolution configuration)
 			throws FunctionalException;
 
-	public Defect isRedundant(BooleanExpression expressionToVerify)
+	public Defect isRedundant(IntBooleanExpression expressionToVerify)
 			throws FunctionalException;
 
 	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify)
@@ -88,7 +88,7 @@ public interface IntDefectsVerifier {
 	 * @return Defect
 	 */
 	public List<Defect> getRedundancies(
-			List<BooleanExpression> constraitsToVerifyRedundacies)
+			List<IntBooleanExpression> constraitsToVerifyRedundacies)
 			throws FunctionalException;
 
 	public List<Defect> getAllNonAttainableDomains(
@@ -99,14 +99,14 @@ public interface IntDefectsVerifier {
 
 	public VerificationResult getDefects(Set<Identifier> optionalElements,
 			Set<Identifier> deadElementsToVerify,
-			List<BooleanExpression> constraintsToVerifyRedundancies)
+			List<IntBooleanExpression> constraintsToVerifyRedundancies)
 			throws InterruptedException;
 
 	// jcmunoz: new method to support additional constraints in the verification
 	// of false product lines
-	List<Defect> getFalsePLs(List<BooleanExpression> additionalConstraints);
+	List<Defect> getFalsePLs(List<IntBooleanExpression> additionalConstraints);
 	// jcmunoz: new method to support additional constraints in the verification
 	// of void models
-	List<Defect> getVoids(List<BooleanExpression> additionalConstraints);
+	List<Defect> getVoids(List<IntBooleanExpression> additionalConstraints);
 
 }

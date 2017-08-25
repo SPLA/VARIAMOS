@@ -16,12 +16,12 @@ import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.ExpressionVertexType;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.DomainParser;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.core.DomainParser;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
 
 /**
  * Abstract root Class to group at the Transformation functionality. Part of PhD
@@ -39,10 +39,10 @@ public abstract class AbstractExpression {
 	private String rightAttributeName;
 	private AbstractExpression leftSubExpression;
 	private AbstractExpression rightSubExpression;
-	private BooleanExpression leftBooleanExpression;
-	private BooleanExpression rightBooleanExpression;
-	private NumericExpression leftNumericExpression;
-	private NumericExpression rightNumericExpression;
+	private IntBooleanExpression leftBooleanExpression;
+	private IntBooleanExpression rightBooleanExpression;
+	private IntNumericExpression leftNumericExpression;
+	private IntNumericExpression rightNumericExpression;
 	protected String operation;
 
 	protected List<ExpressionVertexType> expressionVertexTypes;
@@ -90,7 +90,7 @@ public abstract class AbstractExpression {
 	}
 
 	public AbstractExpression(InstElement vertex, String attributeName,
-			boolean replaceTarget, BooleanExpression booleanExpression) {
+			boolean replaceTarget, IntBooleanExpression booleanExpression) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
 
@@ -112,7 +112,7 @@ public abstract class AbstractExpression {
 	}
 
 	public AbstractExpression(InstElement vertex, String attributeName,
-			boolean replaceTarget, NumericExpression numericExpression) {
+			boolean replaceTarget, IntNumericExpression numericExpression) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
 
@@ -133,8 +133,8 @@ public abstract class AbstractExpression {
 		}
 	}
 
-	public AbstractExpression(NumericExpression numericExpression1,
-			boolean replaceTarget, NumericExpression numericExpression2) {
+	public AbstractExpression(IntNumericExpression numericExpression1,
+			boolean replaceTarget, IntNumericExpression numericExpression2) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
 
@@ -351,11 +351,11 @@ public abstract class AbstractExpression {
 		return rightSubExpression;
 	}
 
-	public Expression getLeftComparativeExpression() {
+	public IntExpression getLeftComparativeExpression() {
 		return leftBooleanExpression;
 	}
 
-	public Expression getRightComparativeExpression() {
+	public IntExpression getRightComparativeExpression() {
 		return rightBooleanExpression;
 	}
 
@@ -367,19 +367,19 @@ public abstract class AbstractExpression {
 		return expressionConnectors;
 	}
 
-	public BooleanExpression getLeftBooleanExpression() {
+	public IntBooleanExpression getLeftBooleanExpression() {
 		return leftBooleanExpression;
 	}
 
-	public BooleanExpression getRightBooleanExpression() {
+	public IntBooleanExpression getRightBooleanExpression() {
 		return rightBooleanExpression;
 	}
 
-	public NumericExpression getLeftNumericExpression() {
+	public IntNumericExpression getLeftNumericExpression() {
 		return leftNumericExpression;
 	}
 
-	public NumericExpression getRightNumericExpression() {
+	public IntNumericExpression getRightNumericExpression() {
 		return rightNumericExpression;
 	}
 
@@ -422,9 +422,9 @@ public abstract class AbstractExpression {
 		return out;
 	}
 
-	protected List<Expression> expressionTerms(HlclFactory f,
+	protected List<IntExpression> expressionTerms(HlclFactory f,
 			Map<String, Identifier> idMap) {
-		List<Expression> out = new ArrayList<Expression>();
+		List<IntExpression> out = new ArrayList<IntExpression>();
 
 		for (ExpressionVertexType expressionType : expressionVertexTypes) {
 			switch (expressionType) {
@@ -479,10 +479,10 @@ public abstract class AbstractExpression {
 		return out;
 	}
 
-	protected List<Expression> expressionTermsNegation(HlclFactory f,
+	protected List<IntExpression> expressionTermsNegation(HlclFactory f,
 			Map<String, Identifier> idMap, boolean negateLeft,
 			boolean negateRight) {
-		List<Expression> out = new ArrayList<Expression>();
+		List<IntExpression> out = new ArrayList<IntExpression>();
 
 		for (ExpressionVertexType expressionType : expressionVertexTypes) {
 			switch (expressionType) {
@@ -548,6 +548,6 @@ public abstract class AbstractExpression {
 		return out;
 	}
 
-	public abstract Expression transform(HlclFactory hlclFactory,
+	public abstract IntExpression transform(HlclFactory hlclFactory,
 			Map<String, Identifier> idMap);
 }

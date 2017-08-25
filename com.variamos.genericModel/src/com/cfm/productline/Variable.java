@@ -3,7 +3,7 @@ package com.cfm.productline;
 import java.io.Serializable;
 
 import com.cfm.productline.type.StringType;
-import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 public class Variable implements Serializable{
 	private static final long serialVersionUID = 118894641885363593L;
@@ -11,7 +11,7 @@ public class Variable implements Serializable{
 	protected String name;
 	protected Object value;
 	protected String type;
-	protected Domain domain;
+	protected IntDomain domain;
 	
 	public Variable(String name, Object value, String type) {
 		super();
@@ -100,11 +100,11 @@ public class Variable implements Serializable{
 		this.type = type;
 	}
 
-	public Domain getDomain() {
+	public IntDomain getDomain() {
 		return domain;
 	}
 
-	public void setDomain(Domain domain) {
+	public void setDomain(IntDomain domain) {
 		this.domain = domain;
 	}
 	

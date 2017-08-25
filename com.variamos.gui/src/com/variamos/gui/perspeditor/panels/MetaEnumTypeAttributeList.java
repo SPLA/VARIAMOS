@@ -24,7 +24,7 @@ import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
-import com.variamos.hlcl.LabelingOrder;
+import com.variamos.hlcl.model.LabelingOrderEnum;
 
 /**
  * A class to support the property list of enumeration types on meta-modeling.
@@ -122,8 +122,8 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 				Object attvalue = ((InstAttribute) value).getValue();
 				if (attvalue instanceof OpersSubOpExecType)
 					lbl.setText(((OpersSubOpExecType) attvalue).toString());
-				if (attvalue instanceof LabelingOrder)
-					lbl.setText(((LabelingOrder) attvalue).toString());
+				if (attvalue instanceof LabelingOrderEnum)
+					lbl.setText(((LabelingOrderEnum) attvalue).toString());
 				return lbl;
 			}
 		});
@@ -165,11 +165,11 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 						.split("-");
 				instName.setValue(split[0]);
 			} else if (attributeName.equals("sortorder")) {
-				String split[] = ((LabelingOrder) instAttribute.getValue())
+				String split[] = ((LabelingOrderEnum) instAttribute.getValue())
 						.toString().split("-");
 				instName.setValue(split[0]);
 			} else if (attributeName.equals("sortorder")) {
-				String split[] = ((LabelingOrder) instAttribute.getValue())
+				String split[] = ((LabelingOrderEnum) instAttribute.getValue())
 						.toString().split("-");
 				instName.setValue(split[0]);
 			}

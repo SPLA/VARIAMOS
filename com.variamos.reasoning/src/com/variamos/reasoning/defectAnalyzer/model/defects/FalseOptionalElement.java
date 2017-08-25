@@ -1,8 +1,8 @@
 package com.variamos.reasoning.defectAnalyzer.model.defects;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Identifier;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectTypeEnum;
 
 public class FalseOptionalElement extends Defect {
 
@@ -12,13 +12,13 @@ public class FalseOptionalElement extends Defect {
 	public FalseOptionalElement(Identifier falseOptional) {
 		super();
 		this.falseOptional = falseOptional;
-		defectType = DefectType.FALSE_OPTIONAL_FEATURE;
+		defectType = DefectTypeEnum.FALSE_OPTIONAL_FEATURE;
 		id = falseOptional.getId();
 	}
 
 	
 	public FalseOptionalElement(Identifier falseOptional,
-			BooleanExpression verificationExpression) {
+			IntBooleanExpression verificationExpression) {
 		this(falseOptional);
 		setVerificationExpression(verificationExpression);
 	}

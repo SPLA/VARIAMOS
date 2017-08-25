@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
 
 /**
  * Class to create the Not expression. Part of PhD work at University of Paris 1
@@ -33,17 +33,17 @@ public class NotBooleanExpression extends AbstractBooleanExpression {
 	}
 
 	@Override
-	public BooleanExpression transform(HlclFactory f,
+	public IntBooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap) {
-		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.not((BooleanExpression) expressionTerms.get(0));
+		List<IntExpression> expressionTerms = expressionTerms(f, idMap);
+		return f.not((IntBooleanExpression) expressionTerms.get(0));
 	}
 
 	@Override
-	public BooleanExpression transformNegation(HlclFactory f,
+	public IntBooleanExpression transformNegation(HlclFactory f,
 			Map<String, Identifier> idMap, boolean negateLeft,
 			boolean negateRight) {
-		List<Expression> expressionTerms = expressionTerms(f, idMap);
+		List<IntExpression> expressionTerms = expressionTerms(f, idMap);
 		return (Identifier) expressionTerms.get(0);
 	}
 

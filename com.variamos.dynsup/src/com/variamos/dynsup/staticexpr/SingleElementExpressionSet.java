@@ -28,9 +28,9 @@ import com.variamos.dynsup.staticexprsup.OrBooleanExpression;
 import com.variamos.dynsup.staticexprsup.ProdNumericExpression;
 import com.variamos.dynsup.staticexprsup.SumNumericExpression;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 
 /**
  * A class to represent the constraints for restrictions of a concept. Part of
@@ -55,9 +55,9 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	 */
 	private InstElement instVertex;
 
-	private Map<String, BooleanExpression> booleanExpressions = new HashMap<String, BooleanExpression>();
+	private Map<String, IntBooleanExpression> booleanExpressions = new HashMap<String, IntBooleanExpression>();
 
-	public BooleanExpression getBooleanExpression(String element) {
+	public IntBooleanExpression getBooleanExpression(String element) {
 		return booleanExpressions.get(element);
 	}
 
@@ -340,7 +340,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									// verified
 									booleanExpressions
 											.put("Simul",
-													(BooleanExpression) (instanceExpression)
+													(IntBooleanExpression) (instanceExpression)
 															.createSGSExpression(instVertex
 																	.getIdentifier()));
 								} else

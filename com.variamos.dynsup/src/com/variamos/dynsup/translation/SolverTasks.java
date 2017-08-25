@@ -12,15 +12,15 @@ import java.util.TreeSet;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingWorker;
 
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.common.model.enums.SolverEditorType;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.InstanceModel;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.HlclUtil;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.core.HlclUtil;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.io.ConsoleTextArea;
 import com.variamos.io.configurations.ExportConfiguration;
 import com.variamos.reasoning.defectAnalyzer.CauCosAnayzer;
@@ -30,8 +30,8 @@ import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.model.CauCos;
 import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerModeEnum;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectTypeEnum;
 import com.variamos.solver.model.SolverSolution;
 
 /**
@@ -237,7 +237,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		List<String> requiredConceptsNames = new ArrayList<String>();
 		List<String> deadConceptsNames = new ArrayList<String>();
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(
-				configHlclProgram, SolverEditorType.SWI_PROLOG,
+				configHlclProgram,
 				parentComponent, "Configuring Selected Elements");
 		// System.out.println("FREE: " + freeIdentifiers);
 
@@ -363,7 +363,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 						outMessageList.add(verifyDefects(verifElement,
 								verifMessage, verifHint,
-								DefectAnalyzerMode.INCOMPLETE_SLOW));
+								DefectAnalyzerModeEnum.INCOMPLETE_SLOW));
 					} else {
 						if (defect == null || defect.contains("Core")
 								|| defect.contains("Dead")
@@ -569,8 +569,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				try {
 					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram("FalseOpt2",
-									ModelExpr2HLCL.VAL_UPD_EXEC),
-							SolverEditorType.SWI_PROLOG, parentComponent,
+									ModelExpr2HLCL.VAL_UPD_EXEC), parentComponent,
 							"Identifing core/falseoptional/dead Elements");
 
 					List<Defect> falseOptionalList = null;
@@ -682,7 +681,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	}
 
 	private String verifyDefects(String verifElement, String verifMessage,
-			String verifHint, DefectAnalyzerMode mode)
+			String verifHint, DefectAnalyzerModeEnum mode)
 			throws InterruptedException {
 		String outMessage = null;
 		long iniTime = System.currentTimeMillis();
@@ -690,12 +689,12 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		long endSTime = 0;
 		try {
 
-			List<BooleanExpression> verify = refas2hlcl
+			List<IntBooleanExpression> verify = refas2hlcl
 					.verityTest(verifElement);
 			HlclProgram relaxed = refas2hlcl.relaxedTest(verifElement);
 			HlclProgram fixed = refas2hlcl.compulsoryTest(verifElement);
 			Defect defect = new Defect(verify);
-			defect.setDefectType(DefectType.SEMANTIC_SPECIFIC_DEFECT);
+			defect.setDefectType(DefectTypeEnum.SEMANTIC_SPECIFIC_DEFECT);
 			HlclProgram modelToVerify = new HlclProgram();
 			modelToVerify.addAll(verify);
 			modelToVerify.addAll(relaxed);
@@ -704,8 +703,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			endSTime = iniSTime;
 			if (modelToVerify.toString().equals("[]"))
 				return "No features to verify";
-			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify,
-					SolverEditorType.SWI_PROLOG);
+			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify);
 			// The model has two or more roots
 			Defect voidModel = verifier.isVoid();
 			if (progressMonitor.isCanceled())
@@ -725,8 +723,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				for (CauCos correction : result.getCorrections()) {
 					if (progressMonitor.isCanceled())
 						throw (new InterruptedException());
-					List<BooleanExpression> corr = correction.getElements();
-					for (BooleanExpression expression : corr) {
+					List<IntBooleanExpression> corr = correction.getElements();
+					for (IntBooleanExpression expression : corr) {
 						if (progressMonitor.isCanceled())
 							throw (new InterruptedException());
 						Set<Identifier> iden = HlclUtil

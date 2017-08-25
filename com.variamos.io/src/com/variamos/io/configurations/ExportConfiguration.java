@@ -48,8 +48,8 @@ public class ExportConfiguration {
 		}
 		HSSFWorkbook resultadosLibro = new HSSFWorkbook();
 		HSSFSheet hoja = resultadosLibro.createSheet();
-		ExportUtil.adicionarInfoHoja(titlesIds, names, hoja, results, 0);
-		ExportUtil.guardarXls(resultadosLibro, file);
+		ExportUtil.addInfoToSheet(titlesIds, names, hoja, results, 0);
+		ExportUtil.saveXls(resultadosLibro, file);
 	}
 
 }

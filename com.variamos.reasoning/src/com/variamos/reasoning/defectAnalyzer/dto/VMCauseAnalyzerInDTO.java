@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerModeEnum;
 
 public class VMCauseAnalyzerInDTO {
 
-	private DefectAnalyzerMode defectAnalyzerMode;
+	private DefectAnalyzerModeEnum defectAnalyzerMode;
 
 	private List<Defect> deadFeaturesList = new ArrayList<Defect>();
 	private List<Defect> falseOptionalFeaturesList = new ArrayList<Defect>();
@@ -20,7 +20,7 @@ public class VMCauseAnalyzerInDTO {
 	/**
 	 * @return the correctionSetIdentifcationType
 	 */
-	public DefectAnalyzerMode getDefectAnalyzerMode() {
+	public DefectAnalyzerModeEnum getDefectAnalyzerMode() {
 		return defectAnalyzerMode;
 	}
 
@@ -77,7 +77,7 @@ public class VMCauseAnalyzerInDTO {
 	 *            the correctionSetIdentifcationType to set
 	 */
 	public void setDefectAnalyzerMode(
-			DefectAnalyzerMode defectAnalyzerMode) {
+			DefectAnalyzerModeEnum defectAnalyzerMode) {
 		this.defectAnalyzerMode = defectAnalyzerMode;
 	}
 

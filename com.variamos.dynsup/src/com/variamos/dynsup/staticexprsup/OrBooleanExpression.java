@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericIdentifier;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.NumericIdentifier;
 
 /**
  * Class to create the Or expression. Part of PhD work at University of Paris 1
@@ -36,7 +36,7 @@ public class OrBooleanExpression extends AbstractBooleanExpression {
 	}
 
 	public OrBooleanExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, BooleanExpression simpleExpression) {
+			boolean replaceRight, IntBooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
@@ -60,21 +60,21 @@ public class OrBooleanExpression extends AbstractBooleanExpression {
 	}
 
 	@Override
-	public BooleanExpression transform(HlclFactory f,
+	public IntBooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap) {
-		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.or((BooleanExpression) expressionTerms.get(0),
-				(BooleanExpression) expressionTerms.get(1));
+		List<IntExpression> expressionTerms = expressionTerms(f, idMap);
+		return f.or((IntBooleanExpression) expressionTerms.get(0),
+				(IntBooleanExpression) expressionTerms.get(1));
 	}
 
 	@Override
-	public BooleanExpression transformNegation(HlclFactory f,
+	public IntBooleanExpression transformNegation(HlclFactory f,
 			Map<String, Identifier> idMap, boolean negateLeft,
 			boolean negateRight) {
-		List<Expression> expressionTerms = expressionTermsNegation(f, idMap,
+		List<IntExpression> expressionTerms = expressionTermsNegation(f, idMap,
 				true, true);
-		return f.and((BooleanExpression) expressionTerms.get(0),
-				(BooleanExpression) expressionTerms.get(1));
+		return f.and((IntBooleanExpression) expressionTerms.get(0),
+				(IntBooleanExpression) expressionTerms.get(1));
 	}
 
 }

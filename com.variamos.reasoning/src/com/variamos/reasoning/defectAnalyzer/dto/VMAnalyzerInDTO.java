@@ -1,6 +1,6 @@
 package com.variamos.reasoning.defectAnalyzer.dto;
 
-import com.variamos.core.enums.SolverEditorType;
+import com.variamos.common.model.enums.SolverEditorType;
 import com.variamos.reasoning.defectAnalyzer.model.VariabilityModel;
 
 

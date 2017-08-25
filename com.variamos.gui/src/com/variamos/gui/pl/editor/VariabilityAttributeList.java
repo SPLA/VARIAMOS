@@ -17,8 +17,8 @@ import com.variamos.dynsup.types.IntegerType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.VariabilityParameterDialog.DialogButtonAction;
-import com.variamos.hlcl.BinaryDomain;
-import com.variamos.hlcl.DomainParser;
+import com.variamos.hlcl.core.DomainParser;
+import com.variamos.hlcl.model.domains.BinaryDomain;
 
 @SuppressWarnings("serial")
 public class VariabilityAttributeList extends JList<Variable> {

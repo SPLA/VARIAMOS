@@ -14,9 +14,9 @@ import com.variamos.gui.perspeditor.model.actions.SetStringValueAction;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModel;
-import com.variamos.hlcl.BinaryDomain;
-import com.variamos.hlcl.Domain;
-import com.variamos.hlcl.IntervalDomain;
+import com.variamos.hlcl.model.domains.BinaryDomain;
+import com.variamos.hlcl.model.domains.IntDomain;
+import com.variamos.hlcl.model.domains.IntervalDomain;
 
 /**
  * A class to support the data model for the visual representation of the
@@ -42,7 +42,7 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 
 	public AssociationDataModel(Object root,
 			ElementsOperationAssociationPanel configurator, List<String> names,
-			List<Domain> domains) {
+			List<IntDomain> domains) {
 		super(root);
 		captions = new ArrayList<String>();
 		captions.add("Meta-Concept / Relation Type (optional) / Meta-Attribute or Meta-Expression");

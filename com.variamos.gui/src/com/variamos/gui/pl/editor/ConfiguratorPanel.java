@@ -42,7 +42,7 @@ import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.hlcl.BinaryDomain;
+import com.variamos.hlcl.model.domains.BinaryDomain;
 import com.variamos.solver.core.ConfigurationTask;
 import com.variamos.solver.model.SolverSolution;
 

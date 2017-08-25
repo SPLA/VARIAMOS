@@ -10,14 +10,14 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.variamos.core.enums.NotationType;
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.core.exceptions.TransformerException;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.HlclUtil;
-import com.variamos.hlcl.Identifier;
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.TransformerException;
+import com.variamos.common.model.enums.NotationType;
+import com.variamos.common.model.enums.SolverEditorType;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.core.HlclUtil;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.CauCosAnayzer;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.IntCauCosAnalyzer;
@@ -30,7 +30,7 @@ import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.VariabilityModel;
 import com.variamos.reasoning.defectAnalyzer.model.defects.DeadElement;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerModeEnum;
 import com.variamos.reasoning.transformer.VariabilityModelTransformer;
 import com.variamos.reasoning.util.ConstraintRepresentationUtil;
 
@@ -41,10 +41,10 @@ public class CauseAnalyzerTest {
 	public void testGetCorrectionsOneDefect() {
 
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> modelExpression = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> modelExpression = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						new HashMap<Long, Dependency>());
-		Collection<BooleanExpression> fixedExpressions = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> fixedExpressions = ConstraintRepresentationUtil
 				.dependencyToExpressionList(new HashMap<Long, Dependency>(),
 						variabilityModel.getFixedDependencies());
 
@@ -66,7 +66,7 @@ public class CauseAnalyzerTest {
 					SolverEditorType.SWI_PROLOG);
 			List<CauCos> corrections = caucosAnalyzer.getCorrections(
 					deadElement, model, fixedConstraints,
-					DefectAnalyzerMode.COMPLETE);
+					DefectAnalyzerModeEnum.COMPLETE);
 			assertTrue(corrections.size() == 12);
 
 			// 3. PRINT RESULTS
@@ -91,10 +91,10 @@ public class CauseAnalyzerTest {
 	public void testGetCaucos() {
 
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> modelExpression = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> modelExpression = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						new HashMap<Long, Dependency>());
-		Collection<BooleanExpression> fixedExpressions = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> fixedExpressions = ConstraintRepresentationUtil
 				.dependencyToExpressionList(new HashMap<Long, Dependency>(),
 						variabilityModel.getFixedDependencies());
 
@@ -115,7 +115,7 @@ public class CauseAnalyzerTest {
 			IntCauCosAnalyzer caucosAnalyzer = new CauCosAnayzer(
 					SolverEditorType.SWI_PROLOG);
 			Diagnosis diagnosis = caucosAnalyzer.getCauCos(deadElement, model,
-					fixedConstraints, DefectAnalyzerMode.COMPLETE);
+					fixedConstraints, DefectAnalyzerModeEnum.COMPLETE);
 			assertTrue(diagnosis.getCorrections().size() == 12);
 			assertTrue(diagnosis.getCauses().size() == 3);
 
@@ -134,10 +134,10 @@ public class CauseAnalyzerTest {
 	public void testGetCaucosDefects() {
 
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> modelExpression = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> modelExpression = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						new HashMap<Long, Dependency>());
-		Collection<BooleanExpression> fixedExpressions = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> fixedExpressions = ConstraintRepresentationUtil
 				.dependencyToExpressionList(new HashMap<Long, Dependency>(),
 						variabilityModel.getFixedDependencies());
 
@@ -158,7 +158,7 @@ public class CauseAnalyzerTest {
 					SolverEditorType.SWI_PROLOG);
 			DefectAnalyzerResult result = caucosAnalyzer.getCauCos(
 					deadElements, model, fixedConstraints,
-					DefectAnalyzerMode.COMPLETE);
+					DefectAnalyzerModeEnum.COMPLETE);
 			assertTrue(result.getAllDiagnosis().size() == 10);
 			// assertTrue(result.getClassifiedCorrections().getCommonDiagnosis()
 			// .size() == 11);

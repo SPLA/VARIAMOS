@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.FunctionalException;
 
 
 public class ExportDefectAnalyzer {
@@ -48,7 +48,7 @@ public class ExportDefectAnalyzer {
 		// Se guarda la hoja xls creada
 		String resuladosPath = outputDirectoryPath + directoryName + "Resumida"
 				+ System.currentTimeMillis() + ".xls";
-		ExportUtil.guardarXls(resultadosLibro, resuladosPath);
+		ExportUtil.saveXls(resultadosLibro, resuladosPath);
 	}
 
 	private static void validatePath(String outputDirectoryPath)

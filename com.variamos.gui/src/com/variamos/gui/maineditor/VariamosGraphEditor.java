@@ -90,7 +90,7 @@ import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.io.ConsoleTextArea;
 import com.variamos.solver.model.SolverSolution;
 

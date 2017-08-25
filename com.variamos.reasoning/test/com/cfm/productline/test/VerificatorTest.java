@@ -13,14 +13,14 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.variamos.core.enums.NotationType;
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.core.exceptions.TransformerException;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.HlclUtil;
-import com.variamos.hlcl.Identifier;
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.TransformerException;
+import com.variamos.common.model.enums.NotationType;
+import com.variamos.common.model.enums.SolverEditorType;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.core.HlclUtil;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.dto.VMTransformerInDTO;
@@ -34,15 +34,15 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
 import com.variamos.reasoning.transformer.VariabilityModelTransformer;
 import com.variamos.reasoning.util.ConstraintRepresentationUtil;
-import com.variamos.solver.model.SolverSolution;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
 
 public class VerificatorTest {
 
 	public void isVoidTest() {
 
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -58,7 +58,7 @@ public class VerificatorTest {
 	public void isFalsePLTest() {
 
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 		HlclProgram model = ConstraintRepresentationUtil
@@ -72,7 +72,7 @@ public class VerificatorTest {
 
 	public void isDeadElement() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -96,7 +96,7 @@ public class VerificatorTest {
 
 	public void isRedundant() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -108,7 +108,7 @@ public class VerificatorTest {
 				.getInclusionExclusionDependencies().values();
 		Dependency dependencyToEvaluate = traversalDependencies.iterator()
 				.next();
-		List<BooleanExpression> negationList = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> negationList = new ArrayList<IntBooleanExpression>();
 		negationList.add(dependencyToEvaluate.getNegationExpression());
 		Redundancy redundancy;
 		try {
@@ -124,7 +124,7 @@ public class VerificatorTest {
 
 	public void allRedundancies() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -133,7 +133,7 @@ public class VerificatorTest {
 		IntDefectsVerifier verifier = new DefectsVerifier(model,
 				SolverEditorType.SWI_PROLOG);
 
-		List<BooleanExpression> constraitsToVerify = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> constraitsToVerify = new ArrayList<IntBooleanExpression>();
 
 		Collection<Dependency> traversalDependencies = variabilityModel
 				.getInclusionExclusionDependencies().values();
@@ -159,7 +159,7 @@ public class VerificatorTest {
 	@Test
 	public void allDeadElements() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -188,7 +188,7 @@ public class VerificatorTest {
 	@Test
 	public void allDeadElementsConfiguration() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -219,7 +219,7 @@ public class VerificatorTest {
 	@Test
 	public void allFalseOptional() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -270,7 +270,7 @@ public class VerificatorTest {
 	@Test
 	public void allFalseOptionalPartialConfiguration() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -339,7 +339,7 @@ public class VerificatorTest {
 
 	public void allFalseOptional2() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -392,7 +392,7 @@ public class VerificatorTest {
 
 	public void isFalseOptional() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -470,7 +470,7 @@ public class VerificatorTest {
 
 	public void isNotAttainableDomains() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<IntBooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 

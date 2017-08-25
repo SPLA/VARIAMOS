@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.variamos.common.core.utilities.CollectionsSizeComparator;
+import com.variamos.common.core.utilities.SetUtil;
 import com.variamos.reasoning.defectAnalyzer.model.HittingSetVisitedNode;
-import com.variamos.reasoning.util.CollectionsSizeComparator;
-import com.variamos.reasoning.util.SetUtil;
 
 /**
  * Contiene los métodos relacionados con la identificación de los MUSes

@@ -30,8 +30,8 @@ import com.variamos.gui.perspeditor.model.AssociationDataModel;
 import com.variamos.gui.perspeditor.model.AssociationRow;
 import com.variamos.gui.perspeditor.model.AssociationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.hlcl.BinaryDomain;
-import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.model.domains.BinaryDomain;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 /**
  * A class to create the dialog to associate element's expressions to
@@ -172,17 +172,17 @@ public class ElementsOperationAssociationPanel extends JPanel implements
 			operLabels.addAll(operLabs);
 		}
 
-		List<Domain> domainOperColumns = new ArrayList<Domain>();
+		List<IntDomain> domainOperColumns = new ArrayList<IntDomain>();
 		for (String s : subOperTypesColumnsNames)
 			domainOperColumns.add(BinaryDomain.INSTANCE);
 
-		List<Domain> domainOperLabels = new ArrayList<Domain>();
+		List<IntDomain> domainOperLabels = new ArrayList<IntDomain>();
 		List<Boolean> valuesOperLabels = new ArrayList<Boolean>();
 		for (String s : operLabelNames)
 			domainOperLabels.add(BinaryDomain.INSTANCE);
 
 		List<String> operIO = new ArrayList<String>();
-		List<Domain> domainOperIO = new ArrayList<Domain>();
+		List<IntDomain> domainOperIO = new ArrayList<IntDomain>();
 		List<Boolean> valuesOperIO = new ArrayList<Boolean>();
 		for (String s : subOperColumnsNames) {
 			domainOperIO.add(BinaryDomain.INSTANCE);

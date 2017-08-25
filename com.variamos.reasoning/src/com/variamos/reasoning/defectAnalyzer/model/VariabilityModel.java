@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.cfm.productline.ProductLine;
-import com.variamos.core.enums.NotationType;
-import com.variamos.hlcl.HlclProgram;
+import com.variamos.common.model.enums.NotationType;
+import com.variamos.hlcl.core.HlclProgram;
 
 public class VariabilityModel extends ProductLine{
 	private String modelName;

@@ -7,25 +7,25 @@ import java.util.Map;
 
 import javax.swing.ProgressMonitor;
 
-import com.cfm.jgprolog.core.PrologException;
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.core.exceptions.TechnicalException;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclProgram;
+import org.jpl7.PrologException;
+
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.TechnicalException;
+import com.variamos.common.core.utilities.SetUtil;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.dto.DefectAnalyzerResult;
 import com.variamos.reasoning.defectAnalyzer.model.CauCos;
 import com.variamos.reasoning.defectAnalyzer.model.ClassifiedElement;
 import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Redundancy;
-import com.variamos.reasoning.defectAnalyzer.model.enums.ClassificationType;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.reasoning.defectAnalyzer.model.enums.ClassificationTypeEnum;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerModeEnum;
 import com.variamos.reasoning.util.PowerSetUtil;
-import com.variamos.reasoning.util.SetUtil;
 import com.variamos.reasoning.util.SolverOperationsUtil;
-import com.variamos.solver.model.SolverSolution;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
 
 public class CauCosAnayzer implements IntCauCosAnalyzer {
 
@@ -37,19 +37,16 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	ProgressMonitor progressMonitor = null;
 
 	public CauCosAnayzer() {
-		solver = new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
+		solver = new SolverOperationsUtil();
 	}
 
 	public CauCosAnayzer(Component parentComponent, String progressDisplay) {
-		solver = new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
+		solver = new SolverOperationsUtil();
 		this.parentComponent = parentComponent;
 		this.progressDisplay = progressDisplay;
 	}
 
-	public CauCosAnayzer(SolverEditorType solverEditorType) {
-		solver = new SolverOperationsUtil(solverEditorType);
-
-	}
+	
 
 	/**
 	 * Verifica si un conjunto de restricciones son satisfacibles o
@@ -60,14 +57,14 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	 * @return true: is satisfiable. Otherwise False
 	 * @throws FunctionalException
 	 */
-	private boolean hasSolution(List<BooleanExpression> modelExpressions,
-			List<BooleanExpression> fixedExpressions, Defect defectToAnalyze)
+	private boolean hasSolution(List<IntBooleanExpression> modelExpressions,
+			List<IntBooleanExpression> fixedExpressions, Defect defectToAnalyze)
 			throws FunctionalException {
 
 		// Se adiciona a la lista la expression que permite verificar el defecto
 		if (defectToAnalyze.getVerificationExpressions() != null) {
 
-			List<BooleanExpression> modelCopy = new ArrayList<BooleanExpression>();
+			List<IntBooleanExpression> modelCopy = new ArrayList<IntBooleanExpression>();
 			modelCopy.addAll(modelExpressions);
 			modelCopy.addAll(defectToAnalyze.getVerificationExpressions());
 			if (!fixedExpressions.isEmpty()) {
@@ -88,11 +85,11 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	}
 
-	private List<BooleanExpression> getNextSet(
-			List<List<BooleanExpression>> dependenciesToChange,
-			List<List<BooleanExpression>> blockedClausesSets) {
+	private List<IntBooleanExpression> getNextSet(
+			List<List<IntBooleanExpression>> dependenciesToChange,
+			List<List<IntBooleanExpression>> blockedClausesSets) {
 
-		List<BooleanExpression> dependencyToReturn = null;
+		List<IntBooleanExpression> dependencyToReturn = null;
 		int indexDependencyToRemove = 0;
 		if (!dependenciesToChange.isEmpty()) {
 			// Antes de cambiar se verifica que no sea subconjunto de las
@@ -132,21 +129,21 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	 * @throws FunctionalException
 	 * @throws PrologException
 	 */
-	private List<List<BooleanExpression>> getMCSes(Defect defectToAnalyze,
+	private List<List<IntBooleanExpression>> getMCSes(Defect defectToAnalyze,
 			HlclProgram modelToTest,
-			List<List<BooleanExpression>> unsatisfiableSets,
-			HlclProgram fixedExpressions, DefectAnalyzerMode mode)
+			List<List<IntBooleanExpression>> unsatisfiableSets,
+			HlclProgram fixedExpressions, DefectAnalyzerModeEnum mode)
 			throws FunctionalException {
 
 		// Bandera que controla hasta cuando se buscan los MCS
 		boolean advance = Boolean.TRUE;
 		int r = 1;
 		// Almacena todos los MCS identificados
-		List<List<BooleanExpression>> allMCSes = new ArrayList<List<BooleanExpression>>();
+		List<List<IntBooleanExpression>> allMCSes = new ArrayList<List<IntBooleanExpression>>();
 
 		// Combinaciones de potenciales MCS que no deben ser analizadas pq se
 		// sabe previamente que no van a generar ningún resultado
-		List<List<BooleanExpression>> blockedConstraints = new ArrayList<List<BooleanExpression>>();
+		List<List<IntBooleanExpression>> blockedConstraints = new ArrayList<List<IntBooleanExpression>>();
 
 		HlclProgram modelExpressions = new HlclProgram();
 		modelExpressions.addAll(modelToTest);
@@ -165,9 +162,9 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			// Se construye el powerset de relaciones a ajustar se podan los
 			// elementos del MCS ya identificados y las cláusulas que se
 			// deben bloquear.
-			List<List<BooleanExpression>> subSets = PowerSetUtil.calculateSets(
-					new ArrayList<BooleanExpression>(), modelExpressions,
-					new ArrayList<List<BooleanExpression>>(), r, allMCSes,
+			List<List<IntBooleanExpression>> subSets = PowerSetUtil.calculateSets(
+					new ArrayList<IntBooleanExpression>(), modelExpressions,
+					new ArrayList<List<IntBooleanExpression>>(), r, allMCSes,
 					blockedConstraints);
 
 			if (subSets.isEmpty()) {
@@ -177,7 +174,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			} else {
 				// Se consultan los MCS de este nivel, teniendo en cuenta
 				// los bloqueos ya encontrados. Se generan nuevos bloqueos
-				List<List<BooleanExpression>> MCSes = identifyMCSBySize(
+				List<List<IntBooleanExpression>> MCSes = identifyMCSBySize(
 						subSets, modelExpressions, fixedExpressions,
 						blockedConstraints, unsatisfiableSets, defectToAnalyze);
 
@@ -189,16 +186,16 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				if (!allMCSes.isEmpty()) {
 
 					// Se verifica el modo
-					if (mode.equals(DefectAnalyzerMode.PARTIAL)) {
+					if (mode.equals(DefectAnalyzerModeEnum.PARTIAL)) {
 						advance = Boolean.FALSE;
 					}
 				}
 
 				// Se verifica el modo
 				if (!unsatisfiableSets.isEmpty()
-						&& ((mode.equals(DefectAnalyzerMode.INCOMPLETE_FAST) && r > 1))
-						|| (mode.equals(DefectAnalyzerMode.INCOMPLETE_MED) && r > 3)
-						|| (mode.equals(DefectAnalyzerMode.INCOMPLETE_SLOW) && r > 5)) {
+						&& ((mode.equals(DefectAnalyzerModeEnum.INCOMPLETE_FAST) && r > 1))
+						|| (mode.equals(DefectAnalyzerModeEnum.INCOMPLETE_MED) && r > 3)
+						|| (mode.equals(DefectAnalyzerModeEnum.INCOMPLETE_SLOW) && r > 5)) {
 					advance = Boolean.FALSE;
 					allMCSes = unsatisfiableSets;
 
@@ -213,34 +210,34 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	private List<CauCos> getCauses(Defect defectToAnalyze,
 			HlclProgram fixedConstraints, List<CauCos> corrections,
-			List<List<BooleanExpression>> unsatisfiableSets,
-			DefectAnalyzerMode mode) throws FunctionalException {
+			List<List<IntBooleanExpression>> unsatisfiableSets,
+			DefectAnalyzerModeEnum mode) throws FunctionalException {
 
-		List<List<BooleanExpression>> allMUSes = new ArrayList<List<BooleanExpression>>();
+		List<List<IntBooleanExpression>> allMUSes = new ArrayList<List<IntBooleanExpression>>();
 		List<CauCos> causes = new ArrayList<CauCos>();
 
-		if (mode.equals(DefectAnalyzerMode.PARTIAL)) {
+		if (mode.equals(DefectAnalyzerModeEnum.PARTIAL)) {
 			// We use the unsatisfiable constraints previusly identified. They
 			// are causes identified when we identify corrections
 
 			// Each MUS is filter to avoid verification expressions and fixed
 			// expressions in the set of causes
-			for (List<BooleanExpression> expressions : unsatisfiableSets) {
-				List<BooleanExpression> expressionsFiltered = new ArrayList<BooleanExpression>();
+			for (List<IntBooleanExpression> expressions : unsatisfiableSets) {
+				List<IntBooleanExpression> expressionsFiltered = new ArrayList<IntBooleanExpression>();
 				expressionsFiltered.addAll(expressions);
 				expressionsFiltered.removeAll(defectToAnalyze
 						.getVerificationExpressions());
 				expressionsFiltered.removeAll(fixedConstraints);
 				allMUSes.add(expressionsFiltered);
 			}
-		} else if (mode.equals(DefectAnalyzerMode.COMPLETE)) {
+		} else if (mode.equals(DefectAnalyzerModeEnum.COMPLETE)) {
 			// In this case we use the hitting set method to identify causes
-			List<List<BooleanExpression>> sets = new ArrayList<List<BooleanExpression>>();
+			List<List<IntBooleanExpression>> sets = new ArrayList<List<IntBooleanExpression>>();
 			for (CauCos correction : corrections) {
 				sets.add(correction.getElements());
 			}
 			allMUSes = HittingSetIdentifier.filterMUSes(sets,
-					new ArrayList<BooleanExpression>(), allMUSes);
+					new ArrayList<IntBooleanExpression>(), allMUSes);
 
 		}
 		// Es solo una regla de control para garantizar que el hitting set
@@ -251,7 +248,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		}
 
 		// Se crean tantas causas como MUSes se hubieran identificado
-		for (List<BooleanExpression> MUSes : allMUSes) {
+		for (List<IntBooleanExpression> MUSes : allMUSes) {
 			causes.add(new CauCos(MUSes));
 		}
 
@@ -274,22 +271,22 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	 * @return
 	 * @throws FunctionalException
 	 */
-	private List<List<BooleanExpression>> identifyMCSBySize(
-			List<List<BooleanExpression>> expressionsToTest,
+	private List<List<IntBooleanExpression>> identifyMCSBySize(
+			List<List<IntBooleanExpression>> expressionsToTest,
 			HlclProgram modelToTest, HlclProgram fixedExpressions,
-			List<List<BooleanExpression>> blockedConstraints,
-			List<List<BooleanExpression>> unsatisifableSets, Defect defect)
+			List<List<IntBooleanExpression>> blockedConstraints,
+			List<List<IntBooleanExpression>> unsatisifableSets, Defect defect)
 			throws FunctionalException {
-		List<BooleanExpression> candidateMCS = null;
-		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> candidateMCS = null;
+		List<IntBooleanExpression> modelExpressions = new ArrayList<IntBooleanExpression>();
 		// LLeva la cuenta de cuantas instancias se ejecutan realmente
 		int analyzedSets = 0;
 		boolean isMCS = Boolean.FALSE;
 		boolean advance = Boolean.TRUE;
 		int r = expressionsToTest.get(0).size();
 		int n = expressionsToTest.size();
-		List<List<BooleanExpression>> MCSes = new ArrayList<List<BooleanExpression>>();
-		List<List<BooleanExpression>> newUnsatisfiableSet = new ArrayList<List<BooleanExpression>>();
+		List<List<IntBooleanExpression>> MCSes = new ArrayList<List<IntBooleanExpression>>();
+		List<List<IntBooleanExpression>> newUnsatisfiableSet = new ArrayList<List<IntBooleanExpression>>();
 		// System.out.println("INICIO IDENTIFICACIÓN NIVEL " + r);
 
 		while (advance) {
@@ -358,8 +355,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	 * @throws FunctionalException
 	 */
 	private int getTransitionClauses(
-			List<BooleanExpression> originalSetOfClauses,
-			List<BooleanExpression> fixedDependenciesList,
+			List<IntBooleanExpression> originalSetOfClauses,
+			List<IntBooleanExpression> fixedDependenciesList,
 			Defect defectToAnalyze, int startConstraintPosition)
 			throws FunctionalException {
 
@@ -367,7 +364,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		int max = originalSetOfClauses.size();
 		int center = 0;
 		boolean isSatisfiable = Boolean.FALSE;
-		List<BooleanExpression> subsetOriginalSetOfClauses = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> subsetOriginalSetOfClauses = new ArrayList<IntBooleanExpression>();
 
 		while (min != max) {
 			subsetOriginalSetOfClauses.clear();
@@ -390,15 +387,15 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	}
 
-	private List<BooleanExpression> reduceUnsatisfiableSet(
-			List<BooleanExpression> unsatisfiableDependenciesList,
-			List<BooleanExpression> fixedDependenciesList,
+	private List<IntBooleanExpression> reduceUnsatisfiableSet(
+			List<IntBooleanExpression> unsatisfiableDependenciesList,
+			List<IntBooleanExpression> fixedDependenciesList,
 			Defect defectToAnalyze) throws FunctionalException {
 
 		int identifiedTransitionConstraints = 0;
 		int unsatisfiableSize = unsatisfiableDependenciesList.size();
-		BooleanExpression transitionClause = null;
-		List<BooleanExpression> newUnsatisfiableSet = new ArrayList<BooleanExpression>();
+		IntBooleanExpression transitionClause = null;
+		List<IntBooleanExpression> newUnsatisfiableSet = new ArrayList<IntBooleanExpression>();
 		newUnsatisfiableSet.addAll(unsatisfiableDependenciesList);
 		int indexTransitionConstraint = 0;
 		while (identifiedTransitionConstraints < unsatisfiableSize) {
@@ -414,7 +411,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				// Se quita de la lista de unsatisfiable constraint las
 				// constraints que esten por encima del index de la transition
 				// constraint
-				List<BooleanExpression> newUnsatisfiableSetTemp = new ArrayList<BooleanExpression>();
+				List<IntBooleanExpression> newUnsatisfiableSetTemp = new ArrayList<IntBooleanExpression>();
 				newUnsatisfiableSetTemp.addAll(newUnsatisfiableSet.subList(0,
 						indexTransitionConstraint));
 
@@ -459,18 +456,18 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	 * @return
 	 * @throws FunctionalException
 	 */
-	private List<BooleanExpression> blockConstraints(
-			List<BooleanExpression> expressionsToTest, HlclProgram modelToTest,
-			List<BooleanExpression> fixedExpressions,
-			List<List<BooleanExpression>> unsatisfiableSets,
-			List<List<BooleanExpression>> blockedConstraints, int k,
+	private List<IntBooleanExpression> blockConstraints(
+			List<IntBooleanExpression> expressionsToTest, HlclProgram modelToTest,
+			List<IntBooleanExpression> fixedExpressions,
+			List<List<IntBooleanExpression>> unsatisfiableSets,
+			List<List<IntBooleanExpression>> blockedConstraints, int k,
 			Defect defect) throws FunctionalException {
 
 		boolean addedColllection = Boolean.FALSE;
-		List<BooleanExpression> newUnsatisfiableSet = new ArrayList<BooleanExpression>();
-		List<BooleanExpression> unsatisifableSetCopy = new ArrayList<BooleanExpression>();
-		List<BooleanExpression> modelToTestCopy = new ArrayList<BooleanExpression>();
-		List<BooleanExpression> newUnsatisfiableSetComplement = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> newUnsatisfiableSet = new ArrayList<IntBooleanExpression>();
+		List<IntBooleanExpression> unsatisifableSetCopy = new ArrayList<IntBooleanExpression>();
+		List<IntBooleanExpression> modelToTestCopy = new ArrayList<IntBooleanExpression>();
+		List<IntBooleanExpression> newUnsatisfiableSetComplement = new ArrayList<IntBooleanExpression>();
 
 		// Guardará la copia que queda al final de cláusulas insatisfacibles (
 		// sin el defecto a analizar)
@@ -525,9 +522,9 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	 * @param setToBlock
 	 * @return
 	 */
-	private List<List<BooleanExpression>> addConstraintsToBlock(
-			List<List<BooleanExpression>> blockedSets,
-			List<BooleanExpression> setToBlock, int minimalSize) {
+	private List<List<IntBooleanExpression>> addConstraintsToBlock(
+			List<List<IntBooleanExpression>> blockedSets,
+			List<IntBooleanExpression> setToBlock, int minimalSize) {
 
 		// Se adiciona la cláusula y luego se eliminan los subsets que existan
 		// dentro de la lista de cláusulas a bloquear, pq son innecesarios
@@ -566,8 +563,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	 * @return
 	 */
 	private boolean addUnsatisfiableConstraints(
-			List<List<BooleanExpression>> unsatisfiableCollectionOfSets,
-			List<BooleanExpression> clausesToAdd) {
+			List<List<IntBooleanExpression>> unsatisfiableCollectionOfSets,
+			List<IntBooleanExpression> clausesToAdd) {
 
 		// Se adiciona la cláusula y luego se eliminan los supersets que existan
 		// dentro de la lista de cláusulas a bloquear, pq son innecesarios
@@ -590,9 +587,9 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	}
 
 	public Diagnosis analyzeCausesOneDefect(Defect defectToAnalyze,
-			Map<Long, BooleanExpression> modelDependenciesList,
-			Map<Long, BooleanExpression> fixedDependenciesList,
-			DefectAnalyzerMode defectAnalyzerMode) throws FunctionalException {
+			Map<Long, IntBooleanExpression> modelDependenciesList,
+			Map<Long, IntBooleanExpression> fixedDependenciesList,
+			DefectAnalyzerModeEnum defectAnalyzerMode) throws FunctionalException {
 		System.out.println("Analyzed defect: "
 				+ defectToAnalyze.getDefectType().name() + " "
 				+ defectToAnalyze.getId());
@@ -629,7 +626,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	@Override
 	public Diagnosis getCauCos(Defect defect, HlclProgram model,
-			HlclProgram fixedConstraints, DefectAnalyzerMode mode)
+			HlclProgram fixedConstraints, DefectAnalyzerModeEnum mode)
 			throws FunctionalException {
 		long startTime = System.nanoTime();
 		if (parentComponent != null) {
@@ -640,7 +637,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			progressMonitor.setProgress(0);
 		}
 		Diagnosis diagnosis = new Diagnosis(defect);
-		List<List<BooleanExpression>> unsatisfiableSets = new ArrayList<List<BooleanExpression>>();
+		List<List<IntBooleanExpression>> unsatisfiableSets = new ArrayList<List<IntBooleanExpression>>();
 
 		// To avoid null pointer exceptions
 		if (fixedConstraints == null) {
@@ -684,20 +681,20 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	@Override
 	public List<CauCos> getCorrections(Defect defect, HlclProgram model,
-			HlclProgram fixedConstraints, DefectAnalyzerMode mode)
+			HlclProgram fixedConstraints, DefectAnalyzerModeEnum mode)
 			throws FunctionalException {
 		// La lista vacía se envía para guardar los conjuntos irresolubles. Esto
 		// es importante cuando se hallan causas y correcciones juntas
 		List<CauCos> corrections = getCorrections(defect, model,
-				fixedConstraints, new ArrayList<List<BooleanExpression>>(),
+				fixedConstraints, new ArrayList<List<IntBooleanExpression>>(),
 				mode);
 		return corrections;
 	}
 
 	private List<CauCos> getCorrections(Defect defect, HlclProgram model,
 			HlclProgram fixedConstraints,
-			List<List<BooleanExpression>> unsatisfiableSets,
-			DefectAnalyzerMode mode) throws FunctionalException {
+			List<List<IntBooleanExpression>> unsatisfiableSets,
+			DefectAnalyzerModeEnum mode) throws FunctionalException {
 		long i = 0;
 
 		if (progressMonitor != null) {
@@ -711,7 +708,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			// eso
 			// no tiene sentido en este caso
 			HlclProgram modelCopy = new HlclProgram();
-			for (BooleanExpression expression : model) {
+			for (IntBooleanExpression expression : model) {
 				if (!expression.equals(defect.getVerificationExpression())) {
 					modelCopy.add(expression);
 				}
@@ -725,11 +722,11 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		}
 
 		List<CauCos> corrections = new ArrayList<CauCos>();
-		List<List<BooleanExpression>> allMCSes = getMCSes(defect, model,
+		List<List<IntBooleanExpression>> allMCSes = getMCSes(defect, model,
 				unsatisfiableSets, fixedConstraints, mode);
 
 		// Se crean tantas correcciones como MCSes se hubieran identificado
-		for (List<BooleanExpression> MCS : allMCSes) {
+		for (List<IntBooleanExpression> MCS : allMCSes) {
 			corrections.add(new CauCos(MCS));
 			i += 1 * 50.0 / allMCSes.size();
 
@@ -745,7 +742,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	@Override
 	public DefectAnalyzerResult getCauCos(List<Defect> defects,
 			HlclProgram model, HlclProgram fixedConstraints,
-			DefectAnalyzerMode mode) throws FunctionalException {
+			DefectAnalyzerModeEnum mode) throws FunctionalException {
 
 		long startTime = System.nanoTime();
 		DefectAnalyzerResult caucosResult = new DefectAnalyzerResult();
@@ -764,7 +761,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		VariabilityModelCausesCorrectionsSorter sorter = new VariabilityModelCausesCorrectionsSorter();
 		long classificationStartTime = System.nanoTime();
 		ClassifiedElement classifiedCauses = sorter.classifyDiagnosis(
-				allDiagnosis, ClassificationType.CAUSES);
+				allDiagnosis, ClassificationTypeEnum.CAUSES);
 		long classificationEndTime = System.nanoTime();
 		long classificationTotalTime = classificationEndTime
 				- classificationStartTime;
@@ -772,7 +769,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 		classificationStartTime = System.nanoTime();
 		ClassifiedElement classifiedCorrections = sorter.classifyDiagnosis(
-				allDiagnosis, ClassificationType.CORRECTIONS);
+				allDiagnosis, ClassificationTypeEnum.CORRECTIONS);
 		classificationEndTime = System.nanoTime();
 		classificationTotalTime = classificationEndTime
 				- classificationStartTime;
@@ -791,14 +788,14 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	@Override
 	public List<Diagnosis> getCorrections(List<Defect> defects,
 			HlclProgram model, HlclProgram fixedConstraints,
-			DefectAnalyzerMode mode) throws FunctionalException {
+			DefectAnalyzerModeEnum mode) throws FunctionalException {
 
 		List<Diagnosis> allDiagnosis = new ArrayList<Diagnosis>();
 		for (Defect defect : defects) {
 			Diagnosis diagnosis = new Diagnosis(defect);
 			long startTime = System.nanoTime();
 			List<CauCos> corrections = getCorrections(defect, model,
-					fixedConstraints, new ArrayList<List<BooleanExpression>>(),
+					fixedConstraints, new ArrayList<List<IntBooleanExpression>>(),
 					mode);
 			diagnosis.setCorrections(corrections);
 			long endTime = System.nanoTime();

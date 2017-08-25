@@ -3,29 +3,29 @@ package com.variamos.reasoning.defectAnalyzer.model.defects;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectTypeEnum;
 
 public class Defect {
 
 	protected String id;
-	protected DefectType defectType;
+	protected DefectTypeEnum defectType;
 	// Guarda la lista de restricciones que se usan para identificar el defecto
 	// con las operaciones de verificación
-	protected List<BooleanExpression> verificationExpressions;
+	protected List<IntBooleanExpression> verificationExpressions;
 
 	public Defect() {
 		super();
-		verificationExpressions = new ArrayList<BooleanExpression>();
+		verificationExpressions = new ArrayList<IntBooleanExpression>();
 	}
 
-	public Defect(BooleanExpression verificationExpression) {
+	public Defect(IntBooleanExpression verificationExpression) {
 		this();
 		verificationExpressions.add(verificationExpression);
 
 	}
 
-	public Defect(List<BooleanExpression> verificationExpressions) {
+	public Defect(List<IntBooleanExpression> verificationExpressions) {
 		super();
 		this.verificationExpressions = verificationExpressions;
 	}
@@ -48,7 +48,7 @@ public class Defect {
 	/**
 	 * @return the defectType
 	 */
-	public DefectType getDefectType() {
+	public DefectTypeEnum getDefectType() {
 		return defectType;
 	}
 
@@ -56,7 +56,7 @@ public class Defect {
 	 * @param defectType
 	 *            the defectType to set
 	 */
-	public void setDefectType(DefectType defectType) {
+	public void setDefectType(DefectTypeEnum defectType) {
 		this.defectType = defectType;
 	}
 
@@ -112,7 +112,7 @@ public class Defect {
 	/**
 	 * @return the verificationExpression
 	 */
-	public BooleanExpression getVerificationExpression() {
+	public IntBooleanExpression getVerificationExpression() {
 
 		if (!verificationExpressions.isEmpty()) {
 			return verificationExpressions.get(0);
@@ -127,16 +127,16 @@ public class Defect {
 	 *            the verificationExpression to set
 	 */
 	public void setVerificationExpression(
-			BooleanExpression verificationExpression) {
+			IntBooleanExpression verificationExpression) {
 		verificationExpressions.add(verificationExpression);
 	}
 
-	public List<BooleanExpression> getVerificationExpressions() {
+	public List<IntBooleanExpression> getVerificationExpressions() {
 		return verificationExpressions;
 	}
 
 	public void setVerificationExpressions(
-			List<BooleanExpression> verificationExpressions) {
+			List<IntBooleanExpression> verificationExpressions) {
 		this.verificationExpressions = verificationExpressions;
 	}
 

@@ -12,16 +12,15 @@ import java.util.TreeMap;
 
 import javax.swing.ProgressMonitor;
 
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.core.exceptions.TechnicalException;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.BooleanNegation;
-import com.variamos.hlcl.Domain;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.HlclUtil;
-import com.variamos.hlcl.Identifier;
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.TechnicalException;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.core.HlclUtil;
+import com.variamos.hlcl.model.domains.IntDomain;
+import com.variamos.hlcl.model.expressions.BooleanNegation;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.constants.TransformerConstants;
 import com.variamos.reasoning.defectAnalyzer.dto.VerificationResult;
 import com.variamos.reasoning.defectAnalyzer.model.defects.DeadElement;
@@ -33,8 +32,8 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
 import com.variamos.reasoning.util.SolverOperationsUtil;
 import com.variamos.reasoning.util.VerifierUtilExpression;
-import com.variamos.solver.model.SolverSolution;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
 
 public class DefectsVerifier implements IntDefectsVerifier {
 
@@ -50,18 +49,18 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	private long solverTime = 0;
 	private long totalTime = 0;
 
-	public DefectsVerifier(HlclProgram model, SolverEditorType solverEditorType) {
+	public DefectsVerifier(HlclProgram model) {
 		verifiedValuesMap = new HashMap<Identifier, Set<Number>>();
-		solver = new SolverOperationsUtil(solverEditorType);
+		solver = new SolverOperationsUtil();
 		this.model = model;
 		identifiersList = HlclUtil.getUsedIdentifiers(model);
 	}
 
 	public DefectsVerifier(HlclProgram model,
-			SolverEditorType solverEditorType, Component parentComponent,
+			Component parentComponent,
 			String progressDisplay) {
 		verifiedValuesMap = new HashMap<Identifier, Set<Number>>();
-		solver = new SolverOperationsUtil(solverEditorType);
+		solver = new SolverOperationsUtil();
 		this.model = model;
 		identifiersList = HlclUtil.getUsedIdentifiers(model);
 		this.parentComponent = parentComponent;
@@ -100,7 +99,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	// jcmunoz: new method to support additional constraints in the verification
 	// of false product lines
 	public List<Defect> getFalsePLs(
-			List<BooleanExpression> additionalConstraints) {
+			List<IntBooleanExpression> additionalConstraints) {
 		List<Defect> out = new ArrayList<Defect>();
 		if (additionalConstraints == null || additionalConstraints.size() == 0) {
 			boolean isFPL = solver.isFalseProductLine(model);
@@ -109,7 +108,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			return out;
 		}
 
-		for (BooleanExpression additional : additionalConstraints) {
+		for (IntBooleanExpression additional : additionalConstraints) {
 			HlclProgram testModel = new HlclProgram();
 			testModel.addAll(model);
 			testModel.add(additional);
@@ -125,7 +124,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	// jcmunoz: new method to support additional constraints in the verification
 	// of voids
 	public List<Defect> getVoids(
-			List<BooleanExpression> additionalConstraints) {
+			List<IntBooleanExpression> additionalConstraints) {
 		List<Defect> out = new ArrayList<Defect>();
 		if (additionalConstraints == null || additionalConstraints.size() == 0) {
 			boolean isVoid = !solver.isSatisfiable(model);
@@ -134,7 +133,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			return out;
 		}
 
-		for (BooleanExpression additional : additionalConstraints) {
+		for (IntBooleanExpression additional : additionalConstraints) {
 			HlclProgram testModel = new HlclProgram();
 			testModel.addAll(model);
 			testModel.add(additional);
@@ -166,9 +165,9 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 		List<Defect> notAttainableDomains = new ArrayList<Defect>();
 		List<Integer> definedDomainValues = null;
-		List<BooleanExpression> variabilityModelConstraintRepresentation = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> variabilityModelConstraintRepresentation = new ArrayList<IntBooleanExpression>();
 
-		BooleanExpression verificationExpression = null;
+		IntBooleanExpression verificationExpression = null;
 
 		// Se verifica si el modelo es vacío
 		boolean isSatisfiable = solver.isSatisfiable(model);
@@ -275,7 +274,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 		List<Integer> definedDomainValues = null;
 		boolean createDefect = Boolean.TRUE;
-		Domain domain = identifier.getDomain();
+		IntDomain domain = identifier.getDomain();
 		// Se obtienen los valores parametrizados para esta variable
 		definedDomainValues = domain.getPossibleValues();
 		SolverSolution configurationResult = null;
@@ -323,7 +322,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			}
 		}
 		if (createDefect) {
-			BooleanExpression verificationExpression = null;
+			IntBooleanExpression verificationExpression = null;
 			// Ejm F1 #= 0.
 			// Se adiciona las restricciones que tiene el modelo de
 			// variabilidad inicial
@@ -524,7 +523,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			}
 		}
 		if (createDefect) {
-			BooleanExpression verificationExpression = null;
+			IntBooleanExpression verificationExpression = null;
 			// Ejm F1 #= 0.
 			// Se adiciona las restricciones que tiene el modelo de
 			// variabilidad inicial
@@ -541,7 +540,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	}
 
 	@Override
-	public Defect isRedundant(BooleanExpression expressionToVerify)
+	public Defect isRedundant(IntBooleanExpression expressionToVerify)
 			throws FunctionalException {
 
 		if (expressionToVerify == null) {
@@ -567,7 +566,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 			// 2. Se verifica si el modelo sin la restriccion redundante es
 			// resoluble
-			for (BooleanExpression expression : model) {
+			for (IntBooleanExpression expression : model) {
 				if (!expression.equals(expressionToVerify)) {
 					modelWithoutRedundancy.add(expression);
 				}
@@ -590,8 +589,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				HlclFactory f = new HlclFactory();
 				BooleanNegation negation;
 				Identifier reification;
-				BooleanExpression reifedExpression;
-				List<BooleanExpression> negationList = new ArrayList<BooleanExpression>();
+				IntBooleanExpression reifedExpression;
+				List<IntBooleanExpression> negationList = new ArrayList<IntBooleanExpression>();
 				// Se reifica la expresión a negar en una variable, luego se
 				// aplica la negación sobre esa variable que es ( 1- Variable)
 				// #> 0
@@ -728,12 +727,12 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	@Override
 	public List<Defect> getRedundancies(
-			List<BooleanExpression> constraitsToVerify)
+			List<IntBooleanExpression> constraitsToVerify)
 			throws FunctionalException {
 		List<Defect> redundanciesList = new ArrayList<Defect>();
-		Iterator<BooleanExpression> it = constraitsToVerify.iterator();
+		Iterator<IntBooleanExpression> it = constraitsToVerify.iterator();
 		while (it.hasNext()) {
-			BooleanExpression expressionToVerify = it.next();
+			IntBooleanExpression expressionToVerify = it.next();
 			Redundancy redudancy = (Redundancy) isRedundant(expressionToVerify);
 			if (redudancy != null) {
 				redundanciesList.add(redudancy);
@@ -763,7 +762,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	@Override
 	public VerificationResult getDefects(Set<Identifier> optionalElements,
 			Set<Identifier> deadElementsToVerify,
-			List<BooleanExpression> constraintsToVerifyRedundancies)
+			List<IntBooleanExpression> constraintsToVerifyRedundancies)
 			throws InterruptedException {
 
 		VerificationResult verificationResult = new VerificationResult();

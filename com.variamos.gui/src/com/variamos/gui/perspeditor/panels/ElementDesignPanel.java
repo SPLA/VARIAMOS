@@ -53,7 +53,7 @@ import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.hlcl.LabelingOrder;
+import com.variamos.hlcl.model.LabelingOrderEnum;
 
 /**
  * A class to draw the first property tab. Part of PhD work at University of
@@ -1130,7 +1130,7 @@ public class ElementDesignPanel extends JPanel {
 								.equals("OpMLabeling")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"sortorder",
-							LabelingOrder.class.getCanonicalName(), null);
+							LabelingOrderEnum.class.getCanonicalName(), null);
 
 					attPanel.add(new JLabel(mxResources.get("labelingSort")));
 					// attPanel.add(new JLabel(""));

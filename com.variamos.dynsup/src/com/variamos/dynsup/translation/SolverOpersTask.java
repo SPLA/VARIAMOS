@@ -14,23 +14,23 @@ import java.util.TreeSet;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingWorker;
 
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.core.util.StringUtils;
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.common.core.utilities.StringUtils;
+import com.variamos.common.model.enums.SolverEditorType;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.types.OpersComputationType;
 import com.variamos.dynsup.types.OpersOpType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.dynsup.types.OpersSubOpType;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.HlclUtil;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.core.HlclUtil;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.io.ConsoleTextArea;
 import com.variamos.io.configurations.ExportConfiguration;
 import com.variamos.reasoning.defectAnalyzer.CauCosAnayzer;
@@ -40,8 +40,8 @@ import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.model.CauCos;
 import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerModeEnum;
+import com.variamos.reasoning.defectAnalyzer.model.enums.DefectTypeEnum;
 import com.variamos.solver.model.SolverSolution;
 
 /**
@@ -268,7 +268,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		List<String> requiredConceptsNames = new ArrayList<String>();
 		List<String> deadConceptsNames = new ArrayList<String>();
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(
-				configHlclProgram, SolverEditorType.SWI_PROLOG,
+				configHlclProgram,
 				parentComponent, "Configuring Selected Elements");
 		// System.out.println("FREE: " + freeIdentifiers);
 
@@ -460,8 +460,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									.getInstAttributeValue("outAttribute");
 							boolean natLanguage = (boolean) suboper
 									.getInstAttributeValue("useNatLangExprDesc");
-							DefectAnalyzerMode mode = null;
-							for (DefectAnalyzerMode m : DefectAnalyzerMode
+							DefectAnalyzerModeEnum mode = null;
+							for (DefectAnalyzerModeEnum m : DefectAnalyzerModeEnum
 									.values()) {
 								if (StringUtils.formatEnumValue(m.toString())
 										.equals(modeStr)) {
@@ -502,7 +502,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							String coreOperName = null;
 							InstElement coreOperation = null;
 							boolean updateOutAttributes = false;
-							List<BooleanExpression> constraitsToVerifyRedundacies = null;
+							List<IntBooleanExpression> constraitsToVerifyRedundacies = null;
 							if (type.equals(StringUtils
 									.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
 											.toString()))) {
@@ -758,7 +758,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			List<OpersIOAttribute> outAttributes, int numberOperations,
 			boolean reuseIds, boolean updateIds, String outAttribute,
 			boolean updateOutAttributes, InstElement coreOperation,
-			List<BooleanExpression> constraitsToVerifyRedundacies)
+			List<IntBooleanExpression> constraitsToVerifyRedundacies)
 			throws InterruptedException {
 		int result = 0;
 		executionTime = "";
@@ -783,7 +783,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private int cauCos(int type, InstElement operation, InstElement subOper,
 			String verifHint, List<OpersIOAttribute> outAttributes,
 			boolean updateOutAttributes, String outAttribute,
-			int numberOperations, DefectAnalyzerMode mode, boolean indivVerExp,
+			int numberOperations, DefectAnalyzerModeEnum mode, boolean indivVerExp,
 			boolean indivRelExp, boolean natLanguage)
 			throws InterruptedException {
 		int outResult = 0;
@@ -798,7 +798,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
 					refasModel, operation, null, null);
-			List<BooleanExpression> verifyList = refas2hlcl.getHlclProgram(
+			List<IntBooleanExpression> verifyList = refas2hlcl.getHlclProgram(
 					operation, subOper.getIdentifier(),
 					OpersSubOpExecType.VERIFICATION, transExpSet);
 			HlclProgram relaxedList = refas2hlcl.getHlclProgram(operation,
@@ -817,20 +817,19 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			modelToVerify.addAll(verifyList);
 			modelToVerify.addAll(relaxedList);
 			modelToVerify.addAll(fixedList);
-			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify,
-					SolverEditorType.SWI_PROLOG);
+			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify);
 			// The model has two or more roots
 			Defect voidModel = verifier.isVoid();
-			Iterator<BooleanExpression> verifyIter = verifyList.iterator();
-			Iterator<BooleanExpression> relaxedIter = relaxedList.iterator();
+			Iterator<IntBooleanExpression> verifyIter = verifyList.iterator();
+			Iterator<IntBooleanExpression> relaxedIter = relaxedList.iterator();
 			ArrayList<String> naturalLanguageHints = new ArrayList<String>();
 			if (voidModel != null) {
-				List<BooleanExpression> verify = verifyList;
+				List<IntBooleanExpression> verify = verifyList;
 				HlclProgram relaxed = relaxedList;
 				HlclProgram fixed = fixedList;
 				do {
 					if (indivVerExp) {
-						verify = new ArrayList<BooleanExpression>();
+						verify = new ArrayList<IntBooleanExpression>();
 						if (verifyIter.hasNext())
 							verify.add(verifyIter.next());
 					}
@@ -842,7 +841,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							}
 						}
 						Defect defect = new Defect(verify);
-						defect.setDefectType(DefectType.SEMANTIC_SPECIFIC_DEFECT);
+						defect.setDefectType(DefectTypeEnum.SEMANTIC_SPECIFIC_DEFECT);
 						iniSTime = System.currentTimeMillis();
 						if (progressMonitor.isCanceled())
 							throw (new InterruptedException());
@@ -859,9 +858,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						for (CauCos correction : result.getCorrections()) {
 							if (progressMonitor.isCanceled())
 								throw (new InterruptedException());
-							List<BooleanExpression> corr = correction
+							List<IntBooleanExpression> corr = correction
 									.getElements();
-							for (BooleanExpression expression : corr) {
+							for (IntBooleanExpression expression : corr) {
 								if (progressMonitor.isCanceled())
 									throw (new InterruptedException());
 
@@ -998,8 +997,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram(operation,
 									subOper.getIdentifier(),
-									OpersSubOpExecType.NORMAL, null),
-							SolverEditorType.SWI_PROLOG, parentComponent,
+									OpersSubOpExecType.NORMAL, null), parentComponent,
 							"dynamic verification:" + operation);
 
 					List<Defect> coreIds = null;
@@ -1084,7 +1082,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			List<OpersIOAttribute> outAttributes, int numberOperations,
 			boolean reuseIds, boolean updateIds, String outAttribute,
 			boolean updateOutAttributes, InstElement coreOperation,
-			List<BooleanExpression> constraitsToVerifyRedundacies)
+			List<IntBooleanExpression> constraitsToVerifyRedundacies)
 			throws InterruptedException {
 		HlclFactory f = new HlclFactory();
 
@@ -1137,8 +1135,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram(operation,
 									subOper.getIdentifier(),
-									OpersSubOpExecType.NORMAL, null),
-							SolverEditorType.SWI_PROLOG, parentComponent,
+									OpersSubOpExecType.NORMAL, null), parentComponent,
 							"dynamic verification:" + operation);
 
 					List<Defect> defects = null;

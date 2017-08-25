@@ -2,9 +2,9 @@ package com.variamos.dynsup.staticexprsup;
 
 import java.util.Map;
 
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
 
 /**
  * Class to create the Number expression. Part of PhD work at University of
@@ -31,7 +31,7 @@ public class NumberNumericExpression extends AbstractNumericExpression {
 	}
 
 	@Override
-	public NumericExpression transform(HlclFactory f,
+	public IntNumericExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap) {
 		return f.number(number);
 	}

@@ -1,20 +1,20 @@
 package com.cfm.productline.test;
 
 import static org.junit.Assert.fail;
-import junit.framework.Assert;
 
 import org.junit.Test;
 
 import com.cfm.productline.ProductLine;
-import com.variamos.core.enums.NotationType;
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.TransformerException;
+import com.variamos.common.core.exceptions.TransformerException;
+import com.variamos.common.model.enums.NotationType;
+import com.variamos.common.model.enums.SolverEditorType;
 import com.variamos.io.SXFMReader;
 import com.variamos.reasoning.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.reasoning.defectAnalyzer.model.VariabilityModel;
 import com.variamos.reasoning.transformer.VariabilityModelTransformer;
 
 import fm.FeatureModelException;
+import junit.framework.Assert;
 
 public class VariabilityModelTransformerTest {
 

@@ -17,7 +17,7 @@ import javax.swing.border.TitledBorder;
 
 import com.cfm.productline.Variable;
 import com.variamos.configurator.DomainAnnotation;
-import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 /**
  * A class to support the domain list definition. Part of PhD work at University
@@ -151,7 +151,7 @@ public class ListDomainEditor extends JPanel {
 			remove(disabled);
 		}
 
-		Domain domain = var.getDomain();
+		IntDomain domain = var.getDomain();
 		List<String> values = domain.getPossibleStringValues();
 		List<String> disabledValues = new ArrayList<>();
 

@@ -21,15 +21,15 @@ import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.Labeling;
-import com.variamos.hlcl.LabelingOrder;
-import com.variamos.hlcl.LiteralBooleanExpression;
-import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.Labeling;
+import com.variamos.hlcl.model.LabelingOrderEnum;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
+import com.variamos.hlcl.model.expressions.LiteralBooleanExpression;
 
 /**
  * A class to represent the Model Expressions (instance of the Meta-Expression).
@@ -597,9 +597,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					@SuppressWarnings("unchecked")
 					ArrayList<InstAttribute> instattrs = (ArrayList<InstAttribute>) operLab
 							.getInstAttributeValue("sortorder");
-					List<LabelingOrder> laborder = new ArrayList<LabelingOrder>();
+					List<LabelingOrderEnum> laborder = new ArrayList<LabelingOrderEnum>();
 					for (InstAttribute att : instattrs) {
-						laborder.add((LabelingOrder) att.getValue());
+						laborder.add((LabelingOrderEnum) att.getValue());
 					}
 					List<OpersExpr> semExps = operLab.getEdOperEle()
 							.getSemanticExpressions();
@@ -607,7 +607,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					InstElement oper2 = refas.getElement("REFAS1");
 					List<ModelExpr> instexp = createElementInstanceExpressions(
 							oper2, semExps, true, 1);
-					List<NumericExpression> explist = getNumericExpressions(instexp);
+					List<IntNumericExpression> explist = getNumericExpressions(instexp);
 					int position = 0;
 					if (operLab.getInstAttributeValue("position") instanceof String)
 						position = Integer.parseInt((String) operLab
@@ -807,11 +807,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * 
 	 * @return
 	 */
-	public List<Expression> getHLCLExpressions(String column) {
-		List<Expression> out = new ArrayList<Expression>();
+	public List<IntExpression> getHLCLExpressions(String column) {
+		List<IntExpression> out = new ArrayList<IntExpression>();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			// idMap.putAll(expression.(hlclFactory));
-			Expression newExp = expression.createSGSExpression();
+			IntExpression newExp = expression.createSGSExpression();
 			if (newExp != null)
 				out.add(newExp);
 		}
@@ -822,7 +822,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	public HlclProgram getHlCLProgramExpressions(String column) {
 		HlclProgram prog = new HlclProgram();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
-			BooleanExpression newExp = (BooleanExpression) expression
+			IntBooleanExpression newExp = (IntBooleanExpression) expression
 					.createSGSExpression();
 			// System.out.println(expression.getSemanticExpression()
 			// .expressionStructure());
@@ -830,7 +830,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				prog.add(newExp);
 		}
 		for (ModelExpr expression : instanceLowExpr.get(column)) {
-			BooleanExpression newExp = (BooleanExpression) expression
+			IntBooleanExpression newExp = (IntBooleanExpression) expression
 					.createSGSExpression();
 
 			if (newExp != null)
@@ -839,12 +839,12 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return prog;
 	}
 
-	public List<NumericExpression> getNumericExpressions(
+	public List<IntNumericExpression> getNumericExpressions(
 			List<ModelExpr> instanceExpressions) {
-		List<NumericExpression> prog = new ArrayList<NumericExpression>();
+		List<IntNumericExpression> prog = new ArrayList<IntNumericExpression>();
 		for (ModelExpr expression : instanceExpressions) {
 			// idMap.putAll(transformation.getIdentifiers(hlclFactory));
-			NumericExpression newExp = (NumericExpression) expression
+			IntNumericExpression newExp = (IntNumericExpression) expression
 					.createSGSExpression();
 			if (newExp != null)
 				prog.add(newExp);

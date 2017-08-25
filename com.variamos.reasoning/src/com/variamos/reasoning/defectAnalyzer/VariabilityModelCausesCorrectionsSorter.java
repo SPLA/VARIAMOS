@@ -5,14 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.variamos.hlcl.BooleanExpression;
+import com.variamos.common.core.utilities.SetUtil;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.model.CauCos;
 import com.variamos.reasoning.defectAnalyzer.model.ClassifiableDiagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.ClassifiedElement;
 import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.reasoning.defectAnalyzer.model.enums.ClassificationType;
-import com.variamos.reasoning.util.SetUtil;
+import com.variamos.reasoning.defectAnalyzer.model.enums.ClassificationTypeEnum;
 
 public class VariabilityModelCausesCorrectionsSorter {
 
@@ -22,7 +22,7 @@ public class VariabilityModelCausesCorrectionsSorter {
 	}
 
 	public ClassifiedElement classifyDiagnosis(List<Diagnosis> allDiagnoses,
-			ClassificationType classsificationType) {
+			ClassificationTypeEnum classsificationType) {
 
 		// Almacena la colección completa de todos los MUSes o de todos los
 		// MCSes según el parámetro de entrada
@@ -34,10 +34,10 @@ public class VariabilityModelCausesCorrectionsSorter {
 		// Se obtiene la colección de todos las causas o correcciones
 		// según el classificationType
 		for (Diagnosis diagnosis : allDiagnoses) {
-			if (classsificationType.equals(ClassificationType.CAUSES)) {
+			if (classsificationType.equals(ClassificationTypeEnum.CAUSES)) {
 				cauCosAllElements.addAll(diagnosis.getCauses());
 			} else if (classsificationType
-					.equals(ClassificationType.CORRECTIONS)) {
+					.equals(ClassificationTypeEnum.CORRECTIONS)) {
 				cauCosAllElements.addAll(diagnosis.getCorrections());
 			}
 
@@ -50,7 +50,7 @@ public class VariabilityModelCausesCorrectionsSorter {
 		int setSize=caucosAllElementsSet.size();
 		// Se eliminan los repetidos que tenían orden distinto y no eran
 		// detectados por el equals de la clase CauCos
-		List<List<BooleanExpression>> cauCosExpressionsList = new ArrayList<List<BooleanExpression>>();
+		List<List<IntBooleanExpression>> cauCosExpressionsList = new ArrayList<List<IntBooleanExpression>>();
 		for (CauCos cauCos : caucosAllElementsSet) {
 			cauCosExpressionsList.add(cauCos.getElements());
 		}
@@ -91,13 +91,13 @@ public class VariabilityModelCausesCorrectionsSorter {
 	 * @return
 	 */
 	private List<Defect> searchDiagnosisByDefects(List<Diagnosis> allDiagnoses,
-			CauCos cauCos, ClassificationType classsificationType) {
+			CauCos cauCos, ClassificationTypeEnum classsificationType) {
 
 		// Lista de defectos en los que se encuentra la causa o corrección
 		List<Defect> defects = new ArrayList<Defect>();
 		for (Diagnosis diagnosis : allDiagnoses) {
 
-			if (classsificationType.equals(ClassificationType.CAUSES)) {
+			if (classsificationType.equals(ClassificationTypeEnum.CAUSES)) {
 				// Se verifica si en la colección de causas de este diagnostico
 				// esta la causa o correccion a revisar
 				List<CauCos> causes = diagnosis.getCauses();
@@ -105,7 +105,7 @@ public class VariabilityModelCausesCorrectionsSorter {
 					defects.add(diagnosis.getDefect());
 				}
 			} else if (classsificationType
-					.equals(ClassificationType.CORRECTIONS)) {
+					.equals(ClassificationTypeEnum.CORRECTIONS)) {
 
 				// Se verifica si en la colección de correcciones de este
 				// diagnostico

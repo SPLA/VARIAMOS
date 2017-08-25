@@ -35,14 +35,14 @@ import com.variamos.dynsup.staticexprsup.AbstractComparisonExpression;
 import com.variamos.dynsup.staticexprsup.AbstractExpression;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.Labeling;
-import com.variamos.hlcl.LabelingOrder;
-import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.Labeling;
+import com.variamos.hlcl.model.LabelingOrderEnum;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
 import com.variamos.io.ConsoleTextArea;
 import com.variamos.solver.core.SWIPrologSolver;
 import com.variamos.solver.core.IntSolver;
@@ -87,11 +87,11 @@ public class ModelExpr2HLCL {
 	}
 
 	@Deprecated
-	public List<BooleanExpression> rootVerityTest() {
+	public List<IntBooleanExpression> rootVerityTest() {
 		// HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createModelExpressions(ModelExpr2HLCL.VAL_UPD_EXEC, constraintGroups);
-		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> modelExpressions = new ArrayList<IntBooleanExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
 				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
@@ -104,11 +104,11 @@ public class ModelExpr2HLCL {
 	}
 
 	// Static implementation
-	public List<BooleanExpression> verityTest(String element) {
+	public List<IntBooleanExpression> verityTest(String element) {
 		// HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createModelExpressions(ModelExpr2HLCL.VAL_UPD_EXEC, constraintGroups);
-		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> modelExpressions = new ArrayList<IntBooleanExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
 				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
@@ -330,7 +330,7 @@ public class ModelExpr2HLCL {
 			OpersSubOpExecType operExecType, HlclProgram hlclProgram,
 			Map<String, ElementExpressionSet> constraintGroups) {
 		List<AbstractExpression> staticTransformations = new ArrayList<AbstractExpression>();
-		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> modelExpressions = new ArrayList<IntBooleanExpression>();
 
 		// Static call without TranslationExpressionSet
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
@@ -366,7 +366,7 @@ public class ModelExpr2HLCL {
 			}
 		}
 
-		for (BooleanExpression modelExpression : modelExpressions) {
+		for (IntBooleanExpression modelExpression : modelExpressions) {
 			hlclProgram.add(modelExpression);
 		}
 
@@ -408,7 +408,7 @@ public class ModelExpr2HLCL {
 		}
 	}
 
-	public NumericExpression getSumExpression(InstElement last,
+	public IntNumericExpression getSumExpression(InstElement last,
 			Iterator<InstElement> iterVertex, String attributeName) {
 		if (iterVertex.hasNext()) {
 			InstElement instVertex = iterVertex.next();
@@ -643,10 +643,10 @@ public class ModelExpr2HLCL {
 
 				}
 				configurationOptions.setStartFromZero(true);
-				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
-				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
-				labelingOrderList.add(LabelingOrder.MIN);
-				labelingOrderList.add(LabelingOrder.MIN);
+				List<IntNumericExpression> orderExpressionList = new ArrayList<IntNumericExpression>();
+				List<LabelingOrderEnum> labelingOrderList = new ArrayList<LabelingOrderEnum>();
+				labelingOrderList.add(LabelingOrderEnum.MIN);
+				labelingOrderList.add(LabelingOrderEnum.MIN);
 				Iterator<InstElement> iterVertex = refas
 						.getVariabilityVertexCollection().iterator();
 				InstElement instVertex = iterVertex.next();
@@ -1313,7 +1313,7 @@ public class ModelExpr2HLCL {
 		ElementExpressionSet expressions = getElementConstraintGroup(
 				identifier, string, execType);
 		if (expressions != null)
-			for (Expression expression : expressions.getExpressions())
+			for (IntExpression expression : expressions.getExpressions())
 				out += expression.toString() + "\n";
 		return out;
 	}

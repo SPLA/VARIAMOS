@@ -3,8 +3,7 @@ package com.variamos.reasoning.defectAnalyzer;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.reasoning.defectAnalyzer.dto.DefectAnalyzerControllerInDTO;
 import com.variamos.reasoning.defectAnalyzer.dto.DefectAnalyzerResult;
 import com.variamos.reasoning.defectAnalyzer.dto.VMAnalyzerInDTO;
@@ -509,8 +508,7 @@ public class DefectAnalyzerController {
 				.getSolverEditorType());
 
 		// Se invoca el analizador de causas
-		CauCosAnayzer causesAnalyzer = new CauCosAnayzer(
-				defectAnalyzerInDTO.getSolverEditorType());
+		CauCosAnayzer causesAnalyzer = new CauCosAnayzer();
 
 		VMCauseAnalyzerInDTO vmCauseAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 
