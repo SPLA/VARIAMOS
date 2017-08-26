@@ -324,8 +324,8 @@ public class SetUtil {
 					}
 				}
 
-			}// Cierra while que recorre lista de MCS desde la segunda posicion
-		}// Cierra while que recorre la lista de MCS desde la primera posición
+			}// Cierra while que recorre lista desde la segunda posicion
+		}// Cierra while que recorre la lista desde la primera posición
 
 		// Se eliminan los elementos
 		if (!setsToRemove.isEmpty()) {

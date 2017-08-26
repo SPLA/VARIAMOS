@@ -22,7 +22,7 @@ import com.variamos.dynsup.types.OpersOpType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.dynsup.types.OpersSubOpType;
 import com.variamos.hlcl.model.domains.IntervalDomain;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerModeEnum;
+import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeEnum;
 
 public class InfraSyntaxOpersMMM {
 

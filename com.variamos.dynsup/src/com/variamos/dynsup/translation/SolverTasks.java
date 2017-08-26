@@ -13,7 +13,6 @@ import javax.swing.ProgressMonitor;
 import javax.swing.SwingWorker;
 
 import com.variamos.common.core.exceptions.FunctionalException;
-import com.variamos.common.model.enums.SolverEditorType;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.hlcl.core.HlclProgram;
@@ -23,15 +22,15 @@ import com.variamos.hlcl.model.expressions.Identifier;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.io.ConsoleTextArea;
 import com.variamos.io.configurations.ExportConfiguration;
-import com.variamos.reasoning.defectAnalyzer.CauCosAnayzer;
-import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
-import com.variamos.reasoning.defectAnalyzer.IntCauCosAnalyzer;
-import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
-import com.variamos.reasoning.defectAnalyzer.model.CauCos;
-import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
+import com.variamos.reasoning.defectAnalyzer.core.CauCosAnayzer;
+import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
+import com.variamos.reasoning.defectAnalyzer.core.IntCauCosAnalyzer;
+import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerModeEnum;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectTypeEnum;
+import com.variamos.reasoning.defectAnalyzer.model.defects.DefectTypeEnum;
+import com.variamos.reasoning.defectAnalyzer.model.diagnosis.CauCos;
+import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeEnum;
+import com.variamos.reasoning.defectAnalyzer.model.diagnosis.Diagnosis;
 import com.variamos.solver.model.SolverSolution;
 
 /**

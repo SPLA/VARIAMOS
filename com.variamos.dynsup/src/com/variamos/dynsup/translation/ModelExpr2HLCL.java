@@ -12,16 +12,15 @@ import java.util.TreeMap;
 
 import javax.swing.ProgressMonitor;
 
-import org.jpl7.PrologException;
-
+import com.variamos.common.core.exceptions.TechnicalException;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -44,10 +43,10 @@ import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.hlcl.model.expressions.IntExpression;
 import com.variamos.hlcl.model.expressions.IntNumericExpression;
 import com.variamos.io.ConsoleTextArea;
-import com.variamos.solver.core.SWIPrologSolver;
 import com.variamos.solver.core.IntSolver;
-import com.variamos.solver.model.SolverSolution;
+import com.variamos.solver.core.SWIPrologSolver;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * Class to create the Hlcl program. Part of PhD work at University of Paris 1
@@ -502,7 +501,7 @@ public class ModelExpr2HLCL {
 			if (configuration != null) {
 				try {
 					configuration = swiSolver.getSolution();
-				} catch (PrologException e) {
+				} catch (TechnicalException e) {
 
 					ConsoleTextArea
 							.addText("Prolog Exception" + e.getMessage());

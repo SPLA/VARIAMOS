@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import org.jpl7.Compound;
+import org.jpl7.PrologException;
 import org.jpl7.Query;
 import org.jpl7.Term;
 import org.jpl7.Util;
@@ -74,8 +75,6 @@ public class SWIPrologSolver implements IntSolver {
 		return false;
 	}
 
-	
-
 	@Override
 	public void solve(SolverSolution config, ConfigurationOptionsDTO options) {
 
@@ -110,8 +109,7 @@ public class SWIPrologSolver implements IntSolver {
 
 	private void doQuery(SolverSolution config, ConfigurationOptionsDTO options) {
 
-		if ((hlclProgram == null || hlclProgram.isEmpty())
-				&& options.getProgramPath() == null) {
+		if ((hlclProgram == null || hlclProgram.isEmpty()) && options.getProgramPath() == null) {
 			throw new TechnicalException("HlclProgram was not initialized");
 		} else if (hlclProgram == null) {
 			// A predefined prolog file is charged
@@ -123,15 +121,12 @@ public class SWIPrologSolver implements IntSolver {
 			HlclProgram modifiedCopy = new HlclProgram();
 			modifiedCopy.addAll(hlclProgram.subList(0, hlclProgram.size()));
 			if (labelVars != null) {
-				ArrayList<PrologTransformParameters> paramList = addParametersListToProgram(
-						modifiedCopy, options);
+				ArrayList<PrologTransformParameters> paramList = addParametersListToProgram(modifiedCopy, options);
 				programPath = createPrologFile(modifiedCopy, paramList);
 			} else {
-				PrologTransformParameters params = addParametersToProgram(
-						modifiedCopy, options);
+				PrologTransformParameters params = addParametersToProgram(modifiedCopy, options);
 				programPath = createPrologFile(modifiedCopy, params);
-				Set<Identifier> identifiers = HlclUtil
-						.getUsedIdentifiers(modifiedCopy);
+				Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(modifiedCopy);
 				// Variables map is mandatory for dynamic configurations
 				for (Identifier id : identifiers) {
 					vars.put(id.getId(), new Variable(id.getId()));
@@ -143,8 +138,7 @@ public class SWIPrologSolver implements IntSolver {
 		lastExecutionTime = System.nanoTime() - initTime;
 	}
 
-	private void consultProgram(SolverSolution config,
-			ConfigurationOptionsDTO options) {
+	private void consultProgram(SolverSolution config, ConfigurationOptionsDTO options) {
 
 		if (options.getProgramName() == null) {
 			List<Compound> parts = new ArrayList<>();
@@ -163,23 +157,18 @@ public class SWIPrologSolver implements IntSolver {
 				for (String id : config.getNotIgnored()) {
 					// Create the atom
 					if (config.stateOf(id) == (int) config.stateOf(id)) {
-						org.jpl7.Integer i = new org.jpl7.Integer(
-								(int) config.stateOf(id));
-						Compound assign = new Compound("=", new Term[] {
-								vars.get(id), i });
+						org.jpl7.Integer i = new org.jpl7.Integer((int) config.stateOf(id));
+						Compound assign = new Compound("=", new Term[] { vars.get(id), i });
 						parts.add(assign);
 					} else {
-						org.jpl7.Float i = new org.jpl7.Float(
-								config.stateOf(id));
+						org.jpl7.Float i = new org.jpl7.Float(config.stateOf(id));
 						// Create the compound for the assign.
-						Compound assign = new Compound("=", new Term[] {
-								vars.get(id), i });
+						Compound assign = new Compound("=", new Term[] { vars.get(id), i });
 						parts.add(assign);
 					}
 
 				}
-				parts.add(new Compound(PARTIAL_INVOCATION_NAME,
-						new Term[] { L }));
+				parts.add(new Compound(PARTIAL_INVOCATION_NAME, new Term[] { L }));
 
 			}
 			// Single/Multiple labeling ignores used variables and considers the
@@ -202,11 +191,9 @@ public class SWIPrologSolver implements IntSolver {
 					// Generate the assigns for the not ignored variables
 					for (String id : config.getNotIgnored()) { // Create the
 																// atom
-						org.jpl7.Float i = new org.jpl7.Float(
-								config.stateOf(id));
+						org.jpl7.Float i = new org.jpl7.Float(config.stateOf(id));
 						// Create the compound for the assign.
-						Compound assign = new Compound("=", new Term[] {
-								varmap.get(id), i });
+						Compound assign = new Compound("=", new Term[] { varmap.get(id), i });
 						parts.add(assign);
 					}
 					terms[ii++] = L;
@@ -238,8 +225,7 @@ public class SWIPrologSolver implements IntSolver {
 
 		int n = parts.size();
 
-		Compound partial = new Compound(",", new Term[] { parts.get(n - 2),
-				parts.get(n - 1) });
+		Compound partial = new Compound(",", new Term[] { parts.get(n - 2), parts.get(n - 1) });
 		for (int i = n - 3; i >= 0; i--)
 			partial = new Compound(",", new Term[] { parts.get(i), partial });
 
@@ -265,28 +251,32 @@ public class SWIPrologSolver implements IntSolver {
 	 */
 	@Override
 	public SolverSolution getSolution() {
-		if (qr != null) {
-			synchronized (monitor) {
-				if (hasNextSolution()) {
-					long initTime = System.nanoTime();
-					// More documentation about this method is available at
-					// http://jpl7.org/doc/index.html
-					Map<String, Term> configurationMap = qr.nextSolution();
-					lastExecutionTime = System.nanoTime() - initTime;
+		try {
+			if (qr != null) {
+				synchronized (monitor) {
+					if (hasNextSolution()) {
+						long initTime = System.nanoTime();
+						// More documentation about this method is available at
+						// http://jpl7.org/doc/index.html
+						Map<String, Term> configurationMap = qr.nextSolution();
+						lastExecutionTime = System.nanoTime() - initTime;
 
-					if (configurationMap != null) {
-						SolverSolution configuration = makeConfiguration(configurationMap);
-						return configuration;
+						if (configurationMap != null) {
+							SolverSolution configuration = makeConfiguration(configurationMap);
+							return configuration;
+						}
 					}
 				}
-			}
 
+			}
+			return null;
+		} catch (PrologException e) {
+			throw new TechnicalException(e.getMessage());
 		}
-		return null;
+
 	}
 
-	private SolverSolution makeConfiguration(
-			Map<String, Term> configurationResultMap) {
+	private SolverSolution makeConfiguration(Map<String, Term> configurationResultMap) {
 
 		// FIXME: puede ser mejorado para quitar esta L quemada
 		Term invocationTerm = configurationResultMap.get("L");
@@ -352,8 +342,7 @@ public class SWIPrologSolver implements IntSolver {
 
 	private boolean loadSWIProgram(String temporalPath) {
 		// To solve out of global stack
-		org.jpl7.fli.Prolog.set_default_init_args(new String[] { "pl",
-				"-nosignals", "-L128m", "-G128m" });
+		org.jpl7.fli.Prolog.set_default_init_args(new String[] { "pl", "-nosignals", "-L128m", "-G128m" });
 		Query q1 = new Query("consult('" + temporalPath + "')");
 		return q1.hasSolution();
 	}
@@ -386,17 +375,14 @@ public class SWIPrologSolver implements IntSolver {
 		qr = null;
 	}
 
-
 	@Override
-	public Map<String, List<Integer>> reduceDomain(SolverSolution config,
-			ConfigurationOptionsDTO params) {
+	public Map<String, List<Integer>> reduceDomain(SolverSolution config, ConfigurationOptionsDTO params) {
 		// TODO Auto-generated method stub
 		// FIXME
 		return null;
 	}
 
-	private static List<Integer> getSolutionValues(Term[] terms,
-			List<Integer> values) {
+	private static List<Integer> getSolutionValues(Term[] terms, List<Integer> values) {
 
 		if (terms[1].isAtom()) {
 			Integer valueInteger = terms[0].intValue();
@@ -412,8 +398,7 @@ public class SWIPrologSolver implements IntSolver {
 		return values;
 	}
 
-	private PrologTransformParameters addParametersToProgram(HlclProgram prog,
-			ConfigurationOptionsDTO options) {
+	private PrologTransformParameters addParametersToProgram(HlclProgram prog, ConfigurationOptionsDTO options) {
 
 		PrologTransformParameters params = getParamsFor(options);
 
@@ -432,8 +417,8 @@ public class SWIPrologSolver implements IntSolver {
 	}
 
 	// jcmunoz: copied to support a list of parameters
-	private ArrayList<PrologTransformParameters> addParametersListToProgram(
-			HlclProgram prog, ConfigurationOptionsDTO options) {
+	private ArrayList<PrologTransformParameters> addParametersListToProgram(HlclProgram prog,
+			ConfigurationOptionsDTO options) {
 
 		ArrayList<PrologTransformParameters> params = getParamListsFor(options);
 
@@ -464,8 +449,7 @@ public class SWIPrologSolver implements IntSolver {
 	}
 
 	// jcmunoz: copied to support a list of parameters
-	private ArrayList<PrologTransformParameters> getParamListsFor(
-			ConfigurationOptionsDTO options) {
+	private ArrayList<PrologTransformParameters> getParamListsFor(ConfigurationOptionsDTO options) {
 		ArrayList<PrologTransformParameters> paramList = new ArrayList<PrologTransformParameters>();
 		for (Labeling lab : options.getLabelings()) {
 			// FIXME: review if all the initial parameter should be from the
@@ -489,11 +473,9 @@ public class SWIPrologSolver implements IntSolver {
 		return paramList;
 	}
 
-	private String createPrologFile(HlclProgram hlclProgram,
-			PrologTransformParameters params) {
+	private String createPrologFile(HlclProgram hlclProgram, PrologTransformParameters params) {
 		Hlcl2SWIProlog swiPrologTransformer = new Hlcl2SWIProlog();
-		String prologProgram = swiPrologTransformer.transform(hlclProgram,
-				params);
+		String prologProgram = swiPrologTransformer.transform(hlclProgram, params);
 		String path;
 		try {
 			// Create a temporary file
@@ -508,11 +490,9 @@ public class SWIPrologSolver implements IntSolver {
 		}
 	}
 
-	private String createPrologFile(HlclProgram hlclProgram,
-			ArrayList<PrologTransformParameters> paramList) {
+	private String createPrologFile(HlclProgram hlclProgram, ArrayList<PrologTransformParameters> paramList) {
 		Hlcl2SWIProlog swiPrologTransformer = new Hlcl2SWIProlog();
-		String prologProgram = swiPrologTransformer.transform(hlclProgram,
-				paramList);
+		String prologProgram = swiPrologTransformer.transform(hlclProgram, paramList);
 		String path;
 		try {
 			// Create a temporary file
@@ -563,8 +543,7 @@ public class SWIPrologSolver implements IntSolver {
 				configurationResultMap = qr.allSolutions();
 				for (Map<String, Term> configuration : configurationResultMap) {
 					if (configuration != null) {
-						configurations.add(this
-								.makeConfiguration(configuration));
+						configurations.add(this.makeConfiguration(configuration));
 					}
 				}
 			}

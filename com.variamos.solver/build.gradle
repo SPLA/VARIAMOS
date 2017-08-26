@@ -9,10 +9,3 @@ dependencies {
     compile project(':com.variamos.hlcl')
 }
 
-repositories {
-    jcenter()
-}
-
-dependencies {
-  testCompile "junit:junit:4+"
-}

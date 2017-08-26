@@ -11,7 +11,6 @@
 			<attribute name="javadoc_location" value="file:/O:/Dropbox/doctorado/VariaMos/jgraphx-3_5_1_2/jgraphx/docs/api/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/com.variamos.reasoning/lib/SWIProlog/jpl723.jar"/>
 	<classpathentry kind="src" path="/com.variamos.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.dynsup"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.configurator"/>
