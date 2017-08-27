@@ -17,7 +17,6 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.editor.logic.ConstraintMode;
-import com.variamos.gui.pl.editor.shapes.OptionalMarker;
 
 public abstract class AbstractGraph extends mxGraph {
 
@@ -34,8 +33,7 @@ public abstract class AbstractGraph extends mxGraph {
 		setLabelsVisible(true);
 		setAllowDanglingEdges(false);
 		// Register custom styles
-		mxMarkerRegistry.registerMarker("OptionalMarker", new OptionalMarker());
-
+	
 		// Loads the default styles sheet from an external file
 		// To draw elements on the Graph
 		/*

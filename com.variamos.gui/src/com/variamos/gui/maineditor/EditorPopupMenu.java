@@ -9,7 +9,7 @@ import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.EditorActions.HistoryAction;
 import com.variamos.gui.perspeditor.actions.RecoverCloneAction;
-import com.variamos.gui.pl.editor.actions.FigureAction;
+import com.variamos.gui.perspeditor.actions.FigureAction;
 
 public class EditorPopupMenu extends JPopupMenu {
 

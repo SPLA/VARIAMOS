@@ -11,8 +11,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
-
-import com.mxgraph.examples.swing.GraphEditor;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
@@ -315,7 +313,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												paletteElement
 														.getElementTitle(),
 												new ImageIcon(
-														GraphEditor.class
+														PerspEditorFunctions.class
 																.getResource(paletteElement
 																		.getIcon())),
 												paletteElement.getStyle(),
@@ -329,7 +327,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 								palette.addTemplate(
 										// mxResources.get(
 										paletteElement.getElementTitle(),
-										new ImageIcon(GraphEditor.class
+										new ImageIcon(PerspEditorFunctions.class
 												.getResource(paletteElement
 														.getIcon())),
 										paletteElement.getStyle(),

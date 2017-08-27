@@ -599,7 +599,7 @@ public class InfraSyntaxSyntaxMMM {
 		SyntaxElement infraSyntaxM2NormalRelation = new SyntaxElement('P',
 				"SyMAso", false, true, "Normal Relation", "defaultAsso",
 				"Concept-Concept relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
 
 		constraintInstEdges.put("SyMAso", new InstPairwiseRel("SyMAso",
 				infraSyntaxM2NormalRelation));
@@ -657,7 +657,7 @@ public class InfraSyntaxSyntaxMMM {
 		SyntaxElement metaPairwiseRelExtends = new SyntaxElement('P',
 				"ExtendsRelation", false, true, "Extends Relation",
 				"refasextends", "Extends relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
 
 		constraintInstEdges.put("ExtendsRelation", new InstPairwiseRel(
 				"ExtendsRelation", metaPairwiseRelExtends));
@@ -733,7 +733,7 @@ public class InfraSyntaxSyntaxMMM {
 		SyntaxElement metaPairwiseRelFromView = new SyntaxElement('P',
 				"ViewRelation", false, true, "View Relation",
 				"infrasyntaxm2viewrel", "View-Concept relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
 
 		InstPairwiseRel instViewRelation = new InstPairwiseRel("ViewRelation",
 				metaPairwiseRelFromView);

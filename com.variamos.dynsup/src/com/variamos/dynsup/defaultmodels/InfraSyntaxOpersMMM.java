@@ -102,7 +102,7 @@ public class InfraSyntaxOpersMMM {
 		// "Extends Relation",
 		// "refasextends",
 		// "Extends relation: relates to concepts to extend attributes and operation constraints",
-		// 50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+		// 50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 		// null);
 
 		// InstPairwiseRel rel = new
@@ -298,7 +298,7 @@ public class InfraSyntaxOpersMMM {
 		SyntaxElement infraSyntaxOpersM2AsoRel = new SyntaxElement('P',
 				"SeMAsoEdge", false, true, "Association Relation",
 				"defaultAsso", "Association Relation: ", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2AsoRel);
 
 		infraSyntaxOpersM2AsoRel.addModelingAttribute(
@@ -325,7 +325,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersM2ExtRel.addModelingAttribute(
@@ -356,7 +356,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersnmCEdge.addModelingAttribute(
@@ -379,7 +379,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersOTCEdge.addModelingAttribute(
@@ -402,7 +402,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersOTOdge.addModelingAttribute(
@@ -425,7 +425,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersOTEdge.addModelingAttribute(
@@ -448,7 +448,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersPIPRel.addModelingAttribute(
