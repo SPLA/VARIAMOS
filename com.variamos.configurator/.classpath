@@ -4,8 +4,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.reasoning"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.jgprolog.core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.jgprolog.gnuprolog"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.solver"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.compiler"/>
