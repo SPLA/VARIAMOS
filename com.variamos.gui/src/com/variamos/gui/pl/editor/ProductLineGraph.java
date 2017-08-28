@@ -23,7 +23,6 @@ import com.cfm.productline.constraints.OptionalConstraint;
 import com.cfm.productline.constraints.RequiresConstraint;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.canvas.mxGraphicsCanvas2D;
-import com.mxgraph.examples.swing.Stencils;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
@@ -62,7 +61,7 @@ public class ProductLineGraph extends AbstractGraph {
 
 	public void loadStencil() {
 		try {
-			String filename = Stencils.class.getResource(
+			String filename = ProductLineGraph.class.getResource(
 					"/com/variamos/gui/perspeditor/style/shapes.xml").getPath();
 			Document doc;
 

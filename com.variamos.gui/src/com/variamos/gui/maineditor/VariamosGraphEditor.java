@@ -89,7 +89,6 @@ import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
-import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.io.ConsoleTextArea;
 import com.variamos.solver.model.SolverSolution;
@@ -1067,7 +1066,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 							@Override
 							public void propertyChange(PropertyChangeEvent evt) {
-								if (WidgetPL.PROPERTY_VALUE.equals(evt
+								if (WidgetR.PROPERTY_VALUE.equals(evt
 										.getPropertyName())) {
 									w.getInstAttribute();
 									updateExpressions = true;
@@ -1081,7 +1080,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 							@Override
 							public void propertyChange(PropertyChangeEvent evt) {
-								if (WidgetPL.PROPERTY_VALUE.equals(evt
+								if (WidgetR.PROPERTY_VALUE.equals(evt
 										.getPropertyName())) {
 									w.getInstAttribute();
 									updateExpressions = true;
@@ -1272,7 +1271,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 							@Override
 							public void propertyChange(PropertyChangeEvent evt) {
-								if (WidgetPL.PROPERTY_VALUE.equals(evt
+								if (WidgetR.PROPERTY_VALUE.equals(evt
 										.getPropertyName())) {
 									w.getInstAttribute();
 									updateExpressions = true;
@@ -1286,7 +1285,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 							@Override
 							public void propertyChange(PropertyChangeEvent evt) {
-								if (WidgetPL.PROPERTY_VALUE.equals(evt
+								if (WidgetR.PROPERTY_VALUE.equals(evt
 										.getPropertyName())) {
 									w.getInstAttribute();
 									updateExpressions = true;
