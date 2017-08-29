@@ -13,7 +13,7 @@ import com.cfm.productline.type.StringType;
 
 @SuppressWarnings("serial")
 
-public class VariabilityElement extends AbstractElement implements Serializable, Prototype, Editable{
+public class VariabilityElement implements Serializable, Prototype, Editable{
 	
 	public String getClassId()
 	{
@@ -34,7 +34,7 @@ public class VariabilityElement extends AbstractElement implements Serializable,
 								VAR_ALLOCATION = "Allocation";
 	
 	protected Map<String, Variable> vars = new HashMap<>();
-	
+	protected String alias;
 //	protected Variable value = new IntegerRangeDomain().makeVariable("value");
 	protected List<Variable> varAttributes = new Vector<>();
 	protected List<String> assets; 
@@ -291,5 +291,13 @@ public class VariabilityElement extends AbstractElement implements Serializable,
 
 	public void setVars(Map<String, Variable> vars) {
 		this.vars = vars;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }

@@ -39,7 +39,6 @@ import javax.swing.SpringLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.cfm.productline.AbstractElement;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.shape.mxStencilShape;
