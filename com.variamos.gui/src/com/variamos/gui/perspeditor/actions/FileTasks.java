@@ -229,7 +229,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		progressMonitor.setNote("Updating DataModel...");
 		SharedActions.afterOpenCloneGraph(graph, variamosEditor);
 		SharedActions.afterOpenCloneGraph(graph, variamosEditor);
-		variamosEditor.populateIndex(((AbstractGraph) graph).getProductLine());
+		//variamosEditor.populateIndex(((AbstractGraph) graph).getProductLine());
 		setProgress(90);
 		progressMonitor.setNote("Load completed.");
 		resetEditor(variamosEditor);

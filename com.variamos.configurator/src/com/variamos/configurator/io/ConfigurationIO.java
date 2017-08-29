@@ -12,7 +12,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.variamos.solver.model.SolverSolution;
-
+@Deprecated
 public class ConfigurationIO {
 	public static void saveToFile(ConfigurationDTO dto, String fileAbsPath)
 			throws IOException {

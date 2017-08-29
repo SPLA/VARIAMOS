@@ -26,9 +26,16 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.io.ConsoleTextArea;
 
+
+
+
+/**
+ * This class is useful o draw overlays for showing states and errors in operations that are executed in the GUI
+ * @author Juan Munoz
+ *
+ */
 @SuppressWarnings("serial")
 public class VariamosGraphComponent extends mxGraphComponent {
 
@@ -45,7 +52,6 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		setAutoScroll(false);
 		setDragEnabled(false);
 		setPanning(true);
-		configureConnectionHandler();
 		configureSelectionHandler();
 
 		final mxGraph finalGraph = graph;
@@ -74,24 +80,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		});
 	}
 
-	@Deprecated
-	public void updateGraph(mxGraph graph) {
-		setGraph(graph);
-		configureConnectionHandler();
-		configureSelectionHandler();
-		final mxGraph finalGraph = graph;
-		// Installs automatic validation
-		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener() {
-			@Override
-			public void invoke(Object sender, mxEventObject evt) {
-				clearCellOverlays();
-				validateGraph();
-				drawCellIcons(finalGraph.getModel().getRoot());
-			}
-		});
-
-	}
-
+	
 	private void configureSelectionHandler() {
 		graph.getSelectionModel().addListener(mxEvent.CHANGE,
 				new mxIEventListener() {
@@ -505,106 +494,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		}
 	}
 
-	private void configureConnectionHandler() {
-		getConnectionHandler().setCreateTarget(false);
-		getConnectionHandler().setEnabled(true);
-		getConnectionHandler().addListener(mxEvent.CONNECT, onConnect);
-	}
-
-	private mxIEventListener onConnect = /**
-	 * @author jcmunoz: Creates relations
-	 *         between nodes, works for group constraints now.
-	 *
-	 */
-	new mxIEventListener() {
-
-		@Override
-		public void invoke(Object sender, mxEventObject evt) {
-			mxCell insertedCell = (mxCell) evt.getProperty("cell");
-			AbstractGraph graph = (AbstractGraph) getGraph();
-
-			mxCell source = (mxCell) insertedCell.getSource();
-			mxCell target = (mxCell) insertedCell.getTarget();
-
-			if (source.getValue() instanceof GroupConstraint) {
-
-				// Remove previous cells between them
-				Object[] edges = graph.getEdgesBetween(source, target, false);
-				graph.removeCells(edges);
-				graph.addCell(insertedCell);
-
-				GroupConstraint gc = (GroupConstraint) source.getValue();
-				gc.addChildId(target.getId());
-				// gc.printDebug(System.out);
-				return;
-			}
-
-			if (target.getValue() instanceof GroupConstraint) {
-
-				// Remove previous cells between them
-				Object[] edges = graph.getEdgesBetween(source, target, false);
-				graph.removeCells(edges);
-				graph.addCell(insertedCell);
-
-				GroupConstraint gc = (GroupConstraint) target.getValue();
-				// If there is a parent, remove it
-				if (gc.getParent() != null) {
-					// Removing parent
-					Object[] parentEdges = graph.getEdgesBetween(
-							graph.getCellById(gc.getParent()), target, false);
-					graph.removeCells(parentEdges);
-				}
-
-				gc.setParent(source.getId());
-				// gc.printDebug(System.out);
-				return;
-			}
-
-			ConstraintMode mode = graph.getConsMode();
-
-			switch (mode) {
-			case Optional:
-				OptionalConstraint op = new OptionalConstraint(source.getId(),
-						target.getId());
-				insertedCell.setValue(op);
-				insertedCell.setStyle("ploptional");
-				break;
-			case Mandatory:
-				MandatoryConstraint om = new MandatoryConstraint(
-						source.getId(), target.getId());
-				insertedCell.setValue(om);
-				insertedCell.setStyle("plmandatory");
-				break;
-
-			case Requires:
-				RequiresConstraint rq = new RequiresConstraint(source.getId(),
-						target.getId());
-				insertedCell.setValue(rq);
-				insertedCell.setStyle("plrequires");
-				break;
-			case Excludes:
-				ExcludesConstraint ec = new ExcludesConstraint(source.getId(),
-						target.getId());
-				insertedCell.setValue(ec);
-				insertedCell.setStyle("plexcludes");
-				break;
-
-			case Default:
-				graph.removeCells(new Object[] { insertedCell });
-				// Create a new constraint
-				graph.connectDefaultConstraint(source, target);
-				break;
-			default:
-				break;
-			}
-
-			// System.out.println("Source = " + source.getValue() +
-			// ", Target = " + target.getValue());
-
-		}
-
-	};
-
+	
+	
 	@Override
 	public String getEditingValue(Object cell, EventObject trigger) {
 		return super.getEditingValue(cell, trigger);

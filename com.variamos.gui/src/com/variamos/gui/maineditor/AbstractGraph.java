@@ -11,16 +11,15 @@ import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.constraints.GenericConstraint;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
-import com.mxgraph.shape.mxMarkerRegistry;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.model.InstanceModel;
-import com.variamos.editor.logic.ConstraintMode;
 
+@Deprecated
 public abstract class AbstractGraph extends mxGraph {
 
-	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
+	
 
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
 
@@ -320,13 +319,7 @@ public abstract class AbstractGraph extends mxGraph {
 		return (mxCell) ((mxGraphModel) getModel()).getCell(id);
 	}
 
-	public ConstraintMode getConsMode() {
-		return constraintAddingMode;
-	}
-
-	public void setConsMode(ConstraintMode consMode) {
-		this.constraintAddingMode = consMode;
-	}
+	
 
 	public void connectDefaultConstraint(mxCell source, mxCell target) {
 		Constraint c = newConstraint(source.getId(), target.getId());
@@ -409,35 +402,7 @@ public abstract class AbstractGraph extends mxGraph {
 		return super.validateEdge(edge, source, target);
 	}
 
-	@Override
-	public boolean isValidConnection(Object source, Object target) {
-		if (!(source instanceof mxCell) || !(target instanceof mxCell)) {
-			return super.isValidConnection(source, target);
-		}
-		mxCell s = (mxCell) source;
-		mxCell t = (mxCell) target;
-
-		if (s.isEdge() || t.isEdge())
-			return false;
-
-		if (s.getValue() instanceof Constraint) {
-			return !(t.getValue() instanceof Constraint);
-		}
-
-		if (t.getValue() instanceof Constraint) {
-			return !(s.getValue() instanceof Constraint);
-		}
-
-		if (s.getValue() instanceof VariabilityElement
-				&& t.getValue() instanceof VariabilityElement)
-			return constraintAddingMode != ConstraintMode.None;
-
-		// boolean ret = super.isValidConnection(source, target);
-		//
-		// System.out.println("Is valid Connection: " + ret);
-		return super.isValidConnection(source, target);
-	}
-
+	
 	@Override
 	public void cellLabelChanged(Object cell, Object value, boolean autoSize) {
 		super.cellLabelChanged(cell, value, autoSize);

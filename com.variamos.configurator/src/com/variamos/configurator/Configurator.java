@@ -17,6 +17,7 @@ import com.variamos.solver.model.SolverSolution;
  *         (Originaly Configurator) to separate non gui code.
  *
  */
+@Deprecated
 public class Configurator {
 	private List<SolverSolution> products;
 	private IntSolver solver;

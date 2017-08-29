@@ -19,6 +19,7 @@ import com.variamos.io.ConsoleTextArea;
  * @author unknown
  *
  */
+@Deprecated
 public class PLGReader {
 
 	/**

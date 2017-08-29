@@ -6,7 +6,7 @@ import com.cfm.productline.ProductLine;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.solver.core.compiler.Hlcl2GnuPrologExact;
 import com.variamos.solver.core.compiler.PrologTransformParameters;
-
+@Deprecated
 public class ConfiguratorUtils {
 
 	@Deprecated

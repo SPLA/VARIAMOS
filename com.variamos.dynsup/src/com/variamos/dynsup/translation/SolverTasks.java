@@ -65,7 +65,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private boolean reloadDashBoard;
 	private String executionTime = "";
 	private List<String> defects;
-	private SolverSolution lastConfiguration;
+	private SolverSolution lastSolverSolution;
 	private String errorTitle = "";
 	private String errorMessage = "";
 	private boolean update;
@@ -95,7 +95,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.test = test;
 		this.element = element;
 		this.defects = defects;
-		this.lastConfiguration = lastConfiguration;
+		this.lastSolverSolution = lastConfiguration;
 		this.parentComponent = parentComponent;
 	}
 
@@ -111,7 +111,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.reloadDashBoard = reloadDashBoard;
 		this.update = update;
 		this.stringElement = element;
-		this.lastConfiguration = lastConfiguration;
+		this.lastSolverSolution = lastConfiguration;
 	}
 
 	public SolverTasks(ProgressMonitor progressMonitor, int execType,
@@ -139,8 +139,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return update;
 	}
 
-	public SolverSolution getLastConfiguration() {
-		return lastConfiguration;
+	public SolverSolution getLastSolverSolution() {
+		return lastSolverSolution;
 	}
 
 	@Override
@@ -229,15 +229,14 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		invalidConfigHlclProgram = false;
 		TreeMap<String, Number> configuredIdentNames = refas2hlcl
 				.getConfiguredIdentifier(elementSubSet);
-		SolverSolution config = new SolverSolution();
+		SolverSolution solverSolution = new SolverSolution();
 
-		config.setConfiguration(configuredIdentNames);
+		solverSolution.setConfiguration(configuredIdentNames);
 
 		List<String> requiredConceptsNames = new ArrayList<String>();
 		List<String> deadConceptsNames = new ArrayList<String>();
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(
-				configHlclProgram,
-				parentComponent, "Configuring Selected Elements");
+				configHlclProgram, parentComponent, "Configuring Selected Elements");
 		// System.out.println("FREE: " + freeIdentifiers);
 
 		// System.out.println("CONF: " + configuredIdentNames);
@@ -248,7 +247,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				List<Defect> requiredConcepts = null;
 
 				requiredConcepts = defectVerifier.getFalseOptionalElements(
-						freeIdentifiers, null, config);
+						freeIdentifiers, null, solverSolution);
 				executionTime += "FalseOpt: " + defectVerifier.getTotalTime()
 						+ "[" + defectVerifier.getSolverTime() / 1000000 + "]"
 						+ " -- ";
@@ -273,7 +272,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				List<Defect> deadIndetifiersList = null;
 				defectVerifier.resetTime();
 				deadIndetifiersList = defectVerifier.getDeadElements(
-						freeIdentifiers, null, config);
+						freeIdentifiers, null, solverSolution);
 				executionTime += "Dead: " + defectVerifier.getTotalTime() + "["
 						+ defectVerifier.getSolverTime() / 1000000 + "]"
 						+ " -- ";
@@ -418,7 +417,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			}
 			next = false;
 			try {
-				if (firstSimulExec || lastConfiguration == null) {
+				if (firstSimulExec || lastSolverSolution == null) {
 					result = refas2hlcl.execute(progressMonitor, element,
 							ModelExpr2HLCL.ONE_SOLUTION, type);
 				} else {
@@ -435,7 +434,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				if (result
 						&& (progressMonitor == null || !progressMonitor
 								.isCanceled())) {
-					lastConfiguration = refas2hlcl.getConfiguration();
+					lastSolverSolution = refas2hlcl.getConfiguration();
 					if (update) {
 						refas2hlcl.updateGUIElements(null);
 						// messagesArea.setText(refas2hlcl.getText());
@@ -450,7 +449,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 						correctExecution = false;
 
 						terminated = true;
-					} else if (firstSimulExec || lastConfiguration == null) {
+					} else if (firstSimulExec || lastSolverSolution == null) {
 						switch (type) {
 						case ModelExpr2HLCL.DESIGN_EXEC:
 							errorMessage = "Last changes on the model makes it inconsistent."
@@ -568,9 +567,10 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				try {
 					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram("FalseOpt2",
-									ModelExpr2HLCL.VAL_UPD_EXEC), parentComponent,
+									ModelExpr2HLCL.VAL_UPD_EXEC),
+							parentComponent,
 							"Identifing core/falseoptional/dead Elements");
-
+					
 					List<Defect> falseOptionalList = null;
 
 					if (defect == null || defect.contains("FalseOpt")

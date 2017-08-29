@@ -14,8 +14,8 @@ import java.util.TreeMap;
 
 import com.cfm.productline.AbstractElement;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;

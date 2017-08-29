@@ -2,7 +2,7 @@ package com.variamos.configurator.io;
 
 import com.variamos.solver.model.SolverSolution;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
-
+@Deprecated
 public class ConfigurationDTO { 
 	private ConfigurationOptionsDTO options;
 	private SolverSolution values;

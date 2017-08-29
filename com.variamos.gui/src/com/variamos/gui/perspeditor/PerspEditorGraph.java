@@ -44,15 +44,13 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.io.ConsoleTextArea;
 
 public class PerspEditorGraph extends AbstractGraph {
 
-	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
-
+	
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
 	private InstanceModel modelInstance = null;
 	private int modelViewIndex = 0;
@@ -900,15 +898,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		return (mxCell) ((mxGraphModel) getModel()).getCell(id);
 	}
 
-	@Override
-	public ConstraintMode getConsMode() {
-		return constraintAddingMode;
-	}
 
-	@Override
-	public void setConsMode(ConstraintMode consMode) {
-		this.constraintAddingMode = consMode;
-	}
 
 	@Override
 	public void connectDefaultConstraint(mxCell source, mxCell target) {

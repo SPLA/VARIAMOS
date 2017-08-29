@@ -1,6 +1,6 @@
 package com.variamos.configurator;
 
-
+@Deprecated
 public class DomainAnnotation {
 	private int value;
 	private Choice choice; 
