@@ -25,8 +25,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import com.cfm.productline.AbstractElement;
 import com.mxgraph.util.mxResources;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
@@ -475,7 +475,7 @@ public class ElementDesignPanel extends JPanel {
 																	.getIdentifier()
 																	.equals("errorMsg")) {
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -483,7 +483,7 @@ public class ElementDesignPanel extends JPanel {
 																						.getWidth() / 8));
 													} else
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -609,7 +609,7 @@ public class ElementDesignPanel extends JPanel {
 																	.getIdentifier()
 																	.equals("errorMsg")) {
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -617,7 +617,7 @@ public class ElementDesignPanel extends JPanel {
 																						.getWidth() / 8));
 													} else
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -815,14 +815,14 @@ public class ElementDesignPanel extends JPanel {
 													.getIdentifier().equals(
 															"errorMsg")) {
 										elementAttribute
-												.setValue(AbstractElement.multiLine(
+												.setValue(StringUtils.multiLine(
 														elementAttribute
 																.toString(),
 														(int) instCell
 																.getWidth() / 8));
 									} else
 										elementAttribute
-												.setValue(AbstractElement.multiLine(
+												.setValue(StringUtils.multiLine(
 														elementAttribute
 																.toString(),
 														100));

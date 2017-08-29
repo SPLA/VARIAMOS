@@ -51,6 +51,7 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
@@ -1022,7 +1023,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(AbstractElement.multiLine(v.toString(),
+							v.setValue(StringUtils.multiLine(v.toString(),
 									15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
@@ -1039,7 +1040,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(AbstractElement.multiLine(v.toString(),
+							v.setValue(StringUtils.multiLine(v.toString(),
 									15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
@@ -1227,7 +1228,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(AbstractElement.multiLine(v.toString(),
+							v.setValue(StringUtils.multiLine(v.toString(),
 									15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
@@ -1244,7 +1245,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(AbstractElement.multiLine(v.toString(),
+							v.setValue(StringUtils.multiLine(v.toString(),
 									15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);

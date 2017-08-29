@@ -14,4 +14,46 @@ public class StringUtils {
 		return out.trim();
 
 	}
+	
+	/**
+	 * This methods splits text into different lines to easy visualization
+	 * @param str
+	 * @param lineLenght
+	 * @return String
+	 * @author JuanCMunoz
+	 */
+	public static String multiLine(String str, int lineLenght)
+	{
+		String ini = str.replace("\n", "");
+		String out = "";
+		while (ini.length()>lineLenght)
+		{
+			String subIdeal = ini.substring(0, lineLenght);
+			int cutLow = subIdeal.lastIndexOf(" ");
+			int cutHigh = ini.indexOf(" ", lineLenght-1);
+			int cut;
+			if (cutLow<cutHigh && cutLow !=-1)
+			{
+				out = out+ini.substring(0,cutLow)+"\n";
+				cut = cutLow;
+			}
+			else
+				if (cutHigh !=-1)
+				{
+				out = out+ini.substring(0,cutHigh)+"\n";
+				cut=cutHigh;
+				}
+			
+				else
+				{
+					out = out+ini;
+					ini = "";
+					return out;
+				}
+			ini=ini.substring(cut+1);
+		}
+		
+		
+		return out+ini;
+	}
 }

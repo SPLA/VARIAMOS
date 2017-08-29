@@ -19,7 +19,6 @@ import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 import com.variamos.configurator.io.PLGReader;
 import com.variamos.dynsup.instance.InstAttribute;
-import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.io.ConsoleTextArea;

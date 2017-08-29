@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.cfm.productline.AbstractElement;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.ModelExpr;
@@ -968,7 +968,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 								outt = outt.substring(0, outt.length() - 2);
 								outt += " }";
-								out += AbstractElement.multiLine(outt, 40);
+								out += StringUtils.multiLine(outt, 40);
 							}
 						} else
 							out += instAttribute.toString().trim();
