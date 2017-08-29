@@ -585,7 +585,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	@Override
 	protected Component getLeftComponent() {
 		productLineIndex = new GraphTree();
-		productLineIndex.bind((AbstractGraph) getGraphComponent().getGraph());
+		//productLineIndex.bind((AbstractGraph) getGraphComponent().getGraph());
 
 		JSplitPane inner = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				productLineIndex, null);
@@ -809,15 +809,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
-	public void populateIndex(ProductLine pl) {
-
-		// productLineIndex.populate(pl);
-		AbstractGraph plGraph = (AbstractGraph) getGraphComponent().getGraph();
-		plGraph.buildFromProductLine2(pl, productLineIndex);
-		// ((mxGraphModel) plGraph.getModel()).clear();
-		// plGraph.setProductLine(pl);
-
-	}
 
 	public InstanceModel getEditedModel() {
 		return refasModel;
@@ -1420,10 +1411,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 			w.editVariable(v);
 		}
-	}
-
-	protected void onVariableEdited(Editable e) {
-		((AbstractGraph) getGraphComponent().getGraph()).refreshVariable(e);
 	}
 
 	@SuppressWarnings("unchecked")

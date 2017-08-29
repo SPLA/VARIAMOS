@@ -27,7 +27,6 @@ import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.editor.logic.ConstraintMode;
-import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPalette;
@@ -82,7 +81,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 				);
 		String viewName = editor.getEditedModel().getInstViewName(
 				modelViewIndex, -1);
-		AbstractGraph refasGraph = (AbstractGraph) graphComponent.getGraph();
+		PerspEditorGraph refasGraph = (PerspEditorGraph) graphComponent.getGraph();
 		loadPalette(viewName, palettes, validElements, refasGraph);
 		editor.refreshPalette();
 	}
@@ -94,7 +93,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	 * @param plgraph
 	 */
 	public void loadPalette(String viewName, EditorPalette[] palettes,
-			List<String> validElements, AbstractGraph plgraph) {
+			List<String> validElements, PerspEditorGraph plgraph) {
 		// Load regular palette
 		if (validElements != null) {
 			for (int i = 0; i < paletteElements.size(); i++)
@@ -356,7 +355,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 				}
 		}
 
-		final AbstractGraph graph = plgraph;
+		final PerspEditorGraph graph = plgraph;
 
 		for (EditorPalette palette : palettes) {
 			palette.addListener(mxEvent.SELECT, new mxIEventListener() {
@@ -365,17 +364,17 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 					Object tmp = evt.getProperty("transferable");
 					graph.setConsMode(ConstraintMode.None);
 
-					if (tmp instanceof mxGraphTransferable) {
-						mxGraphTransferable t = (mxGraphTransferable) tmp;
-						Object obj = t.getCells()[0];
-
-						if (graph.getModel().isEdge(obj)) {
-							mxCell cell = (mxCell) obj;
-							((ProductLineGraph) graph)
-									.setConsMode((ConstraintMode) cell
-											.getValue());
-						}
-					}
+//					if (tmp instanceof mxGraphTransferable) {
+//						mxGraphTransferable t = (mxGraphTransferable) tmp;
+//						Object obj = t.getCells()[0];
+//
+//						if (graph.getModel().isEdge(obj)) {
+//							mxCell cell = (mxCell) obj;
+//							((ProductLineGraph) graph)
+//									.setConsMode((ConstraintMode) cell
+//											.getValue());
+//						}
+//					}
 				}
 			});
 		}

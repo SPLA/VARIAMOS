@@ -27,6 +27,7 @@ import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.editor.logic.ConstraintMode;
+import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.io.ConsoleTextArea;
 
 @SuppressWarnings("serial")
@@ -521,7 +522,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		@Override
 		public void invoke(Object sender, mxEventObject evt) {
 			mxCell insertedCell = (mxCell) evt.getProperty("cell");
-			AbstractGraph graph = (AbstractGraph) getGraph();
+			PerspEditorGraph graph = (PerspEditorGraph) getGraph();
 
 			mxCell source = (mxCell) insertedCell.getSource();
 			mxCell target = (mxCell) insertedCell.getTarget();
@@ -592,7 +593,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 			case Default:
 				graph.removeCells(new Object[] { insertedCell });
 				// Create a new constraint
-				graph.connectDefaultConstraint(source, target);
+				//graph.connectDefaultConstraint(source, target);
 				break;
 			default:
 				break;
