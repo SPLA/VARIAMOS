@@ -8,5 +8,6 @@ repositories {
 
 dependencies {
   testCompile "junit:junit:4+"
+  compile project(':com.variamos.common')
 }
 
