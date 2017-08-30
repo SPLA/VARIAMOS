@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cfm.productline.Variable;
-import com.variamos.configurator.DomainAnnotation;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.types.ElementVariable;
 import com.variamos.dynsup.types.IntegerVariable;

@@ -17,7 +17,6 @@ import javax.swing.KeyStroke;
 import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.gui.configurator.guiactions.ExportConfigurationAction;
-import com.variamos.gui.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.configurator.guiactions.SaveProductsAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
@@ -434,10 +433,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 			add(menu);
 
 			menu.addSeparator();
-			a = editor.bind(mxResources.get("loadSolution"),
-					new LoadConfigurationAction());
-			menu.add(a);
-			a.setEnabled(false);
+			
 
 			a = editor.bind(mxResources.get("saveCurrentSolution"),
 					new SaveProductsAction());

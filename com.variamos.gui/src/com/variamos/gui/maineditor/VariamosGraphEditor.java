@@ -86,7 +86,6 @@ import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
-import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.io.ConsoleTextArea;
 import com.variamos.solver.model.SolverSolution;
@@ -118,7 +117,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	protected DomainRegister domasinRegister = new DomainRegister();
 	protected GraphTree productLineIndex;
-	protected ConfiguratorPanel configurator;
+	
 	protected ConfigurationPropertiesTab configuratorProperties;
 	private InstanceModel refasModel;
 	private ProgressMonitor progressMonitor;
@@ -203,7 +202,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 		refasModel = abstractModel;
 		refas2hlcl = new ModelExpr2HLCL(refasModel);
-		configurator.setRefas2hlcl(refas2hlcl);
+		
 
 		registerEvents();
 		// List<InstView> instViews =
@@ -621,7 +620,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		elementSimPropPanel = new JPanel();
 		elementSimPropPanel.setLayout(new SpringLayout());
 
-		configurator = new ConfiguratorPanel();
+		
 
 		configuratorProperties = new ConfigurationPropertiesTab();
 
@@ -638,8 +637,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				ConsoleTextArea.getTextArea()));
-		extensionTabs.addTab(mxResources.get("configurationTab"),
-				new JScrollPane(configurator));
+		
 		extensionTabs.setMinimumSize(new Dimension(30, 100));
 		extensionTabs.addChangeListener(new ChangeListener() {
 
@@ -736,11 +734,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));
-			if (perspective == 4 && getMainFrame() != null
-					&& getMainFrame().isAdvancedPerspective()) {
-				extensionTabs.addTab(mxResources.get("configurationTab"),
-						new JScrollPane(configurator));
-			}
+			
 		}
 		if (elm == null || elm != null && this.lastEditableElement != elm) {
 			extensionTabs.addTab(mxResources.get("messagesTab"),
@@ -784,9 +778,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		return ConsoleTextArea.getTextArea();
 	}
 
-	public ConfiguratorPanel getConfigurator() {
-		return configurator;
-	}
+	
 
 	public void editModelReset() {
 		productLineIndex.reset();

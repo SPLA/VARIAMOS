@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
 import com.cfm.productline.Variable;
-import com.variamos.configurator.DomainAnnotation;
 import com.variamos.hlcl.model.domains.IntDomain;
 
 /**

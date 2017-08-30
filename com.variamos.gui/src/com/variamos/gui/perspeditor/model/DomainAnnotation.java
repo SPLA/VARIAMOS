@@ -1,12 +1,12 @@
-package com.variamos.configurator;
+package com.variamos.gui.perspeditor.model;
 
 @Deprecated
 public class DomainAnnotation {
 	private int value;
-	private Choice choice; 
+	private ChoiceEnum choice; 
 	private int step;
 	
-	public DomainAnnotation(int value, Choice choice, int step) {
+	public DomainAnnotation(int value, ChoiceEnum choice, int step) {
 		super();
 		this.value = value;
 		this.choice = choice;
@@ -19,10 +19,10 @@ public class DomainAnnotation {
 	public void setValue(int value) {
 		this.value = value;
 	}
-	public Choice getChoice() {
+	public ChoiceEnum getChoice() {
 		return choice;
 	}
-	public void setChoice(Choice choice) {
+	public void setChoice(ChoiceEnum choice) {
 		this.choice = choice;
 	}
 	public int getStep() {
@@ -32,6 +32,6 @@ public class DomainAnnotation {
 		this.step = step;
 	}
 	public boolean notAvailable() {
-		return choice == Choice.CROSS;
+		return choice == ChoiceEnum.CROSS;
 	}
 }
