@@ -23,8 +23,6 @@ import com.variamos.io.ConsoleTextArea;
 
 public class MxGraphReader {
 
-	
-
 	/**
 	 * Read an mxGraph file
 	 * @param file
