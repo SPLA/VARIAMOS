@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-import com.cfm.productline.type.IntegerType;
 import com.variamos.dynsup.instance.EnumerationSort;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
@@ -25,6 +24,7 @@ import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.BooleanType;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
 import com.variamos.dynsup.types.EnumerationSingleSelectionType;
+import com.variamos.dynsup.types.IntegerType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.dynsup.types.VariableType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;

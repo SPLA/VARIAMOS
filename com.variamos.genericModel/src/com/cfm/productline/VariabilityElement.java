@@ -8,72 +8,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import com.cfm.productline.type.BooleanType;
-import com.cfm.productline.type.StringType;
+
 
 @SuppressWarnings("serial")
 
-public class VariabilityElement implements Serializable, Prototype, Editable{
+public class VariabilityElement implements Serializable, Prototype{
 	
 	public String getClassId()
 	{
 		return "VP_";
 		
 	}
-//	protected Variable varName = StringType.newVariable("Name");
-//	protected Variable varIdentifier = StringType.newVariable("Identifier");
-//	protected Variable varDescription = StringType.newVariable("Description");
-//	protected Variable varVisible = BooleanType.newVariable("Visibility");
-//	protected Variable varValidity = BooleanType.newVariable("Validity");
-//	protected Variable varAllocation = StringType.newVariable("Allocation");
-	public static final String 	VAR_NAME = "Name",
-								VAR_IDENTIFIER = "Identifier",
-								VAR_DESCRIPTION = "Description",
-								VAR_VISIBILITY = "Visibility",
-								VAR_VALIDITY = "Validity",
-								VAR_ALLOCATION = "Allocation";
-	
-	protected Map<String, Variable> vars = new HashMap<>();
-	protected String alias;
-//	protected Variable value = new IntegerRangeDomain().makeVariable("value");
-	protected List<Variable> varAttributes = new Vector<>();
-	protected List<String> assets; 
-	
-	//For Allocating a resource (image, text ...)
-	//private String allocation;
-	
-	public VariabilityElement(){
-		super();
 
-		vars.put(VAR_NAME, StringType.newVariable(VAR_NAME));
-		vars.put(VAR_IDENTIFIER, StringType.newVariable(VAR_IDENTIFIER));
-		vars.put(VAR_DESCRIPTION, StringType.newVariable(VAR_DESCRIPTION));
-		vars.put(VAR_VISIBILITY, BooleanType.newVariable(VAR_VISIBILITY));
-		vars.put(VAR_VALIDITY, BooleanType.newVariable(VAR_VALIDITY));
-		vars.put(VAR_ALLOCATION, StringType.newVariable(VAR_ALLOCATION));
-		
-		setVariableValue(VAR_VISIBILITY, Boolean.TRUE);
-		setVariableValue(VAR_VALIDITY, Boolean.TRUE);
-		assets = new ArrayList<>();
-	}
-	
-	public Variable getVariable(String name){
-		return vars.get(name);
-	}
-	
-	public void setVariableValue(String name, Object value){
-		//GARA
-		getVariable(name).setValue(value);
-	}
-	
-	public Object getVariableValue(String name){
-		return getVariable(name).getValue();
-	}
-	public VariabilityElement(String alias) {
-		this();
-		if (alias != null)
-			this.alias = alias;
-	}
 	public VariabilityElement(String alias, String id) {
 		this(alias);
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));

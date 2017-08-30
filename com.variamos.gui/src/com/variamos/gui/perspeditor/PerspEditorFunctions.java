@@ -58,7 +58,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	public void updateEditor(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		// editor.setPerspective(2);
-		editor.editModelReset();
+		//editor.editModelReset();
 		// System.out.println("requirements perspective");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}

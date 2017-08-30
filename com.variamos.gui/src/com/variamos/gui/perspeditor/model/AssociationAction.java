@@ -1,6 +1,6 @@
 package com.variamos.gui.perspeditor.model;
 
-import com.cfm.productline.Variable;
+import com.variamos.dynsup.types.Variable;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
 
 /**

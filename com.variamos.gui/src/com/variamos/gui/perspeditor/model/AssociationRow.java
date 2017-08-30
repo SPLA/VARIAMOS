@@ -3,10 +3,10 @@ package com.variamos.gui.perspeditor.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cfm.productline.Variable;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.types.ElementVariable;
 import com.variamos.dynsup.types.IntegerVariable;
+import com.variamos.dynsup.types.Variable;
 import com.variamos.hlcl.model.domains.BinaryDomain;
 import com.variamos.hlcl.model.domains.IntDomain;
 import com.variamos.hlcl.model.domains.IntervalDomain;

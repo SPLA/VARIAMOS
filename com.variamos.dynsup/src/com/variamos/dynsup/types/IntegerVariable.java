@@ -1,7 +1,5 @@
 package com.variamos.dynsup.types;
 
-import com.cfm.productline.Variable;
-
 /**
  * A class to support a different editor for columns. Part of PhD work at
  * University of Paris 1

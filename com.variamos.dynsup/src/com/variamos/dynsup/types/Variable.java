@@ -1,8 +1,7 @@
-package com.cfm.productline;
+package com.variamos.dynsup.types;
 
 import java.io.Serializable;
 
-import com.cfm.productline.type.StringType;
 import com.variamos.hlcl.model.domains.IntDomain;
 
 public class Variable implements Serializable{

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
-import com.cfm.productline.Variable;
+import com.variamos.dynsup.types.Variable;
 import com.variamos.hlcl.model.domains.IntDomain;
 
 /**

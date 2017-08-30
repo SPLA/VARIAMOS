@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import javax.swing.ListCellRenderer;
 import javax.swing.tree.TreeModel;
 
-import com.cfm.productline.Variable;
+import com.variamos.dynsup.types.Variable;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.model.domains.BinaryDomain;

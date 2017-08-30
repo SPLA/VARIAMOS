@@ -13,6 +13,5 @@
 	<classpathentry kind="src" path="/com.variamos.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.dynsup"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.common"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

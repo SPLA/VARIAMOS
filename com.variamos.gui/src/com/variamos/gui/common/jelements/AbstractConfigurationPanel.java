@@ -2,7 +2,7 @@ package com.variamos.gui.common.jelements;
 
 import javax.swing.JPanel;
 
-import com.cfm.productline.Variable;
+import com.variamos.dynsup.types.Variable;
 import com.variamos.solver.core.ConfigurationTask;
 import com.variamos.solver.model.SolverSolution;
 
