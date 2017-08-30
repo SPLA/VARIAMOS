@@ -20,8 +20,8 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -76,9 +76,11 @@ public class ModelExpr2HLCL {
 		return configuration;
 	}
 
-	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1,
-			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3,
-			VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5, SIMUL_MAPE = 6;
+	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1;
+
+	// Only for old static operations
+	public static final int DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2,
+			CORE_EXEC = 3, VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5, SIMUL_MAPE = 6;
 
 	public ModelExpr2HLCL(InstanceModel refas) {
 		this.refas = refas;
