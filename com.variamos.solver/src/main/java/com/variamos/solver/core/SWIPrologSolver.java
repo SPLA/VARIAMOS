@@ -480,7 +480,7 @@ public class SWIPrologSolver implements IntSolver {
 		try {
 			// Create a temporary file
 			File file = File.createTempFile("tmp", ".pl");
-			path = FileUtils.writePrologFile(file, prologProgram);
+			path = FileUtils.writeFile(file, prologProgram);
 			// Slash are replaced to avoid load problems with SWI prolog
 			path = path.replace("\\", "/");
 			file.deleteOnExit();
@@ -497,7 +497,7 @@ public class SWIPrologSolver implements IntSolver {
 		try {
 			// Create a temporary file
 			File file = File.createTempFile("tmp", ".pl");
-			path = FileUtils.writePrologFile(file, prologProgram);
+			path = FileUtils.writeFile(file, prologProgram);
 			// Slash are replaced to avoid load problems with SWI prolog
 			path = path.replace("\\", "/");
 			file.deleteOnExit();

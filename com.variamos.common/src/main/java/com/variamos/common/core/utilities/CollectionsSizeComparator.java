@@ -3,8 +3,8 @@ package com.variamos.common.core.utilities;
 import java.util.Comparator;
 import java.util.List;
 
-public class CollectionsSizeComparator  implements Comparator  {
 
+public class CollectionsSizeComparator  implements Comparator  { 
 	@Override
 	public int compare(Object o1, Object o2) {
 		

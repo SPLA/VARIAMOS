@@ -9,13 +9,13 @@ import java.util.Set;
 /**
  * This class implements the logic related with set operations
  * 
- * @author LuFe
+ * @author Luisa Rincon - lufe089@gmail.com
  * 
  */
 public class SetUtil {
 
+	
 	/**
-	 * @param collectionType
 	 * @param sets
 	 * @return Union of sets without repetitions
 	 */
@@ -109,12 +109,12 @@ public class SetUtil {
 
 	}
 
+
 	/**
-	 * Verify if a set exist in other set of sets
-	 * 
-	 * @param subSet
-	 * @param superSet
-	 * @return
+	 *Verify if a set exist in other set of sets
+	 * @param setToVerify
+	 * @param setOfSets
+	 * @return True exist the set, false otherwise
 	 */
 	public static <E> boolean verifyExistSetInSetofSets(List<E> setToVerify,
 			List<List<E>> setOfSets) {
@@ -137,7 +137,7 @@ public class SetUtil {
 	 * 
 	 * @param subSet
 	 * @param superSet
-	 * @return
+	 * @return True is subset, false otherwise
 	 */
 	public static <E> boolean isSubset(Collection<E> subSet,
 			Collection<E> superSet) {
@@ -172,11 +172,11 @@ public class SetUtil {
 
 	}
 
+	
 	/**
 	 * Verify if a set is superset of other set
-	 * 
-	 * @param subset
 	 * @param superSet
+	 * @param subSet
 	 * @return
 	 */
 	public static <E> boolean isSuperSet(Collection<E> superSet,
@@ -185,10 +185,11 @@ public class SetUtil {
 
 	}
 
+	
 	/**
-	 * @param superSet
-	 * @param subSet
-	 * @return true: Set is contained in the collection set. Otherwise False
+	 * @param inputSet
+	 * @param collectionOfSets
+	 * @return True Set is contained in the collection set. Otherwise False
 	 */
 	public static <E> boolean verifyCollectionSetContainsSet(List<E> inputSet,
 			List<List<E>> collectionOfSets) {
@@ -202,10 +203,11 @@ public class SetUtil {
 		return false;
 	}
 
+
 	/**
-	 * @param superSet
-	 * @param subSet
-	 * @return true: Set is superset of some set of collection of sets.
+	 * @param inputSet
+	 * @param collectionOfSets
+	 * @return true:Set is superset of some set of collection of sets.
 	 *         Otherwise False Ejm inputSet es {a,b,c} y not collectionOfSets
 	 *         tiene un elemento con el valor de {a,c}. En este caso el inputSet
 	 *         es superset pq tiene los mismos elementos( o más ) que el set de

@@ -6,7 +6,7 @@ package com.variamos.common.core.exceptions;
 /**
  * Represents a logical exception from business logic functionalities
  * 
- * @author Luisa Fernanda Rincón Pérez <lufe089@gmail.com>
+ * @author Luisa Rincon - lufe089@gmail.com
  *
  */
 public class FunctionalException extends Exception {
@@ -24,36 +24,26 @@ public class FunctionalException extends Exception {
 	}
 
 	/**
-	 * @param arg0
+	 * @param arg0 string text
 	 */
 	public FunctionalException(String arg0) {
 		super(arg0);
 		 
 	}
 
-	/**
-	 * @param arg0
-	 */
+	
 	public FunctionalException(Throwable arg0) {
 		super(arg0);
 		 
 	}
 
-	/**
-	 * @param arg0
-	 * @param arg1
-	 */
+	
 	public FunctionalException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
 		 
 	}
 
-	/**
-	 * @param arg0
-	 * @param arg1
-	 * @param arg2
-	 * @param arg3
-	 */
+	
 	public FunctionalException(String arg0, Throwable arg1, boolean arg2,
 			boolean arg3) {
 		super(arg0, arg1, arg2, arg3);

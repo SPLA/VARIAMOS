@@ -3,7 +3,6 @@ package com.variamos.common.core.utilities;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +10,19 @@ import java.util.List;
 import com.variamos.common.core.exceptions.TechnicalException;
 
 /**
- * Clase utilitaria para manejo de archivos y directorios
+ * Utility class for handling directories and files
  * 
- * @author Luisa Rincon <lufe089@gmail.com>
+ * @author Luisa Rincon - lufe089@gmail.com
+ * @version 1.1
  *
  */
 public class FileUtils {
+	
 	/**
-	 * Lee la lista de archivos de un directorio
+	 * Read files from a directory
 	 * 
 	 * @param directoryPath
-	 * @return
+	 * @return List of File objects
 	 */
 	public static List<File> readFileFromDirectory(String directoryPath) {
 		File Dir = new File(directoryPath);
@@ -38,10 +39,10 @@ public class FileUtils {
 	}
 
 	/**
-	 * Lee los directorios de una lista de directorios
+	 * Read directories from a directory path
 	 * 
 	 * @param directoryPath
-	 * @return
+	 * @return List of File objects
 	 */
 	public static List<File> readDirectoryFromDirectory(String directoryPath) {
 		File Dir = new File(directoryPath);
@@ -57,18 +58,19 @@ public class FileUtils {
 
 	}
 
+	
 	/**
-	 * Recibe una cadena y la escribe en un archivo
-	 * 
-	 * @param constraintProgram
+	 * Write to the hard disk info received as parameter
+	 * @param path
+	 * @param content
 	 */
-	public static void writeFile(String path, String constraintProgram) {
+	public static void writeFile(String path, String content) {
 		try {
 
 			FileWriter fw = new FileWriter(path);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter out = new PrintWriter(bw);
-			out.println(constraintProgram);
+			out.println(content);
 			out.close();
 		} catch (java.io.IOException ioex) {
 			throw new TechnicalException(ioex);
@@ -76,16 +78,17 @@ public class FileUtils {
 	}
 
 	/**
-	 * Write to disk an input File
-	 * 
-	 * @param constraintProgram
-	 * @throws IOException
+	 * Write to the hard disk info received as parameter
+	 * @param file Java File object
+	 * @param content to save
+	 * @return absolute path where the file were saved
+	 * @throws TechnicalException
 	 */
-	public static String writePrologFile(File file, String constraintProgram)
+	public static String writeFile(File file, String content)
 			throws TechnicalException {
 
 		// Se guarda la representación en el archivo temporal de prolog
-		FileUtils.writeFile(file.getAbsolutePath(), constraintProgram);
+		FileUtils.writeFile(file.getAbsolutePath(), content);
 		return file.getAbsolutePath();
 		
 
