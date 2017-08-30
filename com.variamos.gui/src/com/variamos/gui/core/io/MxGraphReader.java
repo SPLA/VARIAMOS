@@ -1,4 +1,5 @@
-package com.variamos.configurator.io;
+package com.variamos.gui.core.io;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,45 +20,24 @@ import com.variamos.io.ConsoleTextArea;
  * @author unknown
  *
  */
-@Deprecated
-public class PLGReader {
+
+public class MxGraphReader {
+
+	
 
 	/**
-	 * @param file
-	 *            File to load Load file on a new ProductLineGraph jcmunoz: Not
-	 *            Used method Commented - Reference to the ProductLineGraph
-	 *            should not exist.
-	 */
-	// public static ProductLineGraph readPLG(File file){
-	//
-	// ProductLineGraph plGraph = new ProductLineGraph();
-	// try {
-	// Document document =
-	// mxXmlUtils.parseXml(mxUtils.readFile(file.getAbsolutePath()));
-	// mxCodec codec = new mxCodec(document);
-	// codec.decode(
-	// document.getDocumentElement(),
-	// plGraph.getModel());
-	// return plGraph;
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// return plGraph;
-	// }
-
-	/**
+	 * Read an mxGraph file
 	 * @param file
 	 *            File to load
-	 * @param plGraph
+	 * @param mxGraph
 	 *            Destination Graph Load file on existing LineGraph
 	 */
-	public static void loadPLG(File file, mxGraph plGraph, JComponent jframe) {
+	public static void loadMxGraph(File file, mxGraph mxGraph, JComponent jframe) {
 		try {
 			Document document = mxXmlUtils.parseXml(readFile(
 					file.getAbsolutePath(), jframe));
 			mxCodec codec = new mxCodec(document);
-			codec.decode(document.getDocumentElement(), plGraph.getModel());
+			codec.decode(document.getDocumentElement(), mxGraph.getModel());
 		} catch (IOException e) {
 			ConsoleTextArea.addText(e.getStackTrace());
 		}
