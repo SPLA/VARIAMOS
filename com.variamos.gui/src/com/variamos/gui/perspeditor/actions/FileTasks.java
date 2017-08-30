@@ -18,6 +18,7 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.gui.core.io.MxGraphReader;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.io.ConsoleTextArea;
@@ -181,7 +182,18 @@ public class FileTasks extends SwingWorker<Void, Void> {
 							"Model Incompatibility Message",
 							JOptionPane.INFORMATION_MESSAGE, null);
 		}
-		
+		// Read file version
+		try {
+			MxGraphReader.loadMxGraph(file, graph, variamosEditor);
+		} catch (Exception e) {
+			JOptionPane
+					.showMessageDialog(
+							variamosEditor,
+							"unable to load the model. The structure of the file was not understood.",
+							"Model load error: " + e.getMessage(),
+							JOptionPane.ERROR_MESSAGE, null);
+			return false;
+		}
 		InstAttribute rootAttributes = (InstAttribute) ((mxCell) graph
 				.getModel().getRoot()).getChildAt(0).getValue();
 
