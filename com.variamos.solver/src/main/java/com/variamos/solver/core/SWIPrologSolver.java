@@ -153,7 +153,7 @@ public class SWIPrologSolver implements IntSolver {
 				// Generate the list of variables Ejm L={A,B,C}
 				Term L = Util.termArrayToList(varTermsArray);
 
-				// Generate the assigns for the not ignored variables
+				// Generate the assigns for not ignored variables
 				for (String id : config.getNotIgnored()) {
 					// Create the atom
 					if (config.stateOf(id) == (int) config.stateOf(id)) {

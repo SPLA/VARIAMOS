@@ -6,7 +6,7 @@ import java.util.List;
 
 public class LiteralExpressionUtil {
 
-	private static String GENERIC_CONSTRAINTS_SYMBOLS[] = { "#=", "#\\=", "+",
+	private static final String GENERIC_CONSTRAINTS_SYMBOLS[] = { "#=", "#\\=", "+",
 			"*", "-", "#>=", "#=<", "#>", "#<", "#==>", "#/\\", "#\\/", "#\\ ",
 			"#<=>", "##", "#\\==>", "#\\/\\", "#\\/", "#<==>" };
 

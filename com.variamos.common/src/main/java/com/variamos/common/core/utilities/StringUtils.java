@@ -3,11 +3,6 @@ package com.variamos.common.core.utilities;
 import java.util.regex.Pattern;
 
 public class StringUtils {
-	/**
-	 * @param enumValue
-	 * @return Formated string with the enum Value
-	 * @author JuanCMunoz
-	 */
 	public static String formatEnumValue(String enumValue) {
 		String patternString = "([_])";
 		Pattern p = Pattern.compile(patternString);
@@ -24,7 +19,7 @@ public class StringUtils {
 	 * This methods splits text into different lines to easy visualization
 	 * @param str
 	 * @param lineLenght
-	 * @return formatted string with text separated into multiple lines
+	 * @return String
 	 * @author JuanCMunoz
 	 */
 	public static String multiLine(String str, int lineLenght)
