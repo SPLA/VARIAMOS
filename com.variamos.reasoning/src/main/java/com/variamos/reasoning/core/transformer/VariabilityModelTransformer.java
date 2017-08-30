@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Collection;
 
 import com.variamos.common.core.exceptions.FunctionalException;
-import com.variamos.common.core.exceptions.TransformerException;
 import com.variamos.common.model.enums.NotationType;
 import com.variamos.common.model.enums.SolverEditorType;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
@@ -26,14 +25,14 @@ public class VariabilityModelTransformer {
 	}
 
 	public VariabilityModel transformToVariabilityModel()
-			throws TransformerException {
+			throws FunctionalException {
 		VariabilityModel outDTO = new VariabilityModel();
 
 		if (inDTO.getNotationType().equals(NotationType.FEATURES_MODELS)) {
 			FeatureModelSPLOTransformer featureModelTransformer = new FeatureModelSPLOTransformer();
 			File file= new File(inDTO.getPathToTransform());
 			if(!file.exists()){
-				throw new TransformerException("El modelo a analizar "
+				throw new FunctionalException("El modelo a analizar "
 						+ inDTO.getPathToTransform() + " no existe");
 			}else{
 			outDTO = featureModelTransformer.transform(inDTO);

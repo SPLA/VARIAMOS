@@ -2,7 +2,7 @@ package com.variamos.reasoning.defectAnalyzer.core;
 
 import static org.junit.Assert.fail;
 
-import com.variamos.common.core.exceptions.TransformerException;
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.common.model.enums.NotationType;
 import com.variamos.reasoning.core.transformer.VariabilityModelTransformer;
 import com.variamos.reasoning.defectAnalyzer.model.dto.VMTransformerInDTO;
@@ -34,7 +34,7 @@ public class VariabilityModelTransformerTest {
 			transformer.printTransformedModelSWIProlog(variabilityModel);
 			Assert.assertNotNull(variabilityModel);
 			Assert.assertNotNull(variabilityModel.getDependencies());
-		} catch (TransformerException e) {
+		} catch (FunctionalException e) {
 			e.printStackTrace();
 			fail();
 		}

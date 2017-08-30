@@ -4,9 +4,9 @@
 package com.variamos.common.core.exceptions;
 
 /**
- * Represents a controller logical exception
+ * Represents a logical exception from business logic functionalities
  * 
- * @author Luisa Fernanda Rincón Pérez <lufrinconpe@unal.edu.co>
+ * @author Luisa Fernanda Rincón Pérez <lufe089@gmail.com>
  *
  */
 public class FunctionalException extends Exception {

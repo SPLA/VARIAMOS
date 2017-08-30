@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.common.core.exceptions.TransformerException;
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.hlcl.model.expressions.IntNumericExpression;
@@ -375,7 +375,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 
 	@Override
 	public VariabilityModel transform(VMTransformerInDTO inDTO)
-			throws TransformerException {
+			throws FunctionalException {
 
 		init(inDTO);
 		try {
@@ -425,7 +425,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 			return variabilityModel;
 
 		} catch (FeatureModelException e) {
-			throw new TransformerException(e);
+			throw new FunctionalException(e);
 
 		}
 

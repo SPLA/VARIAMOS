@@ -11,7 +11,6 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.variamos.common.core.exceptions.FunctionalException;
-import com.variamos.common.core.exceptions.TransformerException;
 import com.variamos.common.model.enums.NotationType;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.hlcl.core.HlclUtil;
@@ -175,7 +174,7 @@ public class CauseAnalyzerTest {
 			assertTrue(variabilityModel != null);
 			System.out.println("The FM was correctly transformed \n");
 			return variabilityModel;
-		} catch (TransformerException e) {
+		} catch (FunctionalException e) {
 			fail(e.getMessage());
 
 		}

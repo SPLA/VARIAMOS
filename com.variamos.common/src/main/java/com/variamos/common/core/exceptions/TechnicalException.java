@@ -5,7 +5,7 @@ package com.variamos.common.core.exceptions;
 
 /**
  * Represents a controlled technical exception
- * @author Lufe
+ * @author  Luisa Fernanda Rincón Pérez <lufe089@gmail.com>
  *
  */
 public class TechnicalException extends RuntimeException {
