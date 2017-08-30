@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cfm.productline.ProductLine;
-import com.variamos.configurator.io.ConfigurationDTO;
+import com.variamos.io.importExport.core.ConfigurationDTO;
 import com.variamos.solver.core.ConfigurationTask;
 import com.variamos.solver.core.ConfigurationTaskListener;
 import com.variamos.solver.core.IntSolver;
@@ -120,12 +120,5 @@ public class Configurator {
 	 * }
 	 */
 
-	public ConfigurationDTO getConfigurationDTO(SolverSolution configuration,
-			ConfigurationOptionsDTO configOptions) {
-		ConfigurationDTO dto = new ConfigurationDTO();
-		dto.setValues(configuration);
-		dto.setOptions(configOptions);
-		return dto;
-	}
 
 }

@@ -17,7 +17,6 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 
 
 /**
@@ -142,21 +141,7 @@ public class PerspEditorGraphTree extends JTree{
 				}
 			}
 		});
-		
-		graph.addListener(ProductLineGraph.PL_EVT_NODE_CHANGE, new mxIEventListener() {
-			
-			@Override
-			public void invoke(Object sender, mxEventObject evt) {
-				Object elm = evt.getProperty("element");
-				if( elm instanceof VariabilityElement ){
-					VariabilityElement e = (VariabilityElement) elm;
-					DefaultMutableTreeNode n = findNode(e.getIdentifier());
-					if( n != null )
-						getModel().nodeChanged(n);
-				}
-			}
-		});
-		
+				
 		this.graph = graph;
 	}
 

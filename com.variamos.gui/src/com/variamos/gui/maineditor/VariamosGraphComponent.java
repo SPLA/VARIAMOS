@@ -7,11 +7,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import com.cfm.productline.constraints.ExcludesConstraint;
-import com.cfm.productline.constraints.GroupConstraint;
-import com.cfm.productline.constraints.MandatoryConstraint;
-import com.cfm.productline.constraints.OptionalConstraint;
-import com.cfm.productline.constraints.RequiresConstraint;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;

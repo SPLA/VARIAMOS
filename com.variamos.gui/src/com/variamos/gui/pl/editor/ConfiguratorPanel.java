@@ -34,7 +34,6 @@ import com.cfm.productline.Variable;
 import com.variamos.configurator.Choice;
 import com.variamos.configurator.Configurator;
 import com.variamos.configurator.DomainAnnotation;
-import com.variamos.configurator.io.ConfigurationDTO;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.dynsup.types.IntegerType;
@@ -43,6 +42,7 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.model.domains.BinaryDomain;
+import com.variamos.io.importExport.core.ConfigurationDTO;
 import com.variamos.solver.core.ConfigurationTask;
 import com.variamos.solver.model.SolverSolution;
 
@@ -418,7 +418,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	private boolean processConfiguration(SolverSolution configuration) {
-		TreeMap<String, Number> configSet = configuration.getConfiguration();
+		TreeMap<String, Number> configSet = configuration.getSolverSolution();
 		StringBuilder sb = new StringBuilder();
 		for (String identifier : configSet.keySet()) {
 			String[] split = identifier.split("_");
@@ -734,7 +734,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	public void setConfiguration(ConfigurationDTO dto) {
-		TreeMap<String, Number> values = dto.getValues().getConfiguration();
+		TreeMap<String, Number> values = dto.getValues().getSolverSolution();
 		for (String varName : values.keySet()) {
 			ConfigurationNode node = getConfigurationNode(varName);
 			if (node == null)

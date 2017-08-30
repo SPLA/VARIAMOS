@@ -23,7 +23,6 @@ import com.cfm.productline.Variable;
 import com.variamos.configurator.Choice;
 import com.variamos.configurator.Configurator;
 import com.variamos.configurator.DomainAnnotation;
-import com.variamos.configurator.io.ConfigurationDTO;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.types.IntegerType;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
@@ -33,9 +32,10 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.model.domains.BinaryDomain;
-import com.variamos.solver.model.SolverSolution;
+import com.variamos.io.importExport.core.ConfigurationDTO;
 import com.variamos.solver.core.ConfigurationTask;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * @author unknown jcmunoz: commented unused methods
@@ -511,7 +511,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	public void setConfiguration(ConfigurationDTO dto) {
-		TreeMap<String, Number> values = dto.getValues().getConfiguration();
+		TreeMap<String, Number> values = dto.getValues().getSolverSolution();
 		for (String varName : values.keySet()) {
 			ConfigurationNode node = getConfigurationNode(varName);
 			if (node == null)
@@ -530,11 +530,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		table.repaint();
 	}
 
-	public ConfigurationDTO getConfigurationDTO() {
-		return configurator.getConfigurationDTO(getCurrentConfiguration(),
-				getCurrentOptions());
-	}
-
+	
 	public List<SolverSolution> getSolutions() {
 		return solutionPanel.getAllSolutions();
 	}

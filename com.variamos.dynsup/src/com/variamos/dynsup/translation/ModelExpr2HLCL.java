@@ -796,7 +796,7 @@ public class ModelExpr2HLCL {
 	}
 
 	public Map<String, Number> getResult() {
-		return configuration.getConfiguration();
+		return configuration.getSolverSolution();
 	}
 
 	/**
@@ -820,7 +820,7 @@ public class ModelExpr2HLCL {
 			InstElement instOperSubAction) {
 		if (configuration != null) {
 			Map<String, Number> prologOut;
-			prologOut = configuration.getConfiguration();
+			prologOut = configuration.getSolverSolution();
 			for (String identifier : prologOut.keySet()) {
 				String[] split = identifier.split("_");
 				String vertexId = split[0];
@@ -861,7 +861,7 @@ public class ModelExpr2HLCL {
 		if (configuration != null) {
 			Map<String, Number> prologOut;
 			if (config == null)
-				prologOut = configuration.getConfiguration();
+				prologOut = configuration.getSolverSolution();
 			else
 				prologOut = config;
 
@@ -1010,7 +1010,7 @@ public class ModelExpr2HLCL {
 		if (configuration != null) {
 			Map<String, Number> prologOut;
 			if (config == null)
-				prologOut = configuration.getConfiguration();
+				prologOut = configuration.getSolverSolution();
 			else
 				prologOut = config;
 

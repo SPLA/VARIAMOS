@@ -262,7 +262,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				.getConfiguredIdentifier(elementSubSet);
 		SolverSolution config = new SolverSolution();
 
-		config.setConfiguration(configuredIdentNames);
+		config.setSolverSolution(configuredIdentNames);
 
 		List<String> requiredConceptsNames = new ArrayList<String>();
 		List<String> deadConceptsNames = new ArrayList<String>();

@@ -7,9 +7,9 @@ import java.io.FileNotFoundException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
+import com.variamos.io.importExport.core.ConfigurationIO;
 
 /**
  * To document. Copied from configurator actions. Part of PhD work at University of Paris 1
@@ -67,7 +67,7 @@ public class LoadConfigurationAction extends AbstractEditorAction {
 
 	private void loadConf(String fileAbsPath) {
 		try {
-			configurator.setConfiguration(ConfigurationIO.loadFromFile(fileAbsPath));
+			configurator.setConfiguration(ConfigurationIO.loadObjectFromJSONFile(fileAbsPath));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

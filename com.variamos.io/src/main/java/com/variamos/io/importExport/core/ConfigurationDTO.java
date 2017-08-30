@@ -1,7 +1,8 @@
-package com.variamos.configurator.io;
+package com.variamos.io.importExport.core;
 
-import com.variamos.solver.model.SolverSolution;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
+
 @Deprecated
 public class ConfigurationDTO { 
 	private ConfigurationOptionsDTO options;

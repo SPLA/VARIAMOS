@@ -200,7 +200,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 					// Si se obtienen valores esto quiere decir q es
 					// satisfacible
 					if (configurationResult != null
-							&& !configurationResult.getConfiguration()
+							&& !configurationResult.getSolverSolution()
 									.isEmpty()) {
 						// Los valores identificados no son non attainable
 						// domains, se actualizan los valores en el mapa
@@ -225,7 +225,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	private void updateEvaluatedDomainsMap(SolverSolution configuration) {
 
 		TreeMap<String, Number> configurationValues = configuration
-				.getConfiguration();
+				.getSolverSolution();
 
 		Number number = null;
 
@@ -297,8 +297,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 					SolverSolution copy = new SolverSolution();
 					TreeMap<String, Number> configurationValues = new TreeMap<String, Number>();
 					configurationValues
-							.putAll(configuration.getConfiguration());
-					copy.setConfiguration(configurationValues);
+							.putAll(configuration.getSolverSolution());
+					copy.setSolverSolution(configurationValues);
 					copy.set(identifier.getId(), definedDomainValue);
 
 					configurationResult = solver.getConfiguration(model, copy,
@@ -507,8 +507,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 			SolverSolution copy = new SolverSolution();
 			TreeMap<String, Number> configurationValues = new TreeMap<String, Number>();
-			configurationValues.putAll(configuration.getConfiguration());
-			copy.setConfiguration(configurationValues);
+			configurationValues.putAll(configuration.getSolverSolution());
+			copy.setSolverSolution(configurationValues);
 			copy.ban(identifier.getId());
 			SolverSolution configurationResult = solver.getConfiguration(model,
 					copy, options);

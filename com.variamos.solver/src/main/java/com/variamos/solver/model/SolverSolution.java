@@ -96,11 +96,11 @@ public class SolverSolution {
 		return super.equals(obj);
 	}
 
-	public TreeMap<String, Number> getConfiguration() {
+	public TreeMap<String, Number> getSolverSolution() {
 		return configuration;
 	}
 
-	public void setConfiguration(TreeMap<String, Number> configuration) {
+	public void setSolverSolution(TreeMap<String, Number> configuration) {
 		this.configuration = configuration;
 	}
 

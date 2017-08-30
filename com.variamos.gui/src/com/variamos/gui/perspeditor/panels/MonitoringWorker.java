@@ -7,14 +7,17 @@ import java.util.Map;
 
 import javax.swing.SwingWorker;
 
-import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.dynsup.translation.SolverTasks;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.io.importExport.core.ConfigurationIO;
 
 /**
  * A class to support the thread for simulation of configurations. Part of PhD
  * work at University of Paris 1
+ * 
+ * Soporta la ejecución utilizando la ventana de simulation MAPE-K que está en 
+ * basic simulation (static) en la perspectiva de configuración y simulación.
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -22,6 +25,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
  * @since 2015-03-20
  * @see com.variamos.gui.pl.editor.VariabilityAttributeList
  */
+
 public class MonitoringWorker extends SwingWorker<Void, Void> {
 	private String initialConfigFile;
 	private String monitoredDirectory;
@@ -89,7 +93,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 							results + "ConfigFile loaded: "
 									+ monitoredFile.getAbsolutePath() + "\n");
 					Map<String, Number> config = ConfigurationIO
-							.loadMapFromFile(monitoredFile.getAbsolutePath());
+							.loadMapFromJSONFile(monitoredFile.getAbsolutePath());
 					List<String> selectedAttributes = new ArrayList<String>();
 					selectedAttributes.add("ConfSel");
 					selectedAttributes.add("Sel");
@@ -174,8 +178,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 						editor.editPropertiesRefas();
 					}
 
-					ConfigurationIO.saveMapToFile(editor.getRefas2hlcl()
-							.getConfiguration().getConfiguration(),
+					ConfigurationIO.saveMapToJSONFile(editor.getRefas2hlcl()
+							.getConfiguration().getSolverSolution(),
 							outputDirectoryFile + "/solution" + solIndex
 									+ ".conf");
 

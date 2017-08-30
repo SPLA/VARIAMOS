@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="com/variamos/configurator/io/PLGReader.java|com/variamos/editor/logic/PaletteDatabase.java" kind="src" path="src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/jpl.jar"/>
