@@ -2,11 +2,8 @@ package com.variamos.reasoning.defectAnalyzer.core;
 
 import static org.junit.Assert.fail;
 
-import org.junit.Test;
-
 import com.variamos.common.core.exceptions.TransformerException;
 import com.variamos.common.model.enums.NotationType;
-import com.variamos.common.model.enums.SolverEditorType;
 import com.variamos.reasoning.core.transformer.VariabilityModelTransformer;
 import com.variamos.reasoning.defectAnalyzer.model.dto.VMTransformerInDTO;
 import com.variamos.reasoning.defectAnalyzer.model.transformation.VariabilityModel;

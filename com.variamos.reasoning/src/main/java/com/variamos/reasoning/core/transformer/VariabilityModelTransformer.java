@@ -10,7 +10,6 @@ import com.variamos.common.model.enums.SolverEditorType;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.model.dto.VMTransformerInDTO;
 import com.variamos.reasoning.defectAnalyzer.model.transformation.VariabilityModel;
-import com.variamos.reasoning.core.transformer.FeatureModelSPLOTransformer;
 import com.variamos.reasoning.util.ConstraintRepresentationUtil;
 
 public class VariabilityModelTransformer {

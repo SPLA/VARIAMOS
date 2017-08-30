@@ -13,10 +13,8 @@ import com.variamos.hlcl.model.expressions.Identifier;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.hlcl.model.expressions.IntNumericExpression;
 import com.variamos.hlcl.model.expressions.NumericIdentifier;
-import com.variamos.solver.core.SWIPrologSolver;
-import com.variamos.solver.core.IntSolver;
-import com.variamos.solver.model.SolverSolution;
 import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
 
 public class SWIPrologTest {
 

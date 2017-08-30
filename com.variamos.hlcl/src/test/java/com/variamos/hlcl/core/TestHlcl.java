@@ -3,12 +3,8 @@ package com.variamos.hlcl.core;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
-import com.variamos.hlcl.core.HlclProgram;
-import com.variamos.hlcl.core.HlclUtil;
 import com.variamos.hlcl.model.expressions.ComparisonExpression;
 import com.variamos.hlcl.model.expressions.HlclFactory;
 import com.variamos.hlcl.model.expressions.Identifier;
@@ -17,6 +13,8 @@ import com.variamos.hlcl.model.expressions.IntNumericExpression;
 import com.variamos.hlcl.model.expressions.LiteralBooleanExpression;
 import com.variamos.hlcl.model.expressions.NumericIdentifier;
 import com.variamos.hlcl.model.expressions.SymbolicExpression;
+
+import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
 public class TestHlcl {

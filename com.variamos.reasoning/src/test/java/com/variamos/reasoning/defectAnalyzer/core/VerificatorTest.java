@@ -20,8 +20,6 @@ import com.variamos.hlcl.core.HlclUtil;
 import com.variamos.hlcl.model.expressions.Identifier;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.core.transformer.VariabilityModelTransformer;
-import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
-import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.model.defects.DeadElement;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
 import com.variamos.reasoning.defectAnalyzer.model.defects.FalseOptionalElement;

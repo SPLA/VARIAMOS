@@ -6,8 +6,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.variamos.reasoning.defectAnalyzer.core.HittingSetIdentifier;
-
 
 
 public class HittingSetTest {

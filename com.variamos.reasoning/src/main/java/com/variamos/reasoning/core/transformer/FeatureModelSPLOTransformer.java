@@ -19,8 +19,6 @@ import com.variamos.reasoning.defectAnalyzer.model.transformation.Dependency;
 import com.variamos.reasoning.defectAnalyzer.model.transformation.RangeDomainDefectAnalyzer;
 import com.variamos.reasoning.defectAnalyzer.model.transformation.TransformerConstants;
 import com.variamos.reasoning.defectAnalyzer.model.transformation.VariabilityModel;
-import com.variamos.reasoning.core.transformer.FeatureModelTransformerRules;
-import com.variamos.reasoning.core.transformer.ITransformer;
 
 import constraints.BooleanVariable;
 import constraints.PropositionalFormula;
