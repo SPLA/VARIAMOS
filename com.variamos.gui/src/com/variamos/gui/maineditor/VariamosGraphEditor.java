@@ -116,7 +116,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private List<String> validElements = null;
 
 	protected DomainRegister domasinRegister = new DomainRegister();
-	protected GraphTree productLineIndex;
+	
 	
 	protected ConfigurationPropertiesTab configuratorProperties;
 	private InstanceModel refasModel;
@@ -581,17 +581,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	@Override
 	protected Component getLeftComponent() {
-		productLineIndex = new GraphTree();
-		//productLineIndex.bind((AbstractGraph) getGraphComponent().getGraph());
+	
 
-		JSplitPane inner = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-				productLineIndex, null);
-		inner.setDividerLocation(250);
-		inner.setResizeWeight(1);
-		inner.setDividerSize(6);
-		inner.setBorder(null);
-
-		return inner;
+		return null;
 	}
 
 	@Override
@@ -781,7 +773,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	
 
 	public void editModelReset() {
-		productLineIndex.reset();
+		//FIXME: Check if this method is still useful
 		if (perspective == 0)
 			// editModel(new ProductLine())
 			;
