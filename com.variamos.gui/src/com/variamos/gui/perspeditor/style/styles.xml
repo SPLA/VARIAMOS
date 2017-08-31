@@ -474,6 +474,12 @@
 		<add as="editable" value="false"/>
 	</add>
 	<!-- End Old Product Line styles -->
-	
+		<!-- Begin Constraint Graph styles -->
+	<add as="constraintGraphEdge">
+		<add as="endArrow" value="false"/>
+		<add as="endFill" value="false"/>
+		<add as="fillColor" value="black" />
+		<add as="editable" value="false"/>
+	</add>
 
 </mxStylesheet>

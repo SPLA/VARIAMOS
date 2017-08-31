@@ -8,5 +8,6 @@ public enum OpersSubOpType {
 
 	UpdModel_Defects_Verif, IdDef_Defects_Verif,
 
-	Multi_Verification
+	Multi_Verification,
+	Medic
 }

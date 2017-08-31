@@ -5,13 +5,31 @@ import java.util.List;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
+import com.variamos.compiler.prologEditors.StageInTransformation;
 
 public class PrologTransformParameters {
 	private String labelId;
 	private List<Identifier> identifiers;
 	private boolean fdLabeling;
 
+
 	private boolean onceLabeling;
+	
+	/**
+	 * stage represent the part of the transformation needed for incremental transformations
+	 * stages: Default, Initial, Partial, Final 
+	 * 
+	 * 
+	 */
+	private StageInTransformation stage;
+
+	public StageInTransformation getStage() {
+		return stage;
+	}
+
+	public void setStage(StageInTransformation stage) {
+		this.stage = stage;
+	}
 
 	// First fail. Label the leftmost variable with smallest domain next, in
 	// order to detect infeasibility early. This is often a good strategy.
@@ -41,6 +59,7 @@ public class PrologTransformParameters {
 	public PrologTransformParameters() {
 		fdLabeling = true;
 		onceLabeling = false;
+		stage= StageInTransformation.Default;
 	}
 
 	public boolean isFdLabeling() {

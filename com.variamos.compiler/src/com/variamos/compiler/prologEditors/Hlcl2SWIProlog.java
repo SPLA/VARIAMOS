@@ -17,7 +17,7 @@ import com.variamos.hlcl.RangeDomain;
 import com.variamos.hlcl.StringDomain;
 
 /**
- * @author Luisa Rincón Modified by jcmunoz to support composed domains
+ * @author Luisa Rincï¿½n Modified by jcmunoz to support composed domains
  *
  */
 public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
@@ -78,7 +78,14 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 					footerExpression.append(insideLabeling);
 					footerExpression.append(CLOSE_BRACKET);
 					footerExpression.append(COMMA);
+				} 
+				// avillota included these lines
+				else{ //In the case that there is no a labeling strategy 
+					footerExpression.append(OPEN_BRACKET);
+					footerExpression.append(CLOSE_BRACKET);
+					footerExpression.append(COMMA);
 				}
+				
 				footerExpression.append(INVOCATION);
 				footerExpression.append(CLOSE_PARENHESIS);
 				footerExpression.append(DOT);
@@ -227,7 +234,7 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 	}
 
 	private StringBuilder makeDomainsAndVariables(Set<Identifier> ids) {
-		// Se contruye la lista de características y de dominios
+		// Se contruye la lista de caracterï¿½sticas y de dominios
 		StringBuilder dommainAndVariables = new StringBuilder("L=[");
 		StringBuilder variablesList = new StringBuilder();
 		StringBuilder domainString = new StringBuilder();

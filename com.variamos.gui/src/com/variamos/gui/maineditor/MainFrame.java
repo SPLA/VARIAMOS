@@ -99,6 +99,8 @@ public class MainFrame extends JFrame {
 		VariamosGraphEditor modelEditor = null;
 		String perspTitle = "";
 		System.out.println(" done");
+		
+		//creando las perspectivas
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
 			case 0: // operations 1

@@ -55,17 +55,51 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		writeFooter(out);
 		return out.toString();
 	}
+	
+	/**
+	 * Method modified by avillota
+	 * @param program
+	 * @param params
+	 * @return
+	 */
 
 	public String transform(HlclProgram program,
 			PrologTransformParameters params) {
 		this.params = params;
 
 		StringBuilder out = new StringBuilder();
-		writeHeader(program, out);
-		transformProgram(program, out);
-		out.append(COMMA).append(LF);
-		writeFooter(out);
-		// System.out.println("SOLUTION: \n"+ out.toString() + "\n\n");
+		
+		//Lines commented by avillota after changing the method for supporting incremental transformation
+//		writeHeader(program, out);
+//		transformProgram(program, out);
+//		out.append(COMMA).append(LF);
+//		writeFooter(out);
+		
+		
+
+		
+		
+		switch(params.getStage()){ //obtaining the stage form the parameters
+		case Default: //transformation of all the program
+			writeHeader(program, out);
+			transformProgram(program, out);
+			out.append(COMMA).append(LF);
+			writeFooter(out);
+			break;
+		case Initial: //transforming just the variables and domain declaration
+			writeHeader(program, out);
+			break;
+		case Partial: //transforming a set of constraints
+			transformProgram(program, out);
+			out.append(COMMA).append(LF);
+			break;
+		case Final: //transforming the footer of the program
+			writeFooter(out);
+			break;
+		}
+		
+
+		
 		return out.toString();
 	}
 
