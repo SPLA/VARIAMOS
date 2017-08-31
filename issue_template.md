@@ -31,14 +31,11 @@ For bug reports please provide the *STEPS TO REPRODUCE* and if possible a *MINIM
 
 
 ## Environment
-
-<pre><code>
-Variamos version: X.Y.Z
+Variamos version: 
 <!-- Check whether this is still an issue in the most recent Angular version -->
- 
+
 For Tooling issues:
 - Platform:  <!-- Mac, Linux, Windows -->
-
 Others:
 <!-- Anything else relevant?  Operating system version, IDE, package manager, HTTP server, ... -->
-</code></pre>
+
