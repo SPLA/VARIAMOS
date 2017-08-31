@@ -32,10 +32,10 @@ For bug reports please provide the *STEPS TO REPRODUCE* and if possible a *MINIM
 
 ## Environment
 Variamos version: 
-<!-- Check whether this is still an issue in the most recent Angular version -->
+<!-- Check whether this is still an issue in the most recent version -->
 
-For Tooling issues:
-- Platform:  <!-- Mac, Linux, Windows -->
-Others:
+For Tooling issues:  
+Platform:  <!-- Mac, Linux, Windows -->  
+Others:  
 <!-- Anything else relevant?  Operating system version, IDE, package manager, HTTP server, ... -->
 
