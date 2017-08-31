@@ -1,6 +1,7 @@
 <!--
 PLEASE HELP US PROCESS GITHUB ISSUES FASTER BY PROVIDING THE FOLLOWING INFORMATION.
 ISSUES MISSING IMPORTANT INFORMATION MAY BE CLOSED WITHOUT INVESTIGATION.
+This template was modified from [Angular issues template](https://github.com/angular/angular/issues/new)
 -->
 
 ## I'm submitting a...
