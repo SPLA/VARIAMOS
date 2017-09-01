@@ -11,6 +11,7 @@ This template was modified from [Angular issues template](https://github.com/ang
 [ ] Bug report  <!-- Please search GitHub for a similar issue or PR before submitting -->
 [ ] Feature request
 [ ] Documentation issue or request
+[ ] Improvement request
 [ ] Support request => Please do not submit support request here
 </code></pre>
 
