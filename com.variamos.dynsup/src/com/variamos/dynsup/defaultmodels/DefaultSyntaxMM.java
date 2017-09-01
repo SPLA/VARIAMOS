@@ -41,8 +41,8 @@ public class DefaultSyntaxMM {
 
 		SyntaxElement syntaxRefas = new SyntaxElement('C', "GeneralModel",
 				false, true, "GeneralModel", "plnode", "Applies REFAS and FM",
-				100, 50, "/com/variamos/gui/perspeditor/images/plnode.png", true,
-				Color.BLUE.toString(), 3, semREFAS, true);
+				100, 50, "/com/variamos/gui/perspeditor/images/plnode.png",
+				true, Color.BLUE.toString(), 3, semREFAS, true);
 
 		InstConcept instRefas = new InstConcept("GeneralModel",
 				supportMetaElementConcept, syntaxRefas);
@@ -259,8 +259,8 @@ public class DefaultSyntaxMM {
 
 		SyntaxElement syntaxRootFeature = new SyntaxElement('C', "RootFeature",
 				true, true, "RootFeature", "plnode", "Defines a root feature",
-				100, 50, "/com/variamos/gui/perspeditor/images/plnode.png", true,
-				Color.BLUE.toString(), 3, semRFeature, true);
+				100, 50, "/com/variamos/gui/perspeditor/images/plnode.png",
+				true, Color.BLUE.toString(), 3, semRFeature, true);
 
 		syntaxRootFeature.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -288,8 +288,8 @@ public class DefaultSyntaxMM {
 
 		SyntaxElement syntaxVertexLF = new SyntaxElement('C', "LeafFeature",
 				true, true, "LeafFeature", "plnode", "Defines a leaf feature",
-				100, 50, "/com/variamos/gui/perspeditor/images/plnode.png", true,
-				Color.BLUE.toString(), 3, semLFeature, true);
+				100, 50, "/com/variamos/gui/perspeditor/images/plnode.png",
+				true, Color.BLUE.toString(), 3, semLFeature, true);
 
 		syntaxVertexLF.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
 				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
@@ -1592,15 +1592,15 @@ public class DefaultSyntaxMM {
 				"Group Soft From Relation", "",
 				"Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
-				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png", 1,
-				directSGGRSemEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directSGGRSemEdge);
 
 		SyntaxElement metaGroupSoftToPairWiseRel = new SyntaxElement('P',
 				"GroupSoftToRelation", true, true, "Group Soft To Relation",
 				"", "Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
-				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png", 1,
-				directGRSGSemEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directGRSGSemEdge);
 
 		/*
 		 * metaSoftPairWiseRel.addModelingAttribute("SourceLevel", "Integer",
@@ -1618,8 +1618,8 @@ public class DefaultSyntaxMM {
 				"DirSoftRelation", true, true, "Dir Soft Relation", "",
 				"Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
-				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png", 1,
-				directSGSGSemEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directSGSGSemEdge);
 		/*
 		 * metaDirSoftPairWiseRel.addModelingAttribute("AggregationLow",
 		 * "Integer", false, "Aggregation Low", 0, 0, -1, "", "", -1, "", "");
@@ -1865,15 +1865,8 @@ public class DefaultSyntaxMM {
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false,
 				"Description", "", "", 0, 3, "", "", -1, "", "");
-		syntaxAbsVariable.addModelingAttribute("type", "String", false,
-				"TypeS", "", "", 0, -1, "", "", -1, "", "");
-		syntaxAbsVariable.addModelingAttribute("domain", "String", false,
-				"DomainS", "", "", 0, -1, "", "", -1, "", "");
-		syntaxAbsVariable.addModelingAttribute("enumeration",
-				"MetaEnumeration", false, "EnumerationS", "", "", 0, -1, "",
-				"", -1, "", "");
-		// syntaxAbsVariable.addModelingAttribute("concern", "ConcernLevel",
-		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
+
+		// FIXME v1.1 remove the attributes
 
 		InstConcept instVertexVar = new InstConcept("Variable",
 				supportMetaElementConcept, syntaxAbsVariable);
@@ -2129,8 +2122,8 @@ public class DefaultSyntaxMM {
 				"Variable To Context Relation", true, true,
 				"Variable To Context Relation", "",
 				"Associates a Context Variable" + " with the Context Group",
-				60, 50, "/com/variamos/gui/perspeditor/images/ploptional.png", 1,
-				directCVCGSemanticEdge);
+				60, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directCVCGSemanticEdge);
 
 		SyntaxElement metaContextEdge = new SyntaxElement('P',
 				"Context To Context Relation", true, true,
@@ -2850,8 +2843,8 @@ public class DefaultSyntaxMM {
 				"Express the relation between"
 						+ " the SD and the SG. Represent the level of satisficing"
 						+ " required on the softgoal in case the SD is satisfied",
-				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png", 1,
-				directSDSGSemanticEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directSDSGSemanticEdge);
 
 		InstConcept instSDPairWiseRel = new InstConcept("SDSGRelation",
 				supportMetaElementPairwise, metaSDSGEdge);
@@ -2891,8 +2884,8 @@ public class DefaultSyntaxMM {
 				"Express the relation between"
 						+ " the Claim and the SG. Represent the level of satisficing"
 						+ " required on the softgoal in case the SD is satisfied",
-				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png", 1,
-				directClaimSGSemanticEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directClaimSGSemanticEdge);
 
 		InstConcept instCLPairWiseRel = new InstConcept("CLSGRelation",
 				supportMetaElementPairwise, metaClaimSGEdge);
@@ -3054,8 +3047,8 @@ public class DefaultSyntaxMM {
 				"AssetFlOT To Lf Relation", true, true,
 				"AssetFlOT To Lf Relation", "", "Represents the "
 						+ "implementation of leaf feature by an" + " asset",
-				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png", 1,
-				directAssetLfFromSemanticEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directAssetLfFromSemanticEdge);
 
 		InstConcept instDirOperPairWiseRel = new InstConcept(
 				"Dir Asset To Oper Relation", supportMetaElementPairwise,

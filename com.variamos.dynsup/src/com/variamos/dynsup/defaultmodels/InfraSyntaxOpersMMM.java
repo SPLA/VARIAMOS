@@ -36,7 +36,7 @@ public class InfraSyntaxOpersMMM {
 				.getConstraintInstEdges();
 
 		InstElement basicOpersSyntaxM3Concept = modelInstance.getSyntaxModel()
-				.getVertex("OMMConcept");
+				.getVertex("BsConcept");
 
 		List<Integer> dom = new ArrayList<Integer>();
 		dom.add(2);

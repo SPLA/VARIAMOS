@@ -37,6 +37,7 @@ import com.variamos.dynsup.types.PerspectiveType;
  * @since 2014-11-10
  */
 public class InstanceModel {
+	// FIXME v1.1 RENAME to InstSupModel
 
 	private InstanceModel syntaxModel;
 	private InstanceModel operationalModel;

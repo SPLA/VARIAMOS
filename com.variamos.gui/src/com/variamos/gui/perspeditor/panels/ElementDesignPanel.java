@@ -1045,8 +1045,8 @@ public class ElementDesignPanel extends JPanel {
 			if (editElm.getSupInstEleId() != null
 					&& ((editElm.getSupInstEleId().equals("OPER")
 							|| (editElm.getSupInstEleId().equals("ME")) || (editElm
-								.getSupInstEleId().equals("OMMEnum"))))) {
-
+								.getSupInstEleId().equals("BsEnum"))))) {
+				// FIXME v1.1 update OMMEnum
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
@@ -1064,7 +1064,8 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setMaximumSize(new Dimension(150, 180));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 				if (editElm.getSupInstEleId().equals("ME")
-						|| editElm.getSupInstEleId().equals("OMMEnum")) {
+						|| editElm.getSupInstEleId().equals("BsEnum")) {
+					// FIXME v1.1 update OMMEnum
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
