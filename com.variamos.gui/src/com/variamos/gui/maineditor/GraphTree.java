@@ -17,6 +17,7 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.gui.perspeditor.PerspEditorGraph;
 
 @SuppressWarnings("serial")
 public class GraphTree extends JTree {
@@ -24,7 +25,7 @@ public class GraphTree extends JTree {
 	// private static final String SELECTED_NODE =
 	// "ProductLineIndex.SELECTED_NODE";
 	// private mxEventSource evtSource;
-	private AbstractGraph graph;
+	private PerspEditorGraph graph;
 
 	public void reset() {
 
@@ -111,7 +112,7 @@ public class GraphTree extends JTree {
 		return (DefaultTreeModel) super.getModel();
 	}
 
-	public void bind(AbstractGraph graph) {
+	public void bind(PerspEditorGraph graph) {
 		graph.addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
 
 			@Override
@@ -143,7 +144,7 @@ public class GraphTree extends JTree {
 			}
 		});
 
-		graph.addListener(AbstractGraph.PL_EVT_NODE_CHANGE,
+		graph.addListener(PerspEditorGraph.PL_EVT_NODE_CHANGE,
 				new mxIEventListener() {
 
 					@Override

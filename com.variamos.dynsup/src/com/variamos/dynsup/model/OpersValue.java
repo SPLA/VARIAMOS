@@ -10,15 +10,16 @@ package com.variamos.dynsup.model;
  * @since 2014-11-23
  * @see com.cfm.productline.
  */
+
+// FIXME v1.1 REMOVE
 public class OpersValue {
 	private Object value;
-	
+
 	public Object getValue() {
 		return value;
 	}
 
-	public OpersValue(Object value)
-	{
+	public OpersValue(Object value) {
 		this.value = value;
 	}
 }

@@ -1,0 +1,41 @@
+<!--
+ This model was created online using SPLOT's Feature Model Editor (http://www.splot-research.org) on Sun, Apr 28, 2013 - 9:47 AM  
+-->
+<feature_model name="Mobile Phone">
+<meta>
+<data name="description">MobilePhone</data>
+<data name="creator">Sergio Segura</data>
+<data name="address"/>
+<data name="email">sergiosegura@us.es</data>
+<data name="phone"/>
+<data name="website">http://www.lsi.us.es/~segura</data>
+<data name="organization">University of Seville</data>
+<data name="department"/>
+<data name="date"/>
+<data name="reference">ASPL'08</data>
+</meta>
+<feature_tree>
+:r Mobile Phone(_r) 
+	:m Utility Functions(_r_1) 
+		:m Calls(_r_1_2) 
+		:o Messaging(_r_1_3) 
+			:g (_r_1_3_5) [1,*] 
+				: SMS(_r_1_3_5_6) 
+				: MMS(_r_1_3_5_7) 
+		:m Games(_r_1_8) 
+	:m Settings(_r_11) 
+		:m OS(_r_11_12) 
+		:m Java Support(_r_11_13) 
+	:o Media(_r_17) 
+		:o Camera(_r_17_18) 
+			:g (_r_17_18_22) [1,1] 
+				: VGA(_r_17_18_22_23) 
+				: Megapixels(_r_17_18_22_24) 
+			:o MP3(_r_17_19) 
+			:o MP4(_r_17_21)
+</feature_tree>
+<constraints>
+constraint_2:~_r_11_12 or ~_r_17_18_22_24 
+constraint_3:~_r_11_13 or _r_17_18_22_23
+</constraints>
+</feature_model>

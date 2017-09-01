@@ -20,6 +20,7 @@ import com.variamos.dynsup.instance.InstElement;
  * @since 2014-12-07
  */
 public class OpersElement implements Serializable {
+	// FIXME v1.1 Split into to SeSupElm and OpSupElm
 	/**
 	 * 
 	 */

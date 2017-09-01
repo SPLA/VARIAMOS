@@ -14,8 +14,8 @@ import java.util.TreeMap;
 
 import com.cfm.productline.AbstractElement;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
@@ -432,7 +432,9 @@ public abstract class InstElement implements Serializable, Cloneable,
 								.getSemanticAttribute(attributeName);
 					String v = "";
 					if (i != null) {
-						v = ":" + i.getType();
+						// FIXME V1.1 copy change to new version
+						if (!i.getType().equals("Class"))
+							v = ":" + i.getType();
 						if (i.getType().equals("Enumeration")) {
 							String classN = i.getClassCanonicalName()
 									.substring(
@@ -452,7 +454,19 @@ public abstract class InstElement implements Serializable, Cloneable,
 							}
 
 						}
+						// FIXME V1.1 copy change to new version
+						if (i.getType().equals("Class")) {
+							String classN = "";
+							if (i.getClassCanonicalName() != null) {
+								classN = i.getClassCanonicalName().substring(
+										i.getClassCanonicalName().lastIndexOf(
+												".") + 1,
+										i.getClassCanonicalName().length());
+								v += ":" + classN + "<"
+										+ i.getMetaConceptInstanceType() + ">";
+							}
 
+						}
 					}
 					// System.out.println(attributeName);
 					if (attributeName.length() > 1)

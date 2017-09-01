@@ -35,15 +35,15 @@ public class ConfigurationVariableCellRenderer extends TreeTableCellRenderer
 		map.put(Choice.CHECK,
 				new ImageIcon(
 						ConfigurationVariableCellRenderer.class
-								.getResource("/com/mxgraph/examples/swing/images/checkmark.gif")));
+								.getResource("/com/variamos/gui/perspeditor/images/checkmark.gif")));
 		map.put(Choice.CROSS,
 				new ImageIcon(
 						ConfigurationVariableCellRenderer.class
-								.getResource("/com/mxgraph/examples/swing/images/x-red.gif")));
+								.getResource("/com/variamos/gui/perspeditor/images/x-red.gif")));
 		map.put(Choice.QUESTION_MARK,
 				new ImageIcon(
 						ConfigurationVariableCellRenderer.class
-								.getResource("/com/mxgraph/examples/swing/images/question.gif")));
+								.getResource("/com/variamos/gui/perspeditor/images/question.gif")));
 	}
 
 	@Override

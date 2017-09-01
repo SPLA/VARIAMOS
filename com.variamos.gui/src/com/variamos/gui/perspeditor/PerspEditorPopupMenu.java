@@ -5,7 +5,7 @@ import javax.swing.JMenu;
 import com.mxgraph.util.mxConstants;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPopupMenu;
-import com.variamos.gui.pl.editor.actions.FigureAction;
+import com.variamos.gui.perspeditor.actions.FigureAction;
 
 public class PerspEditorPopupMenu extends EditorPopupMenu
 {

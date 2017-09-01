@@ -45,11 +45,11 @@ public class AssociationCellRenderer extends TreeTableCellRenderer implements
 		map.put(ChoiceBoolean.CHECK,
 				new ImageIcon(
 						AssociationCellRenderer.class
-								.getResource("/com/mxgraph/examples/swing/images/checkmark.gif")));
+								.getResource("/com/variamos/gui/perspeditor/images/checkmark.gif")));
 		map.put(ChoiceBoolean.CROSS,
 				new ImageIcon(
 						AssociationCellRenderer.class
-								.getResource("/com/mxgraph/examples/swing/images/x-red.gif")));
+								.getResource("/com/variamos/gui/perspeditor/images/x-red.gif")));
 	}
 
 	@Override
