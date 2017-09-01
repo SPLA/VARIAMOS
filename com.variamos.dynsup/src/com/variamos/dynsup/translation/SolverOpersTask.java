@@ -854,16 +854,15 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		
 		HlclProgram program = refas2hlcl.getHlclProgram(
 				operation, subOper.getIdentifier(),
-				OpersSubOpExecType.VERIFICATION, transExpSet);
+				OpersSubOpExecType.NORMAL, transExpSet);
 		
-		Hlcl2SWIProlog t = new Hlcl2SWIProlog();
-		System.out.println("Default Transformation");
-		System.out.println(t.transform(program));
+
+		//aqui lo que tengo que hacer es tomar el hlcl program y quitarle la basura
 		
 		MinimalSetsDFSIterationsHLCL medic= null;
 		medic= new MinimalSetsDFSIterationsHLCL(program);
 		
-		LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGConstraint1_value",10);
+		LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGVariable1_value",10);
 		
 		System.out.println("Salida de Medic");
 		for (VertexHLCL vertexHLCL : output) {
