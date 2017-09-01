@@ -40,8 +40,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.cfm.productline.AbstractElement;
-import com.cfm.productline.Editable;
-import com.cfm.productline.ProductLine;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.shape.mxStencilShape;
@@ -89,7 +87,6 @@ import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
-import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.ConsoleTextArea;
 import com.variamos.solver.Configuration;
@@ -586,7 +583,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	@Override
 	protected Component getLeftComponent() {
 		productLineIndex = new GraphTree();
-		productLineIndex.bind((AbstractGraph) getGraphComponent().getGraph());
+		// productLineIndex.bind((AbstractGraph)
+		// getGraphComponent().getGraph());
 
 		JSplitPane inner = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				productLineIndex, null);
@@ -807,16 +805,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			 * configurator.setRefas2hlcl(refas2hlcl);
 			 */
 		}
-
-	}
-
-	public void populateIndex(ProductLine pl) {
-
-		// productLineIndex.populate(pl);
-		AbstractGraph plGraph = (AbstractGraph) getGraphComponent().getGraph();
-		plGraph.buildFromProductLine2(pl, productLineIndex);
-		// ((mxGraphModel) plGraph.getModel()).clear();
-		// plGraph.setProductLine(pl);
 
 	}
 
@@ -1067,7 +1055,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 							@Override
 							public void propertyChange(PropertyChangeEvent evt) {
-								if (WidgetPL.PROPERTY_VALUE.equals(evt
+								if (WidgetR.PROPERTY_VALUE.equals(evt
 										.getPropertyName())) {
 									w.getInstAttribute();
 									updateExpressions = true;
@@ -1081,7 +1069,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 							@Override
 							public void propertyChange(PropertyChangeEvent evt) {
-								if (WidgetPL.PROPERTY_VALUE.equals(evt
+								if (WidgetR.PROPERTY_VALUE.equals(evt
 										.getPropertyName())) {
 									w.getInstAttribute();
 									updateExpressions = true;
@@ -1272,7 +1260,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 							@Override
 							public void propertyChange(PropertyChangeEvent evt) {
-								if (WidgetPL.PROPERTY_VALUE.equals(evt
+								if (WidgetR.PROPERTY_VALUE.equals(evt
 										.getPropertyName())) {
 									w.getInstAttribute();
 									updateExpressions = true;
@@ -1286,7 +1274,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 							@Override
 							public void propertyChange(PropertyChangeEvent evt) {
-								if (WidgetPL.PROPERTY_VALUE.equals(evt
+								if (WidgetR.PROPERTY_VALUE.equals(evt
 										.getPropertyName())) {
 									w.getInstAttribute();
 									updateExpressions = true;
@@ -1421,10 +1409,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 			w.editVariable(v);
 		}
-	}
-
-	protected void onVariableEdited(Editable e) {
-		((AbstractGraph) getGraphComponent().getGraph()).refreshVariable(e);
 	}
 
 	@SuppressWarnings("unchecked")

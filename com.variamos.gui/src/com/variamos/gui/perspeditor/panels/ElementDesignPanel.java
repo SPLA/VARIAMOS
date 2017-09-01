@@ -52,7 +52,6 @@ import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.LabelingOrder;
 
 /**
@@ -646,7 +645,7 @@ public class ElementDesignPanel extends JPanel {
 											@Override
 											public void propertyChange(
 													PropertyChangeEvent evt) {
-												if (WidgetPL.PROPERTY_VALUE.equals(evt
+												if (WidgetR.PROPERTY_VALUE.equals(evt
 														.getPropertyName())) {
 													widget.getInstAttribute();
 													onVariableEdited(
@@ -666,7 +665,7 @@ public class ElementDesignPanel extends JPanel {
 											@Override
 											public void propertyChange(
 													PropertyChangeEvent evt) {
-												if (WidgetPL.PROPERTY_VALUE.equals(evt
+												if (WidgetR.PROPERTY_VALUE.equals(evt
 														.getPropertyName())) {
 													widget.getInstAttribute();
 													onVariableEdited(
@@ -1046,8 +1045,8 @@ public class ElementDesignPanel extends JPanel {
 			if (editElm.getSupInstEleId() != null
 					&& ((editElm.getSupInstEleId().equals("OPER")
 							|| (editElm.getSupInstEleId().equals("ME")) || (editElm
-								.getSupInstEleId().equals("OMMEnum"))))) {
-
+								.getSupInstEleId().equals("BsEnum"))))) {
+				// FIXME v1.1 update OMMEnum
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
@@ -1065,7 +1064,8 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setMaximumSize(new Dimension(150, 180));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 				if (editElm.getSupInstEleId().equals("ME")
-						|| editElm.getSupInstEleId().equals("OMMEnum")) {
+						|| editElm.getSupInstEleId().equals("BsEnum")) {
+					// FIXME v1.1 update OMMEnum
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));

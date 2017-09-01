@@ -38,6 +38,7 @@ import com.variamos.io.ConsoleTextArea;
  *
  */
 public class ModelExpr implements Serializable, Cloneable {
+	// FIXME v1.1 RENAME to ModelSupExpr
 	/**
 	 * 
 	 */

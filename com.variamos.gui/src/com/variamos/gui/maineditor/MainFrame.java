@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.20";
 	private String variamosVersionName = "1.0 Beta 20";
-	private String variamosBuild = "20170821-1600";
+	private String variamosBuild = "20170901-1700";
 	private String downloadId = "566";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -101,7 +101,7 @@ public class MainFrame extends JFrame {
 		System.out.println(" done");
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
-			case 0: // operations 1
+			case 0: // operations and semantic perp1 - L2
 				System.out
 						.print("Loading Semantic and Operations Meta-Models Perspective...");
 				abstractModel = new InstanceModel(metaExpressionTypes,
@@ -116,7 +116,7 @@ public class MainFrame extends JFrame {
 						+ variamosVersionNumber + "b" + variamosBuild;
 				break;
 
-			case 1:// modeling 2
+			case 1:// modeling pers2 - L1
 				System.out.print("Loading Modeling Perspective...");
 				abstractModel = new InstanceModel(PerspectiveType.MODELING,
 						metaExpressionTypes, syntaxSuperstructure,
@@ -128,15 +128,22 @@ public class MainFrame extends JFrame {
 				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
-			case 2:// syntax 3
+			case 2:// syntax pers3 - L2
 				System.out.print("Loading Syntax Meta-Model Perspective...");
 				abstractModel = syntaxSuperstructure;
-				// TO View SyntaxMM in Syntax Perspective
+				// TO View SyntaxMM in Syntax Perspective DO NOT REMOVE
 				// abstractModel = syntaxInfrastructure;
 
-				// TO View OperMM in Syntax Perspective
-				// abstractModel = new ModelInstance(
+				// TO View OperMM in Syntax Perspective DO NOT REMOVE
+				// abstractModel = new InstanceModel(
 				// PerspectiveType.OPERATIONSINFRASTRUCTURE,
+				// metaExpressionTypes, InfraBasicSyntax, null);
+
+				// FIXME v1.1 add this comment to visualize the basic MMM
+
+				// TO View BasicMMM in Syntax Perspective DO NOT REMOVE
+				// abstractModel = new InstanceModel(
+				// PerspectiveType.INFRASTRUCTUREBASICSYNTAX,
 				// metaExpressionTypes, InfraBasicSyntax, null);
 
 				bgColor = new Color(255, 255, 245);
@@ -144,7 +151,7 @@ public class MainFrame extends JFrame {
 						+ variamosBuild;
 				break;
 
-			case 3:// simulation 4
+			case 3:// simulation pers4 - L1
 				System.out
 						.print("Loading Configuration and Simulation Perspective...");
 				abstractModel = new InstanceModel(

@@ -43,7 +43,9 @@ public class HlclUtil {
 		}
 
 		if (e instanceof Identifier) {
-			ids.add((Identifier) e);
+			if (!((Identifier) e).getId().endsWith("FeatureType"))
+				// FIXME use the labelings for the identifiers
+				ids.add((Identifier) e);
 		}
 
 		if (e instanceof LiteralBooleanExpression) {
@@ -61,8 +63,9 @@ public class HlclUtil {
 						ids.add(id);
 					}
 				}
-			}else{
-				Collection<Identifier> idsCollection=((LiteralBooleanExpression) e).getIdentifierExpressionList();
+			} else {
+				Collection<Identifier> idsCollection = ((LiteralBooleanExpression) e)
+						.getIdentifierExpressionList();
 				ids.addAll(idsCollection);
 			}
 

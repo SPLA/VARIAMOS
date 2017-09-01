@@ -64,40 +64,40 @@ public class PerspEditorToolBar extends JToolBar {
 		setFloatable(false);
 
 		add(variamosGraphEditor.bind("New", new NewAction(),
-				"/com/mxgraph/examples/swing/images/new.gif"));
+				"/com/variamos/gui/perspeditor/images/new.gif"));
 		add(variamosGraphEditor.bind("Open", new OpenAction(),
-				"/com/mxgraph/examples/swing/images/open.gif"));
+				"/com/variamos/gui/perspeditor/images/open.gif"));
 		add(variamosGraphEditor.bind("Save", new SaveAction(false),
-				"/com/mxgraph/examples/swing/images/save.gif"));
+				"/com/variamos/gui/perspeditor/images/save.gif"));
 
 		addSeparator();
 		/*
 		 * add(editor.bind("Print", new PrintAction(),
-		 * "/com/mxgraph/examples/swing/images/print.gif"));
+		 * "/com/variamos/gui/perspeditor/images/print.gif"));
 		 * 
 		 * addSeparator();
 		 */
 
 		add(variamosGraphEditor.bind("Cut", TransferHandler.getCutAction(),
-				"/com/mxgraph/examples/swing/images/cut.gif"));
+				"/com/variamos/gui/perspeditor/images/cut.gif"));
 
 		add(variamosGraphEditor.bind("Copy", TransferHandler.getCopyAction(),
-				"/com/mxgraph/examples/swing/images/copy.gif"));
+				"/com/variamos/gui/perspeditor/images/copy.gif"));
 		add(variamosGraphEditor.bind("Paste", TransferHandler.getPasteAction(),
-				"/com/mxgraph/examples/swing/images/paste.gif"));
+				"/com/variamos/gui/perspeditor/images/paste.gif"));
 
 		addSeparator();
 
 		add(variamosGraphEditor.bind("Delete",
 				mxGraphActions.getDeleteAction(),
-				"/com/mxgraph/examples/swing/images/delete.gif"));
+				"/com/variamos/gui/perspeditor/images/delete.gif"));
 
 		addSeparator();
 
 		add(variamosGraphEditor.bind("Undo", new HistoryAction(true),
-				"/com/mxgraph/examples/swing/images/undo.gif"));
+				"/com/variamos/gui/perspeditor/images/undo.gif"));
 		add(variamosGraphEditor.bind("Redo", new HistoryAction(false),
-				"/com/mxgraph/examples/swing/images/redo.gif"));
+				"/com/variamos/gui/perspeditor/images/redo.gif"));
 
 		if (variamosGraphEditor.getPerspective() == 2) {
 			addSeparator();
@@ -108,16 +108,16 @@ public class PerspEditorToolBar extends JToolBar {
 			addSeparator();
 			add(variamosGraphEditor.bind("clearElements",
 					new ClearVerificationAction(),
-					"/com/mxgraph/examples/swing/images/pan.gif"));
+					"/com/variamos/gui/perspeditor/images/pan.gif"));
 			add(variamosGraphEditor.bind("verifOptional",
 					new VerificationAction(),
-					"/com/mxgraph/examples/swing/images/checkmark.gif"));
+					"/com/variamos/gui/perspeditor/images/checkmark.gif"));
 			addSeparator();
 			add(variamosGraphEditor.bind("verifyRoot", new RootElementAction(),
-					"/com/mxgraph/examples/swing/images/tree.gif"));
+					"/com/variamos/gui/perspeditor/images/tree.gif"));
 			add(variamosGraphEditor.bind("verifyParents",
 					new ParentElementAction(),
-					"/com/mxgraph/examples/swing/images/straight.gif"));
+					"/com/variamos/gui/perspeditor/images/straight.gif"));
 			add(variamosGraphEditor
 					.bind("verifyDeadElement", new VerifyDeadElementAction(),
 							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/dead.png"));
@@ -126,14 +126,14 @@ public class PerspEditorToolBar extends JToolBar {
 							new VerifyFalseOptElementAction(),
 							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/false.png"));
 			// add(variamosGraphEditor.bind("updateCore", new UpdateAction(),
-			// "/com/mxgraph/examples/swing/images/tree.gif"));
+			// "/com/variamos/gui/perspeditor/images/tree.gif"));
 		}
 
 		if (variamosGraphEditor.getPerspective() == 4) {
 			addSeparator();
 			add(variamosGraphEditor.bind("clearconf",
 					new ClearConfigurationAction(),
-					"/com/mxgraph/examples/swing/images/pan.gif"));
+					"/com/variamos/gui/perspeditor/images/pan.gif"));
 			addSeparator();
 			add(variamosGraphEditor
 					.bind("cleansimul", new ClearSimulationAction(),
@@ -188,33 +188,33 @@ public class PerspEditorToolBar extends JToolBar {
 		 * addSeparator();
 		 * 
 		 * add(editor.bind("Bold", new FontStyleAction(true),
-		 * "/com/mxgraph/examples/swing/images/bold.gif"));
+		 * "/com/variamos/gui/perspeditor/images/bold.gif"));
 		 * add(editor.bind("Italic", new FontStyleAction(false),
-		 * "/com/mxgraph/examples/swing/images/italic.gif"));
+		 * "/com/variamos/gui/perspeditor/images/italic.gif"));
 		 * 
 		 * addSeparator();
 		 * 
 		 * add(editor.bind("Left", new KeyValueAction(mxConstants.STYLE_ALIGN,
 		 * mxConstants.ALIGN_LEFT),
-		 * "/com/mxgraph/examples/swing/images/left.gif"));
+		 * "/com/variamos/gui/perspeditor/images/left.gif"));
 		 * add(editor.bind("Center", new KeyValueAction(mxConstants.STYLE_ALIGN,
 		 * mxConstants.ALIGN_CENTER),
-		 * "/com/mxgraph/examples/swing/images/center.gif"));
+		 * "/com/variamos/gui/perspeditor/images/center.gif"));
 		 * add(editor.bind("Right", new KeyValueAction(mxConstants.STYLE_ALIGN,
 		 * mxConstants.ALIGN_RIGHT),
-		 * "/com/mxgraph/examples/swing/images/right.gif"));
+		 * "/com/variamos/gui/perspeditor/images/right.gif"));
 		 * 
 		 * addSeparator();
 		 * 
 		 * add(editor.bind("Font", new ColorAction("Font",
 		 * mxConstants.STYLE_FONTCOLOR),
-		 * "/com/mxgraph/examples/swing/images/fontcolor.gif"));
+		 * "/com/variamos/gui/perspeditor/images/fontcolor.gif"));
 		 * add(editor.bind("Stroke", new ColorAction("Stroke",
 		 * mxConstants.STYLE_STROKECOLOR),
-		 * "/com/mxgraph/examples/swing/images/linecolor.gif"));
+		 * "/com/variamos/gui/perspeditor/images/linecolor.gif"));
 		 * add(editor.bind("Fill", new ColorAction("Fill",
 		 * mxConstants.STYLE_FILLCOLOR),
-		 * "/com/mxgraph/examples/swing/images/fillcolor.gif"));
+		 * "/com/variamos/gui/perspeditor/images/fillcolor.gif"));
 		 */
 
 		addSeparator();

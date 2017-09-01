@@ -20,6 +20,7 @@ import com.variamos.hlcl.NumericExpression;
  * @since 2015-02-05
  */
 public class OpersExprType implements Serializable {
+	// FIXME v1.1 RENAME to SeSupExprType
 	/**
 	 * 
 	 */

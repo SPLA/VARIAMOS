@@ -23,7 +23,7 @@ import com.variamos.dynsup.types.AttributeType;
  * @since 2014-11-24
  */
 public class SyntaxElement implements Serializable {
-
+	// FIXME v1.1 RENAME to SySupElm
 	/**
 	 * 
 	 */

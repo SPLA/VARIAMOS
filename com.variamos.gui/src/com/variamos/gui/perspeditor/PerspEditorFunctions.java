@@ -12,13 +12,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
-import com.mxgraph.examples.swing.GraphEditor;
-import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.swing.util.mxGraphTransferable;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -28,13 +22,10 @@ import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.editor.logic.ConstraintMode;
-import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 
 public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
@@ -84,7 +75,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 				);
 		String viewName = editor.getEditedModel().getInstViewName(
 				modelViewIndex, -1);
-		AbstractGraph refasGraph = (AbstractGraph) graphComponent.getGraph();
+		PerspEditorGraph refasGraph = (PerspEditorGraph) graphComponent
+				.getGraph();
 		loadPalette(viewName, palettes, validElements, refasGraph);
 		editor.refreshPalette();
 	}
@@ -96,7 +88,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	 * @param plgraph
 	 */
 	public void loadPalette(String viewName, EditorPalette[] palettes,
-			List<String> validElements, AbstractGraph plgraph) {
+			List<String> validElements, PerspEditorGraph plgraph) {
 		// Load regular palette
 		if (validElements != null) {
 			for (int i = 0; i < paletteElements.size(); i++)
@@ -315,7 +307,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												paletteElement
 														.getElementTitle(),
 												new ImageIcon(
-														GraphEditor.class
+														PerspEditorFunctions.class
 																.getResource(paletteElement
 																		.getIcon())),
 												paletteElement.getStyle(),
@@ -329,9 +321,10 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 								palette.addTemplate(
 										// mxResources.get(
 										paletteElement.getElementTitle(),
-										new ImageIcon(GraphEditor.class
-												.getResource(paletteElement
-														.getIcon())),
+										new ImageIcon(
+												PerspEditorFunctions.class
+														.getResource(paletteElement
+																.getIcon())),
 										paletteElement.getStyle(),
 										paletteElement.getWidth(),
 										paletteElement.getHeight(),
@@ -358,29 +351,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 				}
 		}
 
-		final AbstractGraph graph = plgraph;
-
-		for (EditorPalette palette : palettes) {
-			palette.addListener(mxEvent.SELECT, new mxIEventListener() {
-				@Override
-				public void invoke(Object sender, mxEventObject evt) {
-					Object tmp = evt.getProperty("transferable");
-					graph.setConsMode(ConstraintMode.None);
-
-					if (tmp instanceof mxGraphTransferable) {
-						mxGraphTransferable t = (mxGraphTransferable) tmp;
-						Object obj = t.getCells()[0];
-
-						if (graph.getModel().isEdge(obj)) {
-							mxCell cell = (mxCell) obj;
-							((ProductLineGraph) graph)
-									.setConsMode((ConstraintMode) cell
-											.getValue());
-						}
-					}
-				}
-			});
-		}
+		final PerspEditorGraph graph = plgraph;
 
 	}
 

@@ -667,11 +667,11 @@ public class EditorActions {
 								.createVmlDocument(graph, null, 1, null, null)
 								.getDocumentElement()), filename);
 					} else if (ext.equalsIgnoreCase("sxfm")) {
-						SXFMWriter writer = new SXFMWriter();
-						ProductLineGraph plGraph = (ProductLineGraph) graph;
-						mxUtils.writeFile(
-								writer.getSXFMContent(plGraph.getProductLine()),
-								filename);
+//						SXFMWriter writer = new SXFMWriter();
+//						ProductLineGraph plGraph = (ProductLineGraph) graph;
+//						mxUtils.writeFile(
+//								writer.getSXFMContent(plGraph.getProductLine()),
+//								filename);
 					} else if (ext.equalsIgnoreCase("html")) {
 						mxUtils.writeFile(mxXmlUtils.getXml(mxCellRenderer
 								.createHtmlDocument(graph, null, 1, null, null)

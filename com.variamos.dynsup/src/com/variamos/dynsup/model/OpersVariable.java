@@ -11,6 +11,7 @@ package com.variamos.dynsup.model;
  * @see com.cfm.productline.
  */
 public class OpersVariable extends OpersElement {
+	// FIXME v1.1 RENAME to SeSupVar
 	/**
 	 * 
 	 */
@@ -24,6 +25,7 @@ public class OpersVariable extends OpersElement {
 		super(name);
 	}
 
+	@Override
 	public String toString() {
 
 		return " VAR: " + super.toString();

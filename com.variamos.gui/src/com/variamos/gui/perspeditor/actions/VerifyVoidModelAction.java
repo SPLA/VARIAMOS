@@ -31,7 +31,6 @@ public class VerifyVoidModelAction extends AbstractEditorAction {
 		JTextArea messagesArea = editor.getMessagesArea();
 		StringBuilder outputMessage = new StringBuilder();
 		/*try {
-
 			DefectsVerifier verifier = DefectAnalyzerUtil
 					.createVerifierClass(pl, prologEditorType);
 			Defect voidModel = verifier.isVoid();
@@ -40,7 +39,6 @@ public class VerifyVoidModelAction extends AbstractEditorAction {
 			} else {
 				outputMessage.append("MODEL IS NOT VOID");
 			}
-
 		} catch (FunctionalException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
