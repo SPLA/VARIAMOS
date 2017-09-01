@@ -7,11 +7,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import com.cfm.productline.constraints.ExcludesConstraint;
 import com.cfm.productline.constraints.GroupConstraint;
-import com.cfm.productline.constraints.MandatoryConstraint;
-import com.cfm.productline.constraints.OptionalConstraint;
-import com.cfm.productline.constraints.RequiresConstraint;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
@@ -26,7 +22,6 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.io.ConsoleTextArea;
 
@@ -560,45 +555,6 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				// gc.printDebug(System.out);
 				return;
 			}
-
-			ConstraintMode mode = graph.getConsMode();
-
-			switch (mode) {
-			case Optional:
-				OptionalConstraint op = new OptionalConstraint(source.getId(),
-						target.getId());
-				insertedCell.setValue(op);
-				insertedCell.setStyle("ploptional");
-				break;
-			case Mandatory:
-				MandatoryConstraint om = new MandatoryConstraint(
-						source.getId(), target.getId());
-				insertedCell.setValue(om);
-				insertedCell.setStyle("plmandatory");
-				break;
-
-			case Requires:
-				RequiresConstraint rq = new RequiresConstraint(source.getId(),
-						target.getId());
-				insertedCell.setValue(rq);
-				insertedCell.setStyle("plrequires");
-				break;
-			case Excludes:
-				ExcludesConstraint ec = new ExcludesConstraint(source.getId(),
-						target.getId());
-				insertedCell.setValue(ec);
-				insertedCell.setStyle("plexcludes");
-				break;
-
-			case Default:
-				graph.removeCells(new Object[] { insertedCell });
-				// Create a new constraint
-				//graph.connectDefaultConstraint(source, target);
-				break;
-			default:
-				break;
-			}
-
 			// System.out.println("Source = " + source.getValue() +
 			// ", Target = " + target.getValue());
 

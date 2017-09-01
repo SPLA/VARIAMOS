@@ -40,8 +40,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.cfm.productline.AbstractElement;
-import com.cfm.productline.Editable;
-import com.cfm.productline.ProductLine;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.shape.mxStencilShape;
@@ -585,7 +583,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	@Override
 	protected Component getLeftComponent() {
 		productLineIndex = new GraphTree();
-		//productLineIndex.bind((AbstractGraph) getGraphComponent().getGraph());
+		// productLineIndex.bind((AbstractGraph)
+		// getGraphComponent().getGraph());
 
 		JSplitPane inner = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				productLineIndex, null);
@@ -808,7 +807,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 
 	}
-
 
 	public InstanceModel getEditedModel() {
 		return refasModel;
