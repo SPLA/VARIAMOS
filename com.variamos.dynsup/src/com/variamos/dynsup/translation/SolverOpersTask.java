@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +15,7 @@ import java.util.TreeSet;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingWorker;
 
+import com.variamos.compiler.prologEditors.Hlcl2SWIProlog;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.util.StringUtils;
@@ -43,6 +45,9 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
 import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
 import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
 import com.variamos.solver.Configuration;
+
+import graphHLCL.VertexHLCL;
+import minimalSets.MinimalSetsDFSIterationsHLCL;
 
 /**
  * A class to support SwingWorkers for solver execution tasks using the semantic
@@ -601,6 +606,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							
 							//El metodo debe retornar un entero
 							
+							
+							
 							result = medicExecution(operationObj, suboper,
 									 errorHint, outAttributes,  outAttribute);
 							
@@ -845,10 +852,25 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
 				refasModel, operation, null, null);
 		
-		List<BooleanExpression> verifyList = refas2hlcl.getHlclProgram(
+		HlclProgram program = refas2hlcl.getHlclProgram(
 				operation, subOper.getIdentifier(),
-				OpersSubOpExecType.NORMAL, transExpSet);
+				OpersSubOpExecType.VERIFICATION, transExpSet);
 		
+		Hlcl2SWIProlog t = new Hlcl2SWIProlog();
+		System.out.println("Default Transformation");
+		System.out.println(t.transform(program));
+		
+		MinimalSetsDFSIterationsHLCL medic= null;
+		medic= new MinimalSetsDFSIterationsHLCL(program);
+		
+		LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGConstraint1_value",10);
+		
+		System.out.println("Salida de Medic");
+		for (VertexHLCL vertexHLCL : output) {
+			System.out.println(vertexHLCL.getId() + " ");
+		}
+		
+
 		
 		return result;
 		
