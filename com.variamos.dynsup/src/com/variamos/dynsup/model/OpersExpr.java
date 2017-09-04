@@ -16,6 +16,7 @@ import com.variamos.dynsup.types.ExpressionVertexType;
  * @since 2014-02-05
  */
 public class OpersExpr implements Serializable {
+	// FIXME v1.1 RENAME to SeSupExpr
 	/**
 	 * 
 	 */

@@ -23,7 +23,7 @@ public class InfraSyntaxSyntaxMMM {
 				.getConstraintInstEdges();
 
 		InstElement infraBasicSyntaxOpersM3Concept = modelInstance
-				.getSyntaxModel().getVertex("OMMConcept");
+				.getSyntaxModel().getVertex("BsConcept");
 
 		SyntaxElement infraSyntaxM2Node = new SyntaxElement('C', "SyMNode",
 				true, true, "SyMNode", "infrasyntaxm2miniconcept",

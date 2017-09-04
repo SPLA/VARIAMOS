@@ -2,51 +2,26 @@ package com.variamos.gui.pl.editor;
 
 import java.awt.Image;
 import java.io.IOException;
-import java.util.Hashtable;
-
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.cfm.productline.Asset;
-import com.cfm.productline.Constraint;
-import com.cfm.productline.Editable;
-import com.cfm.productline.ProductLine;
-import com.cfm.productline.VariabilityElement;
-import com.cfm.productline.constraints.ExcludesConstraint;
-import com.cfm.productline.constraints.GenericConstraint;
-import com.cfm.productline.constraints.GroupConstraint;
-import com.cfm.productline.constraints.MandatoryConstraint;
-import com.cfm.productline.constraints.OptionalConstraint;
-import com.cfm.productline.constraints.RequiresConstraint;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.canvas.mxGraphicsCanvas2D;
-import com.mxgraph.io.mxCodec;
-import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxStencil;
 import com.mxgraph.shape.mxStencilRegistry;
-import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
-import com.variamos.dynsup.model.InstanceModel;
-import com.variamos.editor.logic.ConstraintMode;
-import com.variamos.gui.maineditor.GraphTree;
 
 public class ProductLineGraph extends mxGraph {
-
-	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
 
 	public ProductLineGraph() {
-		
-	}
 
-	
+	}
 
 	public void loadStencil() {
 		try {
@@ -91,6 +66,4 @@ public class ProductLineGraph extends mxGraph {
 			e.printStackTrace();
 		}
 	}
-
-
 }

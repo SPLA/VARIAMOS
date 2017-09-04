@@ -369,7 +369,7 @@ public class DefaultOpersMM {
 	protected static InstConcept instVertexHC = null;
 
 	public static void createOpersMetaModel(InstanceModel refas, boolean empty) {
-		createOpersMetaModelOpers(refas, empty, true);
+		createOpersMetaModelOpers(refas, empty, false);
 		createSemanticNmMetaModel(refas, empty);
 		if (!empty) {
 			createGeneralMetaModel(refas);
@@ -12906,7 +12906,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexFFGR, instVertexFFGR, t1, instVertexFFGR, "LowRange");
-		// TODO FIX DEV luisa
+		// FIXME v1.1 copy change to new version Luisa
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
@@ -12915,7 +12915,7 @@ public class DefaultOpersMM {
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexFFGR, instVertexFFGR, t2, instVertexFFGR, "HighRange");
-		// TODO FIX DEV luisa
+		// FIXME v1.1 copy change to new version Luisa
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
 				instVertexFFGR, t1, t2);

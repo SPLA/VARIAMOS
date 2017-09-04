@@ -77,7 +77,7 @@ public class ModelExpr2HLCL {
 	}
 
 	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1;
-
+	// FIXME v1.1 copy change to new version Luisa
 	// Only for old static operations
 	public static final int DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2,
 			CORE_EXEC = 3, VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5, SIMUL_MAPE = 6;
