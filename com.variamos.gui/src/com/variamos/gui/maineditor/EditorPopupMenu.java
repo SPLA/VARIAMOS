@@ -8,8 +8,8 @@ import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.EditorActions.HistoryAction;
-import com.variamos.gui.perspeditor.actions.RecoverCloneAction;
 import com.variamos.gui.perspeditor.actions.FigureAction;
+import com.variamos.gui.perspeditor.actions.RecoverCloneAction;
 
 public class EditorPopupMenu extends JPopupMenu {
 
@@ -23,30 +23,30 @@ public class EditorPopupMenu extends JPopupMenu {
 				.isSelectionEmpty();
 
 		add(editor.bind(mxResources.get("undo"), new HistoryAction(true),
-				"/com/mxgraph/examples/swing/images/undo.gif"));
+				"/com/variamos/gui/perspeditor/images/undo.gif"));
 
 		addSeparator();
 
 		add(
 				editor.bind(mxResources.get("cut"),
 						TransferHandler.getCutAction(),
-						"/com/mxgraph/examples/swing/images/cut.gif"))
+						"/com/variamos/gui/perspeditor/images/cut.gif"))
 				.setEnabled(selected);
 		add(
 				editor.bind(mxResources.get("copy"),
 						TransferHandler.getCopyAction(),
-						"/com/mxgraph/examples/swing/images/copy.gif"))
+						"/com/variamos/gui/perspeditor/images/copy.gif"))
 				.setEnabled(selected);
 		add(editor.bind(mxResources.get("paste"),
 				TransferHandler.getPasteAction(),
-				"/com/mxgraph/examples/swing/images/paste.gif"));
+				"/com/variamos/gui/perspeditor/images/paste.gif"));
 
 		addSeparator();
 
 		add(
 				editor.bind(mxResources.get("delete"),
 						mxGraphActions.getDeleteAction(),
-						"/com/mxgraph/examples/swing/images/delete.gif"))
+						"/com/variamos/gui/perspeditor/images/delete.gif"))
 				.setEnabled(selected);
 
 		addSeparator();
@@ -105,7 +105,7 @@ public class EditorPopupMenu extends JPopupMenu {
 	};
 
 	public static void populateCloneMenu(JMenu menu, BasicGraphEditor editor) {
-		menu.add(editor
-				.bind("Recreate cloned concepts of this model ", new RecoverCloneAction()));
+		menu.add(editor.bind("Recreate cloned concepts of this model ",
+				new RecoverCloneAction()));
 	};
 }

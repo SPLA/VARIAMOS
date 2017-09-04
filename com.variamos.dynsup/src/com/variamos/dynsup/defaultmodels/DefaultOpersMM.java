@@ -9269,8 +9269,8 @@ public class DefaultOpersMM {
 						AttributeType.OPERATION, true, "Relation Type",
 						"Type of over-two relation from the selected"
 								+ " relation group", InstAttribute.class
-								.getCanonicalName(), null, null, 0, 6, "", "",
-						6, "#relationType#all#", ""));
+								.getCanonicalName(), null, null, null, 0, 6,
+						"", "", 6, "#relationType#all#", ""));
 		semInfraOTRel.addPropEditableAttribute("06#" + "relationType");
 		semInfraOTRel.addPropVisibleAttribute("06#" + "relationType");
 		// semInfraOTRel.addPanelVisibleAttribute("06#" + "relationType");

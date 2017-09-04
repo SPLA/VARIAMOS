@@ -597,6 +597,25 @@ public class SyntaxElement implements Serializable {
 					elementDisplaySpacers, elementDisplayCondition));
 	}
 
+	// FIXME v1.1 add this method
+	public void addModelingAttribute(String name, String type,
+			boolean affectProperties, String displayName, String toolTipText,
+			String enumType, String metaConceptInstanceType,
+			Object defaultValue, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		if (!name.equals(VAR_AUTOIDENTIFIER)
+				&& modelingAttributes.get(name) == null)
+			modelingAttributes.put(name, new ElemAttribute(name, type,
+					AttributeType.SYNTAX, affectProperties, displayName,
+					toolTipText, enumType, metaConceptInstanceType,
+					defaultValue, null, "", defaultGroup, propTabPosition,
+					propTabEditionCondition, propTabVisualCondition,
+					elementDisplayPosition, elementDisplaySpacers,
+					elementDisplayCondition));
+	}
+
 	public void removeModelingAttribute(String value) {
 		modelingAttributes.remove(value);
 	}
