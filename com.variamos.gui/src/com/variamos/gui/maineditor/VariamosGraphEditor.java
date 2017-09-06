@@ -2011,7 +2011,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (progressMonitor.isCanceled()
 					|| (fileTask != null && fileTask.isDone())) {
 				if (progressMonitor.isCanceled()) {
-					task.cancel(true);
+					fileTask.cancel(true);
 					JOptionPane
 							.showMessageDialog(
 									frame,
