@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20170810-2130";
+	private String variamosBuild = "20170814-0400";
 	private String downloadId = "499";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -99,6 +99,8 @@ public class MainFrame extends JFrame {
 		VariamosGraphEditor modelEditor = null;
 		String perspTitle = "";
 		System.out.println(" done");
+		
+		//creando las perspectivas
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
 			case 0: // operations 1

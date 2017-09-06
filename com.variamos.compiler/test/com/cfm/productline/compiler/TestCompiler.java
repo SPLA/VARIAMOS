@@ -2,10 +2,12 @@ package com.cfm.productline.compiler;
 
 import org.junit.Test;
 
+
 import com.cfm.productline.ProductLine;
 import com.variamos.compiler.prologEditors.Hlcl2GnuProlog;
 import com.variamos.compiler.prologEditors.Hlcl2GnuPrologExact;
 import com.variamos.compiler.prologEditors.Hlcl2SWIProlog;
+import com.variamos.compiler.prologEditors.PrologTransformParameters;
 import com.variamos.hlcl.ComparisonExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
@@ -14,8 +16,9 @@ import com.variamos.hlcl.NumericExpression;
 import com.variamos.hlcl.NumericIdentifier;
 import com.variamos.io.SXFMReader;
 import com.variamos.productline.Pl2Hlcl;
-
+import com.variamos.compiler.prologEditors.StageInTransformation;
 import fm.FeatureModelException;
+
 
 public class TestCompiler {
 	private HlclFactory f = new HlclFactory();
@@ -68,6 +71,29 @@ public class TestCompiler {
 		Hlcl2SWIProlog t = new Hlcl2SWIProlog();
 		System.out.println("SWI");
 		System.out.println(t.transform(prog));
+		System.out.println();
+
+	}
+	
+	@Test
+	public void PartialSWIPrologTransformer() throws FeatureModelException{
+		SXFMReader reader = new SXFMReader();
+		ProductLine pl = reader.readFile("fm.splx");
+		HlclProgram prog = Pl2Hlcl.transform(pl);
+		Hlcl2SWIProlog t = new Hlcl2SWIProlog();
+		System.out.println("Default Transformation");
+		System.out.println(t.transform(prog));
+		
+		System.out.println("Partial Transformation");
+		PrologTransformParameters params = new PrologTransformParameters();
+		params.setStage(StageInTransformation.Initial);
+		System.out.println(t.transform(prog, params));
+		
+		params.setStage(StageInTransformation.Partial);
+		System.out.println(t.transform(prog, params));
+		
+		params.setStage(StageInTransformation.Final);
+		System.out.println(t.transform(prog, params));
 		System.out.println();
 	}
 	

@@ -53,7 +53,7 @@ import com.variamos.solver.Solver;
  * Class to create the Hlcl program. Part of PhD work at University of Paris 1
  * Renamed from Refas2HLCL
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Muï¿½oz Fernï¿½ndez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-13
@@ -75,6 +75,7 @@ public class ModelExpr2HLCL {
 	public Configuration getConfiguration() {
 		return configuration;
 	}
+	//FIXME cambiar a enumeration, quitar las constantes
 
 	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1,
 			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3,
@@ -257,6 +258,15 @@ public class ModelExpr2HLCL {
 	}
 
 	// Dynamic call with TranslationExpressionSet
+	// for dynamic operations (created by the dynamic part of the)
+	/**
+	 * 
+	 * @param operation
+	 * @param subOperation
+	 * @param operExecType
+	 * @param transExpSet 
+	 * @return
+	 */
 	public HlclProgram getHlclProgram(InstElement operation,
 			String subOperation, OpersSubOpExecType operExecType,
 			TranslationExpressionSet transExpSet) {
@@ -456,6 +466,8 @@ public class ModelExpr2HLCL {
 			InstElement operation, InstElement suboper)
 			throws InterruptedException {
 		lastExecutionTime = 0;
+		
+		//Para el primer llamado de execute inicializar el objeto solver y el primer llamado a solve
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new Configuration();
@@ -497,6 +509,8 @@ public class ModelExpr2HLCL {
 
 		if (progressMonitor != null && progressMonitor.isCanceled())
 			return -1;
+		
+		//Para hacer las consultas
 
 		if (solutions == 0 || solutions == 1) {
 			if (configuration != null) {

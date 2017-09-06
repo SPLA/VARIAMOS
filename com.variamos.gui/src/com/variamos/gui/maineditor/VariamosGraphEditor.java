@@ -104,7 +104,7 @@ import fm.FeatureModelException;
  * A class to represented the editor for each perspective. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Muï¿½oz Fernï¿½ndez <jcmunoz@gmail.com>
  * 
  * @version 1.0
  * @since 2014 *
@@ -129,6 +129,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
+	
 	private ModelInstance refasModel;
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
@@ -2010,7 +2011,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (progressMonitor.isCanceled()
 					|| (fileTask != null && fileTask.isDone())) {
 				if (progressMonitor.isCanceled()) {
-					task.cancel(true);
+					fileTask.cancel(true);
 					JOptionPane
 							.showMessageDialog(
 									frame,
