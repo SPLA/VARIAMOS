@@ -8,12 +8,12 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 
 public class DefaultSyntaxMM {
-	public static void createSyntaxMetaModel(ModelInstance refas) {
+	public static void createSyntaxMetaModel(InstanceModel refas) {
 
 		SyntaxElement syntaxMetaView = null;
 		InstElement metaView = refas.getSyntaxModel().getVertex("SyMView");
@@ -41,8 +41,8 @@ public class DefaultSyntaxMM {
 
 		SyntaxElement syntaxRefas = new SyntaxElement('C', "GeneralModel",
 				false, true, "GeneralModel", "plnode", "Applies REFAS and FM",
-				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
-				Color.BLUE.toString(), 3, semREFAS, true);
+				100, 50, "/com/variamos/gui/perspeditor/images/plnode.png",
+				true, Color.BLUE.toString(), 3, semREFAS, true);
 
 		InstConcept instRefas = new InstConcept("GeneralModel",
 				supportMetaElementConcept, syntaxRefas);
@@ -56,7 +56,7 @@ public class DefaultSyntaxMM {
 		syntaxMetaView = new SyntaxElement('V', "Variability", true, true,
 				"Variability View", "plnode",
 				"Defines the relations between goals and operationalizations",
-				130, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 3,
+				130, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 3,
 				"Goals Palette;Feature Palette",
 				// ;Graphs",
 				1, null);
@@ -71,13 +71,13 @@ public class DefaultSyntaxMM {
 				"ExtendsRelation", false, true, "ExtendsRelation", "",
 				"Extends relation between two hard concepts. Extends syntatic and semantic"
 						+ "attributes", 50, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directExtendsSemanticEdge);
 
 		SyntaxElement metaViewRel = new SyntaxElement('P', "ViewRelation",
 				false, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 
 		InstConcept instViewC = new InstConcept("Variability", metaView,
@@ -105,7 +105,7 @@ public class DefaultSyntaxMM {
 
 		SyntaxElement syntaxFeature = new SyntaxElement('C', "Feature", false,
 				true, "Feature", "plnode", "Defines a feature", 100, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", true,
+				"/com/variamos/gui/perspeditor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
 		// TODO include different visibility for extended attribute
@@ -138,7 +138,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewF = new SyntaxElement('P', "ViewFeatRel", true,
 				true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewF.setPalette("Feature Palette");
 
@@ -167,7 +167,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement syntaxGvariable = new SyntaxElement('C', "GVariable",
 				false, true, "GVariable", "plnode",
 				"Defines a Global Variable (old)", 100, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", true,
+				"/com/variamos/gui/perspeditor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
 		// TODO include different visibility for extended attribute
@@ -200,7 +200,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewGvariable = new SyntaxElement('P',
 				"ViewGvariableRel", true, true, "ViewGvariableRel", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewGvariable.setPalette("Graphs");
 
@@ -259,8 +259,8 @@ public class DefaultSyntaxMM {
 
 		SyntaxElement syntaxRootFeature = new SyntaxElement('C', "RootFeature",
 				true, true, "RootFeature", "plnode", "Defines a root feature",
-				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
-				Color.BLUE.toString(), 3, semRFeature, true);
+				100, 50, "/com/variamos/gui/perspeditor/images/plnode.png",
+				true, Color.BLUE.toString(), 3, semRFeature, true);
 
 		syntaxRootFeature.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -274,7 +274,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement syntaxGeneralFeature = new SyntaxElement('C',
 				"GeneralFeature", true, true, "GeneralFeature", "plnode",
 				"Defines a general feature", 100, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", true,
+				"/com/variamos/gui/perspeditor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semGFeature, true);
 
 		syntaxGeneralFeature.addModelingAttribute(
@@ -288,8 +288,8 @@ public class DefaultSyntaxMM {
 
 		SyntaxElement syntaxVertexLF = new SyntaxElement('C', "LeafFeature",
 				true, true, "LeafFeature", "plnode", "Defines a leaf feature",
-				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
-				Color.BLUE.toString(), 3, semLFeature, true);
+				100, 50, "/com/variamos/gui/perspeditor/images/plnode.png",
+				true, Color.BLUE.toString(), 3, semLFeature, true);
 
 		syntaxVertexLF.addModelingAttribute(SyntaxElement.VAR_USERIDENTIFIER,
 				"String", false, "Display Name", "", "", 0, 2, "", "", 4, "#"
@@ -302,7 +302,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewRF = new SyntaxElement('P', "ViewRootFeaRel",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 50, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 
 		InstConcept instViewRF = new InstConcept("ViewRootFeaRel",
@@ -328,7 +328,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewGF = new SyntaxElement('P', "ViewGFeatRel", true,
 				true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 
 		InstConcept instViewGF = new InstConcept("ViewGFeatRel",
@@ -381,7 +381,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewLF = new SyntaxElement('P', "ViewRelation", true,
 				true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 
 		InstConcept instViewLF = new InstConcept("View Leaf Feature Relation",
@@ -474,7 +474,7 @@ public class DefaultSyntaxMM {
 				"Group Relation", true, true, "Group Relation", "",
 				"Direct relation with a over two relation concept."
 						+ " No additional type defined", 60, 40,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				semGroupPaiwiseRel);
 
 		InstElement semGroupFeatPaiwiseRel = refas.getOperationalModel()
@@ -484,7 +484,7 @@ public class DefaultSyntaxMM {
 				"Group Relation", true, true, "Group Relation", "",
 				"Direct relation with a over two relation concept."
 						+ " No additional type defined", 60, 40,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				semGroupFeatPaiwiseRel);
 
 		// InstConcept instGroupPairWiseRel = new InstConcept("Group Relation",
@@ -531,7 +531,7 @@ public class DefaultSyntaxMM {
 				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
 						+ " relations", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				directFeatFeatVertSemEdge);
 
 		InstElement groupFeatOTFeatVertSemEdge = refas.getOperationalModel()
@@ -542,7 +542,7 @@ public class DefaultSyntaxMM {
 				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
 						+ " relations", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				groupFeatOTFeatVertSemEdge);
 
 		InstElement directFeatFeatSideSemEdge = refas.getOperationalModel()
@@ -553,7 +553,7 @@ public class DefaultSyntaxMM {
 				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
 						+ " relations", 70, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				directFeatFeatSideSemEdge);
 
 		InstElement groupFeatOTFeatSideSemEdge = refas.getOperationalModel()
@@ -564,7 +564,7 @@ public class DefaultSyntaxMM {
 				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
 						+ " relations", 70, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				groupFeatOTFeatSideSemEdge);
 
 		InstConcept instDirSideRelation = new InstConcept("TraversalF",
@@ -699,7 +699,7 @@ public class DefaultSyntaxMM {
 				"Group relation between"
 						+ " Feature concepts. Defines different types of"
 						+ " cardinalities", 20, 20,
-				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
+				"/com/variamos/gui/perspeditor/images/plgroup.png", false,
 				"white", 1, semanticFeatFeatGroupRelation, false);
 
 		InstConcept instVertexFOTR = new InstConcept("FeatOTAsso",
@@ -709,7 +709,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewFG = new SyntaxElement('P', "ViewRelation", true,
 				true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 
 		InstConcept instViewFG = new InstConcept("View Feature OT Relation",
@@ -1113,7 +1113,7 @@ public class DefaultSyntaxMM {
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directStructHardHardSemanticEdge);
 
 		InstConcept instGrpMeansEndsRelation = new InstConcept("MeansEndsG",
@@ -1132,7 +1132,7 @@ public class DefaultSyntaxMM {
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directStructHardHardSemanticEdge);
 
 		/*
@@ -1191,7 +1191,7 @@ public class DefaultSyntaxMM {
 
 				+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directSideHardHardSemanticEdge);
 
 		InstConcept instGrpSideHardHardPairWiseRel = new InstConcept(
@@ -1210,7 +1210,7 @@ public class DefaultSyntaxMM {
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directSideHardHardSemanticEdge);
 
 		// metaDirSideHardPairwiseRel.addModelingAttribute("AggregationLow",
@@ -1275,7 +1275,7 @@ public class DefaultSyntaxMM {
 				"Group relation between"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 20, 20,
-				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
+				"/com/variamos/gui/perspeditor/images/plgroup.png", false,
 				"white", 1, semanticHardHardGroupRelation, false);
 
 		// TODO Create another group
@@ -1393,7 +1393,7 @@ public class DefaultSyntaxMM {
 
 		syntaxMetaView = new SyntaxElement('V', "SoftGoals", true, true,
 				"Soft Goals View", "plnode", "Defines sofgoals", 100, 80,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 3,
 				"Soft Goals Palette", 2, null);
 		instViewC = new InstConcept("SoftGoals", metaView, syntaxMetaView);
 
@@ -1592,15 +1592,15 @@ public class DefaultSyntaxMM {
 				"Group Soft From Relation", "",
 				"Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
-				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				directSGGRSemEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directSGGRSemEdge);
 
 		SyntaxElement metaGroupSoftToPairWiseRel = new SyntaxElement('P',
 				"GroupSoftToRelation", true, true, "Group Soft To Relation",
 				"", "Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
-				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				directGRSGSemEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directGRSGSemEdge);
 
 		/*
 		 * metaSoftPairWiseRel.addModelingAttribute("SourceLevel", "Integer",
@@ -1618,8 +1618,8 @@ public class DefaultSyntaxMM {
 				"DirSoftRelation", true, true, "Dir Soft Relation", "",
 				"Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
-				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				directSGSGSemEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directSGSGSemEdge);
 		/*
 		 * metaDirSoftPairWiseRel.addModelingAttribute("AggregationLow",
 		 * "Integer", false, "Aggregation Low", 0, 0, -1, "", "", -1, "", "");
@@ -1690,7 +1690,7 @@ public class DefaultSyntaxMM {
 				"SoftgoalOTAsso", "plgroup", "Direct relation between soft"
 						+ " concepts. Defines different types of relations"
 						+ " and cardinalities", 20, 20,
-				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
+				"/com/variamos/gui/perspeditor/images/plgroup.png", false,
 				"white", 1, semanticSGSGGroupRelation, false);
 
 		// TODO Create another group
@@ -1778,7 +1778,7 @@ public class DefaultSyntaxMM {
 		syntaxMetaView = new SyntaxElement('V', "Context", true, true,
 				"Context View", "plnode",
 				"Defines the context variables and concerns", 100, 80,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 3,
 				"Context Palette", 3, null);
 		InstConcept instViewCoV = new InstConcept("Context", metaView,
 				syntaxMetaView);
@@ -1865,15 +1865,8 @@ public class DefaultSyntaxMM {
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false,
 				"Description", "", "", 0, 3, "", "", -1, "", "");
-		syntaxAbsVariable.addModelingAttribute("type", "String", false,
-				"TypeS", "", "", 0, -1, "", "", -1, "", "");
-		syntaxAbsVariable.addModelingAttribute("domain", "String", false,
-				"DomainS", "", "", 0, -1, "", "", -1, "", "");
-		syntaxAbsVariable.addModelingAttribute("enumeration",
-				"MetaEnumeration", false, "EnumerationS", "", "", 0, -1, "",
-				"", -1, "", "");
-		// syntaxAbsVariable.addModelingAttribute("concern", "ConcernLevel",
-		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
+
+		// FIXME v1.1 remove the attributes
 
 		InstConcept instVertexVar = new InstConcept("Variable",
 				supportMetaElementConcept, syntaxAbsVariable);
@@ -2002,7 +1995,7 @@ public class DefaultSyntaxMM {
 				1, "", "", -1, "#-#\n\n", "");
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMVALUE,
 				"Set", false, SyntaxElement.VAR_METAENUMVALUENAME, "",
-				SyntaxElement.VAR_METAENUMVALUECLASS,
+				SyntaxElement.VAR_METAENUMVALUECLASS, "Enumeration",
 				new ArrayList<InstAttribute>(), 0, 1, "", "", 5, "#"
 						+ SyntaxElement.VAR_METAENUMVALUE + "#all#\n", "");
 
@@ -2129,14 +2122,14 @@ public class DefaultSyntaxMM {
 				"Variable To Context Relation", true, true,
 				"Variable To Context Relation", "",
 				"Associates a Context Variable" + " with the Context Group",
-				60, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				directCVCGSemanticEdge);
+				60, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directCVCGSemanticEdge);
 
 		SyntaxElement metaContextEdge = new SyntaxElement('P',
 				"Context To Context Relation", true, true,
 				"Context To Context Relation", "", "Associates a Context Group"
 						+ " with other Context Group", 60, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directCVCGSemanticEdge);
 
 		metaContextEdge.addModelingAttribute("cardinality", "String", false,
@@ -2204,7 +2197,7 @@ public class DefaultSyntaxMM {
 				"SG Satisficing View",
 				"plnode",
 				"Defines the relation between operationalizations and softgoals",
-				100, 80, "/com/variamos/gui/pl/editor/images/plnode.png", 3,
+				100, 80, "/com/variamos/gui/perspeditor/images/plnode.png", 3,
 				"SG Satisficing Palette - Goals", 4, null);
 		instViewC = new InstConcept("SoftGoalsSatisficing", metaView,
 				syntaxMetaView);
@@ -2222,7 +2215,7 @@ public class DefaultSyntaxMM {
 				"Represent the relation between"
 						+ " an operationalizations and a claim. The operationalization(s)"
 						+ " is required to satisfy a claim", 60, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				semOperToOperClaimOTPW);
 
 		InstConcept instGroupOperClaimPairWiseRel = new InstConcept(
@@ -2326,7 +2319,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewLFsg = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLFsg.setPalette("SG Satisficing Palette - Features");
 		//
@@ -2418,7 +2411,7 @@ public class DefaultSyntaxMM {
 		// "Represent the relation between"
 		// + " an operationalization(s) and a claim. The operationalization(s)"
 		// + " is required to satisfy a claim", 60, 50,
-		// "/com/variamos/gui/pl/editor/images/ploptional.png", 1, null);
+		// "/com/variamos/gui/perspeditor/images/ploptional.png", 1, null);
 		//
 		// InstConcept instGraphClV = new InstConcept("Test-Cl-Var",
 		// supportMetaElementPairwise, metaDirClaimVarPairwiseRel);
@@ -2567,7 +2560,7 @@ public class DefaultSyntaxMM {
 				"Express the relation between"
 						+ " the Claim and the SG. Represent the level of satisficing"
 						+ " expected on the softgoal in case the Claim is satisfied",
-				20, 20, "/com/variamos/gui/pl/editor/images/plgroup.png",
+				20, 20, "/com/variamos/gui/perspeditor/images/plgroup.png",
 				false, "white", 1, semanticOperClaimGroupRelation, false);
 
 		InstElement semOperClaimOTToClaimPW = refas.getOperationalModel()
@@ -2583,7 +2576,7 @@ public class DefaultSyntaxMM {
 				"Represent the relation between"
 						+ " an operationalization(s) and a claim. The operationalization(s)"
 						+ " is required to satisfy a claim", 60, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				semOperClaimOTToClaimPW);
 
 		InstConcept instGrpOperClaimPairWiseRel = new InstConcept(
@@ -2613,7 +2606,7 @@ public class DefaultSyntaxMM {
 				"Represent the relation between"
 						+ " an operationalization(s) and a claim. The operationalization(s)"
 						+ " is required to satisfy a claim", 60, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				semLfClaimOTToClaimPW);
 		InstConcept instGrpLFClaimPairWiseRel = new InstConcept(
 				"GrpLFClaimRelation", supportMetaElementPairwise,
@@ -2637,7 +2630,7 @@ public class DefaultSyntaxMM {
 				"Represent the relation between"
 						+ " an operationalization(s) and a claim. The operationalization(s)"
 						+ " is required to satisfy a claim", 60, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				semDirOperClaimPW);
 
 		InstConcept instDirOperClaimPairWiseRel = new InstConcept(
@@ -2657,7 +2650,7 @@ public class DefaultSyntaxMM {
 				"Represent the relation between"
 						+ " a leaf feature(s) and a claim. The leaf feature(s)"
 						+ " is required to satisfy a claim", 60, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				semDirLfClaimPW);
 
 		InstConcept instDirLFClaimPairWiseRel = new InstConcept(
@@ -2710,7 +2703,7 @@ public class DefaultSyntaxMM {
 				"Express the relation between"
 						+ " the Claim and the SG. Represent the level of satisficing"
 						+ " expected on the softgoal in case the Claim is satisfied",
-				20, 20, "/com/variamos/gui/pl/editor/images/plgroup.png",
+				20, 20, "/com/variamos/gui/perspeditor/images/plgroup.png",
 				false, "white", 1, semanticLFClaimGroupRelation, false);
 
 		InstConcept instVertexFCOTR = new InstConcept("LFClaimOTAsso",
@@ -2722,7 +2715,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewLFCL = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLFCL.setPalette("SG Satisficing Palette - Features");
 
@@ -2850,8 +2843,8 @@ public class DefaultSyntaxMM {
 				"Express the relation between"
 						+ " the SD and the SG. Represent the level of satisficing"
 						+ " required on the softgoal in case the SD is satisfied",
-				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				directSDSGSemanticEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directSDSGSemanticEdge);
 
 		InstConcept instSDPairWiseRel = new InstConcept("SDSGRelation",
 				supportMetaElementPairwise, metaSDSGEdge);
@@ -2891,8 +2884,8 @@ public class DefaultSyntaxMM {
 				"Express the relation between"
 						+ " the Claim and the SG. Represent the level of satisficing"
 						+ " required on the softgoal in case the SD is satisfied",
-				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				directClaimSGSemanticEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directClaimSGSemanticEdge);
 
 		InstConcept instCLPairWiseRel = new InstConcept("CLSGRelation",
 				supportMetaElementPairwise, metaClaimSGEdge);
@@ -2922,7 +2915,7 @@ public class DefaultSyntaxMM {
 
 		syntaxMetaView = new SyntaxElement('V', "Assets", true, true,
 				"Assets View", "plnode", "Defines an Asset", 100, 90,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 3,
 				"Assets Palette - Opers;Assets Palette - Features", 5, null);
 		instViewC = new InstConcept("Assets", metaView, syntaxMetaView);
 		refas.getVariabilityVertex().put("Assets", instViewC);
@@ -3006,7 +2999,7 @@ public class DefaultSyntaxMM {
 				"AssetOperGroupDep", "plgroup",
 				"Represents the implementation "
 						+ "of an operationalization by a group of assets", 20,
-				20, "/com/variamos/gui/pl/editor/images/plgroup.png", false,
+				20, "/com/variamos/gui/perspeditor/images/plgroup.png", false,
 				"white", 1, semanticAssetOperGroupRelation, false);
 		InstConcept instVertexAssetOper = new InstConcept("AssetOperOT",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
@@ -3016,7 +3009,7 @@ public class DefaultSyntaxMM {
 		hardMetaOverTwoRel = new SyntaxElement('O', "AssetFeatOT", true, true,
 				"AssetFeatOT", "plgroup", "Represents the implementation "
 						+ "of a feautre by a group of assets", 20, 20,
-				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
+				"/com/variamos/gui/perspeditor/images/plgroup.png", false,
 				"white", 1, semanticAssetLfGroupRelation, false);
 		InstConcept instVertexAssetFeat = new InstConcept("AssetFeatOT",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
@@ -3026,7 +3019,7 @@ public class DefaultSyntaxMM {
 		hardMetaOverTwoRel = new SyntaxElement('O', "AssetAssetOTAsso", true,
 				true, "AssetAssetOTAsso", "plgroup", "Represents the relation "
 						+ "of an asset with a group of assets", 20, 20,
-				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
+				"/com/variamos/gui/perspeditor/images/plgroup.png", false,
 				"white", 1, semanticAssetAssetGroupRelation, false);
 		InstConcept instVertexAssetAsset = new InstConcept("AssetAssetOTAsso",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
@@ -3039,7 +3032,7 @@ public class DefaultSyntaxMM {
 				"", "Represents the "
 						+ "implementation of an operationzalization by an"
 						+ " asset", 50, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directAssetOperSemanticEdge);
 
 		SyntaxElement metaAssetOperToPairWiseRel = new SyntaxElement('P',
@@ -3047,15 +3040,15 @@ public class DefaultSyntaxMM {
 				"AssetOperOT To Oper Relation", "", "Represents the "
 						+ "implementation of operationalization by an"
 						+ " asset", 50, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				instAssetOperOTtoOperPW);
 
 		SyntaxElement metaLfOperToPairWiseRel = new SyntaxElement('P',
 				"AssetFlOT To Lf Relation", true, true,
 				"AssetFlOT To Lf Relation", "", "Represents the "
 						+ "implementation of leaf feature by an" + " asset",
-				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				directAssetLfFromSemanticEdge);
+				50, 50, "/com/variamos/gui/perspeditor/images/ploptional.png",
+				1, directAssetLfFromSemanticEdge);
 
 		InstConcept instDirOperPairWiseRel = new InstConcept(
 				"Dir Asset To Oper Relation", supportMetaElementPairwise,
@@ -3091,7 +3084,7 @@ public class DefaultSyntaxMM {
 				"Asset To Feature Relation", true, true,
 				"Asset To Feature Relation", "", "Represents the "
 						+ "implementation of an feature by an" + " asset", 50,
-				50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				50, "/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directAssetOperSemanticEdge);
 
 		InstConcept instDirFeatPairWiseRel = new InstConcept(
@@ -3108,7 +3101,7 @@ public class DefaultSyntaxMM {
 				"Asset To Asset Relation", "",
 				"Represents a " + "type of an operationzalization between "
 						+ " assets", 50, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
 
 		// metaAssetPairWiseRel.addModelingAttribute("AggregationLow",
@@ -3156,7 +3149,7 @@ public class DefaultSyntaxMM {
 				"Asset To Asset Relation", "",
 				"Represents a " + "type of an operationzalization between "
 						+ " assets", 50, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
 
 		InstConcept instGrpAssetPairWiseRel = new InstConcept(
@@ -3376,7 +3369,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewLF2 = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLF2.setPalette("Assets Palette - Features");
 
@@ -3388,7 +3381,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewLF3 = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLF3.setPalette("Assets Palette - Features");
 
@@ -3427,7 +3420,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewAsFG2 = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewAsFG2.setPalette("Assets Palette - Features");
 
@@ -3453,7 +3446,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaViewAsFG = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewAsFG.setPalette("Assets Palette - Features");
 
@@ -3546,7 +3539,7 @@ public class DefaultSyntaxMM {
 		SyntaxElement metaView2AsFG = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaView2AsFG.setPalette("Assets Palette - Features");
 

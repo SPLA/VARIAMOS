@@ -2,11 +2,7 @@ package com.variamos.gui.perspeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,17 +10,12 @@ import java.util.TreeMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
@@ -33,10 +24,9 @@ import com.variamos.configurator.Choice;
 import com.variamos.configurator.Configurator;
 import com.variamos.configurator.DomainAnnotation;
 import com.variamos.configurator.io.ConfigurationDTO;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.types.IntegerType;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
-import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
 import com.variamos.gui.pl.configurator.solution.SolutionPanel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationDataModel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
@@ -53,7 +43,7 @@ import com.variamos.solver.ConfigurationTask;
  */
 @SuppressWarnings("serial")
 public class ConfiguratorPanel extends AbstractConfigurationPanel {
-	private ModelInstance refas;
+	private InstanceModel refas;
 
 	// Configurator table settings
 	private ConfigurationTreeTable table;
@@ -104,7 +94,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		panel.setBorder(BorderFactory.createTitledBorder("Configuration"));
 		add(panel, BorderLayout.WEST);
 
-		initControlPanel();
+		// initControlPanel();
 		add(controlPanel, BorderLayout.SOUTH);
 
 		initSolutionPanel();
@@ -116,127 +106,127 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		add(solutionPanel, BorderLayout.CENTER);
 	}
 
-	private void initControlPanel() {
-		controlPanel = new JPanel(new BorderLayout());
-
-		JPanel buttonPanels = new JPanel();
-		buttonPanels.setLayout(new SpringLayout());
-
-		final JTextField txtNumConf = new JTextField(3);
-		txtNumConf.setMaximumSize(new Dimension(60, 9));
-		JButton getSolution = new JButton("Get Solutions");
-		getSolution.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Integer num = Integer.parseInt(txtNumConf.getText());
-
-				if (num == null) {
-					JOptionPane.showMessageDialog(ConfiguratorPanel.this,
-							"Invalid Number", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				clearProducts();
-				ConfigurationOptions options = getCurrentOptions();
-				options.setStartFromZero(true);
-				configurator.solve(num, getCurrentConfiguration(), options);
-			}
-		});
-
-		JButton getNextSolution = new JButton("Get Next");
-		getNextSolution.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Integer num = Integer.parseInt(txtNumConf.getText());
-
-				if (num == null) {
-					JOptionPane.showMessageDialog(ConfiguratorPanel.this,
-							"Invalid Number", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				ConfigurationOptions options = getCurrentOptions();
-				options.setStartFromZero(false);
-				configurator.solve(num, getCurrentConfiguration(), options);
-
-			}
-		});
-
-		JButton undo = new JButton("Undo");
-		undo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-
-		JButton reduceDomain = new JButton("Reduce Domain");
-		reduceDomain.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				reduceDomain();
-			}
-		});
-
-		buttonPanels.add(getSolution);
-		buttonPanels.add(txtNumConf);
-		buttonPanels.add(getNextSolution);
-		buttonPanels.add(reduceDomain);
-
-		SpringUtilities.makeCompactGrid(buttonPanels, 2, 2, 4, 4, 4, 4);
-
-		controlPanel.add(buttonPanels, BorderLayout.WEST);
-
-		JPanel additionalPanel = new JPanel(new SpringLayout());
-		additionalPanel.setBorder(BorderFactory
-				.createTitledBorder("Additional Constraints"));
-
-		additionalConstraints = new JList<String>(
-				new DefaultListModel<String>());
-		additionalConstraints.setPreferredSize(new Dimension(200, 100));
-
-		JPanel constraintButtons = new JPanel(new SpringLayout());
-		JButton btnAddConstraint = new JButton("Add Constraint");
-		btnAddConstraint.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				String cons = JOptionPane.showInputDialog("New Constraint");
-				((DefaultListModel<String>) additionalConstraints.getModel())
-						.addElement(cons);
-			}
-		});
-
-		JButton btnRemoveConstraint = new JButton("Remove Constraint");
-		btnRemoveConstraint.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int sel = additionalConstraints.getSelectedIndex();
-				if (sel < 0)
-					return;
-
-				((DefaultListModel<String>) additionalConstraints.getModel())
-						.remove(sel);
-			}
-		});
-
-		constraintButtons.add(btnAddConstraint);
-		constraintButtons.add(btnRemoveConstraint);
-		SpringUtilities.makeCompactGrid(constraintButtons, 2, 1, 4, 4, 4, 4);
-
-		additionalPanel.add(additionalConstraints);
-		additionalPanel.add(constraintButtons);
-		SpringUtilities.makeCompactGrid(additionalPanel, 1, 2, 4, 4, 4, 4);
-
-		JPanel center = new JPanel();
-		center.add(additionalPanel);
-
-		controlPanel.add(center);
-	}
+	// private void initControlPanel() {
+	// controlPanel = new JPanel(new BorderLayout());
+	//
+	// JPanel buttonPanels = new JPanel();
+	// buttonPanels.setLayout(new SpringLayout());
+	//
+	// final JTextField txtNumConf = new JTextField(3);
+	// txtNumConf.setMaximumSize(new Dimension(60, 9));
+	// JButton getSolution = new JButton("Get Solutions");
+	// getSolution.addActionListener(new ActionListener() {
+	//
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// Integer num = Integer.parseInt(txtNumConf.getText());
+	//
+	// if (num == null) {
+	// JOptionPane.showMessageDialog(ConfiguratorPanel.this,
+	// "Invalid Number", "Error",
+	// JOptionPane.ERROR_MESSAGE);
+	// return;
+	// }
+	//
+	// clearProducts();
+	// ConfigurationOptions options = getCurrentOptions();
+	// options.setStartFromZero(true);
+	// configurator.solve(num, getCurrentConfiguration(), options);
+	// }
+	// });
+	//
+	// JButton getNextSolution = new JButton("Get Next");
+	// getNextSolution.addActionListener(new ActionListener() {
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// Integer num = Integer.parseInt(txtNumConf.getText());
+	//
+	// if (num == null) {
+	// JOptionPane.showMessageDialog(ConfiguratorPanel.this,
+	// "Invalid Number", "Error",
+	// JOptionPane.ERROR_MESSAGE);
+	// return;
+	// }
+	//
+	// ConfigurationOptions options = getCurrentOptions();
+	// options.setStartFromZero(false);
+	// configurator.solve(num, getCurrentConfiguration(), options);
+	//
+	// }
+	// });
+	//
+	// JButton undo = new JButton("Undo");
+	// undo.addActionListener(new ActionListener() {
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	//
+	// }
+	// });
+	//
+	// JButton reduceDomain = new JButton("Reduce Domain");
+	// reduceDomain.addActionListener(new ActionListener() {
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// reduceDomain();
+	// }
+	// });
+	//
+	// buttonPanels.add(getSolution);
+	// buttonPanels.add(txtNumConf);
+	// buttonPanels.add(getNextSolution);
+	// buttonPanels.add(reduceDomain);
+	//
+	// SpringUtilities.makeCompactGrid(buttonPanels, 2, 2, 4, 4, 4, 4);
+	//
+	// controlPanel.add(buttonPanels, BorderLayout.WEST);
+	//
+	// JPanel additionalPanel = new JPanel(new SpringLayout());
+	// additionalPanel.setBorder(BorderFactory
+	// .createTitledBorder("Additional Constraints"));
+	//
+	// additionalConstraints = new JList<String>(
+	// new DefaultListModel<String>());
+	// additionalConstraints.setPreferredSize(new Dimension(200, 100));
+	//
+	// JPanel constraintButtons = new JPanel(new SpringLayout());
+	// JButton btnAddConstraint = new JButton("Add Constraint");
+	// btnAddConstraint.addActionListener(new ActionListener() {
+	//
+	// @Override
+	// public void actionPerformed(ActionEvent arg0) {
+	// String cons = JOptionPane.showInputDialog("New Constraint");
+	// ((DefaultListModel<String>) additionalConstraints.getModel())
+	// .addElement(cons);
+	// }
+	// });
+	//
+	// JButton btnRemoveConstraint = new JButton("Remove Constraint");
+	// btnRemoveConstraint.addActionListener(new ActionListener() {
+	//
+	// @Override
+	// public void actionPerformed(ActionEvent arg0) {
+	// int sel = additionalConstraints.getSelectedIndex();
+	// if (sel < 0)
+	// return;
+	//
+	// ((DefaultListModel<String>) additionalConstraints.getModel())
+	// .remove(sel);
+	// }
+	// });
+	//
+	// constraintButtons.add(btnAddConstraint);
+	// constraintButtons.add(btnRemoveConstraint);
+	// SpringUtilities.makeCompactGrid(constraintButtons, 2, 1, 4, 4, 4, 4);
+	//
+	// additionalPanel.add(additionalConstraints);
+	// additionalPanel.add(constraintButtons);
+	// SpringUtilities.makeCompactGrid(additionalPanel, 1, 2, 4, 4, 4, 4);
+	//
+	// JPanel center = new JPanel();
+	// center.add(additionalPanel);
+	//
+	// controlPanel.add(center);
+	// }
 
 	/*
 	 * public void solve(int numSol, ConfigurationOptions options){
@@ -318,7 +308,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	 * // table.updateUI(); }
 	 */
 
-	public ModelInstance getRefas() {
+	public InstanceModel getRefas() {
 		return this.refas;
 	}
 
@@ -328,52 +318,52 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 
 	// todo: change to refas
-	@Override
-	public void configure(AbstractModel am) {
-		ModelInstance pl = (ModelInstance) am;
-		this.removeAll();
-		initComponents();
-		this.refas = pl;
-		configurator.setSolverProductLine(pl);
-
-		@SuppressWarnings("deprecation")
-		List<VariabilityElement> ordered = new ArrayList<VariabilityElement>(
-				pl.getVariabilityElements());
-
-		Collections.sort(ordered, new Comparator<VariabilityElement>() {
-			@Override
-			public int compare(VariabilityElement ve1, VariabilityElement ve2) {
-				return ve1.getName().compareTo(ve2.getName());
-			}
-		});
-
-		for (VariabilityElement el : ordered) {
-			Variable var = new Variable();
-
-			var.setType(IntegerType.IDENTIFIER);
-			var.setName(el.getName());
-			// var.setName(el.getIdentifier());
-			var.setDomain(BinaryDomain.INSTANCE);
-			var.setValue(null);
-			// GARA
-			// System.out.println(el.getIdentifier());
-			ConfigurationNode node = new ConfigurationNode();
-			node.setVariable(var);
-
-			// Add Attributes
-			for (Variable v : el.getVarAttributes()) {
-				ConfigurationNode attNode = new ConfigurationNode();
-				attNode.setVariable(v);
-				node.getChildren().add(attNode);
-			}
-
-			root.getChildren().add(node);
-		}
-		table.expandRow(0);
-		solutionPanel.expand();
-
-		resizeColumns();
-	}
+	// @Override
+	// public void configure(ModelInstance am) {
+	// ModelInstance pl = am;
+	// this.removeAll();
+	// initComponents();
+	// this.refas = pl;
+	// configurator.setSolverProductLine(pl);
+	//
+	// @SuppressWarnings("deprecation")
+	// List<VariabilityElement> ordered = new ArrayList<VariabilityElement>(
+	// pl.getVariabilityElements());
+	//
+	// Collections.sort(ordered, new Comparator<VariabilityElement>() {
+	// @Override
+	// public int compare(VariabilityElement ve1, VariabilityElement ve2) {
+	// return ve1.getName().compareTo(ve2.getName());
+	// }
+	// });
+	//
+	// for (VariabilityElement el : ordered) {
+	// Variable var = new Variable();
+	//
+	// var.setType(IntegerType.IDENTIFIER);
+	// var.setName(el.getName());
+	// // var.setName(el.getIdentifier());
+	// var.setDomain(BinaryDomain.INSTANCE);
+	// var.setValue(null);
+	// // GARA
+	// // System.out.println(el.getIdentifier());
+	// ConfigurationNode node = new ConfigurationNode();
+	// node.setVariable(var);
+	//
+	// // Add Attributes
+	// for (Variable v : el.getVarAttributes()) {
+	// ConfigurationNode attNode = new ConfigurationNode();
+	// attNode.setVariable(v);
+	// node.getChildren().add(attNode);
+	// }
+	//
+	// root.getChildren().add(node);
+	// }
+	// table.expandRow(0);
+	// solutionPanel.expand();
+	//
+	// resizeColumns();
+	// }
 
 	public void populateNode(ProductLine pl, VariabilityElement ve,
 			ConfigurationNode parent, Set<String> visited) {
@@ -408,13 +398,14 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		// performConfiguration();
 	}
 
-	public void performConfiguration() {
-		DefaultConfigurationTaskListener listener = new DefaultConfigurationTaskListener(
-				this);
-		Configuration configuration = getCurrentConfiguration();
-		configurator.performConfiguration(configuration, getCurrentOptions(),
-				listener, refas);
-	}
+	// public void performConfiguration() {
+	// DefaultConfigurationTaskListener listener = new
+	// DefaultConfigurationTaskListener(
+	// this);
+	// Configuration configuration = getCurrentConfiguration();
+	// configurator.performConfiguration(configuration, getCurrentOptions(),
+	// listener, refas);
+	// }
 
 	@Override
 	public void setValueToVariable(Variable variable, Integer value, int index,

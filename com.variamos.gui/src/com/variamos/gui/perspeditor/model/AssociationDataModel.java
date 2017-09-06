@@ -45,7 +45,7 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 			List<Domain> domains) {
 		super(root);
 		captions = new ArrayList<String>();
-		captions.add("Concept/Variable/Expression");
+		captions.add("Meta-Concept / Relation Type (optional) / Meta-Attribute or Meta-Expression");
 		captions.addAll(names);
 
 		types = new ArrayList<Class<?>>();
@@ -66,24 +66,22 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 
 			@Override
 			public void treeStructureChanged(TreeModelEvent arg0) {
-				AssociationDataModel.this.configurator.resizeColumns();
+
 			}
 
 			@Override
 			public void treeNodesRemoved(TreeModelEvent arg0) {
-				AssociationDataModel.this.configurator.resizeColumns();
 
 			}
 
 			@Override
 			public void treeNodesInserted(TreeModelEvent arg0) {
-				AssociationDataModel.this.configurator.resizeColumns();
 
 			}
 
 			@Override
 			public void treeNodesChanged(TreeModelEvent arg0) {
-				AssociationDataModel.this.configurator.resizeColumns();
+
 			}
 		});
 	}

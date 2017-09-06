@@ -9,7 +9,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.core.util.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.types.EnumerationSingleSelectionType;
 import com.variamos.io.ConsoleTextArea;
 
@@ -40,7 +40,7 @@ public class EnumerationWidget extends WidgetR {
 
 	@Override
 	public void configure(IntInstAttribute v, mxGraph graph,
-			ModelInstance semanticModel,
+			InstanceModel semanticModel,
 			boolean showSimulationCustomizationBox, int perspective) {
 		super.configure(v, graph, semanticModel,
 				showSimulationCustomizationBox, perspective);

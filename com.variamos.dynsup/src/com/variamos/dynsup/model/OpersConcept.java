@@ -11,7 +11,7 @@ package com.variamos.dynsup.model;
  * @see com.cfm.productline.
  */
 public class OpersConcept extends OpersElement {
-
+	// FIXME v1.1 Split into to SeSupConcept and OpSupConcept
 	/**
 	 * 
 	 */
@@ -29,6 +29,7 @@ public class OpersConcept extends OpersElement {
 	 * public OpersConcept(OpersAbstractVertex parentConcept, String name) {
 	 * super(parentConcept, name, true); }
 	 */
+	@Override
 	public String toString() {
 
 		return " HSC: " + super.toString();

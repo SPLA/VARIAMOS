@@ -15,18 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableColumnModel;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.Variable;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
-import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.model.AssociationDataModel;
 import com.variamos.gui.perspeditor.model.AssociationRow;
@@ -34,8 +32,6 @@ import com.variamos.gui.perspeditor.model.AssociationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationTask;
 
 /**
  * A class to create the dialog to associate element's expressions to
@@ -46,8 +42,8 @@ import com.variamos.solver.ConfigurationTask;
  * @version 1.1
  * @since 2015-11-05
  */
-public class ElementsOperationAssociationPanel extends
-		AbstractConfigurationPanel implements PropertyChangeListener {
+public class ElementsOperationAssociationPanel extends JPanel implements
+		PropertyChangeListener {
 	/**
 	 * 
 	 */
@@ -55,8 +51,8 @@ public class ElementsOperationAssociationPanel extends
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
 	private int dialog = 0;
-	private int width = 980;
-	private int height = 500;
+	private int width = 1250;
+	private int height = 630;
 	List<InstElement> operActions = null;
 	private AssociationTreeTable table = null;
 	private List<OpersSubOperationExpType> subOpersTypesColumns = null;
@@ -87,7 +83,7 @@ public class ElementsOperationAssociationPanel extends
 		}
 		combo.setSelectedItem(combo.getItemAt(0));
 		JPanel topPanel = new JPanel();
-		topPanel.add(new JLabel("Operation"));
+		topPanel.add(new JLabel("Select the operation to display the options: "));
 		topPanel.add(combo);
 
 		generalPanel.add(topPanel, BorderLayout.NORTH);
@@ -101,7 +97,7 @@ public class ElementsOperationAssociationPanel extends
 						editor.getEditedModel(), operAction);
 				panel.removeAll();
 				table = tableN;
-				table.setPreferredSize(new Dimension(width, height + 1000));
+				table.setPreferredSize(new Dimension(width - 25, height + 1300));
 				JScrollPane scrollPane = new JScrollPane(table);
 				scrollPane.setPreferredSize(new Dimension(width, height));
 				panel.add(scrollPane);
@@ -111,7 +107,7 @@ public class ElementsOperationAssociationPanel extends
 		});
 
 		table = createTable(editor.getEditedModel(), operActions.get(0));
-		table.setPreferredSize(new Dimension(width, height + 400));
+		table.setPreferredSize(new Dimension(width - 25, height + 400));
 		panel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(width, height));
@@ -127,7 +123,7 @@ public class ElementsOperationAssociationPanel extends
 		repaint();
 	}
 
-	private AssociationTreeTable createTable(ModelInstance refasModel,
+	private AssociationTreeTable createTable(InstanceModel refasModel,
 			InstElement operAction) {
 		OpersSubOperation operSubAction = null;
 		List<String> subOperTypesColumnsNames = new ArrayList<String>();
@@ -191,8 +187,8 @@ public class ElementsOperationAssociationPanel extends
 		for (String s : subOperColumnsNames) {
 			domainOperIO.add(BinaryDomain.INSTANCE);
 			domainOperIO.add(BinaryDomain.INSTANCE);
-			operIO.add(s + "ModelValue/\nFreeValue");
-			operIO.add(s + "UpdateModelValue");
+			operIO.add(s + ": Input from Model/\nFree Value");
+			operIO.add(s + ": Output to Model/\n Not output");
 		}
 
 		AssociationRow root = null;
@@ -368,43 +364,6 @@ public class ElementsOperationAssociationPanel extends
 
 	}
 
-	@Override
-	public void configure(AbstractModel am) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void addSolution(Configuration solution) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void taskCompleted(ConfigurationTask task, long timeMillis) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setStatus(String string) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void clearProducts() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resizeColumns() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setValueToVariable(Variable variable, Integer value,
 			int column, Object source) {
 		AssociationRow node = findConfigurationNodeFor(variable.getName());

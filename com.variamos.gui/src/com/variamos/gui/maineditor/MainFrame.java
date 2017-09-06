@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.core.enums.SolverEditorType;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
@@ -46,10 +46,10 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private static String variamosVersionNumber = "1.0.1.19";
-	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20170814-0400";
-	private String downloadId = "499";
+	private static String variamosVersionNumber = "1.0.1.20";
+	private String variamosVersionName = "1.0 Beta 20";
+	private String variamosBuild = "20170901-1700";
+	private String downloadId = "566";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
 
@@ -83,17 +83,17 @@ public class MainFrame extends JFrame {
 
 		System.out
 				.print("Loading Syntax, Semantic and Operations Infrastructure...");
-		ModelInstance InfraBasicSyntax = new ModelInstance(
+		InstanceModel InfraBasicSyntax = new InstanceModel(
 				PerspectiveType.INFRASTRUCTUREBASICSYNTAX, metaExpressionTypes);
-		ModelInstance syntaxInfrastructure = new ModelInstance(
+		InstanceModel syntaxInfrastructure = new InstanceModel(
 				PerspectiveType.SYNTAXINFRASTRUCTURE, metaExpressionTypes,
 				InfraBasicSyntax, null);
-		ModelInstance operationsInfrastructure = new ModelInstance(
+		InstanceModel operationsInfrastructure = new InstanceModel(
 				PerspectiveType.OPERATIONSINFRASTRUCTURE, metaExpressionTypes,
 				InfraBasicSyntax, null);
-		ModelInstance semanticSuperstructure = null;
-		ModelInstance syntaxSuperstructure = null;
-		ModelInstance abstractModel = null;
+		InstanceModel semanticSuperstructure = null;
+		InstanceModel syntaxSuperstructure = null;
+		InstanceModel abstractModel = null;
 		PerspEditorGraph refasGraph = null;
 		Color bgColor = null;
 		VariamosGraphEditor modelEditor = null;
@@ -103,42 +103,49 @@ public class MainFrame extends JFrame {
 		//creando las perspectivas
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
-			case 0: // operations 1
+			case 0: // operations and semantic perp1 - L2
 				System.out
 						.print("Loading Semantic and Operations Meta-Models Perspective...");
-				abstractModel = new ModelInstance(metaExpressionTypes,
+				abstractModel = new InstanceModel(metaExpressionTypes,
 						operationsInfrastructure);
 				semanticSuperstructure = abstractModel;
-				syntaxSuperstructure = new ModelInstance(
+				syntaxSuperstructure = new InstanceModel(
 						PerspectiveType.SYNTAXSUPERSTRUCTURE,
 						metaExpressionTypes, syntaxInfrastructure,
 						semanticSuperstructure);
-				bgColor = new Color(252, 233, 252);
-				perspTitle = "Operations - VariaMos " + variamosVersionNumber
-						+ "b" + variamosBuild;
+				bgColor = new Color(255, 244, 255);
+				perspTitle = "Semantic & Operations - VariaMos "
+						+ variamosVersionNumber + "b" + variamosBuild;
 				break;
 
-			case 1:// modeling 2
+			case 1:// modeling pers2 - L1
 				System.out.print("Loading Modeling Perspective...");
-				abstractModel = new ModelInstance(PerspectiveType.MODELING,
+				abstractModel = new InstanceModel(PerspectiveType.MODELING,
 						metaExpressionTypes, syntaxSuperstructure,
 						semanticSuperstructure);
 
-				bgColor = new Color(236, 238, 255);
+				bgColor = new Color(240, 244, 255);
 				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber
 						+ "b" + variamosBuild;
 				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
-			case 2:// syntax 3
+			case 2:// syntax pers3 - L2
 				System.out.print("Loading Syntax Meta-Model Perspective...");
 				abstractModel = syntaxSuperstructure;
-				// TO View SyntaxMM in Syntax Perspective
+				// TO View SyntaxMM in Syntax Perspective DO NOT REMOVE
 				// abstractModel = syntaxInfrastructure;
 
-				// TO View OperMM in Syntax Perspective
-				// abstractModel = new ModelInstance(
+				// TO View OperMM in Syntax Perspective DO NOT REMOVE
+				// abstractModel = new InstanceModel(
 				// PerspectiveType.OPERATIONSINFRASTRUCTURE,
+				// metaExpressionTypes, InfraBasicSyntax, null);
+
+				// FIXME v1.1 add this comment to visualize the basic MMM
+
+				// TO View BasicMMM in Syntax Perspective DO NOT REMOVE
+				// abstractModel = new InstanceModel(
+				// PerspectiveType.INFRASTRUCTUREBASICSYNTAX,
 				// metaExpressionTypes, InfraBasicSyntax, null);
 
 				bgColor = new Color(255, 255, 245);
@@ -146,10 +153,10 @@ public class MainFrame extends JFrame {
 						+ variamosBuild;
 				break;
 
-			case 3:// simulation 4
+			case 3:// simulation pers4 - L1
 				System.out
 						.print("Loading Configuration and Simulation Perspective...");
-				abstractModel = new ModelInstance(
+				abstractModel = new InstanceModel(
 						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
 						syntaxSuperstructure, semanticSuperstructure);
 				bgColor = new Color(236, 252, 255);

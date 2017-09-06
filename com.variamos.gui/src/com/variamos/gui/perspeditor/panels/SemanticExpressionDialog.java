@@ -34,7 +34,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.types.ExpressionVertexType;
@@ -55,7 +55,7 @@ public class SemanticExpressionDialog extends JDialog {
 	private SemanticExpressionButtonAction onAccept, onCancel;
 	private OpersExpr selectedExpression;
 	private JPanel solutionPanel;
-	private ModelInstance refasModel;
+	private InstanceModel refasModel;
 	private boolean displayConceptName = false;
 	private boolean displayVariableName = false;
 	private int width = 1350;
@@ -1207,14 +1207,15 @@ public class SemanticExpressionDialog extends JDialog {
 								.getSupInstEleId().equals("SeMnmPWRel"))))
 					instElements.add(itInstElement);// .getSourceRelations().get(0));
 			break;
+
+		case RIGHTUNIQUEINCCONVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
+			instElement = semanticExpression.getRightSemanticElement();
 		case LEFTITERCONCEPTVARIABLE:
 		case LEFSUBTITERCONVARIABLE:
 			// instElements = refasModel.getVariabilityVertexCollection();
 			// instElement = semanticExpression.getLeftSemanticElement();
 
-		case RIGHTUNIQUEINCCONVARIABLE:
-		case RIGHTUNIQUEOUTCONVARIABLE:
-			instElement = semanticExpression.getRightSemanticElement();
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTITERINCCONVARIABLE:

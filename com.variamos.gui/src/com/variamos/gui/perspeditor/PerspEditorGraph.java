@@ -14,15 +14,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.cfm.common.AbstractModel;
-import com.cfm.productline.Asset;
-import com.cfm.productline.Constraint;
-import com.cfm.productline.VariabilityElement;
-import com.cfm.productline.constraints.ExcludesConstraint;
-import com.cfm.productline.constraints.GenericConstraint;
-import com.cfm.productline.constraints.MandatoryConstraint;
-import com.cfm.productline.constraints.OptionalConstraint;
-import com.cfm.productline.constraints.RequiresConstraint;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.canvas.mxGraphicsCanvas2D;
 import com.mxgraph.io.mxCodec;
@@ -34,8 +25,10 @@ import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.shape.mxStencil;
 import com.mxgraph.shape.mxStencilRegistry;
+import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
+import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
@@ -43,19 +36,15 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.editor.logic.ConstraintMode;
-import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.io.ConsoleTextArea;
 
-public class PerspEditorGraph extends AbstractGraph {
-
-	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
+public class PerspEditorGraph extends mxGraph {
 
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
-	private ModelInstance modelInstance = null;
+	private InstanceModel modelInstance = null;
 	private int modelViewIndex = 0;
 	private int modelViewSubIndex = -1;
 	private boolean validation = true;
@@ -90,7 +79,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		this.perspective = perspective;
 	}
 
-	public PerspEditorGraph(int perspective, ModelInstance refasModel) {
+	public PerspEditorGraph(int perspective, InstanceModel refasModel) {
 		init();
 		this.perspective = perspective;
 		this.modelInstance = refasModel;
@@ -206,6 +195,8 @@ public class PerspEditorGraph extends AbstractGraph {
 		if (views != null) {
 			for (@SuppressWarnings("unused")
 			InstElement view : views) {
+				if (view.getInstAttribute("Visible").getAsBoolean() == false)
+					continue;
 				mxCell child = new mxCell();
 				child.setValue(new InstCell(null, null, false));
 				child.setId("mv" + i);
@@ -305,12 +296,111 @@ public class PerspEditorGraph extends AbstractGraph {
 		return result.toString();
 	}
 
-	@Override
 	protected void init() {
-		super.init();
+		setLabelsVisible(true);
+		setAllowDanglingEdges(false);
+		// Register custom styles
+
+		// Loads the default styles sheet from an external file
+		// To draw elements on the Graph
+		/*
+		 * mxCodec codec = new mxCodec(); Document doc =
+		 * mxUtils.loadDocument(VariamosGraphComponent.class .getResource(
+		 * "/com/variamos/gui/perspeditor/style/styles.xml") .toString());
+		 * codec.decode(doc.getDocumentElement(), stylesheet);
+		 */
+		setCellsEditable(false);
+		setAllowNegativeCoordinates(false);
+		addListeners();
 		// Loads the defalt stylesheet from an external file
 		loadStyles();
 		loadStencil();
+	}
+
+	private void addListeners() {
+		addListener(mxEvent.CELLS_REMOVED, new mxIEventListener() {
+
+			@Override
+			public void invoke(Object sender, mxEventObject evt) {
+				Object[] removedCells = (Object[]) evt.getProperty("cells");
+				for (Object remObj : removedCells) {
+					mxCell cell = (mxCell) remObj;
+					removingRefaElements(cell);
+					removingVertex(cell, (mxCell) evt.getProperty("parent"));
+					if (!cell.isEdge())
+						removingClones(cell);
+				}
+			}
+
+		});
+
+		addListener(mxEvent.CELL_CONNECTED, new mxIEventListener() {
+			@Override
+			public void invoke(Object sender, mxEventObject evt) {
+				mxCell cellC = (mxCell) evt.getProperty("terminal");
+				Object edge = cellC.getEdgeAt(cellC.getEdgeCount() - 1);
+				mxCell parentCell = (mxCell) evt.getProperty("parent");
+				int indexCell = 0;
+				Object obj = edge;
+				mxCell cell = (mxCell) obj;
+				if (cell == null)
+					return;
+
+				if (cell.isEdge())
+					if (!connectingEdge(cell, parentCell, indexCell)) {
+						System.out
+								.println("Relation not supported by the MetaModel"
+										+ cell.getId());
+
+					}
+			}
+
+		});
+
+		addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
+
+			@Override
+			public void invoke(Object sender, mxEventObject evt) {
+				Object[] addedCells = (Object[]) evt.getProperty("cells");
+				mxCell parentCell = (mxCell) evt.getProperty("parent");
+				int indexCell = (int) evt.getProperty("index");
+				for (Object obj : addedCells) {
+					mxCell cell = (mxCell) obj;
+					if (cell == null)
+						return;
+
+					if (!cell.isEdge()) {
+						addingVertex(cell, parentCell, indexCell);
+					} else if (!addingEdge(cell, parentCell, indexCell)) {
+						System.out
+								.println("Relation not supported by the MetaModel");
+
+					}
+				}
+			}
+
+		});
+
+		addListener(mxEvent.CELLS_MOVED, new mxIEventListener() {
+
+			@Override
+			public void invoke(Object sender, mxEventObject evt) {
+				Object[] addedCells = (Object[]) evt.getProperty("cells");
+				mxCell parentCell = (mxCell) evt.getProperty("parent");
+				// int indexCell = (int) evt.getProperty("index");
+				for (Object obj : addedCells) {
+					mxCell cell = (mxCell) obj;
+					if (cell == null)
+						return;
+
+					if (!cell.isEdge()) {
+						movingVertex(cell, parentCell, 0);
+
+					}
+				}
+			}
+
+		});
 	}
 
 	public void loadStyles() {
@@ -356,7 +446,6 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 	}
 
-	@Override
 	protected void movingVertex(mxCell cell, mxCell parent, int index) {
 		// System.out.println("moving");
 	}
@@ -382,7 +471,7 @@ public class PerspEditorGraph extends AbstractGraph {
 
 			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
 			InstPairwiseRel directRelation = new InstPairwiseRel(map, null);
-			ModelInstance refas = getModelInstance();
+			InstanceModel refas = getModelInstance();
 			List<InstElement> opersParents = null;
 			if (directRelation.getTransSupportMetaElement() != null
 					&& directRelation.getTransSupportMetaElement()
@@ -405,7 +494,6 @@ public class PerspEditorGraph extends AbstractGraph {
 		return true;
 	}
 
-	@Override
 	protected boolean connectingEdge(mxCell cell, mxCell parent, int index) {
 		InstElement source = ((InstCell) cell.getSource().getValue())
 				.getInstElement();
@@ -422,7 +510,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		if (value instanceof InstCell) {
 			InstPairwiseRel directRelation = (InstPairwiseRel) ((InstCell) value)
 					.getInstElement();
-			ModelInstance refas = getModelInstance();
+			InstanceModel refas = getModelInstance();
 			directRelation.clearRelations();
 			source.addTargetRelation(directRelation, true);
 			target.addSourceRelation(directRelation, true);
@@ -454,7 +542,6 @@ public class PerspEditorGraph extends AbstractGraph {
 		return true;
 	}
 
-	@Override
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
 		InstElement source = ((InstCell) cell.getSource().getValue())
 				.getInstElement();
@@ -473,7 +560,7 @@ public class PerspEditorGraph extends AbstractGraph {
 				return true;
 		}
 		InstPairwiseRel directRelation = new InstPairwiseRel(map, null);
-		ModelInstance refas = getModelInstance();
+		InstanceModel refas = getModelInstance();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(new InstCell(cell, directRelation, false));
@@ -572,14 +659,13 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	// TODO review from here for requirements
 
-	@Override
 	protected void removingVertex(mxCell cell, mxCell parent) {
 		((InstCell) cell.getValue()).setMxCell(cell);
 		InstElement value = ((InstCell) cell.getValue()).getInstElement();
 		if (value instanceof InstVertex) {
 			String id = null;
 			String elementIdentifier = null;
-			ModelInstance pl = getModelInstance();
+			InstanceModel pl = getModelInstance();
 			InstElement instElement = ((InstCell) cell.getValue())
 					.getInstElement();
 			if (cell.getGeometry() != null) {
@@ -616,14 +702,13 @@ public class PerspEditorGraph extends AbstractGraph {
 		return out;
 	}
 
-	@Override
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
 		((InstCell) cell.getValue()).setMxCell(cell);
 		InstElement value = ((InstCell) cell.getValue()).getInstElement();
 		if (value instanceof InstVertex) {
 			String id = null;
 			String elementIdentifier = null;
-			ModelInstance pl = getModelInstance();
+			InstanceModel pl = getModelInstance();
 			InstElement instElement = ((InstCell) cell.getValue())
 					.getInstElement();
 			if (cell.getGeometry() != null) {
@@ -809,7 +894,6 @@ public class PerspEditorGraph extends AbstractGraph {
 		return true;
 	}
 
-	@Override
 	protected void removingRefaElements(mxCell cell) {
 		InstElement instElement = ((InstCell) cell.getValue()).getInstElement();
 		if (instElement != null) {
@@ -823,7 +907,6 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 	}
 
-	@Override
 	protected void removingClones(mxCell cell) {
 		mxIGraphModel refasGraph = getModel();
 
@@ -865,9 +948,8 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 	}
 
-	@Override
-	public void setModelInstance(AbstractModel pl) {
-		modelInstance = (ModelInstance) pl;
+	public void setModelInstance(InstanceModel pl) {
+		modelInstance = pl;
 		defineInitialGraph();
 		try {
 			mxGraphLayout layout = new mxOrganicLayout(this);
@@ -886,7 +968,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 	}
 
-	public ModelInstance getModelInstance() {
+	public InstanceModel getModelInstance() {
 		/*
 		 * if (refasModel == null) { refasModel = new
 		 * Refas(PerspectiveType.modeling); return refasModel; }
@@ -894,98 +976,9 @@ public class PerspEditorGraph extends AbstractGraph {
 		return modelInstance;
 	}
 
-	@Override
 	public mxCell getCellById(String id) {
 		return (mxCell) ((mxGraphModel) getModel()).getCell(id);
 	}
-
-	@Override
-	public ConstraintMode getConsMode() {
-		return constraintAddingMode;
-	}
-
-	@Override
-	public void setConsMode(ConstraintMode consMode) {
-		this.constraintAddingMode = consMode;
-	}
-
-	@Override
-	public void connectDefaultConstraint(mxCell source, mxCell target) {
-		Constraint c = newConstraint(source.getId(), target.getId());
-
-		double cX = (target.getGeometry().getCenterX() + source.getGeometry()
-				.getCenterX()) / 2;
-		double cY = (target.getGeometry().getCenterY() + source.getGeometry()
-				.getCenterY()) / 2;
-
-		mxCell constraintCell = (mxCell) insertVertex(null, c.getIdentifier(),
-				c, cX, cY, 40, 20, "plcons");
-		c.setIdentifier(constraintCell.getId());
-		constraintCell.setConnectable(false);
-
-		// Create edges.
-		insertEdge(null, null, null, source, constraintCell);
-		insertEdge(null, "", "", constraintCell, target);
-	}
-
-	@Override
-	protected Constraint newConstraint(String idSource, String idTarget) {
-		Constraint c = new GenericConstraint();
-
-		// switch(constraintAddingMode){
-		// case Default:
-		// c.setText("General Constraint");
-		// break;
-		//
-		// case Excludes:
-		// c.setText("Exclude(:" + idSource + ", :" + idTarget+ ")" );
-		// break;
-		//
-		// case Mandatory:
-		// c.setText("Mandatory(:" + idSource + ", :" + idTarget+ ")" );
-		// break;
-		// case Optional:
-		// c.setText("Optional(:" + idSource + ", :" + idTarget+ ")" );
-		// break;
-		// case Requires:
-		// c.setText("Requires(:" + idSource + ", :" + idTarget+ ")" );
-		// break;
-		// default:
-		// break;
-		// }
-
-		return c;
-	}
-
-	// @Override
-	// public boolean isValidSource(Object cell) {
-	// boolean isValid = consMode != ConstraintMode.None;
-	// if( cell instanceof mxCell ){
-	// mxCell s = (mxCell) cell;
-	// if( !s.isEdge() && s.getValue() instanceof Constraint ){
-	// isValid = true;
-	// System.out.println("This is a constraint !");
-	// }
-	// }
-	//
-	// boolean all = super.isValidSource(cell) && isValid;
-	// System.out.println("Is SUper valid Source: " +
-	// super.isValidSource(cell));
-	// return all;
-	// }
-	//
-	// @Override
-	// public boolean isValidTarget(Object cell) {
-	// if( cell instanceof mxCell ){
-	// mxCell c = (mxCell)cell;
-	// if( c.isEdge() )
-	// return false;
-	//
-	// if( c.getValue() instanceof VariabilityPoint )
-	// return true;
-	// }
-	// return super.isValidTarget(cell);
-	// }
 
 	@Override
 	public String validateEdge(Object edge, Object source, Object target) {
@@ -1025,45 +1018,7 @@ public class PerspEditorGraph extends AbstractGraph {
 	public String convertValueToString(Object obj) {
 		mxCell cell = (mxCell) obj;
 		// VariabilityPoint
-		if (cell.getValue() instanceof VariabilityElement) {
-			VariabilityElement vp = (VariabilityElement) cell.getValue();
-			String name = vp.getName();
-			if (name == null)
-				name = "";
 
-			return name;
-		}
-
-		if (cell.getValue() instanceof Asset) {
-			Asset a = (Asset) cell.getValue();
-			String name = a.getName();
-			if (name == null)
-				name = "";
-
-			return name;
-		}
-
-		// GroupConstraint
-		// TODO evaluate new group constraints
-		/*
-		 * if (cell.getValue() instanceof GroupGConstraint) { GroupGConstraint
-		 * gc = (GroupGConstraint) cell.getValue(); return
-		 * gc.getCardinalityString(); }
-		 */
-		// Optional and mandatory
-		// TODO evaluate new constraints
-		if (cell.getValue() instanceof OptionalConstraint
-				|| cell.getValue() instanceof MandatoryConstraint)
-			return "";
-
-		if (cell.getValue() instanceof ExcludesConstraint)
-			return "excludes";
-
-		if (cell.getValue() instanceof RequiresConstraint)
-			return "requires";
-
-		if (cell.getValue() instanceof GenericConstraint)
-			return ((GenericConstraint) cell.getValue()).getText();
 		if (cell.getValue() instanceof InstCell) {
 			InstCell instCell = (InstCell) cell.getValue();
 			InstElement element = instCell.getInstElement();

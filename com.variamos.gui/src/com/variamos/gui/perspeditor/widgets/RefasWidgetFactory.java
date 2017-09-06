@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.types.BooleanType;
 import com.variamos.dynsup.types.ClassMultiSelectionType;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
@@ -32,7 +32,7 @@ import com.variamos.io.ConsoleTextArea;
 public class RefasWidgetFactory {
 	// private DomainRegister register;
 	mxGraph graph;
-	ModelInstance semanticModel;
+	InstanceModel semanticModel;
 	boolean showSimulationCustomizationBox;
 	private int perspective;
 

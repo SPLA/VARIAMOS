@@ -1,11 +1,9 @@
 package com.variamos.reasoning.util;
 
-import com.cfm.jgprolog.gnuprolog.GNUPrologContext;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationOptions;
-import com.variamos.solver.GNUPrologSolver;
 import com.variamos.solver.SWIPrologSolver;
 import com.variamos.solver.Solver;
 
@@ -22,7 +20,7 @@ public class SolverOperationsUtil {
 		if (prologEditorType.equals(SolverEditorType.SWI_PROLOG)) {
 			solver = new SWIPrologSolver();
 		} else if (prologEditorType.equals(SolverEditorType.GNU_PROLOG)) {
-			solver = new GNUPrologSolver(new GNUPrologContext());
+			// solver = new GNUPrologSolver(new GNUPrologContext());
 
 		}
 	}

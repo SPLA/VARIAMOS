@@ -14,8 +14,8 @@ import java.util.TreeMap;
 
 import com.cfm.productline.AbstractElement;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
@@ -432,7 +432,9 @@ public abstract class InstElement implements Serializable, Cloneable,
 								.getSemanticAttribute(attributeName);
 					String v = "";
 					if (i != null) {
-						v = ":" + i.getType();
+						// FIXME V1.1 copy change to new version
+						if (!i.getType().equals("Class"))
+							v = ":" + i.getType();
 						if (i.getType().equals("Enumeration")) {
 							String classN = i.getClassCanonicalName()
 									.substring(
@@ -452,7 +454,19 @@ public abstract class InstElement implements Serializable, Cloneable,
 							}
 
 						}
+						// FIXME V1.1 copy change to new version
+						if (i.getType().equals("Class")) {
+							String classN = "";
+							if (i.getClassCanonicalName() != null) {
+								classN = i.getClassCanonicalName().substring(
+										i.getClassCanonicalName().lastIndexOf(
+												".") + 1,
+										i.getClassCanonicalName().length());
+								v += ":" + classN + "<"
+										+ i.getMetaConceptInstanceType() + ">";
+							}
 
+						}
 					}
 					// System.out.println(attributeName);
 					if (attributeName.length() > 1)
@@ -1099,7 +1113,10 @@ public abstract class InstElement implements Serializable, Cloneable,
 		List<InstElement> out = new ArrayList<InstElement>();
 		List<InstElement> rel = getTargetRelations();
 		for (InstElement element : rel) {
-			if (((InstPairwiseRel) element).getSupportMetaPairwiseRelIden() != null
+			// FIXME v1.1 include additional validation
+			if (element instanceof InstPairwiseRel
+					&& ((InstPairwiseRel) element)
+							.getSupportMetaPairwiseRelIden() != null
 					&& ((InstPairwiseRel) element)
 							.getSupportMetaPairwiseRelIden().equals(
 									"ExtendsRelation")) {
@@ -1238,7 +1255,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 	// relation has the same scope
 	// TODO support aggregation of multiples scopes - this support a global and
 	// another scope only
-	public int getInstances(ModelInstance refas) {
+	public int getInstances(InstanceModel refas) {
 		int out = 1;
 		if (getInstAttribute("Scope") != null) {
 			boolean scope = (boolean) getInstAttributeValue("Scope");

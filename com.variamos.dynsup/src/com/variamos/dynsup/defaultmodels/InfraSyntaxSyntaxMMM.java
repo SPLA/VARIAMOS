@@ -7,14 +7,14 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 
 public class InfraSyntaxSyntaxMMM {
 	public static void createSyntaxSyntaxMetaMetaModel(
-			ModelInstance modelInstance) {
+			InstanceModel modelInstance) {
 
 		Map<String, InstElement> variabilityInstVertex = modelInstance
 				.getVariabilityVertex();
@@ -23,7 +23,7 @@ public class InfraSyntaxSyntaxMMM {
 				.getConstraintInstEdges();
 
 		InstElement infraBasicSyntaxOpersM3Concept = modelInstance
-				.getSyntaxModel().getVertex("OMMConcept");
+				.getSyntaxModel().getVertex("BsConcept");
 
 		SyntaxElement infraSyntaxM2Node = new SyntaxElement('C', "SyMNode",
 				true, true, "SyMNode", "infrasyntaxm2miniconcept",
@@ -90,7 +90,9 @@ public class InfraSyntaxSyntaxMMM {
 
 		infraSyntaxM2Node.addModelingAttribute("value", new ElemAttribute(
 				"value", "Set", AttributeType.SYNTAX, false,
-				"dynamic meta-attributes", "", "", 0, -1, "", "", -1, "", ""));
+				"dynamic meta-attributes", "",
+				"com.variamos.dynsup.model.ElemAttribute", "", "", 0, -1, "",
+				"", -1, "", ""));
 
 		infraSyntaxM2Node.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
@@ -562,8 +564,9 @@ public class InfraSyntaxSyntaxMMM {
 				"Resizable", "Boolean", AttributeType.SYNTAX, false,
 				"Is Resizable", "", true, 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2OTRel.addModelingAttribute("value", new ElemAttribute(
-				"value", "Set", AttributeType.SYNTAX, false, "values", "", "",
-				0, -1, "", "", -1, "", ""));
+				"value", "Set", AttributeType.SYNTAX, false, "values", "",
+				"com.variamos.dynsup.model.ElemAttribute", "", "", 0, -1, "",
+				"", -1, "", ""));
 
 		infraSyntaxM2OTRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
@@ -599,7 +602,7 @@ public class InfraSyntaxSyntaxMMM {
 		SyntaxElement infraSyntaxM2NormalRelation = new SyntaxElement('P',
 				"SyMAso", false, true, "Normal Relation", "defaultAsso",
 				"Concept-Concept relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
 
 		constraintInstEdges.put("SyMAso", new InstPairwiseRel("SyMAso",
 				infraSyntaxM2NormalRelation));
@@ -628,7 +631,9 @@ public class InfraSyntaxSyntaxMMM {
 						"<<SyMExtends>>\n#Name#all#\n\n", ""));
 		infraSyntaxM2ExtendsRelation.addModelingAttribute("value",
 				new ElemAttribute("value", "Set", AttributeType.SYNTAX, false,
-						"values", "", "", 0, -1, "", "", -1, "", ""));
+						"values", "",
+						"com.variamos.dynsup.model.ElemAttribute", "", "", 0,
+						-1, "", "", -1, "", ""));
 		// semElementNoSyntax.putSemanticAttribute("dummy", new ElemAttribute(
 		// "dummy", "String", AttributeType.SYNTAX, false, "dummy", "", 0,
 		// -1, "", "", -1, "", ""));
@@ -657,7 +662,7 @@ public class InfraSyntaxSyntaxMMM {
 		SyntaxElement metaPairwiseRelExtends = new SyntaxElement('P',
 				"ExtendsRelation", false, true, "Extends Relation",
 				"refasextends", "Extends relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
 
 		constraintInstEdges.put("ExtendsRelation", new InstPairwiseRel(
 				"ExtendsRelation", metaPairwiseRelExtends));
@@ -687,7 +692,9 @@ public class InfraSyntaxSyntaxMMM {
 						"", "", 0, 3, "", "", -1, "", ""));
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("value",
 				new ElemAttribute("value", "Set", AttributeType.SYNTAX, false,
-						"values", "", "", 0, -1, "", "", -1, "", ""));
+						"values", "",
+						"com.variamos.dynsup.model.ElemAttribute", "", "", 0,
+						-1, "", "", -1, "", ""));
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("dummy",
 				new ElemAttribute("dummy", "String", AttributeType.SYNTAX,
 						false, "dummy", "", "", 0, -1, "", "", 1,
@@ -733,7 +740,7 @@ public class InfraSyntaxSyntaxMMM {
 		SyntaxElement metaPairwiseRelFromView = new SyntaxElement('P',
 				"ViewRelation", false, true, "View Relation",
 				"infrasyntaxm2viewrel", "View-Concept relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
 
 		InstPairwiseRel instViewRelation = new InstPairwiseRel("ViewRelation",
 				metaPairwiseRelFromView);
@@ -802,8 +809,9 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "Border Stroke", "", 1, 0,
 						11, "", "", -1, "", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("value", new ElemAttribute(
-				"value", "Set", AttributeType.SYNTAX, false, "values", "", "",
-				0, -1, "", "", -1, "", ""));
+				"value", "Set", AttributeType.SYNTAX, false, "values", "",
+				"com.variamos.dynsup.model.ElemAttribute", "", "", 0, -1, "",
+				"", -1, "", ""));
 
 		infraSyntaxM2PWRel.addModelingAttribute("Type", new ElemAttribute(
 				"Type", "String", AttributeType.SYNTAX, false, "Relation Type",

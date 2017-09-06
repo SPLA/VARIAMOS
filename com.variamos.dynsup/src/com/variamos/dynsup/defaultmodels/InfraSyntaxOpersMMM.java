@@ -11,7 +11,7 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
@@ -21,13 +21,14 @@ import com.variamos.dynsup.types.OpersExecType;
 import com.variamos.dynsup.types.OpersOpType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.dynsup.types.OpersSubOpType;
+import com.variamos.dynsup.types.StringType;
 import com.variamos.hlcl.IntervalDomain;
 import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
 
 public class InfraSyntaxOpersMMM {
 
 	public static void createSyntaxOpersMetaMetaModel(
-			ModelInstance modelInstance) {
+			InstanceModel modelInstance) {
 
 		Map<String, InstElement> variabilityInstVertex = modelInstance
 				.getVariabilityVertex();
@@ -36,7 +37,10 @@ public class InfraSyntaxOpersMMM {
 				.getConstraintInstEdges();
 
 		InstElement basicOpersSyntaxM3Concept = modelInstance.getSyntaxModel()
-				.getVertex("OMMConcept");
+				.getVertex("BsConcept");
+
+		InstElement basicOpersSyntaxM3Enum = modelInstance.getSyntaxModel()
+				.getVertex("BsEnum");
 
 		List<Integer> dom = new ArrayList<Integer>();
 		dom.add(2);
@@ -102,7 +106,7 @@ public class InfraSyntaxOpersMMM {
 		// "Extends Relation",
 		// "refasextends",
 		// "Extends relation: relates to concepts to extend attributes and operation constraints",
-		// 50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+		// 50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 		// null);
 
 		// InstPairwiseRel rel = new
@@ -137,9 +141,9 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2PWRel.addModelingAttribute("opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
 						false, "Operations Meta-Model Expr.", "",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+						InstAttribute.class.getCanonicalName(), "OpersExpr",
+						new ArrayList<InstAttribute>(), null, "", 0, -1, "",
+						"", -1, "", ""));
 
 		InstConcept instInfraSyntaxOpersM2PWRel = new InstConcept("SeMnmPWRel",
 				basicOpersSyntaxM3Concept, infraSyntaxOpersM2PWRel);
@@ -161,16 +165,16 @@ public class InfraSyntaxOpersMMM {
 				"relTypesAttr",
 				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
 						false, "relationTypes", "", InstAttribute.class
-								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+								.getCanonicalName(), "SemanticElement",
+						new ArrayList<InstAttribute>(), null, "", 0, -1, "",
+						"", -1, "", ""));
 
 		metaMetaPairwiseRel.addModelingAttribute("opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
 						false, "Operations Meta-Model Expr.", "",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+						InstAttribute.class.getCanonicalName(), "OpersExpr",
+						new ArrayList<InstAttribute>(), null, "", 0, -1, "",
+						"", -1, "", ""));
 
 		metaMetaPairwiseRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -227,17 +231,17 @@ public class InfraSyntaxOpersMMM {
 				"relTypesAttr",
 				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
 						false, "relationTypes", "", InstAttribute.class
-								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+								.getCanonicalName(), "SemanticElement",
+						new ArrayList<InstAttribute>(), null, "", 0, -1, "",
+						"", -1, "", ""));
 
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
 				"opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
 						false, "semanticExpressions", "", InstAttribute.class
-								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+								.getCanonicalName(), "OpersExpr",
+						new ArrayList<InstAttribute>(), null, "", 0, -1, "",
+						"", -1, "", ""));
 
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -268,9 +272,9 @@ public class InfraSyntaxOpersMMM {
 				"opersExprs",
 				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
 						false, "semanticExpressions", "", InstAttribute.class
-								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+								.getCanonicalName(), "OpersExpr",
+						new ArrayList<InstAttribute>(), null, "", 0, -1, "",
+						"", -1, "", ""));
 
 		infraSyntaxOpersM2OTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -298,7 +302,7 @@ public class InfraSyntaxOpersMMM {
 		SyntaxElement infraSyntaxOpersM2AsoRel = new SyntaxElement('P',
 				"SeMAsoEdge", false, true, "Association Relation",
 				"defaultAsso", "Association Relation: ", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2AsoRel);
 
 		infraSyntaxOpersM2AsoRel.addModelingAttribute(
@@ -325,7 +329,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersM2ExtRel.addModelingAttribute(
@@ -356,7 +360,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersnmCEdge.addModelingAttribute(
@@ -379,7 +383,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersOTCEdge.addModelingAttribute(
@@ -402,7 +406,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersOTOdge.addModelingAttribute(
@@ -425,7 +429,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersOTEdge.addModelingAttribute(
@@ -448,7 +452,7 @@ public class InfraSyntaxOpersMMM {
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				50, 50, "/com/variamos/gui/perspeditor/images/plnode.png", 1,
 				instBasicOpersM2ExtRel);
 
 		infraSyntaxOpersPIPRel.addModelingAttribute(
@@ -1078,5 +1082,179 @@ public class InfraSyntaxOpersMMM {
 		// rel.setTargetRelation(instInfraSyntaxOpersM2ExpType, true);
 		// rel.setSourceRelation(instInfraSyntaxOpersM2OperSubAction, true);
 		// constraintInstEdges.put("AssoSubAct-ExpType", rel);
+
+		SyntaxElement opersM2ComputationTypeEnum = new SyntaxElement('E',
+				"OpersComputationType", false, true, "OpersComputationType",
+				"infrasyntaxm2concept", "Enum", 120, 120,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instOpersM2ComputationTypeEnum = new InstConcept(
+				"OpersComputationType", basicOpersSyntaxM3Enum,
+				opersM2ComputationTypeEnum);
+
+		ArrayList<InstAttribute> enumVals = new ArrayList<InstAttribute>();
+		instOpersM2ComputationTypeEnum.getInstAttribute("enumValues").setValue(
+				enumVals);
+		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Simple_Quotient"));
+		enumVals.add(new InstAttribute("enum2", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"One_Less_Quotient"));
+		enumVals.add(new InstAttribute("enum3", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Quotient_Denominator_Exp_Base_2"));
+
+		variabilityInstVertex.put("OpersComputationType",
+				instOpersM2ComputationTypeEnum);
+
+		SyntaxElement opersM2OperExpTypeEnum = new SyntaxElement('E',
+				"OpersOperExpType", false, true, "OpersOperExpType",
+				"infrasyntaxm2concept", "Enum", 120, 120,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instOpersM2OperExpTypeEnum = new InstConcept(
+				"OpersOperExpType", basicOpersSyntaxM3Enum,
+				opersM2OperExpTypeEnum);
+
+		enumVals = new ArrayList<InstAttribute>();
+		instOpersM2OperExpTypeEnum.getInstAttribute("enumValues").setValue(
+				enumVals);
+		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Verification"));
+		enumVals.add(new InstAttribute("enum2", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Relaxable"));
+		enumVals.add(new InstAttribute("enum3", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Normal"));
+		enumVals.add(new InstAttribute("enum4", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"ToVerify"));
+
+		variabilityInstVertex.put("OpersOperExpType",
+				instOpersM2OperExpTypeEnum);
+
+		SyntaxElement opersM2OpTypeEnum = new SyntaxElement('E', "OpersOpType",
+				false, true, "OpersOpType", "infrasyntaxm2concept", "Enum",
+				120, 120, "/com/variamos/gui/perspeditor/images/concept.png",
+				true, Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instOpersM2OpTypeEnum = new InstConcept("OpersOpType",
+				basicOpersSyntaxM3Enum, opersM2OpTypeEnum);
+
+		enumVals = new ArrayList<InstAttribute>();
+		instOpersM2OpTypeEnum.getInstAttribute("enumValues").setValue(enumVals);
+		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Computational_Analysis"));
+		enumVals.add(new InstAttribute("enum2", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Verification"));
+		enumVals.add(new InstAttribute("enum3", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Export"));
+		enumVals.add(new InstAttribute("enum4", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Validation"));
+
+		variabilityInstVertex.put("OpersOpType", instOpersM2OpTypeEnum);
+
+		SyntaxElement opersM2OperTypeEnum = new SyntaxElement('E',
+				"OpersOperType", false, true, "OpersOperType",
+				"infrasyntaxm2concept", "Enum", 120, 120,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instOpersM2OperTypeEnum = new InstConcept("OpersOperType",
+				basicOpersSyntaxM3Enum, opersM2OperTypeEnum);
+
+		enumVals = new ArrayList<InstAttribute>();
+		instOpersM2OperTypeEnum.getInstAttribute("enumValues").setValue(
+				enumVals);
+		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"First_Solutions"));
+		enumVals.add(new InstAttribute("enum2", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Iterate_Solutions"));
+		enumVals.add(new InstAttribute("enum3", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Number_Solutions"));
+		enumVals.add(new InstAttribute("enum4", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Export_Solutions"));
+		enumVals.add(new InstAttribute("enum5", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"UpdMode_Defect_Verif"));
+		enumVals.add(new InstAttribute("enum5", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"IdDef_Devect_Verif"));
+		enumVals.add(new InstAttribute("enum6", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Multi_Verification"));
+
+		variabilityInstVertex.put("OpersOperType", instOpersM2OperTypeEnum);
+
+		SyntaxElement opersM2DefectTypeEnum = new SyntaxElement('E',
+				"DisplayTypesEnum", false, true, "DispplayTypesEnum",
+				"infrasyntaxm2concept", "Enum", 120, 120,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instOpersM2DefectTypeEnum = new InstConcept(
+				"OpersDefectType", basicOpersSyntaxM3Enum,
+				opersM2DefectTypeEnum);
+
+		enumVals = new ArrayList<InstAttribute>();
+		instOpersM2DefectTypeEnum.getInstAttribute("enumValues").setValue(
+				enumVals);
+		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"getDeadElements"));
+		enumVals.add(new InstAttribute("enum2", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"getFalseOptionalElements"));
+		enumVals.add(new InstAttribute("enum3", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"getRedundancies"));
+		enumVals.add(new InstAttribute("enum4", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"getNonAttainableDomains"));
+		enumVals.add(new InstAttribute("enum5", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"getFalsePLs"));
+		enumVals.add(new InstAttribute("enum5", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"getVoids"));
+
+		variabilityInstVertex.put("OpersDefectType", instOpersM2DefectTypeEnum);
 	}
 }

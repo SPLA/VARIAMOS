@@ -34,9 +34,9 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -52,7 +52,6 @@ import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.LabelingOrder;
 
 /**
@@ -171,10 +170,6 @@ public class ElementDesignPanel extends JPanel {
 			int count = 0;
 			while (count < 4) {
 				designPanelElements = 0;
-
-				// Warning: Fix for Mac, do not delete it
-				if (editElm instanceof InstPairwiseRel)
-					designPanelElements++;
 
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 
@@ -524,28 +519,12 @@ public class ElementDesignPanel extends JPanel {
 																	.getEdSyntaxEle() != null) {
 																if (e.getEdSyntaxEle()
 																		.getAutoIdentifier()
-																		.equals(val))
-																// if
-																// (e.getTransSupInstElement()
-																// != null)
-																// sel =
-																// e.getTransSupInstElement();
-																// else
-																{
-																	ModelInstance moI = finalEditor
+																		.equals(val)) {
+
+																	InstanceModel moI = finalEditor
 																			.getEditedModel()
 																			.getSyntaxModel();
-																	// for
-																	// (InstElement
-																	// ee : moI
-																	// .getConstraintInstEdgesCollection())
-																	// {
-																	// if
-																	// (e.getEdSyntaxEle()
-																	// .getAutoIdentifier()
-																	// .equals(val))
-																	// sel = ee;
-																	// }
+
 																	if (sel == null) {
 																		InstElement instSupportElement = moI
 																				.getConstraintInstEdge(val);
@@ -561,8 +540,9 @@ public class ElementDesignPanel extends JPanel {
 																}
 															}
 														}
-														finalEditElm
-																.setTransSupInstElement(sel);
+														if (sel != null)
+															finalEditElm
+																	.setTransSupInstElement(sel);
 													}
 												}
 												// FIXME end
@@ -665,7 +645,7 @@ public class ElementDesignPanel extends JPanel {
 											@Override
 											public void propertyChange(
 													PropertyChangeEvent evt) {
-												if (WidgetPL.PROPERTY_VALUE.equals(evt
+												if (WidgetR.PROPERTY_VALUE.equals(evt
 														.getPropertyName())) {
 													widget.getInstAttribute();
 													onVariableEdited(
@@ -685,7 +665,7 @@ public class ElementDesignPanel extends JPanel {
 											@Override
 											public void propertyChange(
 													PropertyChangeEvent evt) {
-												if (WidgetPL.PROPERTY_VALUE.equals(evt
+												if (WidgetR.PROPERTY_VALUE.equals(evt
 														.getPropertyName())) {
 													widget.getInstAttribute();
 													onVariableEdited(
@@ -763,32 +743,7 @@ public class ElementDesignPanel extends JPanel {
 												}.start();
 											}
 										});
-								/*
-								 * if (widget.getEditor() instanceof JComboBox)
-								 * ((JComboBox) widget.getEditor())
-								 * .addActionListener(new ActionListener() {
-								 * public void actionPerformed( ActionEvent e) {
-								 * 
-								 * new Thread() { public void run() {
-								 * editorProperties( finalEditor, instCell); }
-								 * }.start(); } });
-								 */
-								/*
-								 * if (w.getEditor() instanceof JComboBox)
-								 * ((JComboBox) w.getEditor())
-								 * .addItemListener(new ItemListener() {
-								 * 
-								 * @Override public void
-								 * itemStateChanged(ItemEvent e) {
-								 * finalEditor.cleanNotificationBar(); //
-								 * finalEditor.identifyCoreConcepts(); //
-								 * finalEditor.executeSimulation(true, //
-								 * Refas2Hlcl.DESIGN_EXEC); new Thread() {
-								 * public void run() { editorProperties(
-								 * finalEditor, finalElm); } }.start(); }
-								 * 
-								 * });
-								 */
+
 								if (widget instanceof MClassWidget
 										|| widget instanceof MEnumerationWidget) {
 									widget.getEditor().setPreferredSize(
@@ -1090,8 +1045,8 @@ public class ElementDesignPanel extends JPanel {
 			if (editElm.getSupInstEleId() != null
 					&& ((editElm.getSupInstEleId().equals("OPER")
 							|| (editElm.getSupInstEleId().equals("ME")) || (editElm
-								.getSupInstEleId().equals("OMMEnum"))))) {
-
+								.getSupInstEleId().equals("BsEnum"))))) {
+				// FIXME v1.1 update OMMEnum
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
@@ -1109,7 +1064,8 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setMaximumSize(new Dimension(150, 180));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 				if (editElm.getSupInstEleId().equals("ME")
-						|| editElm.getSupInstEleId().equals("OMMEnum")) {
+						|| editElm.getSupInstEleId().equals("BsEnum")) {
+					// FIXME v1.1 update OMMEnum
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
