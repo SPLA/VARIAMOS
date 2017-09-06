@@ -71,8 +71,8 @@ public class DefaultRefasMM {
 
 		attribute = new ElemAttribute("attributeValue", "Set",
 				AttributeType.SYNTAX, false, "values", "",
-				InstAttribute.class.getCanonicalName(),
-				new ArrayList<InstAttribute>(), 0, 6, "", "", 6,
+				InstAttribute.class.getCanonicalName(), "Variable",
+				new ArrayList<InstAttribute>(), null, "", 0, 6, "", "", 6,
 				"#attributeValue#2#\n", "");
 		semOperationalization.putSemanticAttribute("attributeValue", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);

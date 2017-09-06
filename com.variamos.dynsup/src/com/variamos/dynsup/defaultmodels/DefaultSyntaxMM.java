@@ -1995,7 +1995,7 @@ public class DefaultSyntaxMM {
 				1, "", "", -1, "#-#\n\n", "");
 		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMVALUE,
 				"Set", false, SyntaxElement.VAR_METAENUMVALUENAME, "",
-				SyntaxElement.VAR_METAENUMVALUECLASS,
+				SyntaxElement.VAR_METAENUMVALUECLASS, "Enumeration",
 				new ArrayList<InstAttribute>(), 0, 1, "", "", 5, "#"
 						+ SyntaxElement.VAR_METAENUMVALUE + "#all#\n", "");
 
