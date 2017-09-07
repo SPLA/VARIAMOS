@@ -1113,7 +1113,10 @@ public abstract class InstElement implements Serializable, Cloneable,
 		List<InstElement> out = new ArrayList<InstElement>();
 		List<InstElement> rel = getTargetRelations();
 		for (InstElement element : rel) {
-			if (((InstPairwiseRel) element).getSupportMetaPairwiseRelIden() != null
+			// FIXME v1.1 include additional validation
+			if (element instanceof InstPairwiseRel
+					&& ((InstPairwiseRel) element)
+							.getSupportMetaPairwiseRelIden() != null
 					&& ((InstPairwiseRel) element)
 							.getSupportMetaPairwiseRelIden().equals(
 									"ExtendsRelation")) {

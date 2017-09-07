@@ -90,7 +90,9 @@ public class InfraSyntaxSyntaxMMM {
 
 		infraSyntaxM2Node.addModelingAttribute("value", new ElemAttribute(
 				"value", "Set", AttributeType.SYNTAX, false,
-				"dynamic meta-attributes", "", "", 0, -1, "", "", -1, "", ""));
+				"dynamic meta-attributes", "",
+				"com.variamos.dynsup.model.ElemAttribute", "", "", 0, -1, "",
+				"", -1, "", ""));
 
 		infraSyntaxM2Node.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
@@ -562,8 +564,9 @@ public class InfraSyntaxSyntaxMMM {
 				"Resizable", "Boolean", AttributeType.SYNTAX, false,
 				"Is Resizable", "", true, 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2OTRel.addModelingAttribute("value", new ElemAttribute(
-				"value", "Set", AttributeType.SYNTAX, false, "values", "", "",
-				0, -1, "", "", -1, "", ""));
+				"value", "Set", AttributeType.SYNTAX, false, "values", "",
+				"com.variamos.dynsup.model.ElemAttribute", "", "", 0, -1, "",
+				"", -1, "", ""));
 
 		infraSyntaxM2OTRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
@@ -628,7 +631,9 @@ public class InfraSyntaxSyntaxMMM {
 						"<<SyMExtends>>\n#Name#all#\n\n", ""));
 		infraSyntaxM2ExtendsRelation.addModelingAttribute("value",
 				new ElemAttribute("value", "Set", AttributeType.SYNTAX, false,
-						"values", "", "", 0, -1, "", "", -1, "", ""));
+						"values", "",
+						"com.variamos.dynsup.model.ElemAttribute", "", "", 0,
+						-1, "", "", -1, "", ""));
 		// semElementNoSyntax.putSemanticAttribute("dummy", new ElemAttribute(
 		// "dummy", "String", AttributeType.SYNTAX, false, "dummy", "", 0,
 		// -1, "", "", -1, "", ""));
@@ -687,7 +692,9 @@ public class InfraSyntaxSyntaxMMM {
 						"", "", 0, 3, "", "", -1, "", ""));
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("value",
 				new ElemAttribute("value", "Set", AttributeType.SYNTAX, false,
-						"values", "", "", 0, -1, "", "", -1, "", ""));
+						"values", "",
+						"com.variamos.dynsup.model.ElemAttribute", "", "", 0,
+						-1, "", "", -1, "", ""));
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("dummy",
 				new ElemAttribute("dummy", "String", AttributeType.SYNTAX,
 						false, "dummy", "", "", 0, -1, "", "", 1,
@@ -802,8 +809,9 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "Border Stroke", "", 1, 0,
 						11, "", "", -1, "", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("value", new ElemAttribute(
-				"value", "Set", AttributeType.SYNTAX, false, "values", "", "",
-				0, -1, "", "", -1, "", ""));
+				"value", "Set", AttributeType.SYNTAX, false, "values", "",
+				"com.variamos.dynsup.model.ElemAttribute", "", "", 0, -1, "",
+				"", -1, "", ""));
 
 		infraSyntaxM2PWRel.addModelingAttribute("Type", new ElemAttribute(
 				"Type", "String", AttributeType.SYNTAX, false, "Relation Type",

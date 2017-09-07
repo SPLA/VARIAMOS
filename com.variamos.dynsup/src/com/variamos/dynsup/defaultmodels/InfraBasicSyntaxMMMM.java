@@ -116,16 +116,6 @@ public class InfraBasicSyntaxMMMM {
 						AttributeType.SYNTAX, false, "Description", "", "", 0,
 						4, "", "", -1, "", ""));
 
-		basicOpersSyntaxM3OperConcept.addModelingAttribute("Visible",
-				new ElemAttribute("Visible", "Boolean", AttributeType.SYNTAX,
-						false, "Visible", "", true, 0, 5, "", "", -1, "", ""));
-		basicOpersSyntaxM3OperConcept.addModelingAttribute("Editable",
-				new ElemAttribute("Editable", "Boolean", AttributeType.SYNTAX,
-						false, "Editable", "", true, 0, 6, "", "", -1, "", ""));
-		basicOpersSyntaxM3OperConcept
-				.addModelingAttribute("Name", new ElemAttribute("Name",
-						"String", AttributeType.SYNTAX, false, "Concept Name",
-						"", "", 0, 7, "", "", -1, "", ""));
 		basicOpersSyntaxM3OperConcept.addModelingAttribute("Style",
 				new ElemAttribute("Style", "String", AttributeType.SYNTAX,
 						false, "Drawing Style", "", "refasclaim", 0, 8, "", "",
@@ -153,10 +143,6 @@ public class InfraBasicSyntaxMMMM {
 				new ElemAttribute("BorderStroke", "Integer",
 						AttributeType.SYNTAX, false, "Border Stroke", "", 13,
 						0, -1, "", "", -1, "", ""));
-		basicOpersSyntaxM3OperConcept.addModelingAttribute("Resizable",
-				new ElemAttribute("Resizable", "Boolean", AttributeType.SYNTAX,
-						false, "Is Resizable", "", true, 0, 14, "", "", -1, "",
-						""));
 
 		InstConcept instInfraSyntaxOpersM3OperConcept = new InstConcept(
 				"BsOperConcept", null, basicOpersSyntaxM3OperConcept);
@@ -170,7 +156,7 @@ public class InfraBasicSyntaxMMMM {
 		// Currently not used but required to move types from
 		// com.variamos.dynsup.types to dynamic definitions
 		SyntaxElement basicOpersSyntaxM3Enum = new SyntaxElement('E', "BsEnum",
-				true, true, "BsEnum", "infrasyntaxm2concept",
+				true, true, "BsEnum", "infrasyntaxm2miniconcept",
 				"Operations Meta Meta Meta Enumeration", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
@@ -181,7 +167,7 @@ public class InfraBasicSyntaxMMMM {
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n\n", "");
 
 		basicOpersSyntaxM3Enum.addModelingAttribute("enumValues", "Set", false,
-				"att", "", SyntaxElement.VAR_METAENUMVALUECLASS,
+				"att", "", SyntaxElement.VAR_METAENUMVALUECLASS, "Enumeration",
 				new ArrayList<InstAttribute>(), 0, 1, "", "", 5, "#"
 						+ "enumValues" + "#all#\n", "");
 
@@ -193,15 +179,6 @@ public class InfraBasicSyntaxMMMM {
 						AttributeType.SYNTAX, false, "Description", "", "", 0,
 						3, "", "", -1, "", ""));
 
-		basicOpersSyntaxM3Enum.addModelingAttribute("Visible",
-				new ElemAttribute("Visible", "Boolean", AttributeType.SYNTAX,
-						false, "Visible", "", true, 0, 5, "", "", -1, "", ""));
-		basicOpersSyntaxM3Enum.addModelingAttribute("Editable",
-				new ElemAttribute("Editable", "Boolean", AttributeType.SYNTAX,
-						false, "Editable", "", true, 0, 6, "", "", -1, "", ""));
-		basicOpersSyntaxM3Enum.addModelingAttribute("Name", new ElemAttribute(
-				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
-				"", "", 0, -1, "", "", 8, "", ""));
 		basicOpersSyntaxM3Enum.addModelingAttribute("Style", new ElemAttribute(
 				"Style", "String", AttributeType.SYNTAX, false,
 				"Drawing Style", "", "refasclaim", 0, 8, "", "", -1, "", ""));
@@ -378,8 +355,9 @@ public class InfraBasicSyntaxMMMM {
 				"TypesEnum", instInfraSyntaxOpersM3Enum,
 				basicOpersSyntaxM3TypesEnum);
 
-		ArrayList<InstAttribute> enumVals = ((ArrayList<InstAttribute>) instInfraSyntaxOpersM3TypesEnum
-				.getInstAttribute("enumValues").getValue());
+		ArrayList<InstAttribute> enumVals = new ArrayList<InstAttribute>();
+		instInfraSyntaxOpersM3TypesEnum.getInstAttribute("enumValues")
+				.setValue(enumVals);
 		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
@@ -410,6 +388,10 @@ public class InfraBasicSyntaxMMMM {
 				"Class"));
 		enumVals.add(new InstAttribute("enum8", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Class"));
+		enumVals.add(new InstAttribute("enum8", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""), "Set"));
 
 		variabilityInstVertex.put("TypesEnum", instInfraSyntaxOpersM3TypesEnum);
@@ -424,8 +406,9 @@ public class InfraBasicSyntaxMMMM {
 				"DisplayTypesEnum", instInfraSyntaxOpersM3Enum,
 				basicOpersSyntaxM3DispTypesEnum);
 
-		enumVals = ((ArrayList<InstAttribute>) instInfraSyntaxOpersM3DispTypesEnum
-				.getInstAttribute("enumValues").getValue());
+		enumVals = new ArrayList<InstAttribute>();
+		instInfraSyntaxOpersM3DispTypesEnum.getInstAttribute("enumValues")
+				.setValue(enumVals);
 		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
