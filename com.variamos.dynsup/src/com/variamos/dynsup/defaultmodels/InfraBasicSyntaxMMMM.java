@@ -403,8 +403,12 @@ public class InfraBasicSyntaxMMMM {
 		enumVals.add(new InstAttribute("enum6", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
-				"Class"));
+				"MetaEnumeration"));
 		enumVals.add(new InstAttribute("enum7", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Class"));
+		enumVals.add(new InstAttribute("enum8", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""), "Set"));
 
