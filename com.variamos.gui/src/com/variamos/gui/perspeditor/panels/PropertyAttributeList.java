@@ -29,7 +29,7 @@ import com.variamos.hlcl.model.domains.IntDomain;
  * Initially copied from VariabilityAttributeList on pl.editor. Part of PhD work
  * at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-28

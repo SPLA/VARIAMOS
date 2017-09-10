@@ -10,16 +10,16 @@ import javax.swing.SwingWorker;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.dynsup.translation.SolverTasks;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.io.importExport.core.ConfigurationIO;
+import com.variamos.io.core.importExport.ConfigurationIO;
 
 /**
  * A class to support the thread for simulation of configurations. Part of PhD
  * work at University of Paris 1
  * 
- * Soporta la ejecución utilizando la ventana de simulation MAPE-K que está en 
- * basic simulation (static) en la perspectiva de configuración y simulación.
+ * Soporta la ejecucion utilizando la ventana de simulation MAPE-K que esta en 
+ * basic simulation (static) en la perspectiva de configuracion y simulacion.
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-03-20

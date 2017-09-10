@@ -38,8 +38,8 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.maineditor.MainFrame;
-import com.variamos.io.ConsoleTextArea;
 
 public class PerspEditorGraph extends mxGraph {
 

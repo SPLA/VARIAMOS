@@ -14,7 +14,7 @@ import com.variamos.hlcl.model.expressions.IntNumericExpression;
  * A class to represent the dynamic types of expressions and their allowed types
  * of expression left and right. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-02-05

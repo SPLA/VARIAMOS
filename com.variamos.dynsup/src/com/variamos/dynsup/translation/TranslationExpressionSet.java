@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -35,7 +36,7 @@ import com.variamos.hlcl.model.expressions.LiteralBooleanExpression;
  * A class to represent the Model Expressions (instance of the Meta-Expression).
  * Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-13
@@ -446,7 +447,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 	public List<Labeling> getLabelings(InstanceModel refas, String subAction,
-			OpersSubOpExecType expressionType) {
+			OpersSubOpExecType expressionType) throws FunctionalException {
 
 		List<InstElement> operActions = refas.getOperationalModel()
 				.getVariabilityVertex("OpMOperation");
@@ -806,8 +807,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * Expression for textual representation
 	 * 
 	 * @return
+	 * @throws FunctionalException 
 	 */
-	public List<IntExpression> getHLCLExpressions(String column) {
+	public List<IntExpression> getHLCLExpressions(String column) throws FunctionalException {
 		List<IntExpression> out = new ArrayList<IntExpression>();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			// idMap.putAll(expression.(hlclFactory));
@@ -819,7 +821,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 	// Dynamic call
-	public HlclProgram getHlCLProgramExpressions(String column) {
+	public HlclProgram getHlCLProgramExpressions(String column) throws FunctionalException {
 		HlclProgram prog = new HlclProgram();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			IntBooleanExpression newExp = (IntBooleanExpression) expression
@@ -840,7 +842,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 	public List<IntNumericExpression> getNumericExpressions(
-			List<ModelExpr> instanceExpressions) {
+			List<ModelExpr> instanceExpressions) throws FunctionalException {
 		List<IntNumericExpression> prog = new ArrayList<IntNumericExpression>();
 		for (ModelExpr expression : instanceExpressions) {
 			// idMap.putAll(transformation.getIdentifiers(hlclFactory));

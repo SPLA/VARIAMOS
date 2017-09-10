@@ -3,6 +3,8 @@
  */
 package com.variamos.common.core.exceptions;
 
+import java.util.Arrays;
+
 /**
  * Represents a controlled technical exception
  * @author Luisa Rincon - lufe089@gmail.com
@@ -43,4 +45,8 @@ public class TechnicalException extends RuntimeException {
 		
 	}
 
+	public static String exceptionStacktraceToString(Exception e)
+	{
+	    return Arrays.toString(e.getStackTrace());
+	}
 }

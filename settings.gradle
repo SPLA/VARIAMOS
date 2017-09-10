@@ -1,1 +1,1 @@
-include ":com.variamos.common",":com.variamos.hlcl","com.variamos.solver","com.variamos.reasoning"
+include ":com.variamos.common",":com.variamos.hlcl",":com.variamos.solver",":com.variamos.reasoning", ":com.variamos.io"

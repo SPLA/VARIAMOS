@@ -10,7 +10,7 @@ import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.io.importExport.core.ConfigurationIO;
+import com.variamos.io.core.importExport.ConfigurationIO;
 
 //jcmunoz: removed unused method and imports of the method
 

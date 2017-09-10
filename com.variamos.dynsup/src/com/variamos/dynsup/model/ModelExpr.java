@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -22,13 +23,12 @@ import com.variamos.hlcl.model.expressions.HlclFactory;
 import com.variamos.hlcl.model.expressions.Identifier;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.hlcl.model.expressions.IntExpression;
-import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to represent InstanceExpressions. Part of PhD work at University of
  * Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-02-05
@@ -213,7 +213,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		setLeftElement(vertex);
 	}
 
-	public IntExpression createSGSExpression(String element) {
+	public IntExpression createSGSExpression(String element) throws FunctionalException {
 		// System.out.println(element);
 		IntExpression condition = createExpression(0, -1);
 		Identifier iden = hlclFactory.newIdentifier(element + "_CompExp");
@@ -222,7 +222,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		return hlclFactory.doubleImplies(iden, (IntBooleanExpression) condition);
 	}
 
-	public IntExpression createSGSExpression() {
+	public IntExpression createSGSExpression() throws FunctionalException {
 		// System.out.println("PNT Struc: " + this.getSemanticExpressionId() +
 		// " "
 		// + this.expressionStructure());
@@ -230,7 +230,7 @@ public class ModelExpr implements Serializable, Cloneable {
 
 	}
 
-	public IntExpression createExpression(int pos, int leftIterInstance) {
+	public IntExpression createExpression(int pos, int leftIterInstance) throws FunctionalException {
 		int i = 0;
 		List<IntExpression> expressionTerms = expressionTerms(pos,
 				leftIterInstance, 0);
@@ -340,11 +340,14 @@ public class ModelExpr implements Serializable, Cloneable {
 						parameter2.cast(expressionTerms.get(1)));
 			}
 		} catch (Exception e) {
-			ConsoleTextArea.addText("EXPRR " + expressionTerms.get(0) + " "
-					+ expressionTerms.get(1) + factoryMethod.getName());
-			ConsoleTextArea.addText(e.getStackTrace());
+			//FIXME issue#230
+			throw new FunctionalException("EXPRR " + expressionTerms.get(0) + " "
+					+ expressionTerms.get(1) + factoryMethod.getName()+ e.getMessage());
+			
+			//ConsoleTextArea.addText(e.getStackTrace());
+			
 		}
-		return null;
+		
 	}
 
 	// private Map<String, Identifier> getIdentifiers() {
@@ -1014,7 +1017,7 @@ public class ModelExpr implements Serializable, Cloneable {
 	}
 
 	private List<IntExpression> expressionTerms(int pos, int leftIterInstance,
-			int leftIterInstances) {
+			int leftIterInstances) throws FunctionalException {
 		List<IntExpression> out = new ArrayList<IntExpression>();
 
 		List<ExpressionVertexType> expressionVertexTypes = new ArrayList<ExpressionVertexType>();

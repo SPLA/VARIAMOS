@@ -13,7 +13,7 @@ import com.variamos.dynsup.model.InstanceModel;
  * A class to support set widgets on the interface. Copied from SetWidget from
  * ProductLine. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-10

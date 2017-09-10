@@ -3,6 +3,8 @@
  */
 package com.variamos.common.core.exceptions;
 
+import java.util.Arrays;
+
 /**
  * Represents a logical exception from business logic functionalities
  * 
@@ -48,6 +50,11 @@ public class FunctionalException extends Exception {
 			boolean arg3) {
 		super(arg0, arg1, arg2, arg3);
 		 
+	}
+	
+	public static String exceptionStacktraceToString(Exception e)
+	{
+	    return Arrays.toString(e.getStackTrace());
 	}
 
 }

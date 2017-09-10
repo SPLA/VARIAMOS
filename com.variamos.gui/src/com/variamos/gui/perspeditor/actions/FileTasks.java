@@ -18,10 +18,10 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.core.io.MxGraphReader;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.io.ConsoleTextArea;
 
 public class FileTasks extends SwingWorker<Void, Void> {
 	public String getErrorTitle() {

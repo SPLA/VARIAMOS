@@ -9,7 +9,7 @@ import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
  * at University of Paris 1. Initially copied from
  * com.variamos.gui.pl.configuration.treetable.ConfigurationAction
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
  * @see com.variamos.gui.pl.AssociationAction.treetable.ConfigurationAction

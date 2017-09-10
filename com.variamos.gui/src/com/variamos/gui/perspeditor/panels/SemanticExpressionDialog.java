@@ -45,7 +45,7 @@ import com.variamos.gui.perspeditor.SpringUtilities;
  * A class to draw the semantic expression editor. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-03-10
  */

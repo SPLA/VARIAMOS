@@ -14,7 +14,6 @@ import com.mxgraph.io.mxCodec;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
-import com.variamos.io.ConsoleTextArea;
 
 /**
  * @author unknown

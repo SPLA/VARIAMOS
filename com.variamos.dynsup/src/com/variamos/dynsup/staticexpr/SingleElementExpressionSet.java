@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -36,7 +37,7 @@ import com.variamos.hlcl.model.expressions.IntBooleanExpression;
  * A class to represent the constraints for restrictions of a concept. Part of
  * PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-16
@@ -69,10 +70,11 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	 * @param directEdgeType
 	 * @param source
 	 * @param target
+	 * @throws FunctionalException 
 	 */
 	public SingleElementExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstElement instVertex, int execType) {
+			InstElement instVertex, int execType) throws FunctionalException {
 		super(identifier,
 				mxResources.get("defect-concepts") + " " + identifier, idMap,
 				hlclFactory);
@@ -115,7 +117,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 		return false;
 	}
 
-	private void defineTransformations(int execType) {
+	private void defineTransformations(int execType) throws FunctionalException {
 
 		if (instVertex instanceof InstConcept
 				|| instVertex instanceof InstOverTwoRel) {

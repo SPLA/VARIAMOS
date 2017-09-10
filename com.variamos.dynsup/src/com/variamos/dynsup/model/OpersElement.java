@@ -14,7 +14,7 @@ import com.variamos.dynsup.instance.InstElement;
  * A class to represent all elements at semantic level. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-07

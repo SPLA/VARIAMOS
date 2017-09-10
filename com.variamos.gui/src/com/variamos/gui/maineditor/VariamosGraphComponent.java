@@ -21,7 +21,7 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.io.ConsoleTextArea;
+import com.variamos.gui.core.io.ConsoleTextArea;
 
 
 

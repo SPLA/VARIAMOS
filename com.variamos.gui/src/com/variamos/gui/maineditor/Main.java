@@ -4,13 +4,12 @@ import java.io.IOException;
 
 import javax.swing.UIManager;
 
-import com.variamos.io.ConsoleTextArea;
-
-import fm.FeatureModelException;
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.gui.core.io.ConsoleTextArea;
 
 public class Main {
 
-	public static void main(String[] ar) throws FeatureModelException,
+	public static void main(String[] ar) throws FunctionalException,
 			IOException {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

@@ -24,7 +24,7 @@ import com.variamos.hlcl.model.domains.IntervalDomain;
  * University of Paris 1. Initially copied from
  * com.variamos.gui.pl.configuration.treetable.ConfigurationDataModel
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
  * @see com.variamos.gui.pl.AssociationDataModel.treetable.ConfigurationDataModel

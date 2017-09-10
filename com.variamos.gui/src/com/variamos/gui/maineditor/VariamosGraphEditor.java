@@ -30,7 +30,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
@@ -50,6 +49,7 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
@@ -70,6 +70,7 @@ import com.variamos.dynsup.translation.SolverTasks;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.DomainRegister;
 import com.variamos.dynsup.types.PerspectiveType;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorToolBar;
@@ -87,14 +88,13 @@ import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.hlcl.core.HlclProgram;
-import com.variamos.io.ConsoleTextArea;
 import com.variamos.solver.model.SolverSolution;
 
 /**
  * A class to represented the editor for each perspective. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.0
  * @since 2014 *
@@ -677,16 +677,24 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						if (elm instanceof InstOverTwoRel) {
 							editableElementType = "groupdep";
 						}
-						ElementExpressionSet metaExpressionSet = refas2hlcl
-								.getElementConstraintGroup(lastEditableElement
-										.getInstElement().getIdentifier(),
-										editableElementType,
-										ModelExpr2HLCL.SIMUL_EXEC);
+						
+						try {
+							ElementExpressionSet metaExpressionSet;
+							metaExpressionSet = refas2hlcl
+									.getElementConstraintGroup(lastEditableElement
+											.getInstElement().getIdentifier(),
+											editableElementType,
+											ModelExpr2HLCL.SIMUL_EXEC);
+							expressions.configure(getEditedModel(),
+									metaExpressionSet,
+									lastEditableElement.getInstElement());
+							updateExpressions = false;
+						} catch (FunctionalException e1) {
+							//FIX Issue #230
+							ConsoleTextArea.addText(e1.getMessage());
+						}
 
-						expressions.configure(getEditedModel(),
-								metaExpressionSet,
-								lastEditableElement.getInstElement());
-						updateExpressions = false;
+						
 					}
 				}
 				// System.out.println(tabIndex);
