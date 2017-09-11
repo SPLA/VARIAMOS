@@ -30,7 +30,6 @@ import com.variamos.hlcl.model.expressions.HlclFactory;
 import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
 
-
 public class MainFrame extends JFrame {
 	public List<VariamosGraphEditor> getGraphEditors() {
 		return graphEditors;
@@ -142,10 +141,10 @@ public class MainFrame extends JFrame {
 
 				// FIXME v1.1 add this comment to visualize the basic MMM
 				// TO View BasicMMM in Syntax Perspective DO NOT REMOVE
-				abstractModel = new InstanceModel(
-						PerspectiveType.INFRASTRUCTUREBASICSYNTAX,
-						metaExpressionTypes, InfraBasicSyntax, null);
-				
+				// abstractModel = new InstanceModel(
+				// PerspectiveType.INFRASTRUCTUREBASICSYNTAX,
+				// metaExpressionTypes, InfraBasicSyntax, null);
+
 				bgColor = new Color(255, 255, 245);
 				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b"
 						+ variamosBuild;
@@ -462,4 +461,3 @@ public class MainFrame extends JFrame {
 		return getFilesUrl();
 	}
 }
-

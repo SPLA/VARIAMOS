@@ -390,6 +390,9 @@ public class InfraBasicSyntaxMMMM {
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
 				"Class"));
+		enumVals.add(new InstAttribute("enum9", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""), "Set"));
 
 		variabilityInstVertex.put("TypesEnum", instInfraSyntaxOpersM3TypesEnum);
 
