@@ -850,6 +850,13 @@ public class InfraSyntaxSyntaxMMM {
 		instEdge.setTargetRelation(instInfraSyntaxM2PWRel, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
 
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("cpw-c-c", instEdge);
+		instEdge.setIdentifier("cpw-c-c");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2Concept, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
+
 		// TODO remove if Claims and SDs are Concepts
 		instEdge = new InstPairwiseRel();
 		constraintInstEdges.put("cpw-pw-otr", instEdge);
