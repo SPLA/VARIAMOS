@@ -12,7 +12,7 @@ import com.variamos.dynsup.interfaces.IntInstAttribute;
  * A class to support string widgets on the interface. Copied from StringWidget
  * from ProductLine. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-10

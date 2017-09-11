@@ -4,7 +4,7 @@ package com.variamos.dynsup.types;
  * A class to represent an string dynamically loaded attribute. Based on
  * StringType of ProductLine. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.1
  * @since 2017-06-23
  * @see com.cfm.productline.type.StringType

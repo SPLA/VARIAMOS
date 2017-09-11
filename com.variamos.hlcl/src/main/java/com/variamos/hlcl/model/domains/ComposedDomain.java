@@ -1,0 +1,79 @@
+package com.variamos.hlcl.model.domains;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ComposedDomain implements IntDomain {
+	private List<IntDomain> domains;
+
+	public ComposedDomain() {
+		domains = new ArrayList<>();
+	}
+
+	public List<IntDomain> getDomains() {
+		return domains;
+	}
+
+	public void setDomains(List<IntDomain> domains) {
+		this.domains = domains;
+	}
+
+	@Override
+	public int size() {
+		int size = 0;
+
+		for (IntDomain d : domains)
+			size += d.size();
+
+		return size;
+	}
+
+	@Override
+	public String getStringRepresentation() {
+		StringBuffer str = new StringBuffer();
+
+		for (int i = 0; i < domains.size(); i++) {
+			str.append(domains.get(i).getStringRepresentation());
+			if (i < domains.size() - 1)
+				str.append(",");
+		}
+
+		return str.toString();
+	}
+
+	@Override
+	public List<Integer> getPossibleValues() {
+		List<Integer> list = new ArrayList<>();
+
+		for (IntDomain d : domains)
+			for (Integer i : d.getPossibleValues())
+				if (!list.contains(i))
+					list.add(i);
+
+		return list;
+	}
+
+	@Override
+	public List<Float> getPossibleFloatValues() {
+		List<Float> list = new ArrayList<Float>();
+
+		for (IntDomain d : domains)
+			for (Float i : d.getPossibleFloatValues())
+				if (!list.contains(i))
+					list.add(i);
+
+		return list;
+	}
+
+	@Override
+	public List<String> getPossibleStringValues() {
+		List<String> list = new ArrayList<>();
+
+		for (IntDomain d : domains)
+			for (String i : d.getPossibleStringValues())
+				if (!list.contains(i))
+					list.add(i);
+
+		return list;
+	}
+}

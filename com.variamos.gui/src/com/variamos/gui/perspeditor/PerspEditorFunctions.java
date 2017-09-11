@@ -58,7 +58,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	public void updateEditor(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		// editor.setPerspective(2);
-		editor.editModelReset();
+		//editor.editModelReset();
 		// System.out.println("requirements perspective");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}
@@ -75,8 +75,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 				);
 		String viewName = editor.getEditedModel().getInstViewName(
 				modelViewIndex, -1);
-		PerspEditorGraph refasGraph = (PerspEditorGraph) graphComponent
-				.getGraph();
+		PerspEditorGraph refasGraph = (PerspEditorGraph) graphComponent.getGraph();
 		loadPalette(viewName, palettes, validElements, refasGraph);
 		editor.refreshPalette();
 	}
@@ -321,10 +320,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 								palette.addTemplate(
 										// mxResources.get(
 										paletteElement.getElementTitle(),
-										new ImageIcon(
-												PerspEditorFunctions.class
-														.getResource(paletteElement
-																.getIcon())),
+										new ImageIcon(PerspEditorFunctions.class
+												.getResource(paletteElement
+														.getIcon())),
 										paletteElement.getStyle(),
 										paletteElement.getWidth(),
 										paletteElement.getHeight(),
@@ -352,6 +350,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 		}
 
 		final PerspEditorGraph graph = plgraph;
+
+		
 
 	}
 

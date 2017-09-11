@@ -72,3 +72,4 @@ public abstract class AbstractEditorAction extends AbstractAction {
 	}
 
 }
+

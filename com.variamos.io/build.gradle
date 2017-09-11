@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+archivesBaseName = 'com.variamos.io'
+version = '1.0-SNAPSHOT'
+
+dependencies {
+    compile fileTree(dir: 'lib', include: ['sxfm.jar'])
+    compile project(':com.variamos.common')
+    //FIXME: Remove this dependency
+    compile project(':com.variamos.solver')
+    
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+	compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+	
+	// https://mvnrepository.com/artifact/org.apache.poi/poi
+	compile group: 'org.apache.poi', name: 'poi', version: '3.16'
+    
+}

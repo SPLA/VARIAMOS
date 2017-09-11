@@ -21,7 +21,7 @@ import com.variamos.gui.perspeditor.SpringUtilities;
  * A class to create the dialog to associate element's expressions to
  * operations. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-11-05
@@ -49,13 +49,13 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 		setPreferredSize(new Dimension(width, height));
 		switch (dialog) {
 		case 0:
-			setTitle("Association of Meta-Concept’s Meta-Expressions to Suboperations");
+			setTitle("Association of Meta-Conceptï¿½s Meta-Expressions to Suboperations");
 			break;
 		case 1:
-			setTitle("Association of Meta-Concept’s Meta-Attributes to Subperations (Input/Output)");
+			setTitle("Association of Meta-Conceptï¿½s Meta-Attributes to Subperations (Input/Output)");
 			break;
 		case 2:
-			setTitle("Association of Meta-Concept’s Meta-Attributes to Labelings");
+			setTitle("Association of Meta-Conceptï¿½s Meta-Attributes to Labelings");
 			break;
 		}
 		setVisible(true);

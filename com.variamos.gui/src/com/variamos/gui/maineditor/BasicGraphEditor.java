@@ -58,8 +58,8 @@ import com.mxgraph.util.mxUndoManager;
 import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
-import com.variamos.io.ConsoleTextArea;
 
 /**
  * @author example mxgraph jcmunoz: All this package needs review. Only original

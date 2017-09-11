@@ -1,12 +1,10 @@
 package com.variamos.dynsup.types;
 
-import com.cfm.productline.Variable;
-
 /**
  * A class to support a different editor for columns. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.0
  * @since 2015-11-10
@@ -21,3 +19,4 @@ public class ElementVariable extends Variable {
 		super(name, defaultValue, typeName);
 	}
 }
+

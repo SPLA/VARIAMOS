@@ -15,14 +15,14 @@ import com.variamos.dynsup.types.EnumerationSingleSelectionType;
 import com.variamos.dynsup.types.IntegerType;
 import com.variamos.dynsup.types.SetType;
 import com.variamos.dynsup.types.StringType;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to dynamically load appropriate widget. Based on WidgetFactory from
  * ProductLine. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-10

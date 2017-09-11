@@ -30,7 +30,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
@@ -39,7 +38,6 @@ import javax.swing.SpringLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.cfm.productline.AbstractElement;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.shape.mxStencilShape;
@@ -51,6 +49,8 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
@@ -70,6 +70,7 @@ import com.variamos.dynsup.translation.SolverTasks;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.DomainRegister;
 import com.variamos.dynsup.types.PerspectiveType;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorToolBar;
@@ -85,17 +86,14 @@ import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
-import com.variamos.gui.pl.editor.ConfiguratorPanel;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.io.ConsoleTextArea;
-import com.variamos.solver.Configuration;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * A class to represented the editor for each perspective. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.0
  * @since 2014 *
@@ -117,9 +115,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private List<String> validElements = null;
 
 	protected DomainRegister domasinRegister = new DomainRegister();
-	protected GraphTree productLineIndex;
-	protected ConfiguratorPanel configurator;
-	protected ConfigurationPropertiesTab configuratorProperties;
+	
+	
 	private InstanceModel refasModel;
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
@@ -144,7 +141,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private String editableElementType = null;
 
 	private String lastSolverInvocations = "";
-	private Configuration lastConfiguration;
+	private SolverSolution lastConfiguration;
 
 	private List<String> defects = new ArrayList<String>();
 
@@ -203,7 +200,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 		refasModel = abstractModel;
 		refas2hlcl = new ModelExpr2HLCL(refasModel);
-		configurator.setRefas2hlcl(refas2hlcl);
+		
 
 		registerEvents();
 		// List<InstView> instViews =
@@ -582,18 +579,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	@Override
 	protected Component getLeftComponent() {
-		productLineIndex = new GraphTree();
-		// productLineIndex.bind((AbstractGraph)
-		// getGraphComponent().getGraph());
+	
 
-		JSplitPane inner = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-				productLineIndex, null);
-		inner.setDividerLocation(250);
-		inner.setResizeWeight(1);
-		inner.setDividerSize(6);
-		inner.setBorder(null);
-
-		return inner;
+		return null;
 	}
 
 	@Override
@@ -622,15 +610,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		elementSimPropPanel = new JPanel();
 		elementSimPropPanel.setLayout(new SpringLayout());
 
-		configurator = new ConfiguratorPanel();
-
-		configuratorProperties = new ConfigurationPropertiesTab();
-
 		expressions = new StaticExpressionsPanel();
-
-		// if (getPerspective() == 2) {
-
-		// }
 
 		// Bottom panel : Properties, Messages and Configuration
 		extensionTabs = new JTabbedPane(JTabbedPane.TOP,
@@ -639,8 +619,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				ConsoleTextArea.getTextArea()));
-		extensionTabs.addTab(mxResources.get("configurationTab"),
-				new JScrollPane(configurator));
+		
 		extensionTabs.setMinimumSize(new Dimension(30, 100));
 		extensionTabs.addChangeListener(new ChangeListener() {
 
@@ -688,16 +667,24 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						if (elm instanceof InstOverTwoRel) {
 							editableElementType = "groupdep";
 						}
-						ElementExpressionSet metaExpressionSet = refas2hlcl
-								.getElementConstraintGroup(lastEditableElement
-										.getInstElement().getIdentifier(),
-										editableElementType,
-										ModelExpr2HLCL.SIMUL_EXEC);
+						
+						try {
+							ElementExpressionSet metaExpressionSet;
+							metaExpressionSet = refas2hlcl
+									.getElementConstraintGroup(lastEditableElement
+											.getInstElement().getIdentifier(),
+											editableElementType,
+											ModelExpr2HLCL.SIMUL_EXEC);
+							expressions.configure(getEditedModel(),
+									metaExpressionSet,
+									lastEditableElement.getInstElement());
+							updateExpressions = false;
+						} catch (FunctionalException e1) {
+							//FIX Issue #230
+							ConsoleTextArea.addText(e1.getMessage());
+						}
 
-						expressions.configure(getEditedModel(),
-								metaExpressionSet,
-								lastEditableElement.getInstElement());
-						updateExpressions = false;
+						
 					}
 				}
 				// System.out.println(tabIndex);
@@ -737,22 +724,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));
-			if (perspective == 4 && getMainFrame() != null
-					&& getMainFrame().isAdvancedPerspective()) {
-				extensionTabs.addTab(mxResources.get("configurationTab"),
-						new JScrollPane(configurator));
-			}
+			
 		}
 		if (elm == null || elm != null && this.lastEditableElement != elm) {
 			extensionTabs.addTab(mxResources.get("messagesTab"),
 					new JScrollPane(ConsoleTextArea.getTextArea()));
 
-			if (perspective == 2 && getMainFrame() != null
-					&& getMainFrame().isAdvancedPerspective()) {
-				extensionTabs.addTab(mxResources.get("modelConfPropTab"),
-						configuratorProperties.getScrollPane());
-
-			}
+			//TODO: Review if this if is still necessary
 
 		}
 
@@ -785,12 +763,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		return ConsoleTextArea.getTextArea();
 	}
 
-	public ConfiguratorPanel getConfigurator() {
-		return configurator;
-	}
+	
 
 	public void editModelReset() {
-		productLineIndex.reset();
+		//FIXME: Check if this method is still useful
 		if (perspective == 0)
 			// editModel(new ProductLine())
 			;
@@ -807,6 +783,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 
 	}
+
 
 	public InstanceModel getEditedModel() {
 		return refasModel;
@@ -1022,7 +999,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(AbstractElement.multiLine(v.toString(),
+							v.setValue(StringUtils.multiLine(v.toString(),
 									15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
@@ -1039,7 +1016,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(AbstractElement.multiLine(v.toString(),
+							v.setValue(StringUtils.multiLine(v.toString(),
 									15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
@@ -1227,7 +1204,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(AbstractElement.multiLine(v.toString(),
+							v.setValue(StringUtils.multiLine(v.toString(),
 									15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
@@ -1244,7 +1221,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(AbstractElement.multiLine(v.toString(),
+							v.setValue(StringUtils.multiLine(v.toString(),
 									15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
@@ -1875,8 +1852,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (progressMonitor.isCanceled()
 					|| (fileTask != null && fileTask.isDone())) {
 				if (progressMonitor.isCanceled()) {
-					// FIXME v1.1 replace task with fileTask
-					fileTask.cancel(true);
+					task.cancel(true);
 					JOptionPane
 							.showMessageDialog(
 									frame,
@@ -1926,7 +1902,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								task.isUpdate());
 					case ModelExpr2HLCL.SIMUL_EXPORT:
 						refresh();
-						lastConfiguration = task.getLastConfiguration();
+						lastConfiguration = task.getLastSolverSolution();
 						if (!task.getErrorTitle().equals("")) {
 							JOptionPane.showMessageDialog(frame,
 									task.getErrorMessage(),
@@ -2164,3 +2140,4 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 }
+

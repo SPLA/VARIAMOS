@@ -299,3 +299,4 @@ public class PerspEditorToolBar extends JToolBar {
 		});
 	}
 }
+

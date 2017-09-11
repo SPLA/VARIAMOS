@@ -169,3 +169,4 @@ public class EditorAboutFrame extends JDialog
 	}
 
 }
+

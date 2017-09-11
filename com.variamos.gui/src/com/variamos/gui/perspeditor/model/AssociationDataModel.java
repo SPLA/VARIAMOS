@@ -6,17 +6,17 @@ import java.util.List;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
-import com.cfm.productline.Variable;
 import com.variamos.dynsup.types.ElementVariable;
 import com.variamos.dynsup.types.IntegerVariable;
+import com.variamos.dynsup.types.Variable;
 import com.variamos.gui.perspeditor.model.actions.SetIntegerValueAction;
 import com.variamos.gui.perspeditor.model.actions.SetStringValueAction;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModel;
-import com.variamos.hlcl.BinaryDomain;
-import com.variamos.hlcl.Domain;
-import com.variamos.hlcl.IntervalDomain;
+import com.variamos.hlcl.model.domains.BinaryDomain;
+import com.variamos.hlcl.model.domains.IntDomain;
+import com.variamos.hlcl.model.domains.IntervalDomain;
 
 /**
  * A class to support the data model for the visual representation of the
@@ -24,7 +24,7 @@ import com.variamos.hlcl.IntervalDomain;
  * University of Paris 1. Initially copied from
  * com.variamos.gui.pl.configuration.treetable.ConfigurationDataModel
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
  * @see com.variamos.gui.pl.AssociationDataModel.treetable.ConfigurationDataModel
@@ -42,7 +42,7 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 
 	public AssociationDataModel(Object root,
 			ElementsOperationAssociationPanel configurator, List<String> names,
-			List<Domain> domains) {
+			List<IntDomain> domains) {
 		super(root);
 		captions = new ArrayList<String>();
 		captions.add("Meta-Concept / Relation Type (optional) / Meta-Attribute or Meta-Expression");

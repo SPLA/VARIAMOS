@@ -32,7 +32,7 @@ import com.variamos.gui.perspeditor.widgets.WidgetR;
 /**
  * A class to draw the About Dialog. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2014-03-15
  */
@@ -116,7 +116,7 @@ public class AboutDialog extends JDialog {
 				"http://www.flaticon.com/free-icon/settings_23408#term=configuration&page=1&position=3"));
 		panel.add(new JLabel(
 				"Organization of notification for elements and some icons:"));
-		panel.add(new JLabel("Jose Andrés Moncada"));
+		panel.add(new JLabel("Jose Andrï¿½s Moncada"));
 
 		SpringUtilities.makeCompactGrid(panel, 14, 1, 4, 4, 4, 4);
 

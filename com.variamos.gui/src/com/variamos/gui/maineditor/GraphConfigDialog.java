@@ -1679,3 +1679,4 @@ public class GraphConfigDialog extends JDialog
 		this.weighted = weighted;
 	}
 }
+

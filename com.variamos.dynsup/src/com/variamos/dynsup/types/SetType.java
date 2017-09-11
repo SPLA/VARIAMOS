@@ -7,7 +7,7 @@ import java.util.Set;
  * A class to represent a set dynamically loaded attribute. Based on SetType
  * of ProductLine. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.1
  * @since 2014-12-01
  * @see com.cfm.productline.type.SetType
