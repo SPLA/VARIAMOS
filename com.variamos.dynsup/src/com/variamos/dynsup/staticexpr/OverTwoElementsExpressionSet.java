@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
@@ -25,16 +26,15 @@ import com.variamos.dynsup.staticexprsup.NotBooleanExpression;
 import com.variamos.dynsup.staticexprsup.NumberNumericExpression;
 import com.variamos.dynsup.staticexprsup.OrBooleanExpression;
 import com.variamos.dynsup.staticexprsup.SumNumericExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.io.ConsoleTextArea;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
 
 //TODO refactor: OverTwoElementExpressionSet
 /**
  * A class to represent the constraints for group relations. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernndez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-16
@@ -57,10 +57,11 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 	 * @param directEdgeType
 	 * @param source
 	 * @param target
+	 * @throws FunctionalException 
 	 */
 	public OverTwoElementsExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstOverTwoRel instOverTwoRelation, int execType, String element) {
+			InstOverTwoRel instOverTwoRelation, int execType, String element) throws FunctionalException {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instOverTwoRelation = instOverTwoRelation;
@@ -87,7 +88,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 		return instOverTwoRelation;
 	}
 
-	private void defineTransformations(String element) {
+	private void defineTransformations(String element) throws FunctionalException {
 
 		SyntaxElement metaGroupDep = instOverTwoRelation
 				.getTransSupportMetaElement();
@@ -263,7 +264,9 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 											String.class);
 						}
 					} catch (NoSuchMethodException | SecurityException e) {
-						ConsoleTextArea.addText(e.getStackTrace());
+						//ConsoleTextArea.addText(e.getStackTrace());
+						//FIX Issue #230
+						throw new FunctionalException(e.getMessage());
 					}
 
 					switch (relationType) {
@@ -399,7 +402,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 	// TODO refactor createExpression
 	private AbstractExpression transformation(Constructor<?> constructor1,
 			Constructor<?> constructor2, Iterator<InstElement> instEdges,
-			InstElement left, String sourceName) {
+			InstElement left, String sourceName) throws FunctionalException {
 		// instEdges.next(); // TODO eliminate duplicated edges from collection
 		// and
 		// remove this line
@@ -456,7 +459,9 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
-					ConsoleTextArea.addText(e.getStackTrace());
+					//FIX Issue #230
+					throw new FunctionalException(e.getMessage());
+				
 				}
 			} else
 				try {
@@ -520,7 +525,8 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
-					ConsoleTextArea.addText(e.getStackTrace());
+					//ConsoleTextArea.addText();
+					throw new FunctionalException(e.getMessage());
 				}
 		} else
 		// TODO define a cleaner way to deal with group relations with one
@@ -534,6 +540,6 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 			return new AndBooleanExpression(((InstPairwiseRel) left)
 					.getSourceRelations().get(0), ((InstPairwiseRel) left)
 					.getSourceRelations().get(0), sourceName, sourceName);
-		return null;
+		
 	}
 }

@@ -20,4 +20,6 @@ public class ClearVerificationAction extends AbstractEditorAction {
 		VariamosGraphEditor editor = getEditor(e);
 		editor.clearElementErrors();
 	}
+
 }
+

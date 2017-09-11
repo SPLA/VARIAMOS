@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.variamos.core.util.StringUtils;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -22,8 +22,9 @@ import com.variamos.dynsup.types.OpersOpType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.dynsup.types.OpersSubOpType;
 import com.variamos.dynsup.types.StringType;
-import com.variamos.hlcl.IntervalDomain;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.hlcl.model.domains.IntervalDomain;
+import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeEnum;
+
 
 public class InfraSyntaxOpersMMM {
 
@@ -925,9 +926,9 @@ public class InfraSyntaxOpersMMM {
 								"Complete explores all the combination of errors, partial"
 										+ " stops with the first set of error, incomplete"
 										+ " identifies up to a number of error",
-								DefectAnalyzerMode.class.getCanonicalName(),
+								DefectAnalyzerModeEnum.class.getCanonicalName(),
 								StringUtils
-										.formatEnumValue(DefectAnalyzerMode.INCOMPLETE_FAST
+										.formatEnumValue(DefectAnalyzerModeEnum.INCOMPLETE_FAST
 												.toString()), "", 0, 16, "",
 								"", -1, "", ""));
 
@@ -1083,6 +1084,112 @@ public class InfraSyntaxOpersMMM {
 		// rel.setSourceRelation(instInfraSyntaxOpersM2OperSubAction, true);
 		// constraintInstEdges.put("AssoSubAct-ExpType", rel);
 
+		// FIXME v1.1 added concepts and enums
+		SyntaxElement infraOpersM2Attribute = new SyntaxElement('A',
+				"SeMAttribute", false, true, "SeMAttribute",
+				"infrasyntaxm2bigconcept", "Attributes for the meta-concept",
+				120, 120, "/com/variamos/gui/perspeditor/images/concept.png",
+				true, Color.BLUE.toString(), 3, null, true);
+
+		infraOpersM2Attribute.addModelingAttribute("Name", new ElemAttribute(
+				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
+				"", "InstAttribute", 0, 1, "", "", 1, "", ""));
+
+		infraOpersM2Attribute
+				.addModelingAttribute("type", "String", false, "Type", "", "",
+						0, 2, "", "", 2, "#" + "type" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("attributeType", "String",
+				false, "Attribute Type", "", "", 0, 3, "", "", -1, "#"
+						+ "attributeType" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("affectProps", "Boolean",
+				false, "Affect Properties", "", "", 0, 4, "", "", -1, "#"
+						+ "affectProps" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("dispName", "String", false,
+				"Display Name", "", "", 0, 5, "", "", -1, "#" + "dispName"
+						+ "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("toolTipText", "String",
+				false, "Tool Tip Text", "", "", 0, -1, "", "", -1, "#"
+						+ "toolTipText" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("classCanName", "String",
+				false, "Enumeration Type", "", "", 0, 7, "", "", -1, "#"
+						+ "classCanName" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("metaCInstType", "String",
+				false, "Instance Type", "", "", 0, 8, "", "", -1, "#"
+						+ "metaCInstType" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("defaultValue", "String",
+				false, "Default Value", "", "", 0, 9, "", "", -1, "#"
+						+ "defaultValue" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("domain", "String", false,
+				"Domain", "", "", 0, 10, "", "", -1, "#" + "domain"
+						+ "#all#\n\n", "");
+		infraOpersM2Attribute.addModelingAttribute("hint", "String", false,
+				"Hint", "", "", 0, 11, "", "", -1, "#" + "hint" + "#all#\n\n",
+				"");
+
+		infraOpersM2Attribute.addModelingAttribute("propTabPosition",
+				"Integer", false, "Prop. Tab Position", "", "", 0, 12, "", "",
+				-1, "#" + "propTabPosition" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("elementDisplayPosition",
+				"Integer", false, "Element Disp. Position", "", "", 0, 13, "",
+				"", -1, "#" + "elementDisplayPosition" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("elementDisplaySpacers",
+				"String", false, "Element Disp. Spacers", "", "", 0, 14, "",
+				"", -1, "#" + "elementDisplaySpacers" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("propTabEditionCondition",
+				"String", false, "Prop. Tab Edition Cond.", "", "", 0, 15, "",
+				"", -1, "#" + "propTabEditionCondition" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("propTabVisualCondition",
+				"String", false, "Prop. Tab Visual Cond.", "", "", 0, 16, "",
+				"", -1, "#" + "propTabVisualCondition" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("elementDisplayCondition",
+				"String", false, "Graph Visual Cond.", "", "", 0, 17, "", "",
+				-1, "#" + "elementDisplayCondition" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("domFiltOwnFields",
+				"String", false, "Filter domain (Own Fields)", "", "", 0, 18,
+				"", "", -1, "#" + "domFiltOwnFields" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("domFilTRelFields",
+				"String", false, "Filter domain (Rel. Fields)", "", "", 0, 19,
+				"", "", -1, "#" + "domFilTRelFields" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("defDomValueField",
+				"String", false, "Def. Domain (Filter Field)", "", "", 0, 20,
+				"", "", -1, "#" + "defDomValueField" + "#all#\n\n", "");
+
+		InstConcept instInfraSyntaxOpersM2Attribute = new InstConcept(
+				"SeAttribute", basicOpersSyntaxM3Concept, infraOpersM2Attribute);
+		variabilityInstVertex.put("SeAttribute",
+				instInfraSyntaxOpersM2Attribute);
+
+		SyntaxElement infraSyntaxM2ConAtt = new SyntaxElement('P', "SeMConAtt",
+				false, true, "Normal Relation", "defaultAsso",
+				"Concept-Concept relation", 50, 50,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
+
+		constraintInstEdges.put("SeMConAtt", new InstPairwiseRel("SeMConAtt",
+				infraSyntaxM2ConAtt));
+
+		InstPairwiseRel instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("co-att", instEdge);
+		instEdge.setIdentifier("co-att");
+		instEdge.setEdSyntaxEle(infraSyntaxM2ConAtt);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2Attribute, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
+
 		SyntaxElement opersM2ComputationTypeEnum = new SyntaxElement('E',
 				"OpersComputationType", false, true, "OpersComputationType",
 				"infrasyntaxm2concept", "Enum", 120, 120,
@@ -1218,7 +1325,7 @@ public class InfraSyntaxOpersMMM {
 		variabilityInstVertex.put("OpersOperType", instOpersM2OperTypeEnum);
 
 		SyntaxElement opersM2DefectTypeEnum = new SyntaxElement('E',
-				"DisplayTypesEnum", false, true, "DispplayTypesEnum",
+				"OpersDefectType", false, true, "OpersDefectType",
 				"infrasyntaxm2concept", "Enum", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);

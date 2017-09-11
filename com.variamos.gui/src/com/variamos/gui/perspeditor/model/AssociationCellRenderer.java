@@ -10,11 +10,11 @@ import javax.swing.JTable;
 import javax.swing.ListCellRenderer;
 import javax.swing.tree.TreeModel;
 
-import com.cfm.productline.Variable;
+import com.variamos.dynsup.types.Variable;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.hlcl.BinaryDomain;
-import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.model.domains.BinaryDomain;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 /**
  * A class to render the icons of the tree for the Concepts expression
@@ -22,7 +22,7 @@ import com.variamos.hlcl.Domain;
  * from com.variamos.gui.pl.configuration.treetable.
  * ConfigurationVariableCellRenderer
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
  * @see com.variamos.gui.pl.configuration.treetable.ConfigurationVariableCellRenderer
@@ -76,7 +76,7 @@ public class AssociationCellRenderer extends TreeTableCellRenderer implements
 				return lbl;
 			}
 
-			Domain domain = var.getDomain();
+			IntDomain domain = var.getDomain();
 			if (domain == null)
 				return lbl;
 

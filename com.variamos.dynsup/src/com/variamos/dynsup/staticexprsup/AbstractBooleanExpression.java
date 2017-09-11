@@ -3,16 +3,16 @@ package com.variamos.dynsup.staticexprsup;
 import java.util.Map;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
 
 /**
  * Abstract Class to group at the BooleanTransformation. Part of PhD
  * work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-15
@@ -43,13 +43,13 @@ public abstract class AbstractBooleanExpression extends
 
 	public AbstractBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
-			BooleanExpression booleanExpression) {
+			IntBooleanExpression booleanExpression) {
 		super(vertex, attributeName, replaceTarget, booleanExpression);
 	}
 	
 	public AbstractBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
-			NumericExpression numericExpression) {
+			IntNumericExpression numericExpression) {
 		super(vertex, attributeName, replaceTarget, numericExpression);
 	}
 
@@ -58,10 +58,10 @@ public abstract class AbstractBooleanExpression extends
 		super(left, leftAttributeName);
 	}
 
-	public abstract BooleanExpression transform(HlclFactory f,
+	public abstract IntBooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap);
 	
-	public abstract BooleanExpression transformNegation(HlclFactory f,
+	public abstract IntBooleanExpression transformNegation(HlclFactory f,
 			Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight);
 
 }

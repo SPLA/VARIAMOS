@@ -17,13 +17,13 @@ import com.variamos.dynsup.types.AttributeType;
  * A class to represented elements of the meta model. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-24
  */
 public class SyntaxElement implements Serializable {
-	// FIXME v1.1 RENAME to SySupElm
+
 	/**
 	 * 
 	 */
@@ -615,7 +615,7 @@ public class SyntaxElement implements Serializable {
 					elementDisplayPosition, elementDisplaySpacers,
 					elementDisplayCondition));
 	}
-
+	
 	public void removeModelingAttribute(String value) {
 		modelingAttributes.remove(value);
 	}
@@ -712,3 +712,4 @@ public class SyntaxElement implements Serializable {
 		return type;
 	}
 }
+

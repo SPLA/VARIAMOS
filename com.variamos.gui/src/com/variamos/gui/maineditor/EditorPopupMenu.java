@@ -109,3 +109,4 @@ public class EditorPopupMenu extends JPopupMenu {
 				new RecoverCloneAction()));
 	};
 }
+

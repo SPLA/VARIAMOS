@@ -3,7 +3,7 @@ package com.variamos.dynsup.defaultmodels;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.core.util.StringUtils;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -27,9 +27,9 @@ import com.variamos.dynsup.types.OpersOpType;
 import com.variamos.dynsup.types.OpersSubOpType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.dynsup.types.VariableType;
-import com.variamos.hlcl.LabelingOrder;
-import com.variamos.hlcl.RangeDomain;
-import com.variamos.hlcl.StringDomain;
+import com.variamos.hlcl.model.LabelingOrderEnum;
+import com.variamos.hlcl.model.domains.RangeDomain;
+import com.variamos.hlcl.model.domains.StringDomain;
 
 public class DefaultOpersMM {
 
@@ -742,7 +742,7 @@ public class DefaultOpersMM {
 			sortatt.add(new InstAttribute("enum1", new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
 					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
-					""), LabelingOrder.MIN));
+					""), LabelingOrderEnum.MIN));
 			// sortatt.add(new InstAttribute("enum2", new ElemAttribute(
 			// "EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
 			// false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
@@ -1195,7 +1195,7 @@ public class DefaultOpersMM {
 			sortatt.add(new InstAttribute("enum1", new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
 					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
-					""), LabelingOrder.MAX));
+					""), LabelingOrderEnum.MAX));
 
 			refas.getVariabilityVertex().put("SimSce-exec-lab2", instLabeling);
 

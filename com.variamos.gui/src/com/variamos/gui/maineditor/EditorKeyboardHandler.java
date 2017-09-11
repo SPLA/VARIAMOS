@@ -74,3 +74,4 @@ public class EditorKeyboardHandler extends mxKeyboardHandler
 	}
 
 }
+
