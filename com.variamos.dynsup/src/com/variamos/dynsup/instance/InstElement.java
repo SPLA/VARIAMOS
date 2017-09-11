@@ -436,7 +436,9 @@ public abstract class InstElement implements Serializable, Cloneable,
 						// FIXME V1.1 copy change to new version
 						if (!i.getType().equals("Class"))
 							v = ":" + i.getType();
-						if (i.getType().equals("Enumeration")) {
+						if ((i.getType().equals("Enumeration") || i.getType()
+								.equals("MetaEnumeration"))
+								&& i.getClassCanonicalName() != null) {
 							String classN = i.getClassCanonicalName()
 									.substring(
 											i.getClassCanonicalName()
