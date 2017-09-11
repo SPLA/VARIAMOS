@@ -281,27 +281,38 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										if (type.equals(ModelExpr.class
 												.getCanonicalName())) {
 											if (var.getValue() != null) {
-												ModelExpr instanceExpression = new ModelExpr(
-														true,
-														var.getIdentifier()
-																+ "Cond", true,
-														pos);
-												instanceExpression
-														.setSemanticExpressionType(refas
-																.getSemanticExpressionTypes()
-																.get("DoubleImplies"));
-												instanceExpression
-														.setLeftElement(instE);
-												instanceExpression
-														.setLeftAttributeName(var
-																.getIdentifier());
-												// System.out.println(att.getIdentifier());
-												instanceExpression
-														.setRightInstanceExpression((ModelExpr) var
-																.getValue());
-												instanceExpression
-														.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-												out.add(instanceExpression);
+												// FIXME v1.1 added to support
+												// Angela's constraints
+												if (var.getAttribute()
+														.getMetaConceptInstanceType()
+														.equals("ConstraintExpression")) {
+													// FIXME use an enumeration
+													// instead of the string
+													out.add((ModelExpr) var
+															.getValue());
+												} else {
+													ModelExpr instanceExpression = new ModelExpr(
+															true,
+															var.getIdentifier()
+																	+ "Cond", true,
+															pos);
+													instanceExpression
+															.setSemanticExpressionType(refas
+																	.getSemanticExpressionTypes()
+																	.get("DoubleImplies"));
+													instanceExpression
+															.setLeftElement(instE);
+													instanceExpression
+															.setLeftAttributeName(var
+																	.getIdentifier());
+													// System.out.println(att.getIdentifier());
+													instanceExpression
+															.setRightInstanceExpression((ModelExpr) var
+																	.getValue());
+													instanceExpression
+															.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+													out.add(instanceExpression);
+												}
 											} else {
 												ModelExpr instanceExpression = new ModelExpr(
 														true,

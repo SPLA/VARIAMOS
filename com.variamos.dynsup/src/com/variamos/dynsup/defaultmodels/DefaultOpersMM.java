@@ -9269,8 +9269,8 @@ public class DefaultOpersMM {
 						AttributeType.OPERATION, true, "Relation Type",
 						"Type of over-two relation from the selected"
 								+ " relation group", InstAttribute.class
-								.getCanonicalName(), null, null, 0, 6, "", "",
-						6, "#relationType#all#", ""));
+								.getCanonicalName(), null, null, null, 0, 6,
+						"", "", 6, "#relationType#all#", ""));
 		semInfraOTRel.addPropEditableAttribute("06#" + "relationType");
 		semInfraOTRel.addPropVisibleAttribute("06#" + "relationType");
 		// semInfraOTRel.addPanelVisibleAttribute("06#" + "relationType");
@@ -12905,7 +12905,8 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexFFGR, instVertexFFGR, t1, instVertexF, "LowRange");
+				instVertexFFGR, instVertexFFGR, t1, instVertexFFGR, "LowRange");
+		// FIXME v1.1 copy change to new version Luisa
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
@@ -12913,7 +12914,8 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexFFGR, instVertexFFGR, t2, instVertexF, "HighRange");
+				instVertexFFGR, instVertexFFGR, t2, instVertexFFGR, "HighRange");
+		// FIXME v1.1 copy change to new version Luisa
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
 				instVertexFFGR, t1, t2);

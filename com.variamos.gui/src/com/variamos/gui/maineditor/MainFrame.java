@@ -140,6 +140,12 @@ public class MainFrame extends JFrame {
 				// PerspectiveType.OPERATIONSINFRASTRUCTURE,
 				// metaExpressionTypes, InfraBasicSyntax, null);
 
+				// FIXME v1.1 add this comment to visualize the basic MMM
+				// TO View BasicMMM in Syntax Perspective DO NOT REMOVE
+				abstractModel = new InstanceModel(
+						PerspectiveType.INFRASTRUCTUREBASICSYNTAX,
+						metaExpressionTypes, InfraBasicSyntax, null);
+				
 				bgColor = new Color(255, 255, 245);
 				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b"
 						+ variamosBuild;

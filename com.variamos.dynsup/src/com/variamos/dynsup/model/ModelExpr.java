@@ -38,6 +38,7 @@ import com.variamos.hlcl.model.expressions.IntExpression;
  *
  */
 public class ModelExpr implements Serializable, Cloneable {
+	// FIXME v1.1 RENAME to ModelSupExpr
 	/**
 	 * 
 	 */

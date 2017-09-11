@@ -427,12 +427,15 @@ public abstract class InstElement implements Serializable, Cloneable,
 						&& !attributeName.equals("description")) {
 					ElemAttribute i = getEdSyntaxEle().getModelingAttribute(
 							attributeName, syntaxParents);
-					if (i == null)
+					if (i == null) {
 						i = getEdSyntaxEle()
 								.getSemanticAttribute(attributeName);
+					}
 					String v = "";
 					if (i != null) {
-						v = ":" + i.getType();
+						// FIXME V1.1 copy change to new version
+						if (!i.getType().equals("Class"))
+							v = ":" + i.getType();
 						if (i.getType().equals("Enumeration")) {
 							String classN = i.getClassCanonicalName()
 									.substring(
@@ -452,8 +455,22 @@ public abstract class InstElement implements Serializable, Cloneable,
 							}
 
 						}
+						// FIXME V1.1 copy change to new version
+						if (i.getType().equals("Class")) {
+							String classN = "";
+							if (i.getClassCanonicalName() != null) {
+								classN = i.getClassCanonicalName().substring(
+										i.getClassCanonicalName().lastIndexOf(
+												".") + 1,
+										i.getClassCanonicalName().length());
+								v += ":" + classN + "<"
+										+ i.getMetaConceptInstanceType() + ">";
+							}
 
+						}
 					}
+
+					
 					// System.out.println(attributeName);
 					if (attributeName.length() > 1)
 						out2 += attributeName.substring(0, 1).toLowerCase()
@@ -1099,10 +1116,13 @@ public abstract class InstElement implements Serializable, Cloneable,
 		List<InstElement> out = new ArrayList<InstElement>();
 		List<InstElement> rel = getTargetRelations();
 		for (InstElement element : rel) {
-			if (((InstPairwiseRel) element).getSupportMetaPairwiseRelIden() != null
-					&& ((InstPairwiseRel) element)
-							.getSupportMetaPairwiseRelIden().equals(
-									"ExtendsRelation")) {
+			// FIXME v1.1 include additional validation
+			if (element instanceof InstPairwiseRel
+								&& ((InstPairwiseRel) element)
+										.getSupportMetaPairwiseRelIden() != null
+								&& ((InstPairwiseRel) element)
+										.getSupportMetaPairwiseRelIden().equals(
+												"ExtendsRelation")) {
 				InstElement parent = element.getTargetRelations().get(0);
 				// parent.createInstAttributes(parents);
 				out.add(parent);
