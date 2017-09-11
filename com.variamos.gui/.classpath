@@ -3,9 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.reasoning"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.configurator"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.hlcl"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.solver"/>
 	<classpathentry kind="lib" path="lib/jgraphx.jar" sourcepath="O:/Dropbox/doctorado/VariaMos/jgraphx-3_5_1_2/jgraphx/src">
@@ -13,8 +10,8 @@
 			<attribute name="javadoc_location" value="file:/O:/Dropbox/doctorado/VariaMos/jgraphx-3_5_1_2/jgraphx/docs/api/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/com.variamos.reasoning/lib/SWIProlog/jpl723.jar"/>
-	<classpathentry kind="src" path="/com.variamos.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.dynsup"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.common"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.io"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

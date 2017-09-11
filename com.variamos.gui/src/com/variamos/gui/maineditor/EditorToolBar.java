@@ -280,3 +280,4 @@ public class EditorToolBar extends JToolBar
 		});
 	}
 }
+

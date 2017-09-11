@@ -71,11 +71,9 @@ import com.mxgraph.util.png.mxPngEncodeParam;
 import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.actions.FileTasks;
-import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.io.ConsoleTextArea;
-import com.variamos.io.SXFMWriter;
 
 /**
  *
@@ -667,11 +665,11 @@ public class EditorActions {
 								.createVmlDocument(graph, null, 1, null, null)
 								.getDocumentElement()), filename);
 					} else if (ext.equalsIgnoreCase("sxfm")) {
-						SXFMWriter writer = new SXFMWriter();
-						ProductLineGraph plGraph = (ProductLineGraph) graph;
-						mxUtils.writeFile(
-								writer.getSXFMContent(plGraph.getProductLine()),
-								filename);
+//						SXFMWriter writer = new SXFMWriter();
+//						ProductLineGraph plGraph = (ProductLineGraph) graph;
+//						mxUtils.writeFile(
+//								writer.getSXFMContent(plGraph.getProductLine()),
+//								filename);
 					} else if (ext.equalsIgnoreCase("html")) {
 						mxUtils.writeFile(mxXmlUtils.getXml(mxCellRenderer
 								.createHtmlDocument(graph, null, 1, null, null)
@@ -2059,3 +2057,4 @@ public class EditorActions {
 		}
 	}
 }
+

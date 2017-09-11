@@ -3,7 +3,7 @@ package com.variamos.dynsup.defaultmodels;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.core.util.StringUtils;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -27,9 +27,9 @@ import com.variamos.dynsup.types.OpersOpType;
 import com.variamos.dynsup.types.OpersSubOpType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.dynsup.types.VariableType;
-import com.variamos.hlcl.LabelingOrder;
-import com.variamos.hlcl.RangeDomain;
-import com.variamos.hlcl.StringDomain;
+import com.variamos.hlcl.model.LabelingOrderEnum;
+import com.variamos.hlcl.model.domains.RangeDomain;
+import com.variamos.hlcl.model.domains.StringDomain;
 
 public class DefaultOpersMM {
 
@@ -742,7 +742,7 @@ public class DefaultOpersMM {
 			sortatt.add(new InstAttribute("enum1", new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
 					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
-					""), LabelingOrder.MIN));
+					""), LabelingOrderEnum.MIN));
 			// sortatt.add(new InstAttribute("enum2", new ElemAttribute(
 			// "EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
 			// false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
@@ -1195,7 +1195,7 @@ public class DefaultOpersMM {
 			sortatt.add(new InstAttribute("enum1", new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
 					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
-					""), LabelingOrder.MAX));
+					""), LabelingOrderEnum.MAX));
 
 			refas.getVariabilityVertex().put("SimSce-exec-lab2", instLabeling);
 
@@ -9269,8 +9269,8 @@ public class DefaultOpersMM {
 						AttributeType.OPERATION, true, "Relation Type",
 						"Type of over-two relation from the selected"
 								+ " relation group", InstAttribute.class
-								.getCanonicalName(), null, null, 0, 6, "", "",
-						6, "#relationType#all#", ""));
+								.getCanonicalName(), null, null, null, 0, 6,
+						"", "", 6, "#relationType#all#", ""));
 		semInfraOTRel.addPropEditableAttribute("06#" + "relationType");
 		semInfraOTRel.addPropVisibleAttribute("06#" + "relationType");
 		// semInfraOTRel.addPanelVisibleAttribute("06#" + "relationType");
@@ -12905,7 +12905,8 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexFFGR, instVertexFFGR, t1, instVertexF, "LowRange");
+				instVertexFFGR, instVertexFFGR, t1, instVertexFFGR, "LowRange");
+		// FIXME v1.1 copy change to new version Luisa
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR,
@@ -12913,7 +12914,8 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexFFGR, instVertexFFGR, t2, instVertexF, "HighRange");
+				instVertexFFGR, instVertexFFGR, t2, instVertexFFGR, "HighRange");
+		// FIXME v1.1 copy change to new version Luisa
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("And"),
 				instVertexFFGR, t1, t2);

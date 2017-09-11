@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cfm.productline.Asset;
-import com.cfm.productline.Constraint;
-import com.cfm.productline.VariabilityElement;
 import com.variamos.dynsup.defaultmodels.DefaultOpersMM;
 import com.variamos.dynsup.defaultmodels.DefaultSyntaxMM;
 import com.variamos.dynsup.defaultmodels.InfraBasicSyntaxMMMM;
@@ -31,12 +28,13 @@ import com.variamos.dynsup.types.PerspectiveType;
  * to use the HLCL. Initially based on ProductLine class. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-10
  */
 public class InstanceModel {
+	// FIXME v1.1 RENAME to InstSupModel
 
 	private InstanceModel syntaxModel;
 	private InstanceModel operationalModel;
@@ -197,20 +195,6 @@ public class InstanceModel {
 
 	public Collection<InstPairwiseRel> getConstraintInstEdgesCollection() {
 		return constraintInstEdges.values();
-	}
-
-	@Deprecated
-	public Collection<Constraint> getConstraints() {
-		return null;
-	}
-
-	public void setConstraints(Map<String, Constraint> constraints) {
-
-	}
-
-	@Deprecated
-	public Collection<VariabilityElement> getVariabilityElements() {
-		return null;
 	}
 
 	public void putVariabilityInstVertex(InstElement element) {
@@ -400,16 +384,6 @@ public class InstanceModel {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Map<String, Asset> getAssets() {
-		// TODO support HLCL
-		return null;
-	}
-
-	public Constraint getConstraint(String consId) {
-		// TODO support HLCL
-		return null;
 	}
 
 	public InstElement getVertex(String vertexId) {

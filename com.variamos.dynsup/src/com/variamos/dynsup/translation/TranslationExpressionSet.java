@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
-import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersLabeling;
@@ -21,21 +22,21 @@ import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.Labeling;
-import com.variamos.hlcl.LabelingOrder;
-import com.variamos.hlcl.LiteralBooleanExpression;
-import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.Labeling;
+import com.variamos.hlcl.model.LabelingOrderEnum;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
+import com.variamos.hlcl.model.expressions.LiteralBooleanExpression;
 
 /**
  * A class to represent the Model Expressions (instance of the Meta-Expression).
  * Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-13
@@ -280,27 +281,38 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										if (type.equals(ModelExpr.class
 												.getCanonicalName())) {
 											if (var.getValue() != null) {
-												ModelExpr instanceExpression = new ModelExpr(
-														true,
-														var.getIdentifier()
-																+ "Cond", true,
-														pos);
-												instanceExpression
-														.setSemanticExpressionType(refas
-																.getSemanticExpressionTypes()
-																.get("DoubleImplies"));
-												instanceExpression
-														.setLeftElement(instE);
-												instanceExpression
-														.setLeftAttributeName(var
-																.getIdentifier());
-												// System.out.println(att.getIdentifier());
-												instanceExpression
-														.setRightInstanceExpression((ModelExpr) var
-																.getValue());
-												instanceExpression
-														.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-												out.add(instanceExpression);
+												// FIXME v1.1 added to support
+												// Angela's constraints
+												if (var.getAttribute()
+														.getMetaConceptInstanceType()
+														.equals("ConstraintExpression")) {
+													// FIXME use an enumeration
+													// instead of the string
+													out.add((ModelExpr) var
+															.getValue());
+												} else {
+													ModelExpr instanceExpression = new ModelExpr(
+															true,
+															var.getIdentifier()
+																	+ "Cond", true,
+															pos);
+													instanceExpression
+															.setSemanticExpressionType(refas
+																	.getSemanticExpressionTypes()
+																	.get("DoubleImplies"));
+													instanceExpression
+															.setLeftElement(instE);
+													instanceExpression
+															.setLeftAttributeName(var
+																	.getIdentifier());
+													// System.out.println(att.getIdentifier());
+													instanceExpression
+															.setRightInstanceExpression((ModelExpr) var
+																	.getValue());
+													instanceExpression
+															.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+													out.add(instanceExpression);
+												}
 											} else {
 												ModelExpr instanceExpression = new ModelExpr(
 														true,
@@ -446,7 +458,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 	public List<Labeling> getLabelings(InstanceModel refas, String subAction,
-			OpersSubOpExecType expressionType) {
+			OpersSubOpExecType expressionType) throws FunctionalException {
 
 		List<InstElement> operActions = refas.getOperationalModel()
 				.getVariabilityVertex("OpMOperation");
@@ -597,9 +609,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					@SuppressWarnings("unchecked")
 					ArrayList<InstAttribute> instattrs = (ArrayList<InstAttribute>) operLab
 							.getInstAttributeValue("sortorder");
-					List<LabelingOrder> laborder = new ArrayList<LabelingOrder>();
+					List<LabelingOrderEnum> laborder = new ArrayList<LabelingOrderEnum>();
 					for (InstAttribute att : instattrs) {
-						laborder.add((LabelingOrder) att.getValue());
+						laborder.add((LabelingOrderEnum) att.getValue());
 					}
 					List<OpersExpr> semExps = operLab.getEdOperEle()
 							.getSemanticExpressions();
@@ -607,7 +619,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					InstElement oper2 = refas.getElement("REFAS1");
 					List<ModelExpr> instexp = createElementInstanceExpressions(
 							oper2, semExps, true, 1);
-					List<NumericExpression> explist = getNumericExpressions(instexp);
+					List<IntNumericExpression> explist = getNumericExpressions(instexp);
 					int position = 0;
 					if (operLab.getInstAttributeValue("position") instanceof String)
 						position = Integer.parseInt((String) operLab
@@ -806,12 +818,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * Expression for textual representation
 	 * 
 	 * @return
+	 * @throws FunctionalException 
 	 */
-	public List<Expression> getHLCLExpressions(String column) {
-		List<Expression> out = new ArrayList<Expression>();
+	public List<IntExpression> getHLCLExpressions(String column) throws FunctionalException {
+		List<IntExpression> out = new ArrayList<IntExpression>();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			// idMap.putAll(expression.(hlclFactory));
-			Expression newExp = expression.createSGSExpression();
+			IntExpression newExp = expression.createSGSExpression();
 			if (newExp != null)
 				out.add(newExp);
 		}
@@ -819,10 +832,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 	// Dynamic call
-	public HlclProgram getHlCLProgramExpressions(String column) {
+	public HlclProgram getHlCLProgramExpressions(String column) throws FunctionalException {
 		HlclProgram prog = new HlclProgram();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
-			BooleanExpression newExp = (BooleanExpression) expression
+			IntBooleanExpression newExp = (IntBooleanExpression) expression
 					.createSGSExpression();
 			// System.out.println(expression.getSemanticExpression()
 			// .expressionStructure());
@@ -830,7 +843,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				prog.add(newExp);
 		}
 		for (ModelExpr expression : instanceLowExpr.get(column)) {
-			BooleanExpression newExp = (BooleanExpression) expression
+			IntBooleanExpression newExp = (IntBooleanExpression) expression
 					.createSGSExpression();
 
 			if (newExp != null)
@@ -839,12 +852,12 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return prog;
 	}
 
-	public List<NumericExpression> getNumericExpressions(
-			List<ModelExpr> instanceExpressions) {
-		List<NumericExpression> prog = new ArrayList<NumericExpression>();
+	public List<IntNumericExpression> getNumericExpressions(
+			List<ModelExpr> instanceExpressions) throws FunctionalException {
+		List<IntNumericExpression> prog = new ArrayList<IntNumericExpression>();
 		for (ModelExpr expression : instanceExpressions) {
 			// idMap.putAll(transformation.getIdentifiers(hlclFactory));
-			NumericExpression newExp = (NumericExpression) expression
+			IntNumericExpression newExp = (IntNumericExpression) expression
 					.createSGSExpression();
 			if (newExp != null)
 				prog.add(newExp);
@@ -862,3 +875,4 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 }
+

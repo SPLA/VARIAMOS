@@ -18,17 +18,18 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.core.enums.SolverEditorType;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.types.PerspectiveType;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.io.ConsoleTextArea;
-import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
+import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
+
 
 public class MainFrame extends JFrame {
 	public List<VariamosGraphEditor> getGraphEditors() {
@@ -139,6 +140,12 @@ public class MainFrame extends JFrame {
 				// PerspectiveType.OPERATIONSINFRASTRUCTURE,
 				// metaExpressionTypes, InfraBasicSyntax, null);
 
+				// FIXME v1.1 add this comment to visualize the basic MMM
+				// TO View BasicMMM in Syntax Perspective DO NOT REMOVE
+				abstractModel = new InstanceModel(
+						PerspectiveType.INFRASTRUCTUREBASICSYNTAX,
+						metaExpressionTypes, InfraBasicSyntax, null);
+				
 				bgColor = new Color(255, 255, 245);
 				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b"
 						+ variamosBuild;
@@ -214,8 +221,7 @@ public class MainFrame extends JFrame {
 		HlclFactory f = new HlclFactory();
 		HlclProgram model = new HlclProgram();
 		model.add(f.equals(f.number(1), f.number(1)));
-		DefectsVerifier verifier = new DefectsVerifier(model,
-				SolverEditorType.SWI_PROLOG);
+		IntDefectsVerifier verifier = new DefectsVerifier(model);
 		verifier.isVoid();
 	}
 
@@ -456,3 +462,4 @@ public class MainFrame extends JFrame {
 		return getFilesUrl();
 	}
 }
+

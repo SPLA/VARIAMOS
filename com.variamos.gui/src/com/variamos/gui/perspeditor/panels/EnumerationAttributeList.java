@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-import com.cfm.productline.type.IntegerType;
 import com.variamos.dynsup.instance.EnumerationSort;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
@@ -22,6 +21,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
+import com.variamos.dynsup.types.IntegerType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
@@ -31,7 +31,7 @@ import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonA
  * Initially copied from VariabilityAttributeList on pl.editor. Part of PhD work
  * at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-10
@@ -73,7 +73,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				SyntaxElement.VAR_METAENUMVALUE);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
-		o = element.getInstAttributes().get("other");
+		o = element.getInstAttributes().get("enumValues");
+		// FIXME v1.1 change other
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
 	}
@@ -140,9 +141,10 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				instAttributes = (Collection<InstAttribute>) element
 						.getInstAttributes()
 						.get(SyntaxElement.VAR_METAENUMVALUE).getValue();
-			if (element.getInstAttributes().get("other") != null)
+			if (element.getInstAttributes().get("enumValues") != null)
 				instAttributes = (Collection<InstAttribute>) element
-						.getInstAttributes().get("other").getValue();
+						.getInstAttributes().get("enumValues").getValue();
+			// FIXME v1.1 change other
 			int i = 1;
 			/*
 			 * while (notFound) { for (InstAttribute i : instAttributes) {
@@ -214,9 +216,10 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 					attributes = ((List<InstAttribute>) element
 							.getInstAttributes()
 							.get(SyntaxElement.VAR_METAENUMVALUE).getValue());
-				if (element.getInstAttributes().get("other") != null)
+				if (element.getInstAttributes().get("enumValues") != null)
 					attributes = ((List<InstAttribute>) element
-							.getInstAttributes().get("other").getValue());
+							.getInstAttributes().get("enumValues").getValue());
+				// FIXME v1.1 change other
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -283,3 +286,4 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	}
 
 }
+

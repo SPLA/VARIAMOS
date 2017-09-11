@@ -1,0 +1,5 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+archivesBaseName = 'com.variamos.common'
+version = '1.0-SNAPSHOT'
+

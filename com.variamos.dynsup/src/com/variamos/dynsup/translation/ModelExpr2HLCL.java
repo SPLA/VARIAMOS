@@ -12,16 +12,16 @@ import java.util.TreeMap;
 
 import javax.swing.ProgressMonitor;
 
-import org.jpl7.PrologException;
-
+import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.TechnicalException;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -35,25 +35,24 @@ import com.variamos.dynsup.staticexprsup.AbstractComparisonExpression;
 import com.variamos.dynsup.staticexprsup.AbstractExpression;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.Labeling;
-import com.variamos.hlcl.LabelingOrder;
-import com.variamos.hlcl.NumericExpression;
-import com.variamos.io.ConsoleTextArea;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
-import com.variamos.solver.SWIPrologSolver;
-import com.variamos.solver.Solver;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.Labeling;
+import com.variamos.hlcl.model.LabelingOrderEnum;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
+import com.variamos.solver.core.IntSolver;
+import com.variamos.solver.core.SWIPrologSolver;
+import com.variamos.solver.model.ConfigurationOptionsDTO;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * Class to create the Hlcl program. Part of PhD work at University of Paris 1
  * Renamed from Refas2HLCL
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-13
@@ -64,22 +63,24 @@ public class ModelExpr2HLCL {
 	private HlclProgram hlclProgram = new HlclProgram();
 	private InstanceModel refas;
 	private Map<String, Identifier> idMap = new HashMap<>();
-	private Configuration configuration = new Configuration();
-	private Solver swiSolver;
+	private SolverSolution configuration = new SolverSolution();
+	private IntSolver swiSolver;
 	private long lastExecutionTime;
 
 	public long getLastExecutionTime() {
 		return lastExecutionTime;
 	}
 
-	public Configuration getConfiguration() {
+	public SolverSolution getConfiguration() {
 		return configuration;
 	}
 
-	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1,
-			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3,
-			VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5, SIMUL_MAPE = 6;
-
+	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1;
+	// FIXME v1.1 copy change to new version Luisa
+	// Only for old static operations
+	public static final int DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2,
+			CORE_EXEC = 3, VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5, SIMUL_MAPE = 6;
+	
 	public ModelExpr2HLCL(InstanceModel refas) {
 		this.refas = refas;
 		// constraintGroups = new HashMap<String, ElementExpressionSet>();
@@ -87,11 +88,11 @@ public class ModelExpr2HLCL {
 	}
 
 	@Deprecated
-	public List<BooleanExpression> rootVerityTest() {
+	public List<IntBooleanExpression> rootVerityTest() {
 		// HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createModelExpressions(ModelExpr2HLCL.VAL_UPD_EXEC, constraintGroups);
-		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> modelExpressions = new ArrayList<IntBooleanExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
 				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
@@ -104,11 +105,11 @@ public class ModelExpr2HLCL {
 	}
 
 	// Static implementation
-	public List<BooleanExpression> verityTest(String element) {
+	public List<IntBooleanExpression> verityTest(String element) {
 		// HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createModelExpressions(ModelExpr2HLCL.VAL_UPD_EXEC, constraintGroups);
-		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> modelExpressions = new ArrayList<IntBooleanExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
 				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
@@ -121,7 +122,7 @@ public class ModelExpr2HLCL {
 	}
 
 	// Static implementation
-	public HlclProgram relaxedTest(String element) {
+	public HlclProgram relaxedTest(String element) throws FunctionalException {
 		HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createVertexExpressions(null, ModelExpr2HLCL.VAL_UPD_EXEC,
@@ -165,7 +166,7 @@ public class ModelExpr2HLCL {
 	}
 
 	// Static implementation
-	public HlclProgram compulsoryTest(String element) {
+	public HlclProgram compulsoryTest(String element) throws FunctionalException {
 		HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createVertexExpressions(null, 4, constraintGroups);
@@ -215,7 +216,7 @@ public class ModelExpr2HLCL {
 	}
 
 	@Deprecated
-	public HlclProgram rootRelaxedTest() {
+	public HlclProgram rootRelaxedTest() throws FunctionalException {
 		HlclProgram hlclProgram = new HlclProgram();
 
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
@@ -249,17 +250,18 @@ public class ModelExpr2HLCL {
 	/**
 	 * Create a new HlclProgram with the expression of all concepts and
 	 * relations and calls SWIProlog to return a solution or all solutions
+	 * @throws FunctionalException 
 	 */
 
 	// Static call without TranslationExpressionSet
-	public HlclProgram getHlclProgram(String element, int execType) {
+	public HlclProgram getHlclProgram(String element, int execType) throws FunctionalException {
 		return getHlclProgram(element, execType, null);
 	}
 
 	// Dynamic call with TranslationExpressionSet
 	public HlclProgram getHlclProgram(InstElement operation,
 			String subOperation, OpersSubOpExecType operExecType,
-			TranslationExpressionSet transExpSet) {
+			TranslationExpressionSet transExpSet) throws FunctionalException {
 		if (transExpSet == null)
 			transExpSet = new TranslationExpressionSet(refas, operation, null,
 					null);
@@ -296,7 +298,7 @@ public class ModelExpr2HLCL {
 
 	// Static call
 	public HlclProgram getHlclProgram(String element, int execType,
-			InstElement instElement) {
+			InstElement instElement) throws FunctionalException {
 		HlclProgram hlclProgram = new HlclProgram();
 
 		Map<String, ElementExpressionSet> constraintGroups;
@@ -328,9 +330,9 @@ public class ModelExpr2HLCL {
 	// Static and Dynamic calls
 	private void fillHlclProgram(String element, String subOperation,
 			OpersSubOpExecType operExecType, HlclProgram hlclProgram,
-			Map<String, ElementExpressionSet> constraintGroups) {
+			Map<String, ElementExpressionSet> constraintGroups) throws FunctionalException {
 		List<AbstractExpression> staticTransformations = new ArrayList<AbstractExpression>();
-		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> modelExpressions = new ArrayList<IntBooleanExpression>();
 
 		// Static call without TranslationExpressionSet
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
@@ -366,7 +368,7 @@ public class ModelExpr2HLCL {
 			}
 		}
 
-		for (BooleanExpression modelExpression : modelExpressions) {
+		for (IntBooleanExpression modelExpression : modelExpressions) {
 			hlclProgram.add(modelExpression);
 		}
 
@@ -408,7 +410,7 @@ public class ModelExpr2HLCL {
 		}
 	}
 
-	public NumericExpression getSumExpression(InstElement last,
+	public IntNumericExpression getSumExpression(InstElement last,
 			Iterator<InstElement> iterVertex, String attributeName) {
 		if (iterVertex.hasNext()) {
 			InstElement instVertex = iterVertex.next();
@@ -454,11 +456,11 @@ public class ModelExpr2HLCL {
 	// (general)
 	public int execute(ProgressMonitor progressMonitor, int solutions,
 			InstElement operation, InstElement suboper)
-			throws InterruptedException {
+			throws InterruptedException, FunctionalException {
 		lastExecutionTime = 0;
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
-			configuration = new Configuration();
+			configuration = new SolverSolution();
 			// FIXME: execute for all sub-operations exp types?
 
 			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
@@ -476,20 +478,19 @@ public class ModelExpr2HLCL {
 				if (progressMonitor != null && progressMonitor.isCanceled())
 					throw (new InterruptedException());
 				try {
-					ConfigurationOptions configurationOptions = new ConfigurationOptions();
+					ConfigurationOptionsDTO configurationOptions = new ConfigurationOptionsDTO();
 					// FIXME support types other than normal
 					configurationOptions.setLabelings(labelings);
 					configurationOptions.setOrder(true);
 
 					configurationOptions.setStartFromZero(true);
 
-					swiSolver.solve(new Configuration(), configurationOptions);
+					swiSolver.solve(new SolverSolution(), configurationOptions);
 
 					lastExecutionTime = swiSolver.getLastExecutionTime();
 				} catch (Exception ex) {
-					ConsoleTextArea.addText(ex.getStackTrace());
-					ConsoleTextArea.addText("No solution");
-					return -1;
+					//FIXME issue#230
+					throw new FunctionalException(FunctionalException.exceptionStacktraceToString(ex));
 				}
 			} else
 				return 1;
@@ -502,28 +503,25 @@ public class ModelExpr2HLCL {
 			if (configuration != null) {
 				try {
 					configuration = swiSolver.getSolution();
-				} catch (PrologException e) {
+				} catch (TechnicalException e) {
 
-					ConsoleTextArea
-							.addText("Prolog Exception" + e.getMessage());
-					ConsoleTextArea.addText(e.getStackTrace());
-					return -1;
+					//FIXME issue#230
+					throw new FunctionalException("Prolog Exception" + e.getMessage()+" "+ FunctionalException.exceptionStacktraceToString(e));
+				
 				}
 				lastExecutionTime += swiSolver.getLastExecutionTime();
 				if (configuration == null)
 					return -1;
 			}
 		} else
-			throw new RuntimeException("Solution parameter not supported");
-		// System.out.println("configuration: " + configuration.toString());
-
+			throw new FunctionalException("Solution parameter not supported");
 		return 0;
 	}
 
 	// Dynamic implementation to export
 	public Map<String, Map<String, Integer>> execExport(
 			ProgressMonitor progressMonitor, InstElement operation,
-			InstElement suboper) throws InterruptedException {
+			InstElement suboper) throws InterruptedException, FunctionalException {
 		int iter = 0;
 		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
 		elements = new HashMap<String, Map<String, Integer>>();
@@ -587,7 +585,7 @@ public class ModelExpr2HLCL {
 	// Dynamic implementation to export
 	public int execCount(ProgressMonitor progressMonitor,
 			InstElement operation, InstElement suboper)
-			throws InterruptedException {
+			throws InterruptedException, FunctionalException {
 		int iter = 0;
 		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
 		elements = new HashMap<String, Map<String, Integer>>();
@@ -614,11 +612,11 @@ public class ModelExpr2HLCL {
 	// static call implementation
 	// No longer needed when the dynamic implementation is completed
 	public boolean execute(ProgressMonitor progressMonitor, String element,
-			int solutions, int execType) throws InterruptedException {
+			int solutions, int execType) throws InterruptedException, FunctionalException {
 		lastExecutionTime = 0;
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
-			configuration = new Configuration();
+			configuration = new SolverSolution();
 
 			hlclProgram = getHlclProgram(element, execType);
 
@@ -634,7 +632,7 @@ public class ModelExpr2HLCL {
 			if (progressMonitor != null && progressMonitor.isCanceled())
 				throw (new InterruptedException());
 			try {
-				ConfigurationOptions configurationOptions = new ConfigurationOptions();
+				ConfigurationOptionsDTO configurationOptions = new ConfigurationOptionsDTO();
 				switch (execType) {
 				case ModelExpr2HLCL.SIMUL_EXEC:
 				case ModelExpr2HLCL.SIMUL_EXPORT:
@@ -643,10 +641,10 @@ public class ModelExpr2HLCL {
 
 				}
 				configurationOptions.setStartFromZero(true);
-				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
-				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
-				labelingOrderList.add(LabelingOrder.MIN);
-				labelingOrderList.add(LabelingOrder.MIN);
+				List<IntNumericExpression> orderExpressionList = new ArrayList<IntNumericExpression>();
+				List<LabelingOrderEnum> labelingOrderList = new ArrayList<LabelingOrderEnum>();
+				labelingOrderList.add(LabelingOrderEnum.MIN);
+				labelingOrderList.add(LabelingOrderEnum.MIN);
 				Iterator<InstElement> iterVertex = refas
 						.getVariabilityVertexCollection().iterator();
 				InstElement instVertex = iterVertex.next();
@@ -658,12 +656,12 @@ public class ModelExpr2HLCL {
 						iterVertex, "Opt"));
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
-				swiSolver.solve(new Configuration(), configurationOptions);
+				swiSolver.solve(new SolverSolution(), configurationOptions);
 				lastExecutionTime = swiSolver.getLastExecutionTime();
 			} catch (Exception e) {
-				ConsoleTextArea.addText(e.getStackTrace());
-				ConsoleTextArea.addText("No solution");
-				return false;
+				//FIXME issue#230
+				throw new FunctionalException("No solution" + e.getMessage()+" "+ FunctionalException.exceptionStacktraceToString(e));
+
 			}
 		}
 		if (progressMonitor != null && progressMonitor.isCanceled())
@@ -797,7 +795,7 @@ public class ModelExpr2HLCL {
 	}
 
 	public Map<String, Number> getResult() {
-		return configuration.getConfiguration();
+		return configuration.getSolverSolution();
 	}
 
 	/**
@@ -821,7 +819,7 @@ public class ModelExpr2HLCL {
 			InstElement instOperSubAction) {
 		if (configuration != null) {
 			Map<String, Number> prologOut;
-			prologOut = configuration.getConfiguration();
+			prologOut = configuration.getSolverSolution();
 			for (String identifier : prologOut.keySet()) {
 				String[] split = identifier.split("_");
 				String vertexId = split[0];
@@ -862,7 +860,7 @@ public class ModelExpr2HLCL {
 		if (configuration != null) {
 			Map<String, Number> prologOut;
 			if (config == null)
-				prologOut = configuration.getConfiguration();
+				prologOut = configuration.getSolverSolution();
 			else
 				prologOut = config;
 
@@ -1011,7 +1009,7 @@ public class ModelExpr2HLCL {
 		if (configuration != null) {
 			Map<String, Number> prologOut;
 			if (config == null)
-				prologOut = configuration.getConfiguration();
+				prologOut = configuration.getSolverSolution();
 			else
 				prologOut = config;
 
@@ -1229,7 +1227,7 @@ public class ModelExpr2HLCL {
 	}
 
 	public ElementExpressionSet getElementConstraintGroup(String identifier,
-			String concetType, int execType) {
+			String concetType, int execType) throws FunctionalException {
 
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 
@@ -1253,7 +1251,7 @@ public class ModelExpr2HLCL {
 	}
 
 	private void createVertexExpressions(String identifier, int execType,
-			Map<String, ElementExpressionSet> constraintGroups) {
+			Map<String, ElementExpressionSet> constraintGroups) throws FunctionalException {
 		if (identifier == null)
 			for (InstElement elm : refas.getConstraintVertexCollection()) {
 				// if (this.validateConceptType(elm, "GeneralConcept"))
@@ -1288,7 +1286,7 @@ public class ModelExpr2HLCL {
 	}
 
 	private void createGroupExpressions(String identifier, int execType,
-			String element, Map<String, ElementExpressionSet> constraintGroups) {
+			String element, Map<String, ElementExpressionSet> constraintGroups) throws FunctionalException{
 		createEdgeExpressions(null, execType, constraintGroups); // TODO define
 																	// a better
 																	// solution
@@ -1308,12 +1306,12 @@ public class ModelExpr2HLCL {
 	}
 
 	public String getElementTextConstraints(String identifier, String string,
-			int execType) {
+			int execType) throws FunctionalException {
 		String out = "";
 		ElementExpressionSet expressions = getElementConstraintGroup(
 				identifier, string, execType);
 		if (expressions != null)
-			for (Expression expression : expressions.getExpressions())
+			for (IntExpression expression : expressions.getExpressions())
 				out += expression.toString() + "\n";
 		return out;
 	}
@@ -1533,7 +1531,7 @@ public class ModelExpr2HLCL {
 	public HlclProgram configGraph(ProgressMonitor progressMonitor,
 			InstElement target, Set<InstElement> evaluatedSet,
 			Set<Identifier> freeIdentifiers, boolean calc)
-			throws InterruptedException {
+			throws InterruptedException, FunctionalException {
 		HlclProgram out = new HlclProgram();
 		if (progressMonitor.isCanceled())
 			throw (new InterruptedException());
@@ -1584,7 +1582,7 @@ public class ModelExpr2HLCL {
 
 	// Static implementation to export
 	public Map<String, Map<String, Integer>> execCompleteSimul(
-			ProgressMonitor progressMonitor) throws InterruptedException {
+			ProgressMonitor progressMonitor) throws InterruptedException, FunctionalException {
 		int iter = 0;
 		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
 		elements = new HashMap<String, Map<String, Integer>>();
@@ -1651,3 +1649,4 @@ public class ModelExpr2HLCL {
 
 	}
 }
+

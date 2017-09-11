@@ -25,8 +25,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import com.cfm.productline.AbstractElement;
 import com.mxgraph.util.mxResources;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
@@ -52,14 +52,13 @@ import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.hlcl.LabelingOrder;
+import com.variamos.hlcl.model.LabelingOrderEnum;
 
 /**
  * A class to draw the first property tab. Part of PhD work at University of
  * Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-02-28*
  */
@@ -476,7 +475,7 @@ public class ElementDesignPanel extends JPanel {
 																	.getIdentifier()
 																	.equals("errorMsg")) {
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -484,7 +483,7 @@ public class ElementDesignPanel extends JPanel {
 																						.getWidth() / 8));
 													} else
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -610,7 +609,7 @@ public class ElementDesignPanel extends JPanel {
 																	.getIdentifier()
 																	.equals("errorMsg")) {
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -618,7 +617,7 @@ public class ElementDesignPanel extends JPanel {
 																						.getWidth() / 8));
 													} else
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -646,7 +645,7 @@ public class ElementDesignPanel extends JPanel {
 											@Override
 											public void propertyChange(
 													PropertyChangeEvent evt) {
-												if (WidgetPL.PROPERTY_VALUE.equals(evt
+												if (WidgetR.PROPERTY_VALUE.equals(evt
 														.getPropertyName())) {
 													widget.getInstAttribute();
 													onVariableEdited(
@@ -666,7 +665,7 @@ public class ElementDesignPanel extends JPanel {
 											@Override
 											public void propertyChange(
 													PropertyChangeEvent evt) {
-												if (WidgetPL.PROPERTY_VALUE.equals(evt
+												if (WidgetR.PROPERTY_VALUE.equals(evt
 														.getPropertyName())) {
 													widget.getInstAttribute();
 													onVariableEdited(
@@ -816,14 +815,14 @@ public class ElementDesignPanel extends JPanel {
 													.getIdentifier().equals(
 															"errorMsg")) {
 										elementAttribute
-												.setValue(AbstractElement.multiLine(
+												.setValue(StringUtils.multiLine(
 														elementAttribute
 																.toString(),
 														(int) instCell
 																.getWidth() / 8));
 									} else
 										elementAttribute
-												.setValue(AbstractElement.multiLine(
+												.setValue(StringUtils.multiLine(
 														elementAttribute
 																.toString(),
 														100));
@@ -1130,7 +1129,7 @@ public class ElementDesignPanel extends JPanel {
 								.equals("OpMLabeling")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"sortorder",
-							LabelingOrder.class.getCanonicalName(), null);
+							LabelingOrderEnum.class.getCanonicalName(), null);
 
 					attPanel.add(new JLabel(mxResources.get("labelingSort")));
 					// attPanel.add(new JLabel(""));
@@ -1313,3 +1312,4 @@ public class ElementDesignPanel extends JPanel {
 
 	}
 }
+

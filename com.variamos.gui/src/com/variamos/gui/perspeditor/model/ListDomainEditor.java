@@ -15,16 +15,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
-import com.cfm.productline.Variable;
-import com.variamos.configurator.DomainAnnotation;
-import com.variamos.hlcl.Domain;
+import com.variamos.dynsup.types.Variable;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 /**
  * A class to support the domain list definition. Part of PhD work at University
  * of Paris 1. Initially copied from
  * com.variamos.gui.pl.configuration.treetable.ListDomainEditor
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
  * @see com.variamos.gui.pl.configuration.treetable.ListDomainEditor
@@ -151,7 +150,7 @@ public class ListDomainEditor extends JPanel {
 			remove(disabled);
 		}
 
-		Domain domain = var.getDomain();
+		IntDomain domain = var.getDomain();
 		List<String> values = domain.getPossibleStringValues();
 		List<String> disabledValues = new ArrayList<>();
 

@@ -6,15 +6,15 @@ import java.util.Map;
 
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.hlcl.Domain;
-import com.variamos.hlcl.StringDomain;
+import com.variamos.hlcl.model.domains.IntDomain;
+import com.variamos.hlcl.model.domains.StringDomain;
 
 /**
  * A class to represent semantic and syntax concepts attributes. The attributes
  * are dynamically loaded on modeling perspective. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-24
@@ -60,7 +60,7 @@ public class ElemAttribute implements Serializable {
 		this.defaultValue = defaultValue;
 	}
 
-	public void setDomain(Domain domain) {
+	public void setDomain(IntDomain domain) {
 		this.domain = domain;
 	}
 
@@ -108,7 +108,7 @@ public class ElemAttribute implements Serializable {
 	/**
 	 * Domain of the attribute (not tested)
 	 */
-	private Domain domain;
+	private IntDomain domain;
 	/**
 	 * Hint to display on the property tab (not currently implemented)
 	 */
@@ -375,7 +375,7 @@ public class ElemAttribute implements Serializable {
 
 	public ElemAttribute(String name, String type, AttributeType attributeType,
 			String displayName, String toolTipText, Object defaultValue,
-			boolean affectProperties, Domain domain, int defaultGroup,
+			boolean affectProperties, IntDomain domain, int defaultGroup,
 			int propTabPosition, String propTabEditionCondition,
 			String propTabVisualCondition, int elementDisplayPosition,
 			String elementDisplaySpacers, String elementDisplayCondition) {
@@ -589,7 +589,7 @@ public class ElemAttribute implements Serializable {
 
 	public ElemAttribute(String name, String type, AttributeType attributeType,
 			boolean affectProperties, String displayName, String toolTipText,
-			Object defaultValue, Domain domain, int defaultGroup,
+			Object defaultValue, IntDomain domain, int defaultGroup,
 			int propTabPosition, String propTabEditionCondition,
 			String propTabVisualCondition, int elementDisplayPosition,
 			String elementDisplaySpacers, String elementDisplayCondition) {
@@ -602,7 +602,7 @@ public class ElemAttribute implements Serializable {
 
 	public ElemAttribute(String name, String type, AttributeType attributeType,
 			boolean affectProperties, String displayName, String toolTipText,
-			Object defaultValue, Domain domain, int defaultGroup,
+			Object defaultValue, IntDomain domain, int defaultGroup,
 			int propTabPosition, String propTabEditionCondition,
 			String propTabVisualCondition, int elementDisplayPosition,
 			String elementDisplaySpacers, String elementDisplayCondition,
@@ -620,7 +620,7 @@ public class ElemAttribute implements Serializable {
 	public ElemAttribute(String name, String type, AttributeType attributeType,
 			boolean affectProperties, String displayName, String toolTipText,
 			String enumType, String metaConceptInstanceType,
-			Object defaultValue, Domain domain, String hint, int defaultGroup,
+			Object defaultValue, IntDomain domain, String hint, int defaultGroup,
 			int propTabPosition, String propTabEditionCondition,
 			String propTabVisualCondition, int elementDisplayPosition,
 			String elementDisplaySpacers, String elementDisplayCondition) {
@@ -734,7 +734,7 @@ public class ElemAttribute implements Serializable {
 	public ElemAttribute(String name, String type, AttributeType attributeType,
 			boolean affectProperties, String displayName, String toolTipText,
 			String enumType, String metaConceptInstanceType,
-			Object defaultValue, Domain domain, String hint, int defaultGroup,
+			Object defaultValue, IntDomain domain, String hint, int defaultGroup,
 			int propTabPosition, String propTabEditionCondition,
 			String propTabVisualCondition, int elementDisplayPosition,
 			String elementDisplaySpacers, String elementDisplayCondition,
@@ -900,7 +900,7 @@ public class ElemAttribute implements Serializable {
 		return metaConceptInstanceType;
 	}
 
-	public Domain getDomain() {
+	public IntDomain getDomain() {
 		return domain;
 	}
 
