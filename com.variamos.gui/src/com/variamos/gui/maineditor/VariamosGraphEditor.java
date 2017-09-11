@@ -1,10 +1,10 @@
 package com.variamos.gui.maineditor;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.ItemSelectable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +12,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,75 +34,76 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
+import javax.swing.ProgressMonitor;
 import javax.swing.SpringLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.cfm.common.AbstractModel;
 import com.cfm.productline.AbstractElement;
-import com.cfm.productline.Editable;
-import com.cfm.productline.ProductLine;
-import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.shape.mxStencilShape;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.dynsup.model.OpersExpr;
+import com.variamos.dynsup.model.OpersSubOperationExpType;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.staticexpr.ElementExpressionSet;
+import com.variamos.dynsup.translation.ModelExpr2HLCL;
+import com.variamos.dynsup.translation.SolverOpersTask;
+import com.variamos.dynsup.translation.SolverTasks;
+import com.variamos.dynsup.types.AttributeType;
+import com.variamos.dynsup.types.DomainRegister;
+import com.variamos.dynsup.types.PerspectiveType;
+import com.variamos.gui.perspeditor.PerspEditorFunctions;
+import com.variamos.gui.perspeditor.PerspEditorGraph;
+import com.variamos.gui.perspeditor.PerspEditorToolBar;
+import com.variamos.gui.perspeditor.SpringUtilities;
+import com.variamos.gui.perspeditor.actions.FileTasks;
+import com.variamos.gui.perspeditor.actions.SharedActions;
+import com.variamos.gui.perspeditor.panels.ElementDesignPanel;
+import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationDialog;
+import com.variamos.gui.perspeditor.panels.ExternalContextDialog;
+import com.variamos.gui.perspeditor.panels.StaticExpressionsPanel;
+import com.variamos.gui.perspeditor.panels.VariamosDashBoardFrame;
+import com.variamos.gui.perspeditor.widgets.MClassWidget;
+import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
+import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
+import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
-import com.variamos.gui.pl.editor.PLEditorToolBar;
-import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
-import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.gui.pl.editor.SpringUtilities;
-import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.gui.refas.editor.ModelButtonAction;
-import com.variamos.gui.refas.editor.RefasEditorToolBar;
-import com.variamos.gui.refas.editor.RefasGraph;
-import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
-import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.gui.refas.editor.panels.ElementDesignPanel;
-import com.variamos.gui.refas.editor.panels.RefasExpressionPanel;
-import com.variamos.gui.refas.editor.widgets.MClassWidget;
-import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
-import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
-import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
-import com.variamos.refas.core.types.PerspectiveType;
-import com.variamos.syntaxsupport.metamodel.EditableElement;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
-import com.variamos.syntaxsupport.metamodel.InstView;
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaView;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationConfigAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.type.DomainRegister;
-
-import fm.FeatureModelException;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.io.ConsoleTextArea;
+import com.variamos.solver.Configuration;
 
 /**
- * @author jcmunoz
- *
+ * A class to represented the editor for each perspective. Part of PhD work at
+ * University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.0
+ * @since 2014 *
  */
-/**
- * @author jcmunoz
- *
- */
+
 @SuppressWarnings("serial")
-public class VariamosGraphEditor extends BasicGraphEditor {
+public class VariamosGraphEditor extends BasicGraphEditor implements
+		PropertyChangeListener {
 
 	static {
 		try {
@@ -113,35 +116,73 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private int modelSubViewIndex = 0;
 	private List<String> validElements = null;
 
-	private List<MetaView> metaViews = null;
-
-	protected DomainRegister domainRegister = new DomainRegister();
+	protected DomainRegister domasinRegister = new DomainRegister();
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
-
-	protected RefasExpressionPanel expressions;
-	protected JTextArea messagesArea;
-	protected JTextArea expressionsArea;
+	private InstanceModel refasModel;
+	private ProgressMonitor progressMonitor;
+	private SolverTasks task;
+	private SolverOpersTask semTask;
+	protected StaticExpressionsPanel expressions;
+	protected JTextArea consoleTextArea;
 	private ElementDesignPanel elementDesignPanel;
 	protected JPanel elementConfigPropPanel;
 	protected JPanel elementExpressionPanel;
 	protected JPanel elementSimPropPanel;
-	protected PerspectiveToolBar perspectiveToolBar;
+	protected JPanel perspectiveToolBarPanel;
 	// Bottom tabs
 	protected JTabbedPane extensionTabs;
-	protected static SemanticPlusSyntax sematicSyntaxObject;
 
 	protected int mode = 0;
 	private int tabIndex = 0, lastTabIndex = 0;
-	private Refas2Hlcl refas2hlcl;
+	private ModelExpr2HLCL refas2hlcl;
 	private VariamosGraphEditor modelEditor;
-	private EditableElement lastEditableElement;
+	private InstCell lastEditableElement;
 	private boolean recursiveCall = false;
 	private boolean updateExpressions = true;
 	private String editableElementType = null;
 
-	public Refas2Hlcl getRefas2hlcl() {
+	private String lastSolverInvocations = "";
+	private Configuration lastConfiguration;
+
+	private List<String> defects = new ArrayList<String>();
+
+	private HlclProgram configHlclProgram;
+
+	private boolean invalidConfigHlclProgram = true;
+
+	private boolean updateTabs = false;
+
+	private ExternalContextDialog ecd = new ExternalContextDialog(this);
+
+	private ElementsOperationAssociationDialog eoad;
+
+	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
+			getEditedModel());
+
+	private FileTasks fileTask;
+
+	public void updateDashBoard(boolean showDashboard, boolean updateConcepts,
+			boolean updated) {
+		dashBoardFrame.updateDashBoard(refasModel, showDashboard,
+				updateConcepts, updated);
+
+	}
+
+	public void showNames(boolean showNames) {
+		dashBoardFrame.setShowNames(showNames);
+	}
+
+	public void showDashBoard(boolean visible) {
+		dashBoardFrame.showDashBoard(visible);
+	}
+
+	public void hideDashBoard() {
+		dashBoardFrame.hideDashBoard();
+	}
+
+	public ModelExpr2HLCL getRefas2hlcl() {
 		return refas2hlcl;
 	}
 
@@ -149,220 +190,194 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return this;
 	}
 
-	public VariamosGraphEditor(String appTitle,
+	public VariamosGraphEditor(MainFrame frame, String perspTitle,
 			VariamosGraphComponent component, int perspective,
-			AbstractModel abstractModel) {
-		super(appTitle, component, perspective);
+			InstanceModel abstractModel) {
+		super(frame, perspTitle, component, perspective);
 
-		metaViews = sematicSyntaxObject.getMetaViews();
-		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
-		
+		// Default defects validation
+		defects.add("Root");
+		defects.add("Parent");
+		defects.add("FalseOpt");
+		defects.add("Dead");
+
+		refasModel = abstractModel;
+		refas2hlcl = new ModelExpr2HLCL(refasModel);
 		configurator.setRefas2hlcl(refas2hlcl);
-		
+
 		registerEvents();
-		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
-		if (perspective == 0) {
-			setPerspective(0);
-			graphEditorFunctions = new PLGraphEditorFunctions(this);
-			graphEditorFunctions.updateEditor(validElements,
-					getGraphComponent(), modelViewIndex);
-		}
-		mxCell root = new mxCell();
-		root.insert(new mxCell());
-		RefasGraph refasGraph = (RefasGraph) component.getGraph();
-		refasGraph.getModel().setRoot(root);
-		for (int i = 0; i < metaViews.size(); i++) {
-			mxCell parent = new mxCell("mv" + i);
-			refasGraph.addCell(parent);
-			MetaView metaView = metaViews.get(i);
-			JPanel tabPane = new JPanel();
-			if (metaView.getChildViews().size() > 0) {
-				modelsTabPane.add(metaView.getName(), tabPane);
-				refasGraph.addCell(new mxCell("mv" + i), parent);
-				// Add the parent as first child
-				for (int j = 0; j < metaView.getChildViews().size(); j++) {
-					refasGraph.addCell(new mxCell("mv" + i + "-" + j), parent);
-					MetaView metaChildView = metaView.getChildViews().get(j);
-					JButton a = new JButton(metaChildView.getName());
-					tabPane.add(a);
-					a.addActionListener(new ModelButtonAction());
-				}
-				// TODO include recursive calls if more view levels are required
-			} else {
-				modelsTabPane.add(metaView.getName(), tabPane);
-			}
-			final EditorPalette palette = new EditorPalette();
-			palette.setName("ee");
-			final JScrollPane scrollPane = new JScrollPane(palette);
-			scrollPane
-					.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			scrollPane
-					.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-			modelsTabPane.addChangeListener(new ChangeListener() {
-				public void stateChanged(ChangeEvent e) {
-					List<MetaView> metaViews = sematicSyntaxObject
-							.getMetaViews();
-					VariamosGraphEditor editor = getEditor();
-					((MainFrame) editor.getFrame()).waitingCursor(true);
-					int modelInd = getModelViewIndex();
-					for (int i = 0; i < metaViews.size(); i++) {
-						if (modelInd != i
-								&& modelsTabPane.getTitleAt(
-										modelsTabPane.getSelectedIndex())
-										.equals(metaViews.get(i).getName())) {
+		// List<InstView> instViews =
+		// refasModel.getSyntaxRefas().getInstViews();
 
-							if (metaViews.get(i).getChildViews().size() > 0) {
-								// if (false) //TODO validate the name of the
-								// button with the tab, if true, identify the
-								// subview
-								// editor.setVisibleModel(i ,0);
-								// else
-								editor.setVisibleModel(i, 0);
-								editor.updateView();
-								center.setDividerLocation(60);
-								center.setMaximumSize(center.getSize());
-								center.setMinimumSize(center.getSize());
-								center.setResizeWeight(0);
-							} else {
-								editor.setVisibleModel(i, -1);
-								editor.updateView();
-								center.setDividerLocation(25);
-								center.setMaximumSize(center.getSize());
-								center.setMinimumSize(center.getSize());
-								center.setPreferredSize(center.getSize());
-							}
-						}
-					}
-					((MainFrame) editor.getFrame()).waitingCursor(false);
-				}
-			});
-		}
-		setModified(false);
-	}
-
-	public VariamosGraphEditor(MainFrame frame,
-			VariamosGraphComponent component, int perspective,
-			AbstractModel abstractModel) {
-		super(frame, "", component, perspective);
-
-		metaViews = new ArrayList<MetaView>();
-		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
-		
-		configurator.setRefas2hlcl(refas2hlcl);
-		
-		
-		registerEvents();
-		Collection<InstView> instViews = ((Refas) abstractModel)
-				.getSyntaxRefas().getInstViews();
-		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
-		graphEditorFunctions = new RefasGraphEditorFunctions(this);
-		RefasGraph refasGraph = (RefasGraph) component.getGraph();
+		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
+				.getGraph());
+		refasGraph.setValidation(false);
+		refasGraph.setModelInstance(abstractModel);
+		refasGraph.setValidation(true);
+		graphEditorFunctions = new PerspEditorFunctions(this);
+		// RefasGraph refasGraph = (RefasGraph) component.getGraph();
 
 		this.graphLayout("organicLayout", false);
 		this.getGraphComponent().zoomAndCenter();
-		if (instViews.size() == 0) {
-			center.setDividerLocation(0);
-			upperPart.setDividerLocation(0);
-			graphAndRight.setDividerLocation(700);
-			setVisibleModel(-1, -1);
+		defineViewTabs();
+		refasGraph.runOrganicLayout();
+	}
 
-			updateView();
-		} else {
-			int i = 0;
-			for (InstView instView : instViews) {
-				mxCell parent = new mxCell("mv" + i);
-				refasGraph.addCell(parent);
-				MetaView metaView = (MetaView) instView
-						.getEditableMetaElement();
-				metaViews.add(metaView);
-				JPanel tabPane = new JPanel();
-				if (metaView.getChildViews().size() > 0) {
-					modelsTabPane.add(metaView.getName(), tabPane);
-					refasGraph.addCell(new mxCell("mv" + i), parent);
-					// Add the parent as first child
-					for (int j = 0; j < metaView.getChildViews().size(); j++) {
-						refasGraph.addCell(new mxCell("mv" + i + "-" + j),
-								parent);
-						MetaView metaChildView = metaView.getChildViews()
-								.get(j);
-						JButton a = new JButton(metaChildView.getName());
-						tabPane.add(a);
-						a.addActionListener(new ModelButtonAction());
+	public void defineViewTabs() {
+		while (modelsTabPane.getTabCount() > 0)
+			modelsTabPane.removeTabAt(0);
+		PerspEditorGraph perspEditorGraph = ((PerspEditorGraph) graphComponent
+				.getGraph());
+		perspEditorGraph.loadStyles();
+		perspEditorGraph.loadStencil();
+		List<InstElement> instViews = null;
+		if (refasModel.getSyntaxModel() != null)
+			instViews = refasModel.getSyntaxModel().getVariabilityVertex(
+					"SyMView");
+		if (instViews != null)
+			if (instViews.size() == 0) {
+				center.setDividerLocation(0);
+				upperPart.setDividerLocation(0);
+				graphAndRight.setDividerLocation(700);
+				setVisibleModel(-1, -1);
+				updateView();
+			} else {
+				int i = 0;
+				mxCell root = (mxCell) perspEditorGraph.getModel().getRoot();
+				mxCell parent = (mxCell) root.getChildAt(0);
+				for (InstElement instElement : instViews) {
+
+					if (instElement.getSupInstEleId().equals("SyMView")) {
+						if (instElement.getInstAttribute("Visible")
+								.getAsBoolean() == false)
+							continue;
+						if (parent.getChildCount() <= i
+								&& parent.getId().equals("1")) {
+							mxCell child = new mxCell(new InstCell(null, null,
+									false));
+							child.setId("mv" + i);
+							perspEditorGraph.addCell(child, parent);
+						}
 					}
-					// TODO include recursive calls if more view levels are
-					// required
-				} else {
-					modelsTabPane.add(metaView.getName(), tabPane);
-					tabPane.setMaximumSize(new Dimension(0, 0));
+					i++;
+					// TODO: Modify to work with relations. No more instView
+					// concepts
+					// if (instElement instanceof InstView) {
+					// InstView instView = (InstView) instElement;
+					// if (instView.getChildViews().size() > 0) {
+					// modelsTabPane.add(instView.getEdSyntaxEle()
+					// .getName(), tabPane);
+					//
+					// // mxCell child = new mxCell(new InstCell(null,
+					// // false));
+					// // child.setId("mv" + i);
+					// // refasGraph.addCell(child, parent);
+					// // Add the parent as first child
+					// for (int j = 0; j < instView.getChildViews().size(); j++)
+					// {
+					// // mxCell child2 = new mxCell(new InstCell(null,
+					// // false));
+					// // child2.setId("mv" + i + "-" + j);
+					// // refasGraph.addCell(child2,
+					// // parent);
+					// InstView instChildView = instView
+					// .getChildViews().get(j);
+					// JButton a = new JButton(instChildView
+					// .getEdSyntaxEle().getName());
+					// tabPane.add(a);
+					// a.addActionListener(new ModelButtonAction());
+					// }
+					// // TODO include recursive calls if more view levels
+					// // are
+					// // required
+					// }
+					// }
+					// else {
+					modelsTabPane.add(instElement.getEdSyntaxEle().getName(),
+							null);
+					modelsTabPane.setMaximumSize(new Dimension(10, 22));
+					modelsTabPane.setPreferredSize(new Dimension(10, 22));
+					modelsTabPane.setMinimumSize(new Dimension(10, 22));
 
-				}
-				final EditorPalette palette = new EditorPalette();
-				palette.setName("ee");
-				final JScrollPane scrollPane = new JScrollPane(palette);
-				scrollPane
-						.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-				scrollPane
-						.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-				modelsTabPane.addChangeListener(new ChangeListener() {
-					public void stateChanged(ChangeEvent e) {
-						// System.out.println("Tab: "
-						// + modelsTabPane.getTitleAt(modelsTabPane
-						// .getSelectedIndex()));
-						List<MetaView> metaViews = sematicSyntaxObject
-								.getMetaViews();
-						VariamosGraphEditor editor = getEditor();
-						((MainFrame) editor.getFrame()).waitingCursor(true);
-						int modelInd = getModelViewIndex();
-						for (int i = 0; i < metaViews.size(); i++) {
-							if (modelInd != i
-									&& modelsTabPane.getTitleAt(
-											modelsTabPane.getSelectedIndex())
-											.equals(metaViews.get(i).getName())) {
+					// }
+					final EditorPalette palette = new EditorPalette();
+					palette.setName("ee");
+					final JScrollPane scrollPane = new JScrollPane(palette);
 
-								if (metaViews.get(i).getChildViews().size() > 0) {
-									// if (false) //TODO validate the name of
-									// the
-									// button with the tab, if true, identify
-									// the
-									// subview
-									// editor.setVisibleModel(i ,0);
-									// else
-									editor.setVisibleModel(i, 0);
-									editor.updateView();
-									center.setDividerLocation(60);
-									center.setMaximumSize(center.getSize());
-									center.setMinimumSize(center.getSize());
-									center.setResizeWeight(0);
-								} else {
+					scrollPane
+							.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+					scrollPane
+							.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+					modelsTabPane.addChangeListener(new ChangeListener() {
+						@Override
+						public void stateChanged(ChangeEvent e) {
+							// System.out.println("Tab: "
+							// + modelsTabPane.getTitleAt(modelsTabPane
+							// .getSelectedIndex()));
+
+							// TODO change to RefasModel
+							List<InstElement> finalInstViews = refasModel
+									.getSyntaxModel().getVariabilityVertex(
+											"SyMView");
+							VariamosGraphEditor editor = getEditor();
+							((MainFrame) editor.getFrame()).waitingCursor(true);
+							int modelInd = getModelViewIndex();
+							for (int i = 0; i < finalInstViews.size(); i++) {
+								if (finalInstViews.get(i)
+										.getInstAttribute("Visible")
+										.getAsBoolean() == false)
+									continue;
+								if (modelInd != i
+										&& modelsTabPane.getSelectedIndex() != -1
+										&& modelsTabPane.getTitleAt(
+												modelsTabPane
+														.getSelectedIndex())
+												.equals(finalInstViews.get(i)
+														.getEdSyntaxEle()
+														.getName())) {
+									/*
+									 * if (finalInstViews.get(i) instanceof
+									 * InstView) { if (((InstView)
+									 * finalInstViews.get(i))
+									 * .getChildViews().size() > 0) { // if
+									 * (false) //TODO validate the // name // of
+									 * // the // button with the tab, if true,
+									 * // identify // the // subview //
+									 * editor.setVisibleModel(i ,0); // else
+									 * editor.setVisibleModel(i, 0);
+									 * editor.updateView();
+									 * center.setDividerLocation(60);
+									 * center.setMaximumSize(center .getSize());
+									 * center.setMinimumSize(center .getSize());
+									 * center.setResizeWeight(0); } } else {
+									 */
 									editor.setVisibleModel(i, -1);
 									editor.updateView();
 									center.setDividerLocation(25);
 									center.setMaximumSize(center.getSize());
-									center.setMinimumSize(center.getSize());
+									// center.setMinimumSize(center.getSize());
 									center.setPreferredSize(center.getSize());
+									center.setResizeWeight(0);
+									// }
 								}
 							}
+							((MainFrame) editor.getFrame())
+									.waitingCursor(false);
 						}
-						((MainFrame) editor.getFrame()).waitingCursor(false);
-					}
-				});
-				i++;
+					});
+				}
+				center.setDividerLocation(25);
+				upperPart.setDividerLocation(0);
+				if (refasModel.getPerspectiveType().equals(
+						PerspectiveType.CONFIG_SIMULATION))
+					graphAndRight.setDividerLocation(1100);
+				else
+					graphAndRight.setDividerLocation(700);
+
+				setVisibleModel(0, -1);
+				updateView();
+				this.setModified(false);
 			}
-			center.setDividerLocation(25);
-			upperPart.setDividerLocation(0);
-			if (((Refas) abstractModel).getPerspectiveType().equals(
-					PerspectiveType.simulation))
-				graphAndRight.setDividerLocation(1100);
-			else
-				graphAndRight.setDividerLocation(700);
-
-			setVisibleModel(0, -1);
-			updateView();
-		}
-	}
-
-	public SemanticPlusSyntax getSematicSintaxObject() {
-		return sematicSyntaxObject;
 	}
 
 	public AbstractGraphEditorFunctions getGraphEditorFunctions() {
@@ -377,24 +392,42 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return modelViewIndex;
 	}
 
-	public int getModelSubViewIndex() {
-		return modelSubViewIndex;
+	public void setAdvancedPerspective(boolean advancedPerspective) {
+		getMainFrame().setAdvancedPerspective(advancedPerspective);
+		this.installToolBar(getMainFrame(), perspective);
 	}
 
-	public List<MetaView> getMetaViews() {
-		return metaViews;
+	public void setShowSimulationCustomizationBox(
+			boolean showSimulationCustomizationBox) {
+		getMainFrame().setShowSimulationCustomizationBox(
+				showSimulationCustomizationBox);
+
+	}
+
+	public boolean isShowSimulationCustomizationBox() {
+		return getMainFrame().isShowSimulationCustomizationBox();
+	}
+
+	public int getModelSubViewIndex() {
+		return modelSubViewIndex;
 	}
 
 	public void setVisibleModel(int modelIndex, int modelSubIndex) {
 		// System.out.println(modelIndex + " " + modelSubIndex);
 		modelViewIndex = modelIndex;
 		modelSubViewIndex = modelSubIndex;
-		RefasGraph mode = ((RefasGraph) getGraphComponent().getGraph());
-		validElements = mode
-				.getValidElements(modelViewIndex, modelSubViewIndex);
-		mode.setModelViewIndex(modelIndex);
-		mode.setModelViewSubIndex(modelSubIndex);
-		mode.showElements();
+		PerspEditorGraph refasGraph = ((PerspEditorGraph) getGraphComponent()
+				.getGraph());
+		if (perspective == 4)
+			validElements = null;
+		else
+			validElements = refasGraph.getValidElements(modelViewIndex,
+					modelSubViewIndex);
+		refasGraph.setModelViewIndex(modelIndex);
+		refasGraph.setModelViewSubIndex(modelSubIndex);
+		SharedActions.setVisibleViews(refasGraph.getModel(), false,
+				modelViewIndex, modelSubViewIndex);
+		refasGraph.refresh();
 
 		elementDesignPanel.repaint();
 		// elementDesPropPanel.repaint();
@@ -404,138 +437,29 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void updateEditor() {
+		validElements = ((PerspEditorGraph) getGraphComponent().getGraph())
+				.getValidElements(modelViewIndex, modelSubViewIndex);
+		dashBoardFrame = new VariamosDashBoardFrame(getEditedModel());
 		graphEditorFunctions.updateEditor(this.validElements,
 				getGraphComponent(), modelViewIndex);
-		perspectiveToolBar.updateButtons();
 	}
 
+	@Override
+	public void updateTitle() {
+		if (perspective == 4 && modelEditor != null)
+			currentFile = modelEditor.getCurrentFile();
+		super.updateTitle();
+
+	}
+
+	// When tab change or save/load file (resetEditor)
 	public void updateView() {
+		validElements = ((PerspEditorGraph) getGraphComponent().getGraph())
+				.getValidElements(modelViewIndex, modelSubViewIndex);
 		graphEditorFunctions.updateView(this.validElements,
 				getGraphComponent(), modelViewIndex);
-		// perspectiveToolBar.updateButtons();
-	}
-
-	/**
-	 * @param appTitle
-	 * @param component
-	 *            New constructor to load directly files and perspectives
-	 * @throws FeatureModelException
-	 */
-	public static VariamosGraphEditor loader(String appTitle, String file,
-			String perspective) throws FeatureModelException {
-		AbstractModel abstractModel = null;
-		sematicSyntaxObject = new SemanticPlusSyntax();
-
-		int persp = 0;
-		if (perspective.equals("ProductLine")) {
-			persp = 0;
-			if (file != null) {
-				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readFile(file);
-			} else
-
-				abstractModel = new ProductLine();
-			ProductLineGraph plGraph = new ProductLineGraph();
-			// plGraph.add
-			VariamosGraphEditor vge = new VariamosGraphEditor(
-					"Configurator - VariaMos", new VariamosGraphComponent(
-							plGraph, Color.WHITE), persp, abstractModel);
-			return vge;
-		} else if (perspective.equals("modeling")) {
-
-			System.out.println("Initializing modeling perspective...");
-			persp = 2;
-			RefasGraph refasGraph = null;
-			if (file != null) {
-				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new Refas(
-						PerspectiveType.modeling));
-				refasGraph = new RefasGraph(sematicSyntaxObject);
-			} else {
-				{
-					abstractModel = new Refas(PerspectiveType.modeling);
-					refasGraph = new RefasGraph(sematicSyntaxObject);
-
-				}
-
-				// ProductLineGraph plGraph2 = new ProductLineGraph();
-				VariamosGraphEditor vge2 = new VariamosGraphEditor(
-						"Configurator - VariaMos", new VariamosGraphComponent(
-								refasGraph, Color.WHITE), persp, abstractModel);
-				vge2.createFrame().setVisible(true);
-				vge2.setVisibleModel(0, -1);
-				vge2.setDefaultButton();
-				vge2.setPerspective(2);
-				vge2.setGraphEditorFunctions(new RefasGraphEditorFunctions(vge2));
-				vge2.updateEditor();
-
-				System.out.println("Modeling perspective initialized.");
-				return vge2;
-			}
-		} else if (perspective.equals("metamodeling")) {
-
-			System.out.println("Initializing meta-modeling perspective...");
-			// todo: change for metamodeling
-			persp = 3;
-			RefasGraph refasGraph = null;
-			if (file != null) {
-				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new Refas(
-						PerspectiveType.modeling));
-				refasGraph = new RefasGraph(sematicSyntaxObject);
-			} else {
-				{
-					abstractModel = new Refas(PerspectiveType.modeling);
-					refasGraph = new RefasGraph(sematicSyntaxObject);
-
-				}
-
-				// ProductLineGraph plGraph2 = new ProductLineGraph();
-				VariamosGraphEditor vge2 = new VariamosGraphEditor(
-						"Configurator - VariaMos", new VariamosGraphComponent(
-								refasGraph, Color.WHITE), persp, abstractModel);
-				vge2.createFrame().setVisible(true);
-				vge2.setVisibleModel(0, -1);
-				vge2.setPerspective(3);
-				vge2.setGraphEditorFunctions(new RefasGraphEditorFunctions(vge2));
-				vge2.updateEditor();
-				mxCell root = new mxCell();
-				root.insert(new mxCell());
-				refasGraph.getModel().setRoot(root);
-				System.out.println("Meta-Modeling perspective initialized.");
-				return vge2;
-			}
-		}
-		return null;
-	}
-
-	public static SemanticPlusSyntax getSematicSyntaxObject() {
-		return sematicSyntaxObject;
-	}
-
-	public static void setSematicSyntaxObject(
-			SemanticPlusSyntax sematicSyntaxObject) {
-		VariamosGraphEditor.sematicSyntaxObject = sematicSyntaxObject;
-	}
-
-	public void editModel(AbstractModel pl) {
-		// productLineIndex.reset();
-		AbstractGraph abstractGraph = null;
-
-		// todo: review other perspectives
-		if (perspective == 0 || perspective == 1)
-			abstractGraph = new ProductLineGraph();
-		if (perspective == 2 || perspective == 3 || perspective == 4)
-			abstractGraph = new RefasGraph(sematicSyntaxObject);
-		// abstractGraph = (AbstractGraph) getGraphComponent()
-		// .getGraph();
-		((VariamosGraphComponent) graphComponent).updateGraph(abstractGraph);
-		registerEvents();
-
-		abstractGraph.setModel(pl);
-
-		// productLineIndex.populate(pl);
-
+		this.setInvalidConfigHlclProgram(true);
+		this.updateTitle();
 	}
 
 	public void resetView() {
@@ -543,13 +467,19 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		mxGraph graph = getGraphComponent().getGraph();
 		// Check modified flag and display save dialog
 		mxCell root = new mxCell();
-		root.insert(new mxCell());
+		mxCell parent = new mxCell();
+		root.insert(parent);
+		InstAttribute att = new InstAttribute();
+		att.setInstAttributeAttribute("versionNumber",
+				MainFrame.getVariamosVersionNumber());
+		parent.setValue(att);
 		graph.getModel().setRoot(root);
-		if (perspective == 2) {
-			setGraphEditorFunctions(new RefasGraphEditorFunctions(this));
-
-			((RefasGraph) graph).defineInitialGraph();
-		}
+		refasModel.clear();
+		// if (perspective == 2) {
+		setGraphEditorFunctions(new PerspEditorFunctions(this));
+		((PerspEditorGraph) graph).defineInitialGraph();
+		System.out.println("");
+		// }
 		if (perspective % 2 != 0) {
 			this.graphLayout("organicLayout", true);
 			this.getGraphComponent().zoomAndCenter();
@@ -596,12 +526,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// editProperties(elm);
 				// // getGraphComponent().scrollCellToVisible(cell, true);
 				// }
-
-				if (cell.getValue() instanceof EditableElement) {
-					EditableElement elm = (EditableElement) cell.getValue();
-					editPropertiesRefas(elm);
-					// getGraphComponent().scrollCellToVisible(cell, true);
-				}
+				InstCell value = (InstCell) cell.getValue();
+				if (value != null)
+					// EditableElement elm = (EditableElement) value;
+					editPropertiesRefas(value);
+				// getGraphComponent().scrollCellToVisible(cell, true);
 			}
 		});
 	}
@@ -654,7 +583,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	@Override
 	protected Component getLeftComponent() {
 		productLineIndex = new GraphTree();
-		productLineIndex.bind((AbstractGraph) getGraphComponent().getGraph());
+		// productLineIndex.bind((AbstractGraph)
+		// getGraphComponent().getGraph());
 
 		JSplitPane inner = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				productLineIndex, null);
@@ -667,12 +597,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	@Override
-	public Component getExtensionsTab(final EditableElement elm) {
+	public Component getExtensionsTab() {
 		if (extensionTabs != null)
 			return extensionTabs;
 
-		messagesArea = new JTextArea("Output");
-		messagesArea.setEditable(false);
+		ConsoleTextArea.setTextArea(new JTextArea("Output"));
+		// ConsoleTextArea.setTextEditable(false);
 
 		// elementDesPropPanel = new JPanel();
 		// elementDesPropPanel.setLayout(new SpringLayout());
@@ -685,18 +615,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		elementExpressionPanel = new JPanel();
 		// elementExpressionPanel.setLayout(new SpringLayout());
 
-		expressionsArea = new JTextArea("Element Expressions");
-		expressionsArea.setEditable(false);
+		consoleTextArea = new JTextArea("Element Expressions");
+		// consoleTextArea.setEditable(false);
 		// elementExpressionPanel.add(expressionsArea);
 
 		elementSimPropPanel = new JPanel();
 		elementSimPropPanel.setLayout(new SpringLayout());
 
 		configurator = new ConfiguratorPanel();
-		
+
 		configuratorProperties = new ConfigurationPropertiesTab();
 
-		expressions = new RefasExpressionPanel(this, elm);
+		expressions = new StaticExpressionsPanel();
 
 		// if (getPerspective() == 2) {
 
@@ -704,15 +634,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		// Bottom panel : Properties, Messages and Configuration
 		extensionTabs = new JTabbedPane(JTabbedPane.TOP,
-				JTabbedPane.SCROLL_TAB_LAYOUT);		
+				JTabbedPane.SCROLL_TAB_LAYOUT);
 		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
-				messagesArea));
-		extensionTabs.addTab(mxResources.get("modelConfPropTab"),
-				configuratorProperties.getScrollPane());
+				ConsoleTextArea.getTextArea()));
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
+		extensionTabs.setMinimumSize(new Dimension(30, 100));
 		extensionTabs.addChangeListener(new ChangeListener() {
 
 			@Override
@@ -730,23 +659,44 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					}
 					String name = ((JTabbedPane) e.getSource())
 							.getTitleAt(tabIndex);
-					if (name.equals("Edit Expressions")
-							&& editableElementType != null && perspective == 2
+					if (name.equals("Element Expressions (Visual)")
+							&& editableElementType != null
+							&& (perspective == 2 || perspective == 4)
 							&& updateExpressions) {
+						InstElement elm = lastEditableElement.getInstElement();
 						if (elm instanceof InstConcept) {
-							editableElementType = "vertex";
+							String iden = ((InstConcept) elm)
+									.getTransSupportMetaElement()
+									.getAutoIdentifier();
+							// System.out.println(iden);
+							if (elm.getTransSupportMetaElement()
+									.getTransInstSemanticElement()
+									.getIdentifier().equals("NmVariable")
+									|| iden.equals("CG")
+									|| iden.equals("ContextVariable")
+									|| iden.equals("GlobalVariable")
+									|| iden.equals("GlobalVariable")
+									|| iden.equals("Variable")
+									|| iden.equals("ENUM"))
+								editableElementType = "var";
+							else
+								editableElementType = "vertex";
 						}
-						if (elm instanceof InstPairwiseRelation) {
+						if (elm instanceof InstPairwiseRel) {
 							editableElementType = "edge";
 						}
-						if (elm instanceof InstOverTwoRelation) {
+						if (elm instanceof InstOverTwoRel) {
 							editableElementType = "groupdep";
 						}
-						expressions.configure(getEditedModel(), refas2hlcl
-								.getElementConstraintGroup(
-										lastEditableElement.getIdentifier(),
-										editableElementType),
-								(InstElement) lastEditableElement);
+						ElementExpressionSet metaExpressionSet = refas2hlcl
+								.getElementConstraintGroup(lastEditableElement
+										.getInstElement().getIdentifier(),
+										editableElementType,
+										ModelExpr2HLCL.SIMUL_EXEC);
+
+						expressions.configure(getEditedModel(),
+								metaExpressionSet,
+								lastEditableElement.getInstElement());
 						updateExpressions = false;
 					}
 				}
@@ -755,36 +705,57 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 
 		});
+		updateVisibleProperties(null);
 		return extensionTabs;
 	}
 
-	private void updateVisibleProperties(final EditableElement elm) {
-		extensionTabs.removeAll();
-		if (elm != null) {
+	private void updateVisibleProperties(final InstCell elm) {
+
+		if (elm == null)
+			extensionTabs.removeAll();
+
+		if (elm != null && this.lastEditableElement != elm) {
+			extensionTabs.removeAll();
 			// extensionTabs.addTab(mxResources.get("elementDisPropTab"),
 			// new JScrollPane(elementDesPropPanel));
 			extensionTabs.addTab(mxResources.get("elementDisPropTab"),
 					new JScrollPane(elementDesignPanel));
-			if (perspective == 2) {
+			if (perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementConfPropTab"),
 						new JScrollPane(elementConfigPropPanel));
 				// extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 				// new JScrollPane(elementExpressionPanel));
+
+			}
+
+			if (perspective == 2 || perspective == 4) {
+				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
+						new JScrollPane(consoleTextArea));
+
 				extensionTabs.addTab(mxResources.get("elementSimPropTab"),
 						new JScrollPane(elementSimPropPanel));
-				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
-						new JScrollPane(expressionsArea));
+			}
+			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
+					new JScrollPane(expressions));
+			if (perspective == 4 && getMainFrame() != null
+					&& getMainFrame().isAdvancedPerspective()) {
+				extensionTabs.addTab(mxResources.get("configurationTab"),
+						new JScrollPane(configurator));
 			}
 		}
-		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
-				messagesArea));
-		extensionTabs.addTab(mxResources.get("editExpressionsTab"),
-				new JScrollPane(expressions));
-		extensionTabs.addTab(mxResources.get("modelConfPropTab"),
-				configuratorProperties.getScrollPane());
-		extensionTabs.addTab(mxResources.get("configurationTab"),
-				new JScrollPane(configurator));
-		
+		if (elm == null || elm != null && this.lastEditableElement != elm) {
+			extensionTabs.addTab(mxResources.get("messagesTab"),
+					new JScrollPane(ConsoleTextArea.getTextArea()));
+
+			if (perspective == 2 && getMainFrame() != null
+					&& getMainFrame().isAdvancedPerspective()) {
+				extensionTabs.addTab(mxResources.get("modelConfPropTab"),
+						configuratorProperties.getScrollPane());
+
+			}
+
+		}
+
 	}
 
 	public void bringUpExtension(String name) {
@@ -811,7 +782,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public JTextArea getMessagesArea() {
-		return messagesArea;
+		return ConsoleTextArea.getTextArea();
 	}
 
 	public ConfiguratorPanel getConfigurator() {
@@ -821,56 +792,52 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void editModelReset() {
 		productLineIndex.reset();
 		if (perspective == 0)
-			editModel(new ProductLine());
+			// editModel(new ProductLine())
+			;
 		else {
 			// TODO fix when the syntax o semantic model is loaded -> update
 			// dependent models.
-			Refas refas = new Refas(PerspectiveType.modeling,
-					((Refas) getEditedModel()).getSyntaxRefas(),
-					((Refas) getEditedModel()).getSemanticRefas());
-			refas2hlcl = new Refas2Hlcl(refas);
-			editModel(refas);
-			configurator.setRefas2hlcl(refas2hlcl);
+			/*
+			 * Refas refas = new Refas(PerspectiveType.modeling, ((Refas)
+			 * getEditedModel()).getSyntaxRefas(), ((Refas)
+			 * getEditedModel()).getSemanticRefas()); refas2hlcl = new
+			 * Refas2Hlcl(refas); editModel(refas);
+			 * configurator.setRefas2hlcl(refas2hlcl);
+			 */
 		}
 
 	}
 
-	public void populateIndex(ProductLine pl) {
-
-		// productLineIndex.populate(pl);
-		AbstractGraph plGraph = (AbstractGraph) getGraphComponent().getGraph();
-		plGraph.buildFromProductLine2(pl, productLineIndex);
-		// ((mxGraphModel) plGraph.getModel()).clear();
-		// plGraph.setProductLine(pl);
-
-	}
-
-	public AbstractModel getEditedModel() {
-		if (perspective == 0)
-			return ((AbstractGraph) getGraphComponent().getGraph())
-					.getProductLine();
-		else
-			return ((AbstractGraph) getGraphComponent().getGraph()).getRefas();
-
+	public InstanceModel getEditedModel() {
+		return refasModel;
+		/*
+		 * if (perspective == 0) return ((AbstractGraph)
+		 * getGraphComponent().getGraph()) .getProductLine(); else return
+		 * ((AbstractGraph) getGraphComponent().getGraph()).getRefas();
+		 */
 	}
 
 	// jcmunoz: new method for REFAS
 
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void editPropertiesRefas(final EditableElement elm) {
-		try {
+	public void editPropertiesRefas() {
+		editPropertiesRefas(lastEditableElement);
+	}
 
-			updateVisibleProperties(elm);
+	public void editPropertiesRefas(final InstCell instCell) {
+		try {
+			updateVisibleProperties(instCell);
 			if (recursiveCall)
 				return;
-			elementDesignPanel.editorProperties(this, elm);
+			elementDesignPanel.editorProperties(this, instCell);
+
 			this.extensionTabs.repaint();
 			// elementDesPropPanel.removeAll();
 			elementConfigPropPanel.removeAll();
 			elementExpressionPanel.removeAll();
 			elementSimPropPanel.removeAll();
 
-			if (elm == null) {
+			if (instCell == null || instCell.getInstElement() == null) {
 				if (lastTabIndex != 0)
 					lastTabIndex = 0;
 				else {
@@ -878,12 +845,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					extensionTabs.setSelectedIndex(0);
 
 				}
+				lastEditableElement = null;
 				return;
 			} else {
+				final InstElement finalEditElm = instCell.getInstElement();
 				recursiveCall = true;
 				((MainFrame) getFrame()).waitingCursor(true);
-				if (lastEditableElement != elm) {
-					lastEditableElement = elm;
+				if (lastEditableElement != instCell) {
+					lastEditableElement = instCell;
 					// TODO workaround to update after simul
 					updateExpressions = true;
 				}
@@ -891,22 +860,56 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					extensionTabs.setSelectedIndex(tabIndex);
 					extensionTabs.getSelectedComponent().repaint();
 				}
-				JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
-				JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
 
-				List<InstAttribute> editables = elm.getEditableVariables();
+				List<InstAttribute> visible = finalEditElm
+						.getVisibleAttributes(refasModel
+								.getParentSMMSyntaxElement(finalEditElm));
 
-				List<InstAttribute> visible = elm.getVisibleVariables();
-
-				RefasWidgetFactory factory = new RefasWidgetFactory(this);
-
-				int configurationPanelElements = 0, simulationPanelElements = 1;
-
-				if (elm instanceof InstConcept) {
-					editableElementType = "vertex";
+				for (InstAttribute instAttribute : visible) {
+					Map<String, InstElement> mapElements = null;
+					if (finalEditElm instanceof InstPairwiseRel) {
+						InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
+						mapElements = refasModel.getSyntaxModel()
+								.getValidPairwiseRelations(
+										instPairwise.getSourceRelations()
+												.get(0),
+										instPairwise.getTargetRelations()
+												.get(0));
+					}
+					instAttribute.updateValidationList(finalEditElm,
+							mapElements);
 				}
-				if (elm instanceof InstPairwiseRelation) {
-					if (((InstPairwiseRelation) elm).getSourceRelations()
+				visible = finalEditElm.getVisibleAttributes(refasModel
+						.getParentSMMSyntaxElement(finalEditElm));
+
+				List<InstAttribute> editables = finalEditElm
+						.getEditableAttributes(visible);
+				// finalEditElm
+				// .getEditableVariables(refasModel
+				// .getParentSMMSyntaxElement((InstElement) finalEditElm));
+
+				if (finalEditElm instanceof InstConcept) {
+					String iden = ((InstConcept) finalEditElm)
+							.getTransSupportMetaElement().getAutoIdentifier();
+					// System.out.println(iden);
+					if ((finalEditElm.getTransSupportMetaElement() != null
+							&& finalEditElm.getTransSupportMetaElement()
+									.getTransInstSemanticElement() != null && finalEditElm
+							.getTransSupportMetaElement()
+							.getTransInstSemanticElement().getIdentifier()
+							.equals("NmVariable"))
+							|| iden.equals("CG")
+							|| iden.equals("ContextVariable")
+							|| iden.equals("GlobalVariable")
+							|| iden.equals("Variable") || iden.equals("ENUM"))
+
+						editableElementType = "var";
+					else
+
+						editableElementType = "vertex";
+				}
+				if (finalEditElm instanceof InstPairwiseRel) {
+					if (((InstPairwiseRel) finalEditElm).getSourceRelations()
 							.size() == 0) {
 						((MainFrame) getFrame()).waitingCursor(false);
 						// TODO workaround for non supported relations - delete
@@ -916,165 +919,44 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 					editableElementType = "edge";
 				}
-				if (elm instanceof InstOverTwoRelation) {
+				if (finalEditElm instanceof InstOverTwoRel) {
 					editableElementType = "groupdep";
 				}
-				if (editableElementType != null && this.perspective == 2) {
-					expressionsArea.setText(refas2hlcl
-							.getElementTextConstraints(elm.getIdentifier(),
-									editableElementType));
-					// expressions.configure(
-					// getEditedModel(),
-					// refas2hlcl.getElementConstraintGroup(
-					// elm.getIdentifier(), type), (InstElement) elm);
-				}
-				JButton test = new JButton("Execute Simulation");
-				elementSimPropSubPanel.add(test);
-				elementSimPropSubPanel.add(new JPanel());
-				elementSimPropSubPanel.add(new JPanel());
-				test.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						executeSimulation(true);
-					}
-				});
+				if (editableElementType != null)
+					if (this.perspective == 2)
+
+						if (finalEditElm instanceof InstElement
+						// refas2hlcl.validateConceptType(finalEditElm,
+						// "GeneralConcept")
+						)
+							consoleTextArea.setText(refas2hlcl
+									.getElementTextConstraints(
+											finalEditElm.getIdentifier(),
+											editableElementType,
+											ModelExpr2HLCL.CONF_EXEC));
+				if (this.perspective == 4)
+
+					consoleTextArea.setText(refas2hlcl
+							.getElementTextConstraints(
+									finalEditElm.getIdentifier(),
+									editableElementType,
+									ModelExpr2HLCL.SIMUL_EXEC));
+				// expressions.configure(
+				// getEditedModel(),
+				// refas2hlcl.getElementConstraintGroup(
+				// elm.getIdentifier(), type), (InstElement) elm);
+
 				// TODO split in two new classes, one for each panel
-				for (InstAttribute v : visible) {
-					Map<String, MetaElement> mapElements = null;
-					if (elm instanceof InstPairwiseRelation) {
-						InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-						mapElements = ((Refas) getEditedModel())
-								.getSyntaxRefas()
-								.getValidPairwiseRelations(
-										instPairwise.getSourceRelations()
-												.get(0).getSupportMetaElement(),
-										instPairwise.getTargetRelations()
-												.get(0).getSupportMetaElement(),
-										true);
-					}
-					v.updateValidationList((InstElement) elm, mapElements);
 
-					final WidgetR w = factory.getWidgetFor(v);
+				JPanel elementSimPropSubPanel = elementStateTab(visible,
+						editables, finalEditElm, instCell);
 
-					if (w == null) {
-						recursiveCall = false;
-						System.err.print("No Widget found for " + v);
-						return;
-					}
-					// TODO: Add listeners to w.
+				JPanel elementConfPropSubPanel = elementConfigTab(visible,
+						editables, finalEditElm, instCell);
 
-					w.getEditor().addFocusListener(new FocusListener() {
-						@Override
-						public void focusLost(FocusEvent arg0) {
-							// Makes it pull the values.
-							EditableElementAttribute v = w.getInstAttribute();
-							if (v.getAttributeType().equals("String"))
-								v.setValue(AbstractElement.multiLine(
-										v.toString(), 15));
-							// Divide lines every 15 characters (aprox.)
-							onVariableEdited(elm, v);
-						}
-
-						@Override
-						public void focusGained(FocusEvent arg0) {
-						}
-					});
-
-					w.getEditor().addPropertyChangeListener(
-							new PropertyChangeListener() {
-
-								@Override
-								public void propertyChange(
-										PropertyChangeEvent evt) {
-									if (WidgetPL.PROPERTY_VALUE.equals(evt
-											.getPropertyName())) {
-										w.getInstAttribute();
-										updateExpressions = true;
-										onVariableEdited(elm,
-												w.getInstAttribute());
-									}
-								}
-							});
-					if (w instanceof MClassWidget
-							|| w instanceof MEnumerationWidget) {
-						w.getEditor().setPreferredSize(new Dimension(200, 100));
-					} else {
-						w.getEditor().setPreferredSize(new Dimension(200, 20));
-						w.getEditor().setMaximumSize(new Dimension(200, 20));
-					}
-					w.editVariable(v);
-					if (!editables.contains(v))
-						w.getEditor().setEnabled(false);
-					// GARA
-					// variablesPanel.add(new JLabel(v.getName() + ":: "));
-					if (v.getAttribute() instanceof SimulationStateAttribute) {
-						elementSimPropSubPanel.add(new JLabel(v
-								.getDisplayName() + ": "));
-						elementSimPropSubPanel.add(w);
-
-						if (v.isAffectProperties()) {
-							JComponent wc = w.getEditor();
-							if (wc instanceof ItemSelectable)
-								((ItemSelectable) wc)
-										.addItemListener(new ItemListener() {
-											@Override
-											public void itemStateChanged(
-													ItemEvent e) {
-												editPropertiesRefas(elm);
-												updateExpressions = true;
-											}
-										});
-							JButton button = new JButton("Validate");
-							button.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									if (!recursiveCall) {
-										editPropertiesRefas(elm);
-									}
-								}
-							});
-							elementSimPropSubPanel.add(button);
-						} else
-							elementSimPropSubPanel.add(new JPanel());
-
-						simulationPanelElements++;
-					} else if (v.getAttribute() instanceof SimulationConfigAttribute) {
-						elementConfPropSubPanel.add(new JLabel(v
-								.getDisplayName() + ": "));
-						elementConfPropSubPanel.add(w);
-
-						if (v.isAffectProperties()) {
-							JComponent wc = w.getEditor();
-							if (wc instanceof ItemSelectable)
-								((ItemSelectable) wc)
-										.addItemListener(new ItemListener() {
-											@Override
-											public void itemStateChanged(
-													ItemEvent e) {
-												editPropertiesRefas(elm);
-												updateExpressions = true;
-											}
-										});
-							JButton button = new JButton("Validate");
-							button.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									editPropertiesRefas(elm);
-								}
-							});
-							elementConfPropSubPanel.add(button);
-						} else
-							elementConfPropSubPanel.add(new JPanel());
-
-						configurationPanelElements++;
-					}
-
-				}
-
-				SpringUtilities.makeCompactGrid(elementSimPropSubPanel,
-						simulationPanelElements / 2, 6, 4, 4, 4, 4);
-
-				SpringUtilities.makeCompactGrid(elementConfPropSubPanel,
-						configurationPanelElements, 3, 4, 4, 4, 4);
-
-				elementConfigPropPanel.add(elementConfPropSubPanel);
+				JScrollPane jj = new JScrollPane(elementConfPropSubPanel);
+				jj.setAutoscrolls(true);
+				elementConfigPropPanel.add(jj);
 				elementSimPropPanel.add(elementSimPropSubPanel);
 				extensionTabs.getSelectedComponent().repaint();
 				elementDesignPanel.revalidate();
@@ -1082,31 +964,445 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				elementExpressionPanel.revalidate();
 				elementSimPropPanel.revalidate();
 			}
-			((RefasGraph) getGraphComponent().getGraph()).refreshVariable(elm);
+			refresh();
 			((MainFrame) getFrame()).waitingCursor(false);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
+			ConsoleTextArea.addText(e.getMessage());
+			ConsoleTextArea.addText(e.getStackTrace());
 		} finally {
 			recursiveCall = false;
 		}
 	}
 
-	public void refreshElement(EditableElement elm) {
-		List<InstAttribute> visible = elm.getVisibleVariables();
+	public JPanel elementConfigTab(List<InstAttribute> visible,
+			List<InstAttribute> editables, final InstElement instElement,
+			final InstCell instCell) {
+		RefasWidgetFactory factory = new RefasWidgetFactory(this);
+		JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
+		int configurationPanelElements = 0;
+		int instances = instElement.getInstances(refasModel);
+		int pos = -1;
+		do {
+			for (InstAttribute instAttribute : visible) {
+				if (instances > 1 && pos == -1)
+					instAttribute.updateAdditionalAttributes(instances);
+				if (instances > 1 && pos != -1)
+					instAttribute = instAttribute.getAdditionalAttribute(pos);
+				Map<String, InstElement> mapElements = null;
+				if (instElement instanceof InstPairwiseRel) {
+					InstPairwiseRel instPairwise = (InstPairwiseRel) instElement;
+					mapElements = refasModel.getSyntaxModel()
+							.getValidPairwiseRelations(
+									instPairwise.getSourceRelations().get(0),
+									instPairwise.getTargetRelations().get(0));
+				}
+				instAttribute.updateValidationList(instElement, mapElements);
+
+				if (instAttribute.getType() != null
+						&& instAttribute.getType().equals(
+								"com.variamos.dynsup.model.ModelExpr")) {
+					continue;
+				}
+
+				final WidgetR w = factory.getWidgetFor(instAttribute);
+
+				if (w == null) {
+					recursiveCall = false;
+					System.err.print(" VGE: No Widget found for "
+							+ instAttribute);
+					continue;
+				}
+				// TODO: Add listeners to w.
+
+				w.getEditor().addFocusListener(new FocusListener() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						// Makes it pull the values.
+						IntInstAttribute v = w.getInstAttribute();
+						if (v.getType().equals("String"))
+							v.setValue(AbstractElement.multiLine(v.toString(),
+									15));
+						// Divide lines every 15 characters (aprox.)
+						onVariableEdited(instElement, v);
+					}
+
+					@Override
+					public void focusGained(FocusEvent arg0) {
+					}
+				});
+
+				w.getGroup().addFocusListener(new FocusListener() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						// Makes it pull the values.
+						IntInstAttribute v = w.getInstAttribute();
+						if (v.getType().equals("String"))
+							v.setValue(AbstractElement.multiLine(v.toString(),
+									15));
+						// Divide lines every 15 characters (aprox.)
+						onVariableEdited(instElement, v);
+					}
+
+					@Override
+					public void focusGained(FocusEvent arg0) {
+					}
+				});
+
+				w.getEditor().addPropertyChangeListener(
+						new PropertyChangeListener() {
+
+							@Override
+							public void propertyChange(PropertyChangeEvent evt) {
+								if (WidgetR.PROPERTY_VALUE.equals(evt
+										.getPropertyName())) {
+									w.getInstAttribute();
+									updateExpressions = true;
+									onVariableEdited(instElement,
+											w.getInstAttribute());
+								}
+							}
+						});
+				w.getGroup().addPropertyChangeListener(
+						new PropertyChangeListener() {
+
+							@Override
+							public void propertyChange(PropertyChangeEvent evt) {
+								if (WidgetR.PROPERTY_VALUE.equals(evt
+										.getPropertyName())) {
+									w.getInstAttribute();
+									updateExpressions = true;
+									onVariableEdited(instElement,
+											w.getInstAttribute());
+								}
+							}
+						});
+				if (w instanceof MClassWidget
+						|| w instanceof MEnumerationWidget) {
+					w.getEditor().setPreferredSize(new Dimension(200, 100));
+				} else {
+					w.getEditor().setPreferredSize(new Dimension(200, 20));
+					w.getEditor().setMaximumSize(new Dimension(200, 20));
+				}
+				w.editVariable(instAttribute);
+				if (!editables.contains(instAttribute)) {
+					w.getEditor().setEnabled(false);
+				}
+				// GARA
+				// variablesPanel.add(new JLabel(v.getName() + ":: "));
+				if (instAttribute.getAttribute() instanceof ElemAttribute
+						&& instAttribute.getAttribute().getAttributeType()
+								.equals(AttributeType.GLOBALCONFIG.toString())) {
+					JLabel label = new JLabel(instAttribute.getDisplayName()
+							+ ": ");
+					elementConfPropSubPanel.add(label);
+					label.setToolTipText(instAttribute.getToolTipText());
+					elementConfPropSubPanel.add(w);
+
+					if (instAttribute.isAffectProperties()) {
+
+						if (instAttribute.getIdentifier().startsWith("Conf")) {
+							JButton button = new JButton("Test");
+							button.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// new Thread() {
+									// public void run() {
+									// synchronized (getEditor()) {
+									clearNotificationBar();
+									configModel(instElement, true);
+									// executeSimulation(true,
+									// Refas2Hlcl.CONF_EXEC);
+									editPropertiesRefas(instCell);
+									updateExpressions = true;
+									// }
+
+									// }
+									// }.start();
+								}
+							});
+							elementConfPropSubPanel.add(button);
+							button = new JButton("Configure");
+							button.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// new Thread() {
+									// public void run() {
+									// synchronized (getEditor()) {
+									clearNotificationBar();
+									configModel(instElement, false);
+									// executeSimulation(true,
+									// Refas2Hlcl.CONF_EXEC);
+									editPropertiesRefas(instCell);
+									updateExpressions = true;
+									// }
+
+									// }
+									// }.start();
+								}
+							});
+							elementConfPropSubPanel.add(button);
+						} else {
+							JButton button = new JButton("Validate");
+							button.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									modelEditor.clearNotificationBar();
+									editPropertiesRefas(instCell);
+								}
+							});
+							elementConfPropSubPanel.add(button);
+
+							elementConfPropSubPanel.add(new JPanel());
+						}
+
+					} else {
+						elementConfPropSubPanel.add(new JPanel());
+						elementConfPropSubPanel.add(new JPanel());
+					}
+
+					configurationPanelElements++;
+				}
+
+			}
+			elementConfPropSubPanel.setMinimumSize(new Dimension(350,
+					configurationPanelElements * 20));
+			elementConfPropSubPanel.setMaximumSize(new Dimension(350,
+					configurationPanelElements * 20));
+
+			SpringUtilities.makeCompactGrid(elementConfPropSubPanel,
+					configurationPanelElements, 4, 4, 4, 4, 4);
+			pos++;
+		} while (pos + 1 < instances);
+
+		return elementConfPropSubPanel;
+	}
+
+	public JPanel elementStateTab(List<InstAttribute> visible,
+			List<InstAttribute> editables, final InstElement instElement,
+			final InstCell instCell) {
+		RefasWidgetFactory factory = new RefasWidgetFactory(this);
+
+		JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
+		int simulationPanelElements = 1;
+
+		int instances = instElement.getInstances(refasModel);
+		int pos = -1;
+		do {
+			for (InstAttribute instAttribute : visible) {
+				if (instances > 1 && pos == -1)
+					instAttribute.updateAdditionalAttributes(instances);
+				if (instances > 1 && pos != -1)
+					instAttribute = instAttribute.getAdditionalAttribute(pos);
+				Map<String, InstElement> mapElements = null;
+				if (instElement instanceof InstPairwiseRel) {
+					InstPairwiseRel instPairwise = (InstPairwiseRel) instElement;
+					mapElements = refasModel.getSyntaxModel()
+							.getValidPairwiseRelations(
+									instPairwise.getSourceRelations().get(0),
+									instPairwise.getTargetRelations().get(0));
+				}
+				instAttribute.updateValidationList(instElement, mapElements);
+
+				if (instAttribute.getType() != null
+						&& instAttribute.getType().equals(
+								"com.variamos.dynsup.model.ModelExpr")) {
+					continue;
+				}
+
+				final WidgetR w = factory.getWidgetFor(instAttribute);
+
+				if (w == null) {
+					recursiveCall = false;
+					System.err.print(" VGE: No Widget found for "
+							+ instAttribute);
+					continue;
+				}
+				// TODO: Add listeners to w.
+
+				w.getEditor().addFocusListener(new FocusListener() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						// Makes it pull the values.
+						IntInstAttribute v = w.getInstAttribute();
+						if (v.getType().equals("String"))
+							v.setValue(AbstractElement.multiLine(v.toString(),
+									15));
+						// Divide lines every 15 characters (aprox.)
+						onVariableEdited(instElement, v);
+					}
+
+					@Override
+					public void focusGained(FocusEvent arg0) {
+					}
+				});
+
+				w.getGroup().addFocusListener(new FocusListener() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						// Makes it pull the values.
+						IntInstAttribute v = w.getInstAttribute();
+						if (v.getType().equals("String"))
+							v.setValue(AbstractElement.multiLine(v.toString(),
+									15));
+						// Divide lines every 15 characters (aprox.)
+						onVariableEdited(instElement, v);
+					}
+
+					@Override
+					public void focusGained(FocusEvent arg0) {
+					}
+				});
+
+				w.getEditor().addPropertyChangeListener(
+						new PropertyChangeListener() {
+
+							@Override
+							public void propertyChange(PropertyChangeEvent evt) {
+								if (WidgetR.PROPERTY_VALUE.equals(evt
+										.getPropertyName())) {
+									w.getInstAttribute();
+									updateExpressions = true;
+									onVariableEdited(instElement,
+											w.getInstAttribute());
+								}
+							}
+						});
+				w.getGroup().addPropertyChangeListener(
+						new PropertyChangeListener() {
+
+							@Override
+							public void propertyChange(PropertyChangeEvent evt) {
+								if (WidgetR.PROPERTY_VALUE.equals(evt
+										.getPropertyName())) {
+									w.getInstAttribute();
+									updateExpressions = true;
+									onVariableEdited(instElement,
+											w.getInstAttribute());
+								}
+							}
+						});
+				if (w instanceof MClassWidget
+						|| w instanceof MEnumerationWidget) {
+					w.getEditor().setPreferredSize(new Dimension(200, 100));
+				} else {
+					w.getEditor().setPreferredSize(new Dimension(200, 20));
+					w.getEditor().setMaximumSize(new Dimension(200, 20));
+				}
+				w.editVariable(instAttribute);
+				if (!editables.contains(instAttribute)) {
+					w.getEditor().setEnabled(false);
+				}
+				// GARA
+				// variablesPanel.add(new JLabel(v.getName() + ":: "));
+				if (instAttribute.getAttribute() instanceof ElemAttribute
+						&& instAttribute
+								.getAttribute()
+								.getAttributeType()
+								.equals(AttributeType.EXECCURRENTSTATE
+										.toString())) {
+					JLabel label = new JLabel(instAttribute.getDisplayName()
+							+ ": ");
+					elementSimPropSubPanel.add(label);
+					label.setToolTipText(instAttribute.getToolTipText());
+					elementSimPropSubPanel.add(w);
+
+					if (instAttribute.isAffectProperties()) {
+						JComponent wc = w.getEditor();
+						if (wc instanceof ItemSelectable)
+							((ItemSelectable) wc)
+									.addItemListener(new ItemListener() {
+										@Override
+										public void itemStateChanged(ItemEvent e) {
+											editPropertiesRefas(instCell);
+											updateExpressions = true;
+										}
+									});
+						ImageIcon icon = new ImageIcon(
+								BasicGraphEditor.class
+										.getResource("/com/variamos/gui/perspeditor/images/www.iconfinder.com/refresh.png"));
+						JButton button = new JButton(icon);
+						button.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								if (!recursiveCall) {
+									clearNotificationBar();
+									executeSimulation(true, true,
+											ModelExpr2HLCL.CONF_EXEC);
+									editPropertiesRefas(instCell);
+									updateExpressions = true;
+								}
+							}
+						});
+						elementSimPropSubPanel.add(button);
+					} else
+						elementSimPropSubPanel.add(new JPanel());
+
+					simulationPanelElements++;
+				}
+			}
+			if (simulationPanelElements == ((simulationPanelElements / 2 * 2))) {
+				elementSimPropSubPanel.add(new JPanel());
+				elementSimPropSubPanel.add(new JPanel());
+				elementSimPropSubPanel.add(new JPanel());
+			}
+
+			SpringUtilities.makeCompactGrid(elementSimPropSubPanel,
+					simulationPanelElements / 2, 6, 4, 4, 4, 4);
+			pos++;
+		} while (pos + 1 < instances);
+
+		return elementSimPropSubPanel;
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if (updateTabs)
+			this.editPropertiesRefas(lastEditableElement);
+		updateTabs = false;
+	}
+
+	public void refresh() {
+
+		try {
+			((PerspEditorGraph) getGraphComponent().getGraph())
+					.refreshVariable(lastEditableElement);
+		} catch (Exception e) {
+			lastEditableElement = ((PerspEditorGraph) this.getGraphComponent()
+					.getGraph()).getInstCell();
+			try {
+				if (lastEditableElement != null
+						&& lastEditableElement.getInstElement() != null)
+					((PerspEditorGraph) getGraphComponent().getGraph())
+							.refreshVariable(lastEditableElement);
+			} catch (Exception ex) {
+				System.out.println("VariamosGraphEditor: Update error");
+				ConsoleTextArea.addText(ex.getStackTrace());
+			}
+		}
+	}
+
+	public void refreshElement(InstElement elm) {
+		List<InstAttribute> visible = elm.getVisibleAttributes(refasModel
+				.getParentSMMSyntaxElement(elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		for (InstAttribute v : visible) {
-			Map<String, MetaElement> mapElements = null;
-			if (elm instanceof InstPairwiseRelation) {
-				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-				mapElements = ((Refas) getEditedModel()).getSyntaxRefas()
-						.getValidPairwiseRelations(
-								instPairwise.getSourceRelations().get(0)
-										.getSupportMetaElement(),
-								instPairwise.getTargetRelations().get(0)
-										.getSupportMetaElement(), true);
+			Map<String, InstElement> mapElements = null;
+			if (elm instanceof InstPairwiseRel) {
+				InstPairwiseRel instPairwise = (InstPairwiseRel) elm;
+				try {
+					mapElements = refasModel.getSyntaxModel()
+							.getValidPairwiseRelations(
+									instPairwise.getSourceRelations().get(0),
+									instPairwise.getTargetRelations().get(0));
+				} catch (Exception e) {
+					// FIXME
+					ConsoleTextArea.addText(e.getStackTrace());
+				}
 			}
-			v.updateValidationList((InstElement) elm, mapElements);
+			v.updateValidationList(elm, mapElements);
 			final WidgetR w = factory.getWidgetFor(v);
 			if (w == null) {
 				return;
@@ -1115,29 +1411,37 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		}
 	}
 
-	protected void onVariableEdited(Editable e) {
-		((AbstractGraph) getGraphComponent().getGraph()).refreshVariable(e);
-	}
-
-	protected void onVariableEdited(EditableElement editableElement,
-			EditableElementAttribute instAttribute) {
+	@SuppressWarnings("unchecked")
+	protected void onVariableEdited(InstElement editableElement,
+			IntInstAttribute instAttribute) {
 		if (editableElement instanceof InstConcept) {
-			MetaElement editableMetaElement = ((InstConcept) editableElement)
-					.getEditableMetaElement();
+			SyntaxElement editableMetaElement = ((InstConcept) editableElement)
+					.getEdSyntaxEle();
 			if (editableMetaElement != null) {
-				if (instAttribute.getIdentifier().equals("Identifier"))
-					editableMetaElement.setIdentifier((String) instAttribute
-							.getValue());
-				if (instAttribute.getIdentifier().equals("Visible"))
-					editableMetaElement.setVisible((boolean) instAttribute
-							.getValue());
+				if (instAttribute.getIdentifier().equals(
+						SyntaxElement.VAR_USERIDENTIFIER))
+					editableMetaElement
+							.setUserIdentifier((String) instAttribute
+									.getValue());
+				if (instAttribute.getIdentifier().equals("OperationsMMType"))
+					editableMetaElement
+							.setTransInstSemanticElement(this.refasModel
+									.getOperationalModel().getElement(
+											(String) instAttribute.getValue()));
+				// if (instAttribute.getIdentifier().equals("Visible"))
+				// editableMetaElement.setVisible((boolean) instAttribute
+				// .getValue());
 				if (instAttribute.getIdentifier().equals("Name"))
 					editableMetaElement.setName((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Style"))
 					editableMetaElement.setStyle((String) instAttribute
 							.getValue());
-				if (instAttribute.getIdentifier().equals("Description"))
+				if (instAttribute.getIdentifier().equals("PaletteName"))
+					editableMetaElement.setPaletteName((String) instAttribute
+							.getValue());
+
+				if (instAttribute.getIdentifier().equals("description"))
 					editableMetaElement.setDescription((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Width"))
@@ -1150,67 +1454,68 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					editableMetaElement.setImage((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("TopConcept"))
-					((MetaConcept) editableMetaElement)
-							.setTopConcept((boolean) instAttribute.getValue());
+					editableMetaElement.setTopConcept((boolean) instAttribute
+							.getValue());
 				if (instAttribute.getIdentifier().equals("BackgroundColor"))
-					((MetaConcept) editableMetaElement)
+					editableMetaElement
 							.setBackgroundColor((String) instAttribute
 									.getValue());
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					editableMetaElement.setBorderStroke((int) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Resizable"))
-					((MetaConcept) editableMetaElement)
-							.setResizable((boolean) instAttribute.getValue());
+					editableMetaElement.setResizable((boolean) instAttribute
+							.getValue());
 				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
-							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
+							.setModelingAttributes((Map<String, ElemAttribute>) instAttribute
 									.getValue());
 			}
-			IntSemanticElement editableSemanticElement = ((InstConcept) editableElement)
-					.getEditableSemanticElement();
-			if (editableSemanticElement != null) {
-				if (instAttribute.getIdentifier().equals("Identifier"))
-					editableSemanticElement
-							.setIdentifier((String) instAttribute.getValue());
-			}
+			// IntSemanticElement editableSemanticElement = ((InstConcept)
+			// editableElement)
+			// .getEditableSemanticElement();
+			// if (editableSemanticElement != null) {
+			// if (instAttribute.getIdentifier().equals("Identifier"))
+			// editableSemanticElement
+			// .setIdentifier((String) instAttribute.getValue());
+			// }
 		}
-		((RefasGraph) getGraphComponent().getGraph())
-				.refreshVariable(editableElement);
+		refresh();
 	}
 
-	protected void installToolBar(MainFrame mainFrame, int perspective) {
+	@Override
+	protected PerspectiveToolBar installToolBar(MainFrame mainFrame,
+			int perspective) {
+		if (perspectiveToolBarPanel == null) {
+			perspectiveToolBarPanel = new JPanel();
+			add(perspectiveToolBarPanel, BorderLayout.NORTH);
+		}
 
-		JPanel jp = new JPanel();
-		jp.setLayout(new BorderLayout());
-		if (perspective == 3)
-			jp.add(new RefasEditorToolBar(this, JToolBar.HORIZONTAL),
-					BorderLayout.WEST);
-		else
-			jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
-					BorderLayout.WEST);
-		jp.add(new JLabel(), BorderLayout.CENTER);
-		if (mainFrame != null)
-			perspectiveToolBar = new PerspectiveToolBar(mainFrame,
-					JToolBar.HORIZONTAL, perspective);
-		else
-			perspectiveToolBar = new PerspectiveToolBar(this,
-					JToolBar.HORIZONTAL, perspective);
-		jp.add(perspectiveToolBar, BorderLayout.EAST);
-		add(jp, BorderLayout.NORTH);
+		perspectiveToolBarPanel.removeAll();
+		perspectiveToolBarPanel.setLayout(new BorderLayout());
+		// if (perspective == 3)
+		perspectiveToolBarPanel.add(new PerspEditorToolBar(this,
+				JToolBar.HORIZONTAL), BorderLayout.WEST);
+		// else
+		// jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
+		// BorderLayout.WEST);
+		perspectiveToolBarPanel.add(new JLabel(), BorderLayout.CENTER);
+		PerspectiveToolBar perspectiveToolBar = new PerspectiveToolBar(
+				mainFrame, JToolBar.HORIZONTAL, perspective);
+		perspectiveToolBarPanel.add(perspectiveToolBar, BorderLayout.EAST);
+
+		return perspectiveToolBar;
 	}
 
 	public final MainFrame getMainFrame() {
 		Container contairner1 = this.getParent();
-
-		Container contairner2 = contairner1.getParent();
-
-		Container contairner3 = contairner2.getParent();
-
-		Container contairner4 = contairner3.getParent();
-
-		return (MainFrame) contairner4;
-
+		if (contairner1 != null) {
+			Container contairner2 = contairner1.getParent();
+			Container contairner3 = contairner2.getParent();
+			Container contairner4 = contairner3.getParent();
+			return (MainFrame) contairner4;
+		}
+		return null;
 	}
 
 	public void refreshPalette() {
@@ -1224,175 +1529,638 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void updateObjects() {
 		if (perspective == 4) {
-			this.graphComponent.setGraph(modelEditor.getGraphComponent()
-					.getGraph());
+			clearElementState(ModelExpr2HLCL.SIMUL_EXEC);
+			// executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
+			this.updateRefasModel(modelEditor.getEditedModel());
+			mxGraph source = modelEditor.getGraphComponent().getGraph();
+			mxGraph target = graphComponent.getGraph();
+			target.setCellsDeletable(true);
+			target.setCellsMovable(true);
+			target.setCellsResizable(true);
+			SharedActions.beforeGraphOperation(source, false, 0, -1);
+			SharedActions.cloneGraph(source, target, this.getModelViewIndex(),
+					this.getModelSubViewIndex());
+			target.setCellsDeletable(false);
+			target.setCellsMovable(false);
+			target.setCellsResizable(false);
+			// System.out.println(this.getModelViewIndex() + " "
+			// + this.getModelSubViewIndex());
+			SharedActions.afterOpenCloneGraph(source, this);
+			SharedActions.afterOpenCloneGraph(target, this);
+			((mxCell) graphComponent.getGraph().getDefaultParent())
+					.setValue("simul");
+			// Different from null, to display simulation colors
+			this.refresh();
+		} else if (perspective == 2) {
+			clearElementState(ModelExpr2HLCL.DESIGN_EXEC);
+			mxGraph target = graphComponent.getGraph();
+			SharedActions.afterOpenCloneGraph(target, this);
+		}
+	}
 
-			// mxGraphModel.prototype.cloneCells
-			/*
-			 * Object parent =
-			 * modelEditor.getGraphComponent().getGraph().getDefaultParent();
-			 * modelEditor.getGraphComponent().getGraph().selectAll(); Object[]
-			 * all =
-			 * modelEditor.getGraphComponent().getGraph().getSelectionCells();
-			 * modelEditor.getGraphComponent().getGraph().addCell(all);
-			 * this.graphComponent.getGraph().selectAll();
-			 * this.graphComponent.getGraph().addCells(all);
-			 */}
+	private void updateRefasModel(InstanceModel editedModel) {
+		refasModel = editedModel;
+		this.refas2hlcl.setRefas(refasModel);
+	}
+
+	/**
+	 * include execution time
+	 */
+	@Override
+	protected void mouseLocationChanged(MouseEvent e) {
+		String solver = "";
+		if (!lastSolverInvocations.equals("")) {
+			solver = " Last Execution Time(ms) {Total[Solver]}: "
+					+ lastSolverInvocations + " || ";
+		}
+		status(solver + e.getX() + ", " + e.getY());
+	}
+
+	/**
+	 * Include execution time
+	 */
+	@Override
+	protected void installRepaintListener() {
+		graphComponent.getGraph().addListener(mxEvent.REPAINT,
+				new mxIEventListener() {
+					@Override
+					public void invoke(Object source, mxEventObject evt) {
+						String solver = "";
+						String buffer = (graphComponent.getTripleBuffer() != null) ? ""
+								: " (unbufferedX)";
+						if (!lastSolverInvocations.equals("")) {
+							solver = " Last Execution Time(ms) {Total[Solver]}: "
+									+ lastSolverInvocations + " || ";
+
+						}
+
+						mxRectangle dirty = (mxRectangle) evt
+								.getProperty("region");
+
+						if (dirty == null) {
+							status(solver + "Repaint all" + buffer);
+						} else {
+							status(solver + "Repaint: x="
+									+ (int) (dirty.getX()) + " y="
+									+ (int) (dirty.getY()) + " w="
+									+ (int) (dirty.getWidth()) + " h="
+									+ (int) (dirty.getHeight()) + buffer);
+						}
+					}
+				});
+	}
+
+	public void clearNotificationBar() {
+		lastSolverInvocations = "";
+	}
+
+	public void clearElementErrors() {
+		refas2hlcl.cleanGUIErrors();
+		this.refresh();
+	}
+
+	public void clearQueryMonitor() {
+		refas2hlcl.clearQueryMonitor();
+	}
+
+	public void clearElementState(int execType) {
+		refas2hlcl.cleanGUIElements(execType);
+		if (task != null) {
+			task.setTerminated(true);
+			task = null;
+		}
+
+		this.refresh();
 
 	}
 
-	public void cleanSimulation() {
+	public void endSimulation() {
+		if (task != null) {
+			task.setTerminated(true);
+			task = null;
+		}
 
-		refas2hlcl.cleanGUIElements();
-		if (lastEditableElement == null)
-			JOptionPane
-					.showMessageDialog(
-							frame,
-							"Select any element and after clean the simulation.",
-							"Simulation Message",
-							JOptionPane.INFORMATION_MESSAGE, null);
-		else
-			((RefasGraph) getGraphComponent().getGraph())
-					.refreshVariable(lastEditableElement);
+		this.refresh();
+
 	}
-	
-	public void executeSimulation(boolean first) {
+
+	// Static operation's definition
+	public void executeSimulation(boolean firstSimulExecution,
+			boolean reloadDashboard, int type) {
+		executeSimulation(firstSimulExecution, reloadDashboard, type, true, "");
+	}
+
+	// TODO support ALL operations dynamically, not only the first
+
+	public void callOperations(List<String> operations, String filename) {
+		// FIXME support multiple models selected from the menu not only REFAS
+		InstElement refas = refasModel.getSyntaxModel().getVertex(
+				"GeneralModel");
+		// use the first node as the REFAS node - fixme
+		if (refas == null)
+			refas = refasModel.getSyntaxModel().getVertex("SMNode1");
+		InstConcept element = new InstConcept("REFAS1", refas);
+		element.createInstAttributes(null);
+		this.refasModel.getVariabilityVertex().put("REFAS1", element);
+		// System.out.println(operations);
+		boolean first = true;
+		if (operations.get(0).startsWith("N:"))
+			first = false;
+		executeOperationsThead(first, operations, filename);
+	}
+
+	// Dynamic operation's definition
+	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution,
+			List<String> operations, String filename) {
+
+		if (!firstSimulExecution && semTask != null) {
+			semTask.setFirstSimulExec(false);
+			semTask.setNext(true);
+		} else {
+			if (semTask != null)
+				semTask.setTerminated(true);
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"Executing operation", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(1);
+			semTask = new SolverOpersTask(progressMonitor, refasModel,
+					refas2hlcl, configHlclProgram, firstSimulExecution,
+					operations, lastConfiguration, filename);
+
+			semTask.addPropertyChangeListener(this);
+			semTask.execute();
+		}
+		return semTask;
+	}
+
+	// Static operation's definition
+	public SolverTasks executeSimulation(boolean firstSimulExecution,
+			boolean reloadDashboard, int type, boolean update, String element) {
+
+		if (!firstSimulExecution && task != null
+				&& task.getExecType() == ModelExpr2HLCL.SIMUL_EXEC) {
+			task.setFirstSimulExec(false);
+			task.setNext(true);
+		} else {
+			if (task != null)
+				task.setTerminated(true);
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"Executing Simulation", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+			task = new SolverTasks(progressMonitor, type, refas2hlcl,
+					configHlclProgram, firstSimulExecution, reloadDashboard,
+					update, element, lastConfiguration);
+			task.addPropertyChangeListener(this);
+			task.execute();
+		}
+		return task;
+	}
+
+	// Static operation's definition
+	public void exportConfiguration(String file) {
+		if (task == null || task.isDone() || task.getProgress() == 100) {
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"Exporting Solutions", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+
+			task = new SolverTasks(progressMonitor,
+					ModelExpr2HLCL.SIMUL_EXPORT, this.refasModel, refas2hlcl,
+					file);
+			task.addPropertyChangeListener(this);
+			((MainFrame) getFrame()).waitingCursor(true);
+			task.execute();
+		}
+	}
+
+	// Static operation's definition without swing worker
+	@Deprecated
+	public boolean executeSimulation(int type, boolean update, String element) {
+		boolean wasFirst = false, first = false;
+		long iniTime = System.currentTimeMillis();
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
-		if (first)
-			result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
-		else
-			result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION);
-		if (result) {
-			refas2hlcl.updateGUIElements();
-			messagesArea.setText(refas2hlcl.getText());
-			bringUpTab(mxResources.get("elementSimPropTab"));
-			editPropertiesRefas(lastEditableElement);
-		} else {
-			if (first) {
-				JOptionPane
-						.showMessageDialog(
-								frame,
-								"No solution found for this model configuration."
-										+ " \n Please review the restrictions defined and "
-										+ "try again. \nAttributes values were not updated.",
-								"Simulation Execution Error",
-								JOptionPane.INFORMATION_MESSAGE, null);
-			} else
-				JOptionPane.showMessageDialog(frame, "No more solutions found",
-						"Simulation Message", JOptionPane.INFORMATION_MESSAGE,
-						null);
+		try {
+			if (first || lastConfiguration == null) {
+				result = refas2hlcl.execute(null, element,
+						ModelExpr2HLCL.ONE_SOLUTION, type);
+				wasFirst = true;
+			} else {
+				result = refas2hlcl.execute(null, element,
+						ModelExpr2HLCL.NEXT_SOLUTION, type);
+			}
+			lastConfiguration = refas2hlcl.getConfiguration();
+			if (result) {
+				if (update) {
+					refas2hlcl.updateGUIElements(null);
+					ConsoleTextArea.addText(refas2hlcl.getText());
+					// bringUpTab(mxResources.get("elementSimPropTab"));
+					editPropertiesRefas(lastEditableElement);
+				}
 
-		}
-		if (lastEditableElement == null)
+			} else {
+				if (first) {
+					switch (type) {
+					case ModelExpr2HLCL.DESIGN_EXEC:
+						JOptionPane
+								.showMessageDialog(
+										frame,
+										"Last validated change makes the model inconsistent."
+												+ " \n Please review the restrictions defined and "
+												+ "try again. \nModel visual representation was not updated.",
+										"Simulation Execution Error",
+										JOptionPane.INFORMATION_MESSAGE, null);
+						break;
+					case ModelExpr2HLCL.CONF_EXEC:
+						JOptionPane
+								.showMessageDialog(
+										frame,
+										"Last configuration change validated makes the model "
+												+ "\n inconsistent. Please review the selection and "
+												+ "try again. \nAttributes values were not updated.",
+										"Simulation Execution Error",
+										JOptionPane.INFORMATION_MESSAGE, null);
+						break;
+					case ModelExpr2HLCL.SIMUL_EXEC:
+					case ModelExpr2HLCL.SIMUL_EXPORT:
+						JOptionPane
+								.showMessageDialog(
+										frame,
+										"No solution found for this model configuration."
+												+ " \n Please review the restrictions defined and "
+												+ "try again. \nAttributes values were not updated.",
+										"Simulation Execution Error",
+										JOptionPane.INFORMATION_MESSAGE, null);
+						break;
+					}
+				} else
+					JOptionPane.showMessageDialog(frame,
+							"No more solutions found", "Simulation Message",
+							JOptionPane.INFORMATION_MESSAGE, null);
+			}
+			refresh();
+			// updateObjects();
+			((MainFrame) getFrame()).waitingCursor(false);
+			long endTime = System.currentTimeMillis();
+			lastSolverInvocations = "NormalExec: " + (endTime - iniTime) + "["
+					+ refas2hlcl.getLastExecutionTime() / 1000000 + "]"
+					+ " -- ";
+		} catch (Exception e) {
+			ConsoleTextArea.addText(e.getStackTrace());
+			ConsoleTextArea.addText(e.toString());
 			JOptionPane
 					.showMessageDialog(
 							frame,
-							"Select any element and after execute the simulation.",
-							"Simulation Message",
+							"Simulation execution unhandled error, please verify Instance Expressions or report a problem.",
+							"Simulation Error",
 							JOptionPane.INFORMATION_MESSAGE, null);
-		else
-			((RefasGraph) getGraphComponent().getGraph())
-					.refreshVariable(lastEditableElement);
-		updateObjects();
-		((MainFrame) getFrame()).waitingCursor(false);
-	}
-	// public void editProperties(final Editable elm) {
-	//
-	// // elementDesPropPanel.removeAll();
-	// elementConfigPropPanel.removeAll();
-	// elementExpressionPanel.removeAll();
-	// elementSimPropPanel.removeAll();
-	//
-	// if (elm == null) {
-	// bringUpTab("Properties");
-	//
-	// // elementDesPropPanel.repaint();
-	// elementConfigPropPanel.repaint();
-	// elementExpressionPanel.repaint();
-	// elementSimPropPanel.repaint();
-	// return;
-	// }
-	//
-	// JPanel variablesPanel = new JPanel(new SpringLayout());
-	//
-	// Variable[] editables = elm.getEditableVariables();
-	//
-	// WidgetFactory factory = new WidgetFactory(this);
-	// for (Variable v : editables) {
-	// final WidgetPL w = factory.getWidgetFor(v);
-	// if (w == null)
-	// // Check the problem and/or raise an exception
-	// return;
-	//
-	// // TODO: Add listeners to w.
-	// w.getEditor().addFocusListener(new FocusListener() {
-	// @Override
-	// public void focusLost(FocusEvent arg0) {
-	// // Makes it pull the values.
-	// Variable v = w.getVariable();
-	// if (v.getType().equals("String"))
-	// v.setValue(AbstractElement.multiLine(v.toString(), 15));
-	// System.out.println("Focus Lost: " + v.hashCode() + " val: "
-	// + v.getValue());
-	// onVariableEdited(elm);
-	// }
-	//
-	// @Override
-	// public void focusGained(FocusEvent arg0) {
-	//
-	// }
-	// });
-	//
-	// w.getEditor().addPropertyChangeListener(
-	// new PropertyChangeListener() {
-	//
-	// @Override
-	// public void propertyChange(PropertyChangeEvent evt) {
-	// if (WidgetPL.PROPERTY_VALUE.equals(evt
-	// .getPropertyName())) {
-	// w.getVariable();
-	// onVariableEdited(elm);
-	// }
-	// }
-	// });
-	// w.getEditor().setMinimumSize(new Dimension(50, 30));
-	// w.getEditor().setMaximumSize(new Dimension(200, 30));
-	// w.getEditor().setPreferredSize(new Dimension(200, 30));
-	// w.editVariable(v);
-	//
-	// // GARA
-	// // variablesPanel.add(new JLabel(v.getName() + ":: "));
-	// variablesPanel.add(new JLabel(v.getName() + ": "));
-	// variablesPanel.add(w);
-	// }
-	// // variablesPanel.setPreferredSize(new Dimension(250, 25 *
-	// // editables.length));
-	// SpringUtilities.makeCompactGrid(variablesPanel, editables.length, 2, 4,
-	// 4, 4, 4);
-	//
-	// // elementDesPropPanel.add(variablesPanel);
-	//
-	// // JPanel attPanel = new JPanel(new SpringLayout());
-	// // // Fill Attributes Panel (Only for VariabilityElements ) in Properties
-	// // // Panel
-	// // if (elm instanceof VariabilityElement) {
-	// // attPanel.setPreferredSize(new Dimension(150, 150));
-	// // attPanel.add(new JLabel(mxResources.get("attributesPanel")));
-	// //
-	// // VariabilityAttributeList attList = new VariabilityAttributeList(
-	// // this, (VariabilityElement) elm);
-	// // attPanel.add(new JScrollPane(attList));
-	// //
-	// // SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
-	//
-	// // elementDesPropPanel.add(attPanel);
-	//
-	// // SpringUtilities.makeCompactGrid(elementDesPropPanel, 1, 2, 4, 4, 4,
-	// 4);
-	// }
-	//
-	// elementDesPropPanel.revalidate();
-	// }
 
+			((MainFrame) getFrame()).waitingCursor(false);
+		}
+		return wasFirst;
+	}
+
+	/*
+	 * private List<String> compareSolutions(Configuration lastConfiguration,
+	 * Configuration currentConfiguration) { List<String> out = new
+	 * ArrayList<String>(); Map<String, Integer> lastConfig =
+	 * lastConfiguration.getConfiguration(); Map<String, Integer> currentConfig
+	 * = currentConfiguration .getConfiguration(); for (String solution :
+	 * lastConfig.keySet()) if (lastConfig.get(solution) !=
+	 * currentConfig.get(solution)) out.add(solution); return out; }
+	 */
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if ("progress" == evt.getPropertyName()) {
+			int progress = (Integer) evt.getNewValue();
+			progressMonitor.setProgress(progress);
+			if (task != null) {
+				String message = String.format("Completed %d%%.\n", progress);
+				progressMonitor.setNote(message);
+				if (task.getProgress() == 100
+						&& (task.getExecType() == ModelExpr2HLCL.SIMUL_EXEC || task
+								.getExecType() == ModelExpr2HLCL.SIMUL_MAPE)) {
+					refas2hlcl.updateGUIElements(null);
+					updateDashBoard(true, task.isReloadDashBoard(),
+							task.isUpdate());
+					ConsoleTextArea.addText(refas2hlcl.getText());
+					// bringUpTab(mxResources.get("elementSimPropTab"));
+					editPropertiesRefas(lastEditableElement);
+				}
+			}
+			if (semTask != null) {
+				String message = String.format("Completed %d%%.\n", progress);
+				progressMonitor.setNote(message);
+				if (semTask.getProgress() == 100 // TODO validate for simulation
+				// && (semTask.getExecType() == ModelExpr2HLCL.SIMUL_EXEC ||
+				// task
+				// .getExecType() == ModelExpr2HLCL.SIMUL_MAPE)
+				) {
+					List<String> outVariables = semTask.getOutVariables();
+					refas2hlcl.updateGUIElements(null, outVariables, null);
+					updateDashBoard(semTask.isShowDashboard(),
+							semTask.isReloadDashBoardConcepts(),
+							semTask.isUpdate());
+					ConsoleTextArea.addText(refas2hlcl.getText());
+					updateSimulResults();
+					// bringUpTab(mxResources.get("elementSimPropTab"));
+					editPropertiesRefas(lastEditableElement);
+				}
+			}
+
+			if (progressMonitor.isCanceled()
+					|| (fileTask != null && fileTask.isDone())) {
+				if (progressMonitor.isCanceled()) {
+					// FIXME v1.1 replace task with fileTask
+					fileTask.cancel(true);
+					JOptionPane
+							.showMessageDialog(
+									frame,
+									"Execution incomplete, partial solution file saved",
+									"Task Notification",
+									JOptionPane.INFORMATION_MESSAGE, null);
+					((MainFrame) getFrame()).waitingCursor(false);
+				}
+			} else if (progressMonitor.isCanceled()
+					|| (task != null && task.isDone())) {
+				if (progressMonitor.isCanceled()) {
+					task.cancel(true);
+					if (task.getExecType() == ModelExpr2HLCL.SIMUL_EXPORT) {
+						JOptionPane
+								.showMessageDialog(
+										frame,
+										"Execution incomplete, partial solution file saved",
+										"Task Notification",
+										JOptionPane.INFORMATION_MESSAGE, null);
+					} else
+						JOptionPane.showMessageDialog(frame,
+								"Execution cancelled", "Task Notification",
+								JOptionPane.INFORMATION_MESSAGE, null);
+					((MainFrame) getFrame()).waitingCursor(false);
+				} else {
+					editPropertiesRefas(lastEditableElement);
+					ConsoleTextArea.addText(refas2hlcl.getText());
+					((MainFrame) getFrame()).waitingCursor(false);
+					lastSolverInvocations = task.getExecutionTime();
+					switch (task.getExecType()) {
+					case ModelExpr2HLCL.CONF_EXEC:
+						invalidConfigHlclProgram = task
+								.isInvalidConfigHlclProgram();
+						break;
+					case ModelExpr2HLCL.DESIGN_EXEC:
+						if (!task.getErrorTitle().equals("")) {
+							JOptionPane.showMessageDialog(frame,
+									task.getErrorMessage(),
+									task.getErrorTitle(),
+									JOptionPane.INFORMATION_MESSAGE, null);
+
+						}
+						refresh();
+						break;
+					case ModelExpr2HLCL.SIMUL_EXEC:
+						updateDashBoard(true, task.isReloadDashBoard(),
+								task.isUpdate());
+					case ModelExpr2HLCL.SIMUL_EXPORT:
+						refresh();
+						lastConfiguration = task.getLastConfiguration();
+						if (!task.getErrorTitle().equals("")) {
+							JOptionPane.showMessageDialog(frame,
+									task.getErrorMessage(),
+									task.getErrorTitle(),
+									JOptionPane.INFORMATION_MESSAGE, null);
+						}
+						break;
+					}
+				}
+			} else if (progressMonitor.isCanceled()
+					|| (semTask != null && semTask.isDone())) {
+				if (progressMonitor.isCanceled()) {
+					semTask.cancel(true);
+					JOptionPane.showMessageDialog(frame, "Execution cancelled",
+							"Task Notification",
+							JOptionPane.INFORMATION_MESSAGE, null);
+					((MainFrame) getFrame()).waitingCursor(false);
+				} else {
+					editPropertiesRefas(lastEditableElement);
+					ConsoleTextArea.addText(refas2hlcl.getText());
+					((MainFrame) getFrame()).waitingCursor(false);
+					lastSolverInvocations = semTask.getExecutionTime();
+					updateDashBoard(semTask.isShowDashboard(),
+							semTask.isReloadDashBoardConcepts(),
+							semTask.isUpdate());
+				}
+			}
+		}
+	}
+
+	public void updateSimulResults() {
+
+		ConsoleTextArea.addText(refas2hlcl.getText());
+		if (task != null && !task.getErrorTitle().equals("")) {
+			JOptionPane
+					.showMessageDialog(frame, task.getErrorMessage(),
+							task.getErrorTitle(),
+							JOptionPane.INFORMATION_MESSAGE, null);
+
+		}
+		if (semTask != null && !semTask.getErrorTitle().equals("")) {
+			JOptionPane.showMessageDialog(frame, semTask.getErrorMessage(),
+					semTask.getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
+					null);
+			semTask.clearErrorMessage();
+		} else if (semTask != null && semTask.getCompletedMessage() != null
+				&& !semTask.getCompletedMessage().equals("")) {
+			JOptionPane.showMessageDialog(frame, semTask.getCompletedMessage(),
+					"Operation Completed", JOptionPane.PLAIN_MESSAGE, null);
+			semTask.clearErrorMessage();
+
+		}
+	}
+
+	// Static operation's definition
+	public void configModel(InstElement element, boolean test) {
+		if (task == null || task.isDone()) {
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"Executing Element Configuration", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+
+			task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
+					ModelExpr2HLCL.CONF_EXEC, refas2hlcl, configHlclProgram,
+					invalidConfigHlclProgram, test, element, defects,
+					lastConfiguration);
+			task.addPropertyChangeListener(this);
+			((MainFrame) getFrame()).waitingCursor(true);
+			task.execute();
+		}
+	}
+
+	// Static operation's definition
+	public void verify() {
+		verify(defects);
+	}
+
+	// Static operation's definition
+	public void verify(List<String> defect) {
+		if (task == null || task.isDone() || task.getProgress() == 0) {
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"System Verification", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+			task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
+					ModelExpr2HLCL.DESIGN_EXEC, refas2hlcl, configHlclProgram,
+					invalidConfigHlclProgram, false, null, defect,
+					lastConfiguration);
+			task.addPropertyChangeListener(this);
+			((MainFrame) getFrame()).waitingCursor(true);
+			task.execute();
+		}
+	}
+
+	public void setInvalidConfigHlclProgram(boolean invalidConfigHlclProgram) {
+		this.invalidConfigHlclProgram = invalidConfigHlclProgram;
+	}
+
+	public void updateDefects(String string, boolean b) {
+		if (b) {
+			if (!defects.contains(string))
+				defects.add(string);
+		} else
+			defects.remove(string);
+
+		// System.out.println(string + " " + b);
+
+	}
+
+	public List<InstElement> getInstViews() {
+		return refasModel.getSyntaxModel().getVariabilityVertex("SyMView");
+	}
+
+	public void setProgressMonitor(ProgressMonitor progressMonitor) {
+		this.progressMonitor = progressMonitor;
+	}
+
+	public void setFileTask(FileTasks fileTask) {
+		this.fileTask = fileTask;
+		task = null;
+
+	}
+
+	public void recoverClones() {
+		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),
+				this);
+
+	}
+
+	public void showExternalContextDialog() {
+
+		ecd.center();
+	}
+
+	public void showElementOperationAssociationDialog(int dialog) {
+		eoad = new ElementsOperationAssociationDialog(this, dialog);
+		eoad.center();
+	}
+
+	public void updatePespectiveMenuTab(String buttonText) {
+		MainFrame mainFrame = this.getMainFrame();
+		int perspectiveInd = mainFrame.getPerspective();
+		PerspectiveToolBar perspective = this.installToolBar(mainFrame,
+				perspectiveInd);
+
+		if (perspectiveInd != 1
+				&& buttonText.equals(mxResources.get("semanticPerspButton"))) {
+			// System.out.println("semanticPerspButton");
+			mainFrame.setPerspective(1);
+		}
+		if (perspectiveInd != 2
+				&& buttonText.equals(mxResources.get("modelingPerspButton"))) {
+			mainFrame.setPerspective(2);
+			VariamosGraphEditor ed = mainFrame.getEditor(2);
+			List<InstElement> views = ed.getEditedModel().getSyntaxModel()
+					.getVariabilityVertex("SyMView");
+			if (views.size() == 0) {
+				JOptionPane.showMessageDialog(this,
+						mxResources.get("nometamodelerror"),
+						"Not a valid MetaModel",
+						JOptionPane.INFORMATION_MESSAGE, null);
+				mainFrame.setPerspective(3);
+			} else {
+				ed.setVisibleModel(0, -1);
+				ed.updateEditor();
+				ed.defineViewTabs();
+				// System.out.println("modelingPerspButton");
+			}
+		}
+		if (perspectiveInd != 3
+				&& buttonText.equals(mxResources.get("syntaxPerspButton"))) {
+			mainFrame.setPerspective(3);
+			// System.out.println("syntaxPerspButton");
+		}
+
+		if (perspectiveInd != 4
+				&& buttonText.equals(mxResources.get("simulationPerspButton"))) {
+			mainFrame.setPerspective(4);
+			// System.out.println("simulationPerspButton");
+		}
+		perspective.updatePerspective(mainFrame.getPerspective());
+		mainFrame.validate();
+		mainFrame.repaint();
+		// if (mainFrame.getPerspective()==1)
+		{
+
+			// ONLY to display the existing operations in the console
+			TreeSet<String> expressionsS = new TreeSet<String>();
+			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
+				InstElement et = el.getTransSupInstElement();
+				if (et.getIdentifier().equals("OpMOperation")
+						|| el.getIdentifier().equals("VerifyParentsOper")) {
+					int expressions = 0;
+					for (InstElement rel : el.getTargetRelations()) {
+						InstElement subOper = rel.getTargetRelations().get(0);
+						List<InstAttribute> listatt = ((List<InstAttribute>) subOper
+								.getInstAttributeValue("exptype"));
+						OpersSubOperationExpType operExpType = null;
+						String subOperExpTypeName = null;
+						if (listatt != null) {
+							// System.out.println(subOper.getIdentifier());
+							for (InstAttribute att : listatt) {
+								String attObj = (String) ((InstConcept) att
+										.getValue())
+										.getInstAttributeValue("suboperexptype");
+								operExpType = (OpersSubOperationExpType) ((InstConcept) att
+										.getValue()).getEdOperEle();
+								subOperExpTypeName = attObj;
+								// System.out.println(attObj);
+								expressions += operExpType
+										.getSemanticExpressions().size();
+								for (OpersExpr opExp : operExpType
+										.getSemanticExpressions()) {
+									expressionsS.add(opExp.getSemElemId() + " "
+											+ opExp.expressionStructure());
+									// System.out
+									// .println(opExp.getSemElemId()
+									// + " "
+									// + opExp.expressionStructure());
+								}
+
+							}
+						}
+					}
+
+					// System.out.println(el.getIdentifier() + " " +
+					// expressions);
+				}
+			}
+			// for (String opExp : expressionsS)
+			// System.out.println(opExp);
+		}
+
+	}
 }

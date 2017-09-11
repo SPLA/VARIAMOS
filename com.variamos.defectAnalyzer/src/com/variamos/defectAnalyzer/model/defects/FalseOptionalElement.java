@@ -1,22 +1,22 @@
 package com.variamos.defectAnalyzer.model.defects;
 
 import com.cfm.hlcl.Expression;
-import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
+import com.variamos.defectAnalyzer.model.VariabilityElement;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
 
 public class FalseOptionalElement extends Defect {
 
-	private VariabilityElementDefAna falseOptionalElement;
+	private VariabilityElement falseOptionalElement;
 
-	public FalseOptionalElement(VariabilityElementDefAna falseOptionalElement) {
+	public FalseOptionalElement(VariabilityElement falseOptionalElement) {
 		super();
 		this.falseOptionalElement = falseOptionalElement;
 		defectType=DefectType.FALSE_OPTIONAL_FEATURE;
 		id=falseOptionalElement.getName();
 	}
 	
-	public FalseOptionalElement(VariabilityElementDefAna falseOptionalElement,
+	public FalseOptionalElement(VariabilityElement falseOptionalElement,
 			Expression verificationExpression) {
 		this(falseOptionalElement);
 		this.verificationExpression=verificationExpression;
@@ -27,14 +27,14 @@ public class FalseOptionalElement extends Defect {
 	/**
 	 * @return the falseOptionalElement
 	 */
-	public VariabilityElementDefAna getFalseOptionalElement() {
+	public VariabilityElement getFalseOptionalElement() {
 		return falseOptionalElement;
 	}
 
 	/**
 	 * @param falseOptionalElement the falseOptionalElement to set
 	 */
-	public void setFalseOptionalElement(VariabilityElementDefAna falseOptionalElement) {
+	public void setFalseOptionalElement(VariabilityElement falseOptionalElement) {
 		this.falseOptionalElement = falseOptionalElement;
 	}
 

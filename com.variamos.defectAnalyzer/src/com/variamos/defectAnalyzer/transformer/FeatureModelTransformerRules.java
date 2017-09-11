@@ -11,8 +11,9 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
+import com.variamos.defectAnalyzer.constants.ConstraintSymbolsConstant;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
-import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
+import com.variamos.defectAnalyzer.model.VariabilityElement;
 
 import constraints.BooleanVariable;
 
@@ -27,8 +28,8 @@ public class FeatureModelTransformerRules {
 		idMap = new HashMap<>();
 	}
 
-	public Expression getMandatoryRule(VariabilityElementDefAna element1,
-			VariabilityElementDefAna element2) {
+	public Expression getMandatoryRule(VariabilityElement element1,
+			VariabilityElement element2) {
 		// A <=> B
 		Expression numericExpression = f.doubleImplies(
 				createIdentifier(element1), createIdentifier(element2));
@@ -42,13 +43,13 @@ public class FeatureModelTransformerRules {
 	 * @param element2
 	 * @return
 	 */
-	public Expression getNegationMandatoryRule(VariabilityElementDefAna element1,
-			VariabilityElementDefAna element2) {
+	public Expression getNegationMandatoryRule(VariabilityElement element1,
+			VariabilityElement element2) {
 		// A * (1-B) + B * (1- A) > 0
 		Identifier A = createIdentifier(element1);
 		Identifier B = createIdentifier(element2);
 		NumericIdentifier one = f.number(1);
-		NumericIdentifier zero = f.number(TransformerConstants.ZERO);
+		NumericIdentifier zero = f.number(ConstraintSymbolsConstant.ZERO);
 
 		// (1- B)
 		NumericExpression substractionB = f.diff(one, B);
@@ -67,8 +68,8 @@ public class FeatureModelTransformerRules {
 
 	}
 
-	public Expression getOptionalRule(VariabilityElementDefAna element1,
-			VariabilityElementDefAna element2) {
+	public Expression getOptionalRule(VariabilityElement element1,
+			VariabilityElement element2) {
 
 		// A >= B
 		Expression numericExpression = f.greaterOrEqualsThan(
@@ -77,8 +78,8 @@ public class FeatureModelTransformerRules {
 		return numericExpression;
 	}
 
-	public Expression getNegationOptionalRule(VariabilityElementDefAna element1,
-			VariabilityElementDefAna element2) {
+	public Expression getNegationOptionalRule(VariabilityElement element1,
+			VariabilityElement element2) {
 
 		// A < B
 		Expression numericExpression = f.lessThan(createIdentifier(element1),
@@ -88,7 +89,7 @@ public class FeatureModelTransformerRules {
 	}
 
 	public Expression getAssignRule(int valueToAssing,
-			VariabilityElementDefAna element1) {
+			VariabilityElement element1) {
 
 		// Root =1
 		NumericIdentifier numericIdentifier = f.number(valueToAssing);
@@ -97,15 +98,15 @@ public class FeatureModelTransformerRules {
 		return numericExpression;
 	}
 
-	public Expression getGroupalDependencyRule1(VariabilityElementDefAna element1,
-			List<VariabilityElementDefAna> elements, int lowerCardinality) {
+	public Expression getGroupalDependencyRule1(VariabilityElement element1,
+			List<VariabilityElement> elements, int lowerCardinality) {
 		// m * P <= SUM features
 		// element1=parent feature
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
 		Identifier parentIdentifier = createIdentifier(element1);
 		NumericIdentifier lowerCardinalityIdentifier = f
 				.number(lowerCardinality);
-		for (VariabilityElementDefAna element : elements) {
+		for (VariabilityElement element : elements) {
 			identifiers.add(createIdentifier(element));
 		}
 		NumericExpression sumNumericExpression = f.sum(identifiers);
@@ -118,15 +119,15 @@ public class FeatureModelTransformerRules {
 	}
 	
 	
-	public Expression getNegationGroupalDependencyRule1(VariabilityElementDefAna element1,
-			List<VariabilityElementDefAna> elements, int lowerCardinality) {
+	public Expression getNegationGroupalDependencyRule1(VariabilityElement element1,
+			List<VariabilityElement> elements, int lowerCardinality) {
 		// m * P > SUM features
 		// element1=parent feature
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
 		Identifier parentIdentifier = createIdentifier(element1);
 		NumericIdentifier lowerCardinalityIdentifier = f
 				.number(lowerCardinality);
-		for (VariabilityElementDefAna element : elements) {
+		for (VariabilityElement element : elements) {
 			identifiers.add(createIdentifier(element));
 		}
 		NumericExpression sumNumericExpression = f.sum(identifiers);
@@ -139,14 +140,14 @@ public class FeatureModelTransformerRules {
 	}
 	
 
-	public Expression getGroupalDependencyRule2(VariabilityElementDefAna element1,
-			List<VariabilityElementDefAna> elements, int upperCardinality) {
+	public Expression getGroupalDependencyRule2(VariabilityElement element1,
+			List<VariabilityElement> elements, int upperCardinality) {
 		// // SUM features <= n * P
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
 		Identifier parentIdentifier = createIdentifier(element1);
 		NumericIdentifier upperCardinalityIdentifier = f
 				.number(upperCardinality);
-		for (VariabilityElementDefAna element : elements) {
+		for (VariabilityElement element : elements) {
 			identifiers.add(createIdentifier(element));
 		}
 		NumericExpression sumNumericExpression = f.sum(identifiers);
@@ -157,14 +158,14 @@ public class FeatureModelTransformerRules {
 		return ruleExpression;
 	}
 	
-	public Expression getNegationGroupalDependencyRule2(VariabilityElementDefAna element1,
-			List<VariabilityElementDefAna> elements, int upperCardinality) {
+	public Expression getNegationGroupalDependencyRule2(VariabilityElement element1,
+			List<VariabilityElement> elements, int upperCardinality) {
 		// // SUM features > n * P
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
 		Identifier parentIdentifier = createIdentifier(element1);
 		NumericIdentifier upperCardinalityIdentifier = f
 				.number(upperCardinality);
-		for (VariabilityElementDefAna element : elements) {
+		for (VariabilityElement element : elements) {
 			identifiers.add(createIdentifier(element));
 		}
 		NumericExpression sumNumericExpression = f.sum(identifiers);
@@ -175,12 +176,12 @@ public class FeatureModelTransformerRules {
 		return ruleExpression;
 	}
 
-	public Expression getGroupalDependencyRule3(VariabilityElementDefAna element1,
-			List<VariabilityElementDefAna> elements) {
+	public Expression getGroupalDependencyRule3(VariabilityElement element1,
+			List<VariabilityElement> elements) {
 		// P #= SUM features
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
 		Identifier parentIdentifier = createIdentifier(element1);
-		for (VariabilityElementDefAna element : elements) {
+		for (VariabilityElement element : elements) {
 			identifiers.add(createIdentifier(element));
 		}
 		NumericExpression sumNumericExpression = f.sum(identifiers);
@@ -189,12 +190,12 @@ public class FeatureModelTransformerRules {
 		return assignExpresion;
 	}
 	
-	public Expression getNegationGroupalDependencyRule3(VariabilityElementDefAna element1,
-			List<VariabilityElementDefAna> elements) {
+	public Expression getNegationGroupalDependencyRule3(VariabilityElement element1,
+			List<VariabilityElement> elements) {
 		// P != SUM features
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
 		Identifier parentIdentifier = createIdentifier(element1);
-		for (VariabilityElementDefAna element : elements) {
+		for (VariabilityElement element : elements) {
 			identifiers.add(createIdentifier(element));
 		}
 		NumericExpression sumNumericExpression = f.sum(identifiers);
@@ -204,15 +205,15 @@ public class FeatureModelTransformerRules {
 	}
 
 	public NumericExpression getIdentifiersOfExpression(
-			BooleanVariable element, VariabilityElementDefAna variabilityElementDefAna) {
+			BooleanVariable element, VariabilityElement variabilityElement) {
 		Identifier elementIdentifier = null;
 		if (element.isPositive()) {
-			elementIdentifier = createIdentifier(variabilityElementDefAna);
+			elementIdentifier = createIdentifier(variabilityElement);
 			return elementIdentifier;
 		} else {
 			// (1- element)
 			NumericIdentifier one = f.number(1);
-			elementIdentifier = createIdentifier(variabilityElementDefAna);
+			elementIdentifier = createIdentifier(variabilityElement);
 			NumericExpression expression = f.diff(one, elementIdentifier);
 			return expression;
 		}
@@ -222,7 +223,7 @@ public class FeatureModelTransformerRules {
 	public Expression getPropositionalConstraintsRule(
 			List<NumericExpression> expressionList) {
 		// prop1 + prop2 +--- #>0" EJM (1 - F2) + (1 - F8) #> 0,
-		NumericIdentifier zero = f.number(TransformerConstants.ZERO);
+		NumericIdentifier zero = f.number(ConstraintSymbolsConstant.ZERO);
 		NumericExpression sumNumericExpression = f.sum(expressionList);
 		Expression ruleExpression = f.greaterThan(sumNumericExpression, zero);
 		return ruleExpression;
@@ -231,14 +232,14 @@ public class FeatureModelTransformerRules {
 	public Expression getNegationPropositionalConstraintsRule(
 			List<NumericExpression> expressionList) {
 		// prop1 + prop2 +--- #>0" EJM (1 - F2) + (1 - F8) #<= 0,
-		NumericIdentifier zero = f.number(TransformerConstants.ZERO);
+		NumericIdentifier zero = f.number(ConstraintSymbolsConstant.ZERO);
 		NumericExpression sumNumericExpression = f.sum(expressionList);
 		Expression ruleExpression = f.lessOrEqualsThan(sumNumericExpression, zero);
 		return ruleExpression;
 	}
 
 
-	public String getGroupalDependencyName3(VariabilityElementDefAna element1,
+	public String getGroupalDependencyName3(VariabilityElement element1,
 			String featureSet) {
 		StringBuilder dependencyName = new StringBuilder();
 		// Parent TO groupedFeatures`
@@ -250,7 +251,7 @@ public class FeatureModelTransformerRules {
 		return dependencyName.toString();
 	}
 
-	public String getGroupalDependencyName1(VariabilityElementDefAna element1,
+	public String getGroupalDependencyName1(VariabilityElement element1,
 			String featureSet) {
 		// Parent TO groupedFeatures LowCardinality
 		StringBuilder dependencyName = new StringBuilder(
@@ -259,7 +260,7 @@ public class FeatureModelTransformerRules {
 		return dependencyName.toString();
 	}
 
-	public String getGroupalDependencyName2(VariabilityElementDefAna element1,
+	public String getGroupalDependencyName2(VariabilityElement element1,
 			String featureSet) {
 		// Parent TO groupedFeatures UpperCardinality
 		StringBuilder dependencyName = new StringBuilder(
@@ -278,7 +279,7 @@ public class FeatureModelTransformerRules {
 		return dependencyName.toString();
 	}
 
-	public String getRootDependencyName(VariabilityElementDefAna element1) {
+	public String getRootDependencyName(VariabilityElement element1) {
 		StringBuilder dependencyName = new StringBuilder();
 		// Model root: feature1"
 		dependencyName.append(TransformerConstants.MODEL_ROOT);
@@ -287,7 +288,7 @@ public class FeatureModelTransformerRules {
 	}
 
 	public String getMandatoryDependencyName(
-			VariabilityElementDefAna element1, VariabilityElementDefAna element2) {
+			VariabilityElement element1, VariabilityElement element2) {
 		StringBuilder dependencyName = new StringBuilder();
 		// Mandatory Dependency between feature1 y feature2"
 		dependencyName.append(TransformerConstants.DEPENDENCY);
@@ -299,7 +300,7 @@ public class FeatureModelTransformerRules {
 	}
 	
 	public String getOptionalDependencyName(
-			VariabilityElementDefAna element1, VariabilityElementDefAna element2) {
+			VariabilityElement element1, VariabilityElement element2) {
 		StringBuilder dependencyName = new StringBuilder();
 		// Mandatory Dependency between feature1 y feature2"
 		dependencyName.append(TransformerConstants.DEPENDENCY);
@@ -310,7 +311,7 @@ public class FeatureModelTransformerRules {
 		return dependencyName.toString();
 	}
 
-	private Identifier createIdentifier(VariabilityElementDefAna element) {
+	private Identifier createIdentifier(VariabilityElement element) {
 		Identifier identifier = null;
 		if (!idMap.containsKey(element.getName())) {
 			identifier = f.newIdentifier(element.getName(), element.getName());

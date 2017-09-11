@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
+import com.variamos.defectAnalyzer.util.SolverOperationsUtil;
 
 public class VariabilityModelAnalyzer {
 
@@ -24,7 +25,7 @@ public class VariabilityModelAnalyzer {
 			// ajusta la ruta
 			prologTempPath = prologTempPath.replace("\\", "/");
 			
-			prologEditorType = inDTO.getSolverEditorType();
+			prologEditorType = inDTO.getPrologEditorType();
 
 
 		} catch (IOException e) {

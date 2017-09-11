@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.productline.ProductLine;
 import com.variamos.core.enums.NotationType;
 
-public class VariabilityModel extends ProductLine{
+public class VariabilityModel {
 	private String modelName;
 	private NotationType notationType;
-	private Map<String, VariabilityElementDefAna> elements;
+	private Map<String, VariabilityElement> elements;
 	private Map<Long, Dependency> dependencies;
 	// Dependencias propias de la notación que se está utilizando y que no
 	// pueden ser modificables pq hacen parte de la semántica del modelo de
@@ -19,7 +18,7 @@ public class VariabilityModel extends ProductLine{
 
 	// Subconjunto de los elementos del modelo. Contiene solo los elementos
 	// opcionales
-	private Map<String, VariabilityElementDefAna> optionalVariabilityElements;
+	private Map<String, VariabilityElement> optionalVariabilityElements;
 
 	// Dependencias de inclusión o exclusion. Son la dependencias para las que
 	// se buscan redundancias si el modelo es un feature model
@@ -39,7 +38,7 @@ public class VariabilityModel extends ProductLine{
 	public VariabilityModel() {
 		super();
 		fixedDependencies = new HashMap<Long, Dependency>();
-		optionalVariabilityElements = new HashMap<String, VariabilityElementDefAna>();
+		optionalVariabilityElements = new HashMap<String, VariabilityElement>();
 		numbeOfFeatures = numberOfNonTrasversalDependencies = numberOfTraversalDependencies = percentageNonTraversalDependencies = percentageTraversalDependencies =numberOfDependencies= 0;
 	}
 
@@ -48,7 +47,21 @@ public class VariabilityModel extends ProductLine{
 		this.notationType = notationType;
 	}
 
-	
+	/**
+	 * @return the modelName
+	 */
+	public String getModelName() {
+		return modelName;
+	}
+
+	/**
+	 * @param modelName
+	 *            the modelName to set
+	 */
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
 	/**
 	 * @return the notationType
 	 */
@@ -114,7 +127,7 @@ public class VariabilityModel extends ProductLine{
 	/**
 	 * @return the elements
 	 */
-	public Map<String, VariabilityElementDefAna> getElements() {
+	public Map<String, VariabilityElement> getElements() {
 		return elements;
 	}
 
@@ -122,7 +135,7 @@ public class VariabilityModel extends ProductLine{
 	 * @param elements
 	 *            the elements to set
 	 */
-	public void setElements(Map<String, VariabilityElementDefAna> elements) {
+	public void setElements(Map<String, VariabilityElement> elements) {
 		this.elements = elements;
 	}
 
@@ -160,7 +173,7 @@ public class VariabilityModel extends ProductLine{
 	/**
 	 * @return the optionalVariabilityElements
 	 */
-	public Map<String, VariabilityElementDefAna> getOptionalVariabilityElements() {
+	public Map<String, VariabilityElement> getOptionalVariabilityElements() {
 		return optionalVariabilityElements;
 	}
 
@@ -169,7 +182,7 @@ public class VariabilityModel extends ProductLine{
 	 *            the optionalVariabilityElements to set
 	 */
 	public void setOptionalVariabilityElements(
-			Map<String, VariabilityElementDefAna> optionalVariabilityElements) {
+			Map<String, VariabilityElement> optionalVariabilityElements) {
 		this.optionalVariabilityElements = optionalVariabilityElements;
 	}
 

@@ -8,7 +8,7 @@ import com.variamos.defectAnalyzer.model.enums.DefectAnalyzerMode;
 
 public class VMCauseAnalyzerInDTO {
 
-	private DefectAnalyzerMode defectAnalyzerMode;
+	private DefectAnalyzerMode correctionSetIdentifcationType;
 
 	private List<Defect> deadFeaturesList = new ArrayList<Defect>();
 	private List<Defect> falseOptionalFeaturesList = new ArrayList<Defect>();
@@ -20,8 +20,8 @@ public class VMCauseAnalyzerInDTO {
 	/**
 	 * @return the correctionSetIdentifcationType
 	 */
-	public DefectAnalyzerMode getDefectAnalyzerMode() {
-		return defectAnalyzerMode;
+	public DefectAnalyzerMode getCorrectionSetIdentifcationType() {
+		return correctionSetIdentifcationType;
 	}
 
 	/**
@@ -73,12 +73,12 @@ public class VMCauseAnalyzerInDTO {
 	/**
 	 * /**
 	 * 
-	 * @param defectAnalyzerMode
+	 * @param correctionSetIdentifcationType
 	 *            the correctionSetIdentifcationType to set
 	 */
-	public void setDefectAnalyzerMode(
-			DefectAnalyzerMode defectAnalyzerMode) {
-		this.defectAnalyzerMode = defectAnalyzerMode;
+	public void setCorrectionSetIdentifcationType(
+			DefectAnalyzerMode correctionSetIdentifcationType) {
+		this.correctionSetIdentifcationType = correctionSetIdentifcationType;
 	}
 
 	/**

@@ -14,7 +14,7 @@ import com.cfm.productline.productLine.Pl2Hlcl;
 import com.variamos.core.exceptions.TransformerException;
 import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.defectAnalyzer.model.Dependency;
-import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
+import com.variamos.defectAnalyzer.model.VariabilityElement;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 
 /**
@@ -28,20 +28,20 @@ public class ProductLineTransformer implements ITransformer {
 
 	private ProductLine productLine;
 
-	private Map<String, VariabilityElementDefAna> optionalVariabilityElements;
+	private Map<String, VariabilityElement> optionalVariabilityElements;
 	private Long constraintCounter;
 	private VariabilityModel variabilityModel;
-	private Map<String, VariabilityElementDefAna> variabilityElementMap;
+	private Map<String, VariabilityElement> variabilityElementMap;
 	private Map<Long, Dependency> variabilityDependenciesMap;
 	private Map<String, Identifier> idMap;
 
 	private ProductLineTransformerRules transformerRules;
 
 	private void init(VMTransformerInDTO inDTO) {
-		optionalVariabilityElements = new HashMap<String, VariabilityElementDefAna>();
+		optionalVariabilityElements = new HashMap<String, VariabilityElement>();
 		constraintCounter = 0L;
 		transformerRules = new ProductLineTransformerRules();
-		variabilityElementMap = new HashMap<String, VariabilityElementDefAna>();
+		variabilityElementMap = new HashMap<String, VariabilityElement>();
 		variabilityDependenciesMap = new HashMap<Long, Dependency>();
 		idMap = new HashMap<>();
 		productLine = inDTO.getProductLineConfigurator();
@@ -57,7 +57,7 @@ public class ProductLineTransformer implements ITransformer {
 			// Se lee el product line del configurador
 
 			variabilityModel = new VariabilityModel(inDTO.getNotationType());
-			variabilityModel.setName(productLine.getName());
+			variabilityModel.setModelName(productLine.getName());
 
 			createProductLineConfiguratorElements();
 			// Carga de los variabilityModel
@@ -93,7 +93,7 @@ public class ProductLineTransformer implements ITransformer {
 					.getVariabilityElements()) {
 				variabilityElementMap.put(
 						variabilityElement.getIdentifier(),
-						new VariabilityElementDefAna(variabilityElement
+						new VariabilityElement(variabilityElement
 								.getIdentifier()));
 			}
 

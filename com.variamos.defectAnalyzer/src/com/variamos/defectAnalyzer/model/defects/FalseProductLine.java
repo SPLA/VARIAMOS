@@ -14,7 +14,7 @@ public class FalseProductLine extends Defect {
 		super();
 		this.variabilityModel = variabilityModel;
 		defectType=DefectType.FALSE_PRODUCT_LINE;
-		
+		this.id=variabilityModel.getModelName();
 	}
 
 	/**

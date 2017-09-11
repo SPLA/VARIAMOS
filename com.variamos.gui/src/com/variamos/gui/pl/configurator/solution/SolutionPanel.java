@@ -7,8 +7,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.cfm.productline.solver.Configuration;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
+import com.variamos.solver.Configuration;
 
 /**
  * @author unknown

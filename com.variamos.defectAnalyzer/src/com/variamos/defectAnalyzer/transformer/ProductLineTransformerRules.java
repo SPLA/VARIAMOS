@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
-import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
+import com.variamos.defectAnalyzer.model.VariabilityElement;
 
 public class ProductLineTransformerRules {
 
@@ -17,11 +17,11 @@ public class ProductLineTransformerRules {
 	}
 
 	public Map<String, Identifier> getIdentifiers(
-			Map<String, VariabilityElementDefAna> variabilityElementsMap) {
+			Map<String, VariabilityElement> variabilityElementsMap) {
 
 		Map<String, Identifier> idMap = new HashMap<>();
 		// For each variability element create a variable
-		for (VariabilityElementDefAna elm : variabilityElementsMap.values()) {
+		for (VariabilityElement elm : variabilityElementsMap.values()) {
 			idMap.put(elm.getName(),
 					f.newIdentifier(elm.getName(), elm.getName()));
 		}

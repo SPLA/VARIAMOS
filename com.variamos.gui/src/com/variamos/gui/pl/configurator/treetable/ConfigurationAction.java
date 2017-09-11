@@ -2,18 +2,17 @@ package com.variamos.gui.pl.configurator.treetable;
 
 import com.cfm.productline.Variable;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
-import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 public abstract class ConfigurationAction {
 	protected Variable variable;
 	protected int index;
-	
+
 	public ConfigurationAction(Variable variable, int index) {
 		super();
 		this.variable = variable;
 		this.index = index;
 	}
-	
+
 	public Variable getVariable() {
 		return variable;
 	}
@@ -22,7 +21,10 @@ public abstract class ConfigurationAction {
 		return index;
 	}
 
-	public abstract void undo(AbstractConfigurationPanel configurator);
-	public abstract void execute(AbstractConfigurationPanel configurator);
-	
+	public abstract void undo(AbstractConfigurationPanel configurator,
+			Object source);
+
+	public abstract void execute(AbstractConfigurationPanel configurator,
+			Object source);
+
 }

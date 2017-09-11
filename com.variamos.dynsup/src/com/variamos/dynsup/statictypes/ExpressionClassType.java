@@ -1,0 +1,8 @@
+package com.variamos.dynsup.statictypes;
+
+public enum ExpressionClassType {
+AndBooleanExpression, AssignBooleanExpression,DiffNumericExpression,DoubleImplicationBooleanExpression,
+EqualsComparisonExpression,GreaterOrEqualsBooleanExpression,ImplicationBooleanExpression,LessBooleanExpression,
+LessOrEqualsBooleanExpression,LiteralBooleanExpression,NotBooleanExpression,NotEqualsBooleanExpression,
+NumberNumericExpression,OrBooleanExpression,ProdNumericExpression,SumNumericExpression
+}

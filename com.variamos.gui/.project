@@ -3,6 +3,8 @@
 	<name>com.variamos.gui</name>
 	<comment></comment>
 	<projects>
+		<project>com.variamos.configurator</project>
+		<project>com.variamos.defectAnalyzer</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

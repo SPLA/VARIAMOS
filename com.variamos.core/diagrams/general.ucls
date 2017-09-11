@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="false" dependencies="false" nesting-relationships="true">  
+  <package id="1" language="java" name="com.variamos.compiler.solverSymbols" project="com.variamos.compiler" 
+    file="/com.variamos.compiler/src/com/variamos/compiler/solverSymbols" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1539" y="1041"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="com.variamos.compiler.prologEditors" project="com.variamos.compiler" 
+    file="/com.variamos.compiler/src/com/variamos/compiler/prologEditors" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="348" y="912"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="com.variamos.editor.logic" project="com.variamos.configurator" 
+    file="/com.variamos.configurator/src/com/variamos/editor/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2494" y="309"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="com.variamos.configurator.io" project="com.variamos.configurator" 
+    file="/com.variamos.configurator/src/com/variamos/configurator/io" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="920" y="168"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="com.variamos.configurator" project="com.variamos.configurator" 
+    file="/com.variamos.configurator/src/com/variamos/configurator" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="272" y="231"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="com.variamos.core.enums" project="com.variamos.core" 
+    file="/com.variamos.core/src/com/variamos/core/enums" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2697" y="876"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="com.variamos.core.util" project="com.variamos.core" 
+    file="/com.variamos.core/src/com/variamos/core/util" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2420" y="940"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="com.variamos.core.exceptions" project="com.variamos.core" 
+    file="/com.variamos.core/src/com/variamos/core/exceptions" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2124" y="809"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="com.cfm.productline.type" project="com.variamos.genericModel" 
+    file="/com.variamos.genericModel/src/com/cfm/productline/type" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2853" y="1001"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="10" language="java" name="com.variamos.gui.perspeditor.widgets" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/perspeditor/widgets" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4609" y="496"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="11" language="java" name="com.variamos.gui.perspeditor.images" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/perspeditor/images" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="372" y="1195"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="12" language="java" name="com.variamos.gui.common.jelements" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/common/jelements" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="283" x="612" y="607"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="13" language="java" name="com.variamos.gui.pl.configurator.treetable" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/pl/configurator/treetable" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="322" x="489" y="417"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="14" language="java" name="com.variamos.gui.maineditor" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/maineditor" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3314" y="195"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="15" language="java" name="com.variamos.gui.maineditor.resources" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/maineditor/resources" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="708" y="1202"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="16" language="java" name="com.variamos.gui.pl.editor.widgets" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/pl/editor/widgets" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3415" y="459"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="17" language="java" name="com.variamos.gui.pl.editor.shapes" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/pl/editor/shapes" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3322" y="55"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="18" language="java" name="com.variamos.gui.configurator.guiactions" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/configurator/guiactions" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1597" y="40"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="19" language="java" name="com.variamos.gui.pl.editor" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/pl/editor" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2703" y="178"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="20" language="java" name="com.variamos.gui.perspeditor" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/perspeditor" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2792" y="69"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="21" language="java" name="com.variamos.gui.treetable.core" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/treetable/core" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1926" y="511"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="22" language="java" name="com.variamos.gui.pl.editor.images" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/pl/editor/images" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="446" y="1050"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="23" language="java" name="com.variamos.gui.perspeditor.actions" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/perspeditor/actions" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3535" y="306"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="24" language="java" name="com.variamos.gui.perspeditor.panels" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/perspeditor/panels" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4131" y="297"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="25" language="java" name="com.variamos.gui.pl.configurator.solution" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/pl/configurator/solution" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1329" y="377"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="26" language="java" name="com.variamos.gui.pl.configurator.treetable.actions" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/pl/configurator/treetable/actions" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="377" x="455" y="512"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="27" language="java" name="com.variamos.gui.pl.editor.actions" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/pl/editor/actions" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1989" y="136"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="28" language="java" name="com.variamos.gui.perspeditor.style" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/perspeditor/style" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="50" y="1206"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="29" language="java" name="com.variamos.hlcl" project="com.variamos.hlcl" 
+    file="/com.variamos.hlcl/src/com/variamos/hlcl" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1888" y="1138"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="30" language="java" name="com.variamos.io" project="com.variamos.io" 
+    file="/com.variamos.io/src/com/variamos/io" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2102" y="434"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="31" language="java" name="com.variamos.solver" project="com.variamos.solver" 
+    file="/com.variamos.solver/src/com/variamos/solver" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="170" x="1019" y="702"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <dependency id="32">    
+    <bendpoint x="862" y="512"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="33">    
+    <bendpoint x="2619" y="322"/>    
+    <bendpoint x="2619" y="417"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="34">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="35">    
+    <bendpoint x="2122" y="268"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="36">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="37">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="38">    
+    <bendpoint x="2535" y="227"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="39">    
+    <bendpoint x="3686" y="227"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="40">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="41">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="42">    
+    <bendpoint x="3018" y="227"/>    
+    <bendpoint x="3018" y="322"/>    
+    <bendpoint x="2997" y="417"/>    
+    <bendpoint x="2306" y="512"/>    
+    <bendpoint x="2381" y="607"/>    
+    <bendpoint x="2548" y="702"/>    
+    <bendpoint x="2569" y="797"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="43">    
+    <bendpoint x="277" y="512"/>    
+    <bendpoint x="271" y="607"/>    
+    <bendpoint x="271" y="702"/>    
+    <bendpoint x="270" y="797"/>    
+    <bendpoint x="1092" y="892"/>    
+    <bendpoint x="1092" y="987"/>    
+    <bendpoint x="1092" y="1082"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="44">    
+    <bendpoint x="3707" y="227"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="45">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="46">    
+    <bendpoint x="2768" y="417"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="47">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="48">    
+    <bendpoint x="1344" y="892"/>    
+    <bendpoint x="1365" y="987"/>    
+    <bendpoint x="1365" y="1082"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="49">    
+    <bendpoint x="1676" y="417"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="50">    
+    <bendpoint x="4588" y="227"/>    
+    <bendpoint x="4796" y="322"/>    
+    <bendpoint x="5028" y="417"/>    
+    <bendpoint x="5227" y="512"/>    
+    <bendpoint x="5399" y="607"/>    
+    <bendpoint x="5571" y="702"/>    
+    <bendpoint x="5272" y="797"/>    
+    <bendpoint x="4972" y="892"/>    
+    <bendpoint x="4672" y="987"/>    
+    <bendpoint x="4366" y="1082"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="51">    
+    <bendpoint x="883" y="417"/>    
+    <bendpoint x="967" y="512"/>    
+    <bendpoint x="967" y="607"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="52">    
+    <bendpoint x="938" y="364"/>    
+    <bendpoint x="946" y="417"/>    
+    <bendpoint x="946" y="512"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="53">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="54">    
+    <bendpoint x="785" y="292"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="55">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="56">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="57">    
+    <bendpoint x="374" y="417"/>    
+    <bendpoint x="235" y="512"/>    
+    <bendpoint x="313" y="607"/>    
+    <bendpoint x="397" y="702"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="58">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="59">    
+    <bendpoint x="3805" y="322"/>    
+    <bendpoint x="3700" y="227"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="60">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="61">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="62">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="63">    
+    <bendpoint x="2808" y="227"/>    
+    <bendpoint x="2808" y="322"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="64">    
+    <bendpoint x="2697" y="374"/>    
+    <bendpoint x="1592" y="417"/>    
+    <bendpoint x="1422" y="512"/>    
+    <bendpoint x="1261" y="607"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="65">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="66">    
+    <bendpoint x="2577" y="322"/>    
+    <bendpoint x="1718" y="417"/>    
+    <bendpoint x="1527" y="512"/>    
+    <bendpoint x="1324" y="607"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="67">    
+    <bendpoint x="1528" y="133"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="68">    
+    <bendpoint x="1116" y="816"/>    
+    <bendpoint x="1155" y="892"/>    
+    <bendpoint x="1113" y="987"/>    
+    <bendpoint x="1113" y="1082"/>    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="69">    
+    <bendpoint x="-35" y="417"/>    
+    <bendpoint x="-35" y="512"/>    
+    <bendpoint x="-35" y="607"/>    
+    <bendpoint x="-35" y="702"/>    
+    <bendpoint x="-35" y="797"/>    
+    <bendpoint x="1008" y="892"/>    
+    <bendpoint x="1008" y="987"/>    
+    <bendpoint x="1008" y="1082"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="70">    
+    <bendpoint x="1373" y="820"/>    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="71">    
+    <bendpoint x="2312" y="322"/>    
+    <bendpoint x="1802" y="417"/>    
+    <bendpoint x="1660" y="512"/>    
+    <bendpoint x="1723" y="607"/>    
+    <bendpoint x="1786" y="702"/>    
+    <bendpoint x="1891" y="797"/>    
+    <bendpoint x="1933" y="892"/>    
+    <bendpoint x="1996" y="987"/>    
+    <bendpoint x="1996" y="1082"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="72">    
+    <bendpoint x="2223" y="132"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="73">    
+    <bendpoint x="876" y="268"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="74">    
+    <bendpoint x="4273" y="227"/>    
+    <bendpoint x="4349" y="322"/>    
+    <bendpoint x="4504" y="417"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="75">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="76">    
+    <bendpoint x="1445" y="417"/>    
+    <bendpoint x="1332" y="512"/>    
+    <bendpoint x="1219" y="607"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="77">    
+    <bendpoint x="1004" y="60"/>    
+    <bendpoint x="1004" y="101"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="78">    
+    <bendpoint x="1093" y="417"/>    
+    <bendpoint x="1093" y="512"/>    
+    <bendpoint x="1072" y="607"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="79">    
+    <bendpoint x="1198" y="512"/>    
+    <bendpoint x="1198" y="607"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="80">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="81">    
+    <bendpoint x="1642" y="232"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="82">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="83">    
+    <bendpoint x="4567" y="227"/>    
+    <bendpoint x="4775" y="322"/>    
+    <bendpoint x="4986" y="417"/>    
+    <bendpoint x="5185" y="512"/>    
+    <bendpoint x="5368" y="607"/>    
+    <bendpoint x="5550" y="702"/>    
+    <bendpoint x="5251" y="797"/>    
+    <bendpoint x="4951" y="892"/>    
+    <bendpoint x="4651" y="987"/>    
+    <bendpoint x="4345" y="1082"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="84">    
+    <bendpoint x="5046" y="512"/>    
+    <bendpoint x="5319" y="607"/>    
+    <bendpoint x="5466" y="702"/>    
+    <bendpoint x="5191" y="797"/>    
+    <bendpoint x="4911" y="892"/>    
+    <bendpoint x="4630" y="987"/>    
+    <bendpoint x="4324" y="1082"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="85">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="86">    
+    <bendpoint x="845" y="989"/>    
+    <bendpoint x="1198" y="1092"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <dependency id="87">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="88">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="89">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

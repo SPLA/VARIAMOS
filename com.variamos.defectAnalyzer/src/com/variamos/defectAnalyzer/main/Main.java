@@ -17,14 +17,14 @@ public class Main {
 			modelName="tesis";
 			System.out.print("Introduzca la ruta completa del modelo ");
 			//modelPath = entrada.readLine();
-			modelPath="D://WebPortalTesis.sxfm";
+			modelPath="C:/Users/jcmunoz/git/VARIAMOS/com.cfm.productline.defectAnalyzers/test/testModels/MobileFeatureModelCCC.sfxm";
 			System.out
 					.print("Introduzca la ruta completa del directorio de salida ");
 			//outputPath = entrada.readLine();
-			outputPath="D:/";
+			outputPath="I:/";
 			// Analizar modelo: identificar defectos, causas y correcciones,
 			// clasificar causas correcciones,exportar resultados
-			DefectAnalyzerMain defectAnalyzer = new DefectAnalyzerMain();
+			MainDefectAnalyzer defectAnalyzer = new MainDefectAnalyzer();
 			defectAnalyzer.analyzeSplotFM(modelName, modelPath, outputPath);
 
 		} catch (Exception e) {

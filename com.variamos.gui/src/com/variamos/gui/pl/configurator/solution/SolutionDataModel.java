@@ -3,10 +3,10 @@ package com.variamos.gui.pl.configurator.solution;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cfm.productline.solver.Configuration;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModel;
+import com.variamos.solver.Configuration;
 
 public class SolutionDataModel extends AbstractTreeTableModel{
 	

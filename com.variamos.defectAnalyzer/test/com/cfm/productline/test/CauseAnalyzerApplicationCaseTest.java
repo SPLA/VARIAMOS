@@ -38,7 +38,7 @@ import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.defectAnalyzer.model.AnalyzedCorrectionSet;
 import com.variamos.defectAnalyzer.model.Dependency;
-import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
+import com.variamos.defectAnalyzer.model.VariabilityElement;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.defects.VoidModel;
