@@ -86,7 +86,6 @@ import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.solver.model.SolverSolution;
 
@@ -118,7 +117,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	protected DomainRegister domasinRegister = new DomainRegister();
 	
 	
-	protected ConfigurationPropertiesTab configuratorProperties;
 	private InstanceModel refasModel;
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
@@ -612,15 +610,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		elementSimPropPanel = new JPanel();
 		elementSimPropPanel.setLayout(new SpringLayout());
 
-		
-
-		configuratorProperties = new ConfigurationPropertiesTab();
-
 		expressions = new StaticExpressionsPanel();
-
-		// if (getPerspective() == 2) {
-
-		// }
 
 		// Bottom panel : Properties, Messages and Configuration
 		extensionTabs = new JTabbedPane(JTabbedPane.TOP,
@@ -740,12 +730,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			extensionTabs.addTab(mxResources.get("messagesTab"),
 					new JScrollPane(ConsoleTextArea.getTextArea()));
 
-			if (perspective == 2 && getMainFrame() != null
-					&& getMainFrame().isAdvancedPerspective()) {
-				extensionTabs.addTab(mxResources.get("modelConfPropTab"),
-						configuratorProperties.getScrollPane());
-
-			}
+			//TODO: Review if this if is still necessary
 
 		}
 
