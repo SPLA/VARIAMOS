@@ -179,14 +179,15 @@ public class FileTasks extends SwingWorker<Void, Void> {
 				}
 				PrintWriter dfile;
 				try {
-					dfile = new PrintWriter("tmp.txt");
+					dfile = new PrintWriter(file.getAbsolutePath()
+							+ "ConvertedToV20.vmsm");
 					dfile.print(out);
 					dfile.close();
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				file = new File("tmp.txt");
+				file = new File(file.getAbsolutePath() + "ConvertedToV20.vmsm");
 
 			}
 			// validation example
