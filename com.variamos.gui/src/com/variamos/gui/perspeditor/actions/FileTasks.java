@@ -161,13 +161,14 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			// convert syntax mm from v19 to v20
 			if (versionstr[1].startsWith("1.0.1.19")
 					&& currentVersion.equals("1.0.1.20")
-					&& variamosEditor.getPerspective() == 3) {
+					&& (variamosEditor.getPerspective() == 1 || variamosEditor
+							.getPerspective() == 3)) {
 				setProgress(50);
-				progressMonitor.setNote("Converting Model File...");
+				progressMonitor
+						.setNote("Converting MM (1.0.1.19 to 1.0.1.20)...");
 				// Include your edition of the text file here, update the file
 				// object with the new file
-				stringBuilder.toString().split(
-						"<add as=\"versionNumber\" value=\"");
+
 				String parts[] = stringBuilder.toString().split(
 						"com.variamos.hlcl.");
 				StringBuilder out = new StringBuilder();
@@ -177,6 +178,20 @@ public class FileTasks extends SwingWorker<Void, Void> {
 					else
 						out.append(part + "com.variamos.hlcl.model.domains.");
 				}
+
+				if (variamosEditor.getPerspective() == 3) {
+					String partsImg[] = out.toString().split(
+							"/com/variamos/gui/pl/editor/images/");
+					out = new StringBuilder();
+					for (String part : partsImg) {
+						if (partsImg[partsImg.length - 1].equals(part))
+							out.append(part);
+						else
+							out.append(part
+									+ "/com/variamos/gui/perspeditor/images/");
+					}
+				}
+
 				PrintWriter dfile;
 				try {
 					dfile = new PrintWriter(file.getAbsolutePath()
@@ -237,10 +252,12 @@ public class FileTasks extends SwingWorker<Void, Void> {
 
 			if (modelVersion.equals("1.0.1.19")
 					&& currentVersion.equals("1.0.1.20")
-					&& variamosEditor.getPerspective() == 3) {
+					&& (variamosEditor.getPerspective() == 1 || variamosEditor
+							.getPerspective() == 3)) {
 
 				setProgress(50);
-				progressMonitor.setNote("Converting DataModel...");
+				progressMonitor
+						.setNote("Converting MM (1.0.1.19 to 1.0.1.20)...");
 				// Assign the new version to avoid reconverting models
 				rootAttributes.setInstAttributeAttribute("versionNumber",
 						"1.0.1.20");
