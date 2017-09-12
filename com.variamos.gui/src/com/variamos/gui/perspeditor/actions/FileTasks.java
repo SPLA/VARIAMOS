@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,11 +18,11 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
-import com.variamos.configurator.io.PLGReader;
 import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.gui.core.io.ConsoleTextArea;
+import com.variamos.gui.core.io.MxGraphReader;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.io.ConsoleTextArea;
 
 public class FileTasks extends SwingWorker<Void, Void> {
 	public String getErrorTitle() {
@@ -149,9 +150,6 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		String version = "";
 		String currentVersion = MainFrame.getVariamosVersionNumber();
 		if (versionstr.length > 1) {
-			version = (stringBuilder.toString().split(
-					"<add as=\"versionNumber\" value=\"")[1]
-					.split("\"/></Array>"))[0];
 
 			// TODO: to convert an old version model to a new version (file
 			// before
@@ -160,12 +158,42 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			// correct: modelVersion.equals("1.0.1.19") &&
 			// currentVersion.equals("1.0.1.20")
 
-			// validation example
-			if (version.equals("1.0.1.19") && currentVersion.equals("1.0.1.20")) {
+			// convert syntax mm from v19 to v20
+			if (versionstr[1].startsWith("1.0.1.19")
+					&& currentVersion.equals("1.0.1.20")
+					&& variamosEditor.getPerspective() == 3) {
 				setProgress(50);
 				progressMonitor.setNote("Converting Model File...");
 				// Include your edition of the text file here, update the file
 				// object with the new file
+				stringBuilder.toString().split(
+						"<add as=\"versionNumber\" value=\"");
+				String parts[] = stringBuilder.toString().split(
+						"com.variamos.hlcl.");
+				StringBuilder out = new StringBuilder();
+				for (String part : parts) {
+					if (parts[parts.length - 1].equals(part))
+						out.append(part);
+					else
+						out.append(part + "com.variamos.hlcl.model.domains.");
+				}
+				PrintWriter dfile;
+				try {
+					dfile = new PrintWriter(file.getAbsolutePath()
+							+ "ConvertedToV20.vmsm");
+					dfile.print(out);
+					dfile.close();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				file = new File(file.getAbsolutePath() + "ConvertedToV20.vmsm");
+
+			}
+			// validation example
+			if (versionstr[1].startsWith("1.0.1.20")
+					&& currentVersion.equals("1.0.1.21")) {
+
 			}
 			// System.out.println(stringBuilder.toString());
 			// endTime = System.currentTimeMillis();
@@ -184,7 +212,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		}
 		// Read file version
 		try {
-			PLGReader.loadPLG(file, graph, variamosEditor);
+			MxGraphReader.loadMxGraph(file, graph, variamosEditor);
 		} catch (Exception e) {
 			JOptionPane
 					.showMessageDialog(
@@ -207,13 +235,22 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			// correct: modelVersion.equals("1.0.1.19") &&
 			// currentVersion.equals("1.0.1.20")
 
-			// validation example
 			if (modelVersion.equals("1.0.1.19")
-					&& currentVersion.equals("1.0.1.20")) {
+					&& currentVersion.equals("1.0.1.20")
+					&& variamosEditor.getPerspective() == 3) {
 
 				setProgress(50);
 				progressMonitor.setNote("Converting DataModel...");
+				// Assign the new version to avoid reconverting models
+				rootAttributes.setInstAttributeAttribute("versionNumber",
+						"1.0.1.20");
 				// Include your of the graph object conversion here
+			}
+
+			// validation example
+			if (modelVersion.equals("1.0.1.20")
+					&& currentVersion.equals("1.0.1.21")) {
+
 			}
 		}
 
@@ -228,8 +265,6 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		progressMonitor.setNote("Updating DataModel...");
 		SharedActions.afterOpenCloneGraph(graph, variamosEditor);
 		SharedActions.afterOpenCloneGraph(graph, variamosEditor);
-		// variamosEditor.populateIndex(((PerspEditorGraph)
-		// graph).getProductLine());
 		setProgress(90);
 		progressMonitor.setNote("Load completed.");
 		resetEditor(variamosEditor);

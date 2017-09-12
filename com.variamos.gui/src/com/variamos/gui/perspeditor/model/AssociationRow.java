@@ -3,14 +3,13 @@ package com.variamos.gui.perspeditor.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cfm.productline.Variable;
-import com.variamos.configurator.DomainAnnotation;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.types.ElementVariable;
 import com.variamos.dynsup.types.IntegerVariable;
-import com.variamos.hlcl.BinaryDomain;
-import com.variamos.hlcl.Domain;
-import com.variamos.hlcl.IntervalDomain;
+import com.variamos.dynsup.types.Variable;
+import com.variamos.hlcl.model.domains.BinaryDomain;
+import com.variamos.hlcl.model.domains.IntDomain;
+import com.variamos.hlcl.model.domains.IntervalDomain;
 
 /**
  * A class to support the creation of nodes for the visual representation of the
@@ -18,7 +17,7 @@ import com.variamos.hlcl.IntervalDomain;
  * University of Paris 1. Initially copied from
  * com.variamos.gui.pl.configuration.treetable.ConfigurationNode
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
  * @see com.variamos.gui.pl.AssociationRow.treetable.ConfigurationNode
@@ -37,7 +36,7 @@ public class AssociationRow {
 	protected List<AssociationRow> children;
 
 	public AssociationRow(InstElement element, String name, int size,
-			boolean leaf, List<Domain> domains, List<Integer> values,
+			boolean leaf, List<IntDomain> domains, List<Integer> values,
 			Object source) {
 		this.element = element;
 		this.leaf = leaf;

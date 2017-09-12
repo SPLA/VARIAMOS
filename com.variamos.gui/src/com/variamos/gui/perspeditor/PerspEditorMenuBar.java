@@ -17,7 +17,6 @@ import javax.swing.KeyStroke;
 import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.gui.configurator.guiactions.ExportConfigurationAction;
-import com.variamos.gui.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.configurator.guiactions.SaveProductsAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
@@ -44,8 +43,6 @@ import com.variamos.gui.perspeditor.actions.ShowAdvancedPerspectiveAction;
 import com.variamos.gui.perspeditor.actions.ShowSimulationCustomizationBox;
 import com.variamos.gui.perspeditor.actions.ShowSimulationDashBoardAction;
 import com.variamos.gui.perspeditor.actions.StartSimulationAction;
-import com.variamos.gui.perspeditor.actions.ToggleAssetVisibilityAction;
-import com.variamos.gui.perspeditor.actions.TogglePLVisibilityAction;
 import com.variamos.gui.perspeditor.actions.VariableLabelingAssociationAction;
 import com.variamos.gui.perspeditor.actions.VariableOperationAssociationAction;
 import com.variamos.gui.perspeditor.actions.VerificationAction;
@@ -53,6 +50,7 @@ import com.variamos.gui.perspeditor.actions.VerifyDeadElementAction;
 import com.variamos.gui.perspeditor.actions.VerifyFalseOptElementAction;
 
 @SuppressWarnings("serial")
+
 public class PerspEditorMenuBar extends JMenuBar {
 
 	VariamosGraphEditor editor;
@@ -92,10 +90,6 @@ public class PerspEditorMenuBar extends JMenuBar {
 
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("layout")));
 		menu.setMnemonic('L');
-		menu.add(editor
-				.bind("Toggle Assets", new ToggleAssetVisibilityAction()));
-		menu.add(editor.bind("Toggle Variability Elements",
-				new TogglePLVisibilityAction()));
 		menu.addSeparator();
 
 		menu.add(editor.graphLayout("verticalHierarchical", true));
@@ -439,10 +433,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 			add(menu);
 
 			menu.addSeparator();
-			a = editor.bind(mxResources.get("loadSolution"),
-					new LoadConfigurationAction());
-			menu.add(a);
-			a.setEnabled(false);
+			
 
 			a = editor.bind(mxResources.get("saveCurrentSolution"),
 					new SaveProductsAction());

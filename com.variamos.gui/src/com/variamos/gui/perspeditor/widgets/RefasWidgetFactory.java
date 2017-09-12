@@ -15,8 +15,8 @@ import com.variamos.dynsup.types.EnumerationSingleSelectionType;
 import com.variamos.dynsup.types.IntegerType;
 import com.variamos.dynsup.types.SetType;
 import com.variamos.dynsup.types.StringType;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to dynamically load appropriate widget. Based on WidgetFactory from
@@ -99,5 +99,4 @@ public class RefasWidgetFactory {
 
 		return w;
 	}
-
 }

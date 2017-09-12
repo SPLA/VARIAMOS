@@ -25,15 +25,15 @@ import com.variamos.dynsup.staticexprsup.LessOrEqualsBooleanExpression;
 import com.variamos.dynsup.staticexprsup.NotBooleanExpression;
 import com.variamos.dynsup.staticexprsup.NumberNumericExpression;
 import com.variamos.dynsup.staticexprsup.SumNumericExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
 
 //TODO refactor: PairwiseElementExpressionSet
 /**
  * A class to represent the constraints for direct relations. Part of PhD work
  * at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-13
@@ -580,3 +580,4 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 
 	}
 }
+

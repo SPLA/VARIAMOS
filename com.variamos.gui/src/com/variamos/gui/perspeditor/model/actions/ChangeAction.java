@@ -1,6 +1,6 @@
 package com.variamos.gui.perspeditor.model.actions;
 
-import com.cfm.productline.Variable;
+import com.variamos.dynsup.types.Variable;
 import com.variamos.gui.perspeditor.model.AssociationAction;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
 
@@ -10,7 +10,7 @@ import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
  * University of Paris 1. Initially copied from
  * com.variamos.gui.pl.configuration.treetable.actions.ChangeAction
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
  * @see com.variamos.gui.pl.configuration.treetable.actions.ChangeAction

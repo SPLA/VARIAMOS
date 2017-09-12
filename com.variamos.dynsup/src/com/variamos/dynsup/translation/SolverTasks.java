@@ -12,33 +12,31 @@ import java.util.TreeSet;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingWorker;
 
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.InstanceModel;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.HlclUtil;
-import com.variamos.hlcl.Identifier;
-import com.variamos.io.ConsoleTextArea;
-import com.variamos.io.configurations.ExportConfiguration;
-import com.variamos.reasoning.defectAnalyzer.CauCosAnayzer;
-import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
-import com.variamos.reasoning.defectAnalyzer.IntCauCosAnalyzer;
-import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
-import com.variamos.reasoning.defectAnalyzer.model.CauCos;
-import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.core.HlclUtil;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.io.core.importExport.ExportConfiguration;
+import com.variamos.reasoning.defectAnalyzer.core.CauCosAnayzer;
+import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
+import com.variamos.reasoning.defectAnalyzer.core.IntCauCosAnalyzer;
+import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
-import com.variamos.solver.Configuration;
+import com.variamos.reasoning.defectAnalyzer.model.defects.DefectTypeEnum;
+import com.variamos.reasoning.defectAnalyzer.model.diagnosis.CauCos;
+import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeEnum;
+import com.variamos.reasoning.defectAnalyzer.model.diagnosis.Diagnosis;
+import com.variamos.solver.model.SolverSolution;
 
 /**
  * A class to support SwingWorkers of solver execution tasks for static
  * operations. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-05-07
@@ -66,7 +64,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private boolean reloadDashBoard;
 	private String executionTime = "";
 	private List<String> defects;
-	private Configuration lastConfiguration;
+	private SolverSolution lastSolverSolution;
 	private String errorTitle = "";
 	private String errorMessage = "";
 	private boolean update;
@@ -82,11 +80,9 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return correctExecution;
 	}
 
-	public SolverTasks(ProgressMonitor progressMonitor,
-			Component parentComponent, int execType, ModelExpr2HLCL refas2hlcl,
-			HlclProgram configHlclProgram, boolean invalidConfigHlclProgram,
-			boolean test, InstElement element, List<String> defects,
-			Configuration lastConfiguration) {
+	public SolverTasks(ProgressMonitor progressMonitor, Component parentComponent, int execType,
+			ModelExpr2HLCL refas2hlcl, HlclProgram configHlclProgram, boolean invalidConfigHlclProgram, boolean test,
+			InstElement element, List<String> defects, SolverSolution lastConfiguration) {
 		super();
 		this.progressMonitor = progressMonitor;
 		this.execType = execType;
@@ -96,14 +92,13 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.test = test;
 		this.element = element;
 		this.defects = defects;
-		this.lastConfiguration = lastConfiguration;
+		this.lastSolverSolution = lastConfiguration;
 		this.parentComponent = parentComponent;
 	}
 
-	public SolverTasks(ProgressMonitor progressMonitor, int execType,
-			ModelExpr2HLCL refas2hlcl, HlclProgram configHlclProgram,
-			boolean firstSimulExec, boolean reloadDashBoard, boolean update,
-			String element, Configuration lastConfiguration) {
+	public SolverTasks(ProgressMonitor progressMonitor, int execType, ModelExpr2HLCL refas2hlcl,
+			HlclProgram configHlclProgram, boolean firstSimulExec, boolean reloadDashBoard, boolean update,
+			String element, SolverSolution lastConfiguration) {
 		this.progressMonitor = progressMonitor;
 		this.execType = execType;
 		this.refas2hlcl = refas2hlcl;
@@ -112,11 +107,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.reloadDashBoard = reloadDashBoard;
 		this.update = update;
 		this.stringElement = element;
-		this.lastConfiguration = lastConfiguration;
+		this.lastSolverSolution = lastConfiguration;
 	}
 
-	public SolverTasks(ProgressMonitor progressMonitor, int execType,
-			InstanceModel refasModel, ModelExpr2HLCL refas2hlcl, String file) {
+	public SolverTasks(ProgressMonitor progressMonitor, int execType, InstanceModel refasModel,
+			ModelExpr2HLCL refas2hlcl, String file) {
 		this.progressMonitor = progressMonitor;
 		this.refasModel = refasModel;
 		this.execType = execType;
@@ -140,12 +135,12 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return update;
 	}
 
-	public Configuration getLastConfiguration() {
-		return lastConfiguration;
+	public SolverSolution getLastSolverSolution() {
+		return lastSolverSolution;
 	}
 
 	@Override
-	public Void doInBackground() {
+	public Void doInBackground() throws FunctionalException {
 		setProgress(0);
 		try {
 			Thread.sleep(1);
@@ -170,10 +165,12 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			correctExecution = false;
 		} catch (InterruptedException ignore) {
 		} catch (Exception e) {
-			ConsoleTextArea.addText(e.getStackTrace());
+
 			errorMessage = "Solver Execution Problem, try again saving and loading the model.";
 			errorTitle = "Verification Error";
 			correctExecution = false;
+			// FIXME issue#230
+			throw new FunctionalException(FunctionalException.exceptionStacktraceToString(e));
 		}
 		task = 100;
 		setProgress((int) task);
@@ -183,26 +180,23 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	/*
 	 * Save all the solutions for the current configuration
 	 */
-	public boolean saveConfiguration(String file) throws InterruptedException {
+	public boolean saveConfiguration(String file) throws InterruptedException, FunctionalException {
 		setProgress(1);
 		progressMonitor.setNote("Solutions processed: 0");
-		Map<String, Map<String, Integer>> elements = refas2hlcl
-				.execCompleteSimul(progressMonitor);
+		Map<String, Map<String, Integer>> elements = refas2hlcl.execCompleteSimul(progressMonitor);
 		setProgress(95);
-		progressMonitor
-				.setNote("Total Solutions processed: " + elements.size());
+		progressMonitor.setNote("Total Solutions processed: " + elements.size());
 		List<String> names = new ArrayList<String>();
 		for (String element : elements.get("1").keySet()) {
 			if (refasModel.getElement(element) != null)
-				names.add((String) refasModel.getElement(element)
-						.getInstAttribute("name").getValue());
+				names.add((String) refasModel.getElement(element).getInstAttribute("name").getValue());
 		}
 		ExportConfiguration export = new ExportConfiguration();
 		export.exportConfiguration(elements, names, file);
 		return true;
 	}
 
-	public void configModel() throws InterruptedException {
+	public void configModel() throws InterruptedException, FunctionalException {
 		// this.clearNotificationBar();
 		refas2hlcl.cleanGUIElements(ModelExpr2HLCL.CONF_EXEC);
 		Set<Identifier> freeIdentifiers = null;
@@ -212,57 +206,47 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		long endTime = 0;
 		iniTime = System.currentTimeMillis();
 		if (invalidConfigHlclProgram && element == null) {
-			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
-					ModelExpr2HLCL.CONF_EXEC);
+			configHlclProgram = refas2hlcl.getHlclProgram("Simul", ModelExpr2HLCL.CONF_EXEC);
 			freeIdentifiers = refas2hlcl.getFreeIdentifiers();
 		} else {
 			freeIdentifiers = new HashSet<Identifier>();
 			elementSubSet = new HashSet<InstElement>();
-			refas2hlcl.configGraph(progressMonitor, element, elementSubSet,
-					freeIdentifiers, false);
+			refas2hlcl.configGraph(progressMonitor, element, elementSubSet, freeIdentifiers, false);
 			elementSubSet = new HashSet<InstElement>();
-			configHlclProgram = refas2hlcl.configGraph(progressMonitor,
-					element, elementSubSet, freeIdentifiers, true);
+			configHlclProgram = refas2hlcl.configGraph(progressMonitor, element, elementSubSet, freeIdentifiers, true);
 			task = 10;
 			setProgress((int) task);
 		}
 
 		invalidConfigHlclProgram = false;
-		TreeMap<String, Number> configuredIdentNames = refas2hlcl
-				.getConfiguredIdentifier(elementSubSet);
-		Configuration config = new Configuration();
+		TreeMap<String, Number> configuredIdentNames = refas2hlcl.getConfiguredIdentifier(elementSubSet);
+		SolverSolution solverSolution = new SolverSolution();
 
-		config.setConfiguration(configuredIdentNames);
+		solverSolution.setSolverSolution(configuredIdentNames);
 
 		List<String> requiredConceptsNames = new ArrayList<String>();
 		List<String> deadConceptsNames = new ArrayList<String>();
-		IntDefectsVerifier defectVerifier = new DefectsVerifier(
-				configHlclProgram, SolverEditorType.SWI_PROLOG,
-				parentComponent, "Configuring Selected Elements");
-		// System.out.println("FREE: " + freeIdentifiers);
+		IntDefectsVerifier defectVerifier = new DefectsVerifier(configHlclProgram, parentComponent,
+				"Configuring Selected Elements");
+				// System.out.println("FREE: " + freeIdentifiers);
 
 		// System.out.println("CONF: " + configuredIdentNames);
 
 		if (freeIdentifiers.size() > 0) {
-			try {
 
-				List<Defect> requiredConcepts = null;
+			List<Defect> requiredConcepts = null;
 
-				requiredConcepts = defectVerifier.getFalseOptionalElements(
-						freeIdentifiers, null, config);
-				executionTime += "FalseOpt: " + defectVerifier.getTotalTime()
-						+ "[" + defectVerifier.getSolverTime() / 1000000 + "]"
-						+ " -- ";
-				if (requiredConcepts.size() > 0) {
-					for (Defect conceptVariable : requiredConcepts) {
-						String[] conceptId = conceptVariable.getId().split("_");
-						requiredConceptsNames.add(conceptId[0]);
-					}
-
+			requiredConcepts = defectVerifier.getFalseOptionalElements(freeIdentifiers, null, solverSolution);
+			executionTime += "FalseOpt: " + defectVerifier.getTotalTime() + "["
+					+ defectVerifier.getSolverTime() / 1000000 + "]" + " -- ";
+			if (requiredConcepts.size() > 0) {
+				for (Defect conceptVariable : requiredConcepts) {
+					String[] conceptId = conceptVariable.getId().split("_");
+					requiredConceptsNames.add(conceptId[0]);
 				}
-			} catch (FunctionalException e) {
-				ConsoleTextArea.addText(e.getStackTrace());
+
 			}
+
 		}
 		long falseOTime = defectVerifier.getSolverTime() / 1000000;
 		task = 80;
@@ -270,23 +254,18 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		// System.out.println("newSEL: " + requiredConceptsNames);
 		refas2hlcl.updateRequiredConcepts(requiredConceptsNames, test);
 		if (freeIdentifiers.size() > 0) {
-			try {
-				List<Defect> deadIndetifiersList = null;
-				defectVerifier.resetTime();
-				deadIndetifiersList = defectVerifier.getDeadElements(
-						freeIdentifiers, null, config);
-				executionTime += "Dead: " + defectVerifier.getTotalTime() + "["
-						+ defectVerifier.getSolverTime() / 1000000 + "]"
-						+ " -- ";
-				if (deadIndetifiersList.size() > 0) {
-					for (Defect conceptVariable : deadIndetifiersList) {
-						String[] conceptId = conceptVariable.getId().split("_");
-						deadConceptsNames.add(conceptId[0]);
-					}
 
+			List<Defect> deadIndetifiersList = null;
+			defectVerifier.resetTime();
+			deadIndetifiersList = defectVerifier.getDeadElements(freeIdentifiers, null, solverSolution);
+			executionTime += "Dead: " + defectVerifier.getTotalTime() + "[" + defectVerifier.getSolverTime() / 1000000
+					+ "]" + " -- ";
+			if (deadIndetifiersList.size() > 0) {
+				for (Defect conceptVariable : deadIndetifiersList) {
+					String[] conceptId = conceptVariable.getId().split("_");
+					deadConceptsNames.add(conceptId[0]);
 				}
-			} catch (FunctionalException e) {
-				ConsoleTextArea.addText(e.getStackTrace());
+
 			}
 
 		}
@@ -299,15 +278,14 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 		endTime = System.currentTimeMillis();
 		executionTime += "ConfigExec: " + (endTime - iniTime) + "["
-				+ (falseOTime + defectVerifier.getSolverTime() / 1000000) + "]"
-				+ " -- ";
+				+ (falseOTime + defectVerifier.getSolverTime() / 1000000) + "]" + " -- ";
 	}
 
 	public int getExecType() {
 		return execType;
 	}
 
-	public boolean verify(List<String> defect) throws InterruptedException {
+	public boolean verify(List<String> defect) throws InterruptedException, FunctionalException {
 
 		errorMessage = "";
 		executionTime = "";
@@ -324,22 +302,16 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		actionList.add("Err");
 		actionList.add("Upd");
 		List<String> verifMessageList = new ArrayList<String>();
-		verifMessageList
-				.add(" roots identified.\n Please keep only one of them.");
-		verifMessageList
-				.add(" concepts without a parent or with more than one parent identified.\n Please add/remove appropiated relations.");
-		verifMessageList
-				.add(" false optional concept(s) identified. Please review required attributes and relations.");
-		verifMessageList
-				.add(" false optional concept(s) identified. Please review required attributes and relations.");
+		verifMessageList.add(" roots identified.\n Please keep only one of them.");
+		verifMessageList.add(
+				" concepts without a parent or with more than one parent identified.\n Please add/remove appropiated relations.");
+		verifMessageList.add(" false optional concept(s) identified. Please review required attributes and relations.");
+		verifMessageList.add(" false optional concept(s) identified. Please review required attributes and relations.");
 		List<String> verifHintList = new ArrayList<String>();
-		verifHintList
-				.add("This is a root concept. More than one root concept identified.");
+		verifHintList.add("This is a root concept. More than one root concept identified.");
 		verifHintList.add("This concept requires a parent.");
-		verifHintList
-				.add("This concept is a false optional. Please review required attribute or relations.");
-		verifHintList
-				.add("This concept is a false optional. Please review required attribute or relations.");
+		verifHintList.add("This concept is a false optional. Please review required attribute or relations.");
+		verifHintList.add("This concept is a false optional. Please review required attribute or relations.");
 
 		int posList = 0;
 
@@ -355,22 +327,17 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			for (String verifElement : verifList) {
 				if (progressMonitor.isCanceled())
 					throw (new InterruptedException());
-				if (defect == null || defect.contains(verifElement)
-						|| verifElement.equals("Other")) {
+				if (defect == null || defect.contains(verifElement) || verifElement.equals("Other")) {
 					String verifMessage = verifMessageList.get(posList);
 					String verifHint = verifMessageList.get(posList);
 					if (actionList.get(posList).equals("Err")) {
 
-						outMessageList.add(verifyDefects(verifElement,
-								verifMessage, verifHint,
-								DefectAnalyzerMode.INCOMPLETE_SLOW));
+						outMessageList.add(verifyDefects(verifElement, verifMessage, verifHint,
+								DefectAnalyzerModeEnum.INCOMPLETE_SLOW));
 					} else {
-						if (defect == null || defect.contains("Core")
-								|| defect.contains("Dead")
+						if (defect == null || defect.contains("Core") || defect.contains("Dead")
 								|| defect.contains("FalseOpt"))
-							outMessageList
-									.addAll(updateModel("Core", verifMessage,
-											verifHint, updateList, defect));
+							outMessageList.addAll(updateModel("Core", verifMessage, verifHint, updateList, defect));
 					}
 				}
 				posList++;
@@ -389,9 +356,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		}
 		if (progressMonitor.isCanceled())
 			throw (new InterruptedException());
-		if (!errors
-				&& (defect == null || (defect.size() != 1 || !defect.get(0)
-						.equals("Core")))) {
+		if (!errors && (defect == null || (defect.size() != 1 || !defect.get(0).equals("Core")))) {
 			errorMessage = "No errors found";
 			errorTitle = "Verification Message";
 		}
@@ -403,7 +368,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	}
 
 	// Static call implementation
-	public void executeSimulation(int type, boolean update, String element) {
+	public void executeSimulation(int type, boolean update, String element) throws FunctionalException {
 
 		long iniTime = System.currentTimeMillis();
 		boolean result = false;
@@ -413,18 +378,17 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				try {
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
-					ConsoleTextArea.addText(e.getStackTrace());
+					// FIXME issue#230
+					throw new FunctionalException(FunctionalException.exceptionStacktraceToString(e));
 				}
 				continue;
 			}
 			next = false;
 			try {
-				if (firstSimulExec || lastConfiguration == null) {
-					result = refas2hlcl.execute(progressMonitor, element,
-							ModelExpr2HLCL.ONE_SOLUTION, type);
+				if (firstSimulExec || lastSolverSolution == null) {
+					result = refas2hlcl.execute(progressMonitor, element, ModelExpr2HLCL.ONE_SOLUTION, type);
 				} else {
-					result = refas2hlcl.execute(progressMonitor, element,
-							ModelExpr2HLCL.NEXT_SOLUTION, type);
+					result = refas2hlcl.execute(progressMonitor, element, ModelExpr2HLCL.NEXT_SOLUTION, type);
 					/*
 					 * Configuration currentConfiguration = refas2hlcl
 					 * .getConfiguration(); if (result) { List<String>
@@ -433,10 +397,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					 * System.out.println(modifiedIdentifiers); }
 					 */
 				}
-				if (result
-						&& (progressMonitor == null || !progressMonitor
-								.isCanceled())) {
-					lastConfiguration = refas2hlcl.getConfiguration();
+				if (result && (progressMonitor == null || !progressMonitor.isCanceled())) {
+					lastSolverSolution = refas2hlcl.getConfiguration();
 					if (update) {
 						refas2hlcl.updateGUIElements(null);
 						// messagesArea.setText(refas2hlcl.getText());
@@ -451,7 +413,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 						correctExecution = false;
 
 						terminated = true;
-					} else if (firstSimulExec || lastConfiguration == null) {
+					} else if (firstSimulExec || lastSolverSolution == null) {
 						switch (type) {
 						case ModelExpr2HLCL.DESIGN_EXEC:
 							errorMessage = "Last changes on the model makes it inconsistent."
@@ -471,8 +433,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 						case ModelExpr2HLCL.SIMUL_MAPE:
 						case ModelExpr2HLCL.SIMUL_EXPORT:
 							errorMessage = "No solution found for this model configuration."
-									+ " \n Please review the restrictions defined and "
-									+ "try again.";
+									+ " \n Please review the restrictions defined and " + "try again.";
 							errorTitle = "Model Simulation Error";
 							correctExecution = false;
 							break;
@@ -486,11 +447,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				}
 				long endTime = System.currentTimeMillis();
 				executionTime += "NormalExec: " + (endTime - iniTime) + "["
-						+ (refas2hlcl.getLastExecutionTime() / 1000000) + "]"
-						+ " -- ";
+						+ (refas2hlcl.getLastExecutionTime() / 1000000) + "]" + " -- ";
 				System.out.println(executionTime);
 			} catch (Exception e) {
-				ConsoleTextArea.addText(e.getStackTrace());
+				// FIXME issue#230
+				throw new FunctionalException(FunctionalException.exceptionStacktraceToString(e));
 			}
 			if (!firstSimulExec && result)
 				// Update GUI after first execution, editor not notify because
@@ -529,15 +490,13 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	 * lastConfig.keySet()) if (lastConfig.get(solution) !=
 	 * currentConfig.get(solution)) out.add(solution); return out; }
 	 */
-	public List<String> updateModel(String element, String verifMessage,
-			String verifHint, List<String> attributes, List<String> defect)
-			throws InterruptedException {
+	public List<String> updateModel(String element, String verifMessage, String verifHint, List<String> attributes,
+			List<String> defect) throws InterruptedException, FunctionalException {
 		HlclFactory f = new HlclFactory();
 		List<String> out = new ArrayList<String>();
 		long iniTime = System.currentTimeMillis();
 		boolean result = false;
-		result = refas2hlcl.execute(progressMonitor, element,
-				ModelExpr2HLCL.ONE_SOLUTION, ModelExpr2HLCL.VAL_UPD_EXEC);
+		result = refas2hlcl.execute(progressMonitor, element, ModelExpr2HLCL.ONE_SOLUTION, ModelExpr2HLCL.VAL_UPD_EXEC);
 		IntDefectsVerifier defectVerifier = null;
 		long falseOTime = 0;
 		if (result) {
@@ -547,8 +506,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			Map<String, Number> lastResult = refas2hlcl.getResult();
 			System.out.println(currentResult);
 			System.out.println(lastResult);
-			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
-					lastResult);
+			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult, lastResult);
 
 			// System.out.println(falseOptIdentifiers);
 
@@ -562,76 +520,62 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					identifiers.add(f.newIdentifier(freeIndentifier));
 			}
 
-			if (freeIdentifiers.size() > 0
-					&& (defect == null || defect.contains("Dead")
-							|| defect.contains("FalseOpt") || defect
-								.contains("Core"))) {
-				try {
-					defectVerifier = new DefectsVerifier(
-							refas2hlcl.getHlclProgram("FalseOpt2",
-									ModelExpr2HLCL.VAL_UPD_EXEC),
-							SolverEditorType.SWI_PROLOG, parentComponent,
-							"Identifing core/falseoptional/dead Elements");
+			if (freeIdentifiers.size() > 0 && (defect == null || defect.contains("Dead") || defect.contains("FalseOpt")
+					|| defect.contains("Core"))) {
 
-					List<Defect> falseOptionalList = null;
+				defectVerifier = new DefectsVerifier(
+						refas2hlcl.getHlclProgram("FalseOpt2", ModelExpr2HLCL.VAL_UPD_EXEC), parentComponent,
+						"Identifing core/falseoptional/dead Elements");
 
-					if (defect == null || defect.contains("FalseOpt")
-							|| defect.contains("Core"))
-					// Indentify false optional from non structural
-					// relations
-					{
-						falseOptionalList = defectVerifier
-								.getFalseOptionalElements(identifiers);
-						falseOTime = defectVerifier.getSolverTime() / 1000000;
-						if (falseOptionalList.size() > 0) {
-							List<String> falseOptIdentOthers = new ArrayList<String>();
-							for (Defect conceptVariable : falseOptionalList) {
-								String[] conceptId = conceptVariable.getId()
-										.split("_");
-								falseOptIdentOthers.add(conceptId[0]);
-							}
-							falseOptIdentifiers.addAll(falseOptIdentOthers);
+				List<Defect> falseOptionalList = null;
+
+				if (defect == null || defect.contains("FalseOpt") || defect.contains("Core"))
+				// Indentify false optional from non structural
+				// relations
+				{
+					falseOptionalList = defectVerifier.getFalseOptionalElements(identifiers);
+					falseOTime = defectVerifier.getSolverTime() / 1000000;
+					if (falseOptionalList.size() > 0) {
+						List<String> falseOptIdentOthers = new ArrayList<String>();
+						for (Defect conceptVariable : falseOptionalList) {
+							String[] conceptId = conceptVariable.getId().split("_");
+							falseOptIdentOthers.add(conceptId[0]);
 						}
-						freeIdentifiers.removeAll(falseOptIdentifiers);
+						falseOptIdentifiers.addAll(falseOptIdentOthers);
 					}
-					task += 30 / defect.size();
-					setProgress((int) task);
-
-					Set<Identifier> identDeadElements = new HashSet<Identifier>();
-
-					List<Defect> deadIndetifiersList = null;
-					if (defect == null || defect.contains("Dead")
-							|| defect.contains("Core"))
-					// Indentify false optional from non structural
-					// relations
-					{
-						for (String freeIndentifier : freeIdentifiers) {
-							if (!freeIndentifier.startsWith("FeatOT"))
-								identDeadElements.add(f
-										.newIdentifier(freeIndentifier));
-						}
-						deadIndetifiersList = defectVerifier
-								.getDeadElements(identDeadElements);
-					}
-					task += 30 / defect.size();
-					setProgress((int) task);
-					System.out.println(task);
-
-					if (defect == null || defect.contains("Dead"))
-						if (deadIndetifiersList.size() > 0) {
-							for (Defect conceptVariable : deadIndetifiersList) {
-								String[] conceptId = conceptVariable.getId()
-										.split("_");
-								deadIdentifiers.add(conceptId[0]);
-							}
-							out.add(deadIndetifiersList.size()
-									+ " dead elements identified.");
-						}
-
-					// refas2hlcl.updateCoreConcepts(outIdentifiers);
-				} catch (FunctionalException e) {
-					ConsoleTextArea.addText(e.getStackTrace());
+					freeIdentifiers.removeAll(falseOptIdentifiers);
 				}
+				task += 30 / defect.size();
+				setProgress((int) task);
+
+				Set<Identifier> identDeadElements = new HashSet<Identifier>();
+
+				List<Defect> deadIndetifiersList = null;
+				if (defect == null || defect.contains("Dead") || defect.contains("Core"))
+				// Indentify false optional from non structural
+				// relations
+				{
+					for (String freeIndentifier : freeIdentifiers) {
+						if (!freeIndentifier.startsWith("FeatOT"))
+							identDeadElements.add(f.newIdentifier(freeIndentifier));
+					}
+					deadIndetifiersList = defectVerifier.getDeadElements(identDeadElements);
+				}
+				task += 30 / defect.size();
+				setProgress((int) task);
+				System.out.println(task);
+
+				if (defect == null || defect.contains("Dead"))
+					if (deadIndetifiersList.size() > 0) {
+						for (Defect conceptVariable : deadIndetifiersList) {
+							String[] conceptId = conceptVariable.getId().split("_");
+							deadIdentifiers.add(conceptId[0]);
+						}
+						out.add(deadIndetifiersList.size() + " dead elements identified.");
+					}
+
+				// refas2hlcl.updateCoreConcepts(outIdentifiers);
+
 			}
 
 			Set<String> uniqueIdentifiers = new HashSet<String>();
@@ -641,8 +585,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			if (defect == null || defect.contains("FalseOpt")) {
 				if (uniqueIdentifiers.size() > 0)
 					out.add(uniqueIdentifiers.size() + verifMessage);
-				refas2hlcl.updateErrorMark(uniqueIdentifiers, "FalseOpt",
-						verifHint);
+				refas2hlcl.updateErrorMark(uniqueIdentifiers, "FalseOpt", verifHint);
 
 			}
 
@@ -654,13 +597,10 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 		} else {
 			long endTime = System.currentTimeMillis();
-			executionTime += element
-					+ "Exec: "
-					+ (endTime - iniTime)
-					+ "["
-					+ (refas2hlcl.getLastExecutionTime() / 1000000 + falseOTime + ((defectVerifier == null) ? 0
-							: defectVerifier.getSolverTime() / 1000000)) + "]"
-					+ " -- ";
+			executionTime += element + "Exec: " + (endTime - iniTime) + "["
+					+ (refas2hlcl.getLastExecutionTime() / 1000000 + falseOTime
+							+ ((defectVerifier == null) ? 0 : defectVerifier.getSolverTime() / 1000000))
+					+ "]" + " -- ";
 			out.add("Last validated change makes the model inconsistent."
 					+ " \n Please review the restrictions defined and "
 					+ "try again. \nModel visual representation was not updated.");
@@ -668,34 +608,27 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 		// updateObjects();
 		long endTime = System.currentTimeMillis();
-		long defectVerifTime = defectVerifier == null ? 0 : (defectVerifier
-				.getSolverTime() / 1000000);
-		executionTime += element
-				+ "Exec: "
-				+ (endTime - iniTime)
-				+ "["
-				+ (refas2hlcl.getLastExecutionTime() / 1000000 + falseOTime + defectVerifTime)
-				+ "]" + " -- ";
+		long defectVerifTime = defectVerifier == null ? 0 : (defectVerifier.getSolverTime() / 1000000);
+		executionTime += element + "Exec: " + (endTime - iniTime) + "["
+				+ (refas2hlcl.getLastExecutionTime() / 1000000 + falseOTime + defectVerifTime) + "]" + " -- ";
 		task = 100 / defect.size();
 		setProgress((int) task);
 		return out;
 	}
 
-	private String verifyDefects(String verifElement, String verifMessage,
-			String verifHint, DefectAnalyzerMode mode)
-			throws InterruptedException {
+	private String verifyDefects(String verifElement, String verifMessage, String verifHint,
+			DefectAnalyzerModeEnum mode) throws InterruptedException {
 		String outMessage = null;
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
 		long endSTime = 0;
 		try {
 
-			List<BooleanExpression> verify = refas2hlcl
-					.verityTest(verifElement);
+			List<IntBooleanExpression> verify = refas2hlcl.verityTest(verifElement);
 			HlclProgram relaxed = refas2hlcl.relaxedTest(verifElement);
 			HlclProgram fixed = refas2hlcl.compulsoryTest(verifElement);
 			Defect defect = new Defect(verify);
-			defect.setDefectType(DefectType.SEMANTIC_SPECIFIC_DEFECT);
+			defect.setDefectType(DefectTypeEnum.SEMANTIC_SPECIFIC_DEFECT);
 			HlclProgram modelToVerify = new HlclProgram();
 			modelToVerify.addAll(verify);
 			modelToVerify.addAll(relaxed);
@@ -704,8 +637,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			endSTime = iniSTime;
 			if (modelToVerify.toString().equals("[]"))
 				return "No features to verify";
-			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify,
-					SolverEditorType.SWI_PROLOG);
+			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify);
 			// The model has two or more roots
 			Defect voidModel = verifier.isVoid();
 			if (progressMonitor.isCanceled())
@@ -713,24 +645,21 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			Set<String> outIdentifiers = new TreeSet<String>();
 			if (voidModel != null) {
 
-				IntCauCosAnalyzer cauCosAnalyzer = new CauCosAnayzer(
-						parentComponent, verifElement);
+				IntCauCosAnalyzer cauCosAnalyzer = new CauCosAnayzer(parentComponent, verifElement);
 				HlclProgram fixedConstraint = new HlclProgram();
 				fixedConstraint.addAll(verify);
 				fixedConstraint.addAll(fixed);
-				Diagnosis result = cauCosAnalyzer.getCauCos(defect, relaxed,
-						fixedConstraint, mode);
+				Diagnosis result = cauCosAnalyzer.getCauCos(defect, relaxed, fixedConstraint, mode);
 				endSTime = System.currentTimeMillis();
 				String defects = "(";
 				for (CauCos correction : result.getCorrections()) {
 					if (progressMonitor.isCanceled())
 						throw (new InterruptedException());
-					List<BooleanExpression> corr = correction.getElements();
-					for (BooleanExpression expression : corr) {
+					List<IntBooleanExpression> corr = correction.getElements();
+					for (IntBooleanExpression expression : corr) {
 						if (progressMonitor.isCanceled())
 							throw (new InterruptedException());
-						Set<Identifier> iden = HlclUtil
-								.getUsedIdentifiers(expression);
+						Set<Identifier> iden = HlclUtil.getUsedIdentifiers(expression);
 						Identifier firsIden = iden.iterator().next();
 						String[] o = firsIden.getId().split("_");
 
@@ -742,8 +671,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				if (!outIdentifiers.isEmpty()) {
 
 					defects = defects.substring(0, defects.length() - 2) + ")";
-					outMessage = outIdentifiers.size() + verifMessage + "\n"
-							+ defects;
+					outMessage = outIdentifiers.size() + verifMessage + "\n" + defects;
 				}
 			} else {
 				endSTime = System.currentTimeMillis();
@@ -754,8 +682,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			outMessage = e.getMessage();
 		} finally {
 			long endTime = System.currentTimeMillis();
-			executionTime += verifElement + " Verif.: " + (endTime - iniTime)
-					+ "[" + (endSTime - iniSTime) + "]" + " -- ";
+			executionTime += verifElement + " Verif.: " + (endTime - iniTime) + "[" + (endSTime - iniSTime) + "]"
+					+ " -- ";
 		}
 
 		return outMessage;
@@ -772,13 +700,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return out;
 	}
 
-	private List<String> getNewIdentifiers(Map<String, Number> currentResult,
-			Map<String, Number> lastResult) {
+	private List<String> getNewIdentifiers(Map<String, Number> currentResult, Map<String, Number> lastResult) {
 		List<String> out = new ArrayList<String>();
 		for (String id : currentResult.keySet()) {
 			String[] o = id.split("_");
-			if (o[1].equals("Sel") && lastResult.get(id).floatValue() == 0
-					&& currentResult.get(id).floatValue() == 1)
+			if (o[1].equals("Sel") && lastResult.get(id).floatValue() == 0 && currentResult.get(id).floatValue() == 1)
 				out.add(o[0]);
 
 		}

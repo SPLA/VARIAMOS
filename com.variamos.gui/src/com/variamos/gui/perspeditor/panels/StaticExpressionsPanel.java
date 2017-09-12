@@ -26,8 +26,8 @@ import com.variamos.dynsup.staticexprsup.AbstractExpression;
 import com.variamos.dynsup.staticexprsup.NumberNumericExpression;
 import com.variamos.dynsup.statictypes.ExpressionClassType;
 import com.variamos.gui.perspeditor.SpringUtilities;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.NumericIdentifier;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.NumericIdentifier;
 
 /**
  * A class to support the properties panel to display textual and visual
@@ -35,7 +35,7 @@ import com.variamos.hlcl.NumericIdentifier;
  * work at University of Paris 1 Note: No longer needed when the dynamic
  * semantic operations are completed
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-21
@@ -207,7 +207,7 @@ public class StaticExpressionsPanel extends JPanel {
 		parentPanel.add(childPanel);
 	}
 
-	private void showComparativeExpression(Expression expression,
+	private void showComparativeExpression(IntExpression expression,
 			JPanel parentPanel) {
 		if (expression instanceof NumericIdentifier)
 			parentPanel.add(new JTextField(""

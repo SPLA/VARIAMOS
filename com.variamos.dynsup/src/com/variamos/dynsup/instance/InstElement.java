@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.cfm.productline.AbstractElement;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.ModelExpr;
@@ -20,13 +20,13 @@ import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.hlcl.LabelingOrder;
+import com.variamos.hlcl.model.LabelingOrderEnum;
 
 /**
  * A class to represented modeling elements from meta model and semantic model
  * on VariaMos. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-21 *
@@ -427,16 +427,18 @@ public abstract class InstElement implements Serializable, Cloneable,
 						&& !attributeName.equals("description")) {
 					ElemAttribute i = getEdSyntaxEle().getModelingAttribute(
 							attributeName, syntaxParents);
-					if (i == null)
+					if (i == null) {
 						i = getEdSyntaxEle()
 								.getSemanticAttribute(attributeName);
+					}
 					String v = "";
 					if (i != null) {
 						// FIXME V1.1 copy change to new version
 						if (!i.getType().equals("Class"))
 							v = ":" + i.getType();
-						if (i.getType().equals("Enumeration")
-								|| i.getType().equals("MetaEnumeration")) {
+						if ((i.getType().equals("Enumeration") || i.getType()
+								.equals("MetaEnumeration"))
+								&& i.getClassCanonicalName() != null) {
 							String classN = i.getClassCanonicalName()
 									.substring(
 											i.getClassCanonicalName()
@@ -469,6 +471,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 						}
 					}
+
+					
 					// System.out.println(attributeName);
 					if (attributeName.length() > 1)
 						out2 += attributeName.substring(0, 1).toLowerCase()
@@ -577,7 +581,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, syntaxParents),
-							new ArrayList<LabelingOrder>());
+							new ArrayList<LabelingOrderEnum>());
 				} else
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, syntaxParents), null);
@@ -617,7 +621,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					} else if (name.equals("sortorder")) {
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name),
-								new ArrayList<LabelingOrder>());
+								new ArrayList<LabelingOrderEnum>());
 					} else
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name), null);
@@ -983,7 +987,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 
 								outt = outt.substring(0, outt.length() - 2);
 								outt += " }";
-								out += AbstractElement.multiLine(outt, 40);
+								out += StringUtils.multiLine(outt, 40);
 							}
 						} else
 							out += instAttribute.toString().trim();

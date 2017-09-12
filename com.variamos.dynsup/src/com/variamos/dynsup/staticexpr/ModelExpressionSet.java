@@ -17,17 +17,17 @@ import com.variamos.dynsup.staticexprsup.NumberNumericExpression;
 import com.variamos.dynsup.staticexprsup.ProdNumericExpression;
 import com.variamos.dynsup.staticexprsup.SumNumericExpression;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.RangeDomain;
+import com.variamos.hlcl.model.domains.RangeDomain;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 
 public class ModelExpressionSet extends ElementExpressionSet {
 
 	private InstanceModel refas;
-	private Map<String, List<BooleanExpression>> booleanExpressions = new HashMap<String, List<BooleanExpression>>();
+	private Map<String, List<IntBooleanExpression>> booleanExpressions = new HashMap<String, List<IntBooleanExpression>>();
 
-	public List<BooleanExpression> getBooleanExpressionList(String element) {
+	public List<IntBooleanExpression> getBooleanExpressionList(String element) {
 		return booleanExpressions.get(element);
 	}
 
@@ -138,10 +138,10 @@ public class ModelExpressionSet extends ElementExpressionSet {
 				}
 		}
 
-		List<BooleanExpression> rootList = new ArrayList<BooleanExpression>();
-		List<BooleanExpression> parentList = new ArrayList<BooleanExpression>();
-		List<BooleanExpression> coreList = new ArrayList<BooleanExpression>();
-		List<BooleanExpression> simulList = new ArrayList<BooleanExpression>();
+		List<IntBooleanExpression> rootList = new ArrayList<IntBooleanExpression>();
+		List<IntBooleanExpression> parentList = new ArrayList<IntBooleanExpression>();
+		List<IntBooleanExpression> coreList = new ArrayList<IntBooleanExpression>();
+		List<IntBooleanExpression> simulList = new ArrayList<IntBooleanExpression>();
 		if (rootOutExp != null) {
 			AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
 					rootOutExp, new NumberNumericExpression(2));

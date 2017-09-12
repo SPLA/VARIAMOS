@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.variamos.core.util.StringUtils;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
@@ -22,8 +22,9 @@ import com.variamos.dynsup.types.OpersOpType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
 import com.variamos.dynsup.types.OpersSubOpType;
 import com.variamos.dynsup.types.StringType;
-import com.variamos.hlcl.IntervalDomain;
-import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.hlcl.model.domains.IntervalDomain;
+import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeEnum;
+
 
 public class InfraSyntaxOpersMMM {
 
@@ -925,9 +926,9 @@ public class InfraSyntaxOpersMMM {
 								"Complete explores all the combination of errors, partial"
 										+ " stops with the first set of error, incomplete"
 										+ " identifies up to a number of error",
-								DefectAnalyzerMode.class.getCanonicalName(),
+								DefectAnalyzerModeEnum.class.getCanonicalName(),
 								StringUtils
-										.formatEnumValue(DefectAnalyzerMode.INCOMPLETE_FAST
+										.formatEnumValue(DefectAnalyzerModeEnum.INCOMPLETE_FAST
 												.toString()), "", 0, 16, "",
 								"", -1, "", ""));
 

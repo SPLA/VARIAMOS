@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
 
 /**
  * Class to create the Implication expression. Part of PhD work at University of
  * Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-13
@@ -41,7 +41,7 @@ public class ImplicationBooleanExpression extends
 
 	public ImplicationBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
-			BooleanExpression booleanExpression) {
+			IntBooleanExpression booleanExpression) {
 		super(vertex, attributeName, replaceTarget, booleanExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
@@ -49,7 +49,7 @@ public class ImplicationBooleanExpression extends
 
 	public ImplicationBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
-			NumericExpression numericExpression) {
+			IntNumericExpression numericExpression) {
 		super(vertex, attributeName, replaceTarget, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
@@ -68,18 +68,18 @@ public class ImplicationBooleanExpression extends
 	}
 
 	@Override
-	public BooleanExpression transform(HlclFactory f,
+	public IntBooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap) {
-		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.implies((BooleanExpression) expressionTerms.get(0),
-				(BooleanExpression) expressionTerms.get(1));
+		List<IntExpression> expressionTerms = expressionTerms(f, idMap);
+		return f.implies((IntBooleanExpression) expressionTerms.get(0),
+				(IntBooleanExpression) expressionTerms.get(1));
 	}
 
 	@Override
-	public BooleanExpression transformNegation(HlclFactory f,
+	public IntBooleanExpression transformNegation(HlclFactory f,
 			Map<String, Identifier> idMap, boolean negateLeft,
 			boolean negateRight) {
-		List<Expression> expressionTerms = expressionTermsNegation(f, idMap,
+		List<IntExpression> expressionTerms = expressionTermsNegation(f, idMap,
 				true, false);
 
 		return f.or((Identifier) expressionTerms.get(0),

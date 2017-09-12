@@ -241,5 +241,4 @@ public class PropertyParameterDialog extends JDialog {
 	public void setOnCancel(DialogButtonAction onCancel) {
 		this.onCancel = onCancel;
 	}
-
 }

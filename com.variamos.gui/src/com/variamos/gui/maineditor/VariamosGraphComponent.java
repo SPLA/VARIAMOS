@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import com.cfm.productline.constraints.GroupConstraint;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
@@ -22,9 +21,16 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.gui.perspeditor.PerspEditorGraph;
-import com.variamos.io.ConsoleTextArea;
+import com.variamos.gui.core.io.ConsoleTextArea;
 
+
+
+
+/**
+ * This class is useful o draw overlays for showing states and errors in operations that are executed in the GUI
+ * @author Juan Munoz
+ *
+ */
 @SuppressWarnings("serial")
 public class VariamosGraphComponent extends mxGraphComponent {
 
@@ -41,7 +47,6 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		setAutoScroll(false);
 		setDragEnabled(false);
 		setPanning(true);
-		configureConnectionHandler();
 		configureSelectionHandler();
 
 		final mxGraph finalGraph = graph;
@@ -70,24 +75,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		});
 	}
 
-	@Deprecated
-	public void updateGraph(mxGraph graph) {
-		setGraph(graph);
-		configureConnectionHandler();
-		configureSelectionHandler();
-		final mxGraph finalGraph = graph;
-		// Installs automatic validation
-		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener() {
-			@Override
-			public void invoke(Object sender, mxEventObject evt) {
-				clearCellOverlays();
-				validateGraph();
-				drawCellIcons(finalGraph.getModel().getRoot());
-			}
-		});
-
-	}
-
+	
 	private void configureSelectionHandler() {
 		graph.getSelectionModel().addListener(mxEvent.CHANGE,
 				new mxIEventListener() {
@@ -501,69 +489,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		}
 	}
 
-	private void configureConnectionHandler() {
-		getConnectionHandler().setCreateTarget(false);
-		getConnectionHandler().setEnabled(true);
-		getConnectionHandler().addListener(mxEvent.CONNECT, onConnect);
-	}
-
-	private mxIEventListener onConnect = /**
-	 * @author jcmunoz: Creates relations
-	 *         between nodes, works for group constraints now.
-	 *
-	 */
-	new mxIEventListener() {
-
-		@Override
-		public void invoke(Object sender, mxEventObject evt) {
-			mxCell insertedCell = (mxCell) evt.getProperty("cell");
-			PerspEditorGraph graph = (PerspEditorGraph) getGraph();
-
-			mxCell source = (mxCell) insertedCell.getSource();
-			mxCell target = (mxCell) insertedCell.getTarget();
-
-			if (source.getValue() instanceof GroupConstraint) {
-
-				// Remove previous cells between them
-				Object[] edges = graph.getEdgesBetween(source, target, false);
-				graph.removeCells(edges);
-				graph.addCell(insertedCell);
-
-				GroupConstraint gc = (GroupConstraint) source.getValue();
-				gc.addChildId(target.getId());
-				// gc.printDebug(System.out);
-				return;
-			}
-
-			if (target.getValue() instanceof GroupConstraint) {
-
-				// Remove previous cells between them
-				Object[] edges = graph.getEdgesBetween(source, target, false);
-				graph.removeCells(edges);
-				graph.addCell(insertedCell);
-
-				GroupConstraint gc = (GroupConstraint) target.getValue();
-				// If there is a parent, remove it
-				if (gc.getParent() != null) {
-					// Removing parent
-					Object[] parentEdges = graph.getEdgesBetween(
-							graph.getCellById(gc.getParent()), target, false);
-					graph.removeCells(parentEdges);
-				}
-
-				gc.setParent(source.getId());
-				// gc.printDebug(System.out);
-				return;
-			}
-			// System.out.println("Source = " + source.getValue() +
-			// ", Target = " + target.getValue());
-
-		}
-
-	};
-
+	
+	
 	@Override
 	public String getEditingValue(Object cell, EventObject trigger) {
 		return super.getEditingValue(cell, trigger);
 	}
 }
+

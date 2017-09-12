@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-import com.cfm.productline.type.IntegerType;
 import com.variamos.dynsup.instance.EnumerationSort;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
@@ -22,6 +21,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
+import com.variamos.dynsup.types.IntegerType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
@@ -31,7 +31,7 @@ import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonA
  * Initially copied from VariabilityAttributeList on pl.editor. Part of PhD work
  * at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-10
@@ -286,3 +286,4 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	}
 
 }
+

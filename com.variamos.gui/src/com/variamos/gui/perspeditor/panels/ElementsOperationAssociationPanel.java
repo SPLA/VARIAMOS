@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableColumnModel;
 
-import com.cfm.productline.Variable;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
@@ -25,19 +24,20 @@ import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
+import com.variamos.dynsup.types.Variable;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.model.AssociationDataModel;
 import com.variamos.gui.perspeditor.model.AssociationRow;
 import com.variamos.gui.perspeditor.model.AssociationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.hlcl.BinaryDomain;
-import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.model.domains.BinaryDomain;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 /**
  * A class to create the dialog to associate element's expressions to
  * operations. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-11-05
@@ -172,17 +172,17 @@ public class ElementsOperationAssociationPanel extends JPanel implements
 			operLabels.addAll(operLabs);
 		}
 
-		List<Domain> domainOperColumns = new ArrayList<Domain>();
+		List<IntDomain> domainOperColumns = new ArrayList<IntDomain>();
 		for (String s : subOperTypesColumnsNames)
 			domainOperColumns.add(BinaryDomain.INSTANCE);
 
-		List<Domain> domainOperLabels = new ArrayList<Domain>();
+		List<IntDomain> domainOperLabels = new ArrayList<IntDomain>();
 		List<Boolean> valuesOperLabels = new ArrayList<Boolean>();
 		for (String s : operLabelNames)
 			domainOperLabels.add(BinaryDomain.INSTANCE);
 
 		List<String> operIO = new ArrayList<String>();
-		List<Domain> domainOperIO = new ArrayList<Domain>();
+		List<IntDomain> domainOperIO = new ArrayList<IntDomain>();
 		List<Boolean> valuesOperIO = new ArrayList<Boolean>();
 		for (String s : subOperColumnsNames) {
 			domainOperIO.add(BinaryDomain.INSTANCE);
