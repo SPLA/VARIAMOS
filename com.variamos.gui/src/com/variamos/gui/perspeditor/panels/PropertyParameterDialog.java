@@ -61,8 +61,11 @@ public class PropertyParameterDialog extends JDialog {
 
 		for (final IntInstAttribute elementAttribute : arguments) {
 			panel.add(new JLabel(elementAttribute.getDisplayName() + ": "));
-			if (elementAttribute.getType().equals(
-					OpersExpr.class.getCanonicalName())) {
+
+			// FIXME v1.1 workaround for null types
+			if (elementAttribute.getType() != null
+					&& elementAttribute.getType().equals(
+							OpersExpr.class.getCanonicalName())) {
 				JButton jb = new JButton(elementAttribute.getDisplayName());
 				panel.add(jb);
 				jb.addActionListener(new ActionListener() {

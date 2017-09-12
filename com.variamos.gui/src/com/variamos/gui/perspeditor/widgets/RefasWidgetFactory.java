@@ -68,6 +68,9 @@ public class RefasWidgetFactory {
 		String type = v.getType();
 
 		Class<? extends WidgetR> c = null;
+		// FIXME v1.1 workaround for null types
+		if (type == null)
+			type = "String";
 
 		if (widgetReg.containsKey(type)) {
 			c = widgetReg.get(type);
