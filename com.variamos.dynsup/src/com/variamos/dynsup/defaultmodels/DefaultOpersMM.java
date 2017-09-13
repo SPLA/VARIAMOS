@@ -3718,8 +3718,9 @@ public class DefaultOpersMM {
 						.put("Ver-redund-lab", instLabeling);
 
 			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ver-redund-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-redund-lab");
+			refas.getConstraintInstEdges().put("ver-redund-lab-pw",
+					instEdgeOper);
+			instEdgeOper.setIdentifier("ver-redund-lab-pw");
 			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdgeOper.setTargetRelation(instLabeling, true);
 			instEdgeOper.setSourceRelation(instOperationSubAction, true);
