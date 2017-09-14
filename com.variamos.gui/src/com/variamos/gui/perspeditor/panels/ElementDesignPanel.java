@@ -242,8 +242,10 @@ public class ElementDesignPanel extends JPanel {
 
 							instAttribute.updateValidationList((editElm),
 									mapElements);
-							if (instAttribute.getType().equals(
-									"com.variamos.dynsup.model.ModelExpr")) {
+							if (instAttribute.getEnumerationType() != null
+									&& instAttribute
+											.getEnumerationType()
+											.equals("com.variamos.dynsup.model.ModelExpr")) {
 								JButton button = new JButton(
 										" Edit Expression...");
 
@@ -821,11 +823,9 @@ public class ElementDesignPanel extends JPanel {
 														(int) instCell
 																.getWidth() / 8));
 									} else
-										elementAttribute
-												.setValue(StringUtils.multiLine(
-														elementAttribute
-																.toString(),
-														100));
+										elementAttribute.setValue(StringUtils
+												.multiLine(elementAttribute
+														.toString(), 100));
 
 								}
 								// GARA
@@ -1312,4 +1312,3 @@ public class ElementDesignPanel extends JPanel {
 
 	}
 }
-

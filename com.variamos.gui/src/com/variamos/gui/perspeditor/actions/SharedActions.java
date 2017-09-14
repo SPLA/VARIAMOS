@@ -635,8 +635,9 @@ public class SharedActions {
 								ia.setValue(false);
 							else
 								ia.setValue(true);
-						if (ia.getType().equals(
-								"com.variamos.dynsup.model.ModelExpr")) {
+						if (ia.getEnumerationType() != null
+								&& ia.getEnumerationType().equals(
+										"com.variamos.dynsup.model.ModelExpr")) {
 							// getIdentifier().equals("ConditionalExpression"))
 							// {
 							Object instanceExpression = ia.getValue();

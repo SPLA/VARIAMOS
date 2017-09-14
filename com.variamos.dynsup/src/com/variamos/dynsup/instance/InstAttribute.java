@@ -283,8 +283,17 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 
 	@Override
 	public String getType() {
+
 		if (volatileAttribute != null)
 			return volatileAttribute.getType();
+		else
+			return null;
+	}
+
+	public String getEnumerationType() {
+
+		if (volatileAttribute != null)
+			return volatileAttribute.getClassCanonicalName();
 		else
 			return null;
 	}

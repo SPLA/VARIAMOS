@@ -1603,12 +1603,14 @@ public class DefaultRefasMM {
 
 		attribute = new ElemAttribute(
 				"ConditionalExpression",
-				ModelExpr.class.getCanonicalName(),
+				"Instance",
 				AttributeType.OPERATION,
 				false,
 				"Conditional Expression",
 				"Claim activation expression (in addition to operationalizations/left features)",
-				null, 0, 3, "", "", -1, "#ConditionalExpression#all#", "");
+				ModelExpr.class.getCanonicalName(), "", "", 0, 3, "", "", -1,
+				"#ConditionalExpression#all#", "");
+
 		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 		semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
 		semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
@@ -1771,11 +1773,12 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(semSoftDependency
 						.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("ConditionalExpression",
-				ModelExpr.class.getCanonicalName(), AttributeType.OPERATION,
-				false, "Conditional Expression",
-				"Soft dependency activation expression", null, 0, 3, "", "",
-				-1, "#ConditionalExpression#all#", "");
+		attribute = new ElemAttribute("ConditionalExpression", "Instance",
+				AttributeType.OPERATION, false, "Conditional Expression",
+				"Soft dependency activation expression",
+				ModelExpr.class.getCanonicalName(), "", "", 0, 3, "", "", -1,
+				"#ConditionalExpression#all#", "");
+
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
 				attribute);
 		semSoftDependency.addPropEditableAttribute("03#"
@@ -9574,7 +9577,7 @@ public class DefaultRefasMM {
 		refas.getConstraintInstEdges().put("aopgrtogr", instEdge);
 		instEdge.setIdentifier("aopgrtogr");
 		instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelCCExt);
-		instEdge.setTargetRelation(DefaultOpersMM.instNmMetaOT, true);
+		instEdge.setTargetRelation(DefaultOpersMM.instNmMetaPW, true);
 		instEdge.setSourceRelation(instAssetOperAOGR, true);
 
 		instEdge = new InstPairwiseRel();
@@ -10682,12 +10685,12 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(DefaultOpersMM.instNmMetaPW, true);
 		instEdge.setSourceRelation(instAssetOperGRAO, true);
 
-		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("aogrtogr", instEdge);
-		instEdge.setIdentifier("aogrtogr");
-		instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelCCExt);
-		instEdge.setTargetRelation(DefaultOpersMM.instNmMetaOT, true);
-		instEdge.setSourceRelation(instAssetOperAOGR, true);
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("aogrtogr", instEdge);
+		// instEdge.setIdentifier("aogrtogr");
+		// instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelCCExt);
+		// instEdge.setTargetRelation(DefaultOpersMM.instNmMetaOT, true);
+		// instEdge.setSourceRelation(instAssetOperAOGR, true);
 
 		ia = instAssetOperGRAO.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -10828,12 +10831,12 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(DefaultOpersMM.instNmMetaPW, true);
 		instEdge.setSourceRelation(instAssetLfGRAO, true);
 
-		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("aogrtogr", instEdge);
-		instEdge.setIdentifier("aogrtogr");
-		instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelCCExt);
-		instEdge.setTargetRelation(DefaultOpersMM.instNmMetaOT, true);
-		instEdge.setSourceRelation(instAssetOperAOGR, true);
+		// instEdge = new InstPairwiseRel();
+		// refas.getConstraintInstEdges().put("aogrtogr", instEdge);
+		// instEdge.setIdentifier("aogrtogr");
+		// instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelCCExt);
+		// instEdge.setTargetRelation(DefaultOpersMM.instNmMetaOT, true);
+		// instEdge.setSourceRelation(instAssetOperAOGR, true);
 
 		ia = instAssetLfGRAO.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
