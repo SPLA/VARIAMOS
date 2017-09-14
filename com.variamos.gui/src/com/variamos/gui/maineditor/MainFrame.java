@@ -25,6 +25,7 @@ import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
+import com.variamos.gui.util.ResourcesPathsUtil;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.hlcl.model.expressions.HlclFactory;
 import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
@@ -427,11 +428,11 @@ public class MainFrame extends JFrame {
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
 		String[] resourceNames = {
-				"/com/variamos/gui/perspeditor/style/styles.xml",
-				"/com/variamos/gui/perspeditor/style/shapes.xml" };
+				ResourcesPathsUtil.STYLES_PATH ,
+				ResourcesPathsUtil.SHAPES_PATH };
 		try {
 			for (String resourceName : resourceNames) {
-				stream = MainFrame.class.getResourceAsStream(resourceName);
+				stream = getClass().getClassLoader().getResourceAsStream(resourceName);
 				if (stream == null) {
 					throw new Exception("Cannot get resource \"" + resourceName
 							+ "\" from Jar file.");
