@@ -115,8 +115,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private List<String> validElements = null;
 
 	protected DomainRegister domasinRegister = new DomainRegister();
-	
-	
+
 	private InstanceModel refasModel;
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
@@ -200,7 +199,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 		refasModel = abstractModel;
 		refas2hlcl = new ModelExpr2HLCL(refasModel);
-		
 
 		registerEvents();
 		// List<InstView> instViews =
@@ -579,7 +577,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	@Override
 	protected Component getLeftComponent() {
-	
 
 		return null;
 	}
@@ -619,7 +616,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				ConsoleTextArea.getTextArea()));
-		
+
 		extensionTabs.setMinimumSize(new Dimension(30, 100));
 		extensionTabs.addChangeListener(new ChangeListener() {
 
@@ -667,12 +664,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						if (elm instanceof InstOverTwoRel) {
 							editableElementType = "groupdep";
 						}
-						
+
 						try {
 							ElementExpressionSet metaExpressionSet;
 							metaExpressionSet = refas2hlcl
-									.getElementConstraintGroup(lastEditableElement
-											.getInstElement().getIdentifier(),
+									.getElementConstraintGroup(
+											lastEditableElement
+													.getInstElement()
+													.getIdentifier(),
 											editableElementType,
 											ModelExpr2HLCL.SIMUL_EXEC);
 							expressions.configure(getEditedModel(),
@@ -680,11 +679,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									lastEditableElement.getInstElement());
 							updateExpressions = false;
 						} catch (FunctionalException e1) {
-							//FIX Issue #230
+							// FIX Issue #230
 							ConsoleTextArea.addText(e1.getMessage());
 						}
 
-						
 					}
 				}
 				// System.out.println(tabIndex);
@@ -724,13 +722,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));
-			
+
 		}
 		if (elm == null || elm != null && this.lastEditableElement != elm) {
 			extensionTabs.addTab(mxResources.get("messagesTab"),
 					new JScrollPane(ConsoleTextArea.getTextArea()));
 
-			//TODO: Review if this if is still necessary
+			// TODO: Review if this if is still necessary
 
 		}
 
@@ -763,10 +761,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		return ConsoleTextArea.getTextArea();
 	}
 
-	
-
 	public void editModelReset() {
-		//FIXME: Check if this method is still useful
+		// FIXME: Check if this method is still useful
 		if (perspective == 0)
 			// editModel(new ProductLine())
 			;
@@ -783,7 +779,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 
 	}
-
 
 	public InstanceModel getEditedModel() {
 		return refasModel;
@@ -977,8 +972,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				}
 				instAttribute.updateValidationList(instElement, mapElements);
 
-				if (instAttribute.getType() != null
-						&& instAttribute.getType().equals(
+				if (instAttribute.getEnumerationType() != null
+						&& instAttribute.getEnumerationType().equals(
 								"com.variamos.dynsup.model.ModelExpr")) {
 					continue;
 				}
@@ -999,8 +994,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(StringUtils.multiLine(v.toString(),
-									15));
+							v.setValue(StringUtils.multiLine(v.toString(), 15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
 					}
@@ -1016,8 +1010,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(StringUtils.multiLine(v.toString(),
-									15));
+							v.setValue(StringUtils.multiLine(v.toString(), 15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
 					}
@@ -1182,8 +1175,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				}
 				instAttribute.updateValidationList(instElement, mapElements);
 
-				if (instAttribute.getType() != null
-						&& instAttribute.getType().equals(
+				if (instAttribute.getEnumerationType() != null
+						&& instAttribute.getEnumerationType().equals(
 								"com.variamos.dynsup.model.ModelExpr")) {
 					continue;
 				}
@@ -1204,8 +1197,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(StringUtils.multiLine(v.toString(),
-									15));
+							v.setValue(StringUtils.multiLine(v.toString(), 15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
 					}
@@ -1221,8 +1213,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// Makes it pull the values.
 						IntInstAttribute v = w.getInstAttribute();
 						if (v.getType().equals("String"))
-							v.setValue(StringUtils.multiLine(v.toString(),
-									15));
+							v.setValue(StringUtils.multiLine(v.toString(), 15));
 						// Divide lines every 15 characters (aprox.)
 						onVariableEdited(instElement, v);
 					}
@@ -2140,4 +2131,3 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 }
-

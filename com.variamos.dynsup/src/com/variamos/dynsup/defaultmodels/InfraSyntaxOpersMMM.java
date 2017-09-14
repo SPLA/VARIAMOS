@@ -25,7 +25,6 @@ import com.variamos.dynsup.types.StringType;
 import com.variamos.hlcl.model.domains.IntervalDomain;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeEnum;
 
-
 public class InfraSyntaxOpersMMM {
 
 	public static void createSyntaxOpersMetaMetaModel(
@@ -643,8 +642,11 @@ public class InfraSyntaxOpersMMM {
 								"Enumeration",
 								AttributeType.OPERATION,
 								false,
-								"Simple quotient",
-								"Type of quotient applied between suboper 1 and suboper2",
+								"Quotient type",
+								"Type of quotient applied between suboper1 and suboper2: "
+										+ "Simple quotient (suboper1/suboper2); "
+										+ "one less quotient ( 1 - suboper1/suboper2); "
+										+ "quotient denomination exp base 2 (suboper1/ (2 exp suboper2) ) ",
 								OpersComputationType.class.getCanonicalName(),
 								"", "", 0, 11,
 								"operType#==#Computational analysis# ",

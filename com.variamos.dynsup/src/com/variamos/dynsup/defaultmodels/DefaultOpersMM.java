@@ -3706,23 +3706,24 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			instLabeling = new InstConcept("Ver-redund-lab", metaLabeling,
-					redundanOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex()
-						.put("Ver-redund-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ver-redund-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-redund-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			// instLabeling = new InstConcept("Ver-redund-lab", metaLabeling,
+			// redundanOperUniqueLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			// instLabeling.getInstAttribute("order").setValue(false);
+			// if (newOpers)
+			// refas.getVariabilityVertex()
+			// .put("Ver-redund-lab", instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("ver-redund-lab-pw",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("ver-redund-lab-pw");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			// False PL
 
