@@ -2,11 +2,11 @@ package com.variamos.gui.perspeditor.actions;
 
 import java.awt.event.ActionEvent;
 
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class ShowAdvancedPerspectiveAction extends AbstractEditorAction {
+public class ShowAdvancedPerspectiveAction extends AbstractVariamoGUIAction {
 
 	public ShowAdvancedPerspectiveAction() {
 

@@ -10,14 +10,14 @@ import javax.swing.JOptionPane;
 //import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.BasicGraphEditor;
-import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
+import com.variamos.gui.core.mxgraph.editor.DefaultFileFilter;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class OpenAction extends AbstractEditorAction {
+public class OpenAction extends AbstractVariamoGUIAction {
 	/**
 	 * 
 	 */

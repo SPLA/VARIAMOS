@@ -71,9 +71,11 @@ import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.DomainRegister;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.core.io.ConsoleTextArea;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
+import com.variamos.gui.core.mxgraph.editor.EditorPalette;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
-import com.variamos.gui.perspeditor.PerspEditorToolBar;
+import com.variamos.gui.perspeditor.PerspEditorToolBarView;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.actions.FileTasks;
 import com.variamos.gui.perspeditor.actions.SharedActions;
@@ -103,13 +105,7 @@ import com.variamos.solver.model.SolverSolution;
 public class VariamosGraphEditor extends BasicGraphEditor implements
 		PropertyChangeListener {
 
-	static {
-		try {
-			mxResources.add("com/variamos/gui/maineditor/resources/editor");
-		} catch (Exception e) {
-			// ignore
-		}
-	}
+
 	private int modelViewIndex = 0;
 	private int modelSubViewIndex = 0;
 	private List<String> validElements = null;
@@ -158,33 +154,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			getEditedModel());
 
 	private FileTasks fileTask;
-
-	public void updateDashBoard(boolean showDashboard, boolean updateConcepts,
-			boolean updated) {
-		dashBoardFrame.updateDashBoard(refasModel, showDashboard,
-				updateConcepts, updated);
-
-	}
-
-	public void showNames(boolean showNames) {
-		dashBoardFrame.setShowNames(showNames);
-	}
-
-	public void showDashBoard(boolean visible) {
-		dashBoardFrame.showDashBoard(visible);
-	}
-
-	public void hideDashBoard() {
-		dashBoardFrame.hideDashBoard();
-	}
-
-	public ModelExpr2HLCL getRefas2hlcl() {
-		return refas2hlcl;
-	}
-
-	public VariamosGraphEditor getEditor() {
-		return this;
-	}
 
 	public VariamosGraphEditor(MainFrame frame, String perspTitle,
 			VariamosGraphComponent component, int perspective,
@@ -375,37 +344,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 	}
 
-	public AbstractGraphEditorFunctions getGraphEditorFunctions() {
-		return graphEditorFunctions;
-	}
-
-	public void setGraphEditorFunctions(AbstractGraphEditorFunctions gef) {
-		graphEditorFunctions = gef;
-	}
-
-	public int getModelViewIndex() {
-		return modelViewIndex;
-	}
-
-	public void setAdvancedPerspective(boolean advancedPerspective) {
-		getMainFrame().setAdvancedPerspective(advancedPerspective);
-		this.installToolBar(getMainFrame(), perspective);
-	}
-
-	public void setShowSimulationCustomizationBox(
-			boolean showSimulationCustomizationBox) {
-		getMainFrame().setShowSimulationCustomizationBox(
-				showSimulationCustomizationBox);
-
-	}
-
-	public boolean isShowSimulationCustomizationBox() {
-		return getMainFrame().isShowSimulationCustomizationBox();
-	}
-
-	public int getModelSubViewIndex() {
-		return modelSubViewIndex;
-	}
+	
 
 	public void setVisibleModel(int modelIndex, int modelSubIndex) {
 		// System.out.println(modelIndex + " " + modelSubIndex);
@@ -575,11 +514,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		return name;
 	}
 
-	@Override
-	protected Component getLeftComponent() {
-
-		return null;
-	}
+	
 
 	@Override
 	public Component getExtensionsTab() {
@@ -757,10 +692,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
-	public JTextArea getMessagesArea() {
-		return ConsoleTextArea.getTextArea();
-	}
-
+	
 	public void editModelReset() {
 		// FIXME: Check if this method is still useful
 		if (perspective == 0)
@@ -782,11 +714,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public InstanceModel getEditedModel() {
 		return refasModel;
-		/*
-		 * if (perspective == 0) return ((AbstractGraph)
-		 * getGraphComponent().getGraph()) .getProductLine(); else return
-		 * ((AbstractGraph) getGraphComponent().getGraph()).getRefas();
-		 */
 	}
 
 	// jcmunoz: new method for REFAS
@@ -1462,7 +1389,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		perspectiveToolBarPanel.removeAll();
 		perspectiveToolBarPanel.setLayout(new BorderLayout());
 		// if (perspective == 3)
-		perspectiveToolBarPanel.add(new PerspEditorToolBar(this,
+		perspectiveToolBarPanel.add(new PerspEditorToolBarView(this,
 				JToolBar.HORIZONTAL), BorderLayout.WEST);
 		// else
 		// jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
@@ -1484,15 +1411,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			return (MainFrame) contairner4;
 		}
 		return null;
-	}
-
-	public void refreshPalette() {
-		int i = graphAndRight.getDividerLocation();
-		graphAndRight.setDividerLocation(i + 1);
-	}
-
-	public void setModelEditor(VariamosGraphEditor modelEditor) {
-		this.modelEditor = modelEditor;
 	}
 
 	public void updateObjects() {
@@ -2005,30 +1923,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
-	public List<InstElement> getInstViews() {
-		return refasModel.getSyntaxModel().getVariabilityVertex("SyMView");
-	}
-
-	public void setProgressMonitor(ProgressMonitor progressMonitor) {
-		this.progressMonitor = progressMonitor;
-	}
-
-	public void setFileTask(FileTasks fileTask) {
-		this.fileTask = fileTask;
-		task = null;
-
-	}
-
-	public void recoverClones() {
-		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),
-				this);
-
-	}
-
-	public void showExternalContextDialog() {
-
-		ecd.center();
-	}
 
 	public void showElementOperationAssociationDialog(int dialog) {
 		eoad = new ElementsOperationAssociationDialog(this, dialog);
@@ -2129,5 +2023,111 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			// System.out.println(opExp);
 		}
 
+	}
+	
+	@Override
+	protected Component getLeftComponent() {
+
+		return null;
+	}
+	
+	public void updateDashBoard(boolean showDashboard, boolean updateConcepts,
+			boolean updated) {
+		dashBoardFrame.updateDashBoard(refasModel, showDashboard,
+				updateConcepts, updated);
+
+	}
+	
+	
+	public void showNames(boolean showNames) {
+		dashBoardFrame.setShowNames(showNames);
+	}
+
+	public void showDashBoard(boolean visible) {
+		dashBoardFrame.showDashBoard(visible);
+	}
+
+	public void hideDashBoard() {
+		dashBoardFrame.hideDashBoard();
+	}
+
+	public ModelExpr2HLCL getRefas2hlcl() {
+		return refas2hlcl;
+	}
+
+	public VariamosGraphEditor getEditor() {
+		return this;
+	}
+	
+
+	public AbstractGraphEditorFunctions getGraphEditorFunctions() {
+		return graphEditorFunctions;
+	}
+
+	public void setGraphEditorFunctions(AbstractGraphEditorFunctions gef) {
+		graphEditorFunctions = gef;
+	}
+
+	public int getModelViewIndex() {
+		return modelViewIndex;
+	}
+
+	public void setAdvancedPerspective(boolean advancedPerspective) {
+		getMainFrame().setAdvancedPerspective(advancedPerspective);
+		this.installToolBar(getMainFrame(), perspective);
+	}
+
+	public void setShowSimulationCustomizationBox(
+			boolean showSimulationCustomizationBox) {
+		getMainFrame().setShowSimulationCustomizationBox(
+				showSimulationCustomizationBox);
+
+	}
+
+	public boolean isShowSimulationCustomizationBox() {
+		return getMainFrame().isShowSimulationCustomizationBox();
+	}
+
+	public int getModelSubViewIndex() {
+		return modelSubViewIndex;
+	}
+
+	public List<InstElement> getInstViews() {
+		return refasModel.getSyntaxModel().getVariabilityVertex("SyMView");
+	}
+
+	public void setProgressMonitor(ProgressMonitor progressMonitor) {
+		this.progressMonitor = progressMonitor;
+	}
+
+	public void refreshPalette() {
+		int i = graphAndRight.getDividerLocation();
+		graphAndRight.setDividerLocation(i + 1);
+	}
+
+	public void setModelEditor(VariamosGraphEditor modelEditor) {
+		this.modelEditor = modelEditor;
+	}
+
+	
+	public void setFileTask(FileTasks fileTask) {
+		this.fileTask = fileTask;
+		task = null;
+
+	}
+
+	public void recoverClones() {
+		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),
+				this);
+
+	}
+
+	public void showExternalContextDialog() {
+
+		ecd.center();
+	}
+	
+	public JTextArea getMessagesArea() {
+		return ConsoleTextArea.getTextArea();
 	}
 }

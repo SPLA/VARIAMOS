@@ -1,4 +1,4 @@
-package com.variamos.gui.maineditor;
+package com.variamos.gui.core.viewcontrollers;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -6,8 +6,16 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JPopupMenu;
 
+import com.variamos.gui.maineditor.MainFrame;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
+
+/**
+ *  Common behaviors for each action listener inside the main gui view of VariaMos
+ *  @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
+ *
+ */
 @SuppressWarnings("serial")
-public abstract class AbstractEditorAction extends AbstractAction {
+public abstract class AbstractVariamoGUIAction extends AbstractAction {
 
 	public static final VariamosGraphEditor getEditor(ActionEvent e) {
 		if (e.getSource() instanceof Component) {

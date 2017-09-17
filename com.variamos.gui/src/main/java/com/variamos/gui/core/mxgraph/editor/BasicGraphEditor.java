@@ -1,4 +1,4 @@
-package com.variamos.gui.maineditor;
+package com.variamos.gui.core.mxgraph.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -58,178 +58,61 @@ import com.mxgraph.util.mxUndoManager;
 import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
+import com.variamos.common.core.exceptions.TechnicalException;
 import com.variamos.gui.core.io.ConsoleTextArea;
+import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
+import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
+import com.variamos.gui.util.ResourcesPathsUtil;
 
 /**
- * @author example mxgraph jcmunoz: All this package needs review. Only original
- *         example code should be in all the classes. Calls to ProductLine
- *         commented
- *
+ * Support the structure of VARIAMOS GUI. This class handles actions such as update the title, split the content 
+ * inside different panels, create a status bar.
+ * This class support the Java Swing library version of mxGrap
+ * @author  mxgraph library
  */
 
 public class BasicGraphEditor extends JPanel {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 186586L;
 
-	/**
-	 * Adds required resources for i18n
-	 */
-	static {
-		try {
-			mxResources.add("com/mxgraph/examples/swing/resources/editor");
-		} catch (Exception e) {
-			// ignore
-		}
-	}
-
 	protected JFrame frame;
-
-	/**
-	 * 
-	 */
 	protected mxGraphComponent graphComponent;
-
-	/**
-	 * 
-	 */
 	protected mxGraphOutline graphOutline;
-
-	/**
-	 * 
-	 */
 	protected JTabbedPane modelsTabPane;
-
-	/**
-	 * 
-	 */
 	protected JTabbedPane libraryPane;
-
-	/**
-	 * 
-	 */
 	protected mxUndoManager undoManager;
-
-	/**
-	 * 
-	 */
 	protected String appTitle;
-
-	/**
-	 * 
-	 */
 	protected JLabel statusBar;
-
-	/**
-	 * 
-	 */
 	protected File currentFile;
 
 	/**
 	 * Flag indicating whether the current graph has been modified
 	 */
 	protected boolean modified = false;
-
-	/**
-	 * 
-	 */
 	protected mxRubberband rubberband;
-
-	/**
-	 * 
-	 */
 	protected mxKeyboardHandler keyboardHandler;
-
-	/**
-	 * 
-	 */
-
 	protected AbstractGraphEditorFunctions graphEditorFunctions;
 
 	protected JSplitPane upperPart;
-
 	protected JSplitPane right;
-
 	protected JSplitPane center;
-
 	protected JSplitPane graphAndRight;
 
 	protected int perspective = 2;
 
-	public void setLayout(int perspective) {
-		switch (perspective) {
-		case 0:
-			center.setDividerLocation(0);
-			upperPart.setDividerLocation(150);
-			graphAndRight.setDividerLocation(400);
-			graphComponent.setBackgroundImage(null);
-			frame.setJMenuBar(new PerspEditorMenuBar(this));
-			break;
-		case 1:
-			center.setDividerLocation(0);
-			upperPart.setDividerLocation(0);
-			graphAndRight.setDividerLocation(700);
-			graphComponent.setBackgroundImage(null);
-			frame.setJMenuBar(new PerspEditorMenuBar(this));
-			break;
-		case 2:
-			center.setDividerLocation(25);
-			upperPart.setDividerLocation(0);
-			graphAndRight.setDividerLocation(700);
-			frame.setJMenuBar(new PerspEditorMenuBar(this));
-			// frame.setJMenuBar(new ProductLineMenuBar(this));
-			graphComponent.setBackgroundImage(null);
-			break;
-		case 3:
-			center.setDividerLocation(0);
-			upperPart.setDividerLocation(0);
-			graphAndRight.setDividerLocation(700);
-			// frame.setJMenuBar(new RequirementsMenuBar(this));
-			frame.setJMenuBar(new PerspEditorMenuBar(this));
-			break;
-		case 4:
-			center.setDividerLocation(0);
-			upperPart.setDividerLocation(0);
-			graphAndRight.setDividerLocation(700);
-			// frame.setJMenuBar(new RequirementsMenuBar(this));
-			frame.setJMenuBar(new PerspEditorMenuBar(this));
-			break;
-		}
-
-	}
-
-	public void reloadMenus() {
-		frame.setJMenuBar(new PerspEditorMenuBar(this));
-	}
-
-	public int getPerspective() {
-		return perspective;
-	}
-
-	public void setPerspective(int perspective) {
-		this.perspective = perspective;
-	}
-
-	protected mxIEventListener undoHandler = new mxIEventListener() {
-		@Override
-		public void invoke(Object source, mxEventObject evt) {
-			undoManager.undoableEditHappened((mxUndoableEdit) evt
-					.getProperty("edit"));
-		}
-	};
-
 	/**
-	 * 
+	 * Adds required resources for i18n
 	 */
-	protected mxIEventListener changeTracker = new mxIEventListener() {
-		@Override
-		public void invoke(Object source, mxEventObject evt) {
-			setModified(true);
+	static {
+		try {
+			mxResources.add(ResourcesPathsUtil.I18COMMON_USER_INTERFACE_PATH);
+		} catch (java.util.MissingResourceException e) {
+			throw new TechnicalException("Technical exception: Can't find a resources bundle file in the path "+ResourcesPathsUtil.I18COMMON_USER_INTERFACE_PATH);
+			
 		}
-	};
-
+	}
+	
 	/**
 	 * 
 	 */
@@ -339,6 +222,75 @@ public class BasicGraphEditor extends JPanel {
 		installListeners();
 		updateTitle();
 	}
+	
+	public void setLayout(int perspective) {
+		switch (perspective) {
+		case 0:
+			center.setDividerLocation(0);
+			upperPart.setDividerLocation(150);
+			graphAndRight.setDividerLocation(400);
+			graphComponent.setBackgroundImage(null);
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
+			break;
+		case 1:
+			center.setDividerLocation(0);
+			upperPart.setDividerLocation(0);
+			graphAndRight.setDividerLocation(700);
+			graphComponent.setBackgroundImage(null);
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
+			break;
+		case 2:
+			center.setDividerLocation(25);
+			upperPart.setDividerLocation(0);
+			graphAndRight.setDividerLocation(700);
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
+			// frame.setJMenuBar(new ProductLineMenuBar(this));
+			graphComponent.setBackgroundImage(null);
+			break;
+		case 3:
+			center.setDividerLocation(0);
+			upperPart.setDividerLocation(0);
+			graphAndRight.setDividerLocation(700);
+			// frame.setJMenuBar(new RequirementsMenuBar(this));
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
+			break;
+		case 4:
+			center.setDividerLocation(0);
+			upperPart.setDividerLocation(0);
+			graphAndRight.setDividerLocation(700);
+			// frame.setJMenuBar(new RequirementsMenuBar(this));
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
+			break;
+		}
+
+	}
+
+	public void reloadMenus() {
+		frame.setJMenuBar(new PerspEditorMenuBar(this));
+	}
+
+	
+	//Listeners
+	
+	protected mxIEventListener undoHandler = new mxIEventListener() {
+		@Override
+		public void invoke(Object source, mxEventObject evt) {
+			undoManager.undoableEditHappened((mxUndoableEdit) evt
+					.getProperty("edit"));
+		}
+	};
+
+	/**
+	 * 
+	 */
+	protected mxIEventListener changeTracker = new mxIEventListener() {
+		@Override
+		public void invoke(Object source, mxEventObject evt) {
+			setModified(true);
+		}
+	};
+
+	
 
 	protected void reinstallComponent() {
 		undoManager();
@@ -376,26 +328,14 @@ public class BasicGraphEditor extends JPanel {
 		undoManager.addListener(mxEvent.REDO, undoHandler);
 	}
 
-	protected Component getLeftComponent() {
-		return new JPanel();
-	}
-
-	protected Component getExtensionsTab() {
-		return new JPanel();
-	}
-
-	/**
-	 * 
-	 */
-	protected mxUndoManager createUndoManager() {
-		return new mxUndoManager();
-	}
+	
 
 	/**
 	 * 
 	 */
 	public void installHandlers() {
 		rubberband = new mxRubberband(graphComponent);
+		//Shortcuts for handle some actions inside of the GUI
 		keyboardHandler = new EditorKeyboardHandler(graphComponent);
 	}
 
@@ -590,14 +530,7 @@ public class BasicGraphEditor extends JPanel {
 	 */
 	protected void showGraphPopupMenu(MouseEvent e) {
 		graphEditorFunctions.showGraphPopupMenu(e, graphComponent, this);
-		/*
-		 * Point pt = SwingUtilities.convertPoint(e.getComponent(),
-		 * e.getPoint(), graphComponent); EditorPopupMenu menu = new
-		 * EditorPopupMenu(BasicGraphEditor.this); menu.show(graphComponent,
-		 * pt.x, pt.y);
-		 * 
-		 * e.consume();
-		 */
+		
 	}
 
 	/**
@@ -738,77 +671,7 @@ public class BasicGraphEditor extends JPanel {
 	}
 
 	/**
-	 * 
-	 */
-	public void setCurrentFile(File file) {
-		File oldValue = currentFile;
-		currentFile = file;
-
-		firePropertyChange("currentFile", oldValue, file);
-
-		if (oldValue != file) {
-			updateTitle();
-		}
-	}
-
-	/**
-	 * 
-	 */
-	public File getCurrentFile() {
-		return currentFile;
-	}
-
-	/**
-	 * 
-	 * @param modified
-	 */
-	public void setModified(boolean modified) {
-		boolean oldValue = this.modified;
-		this.modified = modified;
-
-		firePropertyChange("modified", oldValue, modified);
-
-		if (oldValue != modified) {
-			updateTitle();
-		}
-	}
-
-	/**
-	 * 
-	 * @return whether or not the current graph has been modified
-	 */
-	public boolean isModified() {
-		return modified;
-	}
-
-	/**
-	 * 
-	 */
-	public mxGraphComponent getGraphComponent() {
-		return graphComponent;
-	}
-
-	/**
-	 * 
-	 */
-	public mxGraphOutline getGraphOutline() {
-		return graphOutline;
-	}
-
-	/**
-	 * 
-	 */
-	public JTabbedPane getLibraryPane() {
-		return libraryPane;
-	}
-
-	/**
-	 * 
-	 */
-	public mxUndoManager getUndoManager() {
-		return undoManager;
-	}
-
+	
 	/**
 	 * 
 	 * @param name
@@ -892,14 +755,7 @@ public class BasicGraphEditor extends JPanel {
 		return newAction;
 	}
 
-	/**
-	 * 
-	 * @param msg
-	 */
-	public void status(String msg) {
-		statusBar.setText(msg);
-	}
-
+	
 	/**
 	 * 
 	 */
@@ -1183,4 +1039,104 @@ public class BasicGraphEditor extends JPanel {
 		}
 		return extension;
 	}
+	
+	public int getPerspective() {
+		return perspective;
+	}
+
+	public void setPerspective(int perspective) {
+		this.perspective = perspective;
+	}
+	protected Component getLeftComponent() {
+		return new JPanel();
+	}
+
+	protected Component getExtensionsTab() {
+		return new JPanel();
+	}
+
+	/**
+	 * 
+	 */
+	protected mxUndoManager createUndoManager() {
+		return new mxUndoManager();
+	}
+	
+
+	public void setCurrentFile(File file) {
+		File oldValue = currentFile;
+		currentFile = file;
+
+		firePropertyChange("currentFile", oldValue, file);
+
+		if (oldValue != file) {
+			updateTitle();
+		}
+	}
+
+	
+	public File getCurrentFile() {
+		return currentFile;
+	}
+
+	/**
+	 * 
+	 * @param modified
+	 */
+	public void setModified(boolean modified) {
+		boolean oldValue = this.modified;
+		this.modified = modified;
+
+		firePropertyChange("modified", oldValue, modified);
+
+		if (oldValue != modified) {
+			updateTitle();
+		}
+	}
+
+	/**
+	 * 
+	 * @return whether or not the current graph has been modified
+	 */
+	public boolean isModified() {
+		return modified;
+	}
+
+	/**
+	 * 
+	 */
+	public mxGraphComponent getGraphComponent() {
+		return graphComponent;
+	}
+
+	/**
+	 * 
+	 */
+	public mxGraphOutline getGraphOutline() {
+		return graphOutline;
+	}
+
+	/**
+	 * 
+	 */
+	public JTabbedPane getLibraryPane() {
+		return libraryPane;
+	}
+
+	/**
+	 * 
+	 */
+	public mxUndoManager getUndoManager() {
+		return undoManager;
+	}
+	
+	/**
+	 * 
+	 * @param msg
+	 */
+	public void status(String msg) {
+		statusBar.setText(msg);
+	}
+
+
 }

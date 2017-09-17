@@ -22,10 +22,10 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
 //import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
-import com.variamos.gui.maineditor.EditorActions.HistoryAction;
-import com.variamos.gui.maineditor.EditorActions.NewAction;
-import com.variamos.gui.maineditor.EditorActions.OpenAction;
-import com.variamos.gui.maineditor.EditorActions.SaveAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.HistoryAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.OpenAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.SaveAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.NewAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
@@ -39,7 +39,18 @@ import com.variamos.gui.perspeditor.actions.VerificationAction;
 import com.variamos.gui.perspeditor.actions.VerifyDeadElementAction;
 import com.variamos.gui.perspeditor.actions.VerifyFalseOptElementAction;
 
-public class PerspEditorToolBar extends JToolBar {
+
+/**
+ * This class support the tool bar with icons in the user interface. Icons such as new, save, undo, redo
+ * are draw in this class
+ * 
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-17
+ * 
+ */
+public class PerspEditorToolBarView extends JToolBar {
 
 	/**
 	 * 
@@ -56,7 +67,7 @@ public class PerspEditorToolBar extends JToolBar {
 	/**
 	 * 
 	 */
-	public PerspEditorToolBar(final VariamosGraphEditor variamosGraphEditor,
+	public PerspEditorToolBarView(final VariamosGraphEditor variamosGraphEditor,
 			int orientation) {
 		super(orientation);
 		setBorder(BorderFactory.createCompoundBorder(
@@ -145,77 +156,6 @@ public class PerspEditorToolBar extends JToolBar {
 					.bind("next", new NextSimulationAction(),
 							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/fastforward.png"));
 		}
-
-		// Gets the list of available fonts from the local graphics environment
-		// and adds some frequently used fonts at the beginning of the list
-
-		/*
-		 * GraphicsEnvironment env = GraphicsEnvironment
-		 * .getLocalGraphicsEnvironment(); List<String> fonts = new
-		 * ArrayList<String>(); fonts.addAll(Arrays.asList(new String[] {
-		 * "Helvetica", "Verdana", "Times New Roman", "Garamond", "Courier New",
-		 * "-" }));
-		 * fonts.addAll(Arrays.asList(env.getAvailableFontFamilyNames()));
-		 * 
-		 * final JComboBox fontCombo = new JComboBox(fonts.toArray());
-		 * fontCombo.setEditable(true); fontCombo.setMinimumSize(new
-		 * Dimension(120, 0)); fontCombo.setPreferredSize(new Dimension(120,
-		 * 0)); fontCombo.setMaximumSize(new Dimension(120, 100));
-		 * add(fontCombo);
-		 * 
-		 * fontCombo.addActionListener(new ActionListener() {
-		 * 
-		 * public void actionPerformed(ActionEvent e) { String font =
-		 * fontCombo.getSelectedItem().toString();
-		 * 
-		 * if (font != null && !font.equals("-")) { mxGraph graph =
-		 * editor.getGraphComponent().getGraph();
-		 * graph.setCellStyles(mxConstants.STYLE_FONTFAMILY, font); } } });
-		 * 
-		 * final JComboBox sizeCombo = new JComboBox(new Object[] { "6pt",
-		 * "8pt", "9pt", "10pt", "12pt", "14pt", "18pt", "24pt", "30pt", "36pt",
-		 * "48pt", "60pt" }); sizeCombo.setEditable(true);
-		 * sizeCombo.setMinimumSize(new Dimension(65, 0));
-		 * sizeCombo.setPreferredSize(new Dimension(65, 0));
-		 * sizeCombo.setMaximumSize(new Dimension(65, 100)); add(sizeCombo);
-		 * 
-		 * sizeCombo.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent e) { mxGraph graph =
-		 * editor.getGraphComponent().getGraph();
-		 * graph.setCellStyles(mxConstants.STYLE_FONTSIZE, sizeCombo
-		 * .getSelectedItem().toString().replace("pt", "")); } });
-		 * 
-		 * addSeparator();
-		 * 
-		 * add(editor.bind("Bold", new FontStyleAction(true),
-		 * "/com/variamos/gui/perspeditor/images/bold.gif"));
-		 * add(editor.bind("Italic", new FontStyleAction(false),
-		 * "/com/variamos/gui/perspeditor/images/italic.gif"));
-		 * 
-		 * addSeparator();
-		 * 
-		 * add(editor.bind("Left", new KeyValueAction(mxConstants.STYLE_ALIGN,
-		 * mxConstants.ALIGN_LEFT),
-		 * "/com/variamos/gui/perspeditor/images/left.gif"));
-		 * add(editor.bind("Center", new KeyValueAction(mxConstants.STYLE_ALIGN,
-		 * mxConstants.ALIGN_CENTER),
-		 * "/com/variamos/gui/perspeditor/images/center.gif"));
-		 * add(editor.bind("Right", new KeyValueAction(mxConstants.STYLE_ALIGN,
-		 * mxConstants.ALIGN_RIGHT),
-		 * "/com/variamos/gui/perspeditor/images/right.gif"));
-		 * 
-		 * addSeparator();
-		 * 
-		 * add(editor.bind("Font", new ColorAction("Font",
-		 * mxConstants.STYLE_FONTCOLOR),
-		 * "/com/variamos/gui/perspeditor/images/fontcolor.gif"));
-		 * add(editor.bind("Stroke", new ColorAction("Stroke",
-		 * mxConstants.STYLE_STROKECOLOR),
-		 * "/com/variamos/gui/perspeditor/images/linecolor.gif"));
-		 * add(editor.bind("Fill", new ColorAction("Fill",
-		 * mxConstants.STYLE_FILLCOLOR),
-		 * "/com/variamos/gui/perspeditor/images/fillcolor.gif"));
-		 */
 
 		addSeparator();
 

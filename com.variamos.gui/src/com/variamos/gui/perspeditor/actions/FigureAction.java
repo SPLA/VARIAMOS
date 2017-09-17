@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 
 @SuppressWarnings("serial")
-public class FigureAction extends AbstractEditorAction{
+public class FigureAction extends AbstractVariamoGUIAction{
 	
 	private String figureName;
 	

@@ -1,4 +1,4 @@
-package com.variamos.gui.maineditor;
+package com.variamos.gui.core.mxgraph.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

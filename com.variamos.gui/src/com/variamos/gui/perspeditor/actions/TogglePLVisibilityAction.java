@@ -2,11 +2,10 @@ package com.variamos.gui.perspeditor.actions;
 
 import java.awt.event.ActionEvent;
 
-import com.mxgraph.swing.mxGraphComponent;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 
 @SuppressWarnings("serial")
-public class TogglePLVisibilityAction extends AbstractEditorAction {
+public class TogglePLVisibilityAction extends AbstractVariamoGUIAction {
 	
 	boolean visibility = true;
 	

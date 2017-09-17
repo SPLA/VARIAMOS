@@ -3,7 +3,7 @@ package com.variamos.gui.perspeditor.actions;
 import java.awt.event.ActionEvent;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 /**
@@ -14,7 +14,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
  * @since 2014-03-15
  */
 @SuppressWarnings("serial")
-public class CheckUpdateAction extends AbstractEditorAction {
+public class CheckUpdateAction extends AbstractVariamoGUIAction {
 
 	public CheckUpdateAction() {
 		this.putValue(SHORT_DESCRIPTION, mxResources.get("verifyParents"));

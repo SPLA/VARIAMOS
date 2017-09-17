@@ -2,7 +2,7 @@
  * $Id: EditorKeyboardHandler.java,v 1.1 2009/10/23 11:32:08 gaudenz Exp $
  * Copyright (c) 2008, Gaudenz Alder
  */
-package com.variamos.gui.maineditor;
+package com.variamos.gui.core.mxgraph.editor;
 
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -12,9 +12,11 @@ import javax.swing.KeyStroke;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.util.mxGraphActions;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions;
 
 /**
  * @author Administrator
+ * FIXME: Complete this keyboard handler for basic actions https://docs.oracle.com/javase/tutorial/uiswing/misc/keybinding.html
  * 
  */
 public class EditorKeyboardHandler extends mxKeyboardHandler
@@ -56,17 +58,22 @@ public class EditorKeyboardHandler extends mxKeyboardHandler
 
 	/**
 	 * Return the mapping between JTree's input map and JGraph's actions.
+	 *  an action map specifies the action corresponding to each action name.
+	 *  Each InputMap/ActionMap has a parent that typically comes from the UI. Any time the look and feel is changed,
+	 *   the parent is reset. 
+	 *  In this way, any bindings specified by the developer are never lost on look and feel changes.
+	 *  Source: https://docs.oracle.com/javase/tutorial/uiswing/misc/keybinding.html
 	 */
 	protected ActionMap createActionMap()
 	{
 		ActionMap map = super.createActionMap();
 
-		map.put("save", new EditorActions.SaveAction(false));
-		map.put("saveAs", new EditorActions.SaveAction(true));
-		map.put("new", new EditorActions.NewAction());
-		map.put("open", new EditorActions.OpenAction());
-		map.put("undo", new EditorActions.HistoryAction(true));
-		map.put("redo", new EditorActions.HistoryAction(false));
+		map.put("save", new EditorActionsController.SaveAction(false));
+		map.put("saveAs", new EditorActionsController.SaveAction(true));
+		map.put("new", new VariamosGUIEditorActions.NewAction());
+		map.put("open", new EditorActionsController.OpenAction());
+		map.put("undo", new EditorActionsController.HistoryAction(true));
+		map.put("redo", new EditorActionsController.HistoryAction(false));
 		map.put("selectVertices", mxGraphActions.getSelectVerticesAction());
 		map.put("selectEdges", mxGraphActions.getSelectEdgesAction());
 

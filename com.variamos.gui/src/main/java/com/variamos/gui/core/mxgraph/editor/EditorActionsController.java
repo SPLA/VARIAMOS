@@ -2,7 +2,7 @@
  * $Id: EditorActions.java,v 1.38 2012/09/20 14:59:30 david Exp $
  * Copyright (c) 2001-2012, JGraph Ltd
  */
-package com.variamos.gui.maineditor;
+package com.variamos.gui.core.mxgraph.editor;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -72,13 +72,16 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.core.io.ConsoleTextArea;
+import com.variamos.gui.maineditor.MainFrame;
+import com.variamos.gui.maineditor.VariamosGraphComponent;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.actions.FileTasks;
 
 /**
  *
  */
-public class EditorActions {
+public class EditorActionsController {
 	/**
 	 * 
 	 * @param e
@@ -256,7 +259,7 @@ public class EditorActions {
 						.getSource();
 				mxGraph graph = graphComponent.getGraph();
 				mxCodec codec = new mxCodec();
-				Document doc = mxUtils.loadDocument(EditorActions.class
+				Document doc = mxUtils.loadDocument(EditorActionsController.class
 						.getResource(stylesheet).toString());
 
 				if (doc != null) {
@@ -1266,40 +1269,40 @@ public class EditorActions {
 	/**
 	 *
 	 */
-	@SuppressWarnings("serial")
-	public static class NewAction extends AbstractAction {
-		/**
-		 * 
-		 */
-		public void actionPerformed(ActionEvent e) {
-			BasicGraphEditor editor = getEditor(e);
-
-			if (editor != null) {
-				if (editor.getPerspective() == 4) {
-					JOptionPane.showMessageDialog(editor,
-							mxResources.get("loadnewerror"),
-							"Operation not supported",
-							JOptionPane.INFORMATION_MESSAGE, null);
-
-					return;
-				}
-				if (!editor.isModified()
-						|| JOptionPane.showConfirmDialog(editor,
-								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
-					((VariamosGraphEditor) editor).resetView();
-					if (editor.getPerspective() == 1) {
-						((VariamosGraphEditor) editor).getEditedModel()
-								.createOperationsSuperstructure(true);
-
-						((PerspEditorGraph) ((VariamosGraphComponent) editor
-								.getGraphComponent()).getGraph())
-								.setModelInstance(((VariamosGraphEditor) editor)
-										.getEditedModel());
-					}
-				}
-			}
-		}
-	}
+	//@SuppressWarnings("serial")
+//	public static class NewAction extends AbstractAction {
+//		/**
+//		 * 
+//		 */
+//		public void actionPerformed(ActionEvent e) {
+//			BasicGraphEditor editor = getEditor(e);
+//
+//			if (editor != null) {
+//				if (editor.getPerspective() == 4) {
+//					JOptionPane.showMessageDialog(editor,
+//							mxResources.get("loadnewerror"),
+//							"Operation not supported",
+//							JOptionPane.INFORMATION_MESSAGE, null);
+//
+//					return;
+//				}
+//				if (!editor.isModified()
+//						|| JOptionPane.showConfirmDialog(editor,
+//								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
+//					((VariamosGraphEditor) editor).resetView();
+//					if (editor.getPerspective() == 1) {
+//						((VariamosGraphEditor) editor).getEditedModel()
+//								.createOperationsSuperstructure(true);
+//
+//						((PerspEditorGraph) ((VariamosGraphComponent) editor
+//								.getGraphComponent()).getGraph())
+//								.setModelInstance(((VariamosGraphEditor) editor)
+//										.getEditedModel());
+//					}
+//				}
+//			}
+//		}
+//	}
 
 	/**
 	 *

@@ -12,14 +12,14 @@ import javax.swing.filechooser.FileFilter;
 import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.types.OpersOpType;
-import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.core.mxgraph.editor.DefaultFileFilter;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class OperationAction extends AbstractEditorAction {
+public class OperationAction extends AbstractVariamoGUIAction {
 
 	protected String lastDir = null;
 

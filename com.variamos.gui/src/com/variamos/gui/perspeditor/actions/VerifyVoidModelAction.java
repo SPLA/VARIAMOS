@@ -4,13 +4,11 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextArea;
 
-//import com.cfm.productline.ProductLine;
-//import com.variamos.core.enums.SolverEditorType;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class VerifyVoidModelAction extends AbstractEditorAction {
+public class VerifyVoidModelAction extends AbstractVariamoGUIAction {
 	/**
 		 * 
 		 */

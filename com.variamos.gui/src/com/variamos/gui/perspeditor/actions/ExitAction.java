@@ -5,11 +5,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 
 @SuppressWarnings("serial")
-public class ExitAction extends AbstractEditorAction {
+public class ExitAction extends AbstractVariamoGUIAction {
 	/**
 		 * 
 		 */
