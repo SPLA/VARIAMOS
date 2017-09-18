@@ -59,7 +59,8 @@ public class EnumerationWidget extends WidgetR {
 						.getAttribute().getClassCanonicalName());
 				ConsoleTextArea.addText(e.getStackTrace());
 			}
-			enumeration = aClass.getEnumConstants();
+			if (aClass != null)
+				enumeration = aClass.getEnumConstants();
 		}
 		if (enumeration != null)
 			for (int i = 0; i < enumeration.length; i++) {
@@ -103,4 +104,3 @@ public class EnumerationWidget extends WidgetR {
 		return group;
 	}
 }
-

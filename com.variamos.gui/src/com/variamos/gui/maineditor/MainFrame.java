@@ -135,11 +135,10 @@ public class MainFrame extends JFrame {
 				// abstractModel = syntaxInfrastructure;
 
 				// TO View OperMM in Syntax Perspective
-				// abstractModel = new ModelInstance(
+				// abstractModel = new InstanceModel(
 				// PerspectiveType.OPERATIONSINFRASTRUCTURE,
 				// metaExpressionTypes, InfraBasicSyntax, null);
 
-				// FIXME v1.1 add this comment to visualize the basic MMM
 				// TO View BasicMMM in Syntax Perspective DO NOT REMOVE
 				// abstractModel = new InstanceModel(
 				// PerspectiveType.INFRASTRUCTUREBASICSYNTAX,
