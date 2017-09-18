@@ -1010,35 +1010,7 @@ public class BasicGraphEditor extends JPanel {
 			modelsTabPane.setSelectedIndex(selected);
 	}
 
-	public String getFileExtension() {
-		String extension = null;
-		switch (this.getPerspective()) {
-		case 1:
-			extension = "vmom";
-			break;
-		case 2:
-			extension = "vmum";
-			break;
-		case 3:
-			extension = "vmsm";
-		}
-		return extension;
-	}
-
-	public String getExtensionName() {
-		String extension = null;
-		switch (this.getPerspective()) {
-		case 1:
-			extension = "VariaMos-OperMetaModel";
-			break;
-		case 2:
-			extension = "VariaMos-UserModel";
-			break;
-		case 3:
-			extension = "VariaMos-SyntaxMetaModel";
-		}
-		return extension;
-	}
+	
 	
 	public int getPerspective() {
 		return perspective;

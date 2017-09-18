@@ -31,6 +31,7 @@ import com.variamos.gui.core.mxgraph.editor.EditorActionsController.SetLabelPosi
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.SetStyleAction;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.StyleAction;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.ToggleAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.LoadAction;
 import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.NewAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
@@ -45,7 +46,6 @@ import com.variamos.gui.perspeditor.actions.HideAdvancedPerspectiveAction;
 import com.variamos.gui.perspeditor.actions.HideSimulationDashBoardAction;
 import com.variamos.gui.perspeditor.actions.HideSimulationsCustomizationBox;
 import com.variamos.gui.perspeditor.actions.NextSimulationAction;
-import com.variamos.gui.perspeditor.actions.OpenAction;
 import com.variamos.gui.perspeditor.actions.OperationAction;
 import com.variamos.gui.perspeditor.actions.ParentElementAction;
 import com.variamos.gui.perspeditor.actions.RootElementAction;
@@ -78,7 +78,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 		al.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		menu.add(al);
-		al = editor.bind(mxResources.get("load"), new OpenAction());
+		al = editor.bind(mxResources.get("load"), new LoadAction());
 		al.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
 		menu.add(al);

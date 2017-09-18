@@ -52,7 +52,7 @@ public class OpenAction extends AbstractVariamoGUIAction {
 
 				return;
 			}
-			final BasicGraphEditor finalEditor = editor;
+			final VariamosGraphEditor finalEditor = editor;
 			((MainFrame) editor.getFrame()).waitingCursor(true);
 			if (!editor.isModified()
 					|| JOptionPane.showConfirmDialog(editor,

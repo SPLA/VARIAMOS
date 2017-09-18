@@ -23,8 +23,8 @@ import com.mxgraph.util.mxResources;
 //import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.HistoryAction;
-import com.variamos.gui.core.mxgraph.editor.EditorActionsController.OpenAction;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.SaveAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.LoadAction;
 import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.NewAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
@@ -76,7 +76,7 @@ public class PerspEditorToolBarView extends JToolBar {
 
 		add(variamosGraphEditor.bind("New", new NewAction(),
 				"/com/variamos/gui/perspeditor/images/new.gif"));
-		add(variamosGraphEditor.bind("Open", new OpenAction(),
+		add(variamosGraphEditor.bind("Open", new LoadAction(),
 				"/com/variamos/gui/perspeditor/images/open.gif"));
 		add(variamosGraphEditor.bind("Save", new SaveAction(false),
 				"/com/variamos/gui/perspeditor/images/save.gif"));

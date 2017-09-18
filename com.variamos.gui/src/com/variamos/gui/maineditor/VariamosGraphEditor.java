@@ -154,6 +154,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			getEditedModel());
 
 	private FileTasks fileTask;
+	
+	//Useful to save the last path where users open or save files
+	private String lastDir; 
 
 	public VariamosGraphEditor(MainFrame frame, String perspTitle,
 			VariamosGraphComponent component, int perspective,
@@ -1923,6 +1926,35 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
+	public String getFileExtension() {
+		String extension = null;
+		switch (this.getPerspective()) {
+		case 1:
+			extension = "vmom";
+			break;
+		case 2:
+			extension = "vmum";
+			break;
+		case 3:
+			extension = "vmsm";
+		}
+		return extension;
+	}
+
+	public String getExtensionName() {
+		String extension = null;
+		switch (this.getPerspective()) {
+		case 1:
+			extension = "VariaMos-OperMetaModel";
+			break;
+		case 2:
+			extension = "VariaMos-UserModel";
+			break;
+		case 3:
+			extension = "VariaMos-SyntaxMetaModel";
+		}
+		return extension;
+	}
 
 	public void showElementOperationAssociationDialog(int dialog) {
 		eoad = new ElementsOperationAssociationDialog(this, dialog);
@@ -2129,5 +2161,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	
 	public JTextArea getMessagesArea() {
 		return ConsoleTextArea.getTextArea();
+	}
+
+	public String getLastDir() {
+		return lastDir;
+	}
+
+	public void setLastDir(String lastDir) {
+		this.lastDir = lastDir;
 	}
 }
