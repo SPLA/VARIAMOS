@@ -71,6 +71,7 @@ import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.DomainRegister;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.core.io.ConsoleTextArea;
+import com.variamos.gui.core.maineditor.models.DynamicBehaviorDTO;
 import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 import com.variamos.gui.core.mxgraph.editor.EditorPalette;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
@@ -88,7 +89,6 @@ import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.solver.model.SolverSolution;
 
 /**
@@ -108,14 +108,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	private int modelViewIndex = 0;
 	private int modelSubViewIndex = 0;
-	private List<String> validElements = null;
+	private List<String> validElements;
 
-	protected DomainRegister domasinRegister = new DomainRegister();
+	protected DomainRegister domasinRegister;
 
-	private InstanceModel refasModel;
+//	private InstanceModel refasModel;
 	private ProgressMonitor progressMonitor;
-	private SolverTasks task;
-	private SolverOpersTask semTask;
+//	private SolverTasks task;
+//	private SolverOpersTask semTask;
 	protected StaticExpressionsPanel expressions;
 	protected JTextArea consoleTextArea;
 	private ElementDesignPanel elementDesignPanel;
@@ -127,8 +127,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	protected JTabbedPane extensionTabs;
 
 	protected int mode = 0;
-	private int tabIndex = 0, lastTabIndex = 0;
-	private ModelExpr2HLCL refas2hlcl;
+	private int tabIndex = 0;
+	private int lastTabIndex = 0;
+//	private ModelExpr2HLCL refas2hlcl;
 	private VariamosGraphEditor modelEditor;
 	private InstCell lastEditableElement;
 	private boolean recursiveCall = false;
@@ -136,41 +137,59 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private String editableElementType = null;
 
 	private String lastSolverInvocations = "";
-	private SolverSolution lastConfiguration;
+//	private SolverSolution lastConfiguration;
 
-	private List<String> defects = new ArrayList<String>();
+	private List<String> defects;
 
-	private HlclProgram configHlclProgram;
+//	private HlclProgram configHlclProgram;
 
 	private boolean invalidConfigHlclProgram = true;
 
 	private boolean updateTabs = false;
 
-	private ExternalContextDialog ecd = new ExternalContextDialog(this);
+	private ExternalContextDialog ecd;
 
 	private ElementsOperationAssociationDialog eoad;
 
-	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
-			getEditedModel());
+	VariamosDashBoardFrame dashBoardFrame;
 
 	private FileTasks fileTask;
 	
 	//Useful to save the last path where users open or save files
 	private String lastDir; 
+	
+	private DynamicBehaviorDTO dynamicBehaviorDTO;
+	
+	
+
+	public void init() {
+
+		dynamicBehaviorDTO= new DynamicBehaviorDTO();
+		dashBoardFrame = new VariamosDashBoardFrame(
+				getEditedModel());
+		ecd = new ExternalContextDialog(this);
+		defects= new ArrayList<String>();
+		domasinRegister = new DomainRegister();
+		validElements = null;
+
+	}
 
 	public VariamosGraphEditor(MainFrame frame, String perspTitle,
 			VariamosGraphComponent component, int perspective,
 			InstanceModel abstractModel) {
 		super(frame, perspTitle, component, perspective);
-
+		init();
+		dynamicBehaviorDTO= new DynamicBehaviorDTO();
+		
 		// Default defects validation
 		defects.add("Root");
 		defects.add("Parent");
 		defects.add("FalseOpt");
 		defects.add("Dead");
 
-		refasModel = abstractModel;
-		refas2hlcl = new ModelExpr2HLCL(refasModel);
+		dynamicBehaviorDTO.setRefasModel(abstractModel);
+		dynamicBehaviorDTO.setRefas2hlcl(new ModelExpr2HLCL(abstractModel));
+		
 
 		registerEvents();
 		// List<InstView> instViews =
@@ -198,8 +217,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		perspEditorGraph.loadStyles();
 		perspEditorGraph.loadStencil();
 		List<InstElement> instViews = null;
-		if (refasModel.getSyntaxModel() != null)
-			instViews = refasModel.getSyntaxModel().getVariabilityVertex(
+		if (dynamicBehaviorDTO.getRefasModel().getSyntaxModel() != null)
+			instViews = dynamicBehaviorDTO.getRefasModel().getSyntaxModel().getVariabilityVertex(
 					"SyMView");
 		if (instViews != null)
 			if (instViews.size() == 0) {
@@ -283,7 +302,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							// .getSelectedIndex()));
 
 							// TODO change to RefasModel
-							List<InstElement> finalInstViews = refasModel
+							List<InstElement> finalInstViews = dynamicBehaviorDTO.getRefasModel()
 									.getSyntaxModel().getVariabilityVertex(
 											"SyMView");
 							VariamosGraphEditor editor = getEditor();
@@ -335,7 +354,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				}
 				center.setDividerLocation(25);
 				upperPart.setDividerLocation(0);
-				if (refasModel.getPerspectiveType().equals(
+				if (dynamicBehaviorDTO.getRefasModel().getPerspectiveType().equals(
 						PerspectiveType.CONFIG_SIMULATION))
 					graphAndRight.setDividerLocation(1100);
 				else
@@ -411,7 +430,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				MainFrame.getVariamosVersionNumber());
 		parent.setValue(att);
 		graph.getModel().setRoot(root);
-		refasModel.clear();
+		dynamicBehaviorDTO.getRefasModel().clear();
 		// if (perspective == 2) {
 		setGraphEditorFunctions(new PerspEditorFunctions(this));
 		((PerspEditorGraph) graph).defineInitialGraph();
@@ -605,7 +624,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 						try {
 							ElementExpressionSet metaExpressionSet;
-							metaExpressionSet = refas2hlcl
+							metaExpressionSet = dynamicBehaviorDTO.getRefas2hlcl()
 									.getElementConstraintGroup(
 											lastEditableElement
 													.getInstElement()
@@ -716,7 +735,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public InstanceModel getEditedModel() {
-		return refasModel;
+		return dynamicBehaviorDTO.getRefasModel();
 	}
 
 	// jcmunoz: new method for REFAS
@@ -764,14 +783,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				}
 
 				List<InstAttribute> visible = finalEditElm
-						.getVisibleAttributes(refasModel
+						.getVisibleAttributes(dynamicBehaviorDTO.getRefasModel()
 								.getParentSMMSyntaxElement(finalEditElm));
 
 				for (InstAttribute instAttribute : visible) {
 					Map<String, InstElement> mapElements = null;
 					if (finalEditElm instanceof InstPairwiseRel) {
 						InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
-						mapElements = refasModel.getSyntaxModel()
+						mapElements = dynamicBehaviorDTO.getRefasModel().getSyntaxModel()
 								.getValidPairwiseRelations(
 										instPairwise.getSourceRelations()
 												.get(0),
@@ -781,7 +800,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					instAttribute.updateValidationList(finalEditElm,
 							mapElements);
 				}
-				visible = finalEditElm.getVisibleAttributes(refasModel
+				visible = finalEditElm.getVisibleAttributes(dynamicBehaviorDTO.getRefasModel()
 						.getParentSMMSyntaxElement(finalEditElm));
 
 				List<InstAttribute> editables = finalEditElm
@@ -831,14 +850,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// refas2hlcl.validateConceptType(finalEditElm,
 						// "GeneralConcept")
 						)
-							consoleTextArea.setText(refas2hlcl
+							consoleTextArea.setText(dynamicBehaviorDTO.getRefas2hlcl()
 									.getElementTextConstraints(
 											finalEditElm.getIdentifier(),
 											editableElementType,
 											ModelExpr2HLCL.CONF_EXEC));
 				if (this.perspective == 4)
 
-					consoleTextArea.setText(refas2hlcl
+					consoleTextArea.setText(dynamicBehaviorDTO.getRefas2hlcl()
 							.getElementTextConstraints(
 									finalEditElm.getIdentifier(),
 									editableElementType,
@@ -884,7 +903,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
 		int configurationPanelElements = 0;
-		int instances = instElement.getInstances(refasModel);
+		int instances = instElement.getInstances(dynamicBehaviorDTO.getRefasModel());
 		int pos = -1;
 		do {
 			for (InstAttribute instAttribute : visible) {
@@ -895,7 +914,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				Map<String, InstElement> mapElements = null;
 				if (instElement instanceof InstPairwiseRel) {
 					InstPairwiseRel instPairwise = (InstPairwiseRel) instElement;
-					mapElements = refasModel.getSyntaxModel()
+					mapElements = dynamicBehaviorDTO.getRefasModel().getSyntaxModel()
 							.getValidPairwiseRelations(
 									instPairwise.getSourceRelations().get(0),
 									instPairwise.getTargetRelations().get(0));
@@ -1087,7 +1106,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
 		int simulationPanelElements = 1;
 
-		int instances = instElement.getInstances(refasModel);
+		int instances = instElement.getInstances(dynamicBehaviorDTO.getRefasModel());
 		int pos = -1;
 		do {
 			for (InstAttribute instAttribute : visible) {
@@ -1098,7 +1117,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				Map<String, InstElement> mapElements = null;
 				if (instElement instanceof InstPairwiseRel) {
 					InstPairwiseRel instPairwise = (InstPairwiseRel) instElement;
-					mapElements = refasModel.getSyntaxModel()
+					mapElements = dynamicBehaviorDTO.getRefasModel().getSyntaxModel()
 							.getValidPairwiseRelations(
 									instPairwise.getSourceRelations().get(0),
 									instPairwise.getTargetRelations().get(0));
@@ -1283,7 +1302,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void refreshElement(InstElement elm) {
-		List<InstAttribute> visible = elm.getVisibleAttributes(refasModel
+		List<InstAttribute> visible = elm.getVisibleAttributes(dynamicBehaviorDTO.getRefasModel()
 				.getParentSMMSyntaxElement(elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		for (InstAttribute v : visible) {
@@ -1291,7 +1310,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (elm instanceof InstPairwiseRel) {
 				InstPairwiseRel instPairwise = (InstPairwiseRel) elm;
 				try {
-					mapElements = refasModel.getSyntaxModel()
+					mapElements = dynamicBehaviorDTO.getRefasModel().getSyntaxModel()
 							.getValidPairwiseRelations(
 									instPairwise.getSourceRelations().get(0),
 									instPairwise.getTargetRelations().get(0));
@@ -1323,7 +1342,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									.getValue());
 				if (instAttribute.getIdentifier().equals("OperationsMMType"))
 					editableMetaElement
-							.setTransInstSemanticElement(this.refasModel
+							.setTransInstSemanticElement(dynamicBehaviorDTO.getRefasModel()
 									.getOperationalModel().getElement(
 											(String) instAttribute.getValue()));
 				// if (instAttribute.getIdentifier().equals("Visible"))
@@ -1448,8 +1467,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	private void updateRefasModel(InstanceModel editedModel) {
-		refasModel = editedModel;
-		this.refas2hlcl.setRefas(refasModel);
+		dynamicBehaviorDTO.setRefasModel(editedModel);
+		dynamicBehaviorDTO.getRefas2hlcl().setRefas(editedModel);
 	}
 
 	/**
@@ -1504,29 +1523,24 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void clearElementErrors() {
-		refas2hlcl.cleanGUIErrors();
+		dynamicBehaviorDTO.getRefas2hlcl().cleanGUIErrors();
 		this.refresh();
 	}
 
 	public void clearQueryMonitor() {
-		refas2hlcl.clearQueryMonitor();
+		dynamicBehaviorDTO.getRefas2hlcl().clearQueryMonitor();
 	}
 
 	public void clearElementState(int execType) {
-		refas2hlcl.cleanGUIElements(execType);
-		if (task != null) {
-			task.setTerminated(true);
-			task = null;
-		}
-
-		this.refresh();
+		dynamicBehaviorDTO.getRefas2hlcl().cleanGUIElements(execType);
+		clearTask();
 
 	}
 
-	public void endSimulation() {
-		if (task != null) {
-			task.setTerminated(true);
-			task = null;
+	public void clearTask() {
+		if (dynamicBehaviorDTO.getTask() != null) {
+			dynamicBehaviorDTO.getTask().setTerminated(true);
+			dynamicBehaviorDTO.setTask (null);
 		}
 
 		this.refresh();
@@ -1543,14 +1557,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void callOperations(List<String> operations, String filename) {
 		// FIXME support multiple models selected from the menu not only REFAS
-		InstElement refas = refasModel.getSyntaxModel().getVertex(
+		InstElement refas = dynamicBehaviorDTO.getRefasModel().getSyntaxModel().getVertex(
 				"GeneralModel");
 		// use the first node as the REFAS node - fixme
 		if (refas == null)
-			refas = refasModel.getSyntaxModel().getVertex("SMNode1");
+			refas = dynamicBehaviorDTO.getRefasModel().getSyntaxModel().getVertex("SMNode1");
 		InstConcept element = new InstConcept("REFAS1", refas);
 		element.createInstAttributes(null);
-		this.refasModel.getVariabilityVertex().put("REFAS1", element);
+		this.dynamicBehaviorDTO.getRefasModel().getVariabilityVertex().put("REFAS1", element);
 		// System.out.println(operations);
 		boolean first = true;
 		if (operations.get(0).startsWith("N:"))
@@ -1562,67 +1576,72 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution,
 			List<String> operations, String filename) {
 
-		if (!firstSimulExecution && semTask != null) {
-			semTask.setFirstSimulExec(false);
-			semTask.setNext(true);
+		if (!firstSimulExecution && dynamicBehaviorDTO.getSemTask() != null) {
+			dynamicBehaviorDTO.getSemTask().setFirstSimulExec(false);
+			dynamicBehaviorDTO.getSemTask().setNext(true);
 		} else {
-			if (semTask != null)
-				semTask.setTerminated(true);
+			if (dynamicBehaviorDTO.getSemTask() != null)
+				dynamicBehaviorDTO.getSemTask().setTerminated(true);
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
 					"Executing operation", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(1);
-			semTask = new SolverOpersTask(progressMonitor, refasModel,
-					refas2hlcl, configHlclProgram, firstSimulExecution,
-					operations, lastConfiguration, filename);
+			SolverOpersTask semTask = new SolverOpersTask(progressMonitor, dynamicBehaviorDTO.getRefasModel(),
+					dynamicBehaviorDTO.getRefas2hlcl(),dynamicBehaviorDTO.getConfigHlclProgram(), firstSimulExecution,
+					operations, dynamicBehaviorDTO.getLastConfiguration(), filename);
 
 			semTask.addPropertyChangeListener(this);
 			semTask.execute();
+			
+			dynamicBehaviorDTO.setSemTask(semTask);
 		}
-		return semTask;
+		return dynamicBehaviorDTO.getSemTask();
 	}
 
 	// Static operation's definition
 	public SolverTasks executeSimulation(boolean firstSimulExecution,
 			boolean reloadDashboard, int type, boolean update, String element) {
 
-		if (!firstSimulExecution && task != null
-				&& task.getExecType() == ModelExpr2HLCL.SIMUL_EXEC) {
-			task.setFirstSimulExec(false);
-			task.setNext(true);
+		if (!firstSimulExecution && dynamicBehaviorDTO.getTask() != null
+				&& dynamicBehaviorDTO.getTask().getExecType() == ModelExpr2HLCL.SIMUL_EXEC) {
+			dynamicBehaviorDTO.getTask().setFirstSimulExec(false);
+			dynamicBehaviorDTO.getTask().setNext(true);
 		} else {
-			if (task != null)
-				task.setTerminated(true);
+			if (dynamicBehaviorDTO.getTask() != null)
+				dynamicBehaviorDTO.getTask().setTerminated(true);
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
 					"Executing Simulation", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
-			task = new SolverTasks(progressMonitor, type, refas2hlcl,
-					configHlclProgram, firstSimulExecution, reloadDashboard,
-					update, element, lastConfiguration);
+			SolverTasks task = new SolverTasks(progressMonitor, type, dynamicBehaviorDTO.getRefas2hlcl(),
+					dynamicBehaviorDTO.getConfigHlclProgram(), firstSimulExecution, reloadDashboard,
+					update, element, dynamicBehaviorDTO.getLastConfiguration());
 			task.addPropertyChangeListener(this);
 			task.execute();
+			dynamicBehaviorDTO.setTask(task);
 		}
-		return task;
+		return dynamicBehaviorDTO.getTask();
 	}
 
 	// Static operation's definition
 	public void exportConfiguration(String file) {
-		if (task == null || task.isDone() || task.getProgress() == 100) {
+		if (dynamicBehaviorDTO.getTask() == null || dynamicBehaviorDTO.getTask().isDone() || dynamicBehaviorDTO.getTask().getProgress() == 100) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
 					"Exporting Solutions", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
 
-			task = new SolverTasks(progressMonitor,
-					ModelExpr2HLCL.SIMUL_EXPORT, this.refasModel, refas2hlcl,
+			SolverTasks task = new SolverTasks(progressMonitor,
+					ModelExpr2HLCL.SIMUL_EXPORT, dynamicBehaviorDTO.getRefasModel(), dynamicBehaviorDTO.getRefas2hlcl(),
 					file);
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();
+			dynamicBehaviorDTO.setTask(task);
+
 		}
 	}
 
@@ -1634,19 +1653,19 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
 		try {
-			if (first || lastConfiguration == null) {
-				result = refas2hlcl.execute(null, element,
+			if (first || dynamicBehaviorDTO.getLastConfiguration() == null) {
+				result = dynamicBehaviorDTO.getRefas2hlcl().execute(null, element,
 						ModelExpr2HLCL.ONE_SOLUTION, type);
 				wasFirst = true;
 			} else {
-				result = refas2hlcl.execute(null, element,
+				result = dynamicBehaviorDTO.getRefas2hlcl().execute(null, element,
 						ModelExpr2HLCL.NEXT_SOLUTION, type);
 			}
-			lastConfiguration = refas2hlcl.getConfiguration();
+			dynamicBehaviorDTO.setLastConfiguration(dynamicBehaviorDTO.getRefas2hlcl().getConfiguration());
 			if (result) {
 				if (update) {
-					refas2hlcl.updateGUIElements(null);
-					ConsoleTextArea.addText(refas2hlcl.getText());
+					dynamicBehaviorDTO.getRefas2hlcl().updateGUIElements(null);
+					ConsoleTextArea.addText(dynamicBehaviorDTO.getRefas2hlcl().getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
 				}
@@ -1696,7 +1715,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			((MainFrame) getFrame()).waitingCursor(false);
 			long endTime = System.currentTimeMillis();
 			lastSolverInvocations = "NormalExec: " + (endTime - iniTime) + "["
-					+ refas2hlcl.getLastExecutionTime() / 1000000 + "]"
+					+ dynamicBehaviorDTO.getRefas2hlcl().getLastExecutionTime() / 1000000 + "]"
 					+ " -- ";
 		} catch (Exception e) {
 			ConsoleTextArea.addText(e.getStackTrace());
@@ -1727,34 +1746,34 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		if ("progress" == evt.getPropertyName()) {
 			int progress = (Integer) evt.getNewValue();
 			progressMonitor.setProgress(progress);
-			if (task != null) {
+			if (dynamicBehaviorDTO.getTask() != null) {
 				String message = String.format("Completed %d%%.\n", progress);
 				progressMonitor.setNote(message);
-				if (task.getProgress() == 100
-						&& (task.getExecType() == ModelExpr2HLCL.SIMUL_EXEC || task
+				if (dynamicBehaviorDTO.getTask().getProgress() == 100
+						&& (dynamicBehaviorDTO.getTask().getExecType() == ModelExpr2HLCL.SIMUL_EXEC || dynamicBehaviorDTO.getTask()
 								.getExecType() == ModelExpr2HLCL.SIMUL_MAPE)) {
-					refas2hlcl.updateGUIElements(null);
-					updateDashBoard(true, task.isReloadDashBoard(),
-							task.isUpdate());
-					ConsoleTextArea.addText(refas2hlcl.getText());
+					dynamicBehaviorDTO.getRefas2hlcl().updateGUIElements(null);
+					updateDashBoard(true, dynamicBehaviorDTO.getTask().isReloadDashBoard(),
+							dynamicBehaviorDTO.getTask().isUpdate());
+					ConsoleTextArea.addText(dynamicBehaviorDTO.getRefas2hlcl().getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
 				}
 			}
-			if (semTask != null) {
+			if (dynamicBehaviorDTO.getSemTask() != null) {
 				String message = String.format("Completed %d%%.\n", progress);
 				progressMonitor.setNote(message);
-				if (semTask.getProgress() == 100 // TODO validate for simulation
+				if (dynamicBehaviorDTO.getSemTask().getProgress() == 100 // TODO validate for simulation
 				// && (semTask.getExecType() == ModelExpr2HLCL.SIMUL_EXEC ||
 				// task
 				// .getExecType() == ModelExpr2HLCL.SIMUL_MAPE)
 				) {
-					List<String> outVariables = semTask.getOutVariables();
-					refas2hlcl.updateGUIElements(null, outVariables, null);
-					updateDashBoard(semTask.isShowDashboard(),
-							semTask.isReloadDashBoardConcepts(),
-							semTask.isUpdate());
-					ConsoleTextArea.addText(refas2hlcl.getText());
+					List<String> outVariables = dynamicBehaviorDTO.getSemTask().getOutVariables();
+					dynamicBehaviorDTO.getRefas2hlcl().updateGUIElements(null, outVariables, null);
+					updateDashBoard(dynamicBehaviorDTO.getSemTask().isShowDashboard(),
+							dynamicBehaviorDTO.getSemTask().isReloadDashBoardConcepts(),
+							dynamicBehaviorDTO.getSemTask().isUpdate());
+					ConsoleTextArea.addText(dynamicBehaviorDTO.getRefas2hlcl().getText());
 					updateSimulResults();
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
@@ -1764,7 +1783,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (progressMonitor.isCanceled()
 					|| (fileTask != null && fileTask.isDone())) {
 				if (progressMonitor.isCanceled()) {
-					task.cancel(true);
+					dynamicBehaviorDTO.getTask().cancel(true);
 					JOptionPane
 							.showMessageDialog(
 									frame,
@@ -1774,10 +1793,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					((MainFrame) getFrame()).waitingCursor(false);
 				}
 			} else if (progressMonitor.isCanceled()
-					|| (task != null && task.isDone())) {
+					|| (dynamicBehaviorDTO.getTask() != null && dynamicBehaviorDTO.getTask().isDone())) {
 				if (progressMonitor.isCanceled()) {
-					task.cancel(true);
-					if (task.getExecType() == ModelExpr2HLCL.SIMUL_EXPORT) {
+					dynamicBehaviorDTO.getTask().cancel(true);
+					if (dynamicBehaviorDTO.getTask().getExecType() == ModelExpr2HLCL.SIMUL_EXPORT) {
 						JOptionPane
 								.showMessageDialog(
 										frame,
@@ -1791,55 +1810,56 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					((MainFrame) getFrame()).waitingCursor(false);
 				} else {
 					editPropertiesRefas(lastEditableElement);
-					ConsoleTextArea.addText(refas2hlcl.getText());
+					ConsoleTextArea.addText(dynamicBehaviorDTO.getRefas2hlcl().getText());
 					((MainFrame) getFrame()).waitingCursor(false);
-					lastSolverInvocations = task.getExecutionTime();
-					switch (task.getExecType()) {
+					lastSolverInvocations = dynamicBehaviorDTO.getTask().getExecutionTime();
+					switch (dynamicBehaviorDTO.getTask().getExecType()) {
 					case ModelExpr2HLCL.CONF_EXEC:
-						invalidConfigHlclProgram = task
+						invalidConfigHlclProgram = dynamicBehaviorDTO.getTask()
 								.isInvalidConfigHlclProgram();
 						break;
 					case ModelExpr2HLCL.DESIGN_EXEC:
-						if (!task.getErrorTitle().equals("")) {
+						if (!dynamicBehaviorDTO.getTask().getErrorTitle().equals("")) {
 							JOptionPane.showMessageDialog(frame,
-									task.getErrorMessage(),
-									task.getErrorTitle(),
+									dynamicBehaviorDTO.getTask().getErrorMessage(),
+									dynamicBehaviorDTO.getTask().getErrorTitle(),
 									JOptionPane.INFORMATION_MESSAGE, null);
 
 						}
 						refresh();
 						break;
 					case ModelExpr2HLCL.SIMUL_EXEC:
-						updateDashBoard(true, task.isReloadDashBoard(),
-								task.isUpdate());
+						updateDashBoard(true, dynamicBehaviorDTO.getTask().isReloadDashBoard(),
+								dynamicBehaviorDTO.getTask().isUpdate());
 					case ModelExpr2HLCL.SIMUL_EXPORT:
 						refresh();
-						lastConfiguration = task.getLastSolverSolution();
-						if (!task.getErrorTitle().equals("")) {
+						SolverSolution lastConfiguration = dynamicBehaviorDTO.getTask().getLastSolverSolution();
+						dynamicBehaviorDTO.setLastConfiguration(lastConfiguration);
+						if (!dynamicBehaviorDTO.getTask().getErrorTitle().equals("")) {
 							JOptionPane.showMessageDialog(frame,
-									task.getErrorMessage(),
-									task.getErrorTitle(),
+									dynamicBehaviorDTO.getTask().getErrorMessage(),
+									dynamicBehaviorDTO.getTask().getErrorTitle(),
 									JOptionPane.INFORMATION_MESSAGE, null);
 						}
 						break;
 					}
 				}
 			} else if (progressMonitor.isCanceled()
-					|| (semTask != null && semTask.isDone())) {
+					|| (dynamicBehaviorDTO.getSemTask() != null && dynamicBehaviorDTO.getSemTask().isDone())) {
 				if (progressMonitor.isCanceled()) {
-					semTask.cancel(true);
+					dynamicBehaviorDTO.getSemTask().cancel(true);
 					JOptionPane.showMessageDialog(frame, "Execution cancelled",
 							"Task Notification",
 							JOptionPane.INFORMATION_MESSAGE, null);
 					((MainFrame) getFrame()).waitingCursor(false);
 				} else {
 					editPropertiesRefas(lastEditableElement);
-					ConsoleTextArea.addText(refas2hlcl.getText());
+					ConsoleTextArea.addText(dynamicBehaviorDTO.getRefas2hlcl().getText());
 					((MainFrame) getFrame()).waitingCursor(false);
-					lastSolverInvocations = semTask.getExecutionTime();
-					updateDashBoard(semTask.isShowDashboard(),
-							semTask.isReloadDashBoardConcepts(),
-							semTask.isUpdate());
+					lastSolverInvocations = dynamicBehaviorDTO.getSemTask().getExecutionTime();
+					updateDashBoard(dynamicBehaviorDTO.getSemTask().isShowDashboard(),
+							dynamicBehaviorDTO.getSemTask().isReloadDashBoardConcepts(),
+							dynamicBehaviorDTO.getSemTask().isUpdate());
 				}
 			}
 		}
@@ -1847,44 +1867,45 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void updateSimulResults() {
 
-		ConsoleTextArea.addText(refas2hlcl.getText());
-		if (task != null && !task.getErrorTitle().equals("")) {
+		ConsoleTextArea.addText(dynamicBehaviorDTO.getRefas2hlcl().getText());
+		if (dynamicBehaviorDTO.getTask() != null && !dynamicBehaviorDTO.getTask().getErrorTitle().equals("")) {
 			JOptionPane
-					.showMessageDialog(frame, task.getErrorMessage(),
-							task.getErrorTitle(),
+					.showMessageDialog(frame, dynamicBehaviorDTO.getTask().getErrorMessage(),
+							dynamicBehaviorDTO.getTask().getErrorTitle(),
 							JOptionPane.INFORMATION_MESSAGE, null);
 
 		}
-		if (semTask != null && !semTask.getErrorTitle().equals("")) {
-			JOptionPane.showMessageDialog(frame, semTask.getErrorMessage(),
-					semTask.getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
+		if (dynamicBehaviorDTO.getSemTask() != null && !dynamicBehaviorDTO.getSemTask().getErrorTitle().equals("")) {
+			JOptionPane.showMessageDialog(frame, dynamicBehaviorDTO.getSemTask().getErrorMessage(),
+					dynamicBehaviorDTO.getTask().getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
 					null);
-			semTask.clearErrorMessage();
-		} else if (semTask != null && semTask.getCompletedMessage() != null
-				&& !semTask.getCompletedMessage().equals("")) {
-			JOptionPane.showMessageDialog(frame, semTask.getCompletedMessage(),
+			dynamicBehaviorDTO.getSemTask().clearErrorMessage();
+		} else if (dynamicBehaviorDTO.getSemTask() != null && dynamicBehaviorDTO.getSemTask().getCompletedMessage() != null
+				&& !dynamicBehaviorDTO.getSemTask().getCompletedMessage().equals("")) {
+			JOptionPane.showMessageDialog(frame, dynamicBehaviorDTO.getSemTask().getCompletedMessage(),
 					"Operation Completed", JOptionPane.PLAIN_MESSAGE, null);
-			semTask.clearErrorMessage();
+			dynamicBehaviorDTO.getSemTask().clearErrorMessage();
 
 		}
 	}
 
 	// Static operation's definition
 	public void configModel(InstElement element, boolean test) {
-		if (task == null || task.isDone()) {
+		if (dynamicBehaviorDTO.getTask() == null || dynamicBehaviorDTO.getTask().isDone()) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
 					"Executing Element Configuration", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
 
-			task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
-					ModelExpr2HLCL.CONF_EXEC, refas2hlcl, configHlclProgram,
+			SolverTasks task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
+					ModelExpr2HLCL.CONF_EXEC, dynamicBehaviorDTO.getRefas2hlcl(), dynamicBehaviorDTO.getConfigHlclProgram(),
 					invalidConfigHlclProgram, test, element, defects,
-					lastConfiguration);
+					dynamicBehaviorDTO.getLastConfiguration());
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();
+			dynamicBehaviorDTO.setTask(task);
 		}
 	}
 
@@ -1895,19 +1916,20 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	// Static operation's definition
 	public void verify(List<String> defect) {
-		if (task == null || task.isDone() || task.getProgress() == 0) {
+		if (dynamicBehaviorDTO.getTask() == null || dynamicBehaviorDTO.getTask().isDone() || dynamicBehaviorDTO.getTask().getProgress() == 0) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
 					"System Verification", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
-			task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
-					ModelExpr2HLCL.DESIGN_EXEC, refas2hlcl, configHlclProgram,
+			SolverTasks task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
+					ModelExpr2HLCL.DESIGN_EXEC, dynamicBehaviorDTO.getRefas2hlcl(), dynamicBehaviorDTO.getConfigHlclProgram(),
 					invalidConfigHlclProgram, false, null, defect,
-					lastConfiguration);
+					dynamicBehaviorDTO.getLastConfiguration());
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();
+			dynamicBehaviorDTO.setTask(task);
 		}
 	}
 
@@ -2010,7 +2032,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 			// ONLY to display the existing operations in the console
 			TreeSet<String> expressionsS = new TreeSet<String>();
-			for (InstElement el : refasModel.getVariabilityVertexCollection()) {
+			for (InstElement el : dynamicBehaviorDTO.getRefasModel().getVariabilityVertexCollection()) {
 				InstElement et = el.getTransSupInstElement();
 				if (et.getIdentifier().equals("OpMOperation")
 						|| el.getIdentifier().equals("VerifyParentsOper")) {
@@ -2065,7 +2087,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	
 	public void updateDashBoard(boolean showDashboard, boolean updateConcepts,
 			boolean updated) {
-		dashBoardFrame.updateDashBoard(refasModel, showDashboard,
+		dashBoardFrame.updateDashBoard(dynamicBehaviorDTO.getRefasModel(), showDashboard,
 				updateConcepts, updated);
 
 	}
@@ -2083,10 +2105,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		dashBoardFrame.hideDashBoard();
 	}
 
-	public ModelExpr2HLCL getRefas2hlcl() {
-		return refas2hlcl;
-	}
-
+	
 	public VariamosGraphEditor getEditor() {
 		return this;
 	}
@@ -2125,7 +2144,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public List<InstElement> getInstViews() {
-		return refasModel.getSyntaxModel().getVariabilityVertex("SyMView");
+		return dynamicBehaviorDTO.getRefasModel().getSyntaxModel().getVariabilityVertex("SyMView");
 	}
 
 	public void setProgressMonitor(ProgressMonitor progressMonitor) {
@@ -2144,7 +2163,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	
 	public void setFileTask(FileTasks fileTask) {
 		this.fileTask = fileTask;
-		task = null;
+		dynamicBehaviorDTO.setTask(null);
 
 	}
 
@@ -2170,4 +2189,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void setLastDir(String lastDir) {
 		this.lastDir = lastDir;
 	}
+
+	public DynamicBehaviorDTO getDynamicBehaviorDTO() {
+		return dynamicBehaviorDTO;
+	}
+	
 }

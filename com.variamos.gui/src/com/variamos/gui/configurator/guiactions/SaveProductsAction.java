@@ -71,7 +71,7 @@ public class SaveProductsAction extends AbstractVariamoGUIAction {
 				filename += ".conf";
 
 			try {
-				ConfigurationIO.saveMapToJSONFile(editor.getRefas2hlcl()
+				ConfigurationIO.saveMapToJSONFile(editor.getDynamicBehaviorDTO().getRefas2hlcl()
 						.getConfiguration().getSolverSolution(), filename);
 				// ConfiguratorPanel configurator =
 				// getEditor(e).getConfigurator();
