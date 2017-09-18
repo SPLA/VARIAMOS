@@ -401,7 +401,7 @@ public class InfraBasicSyntaxMMMM {
 		constraintInstEdges.put("co-asso1", instEdge);
 		instEdge.setIdentifier("co-asso1");
 		instEdge.setEdSyntaxEle(infraSyntaxM3ConAsso1);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM3NamedElement, true);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM3Asso, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM3NamedElement, true);
 
 		SyntaxElement infraSyntaxM3ConAsso2 = new SyntaxElement('P',
@@ -416,7 +416,7 @@ public class InfraBasicSyntaxMMMM {
 		constraintInstEdges.put("co-asso2", instEdge);
 		instEdge.setIdentifier("co-asso2");
 		instEdge.setEdSyntaxEle(infraSyntaxM3ConAsso2);
-		instEdge.setSourceRelation(instInfraSyntaxOpersM3NamedElement, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM3Asso, true);
 		instEdge.setTargetRelation(instInfraSyntaxOpersM3NamedElement, true);
 
 		// Generalization relations
