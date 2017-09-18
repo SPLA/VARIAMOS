@@ -1,93 +1,165 @@
 package com.variamos.gui.core.maineditor.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ProgressMonitor;
+
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.dynsup.translation.SolverOpersTask;
 import com.variamos.dynsup.translation.SolverTasks;
-import com.variamos.dynsup.types.DomainRegister;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.solver.model.SolverSolution;
 
 public class DynamicBehaviorDTO {
 
-	
-	private List<String> validElements = null;
-	protected DomainRegister domasinRegister = new DomainRegister();
 	private InstanceModel refasModel;
 	private SolverTasks task;
 	private SolverOpersTask semTask;
 	private ModelExpr2HLCL refas2hlcl;
-	private SolverSolution lastConfiguration;
-	private List<String> defects = new ArrayList<String>();
+	private SolverSolution lastSolution;
 	private HlclProgram configHlclProgram;
 	private boolean invalidConfigHlclProgram = true;
+	private ProgressMonitor progressMonitor;
+
 	
 	
 	
-	
-	public List<String> getValidElements() {
-		return validElements;
+	public DynamicBehaviorDTO(ProgressMonitor progressMonitor) {
+		super();
+		this.progressMonitor = progressMonitor;
 	}
-	public void setValidElements(List<String> validElements) {
-		this.validElements = validElements;
+
+	// Static operation's definition
+	public void executeSimulation(boolean firstSimulExecution, boolean reloadDashboard, int type) {
+		executeSimulation(firstSimulExecution, reloadDashboard, type, true, "");
 	}
-	public DomainRegister getDomasinRegister() {
-		return domasinRegister;
+
+	// TODO support ALL operations dynamically, not only the first
+
+	public void callOperations(List<String> operations, String filename) {
+		// FIXME support multiple models selected from the menu not only REFAS
+		InstElement refas = getRefasModel().getSyntaxModel().getVertex("GeneralModel");
+		// use the first node as the REFAS node - fixme
+		if (refas == null)
+			refas = getRefasModel().getSyntaxModel().getVertex("SMNode1");
+		InstConcept element = new InstConcept("REFAS1", refas);
+		element.createInstAttributes(null);
+		this.getRefasModel().getVariabilityVertex().put("REFAS1", element);
+		// System.out.println(operations);
+		boolean first = true;
+		if (operations.get(0).startsWith("N:"))
+			first = false;
+		executeOperationsThead(first, operations, filename);
 	}
-	public void setDomasinRegister(DomainRegister domasinRegister) {
-		this.domasinRegister = domasinRegister;
+
+	// Dynamic operation's definition
+	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution, List<String> operations,
+			String filename) {
+
+		if (!firstSimulExecution && getSemTask() != null) {
+			getSemTask().setFirstSimulExec(false);
+			getSemTask().setNext(true);
+		} else {
+			if (getSemTask() != null)
+				getSemTask().setTerminated(true);
+//			progressMonitor = new ProgressMonitor(DynamicBehaviorDTO.this, "Executing operation", "", 0, 100);
+//			progressMonitor.setMillisToDecideToPopup(5);
+//			progressMonitor.setMillisToPopup(5);
+//			progressMonitor.setProgress(1);
+			SolverOpersTask semTask = new SolverOpersTask(progressMonitor, getRefasModel(),
+					getRefas2hlcl(), getConfigHlclProgram(), firstSimulExecution,
+					operations, getLastSolution(), filename);
+
+			//semTask.addPropertyChangeListener(this);
+			semTask.execute();
+
+			setSemTask(semTask);
+		}
+		return getSemTask();
 	}
+
+	// Static operation's definition
+	public SolverTasks executeSimulation(boolean firstSimulExecution, boolean reloadDashboard, int type, boolean update,
+			String element) {
+
+		if (!firstSimulExecution && getTask() != null
+				&& getTask().getExecType() == ModelExpr2HLCL.SIMUL_EXEC) {
+			getTask().setFirstSimulExec(false);
+			getTask().setNext(true);
+		} else {
+			if (getTask() != null)
+				getTask().setTerminated(true);
+//			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this, "Executing Simulation", "", 0, 100);
+//			progressMonitor.setMillisToDecideToPopup(5);
+//			progressMonitor.setMillisToPopup(5);
+//			progressMonitor.setProgress(0);
+			SolverTasks task = new SolverTasks(progressMonitor, type, getRefas2hlcl(),
+					getConfigHlclProgram(), firstSimulExecution, reloadDashboard, update, element,
+					getLastSolution());
+			//task.addPropertyChangeListener(this);
+			task.execute();
+			setTask(task);
+		}
+		return getTask();
+	}
+
 	public InstanceModel getRefasModel() {
 		return refasModel;
 	}
+
 	public void setRefasModel(InstanceModel refasModel) {
 		this.refasModel = refasModel;
 	}
+
 	public SolverTasks getTask() {
 		return task;
 	}
+
 	public void setTask(SolverTasks task) {
 		this.task = task;
 	}
+
 	public SolverOpersTask getSemTask() {
 		return semTask;
 	}
+
 	public void setSemTask(SolverOpersTask semTask) {
 		this.semTask = semTask;
 	}
+
 	public ModelExpr2HLCL getRefas2hlcl() {
 		return refas2hlcl;
 	}
+
 	public void setRefas2hlcl(ModelExpr2HLCL refas2hlcl) {
 		this.refas2hlcl = refas2hlcl;
 	}
-	public SolverSolution getLastConfiguration() {
-		return lastConfiguration;
+
+	public SolverSolution getLastSolution() {
+		return lastSolution;
 	}
-	public void setLastConfiguration(SolverSolution lastConfiguration) {
-		this.lastConfiguration = lastConfiguration;
+
+	public void setLastSolution(SolverSolution lastSolution) {
+		this.lastSolution = lastSolution;
 	}
-	public List<String> getDefects() {
-		return defects;
-	}
-	public void setDefects(List<String> defects) {
-		this.defects = defects;
-	}
+
 	public HlclProgram getConfigHlclProgram() {
 		return configHlclProgram;
 	}
+
 	public void setConfigHlclProgram(HlclProgram configHlclProgram) {
 		this.configHlclProgram = configHlclProgram;
 	}
+
 	public boolean isInvalidConfigHlclProgram() {
 		return invalidConfigHlclProgram;
 	}
+
 	public void setInvalidConfigHlclProgram(boolean invalidConfigHlclProgram) {
 		this.invalidConfigHlclProgram = invalidConfigHlclProgram;
 	}
 
-	
 }

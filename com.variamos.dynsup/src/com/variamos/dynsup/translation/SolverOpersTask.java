@@ -62,32 +62,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private List<String> outVariables = new ArrayList<String>();
 	private List<String> defectsFreeIdsName = null;
 
-	public List<String> getOutVariables() {
-		return outVariables;
-	}
-
-	public String getErrorTitle() {
-		return errorTitle;
-	}
-
-	public String getCompletedMessage() {
-		return completedMessage;
-	}
-
-	public int[] getResults() {
-		return results;
-	}
-
-	public String getErrorMessage() {
-		return errorMessage;
-	}
-
-	public void clearErrorMessage() {
-		errorMessage = "";
-		errorTitle = "";
-		completedMessage = "";
-	}
-
 	private boolean test;
 	private long task = 0;
 	private InstElement element;
@@ -1056,6 +1030,32 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	public String getExecutionTime() {
 		return executionTime;
+	}
+	
+	public List<String> getOutVariables() {
+		return outVariables;
+	}
+
+	public String getErrorTitle() {
+		return errorTitle;
+	}
+
+	public String getCompletedMessage() {
+		return completedMessage;
+	}
+
+	public int[] getResults() {
+		return results;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void clearErrorMessage() {
+		errorMessage = "";
+		errorTitle = "";
+		completedMessage = "";
 	}
 
 	@Override
