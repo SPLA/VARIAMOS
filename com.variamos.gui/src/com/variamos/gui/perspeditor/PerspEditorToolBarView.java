@@ -23,9 +23,9 @@ import com.mxgraph.util.mxResources;
 //import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.HistoryAction;
-import com.variamos.gui.core.mxgraph.editor.EditorActionsController.SaveAction;
 import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.LoadAction;
 import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.NewAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.SaveAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
@@ -65,7 +65,7 @@ public class PerspEditorToolBarView extends JToolBar {
 	private boolean ignoreZoomChange = false;
 
 	/**
-	 * 
+	 * Represents the menu bar with icons below the menus file, layout...
 	 */
 	public PerspEditorToolBarView(final VariamosGraphEditor variamosGraphEditor,
 			int orientation) {
@@ -82,13 +82,7 @@ public class PerspEditorToolBarView extends JToolBar {
 				"/com/variamos/gui/perspeditor/images/save.gif"));
 
 		addSeparator();
-		/*
-		 * add(editor.bind("Print", new PrintAction(),
-		 * "/com/variamos/gui/perspeditor/images/print.gif"));
-		 * 
-		 * addSeparator();
-		 */
-
+		 
 		add(variamosGraphEditor.bind("Cut", TransferHandler.getCutAction(),
 				"/com/variamos/gui/perspeditor/images/cut.gif"));
 

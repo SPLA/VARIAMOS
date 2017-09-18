@@ -68,8 +68,8 @@ public class EditorKeyboardHandler extends mxKeyboardHandler
 	{
 		ActionMap map = super.createActionMap();
 
-		map.put("save", new EditorActionsController.SaveAction(false));
-		map.put("saveAs", new EditorActionsController.SaveAction(true));
+		map.put("save", new VariamosGUIEditorActions.SaveAction(false));
+		map.put("saveAs", new VariamosGUIEditorActions.SaveAction(true));
 		map.put("new", new VariamosGUIEditorActions.NewAction());
 		map.put("open", new VariamosGUIEditorActions.LoadAction());
 		map.put("undo", new EditorActionsController.HistoryAction(true));

@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry excluding="com/variamos/gui/core/mxgraph/editor/EditorMenuBar.java|com/variamos/gui/core/mxgraph/editor/EditorPopupMenu.java" kind="src" path="src/main/java"/>
-	<classpathentry excluding="main/resources/|main/java/|com/variamos/gui/perspeditor/actions/NewAction.java|com/variamos/gui/perspeditor/actions/OpenAction.java" kind="src" path="src"/>
+	<classpathentry excluding="main/resources/|main/java/|com/variamos/gui/perspeditor/actions/NewAction.java|com/variamos/gui/perspeditor/actions/OpenAction.java|com/variamos/gui/perspeditor/actions/SaveAction.java|com/variamos/gui/perspeditor/actions/ExitAction.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.reasoning"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.hlcl"/>

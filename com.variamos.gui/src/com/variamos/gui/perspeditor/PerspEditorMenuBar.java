@@ -31,8 +31,10 @@ import com.variamos.gui.core.mxgraph.editor.EditorActionsController.SetLabelPosi
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.SetStyleAction;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.StyleAction;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.ToggleAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.ExitAction;
 import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.LoadAction;
 import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.NewAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.SaveAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
 import com.variamos.gui.perspeditor.actions.CheckUpdateAction;
@@ -40,7 +42,6 @@ import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
 import com.variamos.gui.perspeditor.actions.ElementOperationAssociationAction;
-import com.variamos.gui.perspeditor.actions.ExitAction;
 import com.variamos.gui.perspeditor.actions.ExternalContextAction;
 import com.variamos.gui.perspeditor.actions.HideAdvancedPerspectiveAction;
 import com.variamos.gui.perspeditor.actions.HideSimulationDashBoardAction;
@@ -49,7 +50,6 @@ import com.variamos.gui.perspeditor.actions.NextSimulationAction;
 import com.variamos.gui.perspeditor.actions.OperationAction;
 import com.variamos.gui.perspeditor.actions.ParentElementAction;
 import com.variamos.gui.perspeditor.actions.RootElementAction;
-import com.variamos.gui.perspeditor.actions.SaveAction;
 import com.variamos.gui.perspeditor.actions.ShowAdvancedPerspectiveAction;
 import com.variamos.gui.perspeditor.actions.ShowSimulationCustomizationBox;
 import com.variamos.gui.perspeditor.actions.ShowSimulationDashBoardAction;
@@ -91,7 +91,9 @@ public class PerspEditorMenuBar extends JMenuBar {
 		al.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
 		menu.add(al);
+		
 		menu.addSeparator();
+
 		al = editor.bind(mxResources.get("exit"), new ExitAction());
 		al.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));

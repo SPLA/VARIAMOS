@@ -28,7 +28,6 @@ import com.variamos.gui.core.mxgraph.editor.EditorActionsController.FontStyleAct
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.HistoryAction;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.KeyValueAction;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.PrintAction;
-import com.variamos.gui.perspeditor.actions.SaveAction;
 
 
 public class EditorToolBar extends JToolBar
@@ -61,8 +60,8 @@ public class EditorToolBar extends JToolBar
 //				"/com/mxgraph/examples/swing/images/new.gif"));
 //		add(editor.bind("Open", new OpenAction(),
 //				"/com/mxgraph/examples/swing/images/open.gif"));
-		add(editor.bind("Save", new SaveAction(false),
-				"/com/mxgraph/examples/swing/images/save.gif"));
+//		add(editor.bind("Save", new SaveAction(false),
+//				"/com/mxgraph/examples/swing/images/save.gif"));
 
 		addSeparator();
 
