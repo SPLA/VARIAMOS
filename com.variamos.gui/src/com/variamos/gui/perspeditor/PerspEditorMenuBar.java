@@ -31,10 +31,10 @@ import com.variamos.gui.core.mxgraph.editor.EditorActionsController.SetLabelPosi
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.SetStyleAction;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.StyleAction;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.ToggleAction;
-import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.ExitAction;
-import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.LoadAction;
-import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.NewAction;
-import com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions.SaveAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIMainEditorActions.ExitAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIMainEditorActions.LoadAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIMainEditorActions.NewAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIMainEditorActions.SaveAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
 import com.variamos.gui.perspeditor.actions.CheckUpdateAction;

@@ -48,7 +48,7 @@ import com.variamos.solver.model.SolverSolution;
  * com.variamos.perspsupport.perspmodel.SolverTasks. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Munoz Fern�ndez <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-12-22

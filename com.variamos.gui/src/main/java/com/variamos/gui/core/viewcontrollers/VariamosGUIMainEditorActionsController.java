@@ -38,11 +38,11 @@ import com.variamos.gui.perspeditor.actions.FileTasks;
 
 /**
  * This class implements logic for opening, saving, printing files, etc inside the GUI. Methods here defined are called by listeners in 
- * the GUI inside the class [VariamosGUIEditorActions]{@link com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions} 
+ * the GUI inside the class [VariamosGUIEditorActions]{@link com.variamos.gui.core.viewcontrollers.VariamosGUIMainEditorActions} 
  * @author Luisa Rincon <lufe089@gmail.com>
- * @see com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActions 
+ * @see com.variamos.gui.core.viewcontrollers.VariamosGUIMainEditorActions 
  */
-public class VariamosGUIEditorActionsController {
+public class VariamosGUIMainEditorActionsController {
 
 	
 	/**
@@ -323,7 +323,7 @@ public class VariamosGUIEditorActionsController {
 					}
 
 					if ((variamosEditor.getCurrentFile() != null && ext.equalsIgnoreCase("png") && !dialogShown)) {
-						VariamosGUIEditorActionsController.saveXmlPng(variamosEditor, filename, bg);
+						VariamosGUIMainEditorActionsController.saveXmlPng(variamosEditor, filename, bg);
 					} else {
 						BufferedImage image = mxCellRenderer.createBufferedImage(graph, null, 2, bg,
 								graphComponent.isAntiAlias(), null, graphComponent.getCanvas());

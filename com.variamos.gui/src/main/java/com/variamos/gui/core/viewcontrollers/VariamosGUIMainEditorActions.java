@@ -17,11 +17,11 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
  * this file.
  * 
  * @author Luisa Rincon <lufe089@gmail.com>
- * @see com.variamos.gui.core.viewcontrollers.VariamosGUIEditorActionsController
+ * @see com.variamos.gui.core.viewcontrollers.VariamosGUIMainEditorActionsController
  *
  */
 @SuppressWarnings("serial")
-public class VariamosGUIEditorActions {
+public class VariamosGUIMainEditorActions {
 
 	/*********** NEW *************************/
 	public static class NewAction extends AbstractVariamoGUIAction {
@@ -33,7 +33,7 @@ public class VariamosGUIEditorActions {
 		public void actionPerformed(ActionEvent e) {
 			VariamosGraphEditor variamosEditor = getEditor(e);
 			// Call the controller that call the right business functionalities
-			VariamosGUIEditorActionsController.newAction(variamosEditor);
+			VariamosGUIMainEditorActionsController.newAction(variamosEditor);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class VariamosGUIEditorActions {
 		public void actionPerformed(ActionEvent e) {
 			VariamosGraphEditor variamosEditor = getEditor(e);
 			// Call the controller that call the right business functionalities
-			VariamosGUIEditorActionsController.loadAction(variamosEditor);
+			VariamosGUIMainEditorActionsController.loadAction(variamosEditor);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class VariamosGUIEditorActions {
 		public void actionPerformed(ActionEvent e) {
 			VariamosGraphEditor variamosEditor = getEditor(e);
 			// Call the controller that call the right business functionalities
-			VariamosGUIEditorActionsController.saveAction(variamosEditor, showDialog);
+			VariamosGUIMainEditorActionsController.saveAction(variamosEditor, showDialog);
 		}
 
 	}
