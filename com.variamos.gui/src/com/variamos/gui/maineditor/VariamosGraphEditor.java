@@ -16,12 +16,14 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -51,6 +53,8 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
 import com.variamos.common.core.exceptions.FunctionalException;
+import com.variamos.common.core.exceptions.GraphReadingException;
+import com.variamos.common.core.exceptions.TechnicalException;
 import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
@@ -1551,6 +1555,34 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 		return wasFirst;
 	}
 
+	/**
+	 * example about how to handle errors in swingtaks inside the user interface
+	 * @param evt
+	 */
+	private void handleFileApiErrors(PropertyChangeEvent evt) {
+		try{
+			((FileTasks)(evt.getSource())).get();
+		} catch (InterruptedException e) {
+			String msg = String.format("Unexpected problem: %s see the console for more de", e.getCause().toString());
+			JOptionPane.showMessageDialog(this, msg, "error: ", JOptionPane.ERROR_MESSAGE, null);
+		} catch (ExecutionException e) {
+			if (e.getCause() instanceof FileNotFoundException) {
+				//String msg = String.format("File not found");
+				//JOptionPane.showMessageDialog(variamosEditor, msg, "Error", JOptionPane.ERROR_MESSAGE, null);
+				//ConsoleTextArea.addText(e.getMessage());
+				throw new TechnicalException(e);
+				//e.printStackTrace();
+			} else if (e.getCause() instanceof GraphReadingException) {
+				JOptionPane.showMessageDialog(this,
+						"unable to load the model. The structure of the file was not understood.",
+						"Model load error: " + e.getMessage(), JOptionPane.ERROR_MESSAGE, null);
+				ConsoleTextArea.addText(e.getMessage());
+				e.printStackTrace();
+				throw new TechnicalException(e);
+			}
+		}
+	}
+	
 	/*
 	 * private List<String> compareSolutions(Configuration lastConfiguration,
 	 * Configuration currentConfiguration) { List<String> out = new
@@ -1575,8 +1607,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 	        	
 				//Once the task ends then we clean the fileTask saved inside this class
  	        	if (progress == 100) {
-	        		fileTask=null;
-	        	}	        		
+ 	        		//handleFileApiErrors(evt);
+ 	        		fileTask=null;
+ 	        		// Ends the waiting
+ 	        		((MainFrame) this.getFrame()).waitingCursor(false);
+	        	}	
+ 	        	
+ 	        	evt.getPropagationId();
 	        }
 			
 			if (dynamicBehaviorDTO.getSolverTask() != null) {

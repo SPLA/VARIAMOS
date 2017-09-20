@@ -106,9 +106,13 @@ public class VariamosGUIPerspectiveEditorActionsController {
 			break;
 		case SAVE_MODEL:
 		case SAVE_IMAGE_SVG:
+			progressMonitor.setMillisToDecideToPopup(0);
+			progressMonitor.setMillisToPopup(0);
 			task = new FileTasks(progressMonitor, execType, file.getAbsolutePath(), ext, variamosEditor, graph);
 		case SAVE_IMAGE_PNG:
 		case SAVE_IMAGE_OTHERS:
+			progressMonitor.setMillisToDecideToPopup(0);
+			progressMonitor.setMillisToPopup(0);
 			task = new FileTasks(progressMonitor, execType, file.getAbsolutePath(), ext, variamosEditor, graph,
 					bgColor);
 			break;
@@ -172,7 +176,7 @@ public class VariamosGUIPerspectiveEditorActionsController {
 						// Update the last path where files were saved or open. In this way, it is
 						// possible to record the path for next actions that open or close files
 						variamosEditor.setLastDir(lastDir);
-						
+
 						// Call a SWING worker for loading files
 						VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.OPEN_MODEL,
 								fileChooser.getSelectedFile(), (VariamosGraphEditor) variamosEditor, graph,
@@ -187,7 +191,6 @@ public class VariamosGUIPerspectiveEditorActionsController {
 		}
 
 	}
-
 
 	/**
 	 * 
@@ -227,53 +230,43 @@ public class VariamosGUIPerspectiveEditorActionsController {
 			}
 
 			// Saves the graph by using the name and format defined previously
-			try {
-				String ext = filename.substring(filename.lastIndexOf('.') + 1);
 
-				if (ext.equalsIgnoreCase("svg")) {
-					File currentFile = new File(filename);
-					VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.SAVE_IMAGE_SVG,
-							currentFile, (VariamosGraphEditor) variamosEditor, graph, "File saving", ext, null);
+			String ext = filename.substring(filename.lastIndexOf('.') + 1);
 
-				} else if (ext.equalsIgnoreCase(defaultExtension) || ext.equalsIgnoreCase("xml")) {
-					// Call the swi worker for saving files
-					File currentFile = new File(filename);
-					VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.SAVE_MODEL,
-							currentFile, (VariamosGraphEditor) variamosEditor, graph, "File saving", ext, null);
-					variamosEditor.setCurrentFile(currentFile);
+			if (ext.equalsIgnoreCase("svg")) {
+				File currentFile = new File(filename);
+				VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.SAVE_IMAGE_SVG,
+						currentFile, (VariamosGraphEditor) variamosEditor, graph, "File saving", ext, null);
 
-				} else {
-					Color bg = null;
-					File currentFile = new File(filename);
-					if ((!ext.equalsIgnoreCase("gif") && !ext.equalsIgnoreCase("png"))
-							|| JOptionPane.showConfirmDialog(graphComponent,
-									mxResources.get("transparentBackground")) != JOptionPane.YES_OPTION) {
-						bg = graphComponent.getBackground();
-					}
+			} else if (ext.equalsIgnoreCase(defaultExtension) || ext.equalsIgnoreCase("xml")) {
+				// Call the swi worker for saving files
+				File currentFile = new File(filename);
+				VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.SAVE_MODEL,
+						currentFile, (VariamosGraphEditor) variamosEditor, graph, "File saving", ext, null);
+				variamosEditor.setCurrentFile(currentFile);
 
-					if ((variamosEditor.getCurrentFile() != null && ext.equalsIgnoreCase("png"))) {
-						// Call a SWING worker for saving images in png format
-						VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.SAVE_IMAGE_PNG,
-								currentFile, (VariamosGraphEditor) variamosEditor, graph, "File saving", ext, bg);
-					} else {
-						// Call a SWING worker for saving images in other formats
-						VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(
-								FileTasksEnum.SAVE_IMAGE_OTHERS, currentFile, (VariamosGraphEditor) variamosEditor,
-								graph, "File saving", ext, bg);
-					}
+			} else {
+				Color bg = null;
+				File currentFile = new File(filename);
+				if ((!ext.equalsIgnoreCase("gif") && !ext.equalsIgnoreCase("png"))
+						|| JOptionPane.showConfirmDialog(graphComponent,
+								mxResources.get("transparentBackground")) != JOptionPane.YES_OPTION) {
+					bg = graphComponent.getBackground();
 				}
-			} catch (Exception ex) {
-				// FIXME: Improve exceptions handling
-				ConsoleTextArea.addText(ex.getStackTrace());
-				JOptionPane.showMessageDialog(graphComponent, ex.toString(), mxResources.get("error"),
-						JOptionPane.ERROR_MESSAGE);
-			} finally {
-				// Ends the waiting
-				((MainFrame) variamosEditor.getFrame()).waitingCursor(false);
+
+				if ((variamosEditor.getCurrentFile() != null && ext.equalsIgnoreCase("png"))) {
+					// Call a SWING worker for saving images in png format
+					VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.SAVE_IMAGE_PNG,
+							currentFile, (VariamosGraphEditor) variamosEditor, graph, "File saving", ext, bg);
+				} else {
+					// Call a SWING worker for saving images in other formats
+					VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.SAVE_IMAGE_OTHERS,
+							currentFile, (VariamosGraphEditor) variamosEditor, graph, "File saving", ext, bg);
+				}
 			}
+
 		}
 
 	}
-	
-	
+
 }
