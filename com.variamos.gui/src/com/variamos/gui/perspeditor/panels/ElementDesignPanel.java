@@ -42,7 +42,7 @@ import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
-import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
@@ -242,8 +242,10 @@ public class ElementDesignPanel extends JPanel {
 
 							instAttribute.updateValidationList((editElm),
 									mapElements);
-							if (instAttribute.getType().equals(
-									"com.variamos.dynsup.model.ModelExpr")) {
+							if (instAttribute.getEnumerationType() != null
+									&& instAttribute
+											.getEnumerationType()
+											.equals("com.variamos.dynsup.model.ModelExpr")) {
 								JButton button = new JButton(
 										" Edit Expression...");
 
@@ -821,11 +823,9 @@ public class ElementDesignPanel extends JPanel {
 														(int) instCell
 																.getWidth() / 8));
 									} else
-										elementAttribute
-												.setValue(StringUtils.multiLine(
-														elementAttribute
-																.toString(),
-														100));
+										elementAttribute.setValue(StringUtils
+												.multiLine(elementAttribute
+														.toString(), 100));
 
 								}
 								// GARA
@@ -1045,7 +1045,7 @@ public class ElementDesignPanel extends JPanel {
 			if (editElm.getSupInstEleId() != null
 					&& ((editElm.getSupInstEleId().equals("OPER")
 							|| (editElm.getSupInstEleId().equals("ME")) || (editElm
-								.getSupInstEleId().equals("OMMEnum"))))) {
+								.getSupInstEleId().equals("BsEnum"))))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
@@ -1064,7 +1064,7 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setMaximumSize(new Dimension(150, 180));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 				if (editElm.getSupInstEleId().equals("ME")
-						|| editElm.getSupInstEleId().equals("OMMEnum")) {
+						|| editElm.getSupInstEleId().equals("BsEnum")) {
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
@@ -1312,4 +1312,3 @@ public class ElementDesignPanel extends JPanel {
 
 	}
 }
-

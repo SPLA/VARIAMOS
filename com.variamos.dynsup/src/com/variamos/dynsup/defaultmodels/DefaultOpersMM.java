@@ -426,15 +426,15 @@ public class DefaultOpersMM {
 		 * AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0, new
 		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
 		 * simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		 * refasModel.getIdentifier(), attribute.getName(), true));
-		 * refasModel.putSemanticAttribute("TotalOpt", attribute);
+		 * dynamicBehaviorDTO.getRefasModel().getIdentifier(), attribute.getName(), true));
+		 * dynamicBehaviorDTO.getRefasModel().putSemanticAttribute("TotalOpt", attribute);
 		 * 
 		 * attribute = new ElemAttribute("TotalSG", "Integer",
 		 * AttributeType.EXECCURRENTSTATE, false, "***TotalSG***", 0, new
 		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
-		 * simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(refasModel
+		 * simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(dynamicBehaviorDTO.getRefasModel()
 		 * .getIdentifier(), attribute.getName(), true));
-		 * refasModel.putSemanticAttribute("TotalSG", attribute);
+		 * dynamicBehaviorDTO.getRefasModel().putSemanticAttribute("TotalSG", attribute);
 		 */
 
 		if (!empty) {
@@ -666,14 +666,14 @@ public class DefaultOpersMM {
 			/*
 			 * = new SemanticExpression("sub", refas
 			 * .getSemanticExpressionTypes().get("Sum"),
-			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
+			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instdynamicBehaviorDTO.getRefasModel(),
 			 * "TotalOrder", 0);
 			 * 
 			 * semanticExpressions.add(t1);
 			 * 
 			 * t1 = new SemanticExpression("sub",
 			 * refas.getSemanticExpressionTypes() .get("Sum"),
-			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
+			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instdynamicBehaviorDTO.getRefasModel(),
 			 * "TotalOpt", 0);
 			 * 
 			 * semanticExpressions.add(t1);
@@ -3706,23 +3706,24 @@ public class DefaultOpersMM {
 							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
 							""), instOperSubOperationExpType));
 
-			instLabeling = new InstConcept("Ver-redund-lab", metaLabeling,
-					redundanOperUniqueLabeling);
-
-			instLabeling.getInstAttribute("labelId").setValue("L1");
-			instLabeling.getInstAttribute("position").setValue(1);
-			instLabeling.getInstAttribute("once").setValue(false);
-			instLabeling.getInstAttribute("order").setValue(false);
-			if (newOpers)
-				refas.getVariabilityVertex()
-						.put("Ver-redund-lab", instLabeling);
-
-			instEdgeOper = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ver-redund-lab", instEdgeOper);
-			instEdgeOper.setIdentifier("ver-redund-lab");
-			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-			instEdgeOper.setTargetRelation(instLabeling, true);
-			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			// instLabeling = new InstConcept("Ver-redund-lab", metaLabeling,
+			// redundanOperUniqueLabeling);
+			//
+			// instLabeling.getInstAttribute("labelId").setValue("L1");
+			// instLabeling.getInstAttribute("position").setValue(1);
+			// instLabeling.getInstAttribute("once").setValue(false);
+			// instLabeling.getInstAttribute("order").setValue(false);
+			// if (newOpers)
+			// refas.getVariabilityVertex()
+			// .put("Ver-redund-lab", instLabeling);
+			//
+			// instEdgeOper = new InstPairwiseRel();
+			// refas.getConstraintInstEdges().put("ver-redund-lab-pw",
+			// instEdgeOper);
+			// instEdgeOper.setIdentifier("ver-redund-lab-pw");
+			// instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			// instEdgeOper.setTargetRelation(instLabeling, true);
+			// instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 			// False PL
 

@@ -1,4 +1,4 @@
-package com.variamos.gui.maineditor;
+package com.variamos.gui.core.mxgraph.editor;
 
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
@@ -23,14 +23,12 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
-import com.variamos.gui.maineditor.EditorActions.ColorAction;
-import com.variamos.gui.maineditor.EditorActions.FontStyleAction;
-import com.variamos.gui.maineditor.EditorActions.HistoryAction;
-import com.variamos.gui.maineditor.EditorActions.KeyValueAction;
-import com.variamos.gui.maineditor.EditorActions.NewAction;
-import com.variamos.gui.maineditor.EditorActions.OpenAction;
-import com.variamos.gui.maineditor.EditorActions.PrintAction;
-import com.variamos.gui.maineditor.EditorActions.SaveAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.ColorAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.FontStyleAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.HistoryAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.KeyValueAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.PrintAction;
+
 
 public class EditorToolBar extends JToolBar
 {
@@ -58,12 +56,12 @@ public class EditorToolBar extends JToolBar
 				.createEmptyBorder(3, 3, 3, 3), getBorder()));
 		setFloatable(false);
 
-		add(editor.bind("New", new NewAction(),
-				"/com/mxgraph/examples/swing/images/new.gif"));
-		add(editor.bind("Open", new OpenAction(),
-				"/com/mxgraph/examples/swing/images/open.gif"));
-		add(editor.bind("Save", new SaveAction(false),
-				"/com/mxgraph/examples/swing/images/save.gif"));
+//		add(editor.bind("New", new NewAction(),
+//				"/com/mxgraph/examples/swing/images/new.gif"));
+//		add(editor.bind("Open", new OpenAction(),
+//				"/com/mxgraph/examples/swing/images/open.gif"));
+//		add(editor.bind("Save", new SaveAction(false),
+//				"/com/mxgraph/examples/swing/images/save.gif"));
 
 		addSeparator();
 

@@ -48,7 +48,7 @@ import com.variamos.solver.model.SolverSolution;
  * com.variamos.perspsupport.perspmodel.SolverTasks. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Munoz Fern�ndez <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-12-22
@@ -61,32 +61,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private boolean invalidConfigHlclProgram;
 	private List<String> outVariables = new ArrayList<String>();
 	private List<String> defectsFreeIdsName = null;
-
-	public List<String> getOutVariables() {
-		return outVariables;
-	}
-
-	public String getErrorTitle() {
-		return errorTitle;
-	}
-
-	public String getCompletedMessage() {
-		return completedMessage;
-	}
-
-	public int[] getResults() {
-		return results;
-	}
-
-	public String getErrorMessage() {
-		return errorMessage;
-	}
-
-	public void clearErrorMessage() {
-		errorMessage = "";
-		errorTitle = "";
-		completedMessage = "";
-	}
 
 	private boolean test;
 	private long task = 0;
@@ -1056,6 +1030,32 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	public String getExecutionTime() {
 		return executionTime;
+	}
+	
+	public List<String> getOutVariables() {
+		return outVariables;
+	}
+
+	public String getErrorTitle() {
+		return errorTitle;
+	}
+
+	public String getCompletedMessage() {
+		return completedMessage;
+	}
+
+	public int[] getResults() {
+		return results;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void clearErrorMessage() {
+		errorMessage = "";
+		errorTitle = "";
+		completedMessage = "";
 	}
 
 	@Override

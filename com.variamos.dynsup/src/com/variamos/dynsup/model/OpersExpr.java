@@ -847,7 +847,8 @@ public class OpersExpr implements Serializable {
 		case RIGHTUNIQUEINCCONVARIABLE:
 		case RIGHTUNIQUEOUTRELVARIABLE:
 		case RIGHTUNIQUEINCRELVARIABLE:
-			if (volatileRightSemanticElement == null)
+			if (volatileRightSemanticElement == null
+					&& !this.isSingleInExpression())
 				return false;
 		case LEFTBOOLEANEXPRESSION:
 		case LEFTCONCEPTVARIABLE:
@@ -1108,7 +1109,8 @@ public class OpersExpr implements Serializable {
 
 	public void setRightExpressionType(ExpressionVertexType rightExpressionType) {
 		this.volatileRightExpType = rightExpressionType;
-		this.rightExpTypeStr = volatileRightExpType.toString();
+		if (volatileRightExpType != null)
+			this.rightExpTypeStr = volatileRightExpType.toString();
 	}
 
 	public ExpressionVertexType[] getExpressionTypes() {

@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
+
 /**
  * A class to support perspectives button actions on mainframe. Part of PhD work
  * at University of Paris 1
@@ -15,7 +17,7 @@ import javax.swing.JButton;
  */
 
 @SuppressWarnings("serial")
-public class PerspectiveAction extends AbstractEditorAction {
+public class PerspectiveAction extends AbstractVariamoGUIAction {
 
 	private PerspectiveToolBar perspective;
 

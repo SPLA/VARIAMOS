@@ -2,7 +2,7 @@
  * $Id: EditorActions.java,v 1.38 2012/09/20 14:59:30 david Exp $
  * Copyright (c) 2001-2012, JGraph Ltd
  */
-package com.variamos.gui.maineditor;
+package com.variamos.gui.core.mxgraph.editor;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -72,13 +72,16 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.core.io.ConsoleTextArea;
+import com.variamos.gui.maineditor.MainFrame;
+import com.variamos.gui.maineditor.VariamosGraphComponent;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.actions.FileTasks;
 
 /**
  *
  */
-public class EditorActions {
+public class EditorActionsController {
 	/**
 	 * 
 	 * @param e
@@ -216,19 +219,19 @@ public class EditorActions {
 	/**
 	 *
 	 */
-	@SuppressWarnings("serial")
-	public static class ExitAction extends AbstractAction {
-		/**
-		 * 
-		 */
-		public void actionPerformed(ActionEvent e) {
-			BasicGraphEditor editor = getEditor(e);
-
-			if (editor != null) {
-				editor.exit();
-			}
-		}
-	}
+//	@SuppressWarnings("serial")
+//	public static class ExitAction extends AbstractAction {
+//		/**
+//		 * 
+//		 */
+//		public void actionPerformed(ActionEvent e) {
+//			BasicGraphEditor editor = getEditor(e);
+//
+//			if (editor != null) {
+//				editor.exit();
+//			}
+//		}
+//	}
 
 	/**
 	 *
@@ -256,7 +259,7 @@ public class EditorActions {
 						.getSource();
 				mxGraph graph = graphComponent.getGraph();
 				mxCodec codec = new mxCodec();
-				Document doc = mxUtils.loadDocument(EditorActions.class
+				Document doc = mxUtils.loadDocument(EditorActionsController.class
 						.getResource(stylesheet).toString());
 
 				if (doc != null) {
@@ -456,303 +459,303 @@ public class EditorActions {
 	/**
 	 *
 	 */
-	@SuppressWarnings("serial")
-	public static class SaveAction extends AbstractAction {
-		/**
-		 * 
-		 */
-		protected boolean showDialog;
-
-		/**
-		 * 
-		 */
-		protected String lastDir = null;
-
-		/**
-		 * 
-		 */
-		public SaveAction(boolean showDialog) {
-			this.showDialog = showDialog;
-		}
-
-		/**
-		 * Saves XML+PNG format.
-		 */
-		protected void saveXmlPng(BasicGraphEditor editor, String filename,
-				Color bg) throws IOException {
-			mxGraphComponent graphComponent = editor.getGraphComponent();
-			mxGraph graph = graphComponent.getGraph();
-
-			// Creates the image for the PNG file
-			BufferedImage image = mxCellRenderer.createBufferedImage(graph,
-					null, 1, bg, graphComponent.isAntiAlias(), null,
-					graphComponent.getCanvas());
-
-			// Creates the URL-encoded XML data
-			mxCodec codec = new mxCodec();
-			String xml = URLEncoder.encode(
-					mxXmlUtils.getXml(codec.encode(graph.getModel())), "UTF-8");
-			mxPngEncodeParam param = mxPngEncodeParam
-					.getDefaultEncodeParam(image);
-			param.setCompressedText(new String[] { "mxGraphModel", xml });
-
-			// Saves as a PNG file
-			FileOutputStream outputStream = new FileOutputStream(new File(
-					filename));
-			try {
-				mxPngImageEncoder encoder = new mxPngImageEncoder(outputStream,
-						param);
-
-				if (image != null) {
-					encoder.encode(image);
-
-					editor.setModified(false);
-					editor.setCurrentFile(new File(filename));
-				} else {
-					JOptionPane.showMessageDialog(graphComponent,
-							mxResources.get("noImageData"));
-				}
-			} finally {
-				outputStream.close();
-			}
-		}
-
-		/**
-		 * 
-		 */
-		public void actionPerformed(ActionEvent e) {
-			VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
-
-			if (editor != null) {
-				if (editor.getPerspective() == 4) {
-					JOptionPane.showMessageDialog(editor,
-							mxResources.get("saveloadnewerror"),
-							"Operation not supported",
-							JOptionPane.INFORMATION_MESSAGE, null);
-
-					return;
-				}
-				final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
-				((MainFrame) editor.getFrame()).waitingCursor(true);
-				mxGraphComponent graphComponent = editor.getGraphComponent();
-				mxGraph graph = graphComponent.getGraph();
-				FileFilter selectedFilter = null;
-				String fileExtension = finalEditor.getFileExtension();
-				String extensionName = finalEditor.getExtensionName();
-				DefaultFileFilter xmlPngFilter = new DefaultFileFilter("."
-						+ fileExtension, extensionName
-						+ mxResources.get("file") + " (." + fileExtension + ")");
-				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
-						"VML " + mxResources.get("file") + " (.html)");
-				String filename = null;
-				boolean dialogShown = false;
-
-				if (showDialog || editor.getCurrentFile() == null) {
-					String wd;
-
-					if (lastDir != null) {
-						wd = lastDir;
-					} else if (editor.getCurrentFile() != null) {
-						wd = editor.getCurrentFile().getParent();
-					} else {
-						wd = System.getProperty("user.dir");
-					}
-
-					JFileChooser fc = new JFileChooser(wd);
-
-					// Adds the default file format
-					FileFilter defaultFilter = xmlPngFilter;
-					fc.addChoosableFileFilter(defaultFilter);
-
-					// Adds special vector graphics formats and HTML
-					fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
-							"mxGraph Editor " + mxResources.get("file")
-									+ " (.mxe)"));
-					fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
-							"Graph Drawing " + mxResources.get("file")
-									+ " (.txt)"));
-					fc.addChoosableFileFilter(new DefaultFileFilter(".svg",
-							"SVG " + mxResources.get("file") + " (.svg)"));
-					fc.addChoosableFileFilter(vmlFileFilter);
-					fc.addChoosableFileFilter(new DefaultFileFilter(".html",
-							"HTML " + mxResources.get("file") + " (.html)"));
-
-					// Adds a filter for each supported image format
-					Object[] imageFormats = ImageIO.getReaderFormatNames();
-
-					// Finds all distinct extensions
-					HashSet<String> formats = new HashSet<String>();
-
-					for (int i = 0; i < imageFormats.length; i++) {
-						String ext = imageFormats[i].toString().toLowerCase();
-						formats.add(ext);
-					}
-
-					imageFormats = formats.toArray();
-
-					for (int i = 0; i < imageFormats.length; i++) {
-						String ext = imageFormats[i].toString();
-						fc.addChoosableFileFilter(new DefaultFileFilter("."
-								+ ext, ext.toUpperCase() + " "
-								+ mxResources.get("file") + " (." + ext + ")"));
-					}
-
-					// Adds filter that accepts all supported image formats
-					fc.addChoosableFileFilter(new DefaultFileFilter.ImageFileFilter(
-							mxResources.get("allImages")));
-					fc.setFileFilter(defaultFilter);
-					int rc = fc.showDialog(null, mxResources.get("save"));
-					dialogShown = true;
-
-					if (rc != JFileChooser.APPROVE_OPTION) {
-						((MainFrame) finalEditor.getFrame())
-								.waitingCursor(false);
-						return;
-					} else {
-						lastDir = fc.getSelectedFile().getParent();
-					}
-
-					filename = fc.getSelectedFile().getAbsolutePath();
-					selectedFilter = fc.getFileFilter();
-
-					if (selectedFilter instanceof DefaultFileFilter) {
-						String ext = ((DefaultFileFilter) selectedFilter)
-								.getExtension();
-
-						if (!filename.toLowerCase().endsWith(ext)) {
-							filename += ext;
-						}
-					}
-
-					if (new File(filename).exists()
-							&& JOptionPane.showConfirmDialog(graphComponent,
-									mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
-						((MainFrame) finalEditor.getFrame())
-								.waitingCursor(false);
-						return;
-					}
-				} else {
-					filename = editor.getCurrentFile().getAbsolutePath();
-				}
-
-				try {
-					String ext = filename
-							.substring(filename.lastIndexOf('.') + 1);
-
-					if (ext.equalsIgnoreCase("svg")) {
-						mxSvgCanvas canvas = (mxSvgCanvas) mxCellRenderer
-								.drawCells(graph, null, 1, null,
-										new CanvasFactory() {
-											public mxICanvas createCanvas(
-													int width, int height) {
-												mxSvgCanvas canvas = new mxSvgCanvas(
-														mxDomUtils
-																.createSvgDocument(
-																		width,
-																		height));
-												canvas.setEmbedded(true);
-
-												return canvas;
-											}
-
-										});
-
-						mxUtils.writeFile(
-								mxXmlUtils.getXml(canvas.getDocument()),
-								filename);
-					} else if (selectedFilter == vmlFileFilter) {
-						mxUtils.writeFile(mxXmlUtils.getXml(mxCellRenderer
-								.createVmlDocument(graph, null, 1, null, null)
-								.getDocumentElement()), filename);
-					} else if (ext.equalsIgnoreCase("sxfm")) {
-//						SXFMWriter writer = new SXFMWriter();
-//						ProductLineGraph plGraph = (ProductLineGraph) graph;
+//	@SuppressWarnings("serial")
+//	public static class SaveAction extends AbstractAction {
+//		/**
+//		 * 
+//		 */
+//		protected boolean showDialog;
+//
+//		/**
+//		 * 
+//		 */
+//		protected String lastDir = null;
+//
+//		/**
+//		 * 
+//		 */
+//		public SaveAction(boolean showDialog) {
+//			this.showDialog = showDialog;
+//		}
+//
+//		/**
+//		 * Saves XML+PNG format.
+//		 */
+//		protected void saveXmlPng(BasicGraphEditor editor, String filename,
+//				Color bg) throws IOException {
+//			mxGraphComponent graphComponent = editor.getGraphComponent();
+//			mxGraph graph = graphComponent.getGraph();
+//
+//			// Creates the image for the PNG file
+//			BufferedImage image = mxCellRenderer.createBufferedImage(graph,
+//					null, 1, bg, graphComponent.isAntiAlias(), null,
+//					graphComponent.getCanvas());
+//
+//			// Creates the URL-encoded XML data
+//			mxCodec codec = new mxCodec();
+//			String xml = URLEncoder.encode(
+//					mxXmlUtils.getXml(codec.encode(graph.getModel())), "UTF-8");
+//			mxPngEncodeParam param = mxPngEncodeParam
+//					.getDefaultEncodeParam(image);
+//			param.setCompressedText(new String[] { "mxGraphModel", xml });
+//
+//			// Saves as a PNG file
+//			FileOutputStream outputStream = new FileOutputStream(new File(
+//					filename));
+//			try {
+//				mxPngImageEncoder encoder = new mxPngImageEncoder(outputStream,
+//						param);
+//
+//				if (image != null) {
+//					encoder.encode(image);
+//
+//					editor.setModified(false);
+//					editor.setCurrentFile(new File(filename));
+//				} else {
+//					JOptionPane.showMessageDialog(graphComponent,
+//							mxResources.get("noImageData"));
+//				}
+//			} finally {
+//				outputStream.close();
+//			}
+//		}
+//
+//		/**
+//		 * 
+//		 */
+//		public void actionPerformed(ActionEvent e) {
+//			VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
+//
+//			if (editor != null) {
+//				if (editor.getPerspective() == 4) {
+//					JOptionPane.showMessageDialog(editor,
+//							mxResources.get("saveloadnewerror"),
+//							"Operation not supported",
+//							JOptionPane.INFORMATION_MESSAGE, null);
+//
+//					return;
+//				}
+//				final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
+//				((MainFrame) editor.getFrame()).waitingCursor(true);
+//				mxGraphComponent graphComponent = editor.getGraphComponent();
+//				mxGraph graph = graphComponent.getGraph();
+//				FileFilter selectedFilter = null;
+//				String fileExtension = finalEditor.getFileExtension();
+//				String extensionName = finalEditor.getExtensionName();
+//				DefaultFileFilter xmlPngFilter = new DefaultFileFilter("."
+//						+ fileExtension, extensionName
+//						+ mxResources.get("file") + " (." + fileExtension + ")");
+//				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
+//						"VML " + mxResources.get("file") + " (.html)");
+//				String filename = null;
+//				boolean dialogShown = false;
+//
+//				if (showDialog || editor.getCurrentFile() == null) {
+//					String wd;
+//
+//					if (lastDir != null) {
+//						wd = lastDir;
+//					} else if (editor.getCurrentFile() != null) {
+//						wd = editor.getCurrentFile().getParent();
+//					} else {
+//						wd = System.getProperty("user.dir");
+//					}
+//
+//					JFileChooser fc = new JFileChooser(wd);
+//
+//					// Adds the default file format
+//					FileFilter defaultFilter = xmlPngFilter;
+//					fc.addChoosableFileFilter(defaultFilter);
+//
+//					// Adds special vector graphics formats and HTML
+//					fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
+//							"mxGraph Editor " + mxResources.get("file")
+//									+ " (.mxe)"));
+//					fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
+//							"Graph Drawing " + mxResources.get("file")
+//									+ " (.txt)"));
+//					fc.addChoosableFileFilter(new DefaultFileFilter(".svg",
+//							"SVG " + mxResources.get("file") + " (.svg)"));
+//					fc.addChoosableFileFilter(vmlFileFilter);
+//					fc.addChoosableFileFilter(new DefaultFileFilter(".html",
+//							"HTML " + mxResources.get("file") + " (.html)"));
+//
+//					// Adds a filter for each supported image format
+//					Object[] imageFormats = ImageIO.getReaderFormatNames();
+//
+//					// Finds all distinct extensions
+//					HashSet<String> formats = new HashSet<String>();
+//
+//					for (int i = 0; i < imageFormats.length; i++) {
+//						String ext = imageFormats[i].toString().toLowerCase();
+//						formats.add(ext);
+//					}
+//
+//					imageFormats = formats.toArray();
+//
+//					for (int i = 0; i < imageFormats.length; i++) {
+//						String ext = imageFormats[i].toString();
+//						fc.addChoosableFileFilter(new DefaultFileFilter("."
+//								+ ext, ext.toUpperCase() + " "
+//								+ mxResources.get("file") + " (." + ext + ")"));
+//					}
+//
+//					// Adds filter that accepts all supported image formats
+//					fc.addChoosableFileFilter(new DefaultFileFilter.ImageFileFilter(
+//							mxResources.get("allImages")));
+//					fc.setFileFilter(defaultFilter);
+//					int rc = fc.showDialog(null, mxResources.get("save"));
+//					dialogShown = true;
+//
+//					if (rc != JFileChooser.APPROVE_OPTION) {
+//						((MainFrame) finalEditor.getFrame())
+//								.waitingCursor(false);
+//						return;
+//					} else {
+//						lastDir = fc.getSelectedFile().getParent();
+//					}
+//
+//					filename = fc.getSelectedFile().getAbsolutePath();
+//					selectedFilter = fc.getFileFilter();
+//
+//					if (selectedFilter instanceof DefaultFileFilter) {
+//						String ext = ((DefaultFileFilter) selectedFilter)
+//								.getExtension();
+//
+//						if (!filename.toLowerCase().endsWith(ext)) {
+//							filename += ext;
+//						}
+//					}
+//
+//					if (new File(filename).exists()
+//							&& JOptionPane.showConfirmDialog(graphComponent,
+//									mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
+//						((MainFrame) finalEditor.getFrame())
+//								.waitingCursor(false);
+//						return;
+//					}
+//				} else {
+//					filename = editor.getCurrentFile().getAbsolutePath();
+//				}
+//
+//				try {
+//					String ext = filename
+//							.substring(filename.lastIndexOf('.') + 1);
+//
+//					if (ext.equalsIgnoreCase("svg")) {
+//						mxSvgCanvas canvas = (mxSvgCanvas) mxCellRenderer
+//								.drawCells(graph, null, 1, null,
+//										new CanvasFactory() {
+//											public mxICanvas createCanvas(
+//													int width, int height) {
+//												mxSvgCanvas canvas = new mxSvgCanvas(
+//														mxDomUtils
+//																.createSvgDocument(
+//																		width,
+//																		height));
+//												canvas.setEmbedded(true);
+//
+//												return canvas;
+//											}
+//
+//										});
+//
 //						mxUtils.writeFile(
-//								writer.getSXFMContent(plGraph.getProductLine()),
+//								mxXmlUtils.getXml(canvas.getDocument()),
 //								filename);
-					} else if (ext.equalsIgnoreCase("html")) {
-						mxUtils.writeFile(mxXmlUtils.getXml(mxCellRenderer
-								.createHtmlDocument(graph, null, 1, null, null)
-								.getDocumentElement()), filename);
-					} else if (ext.equalsIgnoreCase("mxe")
-							|| ext.equalsIgnoreCase(fileExtension)
-							|| ext.equalsIgnoreCase("xml")) {
-						FileTasks.saveAction(FileTasks.SAVE, filename, ext,
-								(VariamosGraphEditor) editor, graph);
-						/*
-						 * mxGraph outGraph =
-						 * SharedActions.beforeGraphOperation(
-						 * 
-						 * graph, true, editor.getModelViewIndex(),
-						 * editor.getModelSubViewIndex()); long stopTime =
-						 * System.currentTimeMillis(); long elapsedTime =
-						 * stopTime - startTime;
-						 * System.out.println("beforeSaveGraph time : " +
-						 * elapsedTime); startTime = System.currentTimeMillis();
-						 * mxCodec codec = new mxCodec(); String xml =
-						 * mxXmlUtils.getXml(codec.encode(outGraph
-						 * .getModel())); mxUtils.writeFile(xml, filename);
-						 * String file = filename.substring(0,
-						 * filename.lastIndexOf('.')); file += ".backup." + new
-						 * SimpleDateFormat("yyyyMMddHHmmss") .format(new
-						 * Date()) + "." + ext; mxUtils.writeFile(xml, file);
-						 * stopTime = System.currentTimeMillis(); elapsedTime =
-						 * stopTime - startTime; System.out
-						 * .println("serialization time: " + elapsedTime);
-						 * startTime = System.currentTimeMillis(); if (editor
-						 * instanceof VariamosGraphEditor)
-						 * SharedActions.afterSaveGraph(graph,
-						 * (VariamosGraphEditor) editor); stopTime =
-						 * System.currentTimeMillis(); elapsedTime = stopTime -
-						 * startTime; System.out.println("recover time: " +
-						 * elapsedTime); editor.updateObjects();
-						 * editor.setVisibleModel(0, -1);
-						 * editor.setDefaultButton(); editor.setModified(false);
-						 * editor.setCurrentFile(new File(filename));
-						 */
-					} else if (ext.equalsIgnoreCase("txt")) {
-						String content = mxGdCodec.encode(graph);
-
-						mxUtils.writeFile(content, filename);
-					} else {
-						Color bg = null;
-
-						if ((!ext.equalsIgnoreCase("gif") && !ext
-								.equalsIgnoreCase("png"))
-								|| JOptionPane.showConfirmDialog(
-										graphComponent, mxResources
-												.get("transparentBackground")) != JOptionPane.YES_OPTION) {
-							bg = graphComponent.getBackground();
-						}
-
-						if (selectedFilter == xmlPngFilter
-								|| (editor.getCurrentFile() != null
-										&& ext.equalsIgnoreCase("png") && !dialogShown)) {
-							saveXmlPng(editor, filename, bg);
-						} else {
-							BufferedImage image = mxCellRenderer
-									.createBufferedImage(graph, null, 2, bg,
-											graphComponent.isAntiAlias(), null,
-											graphComponent.getCanvas());
-
-							if (image != null) {
-								ImageIO.write(image, ext, new File(filename));
-							} else {
-								JOptionPane.showMessageDialog(graphComponent,
-										mxResources.get("noImageData"));
-							}
-						}
-					}
-				} catch (Throwable ex) {
-					ConsoleTextArea.addText(ex.getStackTrace());
-					JOptionPane.showMessageDialog(graphComponent,
-							ex.toString(), mxResources.get("error"),
-							JOptionPane.ERROR_MESSAGE);
-				}
-				((MainFrame) editor.getFrame()).waitingCursor(false);
-			}
-		}
-	}
+//					} else if (selectedFilter == vmlFileFilter) {
+//						mxUtils.writeFile(mxXmlUtils.getXml(mxCellRenderer
+//								.createVmlDocument(graph, null, 1, null, null)
+//								.getDocumentElement()), filename);
+//					} else if (ext.equalsIgnoreCase("sxfm")) {
+////						SXFMWriter writer = new SXFMWriter();
+////						ProductLineGraph plGraph = (ProductLineGraph) graph;
+////						mxUtils.writeFile(
+////								writer.getSXFMContent(plGraph.getProductLine()),
+////								filename);
+//					} else if (ext.equalsIgnoreCase("html")) {
+//						mxUtils.writeFile(mxXmlUtils.getXml(mxCellRenderer
+//								.createHtmlDocument(graph, null, 1, null, null)
+//								.getDocumentElement()), filename);
+//					} else if (ext.equalsIgnoreCase("mxe")
+//							|| ext.equalsIgnoreCase(fileExtension)
+//							|| ext.equalsIgnoreCase("xml")) {
+//						FileTasks.saveAction(FileTasks.SAVE, filename, ext,
+//								(VariamosGraphEditor) editor, graph);
+//						/*
+//						 * mxGraph outGraph =
+//						 * SharedActions.beforeGraphOperation(
+//						 * 
+//						 * graph, true, editor.getModelViewIndex(),
+//						 * editor.getModelSubViewIndex()); long stopTime =
+//						 * System.currentTimeMillis(); long elapsedTime =
+//						 * stopTime - startTime;
+//						 * System.out.println("beforeSaveGraph time : " +
+//						 * elapsedTime); startTime = System.currentTimeMillis();
+//						 * mxCodec codec = new mxCodec(); String xml =
+//						 * mxXmlUtils.getXml(codec.encode(outGraph
+//						 * .getModel())); mxUtils.writeFile(xml, filename);
+//						 * String file = filename.substring(0,
+//						 * filename.lastIndexOf('.')); file += ".backup." + new
+//						 * SimpleDateFormat("yyyyMMddHHmmss") .format(new
+//						 * Date()) + "." + ext; mxUtils.writeFile(xml, file);
+//						 * stopTime = System.currentTimeMillis(); elapsedTime =
+//						 * stopTime - startTime; System.out
+//						 * .println("serialization time: " + elapsedTime);
+//						 * startTime = System.currentTimeMillis(); if (editor
+//						 * instanceof VariamosGraphEditor)
+//						 * SharedActions.afterSaveGraph(graph,
+//						 * (VariamosGraphEditor) editor); stopTime =
+//						 * System.currentTimeMillis(); elapsedTime = stopTime -
+//						 * startTime; System.out.println("recover time: " +
+//						 * elapsedTime); editor.updateObjects();
+//						 * editor.setVisibleModel(0, -1);
+//						 * editor.setDefaultButton(); editor.setModified(false);
+//						 * editor.setCurrentFile(new File(filename));
+//						 */
+//					} else if (ext.equalsIgnoreCase("txt")) {
+//						String content = mxGdCodec.encode(graph);
+//
+//						mxUtils.writeFile(content, filename);
+//					} else {
+//						Color bg = null;
+//
+//						if ((!ext.equalsIgnoreCase("gif") && !ext
+//								.equalsIgnoreCase("png"))
+//								|| JOptionPane.showConfirmDialog(
+//										graphComponent, mxResources
+//												.get("transparentBackground")) != JOptionPane.YES_OPTION) {
+//							bg = graphComponent.getBackground();
+//						}
+//
+//						if (selectedFilter == xmlPngFilter
+//								|| (editor.getCurrentFile() != null
+//										&& ext.equalsIgnoreCase("png") && !dialogShown)) {
+//							saveXmlPng(editor, filename, bg);
+//						} else {
+//							BufferedImage image = mxCellRenderer
+//									.createBufferedImage(graph, null, 2, bg,
+//											graphComponent.isAntiAlias(), null,
+//											graphComponent.getCanvas());
+//
+//							if (image != null) {
+//								ImageIO.write(image, ext, new File(filename));
+//							} else {
+//								JOptionPane.showMessageDialog(graphComponent,
+//										mxResources.get("noImageData"));
+//							}
+//						}
+//					}
+//				} catch (Throwable ex) {
+//					ConsoleTextArea.addText(ex.getStackTrace());
+//					JOptionPane.showMessageDialog(graphComponent,
+//							ex.toString(), mxResources.get("error"),
+//							JOptionPane.ERROR_MESSAGE);
+//				}
+//				((MainFrame) editor.getFrame()).waitingCursor(false);
+//			}
+//		}
+//	}
 
 	/**
 	 *
@@ -1266,40 +1269,40 @@ public class EditorActions {
 	/**
 	 *
 	 */
-	@SuppressWarnings("serial")
-	public static class NewAction extends AbstractAction {
-		/**
-		 * 
-		 */
-		public void actionPerformed(ActionEvent e) {
-			BasicGraphEditor editor = getEditor(e);
-
-			if (editor != null) {
-				if (editor.getPerspective() == 4) {
-					JOptionPane.showMessageDialog(editor,
-							mxResources.get("loadnewerror"),
-							"Operation not supported",
-							JOptionPane.INFORMATION_MESSAGE, null);
-
-					return;
-				}
-				if (!editor.isModified()
-						|| JOptionPane.showConfirmDialog(editor,
-								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
-					((VariamosGraphEditor) editor).resetView();
-					if (editor.getPerspective() == 1) {
-						((VariamosGraphEditor) editor).getEditedModel()
-								.createOperationsSuperstructure(true);
-
-						((PerspEditorGraph) ((VariamosGraphComponent) editor
-								.getGraphComponent()).getGraph())
-								.setModelInstance(((VariamosGraphEditor) editor)
-										.getEditedModel());
-					}
-				}
-			}
-		}
-	}
+	//@SuppressWarnings("serial")
+//	public static class NewAction extends AbstractAction {
+//		/**
+//		 * 
+//		 */
+//		public void actionPerformed(ActionEvent e) {
+//			BasicGraphEditor editor = getEditor(e);
+//
+//			if (editor != null) {
+//				if (editor.getPerspective() == 4) {
+//					JOptionPane.showMessageDialog(editor,
+//							mxResources.get("loadnewerror"),
+//							"Operation not supported",
+//							JOptionPane.INFORMATION_MESSAGE, null);
+//
+//					return;
+//				}
+//				if (!editor.isModified()
+//						|| JOptionPane.showConfirmDialog(editor,
+//								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
+//					((VariamosGraphEditor) editor).resetView();
+//					if (editor.getPerspective() == 1) {
+//						((VariamosGraphEditor) editor).getEditedModel()
+//								.createOperationsSuperstructure(true);
+//
+//						((PerspEditorGraph) ((VariamosGraphComponent) editor
+//								.getGraphComponent()).getGraph())
+//								.setModelInstance(((VariamosGraphEditor) editor)
+//										.getEditedModel());
+//					}
+//				}
+//			}
+//		}
+//	}
 
 	/**
 	 *
@@ -1418,225 +1421,8 @@ public class EditorActions {
 		}
 	}
 
-	/**
-	 *
-	 */
-	@SuppressWarnings("serial")
-	public static class OpenAction extends AbstractAction {
-		/**
-		 * 
-		 */
-		protected String lastDir;
 
-		/**
-		 * 
-		 */
-		protected void resetEditor(VariamosGraphEditor editor) {
-			editor.setVisibleModel(0, -1);
-			editor.setDefaultButton();
-			editor.updateView();
-			editor.setModified(false);
-			editor.getUndoManager().clear();
-			editor.getGraphComponent().zoomAndCenter();
-		}
-
-		/**
-		 * Reads XML+PNG format.
-		 */
-		protected void openXmlPng(VariamosGraphEditor editor, File file)
-				throws IOException {
-			Map<String, String> text = mxPngTextDecoder
-					.decodeCompressedText(new FileInputStream(file));
-
-			if (text != null) {
-				String value = text.get("mxGraphModel");
-
-				if (value != null) {
-					Document document = mxXmlUtils.parseXml(URLDecoder.decode(
-							value, "UTF-8"));
-					mxCodec codec = new mxCodec(document);
-					codec.decode(document.getDocumentElement(), editor
-							.getGraphComponent().getGraph().getModel());
-					editor.setCurrentFile(file);
-					resetEditor(editor);
-
-					return;
-				}
-			}
-
-			JOptionPane.showMessageDialog(editor,
-					mxResources.get("imageContainsNoDiagramData"));
-		}
-
-		/**
-		 * @throws IOException
-		 *
-		 */
-		protected void openGD(BasicGraphEditor editor, File file, String gdText) {
-			mxGraph graph = editor.getGraphComponent().getGraph();
-
-			// Replaces file extension with .mxe
-			String filename = file.getName();
-			filename = filename.substring(0, filename.length() - 4) + ".mxe";
-
-			if (new File(filename).exists()
-					&& JOptionPane.showConfirmDialog(editor,
-							mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
-				return;
-			}
-
-			((mxGraphModel) graph.getModel()).clear();
-			mxGdCodec.decode(gdText, graph);
-			editor.getGraphComponent().zoomAndCenter();
-			editor.setCurrentFile(new File(lastDir + "/" + filename));
-		}
-
-		/**
-		 * 
-		 */
-		public void actionPerformed(ActionEvent e) {
-			BasicGraphEditor editor = getEditor(e);
-
-			if (editor != null) {
-				if (editor.getPerspective() == 4) {
-					JOptionPane.showMessageDialog(editor,
-							mxResources.get("saveloadnewerror"),
-							"Operation not supported",
-							JOptionPane.INFORMATION_MESSAGE, null);
-
-					return;
-				}
-				VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
-				final BasicGraphEditor finalEditor = editor;
-				((MainFrame) editor.getFrame()).waitingCursor(true);
-				if (!editor.isModified()
-						|| JOptionPane.showConfirmDialog(editor,
-								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
-					mxGraph graph = editor.getGraphComponent().getGraph();
-
-					if (graph != null) {
-						String wd = (lastDir != null) ? lastDir : System
-								.getProperty("user.dir");
-
-						JFileChooser fc = new JFileChooser(wd);
-
-						final String fileExtension = finalEditor
-								.getFileExtension();
-						final String fileExtensionName = finalEditor
-								.getExtensionName();
-						// Adds file filter for supported file format
-						DefaultFileFilter defaultFilter = new DefaultFileFilter(
-								"." + fileExtension, fileExtensionName + " (."
-										+ fileExtension + ")") {
-
-							public boolean accept(File file) {
-								String lcase = file.getName().toLowerCase();
-
-								((MainFrame) finalEditor.getFrame())
-										.waitingCursor(false);
-								return super.accept(file)
-								// || lcase.endsWith(".png")
-								// || lcase.endsWith(".vdx")
-										|| lcase.endsWith("." + fileExtension);
-							}
-						};
-						fc.addChoosableFileFilter(defaultFilter);
-
-						/*
-						 * fc.addChoosableFileFilter(new
-						 * DefaultFileFilter(".mxe", "mxGraph Editor " +
-						 * mxResources.get("file") + " (.mxe)"));
-						 * fc.addChoosableFileFilter(new DefaultFileFilter(
-						 * ".vmsm", "VariaMos-SystemModel  " +
-						 * mxResources.get("file") + " (.vmsm)"));
-						 * 
-						 * // Adds file filter for VDX import
-						 * fc.addChoosableFileFilter(new
-						 * DefaultFileFilter(".vdx", "XML Drawing  " +
-						 * mxResources.get("file") + " (.vdx)"));
-						 * 
-						 * // Adds file filter for GD import
-						 * fc.addChoosableFileFilter(new
-						 * DefaultFileFilter(".txt", "Graph Drawing  " +
-						 * mxResources.get("file") + " (.txt)"));
-						 */
-						fc.setFileFilter(defaultFilter);
-
-						int rc = fc.showDialog(null,
-								mxResources.get("openFile"));
-
-						if (rc == JFileChooser.APPROVE_OPTION) {
-							lastDir = fc.getSelectedFile().getParent();
-
-							try {
-								if (fc.getSelectedFile().getAbsolutePath()
-										.toLowerCase().endsWith(".png")) {
-									openXmlPng((VariamosGraphEditor) editor,
-											fc.getSelectedFile());
-								} else if (fc.getSelectedFile()
-										.getAbsolutePath().toLowerCase()
-										.endsWith(".txt")) {
-									openGD(editor, fc.getSelectedFile(),
-											mxUtils.readFile(fc
-													.getSelectedFile()
-													.getAbsolutePath()));
-								}
-								if (fc.getSelectedFile().getAbsolutePath()
-										.toLowerCase()
-										.endsWith("." + fileExtension)) {
-									FileTasks
-											.openAction(
-													FileTasks.OPEN,
-													fc.getSelectedFile(),
-													(VariamosGraphEditor) editor,
-													graph);
-									/*
-									 * ((VariamosGraphEditor)
-									 * editor).resetView(); graph =
-									 * editor.getGraphComponent() .getGraph();
-									 * // variamosEditor.editModelReset();
-									 * SharedActions.beforeLoadGraph(graph,
-									 * variamosEditor);
-									 * 
-									 * PLGReader.loadPLG(fc.getSelectedFile(),
-									 * graph, variamosEditor);
-									 * editor.setCurrentFile
-									 * (fc.getSelectedFile());
-									 * SharedActions.afterOpenCloneGraph(graph,
-									 * variamosEditor); variamosEditor
-									 * .populateIndex(((AbstractGraph) graph)
-									 * .getProductLine());
-									 * resetEditor(variamosEditor);
-									 */
-
-								} else {
-									Document document = mxXmlUtils
-											.parseXml(mxUtils.readFile(fc
-													.getSelectedFile()
-													.getAbsolutePath()));
-
-									mxCodec codec = new mxCodec(document);
-									codec.decode(document.getDocumentElement(),
-											graph.getModel());
-									editor.setCurrentFile(fc.getSelectedFile());
-									resetEditor((VariamosGraphEditor) editor);
-								}
-							} catch (IOException ex) {
-								ConsoleTextArea.addText(ex.getStackTrace());
-								JOptionPane.showMessageDialog(
-										editor.getGraphComponent(),
-										ex.toString(),
-										mxResources.get("error"),
-										JOptionPane.ERROR_MESSAGE);
-							}
-						}
-					}
-				}
-				variamosEditor.refresh();
-				((MainFrame) editor.getFrame()).waitingCursor(false);
-			}
-		}
-	}
+	
 
 	/**
 	 *

@@ -635,8 +635,9 @@ public class SharedActions {
 								ia.setValue(false);
 							else
 								ia.setValue(true);
-						if (ia.getType().equals(
-								"com.variamos.dynsup.model.ModelExpr")) {
+						if (ia.getEnumerationType() != null
+								&& ia.getEnumerationType().equals(
+										"com.variamos.dynsup.model.ModelExpr")) {
 							// getIdentifier().equals("ConditionalExpression"))
 							// {
 							Object instanceExpression = ia.getValue();
@@ -713,8 +714,7 @@ public class SharedActions {
 										.split("#");
 								att.setAttribute(new ElemAttribute(values[0],
 										"String", AttributeType.SYNTAX, false,
-										values[1], "",
-										OpersSubOpExecType.class
+										values[1], "", OpersSubOpExecType.class
 												.getCanonicalName(), "", "", 1,
 										-1, "", "", -1, "", ""));
 
@@ -789,17 +789,21 @@ public class SharedActions {
 			}
 		}
 		if (instElement instanceof InstPairwiseRel) {
+			InstPairwiseRel instPairwiseRelation = (InstPairwiseRel) instElement;
 			try {
-				InstPairwiseRel instPairwiseRelation = (InstPairwiseRel) instElement;
 				// instPairwiseRelation
 				// .createAttributes(new HashMap<String, InstAttribute>());
 				// if (source.getSource() == null)
 				// source.getSource().toString();
-				if (source.getSource() == null) {
+				if (source.getSource() == null
+						|| source.getSource().getValue() == null) {
 					System.out.println("null source for: " + source.getId());
+					return;
 				}
-				if (source.getTarget() == null) {
+				if (source.getTarget() == null
+						|| source.getTarget().getValue() == null) {
 					System.out.println("null target for: " + source.getId());
+					return;
 				}
 				InstElement sourceVertex = ((InstCell) source.getSource()
 						.getValue()).getInstElement();
@@ -932,8 +936,9 @@ public class SharedActions {
 
 				editor.refreshElement(instPairwiseRelation);
 			} catch (Exception e) {
-				System.err.println("Contained exception GenPW Rel");
-				ConsoleTextArea.addText(e.getStackTrace());
+				System.err.println("Contained exception GenPW Rel: "
+						+ instPairwiseRelation.getIdentifier());
+				// ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
 	}
@@ -1005,4 +1010,3 @@ public class SharedActions {
 		return false;
 	}
 }
-
