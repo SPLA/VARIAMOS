@@ -94,30 +94,26 @@ public class InfraBasicSyntaxMMMM {
 		instInfraSyntaxOpersM3Concept.copyValuesToInstAttributes(null);
 		variabilityInstVertex.put("BsNode", instInfraSyntaxOpersM3Concept);
 
-		SyntaxElement basicOpersSyntaxM3Element = new SyntaxElement('C',
-				"BsElement", false, true, "BsElement",
+		SyntaxElement basicOpersSyntaxM3Classifier = new SyntaxElement('C',
+				"BsClassifier", false, true, "BsClassifier",
 				"infrasyntaxm2bigconcept", "Meta Meta Meta Element", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		basicOpersSyntaxM3Element.addModelingAttribute(
+		basicOpersSyntaxM3Classifier.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 2, "", "", 1,
 				"<<BsOperElement>>\n#" + SyntaxElement.VAR_USERIDENTIFIER
 						+ "#all#\n\n", "");
 
-		basicOpersSyntaxM3Element.addModelingAttribute("displayName",
-				new ElemAttribute("displayName", "String",
-						AttributeType.SYNTAX, false, "Concept Display Name",
-						"", "", 0, 3, "", "", -1, "", ""));
+		InstConcept instInfraSyntaxOpersM3Classifier = new InstConcept(
+				"BsClassifier", instInfraSyntaxOpersM3Concept,
+				basicOpersSyntaxM3Classifier);
 
-		InstConcept instInfraSyntaxOpersM3Element = new InstConcept(
-				"BsElement", instInfraSyntaxOpersM3Concept,
-				basicOpersSyntaxM3Element);
-
-		instInfraSyntaxOpersM3Element.createInstAttributes(null);
-		instInfraSyntaxOpersM3Element.copyValuesToInstAttributes(null);
-		variabilityInstVertex.put("BsElement", instInfraSyntaxOpersM3Element);
+		instInfraSyntaxOpersM3Classifier.createInstAttributes(null);
+		instInfraSyntaxOpersM3Classifier.copyValuesToInstAttributes(null);
+		variabilityInstVertex.put("BsClassifier",
+				instInfraSyntaxOpersM3Classifier);
 
 		SyntaxElement basicOpersSyntaxM3Named = new SyntaxElement('C',
 				"BsNamedElement", false, true, "BsNamedElement",
@@ -135,12 +131,17 @@ public class InfraBasicSyntaxMMMM {
 				"name", "String", AttributeType.SYNTAX, false, "Element Name",
 				"", "", 0, 3, "", "", -1, "", ""));
 
+		basicOpersSyntaxM3Named.addModelingAttribute("displayName",
+				new ElemAttribute("displayName", "String",
+						AttributeType.SYNTAX, false, "Concept Display Name",
+						"", "", 0, 3, "", "", -1, "", ""));
+
 		InstConcept instInfraSyntaxOpersM3NamedElement = new InstConcept(
 				"BsNamedElement", instInfraSyntaxOpersM3Concept,
 				basicOpersSyntaxM3Named);
 
-		instInfraSyntaxOpersM3Element.createInstAttributes(null);
-		instInfraSyntaxOpersM3Element.copyValuesToInstAttributes(null);
+		instInfraSyntaxOpersM3Classifier.createInstAttributes(null);
+		instInfraSyntaxOpersM3Classifier.copyValuesToInstAttributes(null);
 		variabilityInstVertex.put("BsNamedElement",
 				instInfraSyntaxOpersM3NamedElement);
 
@@ -293,14 +294,10 @@ public class InfraBasicSyntaxMMMM {
 				"User Identifier", "", "", 0, 2, "", "", 1, "<<BsArrow>>\n#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
 
-		basicOpersSyntaxM3Arrow.addModelingAttribute("lowCard",
-				new ElemAttribute("lowCard", "Integer", AttributeType.SYNTAX,
-						false, "Low Cardinality", "", "", 0, 1, "", "", -1, "",
-						""));
-
-		basicOpersSyntaxM3Arrow.addModelingAttribute("highCard", "Integer",
-				false, "High Cardinality", "", "", 0, 2, "", "", -1, "#"
-						+ "highCard" + "#all#\n\n", "");
+		basicOpersSyntaxM3Arrow.addModelingAttribute("Style",
+				new ElemAttribute("Style", "String", AttributeType.SYNTAX,
+						false, "Drawing Style", "", "refasclaim", 0, 8, "", "",
+						-1, "", ""));
 
 		InstConcept instInfraSyntaxOpersM3Arrow = new InstConcept("BsArrow",
 				instInfraSyntaxOpersM3Concept, basicOpersSyntaxM3Arrow);
@@ -384,6 +381,15 @@ public class InfraBasicSyntaxMMMM {
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
+		basicOpersSyntaxM3Asso.addModelingAttribute("lowCard",
+				new ElemAttribute("lowCard", "Integer", AttributeType.SYNTAX,
+						false, "Low Cardinality", "", "", 0, 1, "", "", -1, "",
+						""));
+
+		basicOpersSyntaxM3Asso.addModelingAttribute("highCard", "Integer",
+				false, "High Cardinality", "", "", 0, 2, "", "", -1, "#"
+						+ "highCard" + "#all#\n\n", "");
+
 		InstConcept instInfraSyntaxOpersM3Asso = new InstConcept(
 				"BsAssociation", instInfraSyntaxOpersM3Arrow,
 				basicOpersSyntaxM3Asso);
@@ -434,7 +440,7 @@ public class InfraBasicSyntaxMMMM {
 		instEdge.setIdentifier("co-enum-ele-gen");
 		instEdge.setTransSupInstElement(instInfraSyntaxOpersM3Gen);
 		instEdge.setEdSyntaxEle(infraSyntaxM3EnumEleGen);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM3NamedElement, true);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM3Classifier, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM3Enum, true);
 
 		SyntaxElement infraSyntaxM3EnumLitEleGen = new SyntaxElement('P',
@@ -450,7 +456,7 @@ public class InfraBasicSyntaxMMMM {
 		instEdge.setIdentifier("co-enumlit-ele-gen");
 		instEdge.setTransSupInstElement(instInfraSyntaxOpersM3Gen);
 		instEdge.setEdSyntaxEle(infraSyntaxM3EnumLitEleGen);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM3Element, true);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM3NamedElement, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM3EnumLiteral, true);
 
 		SyntaxElement infraSyntaxM3ArrowEleGen = new SyntaxElement('P',
@@ -482,7 +488,7 @@ public class InfraBasicSyntaxMMMM {
 		instEdge.setIdentifier("co-node-ele-gen");
 		instEdge.setTransSupInstElement(instInfraSyntaxOpersM3Gen);
 		instEdge.setEdSyntaxEle(infraSyntaxM3NodeEleGen);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM3Element, true);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM3Classifier, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM3Concept, true);
 
 		SyntaxElement infraSyntaxM3SetEleGen = new SyntaxElement('P',
@@ -498,7 +504,7 @@ public class InfraBasicSyntaxMMMM {
 		instEdge.setIdentifier("co-set-ele-gen");
 		instEdge.setTransSupInstElement(instInfraSyntaxOpersM3Gen);
 		instEdge.setEdSyntaxEle(infraSyntaxM3SetEleGen);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM3Element, true);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM3NamedElement, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM3Set, true);
 
 		SyntaxElement infraSyntaxM3TreeEleGen = new SyntaxElement('P',
@@ -514,7 +520,7 @@ public class InfraBasicSyntaxMMMM {
 		instEdge.setIdentifier("co-tree-ele-gen");
 		instEdge.setTransSupInstElement(instInfraSyntaxOpersM3Gen);
 		instEdge.setEdSyntaxEle(infraSyntaxM3TreeEleGen);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM3Element, true);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM3NamedElement, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM3Tree, true);
 
 		SyntaxElement infraSyntaxM3EleNameGen = new SyntaxElement('P',
@@ -531,7 +537,7 @@ public class InfraBasicSyntaxMMMM {
 		instEdge.setTransSupInstElement(instInfraSyntaxOpersM3Gen);
 		instEdge.setEdSyntaxEle(infraSyntaxM3EleNameGen);
 		instEdge.setTargetRelation(instInfraSyntaxOpersM3NamedElement, true);
-		instEdge.setSourceRelation(instInfraSyntaxOpersM3Element, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM3Classifier, true);
 
 		// Node Attributes
 
@@ -556,10 +562,6 @@ public class InfraBasicSyntaxMMMM {
 		basicOpersSyntaxM3Attribute.addModelingAttribute("affectProps",
 				"Boolean", false, "Affect Prties", "", "", 0, 4, "", "", -1,
 				"#" + "affectProps" + "#all#\n\n", "");
-
-		basicOpersSyntaxM3Attribute.addModelingAttribute("dispName", "String",
-				false, "Display Name", "", "", 0, 5, "", "", -1, "#"
-						+ "dispName" + "#all#\n\n", "");
 
 		// classCanName
 		basicOpersSyntaxM3Attribute.addModelingAttribute("enumType", "String",
