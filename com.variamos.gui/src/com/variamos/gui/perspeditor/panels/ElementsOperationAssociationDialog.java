@@ -49,13 +49,13 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 		setPreferredSize(new Dimension(width, height));
 		switch (dialog) {
 		case 0:
-			setTitle("Association of Meta-Concept�s Meta-Expressions to Suboperations");
+			setTitle("Association of Meta-Concept's Meta-Expressions to Suboperations");
 			break;
 		case 1:
-			setTitle("Association of Meta-Concept�s Meta-Attributes to Subperations (Input/Output)");
+			setTitle("Association of Meta-Concept's Meta-Attributes to Subperations (Input/Output)");
 			break;
 		case 2:
-			setTitle("Association of Meta-Concept�s Meta-Attributes to Labelings");
+			setTitle("Association of Meta-Concept's Meta-Attributes to Labelings");
 			break;
 		}
 		setVisible(true);

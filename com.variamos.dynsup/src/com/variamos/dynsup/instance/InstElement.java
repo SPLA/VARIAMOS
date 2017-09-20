@@ -420,7 +420,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 					.getDeclaredModelingAttributesNames();
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
-						&& !attributeName.equals("identifier")
+						&& (!attributeName.equals("identifier"))
 						&& !attributeName.equals("userId")
 						&& !attributeName.equals("value")
 						&& !attributeName.equals("dummy")
@@ -436,8 +436,9 @@ public abstract class InstElement implements Serializable, Cloneable,
 						// FIXME V1.1 copy change to new version
 						if (!i.getType().equals("Class"))
 							v = ":" + i.getType();
-						if ((i.getType().equals("Enumeration") || i.getType()
-								.equals("MetaEnumeration"))
+						if ((i.getType().equals("Enumeration")
+								|| i.getType().equals("MetaEnumeration") || i
+								.getType().equals("InstanceSet"))
 								&& i.getClassCanonicalName() != null) {
 							String classN = i.getClassCanonicalName()
 									.substring(
@@ -472,7 +473,6 @@ public abstract class InstElement implements Serializable, Cloneable,
 						}
 					}
 
-					
 					// System.out.println(attributeName);
 					if (attributeName.length() > 1)
 						out2 += attributeName.substring(0, 1).toLowerCase()
