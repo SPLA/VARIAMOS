@@ -38,7 +38,6 @@ public class FileTasks extends SwingWorker<Void, Void> {
 	private File file;
 	private String filename;
 	private String ext;
-	private int task = 0;
 	private FileTasksEnum execType;
 	private ProgressMonitor progressMonitor;
 	private VariamosGraphEditor variamosEditor;
@@ -96,6 +95,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			case SAVE_IMAGE_OTHERS:
 				saveImage(execType);
 				break;
+			default: setProgress(100);
 
 			}
 		} catch (InterruptedException ignore) {
@@ -104,10 +104,12 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			errorMessage = "Unmanaged error on file operation.";
 			errorTitle = "File action error";
 		}
-		task = 100;
-		setProgress(task);
+		
+		//update the progress of this task will notify the user interface because the listener will be called
+		int taskProgress = 100;
+		setProgress(taskProgress);
 		((MainFrame) variamosEditor.getFrame()).waitingCursor(false);
-		variamosEditor.setFileTask(null);
+
 		return null;
 	}
 
@@ -362,7 +364,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			break;
 		}
 		if (sucess == true) {
-			progressMonitor.setProgress(80);
+			setProgress(80);
 			progressMonitor.setNote("Save Completed");
 		} else {
 			//Shows an error message at the main window
@@ -375,7 +377,8 @@ public class FileTasks extends SwingWorker<Void, Void> {
 
 	@Override
 	public void done() {
-		progressMonitor.setNote("Task completed");
+				
+		
 	}
 
 }

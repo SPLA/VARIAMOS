@@ -1,14 +1,12 @@
 package com.variamos.gui.core.viewcontrollers;
 
 import java.awt.Color;
+import java.beans.PropertyChangeEvent;
 import java.io.File;
-import java.util.HashSet;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
-import javax.swing.filechooser.FileFilter;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxResources;
@@ -276,4 +274,6 @@ public class VariamosGUIPerspectiveEditorActionsController {
 		}
 
 	}
+	
+	
 }

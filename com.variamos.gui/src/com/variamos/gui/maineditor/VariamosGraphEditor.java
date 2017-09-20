@@ -29,6 +29,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -68,7 +69,6 @@ import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.dynsup.translation.SolverOpersTask;
 import com.variamos.dynsup.translation.SolverTasks;
 import com.variamos.dynsup.types.AttributeType;
-import com.variamos.dynsup.types.DomainRegister;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.core.maineditor.models.DynamicBehaviorDTO;
@@ -144,6 +144,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 	VariamosDashBoardFrame dashBoardFrame;
 
 	private FileTasks fileTask;
+	
+	private JProgressBar progressBar;
 
 	// Useful to save the last path where users open or save files
 	private String lastDir;
@@ -157,8 +159,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 		ecd = new ExternalContextDialog(this);
 		defects = new ArrayList<String>();
 		validElements = null;
+		progressBar = new JProgressBar(0, 100);
+        progressBar.setValue(0);
+        progressBar.setStringPainted(true);
 
 	}
+	
+	
 
 	public VariamosGraphEditor(MainFrame frame, String perspTitle, VariamosGraphComponent component, int perspective,
 			InstanceModel abstractModel) {
@@ -1369,9 +1376,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 	}
 
 	public void clearTask() {
-		if (dynamicBehaviorDTO.getTask() != null) {
-			dynamicBehaviorDTO.getTask().setTerminated(true);
-			dynamicBehaviorDTO.setTask(null);
+		if (dynamicBehaviorDTO.getSolverTask() != null) {
+			dynamicBehaviorDTO.getSolverTask().setTerminated(true);
+			dynamicBehaviorDTO.setSolverTask(null);
 		}
 
 		this.refresh();
@@ -1433,13 +1440,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 	public SolverTasks executeSimulation(boolean firstSimulExecution, boolean reloadDashboard, int type, boolean update,
 			String element) {
 
-		if (!firstSimulExecution && dynamicBehaviorDTO.getTask() != null
-				&& dynamicBehaviorDTO.getTask().getExecType() == ModelExpr2HLCL.SIMUL_EXEC) {
-			dynamicBehaviorDTO.getTask().setFirstSimulExec(false);
-			dynamicBehaviorDTO.getTask().setNext(true);
+		if (!firstSimulExecution && dynamicBehaviorDTO.getSolverTask() != null
+				&& dynamicBehaviorDTO.getSolverTask().getExecType() == ModelExpr2HLCL.SIMUL_EXEC) {
+			dynamicBehaviorDTO.getSolverTask().setFirstSimulExec(false);
+			dynamicBehaviorDTO.getSolverTask().setNext(true);
 		} else {
-			if (dynamicBehaviorDTO.getTask() != null)
-				dynamicBehaviorDTO.getTask().setTerminated(true);
+			if (dynamicBehaviorDTO.getSolverTask() != null)
+				dynamicBehaviorDTO.getSolverTask().setTerminated(true);
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this, "Executing Simulation", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
@@ -1449,15 +1456,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 					dynamicBehaviorDTO.getLastSolution());
 			task.addPropertyChangeListener(this);
 			task.execute();
-			dynamicBehaviorDTO.setTask(task);
+			dynamicBehaviorDTO.setSolverTask(task);
 		}
-		return dynamicBehaviorDTO.getTask();
+		return dynamicBehaviorDTO.getSolverTask();
 	}
 
 	// Static operation's definition
 	public void exportConfiguration(String file) {
-		if (dynamicBehaviorDTO.getTask() == null || dynamicBehaviorDTO.getTask().isDone()
-				|| dynamicBehaviorDTO.getTask().getProgress() == 100) {
+		if (dynamicBehaviorDTO.getSolverTask() == null || dynamicBehaviorDTO.getSolverTask().isDone()
+				|| dynamicBehaviorDTO.getSolverTask().getProgress() == 100) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this, "Exporting Solutions", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
@@ -1468,7 +1475,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();
-			dynamicBehaviorDTO.setTask(task);
+			dynamicBehaviorDTO.setSolverTask(task);
 
 		}
 	}
@@ -1556,17 +1563,31 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if ("progress" == evt.getPropertyName()) {
-			int progress = (Integer) evt.getNewValue();
+			
+			int progress = (Integer) evt.getNewValue();	
+			//Update who monitors the progress 
 			progressMonitor.setProgress(progress);
-			if (dynamicBehaviorDTO.getTask() != null) {
+		    
+			//There is a save/open task under operation
+	        if(fileTask != null ) {
+				progressMonitor.setNote(String.format(
+	                    "File load/save completed %d%%.\n", fileTask.getProgress()));
+	        	
+				//Once the task ends then we clean the fileTask saved inside this class
+ 	        	if (progress == 100) {
+	        		fileTask=null;
+	        	}	        		
+	        }
+			
+			if (dynamicBehaviorDTO.getSolverTask() != null) {
 				String message = String.format("Completed %d%%.\n", progress);
 				progressMonitor.setNote(message);
-				if (dynamicBehaviorDTO.getTask().getProgress() == 100
-						&& (dynamicBehaviorDTO.getTask().getExecType() == ModelExpr2HLCL.SIMUL_EXEC
-								|| dynamicBehaviorDTO.getTask().getExecType() == ModelExpr2HLCL.SIMUL_MAPE)) {
+				if (dynamicBehaviorDTO.getSolverTask().getProgress() == 100
+						&& (dynamicBehaviorDTO.getSolverTask().getExecType() == ModelExpr2HLCL.SIMUL_EXEC
+								|| dynamicBehaviorDTO.getSolverTask().getExecType() == ModelExpr2HLCL.SIMUL_MAPE)) {
 					dynamicBehaviorDTO.getRefas2hlcl().updateGUIElements(null);
-					updateDashBoard(true, dynamicBehaviorDTO.getTask().isReloadDashBoard(),
-							dynamicBehaviorDTO.getTask().isUpdate());
+					updateDashBoard(true, dynamicBehaviorDTO.getSolverTask().isReloadDashBoard(),
+							dynamicBehaviorDTO.getSolverTask().isUpdate());
 					ConsoleTextArea.addText(dynamicBehaviorDTO.getRefas2hlcl().getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
@@ -1594,16 +1615,16 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 
 			if (progressMonitor.isCanceled() || (fileTask != null && fileTask.isDone())) {
 				if (progressMonitor.isCanceled()) {
-					dynamicBehaviorDTO.getTask().cancel(true);
+					dynamicBehaviorDTO.getSolverTask().cancel(true);
 					JOptionPane.showMessageDialog(frame, "Execution incomplete, partial solution file saved",
 							"Task Notification", JOptionPane.INFORMATION_MESSAGE, null);
 					((MainFrame) getFrame()).waitingCursor(false);
 				}
 			} else if (progressMonitor.isCanceled()
-					|| (dynamicBehaviorDTO.getTask() != null && dynamicBehaviorDTO.getTask().isDone())) {
+					|| (dynamicBehaviorDTO.getSolverTask() != null && dynamicBehaviorDTO.getSolverTask().isDone())) {
 				if (progressMonitor.isCanceled()) {
-					dynamicBehaviorDTO.getTask().cancel(true);
-					if (dynamicBehaviorDTO.getTask().getExecType() == ModelExpr2HLCL.SIMUL_EXPORT) {
+					dynamicBehaviorDTO.getSolverTask().cancel(true);
+					if (dynamicBehaviorDTO.getSolverTask().getExecType() == ModelExpr2HLCL.SIMUL_EXPORT) {
 						JOptionPane.showMessageDialog(frame, "Execution incomplete, partial solution file saved",
 								"Task Notification", JOptionPane.INFORMATION_MESSAGE, null);
 					} else
@@ -1614,30 +1635,30 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 					editPropertiesRefas(lastEditableElement);
 					ConsoleTextArea.addText(dynamicBehaviorDTO.getRefas2hlcl().getText());
 					((MainFrame) getFrame()).waitingCursor(false);
-					lastSolverInvocations = dynamicBehaviorDTO.getTask().getExecutionTime();
-					switch (dynamicBehaviorDTO.getTask().getExecType()) {
+					lastSolverInvocations = dynamicBehaviorDTO.getSolverTask().getExecutionTime();
+					switch (dynamicBehaviorDTO.getSolverTask().getExecType()) {
 					case ModelExpr2HLCL.CONF_EXEC:
-						dynamicBehaviorDTO.setInvalidConfigHlclProgram(dynamicBehaviorDTO.getTask().isInvalidConfigHlclProgram());
+						dynamicBehaviorDTO.setInvalidConfigHlclProgram(dynamicBehaviorDTO.getSolverTask().isInvalidConfigHlclProgram());
 						break;
 					case ModelExpr2HLCL.DESIGN_EXEC:
-						if (!dynamicBehaviorDTO.getTask().getErrorTitle().equals("")) {
-							JOptionPane.showMessageDialog(frame, dynamicBehaviorDTO.getTask().getErrorMessage(),
-									dynamicBehaviorDTO.getTask().getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
+						if (!dynamicBehaviorDTO.getSolverTask().getErrorTitle().equals("")) {
+							JOptionPane.showMessageDialog(frame, dynamicBehaviorDTO.getSolverTask().getErrorMessage(),
+									dynamicBehaviorDTO.getSolverTask().getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
 									null);
 
 						}
 						refresh();
 						break;
 					case ModelExpr2HLCL.SIMUL_EXEC:
-						updateDashBoard(true, dynamicBehaviorDTO.getTask().isReloadDashBoard(),
-								dynamicBehaviorDTO.getTask().isUpdate());
+						updateDashBoard(true, dynamicBehaviorDTO.getSolverTask().isReloadDashBoard(),
+								dynamicBehaviorDTO.getSolverTask().isUpdate());
 					case ModelExpr2HLCL.SIMUL_EXPORT:
 						refresh();
-						SolverSolution lastConfiguration = dynamicBehaviorDTO.getTask().getLastSolverSolution();
+						SolverSolution lastConfiguration = dynamicBehaviorDTO.getSolverTask().getLastSolverSolution();
 						dynamicBehaviorDTO.setLastSolution(lastConfiguration);
-						if (!dynamicBehaviorDTO.getTask().getErrorTitle().equals("")) {
-							JOptionPane.showMessageDialog(frame, dynamicBehaviorDTO.getTask().getErrorMessage(),
-									dynamicBehaviorDTO.getTask().getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
+						if (!dynamicBehaviorDTO.getSolverTask().getErrorTitle().equals("")) {
+							JOptionPane.showMessageDialog(frame, dynamicBehaviorDTO.getSolverTask().getErrorMessage(),
+									dynamicBehaviorDTO.getSolverTask().getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
 									null);
 						}
 						break;
@@ -1666,9 +1687,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 	public void updateSimulResults() {
 
 		ConsoleTextArea.addText(dynamicBehaviorDTO.getRefas2hlcl().getText());
-		if (dynamicBehaviorDTO.getTask() != null && !dynamicBehaviorDTO.getTask().getErrorTitle().equals("")) {
-			JOptionPane.showMessageDialog(frame, dynamicBehaviorDTO.getTask().getErrorMessage(),
-					dynamicBehaviorDTO.getTask().getErrorTitle(), JOptionPane.INFORMATION_MESSAGE, null);
+		if (dynamicBehaviorDTO.getSolverTask() != null && !dynamicBehaviorDTO.getSolverTask().getErrorTitle().equals("")) {
+			JOptionPane.showMessageDialog(frame, dynamicBehaviorDTO.getSolverTask().getErrorMessage(),
+					dynamicBehaviorDTO.getSolverTask().getErrorTitle(), JOptionPane.INFORMATION_MESSAGE, null);
 
 		}
 		if (dynamicBehaviorDTO.getSemTask() != null && !dynamicBehaviorDTO.getSemTask().getErrorTitle().equals("")) {
@@ -1687,7 +1708,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 
 	// Static operation's definition
 	public void configModel(InstElement element, boolean test) {
-		if (dynamicBehaviorDTO.getTask() == null || dynamicBehaviorDTO.getTask().isDone()) {
+		if (dynamicBehaviorDTO.getSolverTask() == null || dynamicBehaviorDTO.getSolverTask().isDone()) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this, "Executing Element Configuration", "", 0,
 					100);
 			progressMonitor.setMillisToDecideToPopup(5);
@@ -1700,7 +1721,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();
-			dynamicBehaviorDTO.setTask(task);
+			dynamicBehaviorDTO.setSolverTask(task);
 		}
 	}
 
@@ -1711,8 +1732,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 
 	// Static operation's definition
 	public void verify(List<String> defect) {
-		if (dynamicBehaviorDTO.getTask() == null || dynamicBehaviorDTO.getTask().isDone()
-				|| dynamicBehaviorDTO.getTask().getProgress() == 0) {
+		if (dynamicBehaviorDTO.getSolverTask() == null || dynamicBehaviorDTO.getSolverTask().isDone()
+				|| dynamicBehaviorDTO.getSolverTask().getProgress() == 0) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this, "System Verification", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
@@ -1723,7 +1744,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();
-			dynamicBehaviorDTO.setTask(task);
+			dynamicBehaviorDTO.setSolverTask(task);
 		}
 	}
 
@@ -1932,7 +1953,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 
 	public void setFileTask(FileTasks fileTask) {
 		this.fileTask = fileTask;
-		dynamicBehaviorDTO.setTask(null);
+		dynamicBehaviorDTO.setSolverTask(null);
 
 	}
 

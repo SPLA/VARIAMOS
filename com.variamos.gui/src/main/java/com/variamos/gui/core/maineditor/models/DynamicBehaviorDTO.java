@@ -16,7 +16,7 @@ import com.variamos.solver.model.SolverSolution;
 public class DynamicBehaviorDTO {
 
 	private InstanceModel refasModel;
-	private SolverTasks task;
+	private SolverTasks solverTask;
 	private SolverOpersTask semTask;
 	private ModelExpr2HLCL refas2hlcl;
 	private SolverSolution lastSolution;
@@ -85,13 +85,13 @@ public class DynamicBehaviorDTO {
 	public SolverTasks executeSimulation(boolean firstSimulExecution, boolean reloadDashboard, int type, boolean update,
 			String element) {
 
-		if (!firstSimulExecution && getTask() != null
-				&& getTask().getExecType() == ModelExpr2HLCL.SIMUL_EXEC) {
-			getTask().setFirstSimulExec(false);
-			getTask().setNext(true);
+		if (!firstSimulExecution && getSolverTask() != null
+				&& getSolverTask().getExecType() == ModelExpr2HLCL.SIMUL_EXEC) {
+			getSolverTask().setFirstSimulExec(false);
+			getSolverTask().setNext(true);
 		} else {
-			if (getTask() != null)
-				getTask().setTerminated(true);
+			if (getSolverTask() != null)
+				getSolverTask().setTerminated(true);
 //			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this, "Executing Simulation", "", 0, 100);
 //			progressMonitor.setMillisToDecideToPopup(5);
 //			progressMonitor.setMillisToPopup(5);
@@ -101,9 +101,9 @@ public class DynamicBehaviorDTO {
 					getLastSolution());
 			//task.addPropertyChangeListener(this);
 			task.execute();
-			setTask(task);
+			setSolverTask(task);
 		}
-		return getTask();
+		return getSolverTask();
 	}
 
 	public InstanceModel getRefasModel() {
@@ -114,12 +114,12 @@ public class DynamicBehaviorDTO {
 		this.refasModel = refasModel;
 	}
 
-	public SolverTasks getTask() {
-		return task;
+	public SolverTasks getSolverTask() {
+		return solverTask;
 	}
 
-	public void setTask(SolverTasks task) {
-		this.task = task;
+	public void setSolverTask(SolverTasks task) {
+		this.solverTask = task;
 	}
 
 	public SolverOpersTask getSemTask() {
