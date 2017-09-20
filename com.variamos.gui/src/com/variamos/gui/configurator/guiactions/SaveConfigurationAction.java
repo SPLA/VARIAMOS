@@ -7,8 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.core.mxgraph.editor.DefaultFileFilter;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 /**
@@ -23,7 +23,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
  * @see com.variamos.gui.maineditor.pl.configurator.guiactions.SaveConfigurationAction
  */
 @SuppressWarnings("serial")
-public class SaveConfigurationAction extends AbstractEditorAction {
+public class SaveConfigurationAction extends AbstractVariamoGUIAction {
 
 	/**
 	 * 

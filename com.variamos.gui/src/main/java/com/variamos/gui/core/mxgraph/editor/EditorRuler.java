@@ -7,7 +7,7 @@
  * See LICENSE file for license details. If you are unable to locate
  * this file please contact info (at) jgraph (dot) com.
  */
-package com.variamos.gui.maineditor;
+package com.variamos.gui.core.mxgraph.editor;
 
 import java.awt.Color;
 import java.awt.Dimension;

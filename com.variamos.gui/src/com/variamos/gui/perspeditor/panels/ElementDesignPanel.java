@@ -42,7 +42,7 @@ import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
-import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;

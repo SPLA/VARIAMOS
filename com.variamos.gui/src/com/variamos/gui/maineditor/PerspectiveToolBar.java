@@ -9,6 +9,7 @@ import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 
 /**
  * A class to support perspectives buttons on mainframe. Part of PhD work at

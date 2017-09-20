@@ -117,9 +117,9 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 					}
 					// If no change, not continue
 					lastConfig = config;
-					editor.getRefas2hlcl().cleanGUIElements(
+					editor.getDynamicBehaviorDTO().getRefas2hlcl().cleanGUIElements(
 							ModelExpr2HLCL.DESIGN_EXEC);
-					editor.getRefas2hlcl().updateGUIElements(
+					editor.getDynamicBehaviorDTO().getRefas2hlcl().updateGUIElements(
 							selectedAttributes, notAvailableAttributes,
 							conceptTypes, null, config, null);
 					// editor.editPropertiesRefas();
@@ -153,9 +153,9 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 																	// variables
 								conceptTypes.add("ContextVariable");
 								conceptTypes.add("Variable");
-								editor.getRefas2hlcl().cleanGUIElements(
+								editor.getDynamicBehaviorDTO().getRefas2hlcl().cleanGUIElements(
 										ModelExpr2HLCL.DESIGN_EXEC);
-								editor.getRefas2hlcl().updateGUIElements(
+								editor.getDynamicBehaviorDTO().getRefas2hlcl().updateGUIElements(
 										selectedAttributes,
 										notAvailableAttributes, conceptTypes,
 										null, config, null);
@@ -178,7 +178,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 						editor.editPropertiesRefas();
 					}
 
-					ConfigurationIO.saveMapToJSONFile(editor.getRefas2hlcl()
+					ConfigurationIO.saveMapToJSONFile(editor.getDynamicBehaviorDTO().getRefas2hlcl()
 							.getConfiguration().getSolverSolution(),
 							outputDirectoryFile + "/solution" + solIndex
 									+ ".conf");

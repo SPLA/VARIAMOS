@@ -176,8 +176,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="com.variamos.gui.maineditor.BasicGraphEditor" project="com.variamos.gui" 
-    file="/com.variamos.gui/src/com/variamos/gui/maineditor/BasicGraphEditor.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="19" language="java" name="com.variamos.gui.maineditor.BasicGraphEditorView" project="com.variamos.gui" 
+    file="/com.variamos.gui/src/com/variamos/gui/maineditor/BasicGraphEditorView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1478" y="209"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

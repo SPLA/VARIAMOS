@@ -1,4 +1,4 @@
-package com.variamos.gui.maineditor;
+package com.variamos.gui.core.mxgraph.editor;
 
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
@@ -7,7 +7,7 @@ import javax.swing.TransferHandler;
 import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.EditorActions.HistoryAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.HistoryAction;
 import com.variamos.gui.perspeditor.actions.FigureAction;
 import com.variamos.gui.perspeditor.actions.RecoverCloneAction;
 

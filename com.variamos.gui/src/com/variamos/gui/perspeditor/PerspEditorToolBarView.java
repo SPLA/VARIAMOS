@@ -22,10 +22,10 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
 //import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
-import com.variamos.gui.maineditor.EditorActions.HistoryAction;
-import com.variamos.gui.maineditor.EditorActions.NewAction;
-import com.variamos.gui.maineditor.EditorActions.OpenAction;
-import com.variamos.gui.maineditor.EditorActions.SaveAction;
+import com.variamos.gui.core.mxgraph.editor.EditorActionsController.HistoryAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.LoadAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.NewAction;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.SaveAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
@@ -39,7 +39,18 @@ import com.variamos.gui.perspeditor.actions.VerificationAction;
 import com.variamos.gui.perspeditor.actions.VerifyDeadElementAction;
 import com.variamos.gui.perspeditor.actions.VerifyFalseOptElementAction;
 
-public class PerspEditorToolBar extends JToolBar {
+
+/**
+ * This class support the tool bar with icons in the user interface. Icons such as new, save, undo, redo
+ * are draw in this class
+ * 
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-17
+ * 
+ */
+public class PerspEditorToolBarView extends JToolBar {
 
 	/**
 	 * 
@@ -54,9 +65,9 @@ public class PerspEditorToolBar extends JToolBar {
 	private boolean ignoreZoomChange = false;
 
 	/**
-	 * 
+	 * Represents the menu bar with icons below the menus file, layout...
 	 */
-	public PerspEditorToolBar(final VariamosGraphEditor variamosGraphEditor, int orientation) {
+	public PerspEditorToolBarView(final VariamosGraphEditor variamosGraphEditor, int orientation) {
 		super(orientation);
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3), getBorder()));
 		setFloatable(false);
@@ -65,7 +76,7 @@ public class PerspEditorToolBar extends JToolBar {
 		// new/load/save currently not supported for configuration/simulation perpective
 		if (variamosGraphEditor.getPerspective() != 4) {
 			add(variamosGraphEditor.bind("New", new NewAction(), "/com/variamos/gui/perspeditor/images/new.gif"));
-			add(variamosGraphEditor.bind("Open", new OpenAction(), "/com/variamos/gui/perspeditor/images/open.gif"));
+			add(variamosGraphEditor.bind("Open", new LoadAction(), "/com/variamos/gui/perspeditor/images/open.gif"));
 			add(variamosGraphEditor.bind("Save", new SaveAction(false),
 					"/com/variamos/gui/perspeditor/images/save.gif"));
 
@@ -191,6 +202,7 @@ public class PerspEditorToolBar extends JToolBar {
 		 * add(editor.bind("Fill", new ColorAction("Fill", mxConstants.STYLE_FILLCOLOR),
 		 * "/com/variamos/gui/perspeditor/images/fillcolor.gif"));
 		 */
+
 
 		addSeparator();
 

@@ -22,9 +22,9 @@ import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
+import com.variamos.gui.core.mxgraph.editor.EditorPalette;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
-import com.variamos.gui.maineditor.BasicGraphEditor;
-import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 public class PerspEditorFunctions extends AbstractGraphEditorFunctions {

@@ -3,11 +3,11 @@ package com.variamos.gui.perspeditor.actions;
 import java.awt.event.ActionEvent;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class NamesSimulationDashBoardAction extends AbstractEditorAction {
+public class NamesSimulationDashBoardAction extends AbstractVariamoGUIAction {
 
 	public NamesSimulationDashBoardAction() {
 

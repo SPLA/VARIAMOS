@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import com.mxgraph.swing.mxGraphComponent;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 
 public abstract class AbstractGraphEditorFunctions {
 	protected VariamosGraphEditor editor;

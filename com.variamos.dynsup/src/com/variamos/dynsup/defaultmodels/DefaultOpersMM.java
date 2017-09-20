@@ -426,15 +426,15 @@ public class DefaultOpersMM {
 		 * AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0, new
 		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
 		 * simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		 * refasModel.getIdentifier(), attribute.getName(), true));
-		 * refasModel.putSemanticAttribute("TotalOpt", attribute);
+		 * dynamicBehaviorDTO.getRefasModel().getIdentifier(), attribute.getName(), true));
+		 * dynamicBehaviorDTO.getRefasModel().putSemanticAttribute("TotalOpt", attribute);
 		 * 
 		 * attribute = new ElemAttribute("TotalSG", "Integer",
 		 * AttributeType.EXECCURRENTSTATE, false, "***TotalSG***", 0, new
 		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
-		 * simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(refasModel
+		 * simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(dynamicBehaviorDTO.getRefasModel()
 		 * .getIdentifier(), attribute.getName(), true));
-		 * refasModel.putSemanticAttribute("TotalSG", attribute);
+		 * dynamicBehaviorDTO.getRefasModel().putSemanticAttribute("TotalSG", attribute);
 		 */
 
 		if (!empty) {
@@ -672,14 +672,14 @@ public class DefaultOpersMM {
 			/*
 			 * = new SemanticExpression("sub", refas
 			 * .getSemanticExpressionTypes().get("Sum"),
-			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
+			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instdynamicBehaviorDTO.getRefasModel(),
 			 * "TotalOrder", 0);
 			 * 
 			 * semanticExpressions.add(t1);
 			 * 
 			 * t1 = new SemanticExpression("sub",
 			 * refas.getSemanticExpressionTypes() .get("Sum"),
-			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
+			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instdynamicBehaviorDTO.getRefasModel(),
 			 * "TotalOpt", 0);
 			 * 
 			 * semanticExpressions.add(t1);

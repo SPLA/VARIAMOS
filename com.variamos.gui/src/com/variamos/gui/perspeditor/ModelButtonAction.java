@@ -8,12 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class ModelButtonAction extends AbstractEditorAction {
+public class ModelButtonAction extends AbstractVariamoGUIAction {
 
 	public ModelButtonAction() {
 	}
