@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 /**
@@ -17,11 +16,11 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
  * this file.
  * 
  * @author Luisa Rincon <lufe089@gmail.com>
- * @see com.variamos.gui.core.viewcontrollers.VariamosGUIMainEditorActionsController
+ * @see com.variamos.gui.core.viewcontrollers.VariamosGUIPerspectiveEditorActionsController
  *
  */
 @SuppressWarnings("serial")
-public class VariamosGUIMainEditorActions {
+public class VariamosGUIPerpectiveEditorActions {
 
 	/*********** NEW *************************/
 	public static class NewAction extends AbstractVariamoGUIAction {
@@ -33,7 +32,7 @@ public class VariamosGUIMainEditorActions {
 		public void actionPerformed(ActionEvent e) {
 			VariamosGraphEditor variamosEditor = getEditor(e);
 			// Call the controller that call the right business functionalities
-			VariamosGUIMainEditorActionsController.newAction(variamosEditor);
+			VariamosGUIPerspectiveEditorActionsController.newAction(variamosEditor);
 		}
 	}
 
@@ -47,7 +46,7 @@ public class VariamosGUIMainEditorActions {
 		public void actionPerformed(ActionEvent e) {
 			VariamosGraphEditor variamosEditor = getEditor(e);
 			// Call the controller that call the right business functionalities
-			VariamosGUIMainEditorActionsController.loadAction(variamosEditor);
+			VariamosGUIPerspectiveEditorActionsController.loadAction(variamosEditor);
 		}
 	}
 
@@ -70,7 +69,7 @@ public class VariamosGUIMainEditorActions {
 		public void actionPerformed(ActionEvent e) {
 			VariamosGraphEditor variamosEditor = getEditor(e);
 			// Call the controller that call the right business functionalities
-			VariamosGUIMainEditorActionsController.saveAction(variamosEditor, showDialog);
+			VariamosGUIPerspectiveEditorActionsController.saveAction(variamosEditor, showDialog);
 		}
 
 	}
@@ -89,5 +88,7 @@ public class VariamosGUIMainEditorActions {
 			}
 		}
 	}
+	
+	
 
 }

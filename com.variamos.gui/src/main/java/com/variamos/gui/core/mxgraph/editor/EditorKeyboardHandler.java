@@ -12,7 +12,7 @@ import javax.swing.KeyStroke;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.util.mxGraphActions;
-import com.variamos.gui.core.viewcontrollers.VariamosGUIMainEditorActions;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions;
 
 /**
  * @author Administrator
@@ -68,10 +68,10 @@ public class EditorKeyboardHandler extends mxKeyboardHandler
 	{
 		ActionMap map = super.createActionMap();
 
-		map.put("save", new VariamosGUIMainEditorActions.SaveAction(false));
-		map.put("saveAs", new VariamosGUIMainEditorActions.SaveAction(true));
-		map.put("new", new VariamosGUIMainEditorActions.NewAction());
-		map.put("open", new VariamosGUIMainEditorActions.LoadAction());
+		map.put("save", new VariamosGUIPerpectiveEditorActions.SaveAction(false));
+		map.put("saveAs", new VariamosGUIPerpectiveEditorActions.SaveAction(true));
+		map.put("new", new VariamosGUIPerpectiveEditorActions.NewAction());
+		map.put("open", new VariamosGUIPerpectiveEditorActions.LoadAction());
 		map.put("undo", new EditorActionsController.HistoryAction(true));
 		map.put("redo", new EditorActionsController.HistoryAction(false));
 		map.put("selectVertices", mxGraphActions.getSelectVerticesAction());

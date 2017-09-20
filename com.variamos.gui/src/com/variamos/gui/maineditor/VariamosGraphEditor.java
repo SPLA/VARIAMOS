@@ -351,6 +351,19 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 		dashBoardFrame = new VariamosDashBoardFrame(getEditedModel());
 		graphEditorFunctions.updateEditor(this.validElements, getGraphComponent(), modelViewIndex);
 	}
+	
+	/**
+	 *  Clean the editor once a file is loaded, a new file is saved
+	 *  @author juan c munoz
+	 */
+	public void resetEditor() {
+		this.setVisibleModel(this.getModelViewIndex(), this.getModelSubViewIndex());
+		this.setDefaultButton();
+		this.updateView();
+		this.setModified(false);
+		this.getUndoManager().clear();
+		this.getGraphComponent().zoomAndCenter();
+	}
 
 	@Override
 	public void updateTitle() {

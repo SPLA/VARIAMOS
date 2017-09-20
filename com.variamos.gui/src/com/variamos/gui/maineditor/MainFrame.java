@@ -31,6 +31,16 @@ import com.variamos.hlcl.model.expressions.HlclFactory;
 import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
 
+
+/**
+ * Crea las distintas partes del editor 
+ * 
+ * Una instancia del variamosgraph editor por cada perspectiva
+ * Carga la ventana principal
+ * Controlador principal de la interfaz gráfica. 
+ * @author lufe0
+ *
+ */
 public class MainFrame extends JFrame {
 	public List<VariamosGraphEditor> getGraphEditors() {
 		return graphEditors;
@@ -53,18 +63,6 @@ public class MainFrame extends JFrame {
 	private String downloadId = "566";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
-
-	public static String getFilesUrl() {
-		return filesUrl + "/VariaMos-" + variamosVersionNumber + "-Resources/";
-	}
-
-	public int getPerspective() {
-		return perspective;
-	}
-
-	public static boolean getSolverError() {
-		return solverError;
-	}
 
 	private List<VariamosGraphEditor> graphEditors;
 	private List<PerspEditorMenuBar> editorsMenu;
@@ -295,9 +293,7 @@ public class MainFrame extends JFrame {
 
 	}
 
-	public void setPerspective(int perspective) {
-		this.perspective = perspective;
-	}
+	
 
 	public void setLayout() {
 		this.getRootPane().getContentPane().removeAll();
@@ -326,31 +322,7 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public boolean isAdvancedPerspective() {
-		return showPerspectiveButton;
-	}
-
-	public void setShowSimulationCustomizationBox(
-			boolean showSimulationCustomizationBox) {
-		this.showSimulationCustomizationBox = showSimulationCustomizationBox;
-	}
-
-	public boolean isShowSimulationCustomizationBox() {
-		return showSimulationCustomizationBox;
-	}
-
-	public static String getVariamosVersionNumber() {
-		return variamosVersionNumber;
-	}
-
-	public String getVariamosVersionName() {
-		return variamosVersionName;
-	}
-
-	public String getVariamosBuild() {
-		return variamosBuild;
-	}
-
+	
 	public void checkUpdates(boolean b) {
 		InputStream input;
 		try {
@@ -460,5 +432,46 @@ public class MainFrame extends JFrame {
 		}
 
 		return getFilesUrl();
+	}
+	
+	public static String getFilesUrl() {
+		return filesUrl + "/VariaMos-" + variamosVersionNumber + "-Resources/";
+	}
+
+	public int getPerspective() {
+		return perspective;
+	}
+
+	public static boolean getSolverError() {
+		return solverError;
+	}
+	
+	public boolean isAdvancedPerspective() {
+		return showPerspectiveButton;
+	}
+
+	public void setShowSimulationCustomizationBox(
+			boolean showSimulationCustomizationBox) {
+		this.showSimulationCustomizationBox = showSimulationCustomizationBox;
+	}
+
+	public boolean isShowSimulationCustomizationBox() {
+		return showSimulationCustomizationBox;
+	}
+
+	public static String getVariamosVersionNumber() {
+		return variamosVersionNumber;
+	}
+
+	public String getVariamosVersionName() {
+		return variamosVersionName;
+	}
+
+	public String getVariamosBuild() {
+		return variamosBuild;
+	}
+	
+	public void setPerspective(int perspective) {
+		this.perspective = perspective;
 	}
 }
