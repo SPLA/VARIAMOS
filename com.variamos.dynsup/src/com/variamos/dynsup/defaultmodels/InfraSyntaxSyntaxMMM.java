@@ -665,7 +665,7 @@ public class InfraSyntaxSyntaxMMM {
 						-1, "", "", -1, "", ""));
 
 		InstConcept instInfraSyntaxM2ExtendsRelation = new InstConcept(
-				"SyMExtend", infraBasicSyntaxOpersM3Arrow,
+				"SyMExtend", infraBasicSyntaxOpersM3Node,
 				infraSyntaxM2ExtendsRelation);
 
 		variabilityInstVertex
@@ -749,7 +749,7 @@ public class InfraSyntaxSyntaxMMM {
 								+ "#!=#" + ""));
 
 		InstConcept instInfraSyntaxM2ViewConceptAsso = new InstConcept(
-				"SyMViewNode", infraBasicSyntaxOpersM3Arrow,
+				"SyMViewNode", infraBasicSyntaxOpersM3Node,
 				infraSyntaxM2ViewConceptAsso);
 		variabilityInstVertex.put("SyMViewNode",
 				instInfraSyntaxM2ViewConceptAsso);
