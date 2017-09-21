@@ -21,15 +21,15 @@ import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
-import com.variamos.hlcl.Domain;
-import com.variamos.hlcl.DomainParser;
+import com.variamos.hlcl.core.DomainParser;
+import com.variamos.hlcl.model.domains.IntDomain;
 
 /**
  * A class to support the property of syntax and semantic concepts for modeling.
  * Initially copied from VariabilityAttributeList on pl.editor. Part of PhD work
  * at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-28
@@ -161,7 +161,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 		final IntInstAttribute domainStr = new ElemAttribAttribute("Domain",
 				"String", "Domain", "");
 		if (domain.getValue() != null)
-			domainStr.setValue(((Domain) domain.getValue())
+			domainStr.setValue(((IntDomain) domain.getValue())
 					.getStringRepresentation());
 		final IntInstAttribute hint = att.get("Hint");
 		final IntInstAttribute toolTip = att.get("toolTipText");
@@ -333,3 +333,4 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 	}
 
 }
+

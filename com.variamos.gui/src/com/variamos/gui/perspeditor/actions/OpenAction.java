@@ -2,7 +2,6 @@ package com.variamos.gui.perspeditor.actions;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -11,16 +10,14 @@ import javax.swing.JOptionPane;
 //import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.BasicGraphEditor;
-import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
+import com.variamos.gui.core.mxgraph.editor.DefaultFileFilter;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
-import fm.FeatureModelException;
-
 @SuppressWarnings("serial")
-public class OpenAction extends AbstractEditorAction {
+public class OpenAction extends AbstractVariamoGUIAction {
 	/**
 	 * 
 	 */
@@ -38,22 +35,7 @@ public class OpenAction extends AbstractEditorAction {
 		editor.getGraphComponent().zoomAndCenter();
 	}
 
-	@Deprecated
-	protected void openSXFM(BasicGraphEditor editor, File file)
-			throws IOException, FeatureModelException {
-
-		VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
-		variamosEditor.editModelReset();
-
-		// SXFMReader reader = new SXFMReader();
-		// AbstractModel pl = reader.readFile(file.getAbsolutePath());
-
-		// variamosEditor.editModel(pl);
-
-		editor.setCurrentFile(file);
-		resetEditor(variamosEditor);
-	}
-
+	
 	/**
 	 * 
 	 */
@@ -70,7 +52,7 @@ public class OpenAction extends AbstractEditorAction {
 
 				return;
 			}
-			final BasicGraphEditor finalEditor = editor;
+			final VariamosGraphEditor finalEditor = editor;
 			((MainFrame) editor.getFrame()).waitingCursor(true);
 			if (!editor.isModified()
 					|| JOptionPane.showConfirmDialog(editor,
@@ -113,58 +95,26 @@ public class OpenAction extends AbstractEditorAction {
 					if (rc == JFileChooser.APPROVE_OPTION) {
 						lastDir = fc.getSelectedFile().getParent();
 
-						try {
-							if (fc.getSelectedFile().getAbsolutePath()
-									.toLowerCase().endsWith(".sxfm")) {
-								openSXFM(editor, fc.getSelectedFile());
-							}
-							// else if (fc.getSelectedFile().getAbsolutePath()
-							// .toLowerCase().endsWith(".txt"))
-							// {
-							// openGD(editor, fc.getSelectedFile(),
-							// mxUtils.readFile(fc
-							// .getSelectedFile()
-							// .getAbsolutePath()));
-							// }
-							else {
-								// Document document = mxXmlUtils
-								// .parseXml(mxUtils.readFile(fc
-								// .getSelectedFile()
-								// .getAbsolutePath()));
-								//
-								// mxCodec codec = new mxCodec(document);
-								// codec.decode(
-								// document.getDocumentElement(),
-								// graph.getModel());
-								// variamosEditor.editModelReset();
+						if (fc.getSelectedFile().getAbsolutePath()
+								.toLowerCase().endsWith(".sxfm")) {
+							//openSXFM(editor, fc.getSelectedFile());
+						}
+						// else if (fc.getSelectedFile().getAbsolutePath()
+						// .toLowerCase().endsWith(".txt"))
+						// {
+						// openGD(editor, fc.getSelectedFile(),
+						// mxUtils.readFile(fc
+						// .getSelectedFile()
+						// .getAbsolutePath()));
+						// }
+						else {
+							
 
-								FileTasks.openAction(FileTasks.OPEN,
-										fc.getSelectedFile(),
-										(VariamosGraphEditor) editor, graph);
+							FileTasks.openAction(FileTasks.OPEN,
+									fc.getSelectedFile(),
+									(VariamosGraphEditor) editor, graph);
 
-								/*
-								 * ((VariamosGraphEditor) editor).resetView();
-								 * graph =
-								 * editor.getGraphComponent().getGraph();
-								 * SharedActions.beforeLoadGraph(graph,
-								 * variamosEditor);
-								 * 
-								 * PLGReader.loadPLG(fc.getSelectedFile(),
-								 * graph, variamosEditor);
-								 * editor.setCurrentFile(fc.getSelectedFile());
-								 * SharedActions.afterOpenCloneGraph(graph,
-								 * variamosEditor); variamosEditor
-								 * .populateIndex(((AbstractGraph) graph)
-								 * .getProductLine());
-								 * resetEditor(variamosEditor);
-								 */
-							}
-						} catch (IOException | FeatureModelException ex) {
-							ex.printStackTrace();
-							JOptionPane.showMessageDialog(
-									editor.getGraphComponent(), ex.toString(),
-									mxResources.get("error"),
-									JOptionPane.ERROR_MESSAGE);
+							
 						}
 					}
 				}

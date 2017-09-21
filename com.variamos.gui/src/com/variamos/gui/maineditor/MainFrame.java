@@ -18,18 +18,29 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.core.enums.SolverEditorType;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.types.PerspectiveType;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.io.ConsoleTextArea;
-import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
+import com.variamos.gui.util.ResourcesPathsUtil;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
+import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
 
+
+/**
+ * Crea las distintas partes del editor 
+ * 
+ * Una instancia del variamosgraph editor por cada perspectiva
+ * Carga la ventana principal
+ * Controlador principal de la interfaz gráfica. 
+ * @author lufe0
+ *
+ */
 public class MainFrame extends JFrame {
 	public List<VariamosGraphEditor> getGraphEditors() {
 		return graphEditors;
@@ -48,22 +59,10 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.20";
 	private String variamosVersionName = "1.0 Beta 20";
-	private String variamosBuild = "20170901-1700";
+	private String variamosBuild = "20170914-0230";
 	private String downloadId = "566";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
-
-	public static String getFilesUrl() {
-		return filesUrl + "/VariaMos-" + variamosVersionNumber + "-Resources/";
-	}
-
-	public int getPerspective() {
-		return perspective;
-	}
-
-	public static boolean getSolverError() {
-		return solverError;
-	}
 
 	private List<VariamosGraphEditor> graphEditors;
 	private List<PerspEditorMenuBar> editorsMenu;
@@ -99,11 +98,9 @@ public class MainFrame extends JFrame {
 		VariamosGraphEditor modelEditor = null;
 		String perspTitle = "";
 		System.out.println(" done");
-		
-		//creando las perspectivas
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
-			case 0: // operations and semantic perp1 - L2
+			case 0: // operations 1
 				System.out
 						.print("Loading Semantic and Operations Meta-Models Perspective...");
 				abstractModel = new InstanceModel(metaExpressionTypes,
@@ -118,7 +115,7 @@ public class MainFrame extends JFrame {
 						+ variamosVersionNumber + "b" + variamosBuild;
 				break;
 
-			case 1:// modeling pers2 - L1
+			case 1:// modeling 2
 				System.out.print("Loading Modeling Perspective...");
 				abstractModel = new InstanceModel(PerspectiveType.MODELING,
 						metaExpressionTypes, syntaxSuperstructure,
@@ -130,18 +127,16 @@ public class MainFrame extends JFrame {
 				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
-			case 2:// syntax pers3 - L2
+			case 2:// syntax 3
 				System.out.print("Loading Syntax Meta-Model Perspective...");
 				abstractModel = syntaxSuperstructure;
-				// TO View SyntaxMM in Syntax Perspective DO NOT REMOVE
+				// TO View SyntaxMM in Syntax Perspective
 				// abstractModel = syntaxInfrastructure;
 
-				// TO View OperMM in Syntax Perspective DO NOT REMOVE
+				// TO View OperMM in Syntax Perspective
 				// abstractModel = new InstanceModel(
 				// PerspectiveType.OPERATIONSINFRASTRUCTURE,
 				// metaExpressionTypes, InfraBasicSyntax, null);
-
-				// FIXME v1.1 add this comment to visualize the basic MMM
 
 				// TO View BasicMMM in Syntax Perspective DO NOT REMOVE
 				// abstractModel = new InstanceModel(
@@ -153,7 +148,7 @@ public class MainFrame extends JFrame {
 						+ variamosBuild;
 				break;
 
-			case 3:// simulation pers4 - L1
+			case 3:// simulation 4
 				System.out
 						.print("Loading Configuration and Simulation Perspective...");
 				abstractModel = new InstanceModel(
@@ -223,8 +218,7 @@ public class MainFrame extends JFrame {
 		HlclFactory f = new HlclFactory();
 		HlclProgram model = new HlclProgram();
 		model.add(f.equals(f.number(1), f.number(1)));
-		DefectsVerifier verifier = new DefectsVerifier(model,
-				SolverEditorType.SWI_PROLOG);
+		IntDefectsVerifier verifier = new DefectsVerifier(model);
 		verifier.isVoid();
 	}
 
@@ -298,9 +292,7 @@ public class MainFrame extends JFrame {
 
 	}
 
-	public void setPerspective(int perspective) {
-		this.perspective = perspective;
-	}
+	
 
 	public void setLayout() {
 		this.getRootPane().getContentPane().removeAll();
@@ -329,31 +321,7 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public boolean isAdvancedPerspective() {
-		return showPerspectiveButton;
-	}
-
-	public void setShowSimulationCustomizationBox(
-			boolean showSimulationCustomizationBox) {
-		this.showSimulationCustomizationBox = showSimulationCustomizationBox;
-	}
-
-	public boolean isShowSimulationCustomizationBox() {
-		return showSimulationCustomizationBox;
-	}
-
-	public static String getVariamosVersionNumber() {
-		return variamosVersionNumber;
-	}
-
-	public String getVariamosVersionName() {
-		return variamosVersionName;
-	}
-
-	public String getVariamosBuild() {
-		return variamosBuild;
-	}
-
+	
 	public void checkUpdates(boolean b) {
 		InputStream input;
 		try {
@@ -431,11 +399,11 @@ public class MainFrame extends JFrame {
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
 		String[] resourceNames = {
-				"/com/variamos/gui/perspeditor/style/styles.xml",
-				"/com/variamos/gui/perspeditor/style/shapes.xml" };
+				ResourcesPathsUtil.STYLES_PATH ,
+				ResourcesPathsUtil.SHAPES_PATH };
 		try {
 			for (String resourceName : resourceNames) {
-				stream = MainFrame.class.getResourceAsStream(resourceName);
+				stream = getClass().getClassLoader().getResourceAsStream(resourceName);
 				if (stream == null) {
 					throw new Exception("Cannot get resource \"" + resourceName
 							+ "\" from Jar file.");
@@ -463,5 +431,46 @@ public class MainFrame extends JFrame {
 		}
 
 		return getFilesUrl();
+	}
+	
+	public static String getFilesUrl() {
+		return filesUrl + "/VariaMos-" + variamosVersionNumber + "-Resources/";
+	}
+
+	public int getPerspective() {
+		return perspective;
+	}
+
+	public static boolean getSolverError() {
+		return solverError;
+	}
+	
+	public boolean isAdvancedPerspective() {
+		return showPerspectiveButton;
+	}
+
+	public void setShowSimulationCustomizationBox(
+			boolean showSimulationCustomizationBox) {
+		this.showSimulationCustomizationBox = showSimulationCustomizationBox;
+	}
+
+	public boolean isShowSimulationCustomizationBox() {
+		return showSimulationCustomizationBox;
+	}
+
+	public static String getVariamosVersionNumber() {
+		return variamosVersionNumber;
+	}
+
+	public String getVariamosVersionName() {
+		return variamosVersionName;
+	}
+
+	public String getVariamosBuild() {
+		return variamosBuild;
+	}
+	
+	public void setPerspective(int perspective) {
+		this.perspective = perspective;
 	}
 }

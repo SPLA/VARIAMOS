@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+archivesBaseName = 'com.variamos.hlcl'
+version = '1.0-SNAPSHOT'
+repositories {
+    jcenter()
+}
+
+dependencies {
+  testCompile "junit:junit:4+"
+  compile project(':com.variamos.common')
+}
+

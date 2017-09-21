@@ -15,8 +15,8 @@ import com.variamos.dynsup.types.EnumerationSingleSelectionType;
 import com.variamos.dynsup.types.IntegerType;
 import com.variamos.dynsup.types.SetType;
 import com.variamos.dynsup.types.StringType;
+import com.variamos.gui.core.io.ConsoleTextArea;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to dynamically load appropriate widget. Based on WidgetFactory from
@@ -59,6 +59,7 @@ public class RefasWidgetFactory {
 		widgetReg.put(SetType.IDENTIFIER, SetWidget.class);
 		// widgetReg.put(SortIdListType.IDENTIFIER, SortIdListWidget.class);
 		widgetReg.put(ClassMultiSelectionType.IDENTIFIER, MClassWidget.class);
+		widgetReg.put("Instance", StringWidget.class);
 
 	}
 
@@ -68,6 +69,9 @@ public class RefasWidgetFactory {
 		String type = v.getType();
 
 		Class<? extends WidgetR> c = null;
+		// FIXME v1.1 workaround for null types
+		if (type == null)
+			type = "String";
 
 		if (widgetReg.containsKey(type)) {
 			c = widgetReg.get(type);
@@ -96,5 +100,4 @@ public class RefasWidgetFactory {
 
 		return w;
 	}
-
 }

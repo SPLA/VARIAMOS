@@ -19,7 +19,7 @@ import com.variamos.dynsup.types.AttributeType;
  * from the graph. Part of PhD work at University of Paris 1 Refactor from:
  * InstEdge.
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-24 * @see

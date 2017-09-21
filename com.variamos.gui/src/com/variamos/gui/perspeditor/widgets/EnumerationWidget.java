@@ -6,18 +6,18 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.core.util.StringUtils;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.types.EnumerationSingleSelectionType;
-import com.variamos.io.ConsoleTextArea;
+import com.variamos.gui.core.io.ConsoleTextArea;
 
 /**
  * A class to support enumeration widgets on the interface. Inspired on other
  * widgets from ProductLine. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-01
@@ -59,7 +59,8 @@ public class EnumerationWidget extends WidgetR {
 						.getAttribute().getClassCanonicalName());
 				ConsoleTextArea.addText(e.getStackTrace());
 			}
-			enumeration = aClass.getEnumConstants();
+			if (aClass != null)
+				enumeration = aClass.getEnumConstants();
 		}
 		if (enumeration != null)
 			for (int i = 0; i < enumeration.length; i++) {

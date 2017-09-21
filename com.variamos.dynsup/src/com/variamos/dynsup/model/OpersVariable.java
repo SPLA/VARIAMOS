@@ -4,14 +4,13 @@ package com.variamos.dynsup.model;
  * A class to represent the Semantics of Variables. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-02
  * @see com.cfm.productline.
  */
 public class OpersVariable extends OpersElement {
-	// FIXME v1.1 RENAME to SeSupVar
 	/**
 	 * 
 	 */
@@ -25,9 +24,9 @@ public class OpersVariable extends OpersElement {
 		super(name);
 	}
 
-	@Override
 	public String toString() {
 
 		return " VAR: " + super.toString();
 	}
 }
+

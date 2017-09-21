@@ -9,12 +9,13 @@ import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 
 /**
  * A class to support perspectives buttons on mainframe. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-02-03
@@ -130,3 +131,4 @@ public class PerspectiveToolBar extends JToolBar {
 		mainFrame.setLayout();
 	}
 }
+

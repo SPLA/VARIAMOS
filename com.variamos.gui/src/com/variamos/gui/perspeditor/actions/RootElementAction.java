@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class RootElementAction extends AbstractEditorAction {
+public class RootElementAction extends AbstractVariamoGUIAction {
 	
 	public RootElementAction() {
 		this.putValue(SHORT_DESCRIPTION, mxResources.get("verifyRoot"));

@@ -17,7 +17,7 @@ import com.variamos.dynsup.model.OpersConcept;
  * semantic model AbstractAttributes on VariaMos. Part of PhD work at University
  * of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-24
@@ -283,8 +283,17 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 
 	@Override
 	public String getType() {
+
 		if (volatileAttribute != null)
 			return volatileAttribute.getType();
+		else
+			return null;
+	}
+
+	public String getEnumerationType() {
+
+		if (volatileAttribute != null)
+			return volatileAttribute.getClassCanonicalName();
 		else
 			return null;
 	}
@@ -332,7 +341,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		if (val instanceof Integer)
 			return (Integer) val;
 
-		if (val instanceof String)
+		if (val instanceof String && !val.equals(""))
 			return Integer.parseInt((String) val);
 
 		return 0;

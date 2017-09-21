@@ -3,26 +3,17 @@ package com.variamos.dynsup.staticexprsup;
 import java.util.Map;
 
 import com.variamos.dynsup.instance.InstElement;
-/**
- * Abstract  Class to group the ComparisonTranformation. Part of PhD
- * work at University of Paris 1
- * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
- * 
- * @version 1.1
- * @since 2014-12-15
- */
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.ComparisonExpression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.model.expressions.ComparisonExpression;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
 
 /**
  * Abstract Class to group at the ComparisonTransformation, currently only for
  * Equals. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-15
@@ -51,22 +42,22 @@ public abstract class AbstractComparisonExpression extends AbstractExpression {
 
 	public AbstractComparisonExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
-			BooleanExpression booleanExpression) {
+			IntBooleanExpression booleanExpression) {
 		super(vertex, attributeName, replaceTarget, booleanExpression);
 	}
 
 	public AbstractComparisonExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
-			NumericExpression numericExpression) {
+			IntNumericExpression numericExpression) {
 		super(vertex, attributeName, replaceTarget, numericExpression);
 	}
 
-	public AbstractComparisonExpression(NumericExpression numericExpression1,
-			boolean replaceTarget, NumericExpression numericExpression2) {
+	public AbstractComparisonExpression(IntNumericExpression numericExpression1,
+			boolean replaceTarget, IntNumericExpression numericExpression2) {
 		super(numericExpression1, replaceTarget, numericExpression2);
 	}
 
-	public abstract BooleanExpression transform(HlclFactory f,
+	public abstract IntBooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap);
 
 	public abstract ComparisonExpression transformNegation(HlclFactory f,

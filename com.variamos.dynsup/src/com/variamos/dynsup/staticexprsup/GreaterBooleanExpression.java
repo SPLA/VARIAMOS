@@ -4,18 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.Expression;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.NumericExpression;
-import com.variamos.hlcl.NumericIdentifier;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.IntExpression;
+import com.variamos.hlcl.model.expressions.IntNumericExpression;
+import com.variamos.hlcl.model.expressions.NumericIdentifier;
 
 /**
  * Class to create the GreaterOrEquals expression. Part of PhD work at
  * University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-14
@@ -40,7 +40,7 @@ public class GreaterBooleanExpression extends AbstractBooleanExpression {
 
 	public GreaterBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceRight,
-			BooleanExpression simpleExpression) {
+			IntBooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
@@ -63,23 +63,23 @@ public class GreaterBooleanExpression extends AbstractBooleanExpression {
 	}
 
 	@Override
-	public BooleanExpression transform(HlclFactory f,
+	public IntBooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap) {
-		List<Expression> expressionTerms = expressionTerms(f, idMap);
+		List<IntExpression> expressionTerms = expressionTerms(f, idMap);
 
-		return f.greaterThan((NumericExpression) expressionTerms.get(0),
-				(NumericExpression) expressionTerms.get(1));
+		return f.greaterThan((IntNumericExpression) expressionTerms.get(0),
+				(IntNumericExpression) expressionTerms.get(1));
 	}
 
 	@Override
-	public BooleanExpression transformNegation(HlclFactory f,
+	public IntBooleanExpression transformNegation(HlclFactory f,
 			Map<String, Identifier> idMap, boolean negateLeft,
 			boolean negateRight) {
-		List<Expression> expressionTerms = expressionTermsNegation(f, idMap,
+		List<IntExpression> expressionTerms = expressionTermsNegation(f, idMap,
 				false, false);
 
-		return f.lessOrEqualsThan((NumericExpression) expressionTerms.get(0),
-				(NumericExpression) expressionTerms.get(1));
+		return f.lessOrEqualsThan((IntNumericExpression) expressionTerms.get(0),
+				(IntNumericExpression) expressionTerms.get(1));
 	}
 
 }

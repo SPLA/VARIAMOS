@@ -39,8 +39,8 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -48,9 +48,9 @@ import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.SpringUtilities;
-import com.variamos.hlcl.Domain;
-import com.variamos.hlcl.DomainParser;
-import com.variamos.hlcl.Expression;
+import com.variamos.hlcl.core.DomainParser;
+import com.variamos.hlcl.model.domains.IntDomain;
+import com.variamos.hlcl.model.expressions.IntExpression;
 
 /**
  * @author unknown
@@ -130,7 +130,7 @@ public class InstanceExpressionDialog extends JDialog {
 				JPanel textExpression = new JPanel();
 				JTextArea textTextualExpression;
 				try {
-					Expression exp = instanceExpression
+					IntExpression exp = instanceExpression
 							.createSGSExpression(element.getIdentifier());
 					textTextualExpression = new JTextArea(exp.toString());
 
@@ -744,7 +744,7 @@ public class InstanceExpressionDialog extends JDialog {
 				case "Integer":
 					String domain = (String) instVertex.getInstAttribute(
 							"varDom").getValue();
-					Domain dom = (DomainParser.parseDomain(domain, 0));
+					IntDomain dom = (DomainParser.parseDomain(domain, 0));
 					List<Integer> intValues = dom.getPossibleValues();
 					for (Integer intValue : intValues) {
 						combo.addItem(instElementId + "_" + intValue.intValue());
@@ -1034,3 +1034,4 @@ public class InstanceExpressionDialog extends JDialog {
 		this.onCancel = onCancel;
 	}
 }
+

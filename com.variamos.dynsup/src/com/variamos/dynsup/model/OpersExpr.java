@@ -10,7 +10,7 @@ import com.variamos.dynsup.types.ExpressionVertexType;
  * A class to represent SemanticExpressions. Part of PhD work at University of
  * Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-02-05
@@ -847,7 +847,8 @@ public class OpersExpr implements Serializable {
 		case RIGHTUNIQUEINCCONVARIABLE:
 		case RIGHTUNIQUEOUTRELVARIABLE:
 		case RIGHTUNIQUEINCRELVARIABLE:
-			if (volatileRightSemanticElement == null)
+			if (volatileRightSemanticElement == null
+					&& !this.isSingleInExpression())
 				return false;
 		case LEFTBOOLEANEXPRESSION:
 		case LEFTCONCEPTVARIABLE:
@@ -1108,7 +1109,8 @@ public class OpersExpr implements Serializable {
 
 	public void setRightExpressionType(ExpressionVertexType rightExpressionType) {
 		this.volatileRightExpType = rightExpressionType;
-		this.rightExpTypeStr = volatileRightExpType.toString();
+		if (volatileRightExpType != null)
+			this.rightExpTypeStr = volatileRightExpType.toString();
 	}
 
 	public ExpressionVertexType[] getExpressionTypes() {

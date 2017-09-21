@@ -4,13 +4,11 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextArea;
 
-//import com.cfm.productline.ProductLine;
-//import com.variamos.core.enums.SolverEditorType;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class VerifyVoidModelAction extends AbstractEditorAction {
+public class VerifyVoidModelAction extends AbstractVariamoGUIAction {
 	/**
 		 * 
 		 */
@@ -31,6 +29,10 @@ public class VerifyVoidModelAction extends AbstractEditorAction {
 		JTextArea messagesArea = editor.getMessagesArea();
 		StringBuilder outputMessage = new StringBuilder();
 		/*try {
+<<<<<<< HEAD
+=======
+
+>>>>>>> development
 			DefectsVerifier verifier = DefectAnalyzerUtil
 					.createVerifierClass(pl, prologEditorType);
 			Defect voidModel = verifier.isVoid();
@@ -39,6 +41,10 @@ public class VerifyVoidModelAction extends AbstractEditorAction {
 			} else {
 				outputMessage.append("MODEL IS NOT VOID");
 			}
+<<<<<<< HEAD
+=======
+
+>>>>>>> development
 		} catch (FunctionalException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

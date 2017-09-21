@@ -25,8 +25,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import com.cfm.productline.AbstractElement;
 import com.mxgraph.util.mxResources;
+import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
@@ -42,7 +42,7 @@ import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
-import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
@@ -52,13 +52,13 @@ import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.hlcl.LabelingOrder;
+import com.variamos.hlcl.model.LabelingOrderEnum;
 
 /**
  * A class to draw the first property tab. Part of PhD work at University of
  * Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-02-28*
  */
@@ -242,8 +242,10 @@ public class ElementDesignPanel extends JPanel {
 
 							instAttribute.updateValidationList((editElm),
 									mapElements);
-							if (instAttribute.getType().equals(
-									"com.variamos.dynsup.model.ModelExpr")) {
+							if (instAttribute.getEnumerationType() != null
+									&& instAttribute
+											.getEnumerationType()
+											.equals("com.variamos.dynsup.model.ModelExpr")) {
 								JButton button = new JButton(
 										" Edit Expression...");
 
@@ -475,7 +477,7 @@ public class ElementDesignPanel extends JPanel {
 																	.getIdentifier()
 																	.equals("errorMsg")) {
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -483,7 +485,7 @@ public class ElementDesignPanel extends JPanel {
 																						.getWidth() / 8));
 													} else
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -609,7 +611,7 @@ public class ElementDesignPanel extends JPanel {
 																	.getIdentifier()
 																	.equals("errorMsg")) {
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -617,7 +619,7 @@ public class ElementDesignPanel extends JPanel {
 																						.getWidth() / 8));
 													} else
 														elementAttribute
-																.setValue(AbstractElement
+																.setValue(StringUtils
 																		.multiLine(
 																				elementAttribute
 																						.toString(),
@@ -815,17 +817,15 @@ public class ElementDesignPanel extends JPanel {
 													.getIdentifier().equals(
 															"errorMsg")) {
 										elementAttribute
-												.setValue(AbstractElement.multiLine(
+												.setValue(StringUtils.multiLine(
 														elementAttribute
 																.toString(),
 														(int) instCell
 																.getWidth() / 8));
 									} else
-										elementAttribute
-												.setValue(AbstractElement.multiLine(
-														elementAttribute
-																.toString(),
-														100));
+										elementAttribute.setValue(StringUtils
+												.multiLine(elementAttribute
+														.toString(), 100));
 
 								}
 								// GARA
@@ -1046,7 +1046,7 @@ public class ElementDesignPanel extends JPanel {
 					&& ((editElm.getSupInstEleId().equals("OPER")
 							|| (editElm.getSupInstEleId().equals("ME")) || (editElm
 								.getSupInstEleId().equals("BsEnum"))))) {
-				// FIXME v1.1 update OMMEnum
+
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
@@ -1065,7 +1065,6 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 				if (editElm.getSupInstEleId().equals("ME")
 						|| editElm.getSupInstEleId().equals("BsEnum")) {
-					// FIXME v1.1 update OMMEnum
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
@@ -1130,7 +1129,7 @@ public class ElementDesignPanel extends JPanel {
 								.equals("OpMLabeling")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"sortorder",
-							LabelingOrder.class.getCanonicalName(), null);
+							LabelingOrderEnum.class.getCanonicalName(), null);
 
 					attPanel.add(new JLabel(mxResources.get("labelingSort")));
 					// attPanel.add(new JLabel(""));

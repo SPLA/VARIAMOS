@@ -7,21 +7,25 @@ import java.util.Map;
 
 import javax.swing.SwingWorker;
 
-import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.dynsup.translation.SolverTasks;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.io.core.importExport.ConfigurationIO;
 
 /**
  * A class to support the thread for simulation of configurations. Part of PhD
  * work at University of Paris 1
  * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * Soporta la ejecucion utilizando la ventana de simulation MAPE-K que esta en 
+ * basic simulation (static) en la perspectiva de configuracion y simulacion.
+ * 
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-03-20
  * @see com.variamos.gui.pl.editor.VariabilityAttributeList
  */
+
 public class MonitoringWorker extends SwingWorker<Void, Void> {
 	private String initialConfigFile;
 	private String monitoredDirectory;
@@ -89,7 +93,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 							results + "ConfigFile loaded: "
 									+ monitoredFile.getAbsolutePath() + "\n");
 					Map<String, Number> config = ConfigurationIO
-							.loadMapFromFile(monitoredFile.getAbsolutePath());
+							.loadMapFromJSONFile(monitoredFile.getAbsolutePath());
 					List<String> selectedAttributes = new ArrayList<String>();
 					selectedAttributes.add("ConfSel");
 					selectedAttributes.add("Sel");
@@ -113,9 +117,9 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 					}
 					// If no change, not continue
 					lastConfig = config;
-					editor.getRefas2hlcl().cleanGUIElements(
+					editor.getDynamicBehaviorDTO().getRefas2hlcl().cleanGUIElements(
 							ModelExpr2HLCL.DESIGN_EXEC);
-					editor.getRefas2hlcl().updateGUIElements(
+					editor.getDynamicBehaviorDTO().getRefas2hlcl().updateGUIElements(
 							selectedAttributes, notAvailableAttributes,
 							conceptTypes, null, config, null);
 					// editor.editPropertiesRefas();
@@ -149,9 +153,9 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 																	// variables
 								conceptTypes.add("ContextVariable");
 								conceptTypes.add("Variable");
-								editor.getRefas2hlcl().cleanGUIElements(
+								editor.getDynamicBehaviorDTO().getRefas2hlcl().cleanGUIElements(
 										ModelExpr2HLCL.DESIGN_EXEC);
-								editor.getRefas2hlcl().updateGUIElements(
+								editor.getDynamicBehaviorDTO().getRefas2hlcl().updateGUIElements(
 										selectedAttributes,
 										notAvailableAttributes, conceptTypes,
 										null, config, null);
@@ -174,8 +178,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 						editor.editPropertiesRefas();
 					}
 
-					ConfigurationIO.saveMapToFile(editor.getRefas2hlcl()
-							.getConfiguration().getConfiguration(),
+					ConfigurationIO.saveMapToJSONFile(editor.getDynamicBehaviorDTO().getRefas2hlcl()
+							.getConfiguration().getSolverSolution(),
 							outputDirectoryFile + "/solution" + solIndex
 									+ ".conf");
 
