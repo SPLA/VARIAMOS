@@ -56,21 +56,21 @@ public class PerspEditorToolBar extends JToolBar {
 	/**
 	 * 
 	 */
-	public PerspEditorToolBar(final VariamosGraphEditor variamosGraphEditor,
-			int orientation) {
+	public PerspEditorToolBar(final VariamosGraphEditor variamosGraphEditor, int orientation) {
 		super(orientation);
-		setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createEmptyBorder(3, 3, 3, 3), getBorder()));
+		setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3), getBorder()));
 		setFloatable(false);
 
-		add(variamosGraphEditor.bind("New", new NewAction(),
-				"/com/variamos/gui/perspeditor/images/new.gif"));
-		add(variamosGraphEditor.bind("Open", new OpenAction(),
-				"/com/variamos/gui/perspeditor/images/open.gif"));
-		add(variamosGraphEditor.bind("Save", new SaveAction(false),
-				"/com/variamos/gui/perspeditor/images/save.gif"));
+		// Luisa: ISSUE #245 HOT FIX
+		// new/load/save currently not supported for configuration/simulation perpective
+		if (variamosGraphEditor.getPerspective() != 4) {
+			add(variamosGraphEditor.bind("New", new NewAction(), "/com/variamos/gui/perspeditor/images/new.gif"));
+			add(variamosGraphEditor.bind("Open", new OpenAction(), "/com/variamos/gui/perspeditor/images/open.gif"));
+			add(variamosGraphEditor.bind("Save", new SaveAction(false),
+					"/com/variamos/gui/perspeditor/images/save.gif"));
 
-		addSeparator();
+			addSeparator();
+		}
 		/*
 		 * add(editor.bind("Print", new PrintAction(),
 		 * "/com/variamos/gui/perspeditor/images/print.gif"));
@@ -88,80 +88,64 @@ public class PerspEditorToolBar extends JToolBar {
 
 		addSeparator();
 
-		add(variamosGraphEditor.bind("Delete",
-				mxGraphActions.getDeleteAction(),
+		add(variamosGraphEditor.bind("Delete", mxGraphActions.getDeleteAction(),
 				"/com/variamos/gui/perspeditor/images/delete.gif"));
 
 		addSeparator();
 
-		add(variamosGraphEditor.bind("Undo", new HistoryAction(true),
-				"/com/variamos/gui/perspeditor/images/undo.gif"));
+		add(variamosGraphEditor.bind("Undo", new HistoryAction(true), "/com/variamos/gui/perspeditor/images/undo.gif"));
 		add(variamosGraphEditor.bind("Redo", new HistoryAction(false),
 				"/com/variamos/gui/perspeditor/images/redo.gif"));
 
 		if (variamosGraphEditor.getPerspective() == 2) {
 			addSeparator();
-			add(variamosGraphEditor
-					.bind("updateCore",
-							new UpdateCoreAction(),
-							"/com/variamos/gui/perspeditor/images/iconarchive.com/Highlightmarker-green-icon.png"));
+			add(variamosGraphEditor.bind("updateCore", new UpdateCoreAction(),
+					"/com/variamos/gui/perspeditor/images/iconarchive.com/Highlightmarker-green-icon.png"));
 			addSeparator();
-			add(variamosGraphEditor.bind("clearElements",
-					new ClearVerificationAction(),
+			add(variamosGraphEditor.bind("clearElements", new ClearVerificationAction(),
 					"/com/variamos/gui/perspeditor/images/pan.gif"));
-			add(variamosGraphEditor.bind("verifOptional",
-					new VerificationAction(),
+			add(variamosGraphEditor.bind("verifOptional", new VerificationAction(),
 					"/com/variamos/gui/perspeditor/images/checkmark.gif"));
 			addSeparator();
 			add(variamosGraphEditor.bind("verifyRoot", new RootElementAction(),
 					"/com/variamos/gui/perspeditor/images/tree.gif"));
-			add(variamosGraphEditor.bind("verifyParents",
-					new ParentElementAction(),
+			add(variamosGraphEditor.bind("verifyParents", new ParentElementAction(),
 					"/com/variamos/gui/perspeditor/images/straight.gif"));
-			add(variamosGraphEditor
-					.bind("verifyDeadElement", new VerifyDeadElementAction(),
-							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/dead.png"));
-			add(variamosGraphEditor
-					.bind("verifyFalseOptionalElements",
-							new VerifyFalseOptElementAction(),
-							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/false.png"));
+			add(variamosGraphEditor.bind("verifyDeadElement", new VerifyDeadElementAction(),
+					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/dead.png"));
+			add(variamosGraphEditor.bind("verifyFalseOptionalElements", new VerifyFalseOptElementAction(),
+					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/false.png"));
 			// add(variamosGraphEditor.bind("updateCore", new UpdateAction(),
 			// "/com/variamos/gui/perspeditor/images/tree.gif"));
 		}
 
 		if (variamosGraphEditor.getPerspective() == 4) {
 			addSeparator();
-			add(variamosGraphEditor.bind("clearconf",
-					new ClearConfigurationAction(),
+			add(variamosGraphEditor.bind("clearconf", new ClearConfigurationAction(),
 					"/com/variamos/gui/perspeditor/images/pan.gif"));
 			addSeparator();
-			add(variamosGraphEditor
-					.bind("cleansimul", new ClearSimulationAction(),
-							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/player_stop.png"));
-			add(variamosGraphEditor
-					.bind("first", new StartSimulationAction(),
-							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/direction_right.png"));
-			add(variamosGraphEditor
-					.bind("next", new NextSimulationAction(),
-							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/fastforward.png"));
+			add(variamosGraphEditor.bind("cleansimul", new ClearSimulationAction(),
+					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/player_stop.png"));
+			add(variamosGraphEditor.bind("first", new StartSimulationAction(),
+					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/direction_right.png"));
+			add(variamosGraphEditor.bind("next", new NextSimulationAction(),
+					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/fastforward.png"));
 		}
 
 		// Gets the list of available fonts from the local graphics environment
 		// and adds some frequently used fonts at the beginning of the list
 
 		/*
-		 * GraphicsEnvironment env = GraphicsEnvironment
-		 * .getLocalGraphicsEnvironment(); List<String> fonts = new
-		 * ArrayList<String>(); fonts.addAll(Arrays.asList(new String[] {
-		 * "Helvetica", "Verdana", "Times New Roman", "Garamond", "Courier New",
-		 * "-" }));
+		 * GraphicsEnvironment env = GraphicsEnvironment .getLocalGraphicsEnvironment();
+		 * List<String> fonts = new ArrayList<String>(); fonts.addAll(Arrays.asList(new
+		 * String[] { "Helvetica", "Verdana", "Times New Roman", "Garamond",
+		 * "Courier New", "-" }));
 		 * fonts.addAll(Arrays.asList(env.getAvailableFontFamilyNames()));
 		 * 
 		 * final JComboBox fontCombo = new JComboBox(fonts.toArray());
-		 * fontCombo.setEditable(true); fontCombo.setMinimumSize(new
-		 * Dimension(120, 0)); fontCombo.setPreferredSize(new Dimension(120,
-		 * 0)); fontCombo.setMaximumSize(new Dimension(120, 100));
-		 * add(fontCombo);
+		 * fontCombo.setEditable(true); fontCombo.setMinimumSize(new Dimension(120, 0));
+		 * fontCombo.setPreferredSize(new Dimension(120, 0));
+		 * fontCombo.setMaximumSize(new Dimension(120, 100)); add(fontCombo);
 		 * 
 		 * fontCombo.addActionListener(new ActionListener() {
 		 * 
@@ -172,10 +156,9 @@ public class PerspEditorToolBar extends JToolBar {
 		 * editor.getGraphComponent().getGraph();
 		 * graph.setCellStyles(mxConstants.STYLE_FONTFAMILY, font); } } });
 		 * 
-		 * final JComboBox sizeCombo = new JComboBox(new Object[] { "6pt",
-		 * "8pt", "9pt", "10pt", "12pt", "14pt", "18pt", "24pt", "30pt", "36pt",
-		 * "48pt", "60pt" }); sizeCombo.setEditable(true);
-		 * sizeCombo.setMinimumSize(new Dimension(65, 0));
+		 * final JComboBox sizeCombo = new JComboBox(new Object[] { "6pt", "8pt", "9pt",
+		 * "10pt", "12pt", "14pt", "18pt", "24pt", "30pt", "36pt", "48pt", "60pt" });
+		 * sizeCombo.setEditable(true); sizeCombo.setMinimumSize(new Dimension(65, 0));
 		 * sizeCombo.setPreferredSize(new Dimension(65, 0));
 		 * sizeCombo.setMaximumSize(new Dimension(65, 100)); add(sizeCombo);
 		 * 
@@ -188,44 +171,38 @@ public class PerspEditorToolBar extends JToolBar {
 		 * addSeparator();
 		 * 
 		 * add(editor.bind("Bold", new FontStyleAction(true),
-		 * "/com/variamos/gui/perspeditor/images/bold.gif"));
-		 * add(editor.bind("Italic", new FontStyleAction(false),
+		 * "/com/variamos/gui/perspeditor/images/bold.gif")); add(editor.bind("Italic",
+		 * new FontStyleAction(false),
 		 * "/com/variamos/gui/perspeditor/images/italic.gif"));
 		 * 
 		 * addSeparator();
 		 * 
 		 * add(editor.bind("Left", new KeyValueAction(mxConstants.STYLE_ALIGN,
-		 * mxConstants.ALIGN_LEFT),
-		 * "/com/variamos/gui/perspeditor/images/left.gif"));
+		 * mxConstants.ALIGN_LEFT), "/com/variamos/gui/perspeditor/images/left.gif"));
 		 * add(editor.bind("Center", new KeyValueAction(mxConstants.STYLE_ALIGN,
 		 * mxConstants.ALIGN_CENTER),
-		 * "/com/variamos/gui/perspeditor/images/center.gif"));
-		 * add(editor.bind("Right", new KeyValueAction(mxConstants.STYLE_ALIGN,
-		 * mxConstants.ALIGN_RIGHT),
+		 * "/com/variamos/gui/perspeditor/images/center.gif")); add(editor.bind("Right",
+		 * new KeyValueAction(mxConstants.STYLE_ALIGN, mxConstants.ALIGN_RIGHT),
 		 * "/com/variamos/gui/perspeditor/images/right.gif"));
 		 * 
 		 * addSeparator();
 		 * 
-		 * add(editor.bind("Font", new ColorAction("Font",
-		 * mxConstants.STYLE_FONTCOLOR),
+		 * add(editor.bind("Font", new ColorAction("Font", mxConstants.STYLE_FONTCOLOR),
 		 * "/com/variamos/gui/perspeditor/images/fontcolor.gif"));
 		 * add(editor.bind("Stroke", new ColorAction("Stroke",
 		 * mxConstants.STYLE_STROKECOLOR),
 		 * "/com/variamos/gui/perspeditor/images/linecolor.gif"));
-		 * add(editor.bind("Fill", new ColorAction("Fill",
-		 * mxConstants.STYLE_FILLCOLOR),
+		 * add(editor.bind("Fill", new ColorAction("Fill", mxConstants.STYLE_FILLCOLOR),
 		 * "/com/variamos/gui/perspeditor/images/fillcolor.gif"));
 		 */
 
 		addSeparator();
 
-		final mxGraphView view = variamosGraphEditor.getGraphComponent()
-				.getGraph().getView();
+		final mxGraphView view = variamosGraphEditor.getGraphComponent().getGraph().getView();
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		final JComboBox zoomCombo = new JComboBox(new Object[] { "400%",
-				"300%", "200%", "175%", "150%", "125%", "110%", "100%", "90%",
-				"75%", "67%", "50%", mxResources.get("page"),
-				mxResources.get("width"), mxResources.get("actualSize") });
+		final JComboBox zoomCombo = new JComboBox(
+				new Object[] { "400%", "300%", "200%", "175%", "150%", "125%", "110%", "100%", "90%", "75%", "67%",
+						"50%", mxResources.get("page"), mxResources.get("width"), mxResources.get("actualSize") });
 		zoomCombo.setEditable(true);
 		zoomCombo.setMinimumSize(new Dimension(75, 0));
 		zoomCombo.setPreferredSize(new Dimension(75, 0));
@@ -242,8 +219,7 @@ public class PerspEditorToolBar extends JToolBar {
 				ignoreZoomChange = true;
 
 				try {
-					zoomCombo.setSelectedItem((int) Math.round(100 * view
-							.getScale()) + "%");
+					zoomCombo.setSelectedItem((int) Math.round(100 * view.getScale()) + "%");
 				} finally {
 					ignoreZoomChange = false;
 				}
@@ -253,8 +229,7 @@ public class PerspEditorToolBar extends JToolBar {
 		// Installs the scale tracker to update the value in the combo box
 		// if the zoom is changed from outside the combo box
 		view.getGraph().getView().addListener(mxEvent.SCALE, scaleTracker);
-		view.getGraph().getView()
-				.addListener(mxEvent.SCALE_AND_TRANSLATE, scaleTracker);
+		view.getGraph().getView().addListener(mxEvent.SCALE_AND_TRANSLATE, scaleTracker);
 
 		// Invokes once to sync with the actual zoom value
 		scaleTracker.invoke(null, null);
@@ -264,8 +239,7 @@ public class PerspEditorToolBar extends JToolBar {
 			 * 
 			 */
 			public void actionPerformed(ActionEvent e) {
-				mxGraphComponent graphComponent = variamosGraphEditor
-						.getGraphComponent();
+				mxGraphComponent graphComponent = variamosGraphEditor.getGraphComponent();
 
 				// Zoomcombo is changed when the scale is changed in the diagram
 				// but the change is ignored here
@@ -274,24 +248,19 @@ public class PerspEditorToolBar extends JToolBar {
 
 					if (zoom.equals(mxResources.get("page"))) {
 						graphComponent.setPageVisible(true);
-						graphComponent
-								.setZoomPolicy(mxGraphComponent.ZOOM_POLICY_PAGE);
+						graphComponent.setZoomPolicy(mxGraphComponent.ZOOM_POLICY_PAGE);
 					} else if (zoom.equals(mxResources.get("width"))) {
 						graphComponent.setPageVisible(true);
-						graphComponent
-								.setZoomPolicy(mxGraphComponent.ZOOM_POLICY_WIDTH);
+						graphComponent.setZoomPolicy(mxGraphComponent.ZOOM_POLICY_WIDTH);
 					} else if (zoom.equals(mxResources.get("actualSize"))) {
 						graphComponent.zoomActual();
 					} else {
 						try {
 							zoom = zoom.replace("%", "");
-							double scale = Math.min(16, Math.max(0.01,
-									Double.parseDouble(zoom) / 100));
-							graphComponent.zoomTo(scale,
-									graphComponent.isCenterZoom());
+							double scale = Math.min(16, Math.max(0.01, Double.parseDouble(zoom) / 100));
+							graphComponent.zoomTo(scale, graphComponent.isCenterZoom());
 						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(variamosGraphEditor,
-									ex.getMessage());
+							JOptionPane.showMessageDialog(variamosGraphEditor, ex.getMessage());
 						}
 					}
 				}
@@ -299,4 +268,3 @@ public class PerspEditorToolBar extends JToolBar {
 		});
 	}
 }
-
