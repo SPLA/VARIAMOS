@@ -667,6 +667,9 @@ public class InfraSyntaxSyntaxMMM {
 		InstConcept instInfraSyntaxM2ExtendsRelation = new InstConcept(
 				"SyMExtend", infraBasicSyntaxOpersM3Node,
 				infraSyntaxM2ExtendsRelation);
+		// FIXME change to infraBasicSyntaxOpersM3Arrow and SyMGeneralization
+		// Update the implementation to undestand the generalization as a
+		// relation and not a concept
 
 		variabilityInstVertex
 				.put("SyMExtend", instInfraSyntaxM2ExtendsRelation);
@@ -751,6 +754,10 @@ public class InfraSyntaxSyntaxMMM {
 		InstConcept instInfraSyntaxM2ViewConceptAsso = new InstConcept(
 				"SyMViewNode", infraBasicSyntaxOpersM3Node,
 				infraSyntaxM2ViewConceptAsso);
+		// FIXME change to infraBasicSyntaxOpersM3Arrow
+		// Update the implementation to understand the visibility as a relation
+		// and not a concept
+
 		variabilityInstVertex.put("SyMViewNode",
 				instInfraSyntaxM2ViewConceptAsso);
 
