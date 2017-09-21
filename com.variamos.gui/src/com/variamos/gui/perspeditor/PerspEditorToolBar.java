@@ -61,7 +61,7 @@ public class PerspEditorToolBar extends JToolBar {
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3), getBorder()));
 		setFloatable(false);
 
-		// Luisa: ISSUE #245 HOT FIX
+		// Luisa: ISSUE #245 and #246 HOT FIX
 		// new/load/save currently not supported for configuration/simulation perpective
 		if (variamosGraphEditor.getPerspective() != 4) {
 			add(variamosGraphEditor.bind("New", new NewAction(), "/com/variamos/gui/perspeditor/images/new.gif"));
@@ -70,33 +70,29 @@ public class PerspEditorToolBar extends JToolBar {
 					"/com/variamos/gui/perspeditor/images/save.gif"));
 
 			addSeparator();
+			
+			add(variamosGraphEditor.bind("Cut", TransferHandler.getCutAction(),
+					"/com/variamos/gui/perspeditor/images/cut.gif"));
+
+			add(variamosGraphEditor.bind("Copy", TransferHandler.getCopyAction(),
+					"/com/variamos/gui/perspeditor/images/copy.gif"));
+			add(variamosGraphEditor.bind("Paste", TransferHandler.getPasteAction(),
+					"/com/variamos/gui/perspeditor/images/paste.gif"));
+
+			addSeparator();
+
+			add(variamosGraphEditor.bind("Delete", mxGraphActions.getDeleteAction(),
+					"/com/variamos/gui/perspeditor/images/delete.gif"));
+
+			addSeparator();
+
+			add(variamosGraphEditor.bind("Undo", new HistoryAction(true), "/com/variamos/gui/perspeditor/images/undo.gif"));
+			add(variamosGraphEditor.bind("Redo", new HistoryAction(false),
+					"/com/variamos/gui/perspeditor/images/redo.gif"));
+
 		}
-		/*
-		 * add(editor.bind("Print", new PrintAction(),
-		 * "/com/variamos/gui/perspeditor/images/print.gif"));
-		 * 
-		 * addSeparator();
-		 */
-
-		add(variamosGraphEditor.bind("Cut", TransferHandler.getCutAction(),
-				"/com/variamos/gui/perspeditor/images/cut.gif"));
-
-		add(variamosGraphEditor.bind("Copy", TransferHandler.getCopyAction(),
-				"/com/variamos/gui/perspeditor/images/copy.gif"));
-		add(variamosGraphEditor.bind("Paste", TransferHandler.getPasteAction(),
-				"/com/variamos/gui/perspeditor/images/paste.gif"));
-
-		addSeparator();
-
-		add(variamosGraphEditor.bind("Delete", mxGraphActions.getDeleteAction(),
-				"/com/variamos/gui/perspeditor/images/delete.gif"));
-
-		addSeparator();
-
-		add(variamosGraphEditor.bind("Undo", new HistoryAction(true), "/com/variamos/gui/perspeditor/images/undo.gif"));
-		add(variamosGraphEditor.bind("Redo", new HistoryAction(false),
-				"/com/variamos/gui/perspeditor/images/redo.gif"));
-
+		
+		
 		if (variamosGraphEditor.getPerspective() == 2) {
 			addSeparator();
 			add(variamosGraphEditor.bind("updateCore", new UpdateCoreAction(),
