@@ -9,6 +9,7 @@ import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
+@Deprecated
 public class StartSimulationAction extends AbstractEditorAction {
 
 	public StartSimulationAction() {
