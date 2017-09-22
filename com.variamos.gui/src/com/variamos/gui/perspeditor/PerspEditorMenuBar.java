@@ -53,6 +53,7 @@ import com.variamos.gui.perspeditor.actions.ShowSimulationCustomizationBox;
 import com.variamos.gui.perspeditor.actions.ShowSimulationDashBoardAction;
 import com.variamos.gui.perspeditor.actions.StartSimulationAction;
 import com.variamos.gui.perspeditor.actions.VariableLabelingAssociationAction;
+import com.variamos.gui.perspeditor.actions.VariableOperationAssociationAction;
 import com.variamos.gui.perspeditor.actions.VerificationAction;
 import com.variamos.gui.perspeditor.actions.VerifyDeadElementAction;
 import com.variamos.gui.perspeditor.actions.VerifyFalseOptElementAction;
@@ -338,18 +339,27 @@ public class PerspEditorMenuBar extends JMenuBar {
 			}
 		}
 		if (editor.getPerspective() == 1) {
-			menu = (JMenu) menu.add(new JMenu(mxResources.get("translationConfiguration")));
+			menu = (JMenu) menu.add(new JMenu(mxResources
+					.get("translationConfiguration")));
 			menu.setMnemonic('C');
 			// Action a = editor.bind(mxResources.get("operationDefinition"),
 			// new OperationDefinitionAction());
 			// menu.add(a);
-			Action a = editor.bind(mxResources.get("elementOperationAssociation"),
+			Action a = editor.bind(
+					mxResources.get("elementOperationAssociation"),
 					new ElementOperationAssociationAction());
 			menu.add(a);
-			a = editor.bind(mxResources.get("variableLabelingAssociation"), new VariableLabelingAssociationAction());
+			a = editor.bind(mxResources.get("variableOperationAssociation"),
+					new VariableOperationAssociationAction());
 			menu.add(a);
+			a = editor.bind(mxResources.get("variableLabelingAssociation"),
+					new VariableLabelingAssociationAction());
+			menu.add(a);
+			add(menu);
 			
 		}
+		
+
 		if (editor.getPerspective() == 4) {
 
 			// Luisa: ISSUE #245 HOT FIX
