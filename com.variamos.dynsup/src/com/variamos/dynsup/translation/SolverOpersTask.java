@@ -41,6 +41,8 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.DefectTypeEnum;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.CauCos;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeEnum;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.Diagnosis;
+import com.variamos.reasoning.medic.model.diagnoseAlgorithm.MinimalSetsDFSIterationsHLCL;
+import com.variamos.reasoning.medic.model.graph.VertexHLCL;
 import com.variamos.solver.model.SolverSolution;
 
 //import graphHLCL.VertexHLCL;
@@ -663,7 +665,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			String verifHint,
 			List<OpersIOAttribute> outAttributes,  //pend
 			String outAttribute)
-			throws InterruptedException {
+			throws InterruptedException, FunctionalException {
 		
 		//HlclFactory f = new HlclFactory();
 
@@ -671,26 +673,26 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		int result = 0;
 		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
 				refasModel, operation, null, null);
-//		
-//		HlclProgram program = refas2hlcl.getHlclProgram(
-//				operation, subOper.getIdentifier(),
-//				OpersSubOpExecType.NORMAL, transExpSet);
-//		
+		
+		HlclProgram program = refas2hlcl.getHlclProgram(
+				operation, subOper.getIdentifier(),
+				OpersSubOpExecType.NORMAL, transExpSet);
+		
 
 		//aqui lo que tengo que hacer es tomar el hlcl program y quitarle la basura
 		
-//		MinimalSetsDFSIterationsHLCL medic= null;
-//		medic= new MinimalSetsDFSIterationsHLCL(program);
-//		
-//		LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGVariable1_value",10);
-//		
-//		System.out.println("Salida de Medic");
-//		for (VertexHLCL vertexHLCL : output) {
-//			System.out.println(vertexHLCL.getId() + " ");
-//		}
+		MinimalSetsDFSIterationsHLCL medic= null;
+		medic= new MinimalSetsDFSIterationsHLCL(program);
+		
+		LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGVariable1_value",10);
+		
+		System.out.println("Salida de Medic");
+		for (VertexHLCL vertexHLCL : output) {
+			System.out.println(vertexHLCL.getId() + " ");
+		}
 		
 
-		
+		System.out.println("medic");
 		return result;
 		
 	}
