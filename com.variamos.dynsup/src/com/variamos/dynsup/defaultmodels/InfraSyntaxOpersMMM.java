@@ -358,7 +358,7 @@ public class InfraSyntaxOpersMMM {
 				"#targetHighCard#all#\n", "");
 
 		infraSyntaxOpersM2RelType.addModelingAttribute("exprs",
-				new ElemAttribute("exprs", "ClassSet", AttributeType.SYNTAX,
+				new ElemAttribute("exprs", "InstaceSet", AttributeType.SYNTAX,
 						false, "Operations Meta-Model Expr.", "",
 						OpersExpr.class.getCanonicalName(), "Boolean",
 						new ArrayList<InstAttribute>(), null, "", 0, -1, "",

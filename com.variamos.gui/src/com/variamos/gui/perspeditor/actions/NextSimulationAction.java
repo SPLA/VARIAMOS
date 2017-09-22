@@ -8,7 +8,9 @@ import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
+@Deprecated
 public class NextSimulationAction extends AbstractVariamoGUIAction {
+
 
 	public NextSimulationAction() {
 		this.putValue(SHORT_DESCRIPTION, mxResources.get("nextSimulation"));

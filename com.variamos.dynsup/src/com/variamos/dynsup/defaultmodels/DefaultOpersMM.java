@@ -496,9 +496,15 @@ public class DefaultOpersMM {
 					metaOperationMenu, operationMenu);
 			refas.getVariabilityVertex().put("SimulationGroup",
 					instOperationGroup);
-
-			instOperationGroup.getInstAttribute("visible").setValue(true);
+			//Luisa: ISSUE #245 HOT FIX
+			if (newOpers) {
+				instOperationGroup.getInstAttribute("visible").setValue(true);
+			}else {
+				instOperationGroup.getInstAttribute("visible").setValue(false);
+			}
+				
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
+			
 			instOperationGroup.getInstAttribute("opgname").setValue(
 					"Basic Simulation (Dynamic)");
 			instOperationGroup.getInstAttribute("shortcut").setValue("S");
@@ -943,8 +949,14 @@ public class DefaultOpersMM {
 					metaOperationMenu, operationMenu);
 			refas.getVariabilityVertex().put("SimulSceGroup",
 					instOperationGroup);
-
-			instOperationGroup.getInstAttribute("visible").setValue(true);
+			
+			//Luisa: ISSUE #245 HOT FIX: We hide this menu  while we separate functionalities according to the notation where they might be used
+			if (newOpers) {
+				instOperationGroup.getInstAttribute("visible").setValue(true);
+			}else {
+				instOperationGroup.getInstAttribute("visible").setValue(false);
+			}
+			
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
 			instOperationGroup.getInstAttribute("opgname").setValue(
 					"Simulation Scenarios  (Dynamic)");
@@ -959,8 +971,11 @@ public class DefaultOpersMM {
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
 					OpersOpType.Validation.toString());
+//			instOperationAction.getInstAttribute("opname").setValue(
+//					"Start Simulation (Dynamic)");
+			//Luisa: ISSUE #245 HOT FIX
 			instOperationAction.getInstAttribute("opname").setValue(
-					"Start Simulation (Dynamic)");
+					"Start Simulation");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(true);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(true);
