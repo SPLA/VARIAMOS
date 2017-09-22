@@ -369,7 +369,7 @@ public class DefaultOpersMM {
 	protected static InstConcept instVertexHC = null;
 
 	public static void createOpersMetaModel(InstanceModel refas, boolean empty) {
-		createOpersMetaModelOpers(refas, empty, false);
+		createOpersMetaModelOpers(refas, empty, true);
 		createSemanticNmMetaModel(refas, empty);
 		if (!empty) {
 			createGeneralMetaModel(refas);
@@ -944,7 +944,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("SimulSceGroup",
 					instOperationGroup);
 
-			instOperationGroup.getInstAttribute("visible").setValue(true);
+			instOperationGroup.getInstAttribute("visible").setValue(false);
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
 			instOperationGroup.getInstAttribute("opgname").setValue(
 					"Simulation Scenarios  (Dynamic)");

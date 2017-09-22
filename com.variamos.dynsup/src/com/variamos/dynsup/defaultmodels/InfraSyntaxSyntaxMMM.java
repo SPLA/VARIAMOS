@@ -668,7 +668,7 @@ public class InfraSyntaxSyntaxMMM {
 				"SyMExtend", infraBasicSyntaxOpersM3Node,
 				infraSyntaxM2ExtendsRelation);
 		// FIXME change to infraBasicSyntaxOpersM3Arrow and SyMGeneralization
-		// Update the implementation to undestand the generalization as a
+		// Update the implementation to understand the generalization as a
 		// relation and not a concept
 
 		variabilityInstVertex
