@@ -965,4 +965,47 @@
   		<fillstroke/>
 	</foreground>
 </shape>
+<!-- Begin Constraint Graph shapes, introduced by avillota -->
+<shape name="cgConstraint" aspect="variable">
+	<background>
+	
+		<fillcolor color="#CEFEF8"/>
+		<fillstroke color="#CEFEF8"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<path>
+			<move x="90" y="0"/>
+			<quad x1="100" y1="20" x2="100" y2="50"/>
+			<quad x1="100" y1="80" x2="90" y2="100"/>
+			<line x="90" y="0"/>
+	
+			<move x="10" y="0"/>
+			<quad x1="0" y1="20" x2="0" y2="50"/>
+			<quad x1="0" y1="80" x2="10" y2="100"/>
+			<line x="10" y="0"/>
+			<close/>
+		</path>		
+		<fillstroke/>
+		<stroke/>
+		<fillstroke color="#CEFEF8"/>
+		<strokewidth width="2"/>		
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		
+		<fillcolor color="#CEFEF8"/>
+		<path>
+			<move x="10" y="0"/>
+			<line x="90" y="0"/>
+			<line x="90" y="100"/>
+			<line x="10" y="100"/>
+			<line x="10" y="0"/>
+			<close/>
+		</path>
+		<stroke/>
+		<fillstroke/>	
+	</background>
+	<foreground>
+	</foreground>
+</shape>
 </shapes>

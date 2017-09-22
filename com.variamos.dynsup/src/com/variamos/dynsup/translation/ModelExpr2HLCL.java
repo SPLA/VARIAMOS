@@ -258,7 +258,16 @@ public class ModelExpr2HLCL {
 		return getHlclProgram(element, execType, null);
 	}
 
-	// Dynamic call with TranslationExpressionSet
+// Dynamic call with TranslationExpressionSet
+	// for dynamic operations (created by the dynamic part of the)
+	/**
+	 * 
+	 * @param operation
+	 * @param subOperation
+	 * @param operExecType
+	 * @param transExpSet 
+	 * @return
+	 */
 	public HlclProgram getHlclProgram(InstElement operation,
 			String subOperation, OpersSubOpExecType operExecType,
 			TranslationExpressionSet transExpSet) throws FunctionalException {
