@@ -31,6 +31,10 @@ public class InfraBasicSyntaxMMMM {
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
+		basicOpersSyntaxM3Concept.addModelingAttribute("abstract",
+				new ElemAttribute("abstract", "Boolean", AttributeType.SYNTAX,
+						false, "Abstract Node", "", false, 0, 3, "", "", -1,
+						"", ""));
 		basicOpersSyntaxM3Concept.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 2, "", "", 1, "<<BsNode>>\n#"
@@ -176,6 +180,16 @@ public class InfraBasicSyntaxMMMM {
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 2, "", "", 1, "<<BsTree>>\n#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+
+		basicOpersSyntaxM3Tree.addModelingAttribute("selectConcept", "Boolean",
+				false, "Select the Concepts", "", false, 0, 2, "", "", -1, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#", "");
+		// Select concepts instead of attributes
+
+		basicOpersSyntaxM3Tree.addModelingAttribute("attributesToEdit",
+				"String", false, "User Identifier", "", "", 0, 2, "", "", -1,
+				"#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#", "");
+		// attributes to edit separated by semicolon
 
 		InstConcept instInfraSyntaxOpersM3Tree = new InstConcept("BsTree",
 				instInfraSyntaxOpersM3Concept, basicOpersSyntaxM3Tree);
@@ -381,12 +395,12 @@ public class InfraBasicSyntaxMMMM {
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		basicOpersSyntaxM3Asso.addModelingAttribute("lowCard",
-				new ElemAttribute("lowCard", "Integer", AttributeType.SYNTAX,
-						false, "Low Cardinality", "", "", 0, 1, "", "", -1, "",
-						""));
+		basicOpersSyntaxM3Asso.addModelingAttribute("lowerBound",
+				new ElemAttribute("lowerBound", "Integer",
+						AttributeType.SYNTAX, false, "Low Cardinality", "", "",
+						0, 1, "", "", -1, "", ""));
 
-		basicOpersSyntaxM3Asso.addModelingAttribute("highCard", "Integer",
+		basicOpersSyntaxM3Asso.addModelingAttribute("upperBound", "Integer",
 				false, "High Cardinality", "", "", 0, 2, "", "", -1, "#"
 						+ "highCard" + "#all#\n\n", "");
 
@@ -584,46 +598,45 @@ public class InfraBasicSyntaxMMMM {
 				false, "Hint", "", "", 0, 11, "", "", -1, "#" + "hint"
 						+ "#all#\n\n", "");
 
-		basicOpersSyntaxM3Attribute.addModelingAttribute("propTabPosition",
-				"Integer", false, "Prop. Tab Position", "", "", 0, 12, "", "",
-				-1, "#" + "propTabPosition" + "#all#\n\n", "");
+		basicOpersSyntaxM3Attribute.addModelingAttribute("propertyPosition",
+				"Integer", false, "Property Position", "", "", 0, 12, "", "",
+				-1, "#" + "propertyPosition" + "#all#\n\n", "");
 
 		basicOpersSyntaxM3Attribute.addModelingAttribute(
-				"elementDisplayPosition", "Integer", false,
+				"shapeDisplayPosition", "Integer", false,
 				"Element Disp. Position", "", "", 0, 13, "", "", -1, "#"
 						+ "elementDisplayPosition" + "#all#\n\n", "");
 
-		basicOpersSyntaxM3Attribute.addModelingAttribute(
-				"elementDisplaySpacers", "String", false,
-				"Element Disp. Spacers", "", "", 0, 14, "", "", -1, "#"
-						+ "elementDisplaySpacers" + "#all#\n\n", "");
+		basicOpersSyntaxM3Attribute.addModelingAttribute("shapeDisplaySpacers",
+				"String", false, "Element Disp. Spacers", "", "", 0, 14, "",
+				"", -1, "#" + "elementDisplaySpacers" + "#all#\n\n", "");
 
 		basicOpersSyntaxM3Attribute.addModelingAttribute(
-				"propTabEditionCondition", "String", false,
+				"propertyEditionCondition", "String", false,
 				"Prop. Tab Edition Cond.", "", "", 0, 15, "", "", -1, "#"
 						+ "propTabEditionCondition" + "#all#\n\n", "");
 
 		basicOpersSyntaxM3Attribute.addModelingAttribute(
-				"propTabVisualCondition", "String", false,
+				"propertyVisualCondition", "String", false,
 				"Prop. Tab Visual Cond.", "", "", 0, 16, "", "", -1, "#"
 						+ "propTabVisualCondition" + "#all#\n\n", "");
 
 		basicOpersSyntaxM3Attribute.addModelingAttribute(
-				"elementDisplayCondition", "String", false,
-				"Graph Visual Cond.", "", "", 0, 17, "", "", -1, "#"
-						+ "elementDisplayCondition" + "#all#\n\n", "");
+				"shapeDisplayCondition", "String", false, "Shape Visual Cond.",
+				"", "", 0, 17, "", "", -1, "#" + "elementDisplayCondition"
+						+ "#all#\n\n", "");
 
-		basicOpersSyntaxM3Attribute.addModelingAttribute("domFiltOwnFields",
-				"String", false, "Filter domain (Own Fields)", "", "", 0, 18,
-				"", "", -1, "#" + "domFiltOwnFields" + "#all#\n\n", "");
-
-		basicOpersSyntaxM3Attribute.addModelingAttribute("domFilTRelFields",
-				"String", false, "Filter domain (Rel. Fields)", "", "", 0, 19,
-				"", "", -1, "#" + "domFilTRelFields" + "#all#\n\n", "");
-
-		basicOpersSyntaxM3Attribute.addModelingAttribute("defDomValueField",
-				"String", false, "Def. Domain (Filter Field)", "", "", 0, 20,
-				"", "", -1, "#" + "defDomValueField" + "#all#\n\n", "");
+		// basicOpersSyntaxM3Attribute.addModelingAttribute("domFiltOwnFields",
+		// "String", false, "Filter domain (Own Fields)", "", "", 0, 18,
+		// "", "", -1, "#" + "domFiltOwnFields" + "#all#\n\n", "");
+		//
+		// basicOpersSyntaxM3Attribute.addModelingAttribute("domFilTRelFields",
+		// "String", false, "Filter domain (Rel. Fields)", "", "", 0, 19,
+		// "", "", -1, "#" + "domFilTRelFields" + "#all#\n\n", "");
+		//
+		// basicOpersSyntaxM3Attribute.addModelingAttribute("defDomValueField",
+		// "String", false, "Def. Domain (Filter Field)", "", "", 0, 20,
+		// "", "", -1, "#" + "defDomValueField" + "#all#\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM3Attribute = new InstConcept(
 				"BsAttribute", instInfraSyntaxOpersM3Set,
@@ -633,7 +646,7 @@ public class InfraBasicSyntaxMMMM {
 
 		SyntaxElement infraSyntaxM3ConAtt = new SyntaxElement('P', "BsConAtt",
 				false, true, "Normal Relation", "defaultAsso",
-				"Concept-Concept relation", 50, 50,
+				"Concept-Attribute relation", 50, 50,
 				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
 
 		constraintInstEdges.put("BsConAtt", new InstPairwiseRel("BsConAtt",
@@ -645,6 +658,51 @@ public class InfraBasicSyntaxMMMM {
 		instEdge.setEdSyntaxEle(infraSyntaxM3ConAtt);
 		instEdge.setTargetRelation(instInfraSyntaxOpersM3Attribute, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM3Concept, true);
+
+		SyntaxElement infraSyntaxM3SetAtt = new SyntaxElement('P', "BsSetAtt",
+				false, true, "Normal Relation", "defaultAsso",
+				"Set-Attribute relation", 50, 50,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
+
+		constraintInstEdges.put("BsSetAtt", new InstPairwiseRel("BsTreeAtt",
+				infraSyntaxM3SetAtt));
+
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("set-attribute", instEdge);
+		instEdge.setIdentifier("set-attribute");
+		instEdge.setEdSyntaxEle(infraSyntaxM3SetAtt);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM3Attribute, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM3Set, true);
+
+		SyntaxElement infraSyntaxM3TreeAtt = new SyntaxElement('P',
+				"BsTreeAtt", false, true, "Normal Relation", "defaultAsso",
+				"Tree-Attribute relation", 50, 50,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
+
+		constraintInstEdges.put("BsTreeAtt", new InstPairwiseRel("BsTreeAtt",
+				infraSyntaxM3TreeAtt));
+
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("tree-attribute", instEdge);
+		instEdge.setIdentifier("tree-attribute");
+		instEdge.setEdSyntaxEle(infraSyntaxM3TreeAtt);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM3Attribute, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM3Tree, true);
+
+		SyntaxElement infraSyntaxM3ArrowAtt = new SyntaxElement('P',
+				"BsArrowAtt", false, true, "Normal Relation", "defaultAsso",
+				"Arrow-Attribute relation", 50, 50,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
+
+		constraintInstEdges.put("BsArrowAtt", new InstPairwiseRel("BsArrowAtt",
+				infraSyntaxM3TreeAtt));
+
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("arrow-attribute", instEdge);
+		instEdge.setIdentifier("arrow-attribute");
+		instEdge.setEdSyntaxEle(infraSyntaxM3ArrowAtt);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM3Attribute, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM3Tree, true);
 
 		SyntaxElement infraSyntaxM3AttNameGen = new SyntaxElement('P',
 				"BsAttNameGen", false, true, "Normal Relation", "defaultAsso",
@@ -722,7 +780,12 @@ public class InfraBasicSyntaxMMMM {
 				"InstanceSet"));
 		enumVals.add(new InstAttribute("enum11", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""), "Set"));
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"SemanticElement"));
+		enumVals.add(new InstAttribute("enum11", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"MetaElement"));
 
 		variabilityInstVertex.put("TypesEnum", instInfraSyntaxOpersM3TypesEnum);
 
@@ -761,11 +824,10 @@ public class InfraBasicSyntaxMMMM {
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
 				"Binary"));
-		// enumVals.add(new InstAttribute("enum6", new
-		// ElemAttribute("EnumValue",
-		// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-		// "Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
-		// "RelationType"));
+		enumVals.add(new InstAttribute("enum6", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Model"));
 		enumVals.add(new InstAttribute("enum7", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),

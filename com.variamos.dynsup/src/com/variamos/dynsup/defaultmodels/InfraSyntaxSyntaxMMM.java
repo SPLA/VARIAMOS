@@ -34,6 +34,33 @@ public class InfraSyntaxSyntaxMMM {
 		InstElement infraBasicSyntaxOpersM3Arrow = modelInstance
 				.getSyntaxModel().getVertex("BsArrow");
 
+		SyntaxElement infraSyntaxM2Language = new SyntaxElement('C',
+				"SyMLanguage", true, true, "SyMLanguage",
+				"infrasyntaxm2miniconcept", "Syntax Meta Node", 170, 180,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxM2Language.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 4, "", "", 3, "#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+
+		infraSyntaxM2Language.addModelingAttribute("name", new ElemAttribute(
+				"Name", "String", AttributeType.SYNTAX, false,
+				"Meta Concept Name", "", "", 0, 3, "", "", -1, "", ""));
+
+		infraSyntaxM2Language.addModelingAttribute("semType",
+				new ElemAttribute("semType", "Class", AttributeType.OPERATION,
+						false, "Semantic Type",
+						"Type from the Operations Meta-Model",
+						OpersConcept.class.getCanonicalName(), "C", null, "",
+						0, 0, "", "", 1, "<<SyMLanguage>>\n{semType:\"#"
+								+ "OperationsMMType" + "#all#\"}\n", ""));
+
+		InstConcept instInfraSyntaxOpersM2Lang = new InstConcept("SyMLanguage",
+				infraBasicSyntaxOpersM3Node, infraSyntaxM2Language);
+		variabilityInstVertex.put("SyMLanguage", instInfraSyntaxOpersM2Lang);
+
 		SyntaxElement infraSyntaxM2Element = new SyntaxElement('C',
 				"SyMElement", false, true, "SyMElement",
 				"infrasyntaxm2miniconcept", "Syntax Meta Element", 170, 180,
@@ -144,7 +171,7 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.OPERATION, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, 0, "", "", 1, "<<SyMConcept>>\n{OperType:\"#"
+						0, 0, "", "", 1, "<<SyMConcept>>\n{SemType:\"#"
 								+ "OperationsMMType" + "#all#\"}\n", ""));
 
 		InstConcept instInfraSyntaxOpersM2Node = new InstConcept("SyMNode",
@@ -612,20 +639,12 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.OPERATION, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "O", null, "",
-						0, 0, "", "", 1, "<<SyMOverTwoAsso>>\n{OperType:\"#"
+						0, 0, "", "", 1, "<<SyMOverTwoAsso>>\n{SemType:\"#"
 								+ "OperationsMMType" + "#all#\"}\n", ""));
 		infraSyntaxM2OTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 3, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
-		//
-		// infraSyntaxM2OTRel.addPanelVisibleAttribute("00#" +
-		// "OperationsMMType");
-		// infraSyntaxM2OTRel
-		// .addPanelSpacersAttribute("<<MetaOverTwoAsso>>\n{OperType:\"#"
-		// + "OperationsMMType" + "#\"}\n");
-		// semOverTwoRelation.addPanelVisibleAttribute("01#" + "Name");
-		// semOverTwoRelation.addPanelSpacersAttribute("#" + "Name" + "#");
 
 		infraSyntaxM2OTRel.addModelingAttribute("Type", new ElemAttribute(
 				"Type", "String", AttributeType.SYNTAX, false, "Relation Type",
@@ -664,6 +683,39 @@ public class InfraSyntaxSyntaxMMM {
 						"com.variamos.dynsup.model.ElemAttribute", "", "", 0,
 						-1, "", "", -1, "", ""));
 
+		SyntaxElement infraSyntaxM2LanguageView = new SyntaxElement('I',
+				"SyMLangView", true, true, "SyMLangView",
+				"infrasyntaxm2microconcept", "View-Concept Association", 150,
+				40, "/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxM2LanguageView.addModelingAttribute("visible",
+				new ElemAttribute("visible", "Boolean", AttributeType.SYNTAX,
+						false, "Visible",
+						"Shows/Hides the view in the modeling perspective",
+						true, 0, 2, "", "", -1, "", ""));
+
+		InstConcept instInfraSyntaxM2ViewLanguageView = new InstConcept(
+				"SyMLangView", infraBasicSyntaxOpersM3Node,
+				infraSyntaxM2LanguageView);
+
+		variabilityInstVertex.put("SyMLangView",
+				instInfraSyntaxM2ViewLanguageView);
+
+		InstPairwiseRel instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("lan-v-lc", instEdge);
+		instEdge.setIdentifier("lan-v-lc");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxM2ViewLanguageView, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Lang, true);
+
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("lan-lc-v", instEdge);
+		instEdge.setIdentifier("lan-lc-v");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxM2View, true);
+		instEdge.setSourceRelation(instInfraSyntaxM2ViewLanguageView, true);
+
 		InstConcept instInfraSyntaxM2ExtendsRelation = new InstConcept(
 				"SyMExtend", infraBasicSyntaxOpersM3Node,
 				infraSyntaxM2ExtendsRelation);
@@ -674,7 +726,7 @@ public class InfraSyntaxSyntaxMMM {
 		variabilityInstVertex
 				.put("SyMExtend", instInfraSyntaxM2ExtendsRelation);
 
-		InstPairwiseRel instEdge = new InstPairwiseRel();
+		instEdge = new InstPairwiseRel();
 		constraintInstEdges.put("ce-e-c", instEdge);
 		instEdge.setIdentifier("ce-e-c");
 		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
@@ -824,7 +876,7 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "P", null, "",
-						0, 0, "", "", 1, "<<SyMPairwiseAsso>>\n{OperType:\"#"
+						0, 0, "", "", 1, "<<SyMPairwiseAsso>>\n{SemType:\"#"
 								+ "OperationsMMType" + "#all#\",\n", ""));
 		infraSyntaxM2PWRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
@@ -978,41 +1030,42 @@ public class InfraSyntaxSyntaxMMM {
 				"Hint", "", "", 0, 11, "", "", -1, "#" + "hint" + "#all#\n\n",
 				"");
 
-		infraOpersM2Attribute.addModelingAttribute("propTabPosition",
+		infraOpersM2Attribute.addModelingAttribute("propertiesPosition",
 				"Integer", false, "Prop. Tab Position", "", "", 0, 12, "", "",
 				-1, "#" + "propTabPosition" + "#all#\n\n", "");
 
-		infraOpersM2Attribute.addModelingAttribute("elementDisplayPosition",
+		infraOpersM2Attribute.addModelingAttribute("graphDisplayPosition",
 				"Integer", false, "Element Disp. Position", "", "", 0, 13, "",
 				"", -1, "#" + "elementDisplayPosition" + "#all#\n\n", "");
 
-		infraOpersM2Attribute.addModelingAttribute("elementDisplaySpacers",
+		infraOpersM2Attribute.addModelingAttribute("graphDisplaySpacers",
 				"String", false, "Element Disp. Spacers", "", "", 0, 14, "",
 				"", -1, "#" + "elementDisplaySpacers" + "#all#\n\n", "");
 
-		infraOpersM2Attribute.addModelingAttribute("propTabEditionCondition",
-				"String", false, "Prop. Tab Edition Cond.", "", "", 0, 15, "",
-				"", -1, "#" + "propTabEditionCondition" + "#all#\n\n", "");
+		infraOpersM2Attribute.addModelingAttribute(
+				"propertiesEditionCondition", "String", false,
+				"Prop. Tab Edition Cond.", "", "", 0, 15, "", "", -1, "#"
+						+ "propTabEditionCondition" + "#all#\n\n", "");
 
-		infraOpersM2Attribute.addModelingAttribute("propTabVisualCondition",
+		infraOpersM2Attribute.addModelingAttribute("propertiesVisualCondition",
 				"String", false, "Prop. Tab Visual Cond.", "", "", 0, 16, "",
 				"", -1, "#" + "propTabVisualCondition" + "#all#\n\n", "");
 
-		infraOpersM2Attribute.addModelingAttribute("elementDisplayCondition",
+		infraOpersM2Attribute.addModelingAttribute("graphDisplayCondition",
 				"String", false, "Graph Visual Cond.", "", "", 0, 17, "", "",
 				-1, "#" + "elementDisplayCondition" + "#all#\n\n", "");
 
-		infraOpersM2Attribute.addModelingAttribute("domFiltOwnFields",
-				"String", false, "Filter domain (Own Fields)", "", "", 0, 18,
-				"", "", -1, "#" + "domFiltOwnFields" + "#all#\n\n", "");
-
-		infraOpersM2Attribute.addModelingAttribute("domFilTRelFields",
-				"String", false, "Filter domain (Rel. Fields)", "", "", 0, 19,
-				"", "", -1, "#" + "domFilTRelFields" + "#all#\n\n", "");
-
-		infraOpersM2Attribute.addModelingAttribute("defDomValueField",
-				"String", false, "Def. Domain (Filter Field)", "", "", 0, 20,
-				"", "", -1, "#" + "defDomValueField" + "#all#\n\n", "");
+		// infraOpersM2Attribute.addModelingAttribute("domFiltOwnFields",
+		// "String", false, "Filter domain (Own Fields)", "", "", 0, 18,
+		// "", "", -1, "#" + "domFiltOwnFields" + "#all#\n\n", "");
+		//
+		// infraOpersM2Attribute.addModelingAttribute("domFilTRelFields",
+		// "String", false, "Filter domain (Rel. Fields)", "", "", 0, 19,
+		// "", "", -1, "#" + "domFilTRelFields" + "#all#\n\n", "");
+		//
+		// infraOpersM2Attribute.addModelingAttribute("defDomValueField",
+		// "String", false, "Def. Domain (Filter Field)", "", "", 0, 20,
+		// "", "", -1, "#" + "defDomValueField" + "#all#\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2Attribute = new InstConcept(
 				"SyMAttribute", infraBasicSyntaxOpersM3Set,

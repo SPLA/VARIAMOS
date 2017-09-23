@@ -1305,17 +1305,16 @@ public class InfraSyntaxOpersMMM {
 				"User Identifier", "", "", 0, 4, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
 
-		infraSyntaxOpersM2TreeLab.addModelingAttribute("semConcept",
-				new ElemAttribute("semConcept", "Class", AttributeType.SYNTAX,
-						false, "Operations Meta-Model Expr.", "",
-						OpersElement.class.getCanonicalName(), "All", "", null,
-						"", 0, -1, "", "", -1, "", ""));
-		infraSyntaxOpersM2TreeLab.addModelingAttribute("exprs",
-				new ElemAttribute("semAttribute", "Class",
-						AttributeType.SYNTAX, false,
-						"Attribute Meta-Model Expr.", "",
-						ElemAttribAttribute.class.getCanonicalName(), "All",
-						"", null, "", 0, -1, "", "", -1, "", ""));
+		infraSyntaxOpersM2TreeLab.addModelingAttribute("seEle",
+				new ElemAttribute("seEle", "Class", AttributeType.SYNTAX,
+						false, "Operations Meta-Model ", "", "SemanticElement",
+						"All", "", null, "", 0, -1, "", "", -1, "", ""));
+		infraSyntaxOpersM2TreeLab.addModelingAttribute(
+				"seAttrib",
+				new ElemAttribute("seAttrib", "Class", AttributeType.SYNTAX,
+						false, "Attributes ", "", ElemAttribAttribute.class
+								.getCanonicalName(), "All", "", null, "", 0,
+						-1, "", "", -1, "", ""));
 
 		InstConcept instInfraSyntaxOpersM2TreeLab = new InstConcept(
 				"OpMTreeLab", basicOpersSyntaxM3Tree, infraSyntaxOpersM2TreeLab);
@@ -1340,15 +1339,14 @@ public class InfraSyntaxOpersMMM {
 				"User Identifier", "", "", 0, 4, "", "", 4, "#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n", "");
 
-		infraSyntaxOpersM2TreeSubOp.addModelingAttribute("semConcept",
-				new ElemAttribute("semConcept", "Class", AttributeType.SYNTAX,
+		infraSyntaxOpersM2TreeSubOp.addModelingAttribute("seEle",
+				new ElemAttribute("seEle", "Class", AttributeType.SYNTAX,
 						false, "Operations Meta-Model Expr.", "",
-						OpersElement.class.getCanonicalName(), "All", "", null,
-						"", 0, -1, "", "", -1, "", ""));
-		infraSyntaxOpersM2TreeSubOp.addModelingAttribute("exprs",
-				new ElemAttribute("semAttribute", "Class",
-						AttributeType.SYNTAX, false,
-						"Attribute Meta-Model Expr.", "",
+						"SemanticElement", "All", "", null, "", 0, -1, "", "",
+						-1, "", ""));
+		infraSyntaxOpersM2TreeSubOp.addModelingAttribute("seAttrib",
+				new ElemAttribute("seAttrib", "Class", AttributeType.SYNTAX,
+						false, "Attribute Meta-Model Expr.", "",
 						ElemAttribAttribute.class.getCanonicalName(), "All",
 						"", null, "", 0, -1, "", "", -1, "", ""));
 

@@ -437,7 +437,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 						if (!i.getType().equals("Class"))
 							v = ":" + i.getType();
 						if ((i.getType().equals("Enumeration")
-								|| i.getType().equals("MetaEnumeration") || i
+								|| i.getType().equals("MetaEnumeration")
+								|| i.getType().equals("MetaElement") || i
 								.getType().equals("InstanceSet"))
 								&& i.getClassCanonicalName() != null) {
 							String classN = i.getClassCanonicalName()
