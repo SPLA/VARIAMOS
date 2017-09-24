@@ -492,5 +492,38 @@
 		<add as="fillColor" value="#CEFEF8" />
 
 	</add>
+	
+	<!--  agrega Daniel assets -->
+	<add as="package">
+		<add as="shape" value="package"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>	
+		<add as="fillColor" value="white"/>
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+	</add>
+	<add as="constraintb">
+		<add as="shape" value="constraintb"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>	
+		<add as="fillColor" value="white"/>
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+	</add>
+	<add as="refasasset2">
+		<add as="shape" value="refas-component2"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="right"/>}
+		<add as="fillColor" value="white"/>	
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+	</add>
+	<!-- agrega Daniel assets -->
 
 </mxStylesheet>

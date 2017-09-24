@@ -1008,4 +1008,128 @@
 	<foreground>
 	</foreground>
 </shape>
+
+<!--  agrega Daniel assets -->
+
+<shape name="package" aspect="variable">
+<background>
+
+<fillstroke color="#000000"/>
+<stroke width="2"/>	
+<linecap cap="round"/>
+<linejoin join="round"/>
+
+<fillcolor color="#FFFFFF"/>
+<path>
+<move x="10" y="20"/>
+<line x="90" y="20"/>
+<line x="90" y="100"/>
+<line x="10" y="100"/>
+<line x="10" y="20"/>
+<close/>
+</path>
+<stroke/>
+<fillstroke/>	
+
+<fillstroke color="#000000"/>
+<stroke width="2"/>	
+<linecap cap="round"/>
+<linejoin join="round"/>
+
+<fillcolor color="#FFFFFF"/>
+<path>
+<move x="10" y="0"/>
+<line x="10" y="20"/>
+<line x="50" y="20"/>
+<line x="50" y="0"/>
+<line x="10" y="0"/>
+<close/>
+</path>
+<stroke/>
+<fillstroke/>	
+
+</background>
+<foreground>
+</foreground>
+</shape>
+
+<shape name="refas-component2" aspect="variable">
+	<background>
+		<fillstroke color="#d3d3d3"/>
+		<fillcolor color="#d3d3d3"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<stroke/>
+		<path>
+			<move x="15" y="13"/>
+			<line x="100" y="13"/>
+			<line x="100" y="85"/>
+			<line x="15" y="85"/>
+			<line x="15" y="13"/>
+			<close/>
+			<move x="0" y="25"/>
+			<line x="30" y="25"/>
+			<line x="30" y="40"/>
+			<line x="0" y="40"/>
+			<line x="0" y="25"/>
+			<close/>
+			<move x="0" y="60"/>
+			<line x="30" y="60"/>
+			<line x="30" y="75"/>
+			<line x="0" y="75"/>
+			<line x="0" y="60"/>
+			<close/>
+		</path>		
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+
+<shape name="constraintb" aspect="variable">
+<background>
+
+<fillcolor color="#CEFEF8"/>
+<fillstroke color="#CEFEF8"/>
+<strokewidth width="2"/>
+<linecap cap="round"/>
+<linejoin join="round"/>
+<path>
+<move x="90" y="0"/>
+<quad x1="100" y1="20" x2="100" y2="50"/>
+<quad x1="100" y1="80" x2="90" y2="100"/>
+<line x="90" y="0"/>
+
+<move x="10" y="0"/>
+<quad x1="0" y1="20" x2="0" y2="50"/>
+<quad x1="0" y1="80" x2="10" y2="100"/>
+<line x="10" y="0"/>
+<close/>
+</path>	
+<fillstroke/>
+<stroke/>
+<fillstroke color="#CEFEF8"/>
+<strokewidth width="2"/>	
+<linecap cap="round"/>
+<linejoin join="round"/>
+
+<fillcolor color="#CEFEF8"/>
+<path>
+<move x="10" y="0"/>
+<line x="90" y="0"/>
+<line x="90" y="100"/>
+<line x="10" y="100"/>
+<line x="10" y="0"/>
+<close/>
+</path>
+<stroke/>
+<fillstroke/>	
+</background>
+<foreground>
+</foreground>
+</shape>
+
+
+<!--  agrega Daniel assets -->
 </shapes>

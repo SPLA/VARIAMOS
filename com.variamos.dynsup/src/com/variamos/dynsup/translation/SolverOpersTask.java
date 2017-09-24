@@ -677,24 +677,29 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		HlclProgram program = refas2hlcl.getHlclProgram(
 				operation, subOper.getIdentifier(),
 				OpersSubOpExecType.NORMAL, transExpSet);
-		
 
-		//aqui lo que tengo que hacer es tomar el hlcl program y quitarle la basura
-		
-		MinimalSetsDFSIterationsHLCL medic= null;
-		medic= new MinimalSetsDFSIterationsHLCL(program);
-		
-		LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGVariable1_value",10);
-		
-		System.out.println("Salida de Medic");
-		for (VertexHLCL vertexHLCL : output) {
-			System.out.println(vertexHLCL.getId() + " ");
+		if (program!=null){
+
+			//aqui lo que tengo que hacer es tomar el hlcl program y quitarle la basura
+
+			MinimalSetsDFSIterationsHLCL medic= null;
+			medic= new MinimalSetsDFSIterationsHLCL(program);
+
+			LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGVariable1_value",10);
+
+			System.out.println("Salida de Medic");
+			for (VertexHLCL vertexHLCL : output) {
+				System.out.println(vertexHLCL.getId() + " ");
+			}
+
+
+			System.out.println("medic");
+			return result;
 		}
-		
+		else{
+			throw new FunctionalException("The translation is not working properly, the constraint program i empty");
+		}
 
-		System.out.println("medic");
-		return result;
-		
 	}
 
 
