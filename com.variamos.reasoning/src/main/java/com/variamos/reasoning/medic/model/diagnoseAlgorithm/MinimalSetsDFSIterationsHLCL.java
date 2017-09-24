@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.medic.model.graph.ConstraintGraphHLCL;
@@ -251,8 +252,10 @@ public class MinimalSetsDFSIterationsHLCL {
 	 * @param cc is the list of inconsistent constraints 
 	 * @return path is a linked-list containing the sequence of visited vertices.  
 	 * The last vertex in path is the inconsistent contains the inconsistent constraint
+	 * @throws FunctionalException 
 	 */
-	public Path<ConstraintGraphHLCL,VertexHLCL> searchPathLog(String source, ConstraintGraphHLCL graphIn, HlclProgram csp) throws Exception{
+	public Path<ConstraintGraphHLCL,VertexHLCL> 
+	searchPathLog(String source, ConstraintGraphHLCL graphIn, HlclProgram csp) throws FunctionalException,Exception{
 		
 		logMan.writeInFile("\nConstraint graph in iteration "+ iterations+ "\n");
 		printNetwork(graphIn);
@@ -260,25 +263,6 @@ public class MinimalSetsDFSIterationsHLCL {
 		Path<ConstraintGraphHLCL,VertexHLCL> output= null;
 		HlclProgram subProblem = new HlclProgram();
 
-
-		
-		//newLines
-
-		// se inicializa con las variables y los dominios del csp inconsistente 
-		
-		//Estas lineas permiten que la creacion del archivo sea incremental, se crea el string builder 
-		//Las siguientes lineas crean la parte inicial del archivo
-		
-		// At each search, a set of variables and domains is declared 
-//	    sb= new StringBuilder();
-//		parser= new Hlcl2SWIProlog();
-//		PrologTransformParameters params = new PrologTransformParameters();
-//		params.setStage(StageInTransformation.Initial);
-//		sb.append(parser.transform(csp, params));
-		
-		//the string builder sb contains the declarations of variables and domains in the initial problem. 
-		
-		//System.out.println(parser.transform(cspIn, params));
 		
 		
 		LinkedList<VertexHLCL> path= new LinkedList<VertexHLCL>(); // the output
@@ -289,11 +273,15 @@ public class MinimalSetsDFSIterationsHLCL {
 
 		boolean satisfiable=true; // all empty csp is satisfiable
 		VertexHLCL actual=stack.pop(); //initializing the loop with a vertex
+		if (actual==null){
+			throw new FunctionalException(" Error while examining the vertex with id "+ source+" the vertex is not in the graph,"
+					+ "either:  the id is wrong, or there are problems in the translation of the constraint graph" );
+		}
+		else{
 		VertexHLCL clon= actual.clone(); // esto es null cuando el hlcl es vacio
 
 		subGraph.addVertex(clon);
-		//printNetwork(subGraph);
-		//visited.add(actual);
+
 		
 		int count=1;// number of nodes to visit 
 		HlclProgram newConstraints= null ; // new set of constraints
@@ -325,8 +313,7 @@ public class MinimalSetsDFSIterationsHLCL {
 			// if the csp is satisfiable, then the traverse of the constraint network continues.
 			if(satisfiable){
 				actual=getNextNode(stack, actual,subGraph);
-				//actual=getNextNode(stack, actual, visited, subGraph);
-				//visited.add(actual);
+
 				count++;
 			}
 		}
@@ -336,6 +323,7 @@ public class MinimalSetsDFSIterationsHLCL {
 //		
 		//logMan.writeInFile("Graph built in iteration"+ iterations+ "\n");
 		//printNetwork(subGraph);
+		}
 	
 		output= new Path<ConstraintGraphHLCL,VertexHLCL>(subGraph, path, subProblem);
 		return output;
@@ -353,8 +341,8 @@ public class MinimalSetsDFSIterationsHLCL {
 	public VertexHLCL getNextNode(Stack<VertexHLCL> structure, VertexHLCL actual, ConstraintGraphHLCL newG )throws Exception{
 		
 		actual.setSearchState(VertexHLCL.VISITED);
-		VertexHLCL next;
-		//System.out.print(actual.getId()+ ": ");
+		VertexHLCL next= null;
+		
 
 		for(VertexHLCL v: actual.getNeighbors()){
 			
@@ -365,7 +353,11 @@ public class MinimalSetsDFSIterationsHLCL {
 				v.setSearchState(VertexHLCL.INSTACK);
 			}	
 		}
-		//System.out.println();
+		if (structure.isEmpty()){
+			throw new FunctionalException("The stack is empty, this means that the problem is consistent");
+			
+		}else{
+
 		next= structure.pop();
 		//System.out.println();
 		//System.out.println("Vertex examined: " + next.getId()+", search state: "+ next.getSearchState()+", parent: "+ next.getParent().getId());
@@ -375,6 +367,7 @@ public class MinimalSetsDFSIterationsHLCL {
 		newG.addEdge(nV, parent);
 		//System.out.println("New Vertex: " + nV.getId()+", search state: "+ nV.getSearchState()+", parent: "+ nV.getParent());
 		//System.out.println("New Edge: "+ nV.getId() + ", "+parent.getId());
+		}
 		return next;
 	}
 	/**
