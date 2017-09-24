@@ -164,8 +164,7 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2InfraConcept.addModelingAttribute("exprs",
 				new ElemAttribute("exprs", "InstanceSet", AttributeType.SYNTAX,
-						false, "Operations Meta-Model Expr.", "",
-						OpersExpr.class.getCanonicalName(), "",
+						false, "Operations Meta-Model Expr.", "", "SeExpr", "",
 						new ArrayList<InstAttribute>(), null, "", 0, -1, "",
 						"", -1, "", ""));
 
@@ -333,7 +332,7 @@ public class InfraSyntaxOpersMMM {
 		instEdge.setSourceRelation(instInfraSyntaxOpersM2nmConcept, true);
 
 		SyntaxElement infraSyntaxOpersM2RelType = new SyntaxElement('A',
-				"OpMRelTypes", false, false, "OpMRelTypes",
+				"SeMRelTypes", false, false, "SeMRelTypes",
 				"infrasyntaxm2minigrayconcept",
 				"Relation Type for Binary and N-ary relations", 150, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
@@ -359,14 +358,13 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2RelType.addModelingAttribute("exprs",
 				new ElemAttribute("exprs", "InstaceSet", AttributeType.SYNTAX,
-						false, "Operations Meta-Model Expr.", "",
-						OpersExpr.class.getCanonicalName(), "Boolean",
-						new ArrayList<InstAttribute>(), null, "", 0, -1, "",
-						"", -1, "", ""));
+						false, "Operations Meta-Model Expr.", "", "SeExpr",
+						"Boolean", new ArrayList<InstAttribute>(), null, "", 0,
+						-1, "", "", -1, "", ""));
 
 		InstConcept instInfraSyntaxOpersM2RelType = new InstConcept(
-				"OpMRelTypes", basicOpersSyntaxM3Set, infraSyntaxOpersM2RelType);
-		variabilityInstVertex.put("OpMRelTypes", instInfraSyntaxOpersM2RelType);
+				"SeMRelTypes", basicOpersSyntaxM3Set, infraSyntaxOpersM2RelType);
+		variabilityInstVertex.put("SeMRelTypes", instInfraSyntaxOpersM2RelType);
 
 		OpersConcept basicOpersM2AsoRel = new OpersConcept("AsoRel");
 
