@@ -852,7 +852,7 @@ public class InfraBasicSyntaxMMMM {
 		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
-				"Model_Definition"));
+				"Model_Property"));
 		enumVals.add(new InstAttribute("enum2", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
@@ -860,7 +860,7 @@ public class InfraBasicSyntaxMMMM {
 		enumVals.add(new InstAttribute("enum3", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
-				"Config_Definition"));
+				"Config_Property"));
 		enumVals.add(new InstAttribute("enum4", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),

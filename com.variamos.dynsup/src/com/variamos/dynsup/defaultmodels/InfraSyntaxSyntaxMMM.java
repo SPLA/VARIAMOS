@@ -35,7 +35,7 @@ public class InfraSyntaxSyntaxMMM {
 				.getSyntaxModel().getVertex("BsArrow");
 
 		SyntaxElement infraSyntaxM2Language = new SyntaxElement('C',
-				"SyMLanguage", true, true, "SyMLanguage",
+				"SyMParadigm", true, true, "SyMParadigm",
 				"infrasyntaxm2miniconcept", "Syntax Meta Node", 170, 180,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
@@ -57,9 +57,9 @@ public class InfraSyntaxSyntaxMMM {
 						0, 0, "", "", 1, "<<SyMLanguage>>\n{semType:\"#"
 								+ "OperationsMMType" + "#all#\"}\n", ""));
 
-		InstConcept instInfraSyntaxOpersM2Lang = new InstConcept("SyMLanguage",
+		InstConcept instInfraSyntaxOpersM2Lang = new InstConcept("SyMParadigm",
 				infraBasicSyntaxOpersM3Node, infraSyntaxM2Language);
-		variabilityInstVertex.put("SyMLanguage", instInfraSyntaxOpersM2Lang);
+		variabilityInstVertex.put("SyMParadigm", instInfraSyntaxOpersM2Lang);
 
 		SyntaxElement infraSyntaxM2Element = new SyntaxElement('C',
 				"SyMElement", false, true, "SyMElement",

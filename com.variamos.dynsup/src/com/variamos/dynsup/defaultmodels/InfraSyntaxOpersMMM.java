@@ -508,6 +508,63 @@ public class InfraSyntaxOpersMMM {
 				basicOpersSyntaxM3Node, infraSyntaxOpersM2OTRel);
 		variabilityInstVertex.put("SeMOTRel", instInfraSyntaxOpersM2OTRel);
 
+		SyntaxElement basicOpersSyntaxM3TypesEnum = new SyntaxElement('E',
+				"TypesEnum", false, true, "TypesEnum", "infrasyntaxm2concept",
+				"Enum", 120, 120,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instInfraSyntaxOpersM3TypesEnum = new InstConcept(
+				"TypesEnum", basicOpersSyntaxM3Enum,
+				basicOpersSyntaxM3TypesEnum);
+
+		ArrayList<InstAttribute> enumVals = new ArrayList<InstAttribute>();
+		instInfraSyntaxOpersM3TypesEnum.getInstAttribute("enumValues")
+				.setValue(enumVals);
+		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Integer"));
+		enumVals.add(new InstAttribute("enum2", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"String"));
+		enumVals.add(new InstAttribute("enum3", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Boolean"));
+		enumVals.add(new InstAttribute("enum4", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Float"));
+		enumVals.add(new InstAttribute("enum5", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Enumeration"));
+		// enumVals.add(new InstAttribute("enum8", new
+		// ElemAttribute("EnumValue",
+		// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+		// "Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+		// "ClassSet"));
+		enumVals.add(new InstAttribute("enum9", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"Instance"));
+		enumVals.add(new InstAttribute("enum10", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"InstanceSet"));
+		enumVals.add(new InstAttribute("enum11", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"SemanticElement"));
+		enumVals.add(new InstAttribute("enum11", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
+				"MetaElement"));
+
+		variabilityInstVertex.put("TypesEnum", instInfraSyntaxOpersM3TypesEnum);
+
 		OpersConcept basicOpersM2ExtRel = new OpersConcept("ExtRel");
 
 		InstConcept instBasicOpersM2ExtRel = new InstConcept("ExtendsRelation",
@@ -1551,7 +1608,7 @@ public class InfraSyntaxOpersMMM {
 				"OpersComputationType", basicOpersSyntaxM3Enum,
 				opersM2ComputationTypeEnum);
 
-		ArrayList<InstAttribute> enumVals = new ArrayList<InstAttribute>();
+		enumVals = new ArrayList<InstAttribute>();
 		instOpersM2ComputationTypeEnum.getInstAttribute("enumValues").setValue(
 				enumVals);
 		enumVals.add(new InstAttribute("enum1", new ElemAttribute("EnumValue",
