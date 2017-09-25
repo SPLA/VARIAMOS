@@ -291,21 +291,12 @@ public class FileTasks extends SwingWorker<Void, Void> {
 
 		FileHandlingAPI filesApi = new FileHandlingAPI();
 		boolean sucess = false;
-		// For avoiding null pointer exceptions when saving the image a background color
-		// is defined
 		mxGraphComponent graphComponent = variamosEditor.getGraphComponent();
-
-		if (bgColor == null) {
-			bgColor = graphComponent.getBackground();
-		}
-
 		switch (fileType) {
 		case SAVE_IMAGE_SVG:
 			sucess = filesApi.savesvg(graph, filename);
 			break;
 		case SAVE_IMAGE_PNG:
-			((MainFrame) variamosEditor.getFrame()).waitingCursor(true);
-
 			sucess = filesApi.saveXmlPng(graphComponent, filename, bgColor);
 			if (sucess) {
 				variamosEditor.setModified(false);
@@ -314,6 +305,10 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			break;
 		case SAVE_IMAGE_OTHERS:
 			sucess = filesApi.saveImages(graphComponent, filename, bgColor, ext);
+			if (sucess) {
+				variamosEditor.setModified(false);
+				variamosEditor.setCurrentFile(new File(filename));
+			}
 			break;
 		}
 		if (sucess == true) {

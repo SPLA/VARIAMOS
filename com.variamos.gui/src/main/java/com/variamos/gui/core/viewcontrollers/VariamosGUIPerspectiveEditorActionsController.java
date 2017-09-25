@@ -243,8 +243,6 @@ public class VariamosGUIPerspectiveEditorActionsController {
 				File currentFile = new File(filename);
 				VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.SAVE_MODEL,
 						currentFile, (VariamosGraphEditor) variamosEditor, graph, "File saving", ext, null);
-				variamosEditor.setCurrentFile(currentFile);
-
 			} else {
 				Color bg = null;
 				File currentFile = new File(filename);
