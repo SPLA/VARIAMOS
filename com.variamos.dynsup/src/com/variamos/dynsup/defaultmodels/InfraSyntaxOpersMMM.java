@@ -331,6 +331,26 @@ public class InfraSyntaxOpersMMM {
 		instEdge.setTargetRelation(instInfraSyntaxOpersM2Element, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM2nmConcept, true);
 
+		SyntaxElement basicOpersSyntaxM2Set = new SyntaxElement('C', "SeSet",
+				true, true, "SeSet", "infrasyntaxm2concept",
+				"Meta Meta Meta Element", 120, 120,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		basicOpersSyntaxM2Set.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 2, "", "", 1, "<<BsSet>>\n#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+
+		basicOpersSyntaxM2Set.addModelingAttribute("name", "String", false,
+				"Name", "", "", 0, 2, "", "", -1, "", "");
+
+		InstConcept instInfraSyntaxOpersM3Set = new InstConcept("SeSet",
+				basicOpersSyntaxM3Node, basicOpersSyntaxM2Set);
+		instInfraSyntaxOpersM3Set.createInstAttributes(null);
+		instInfraSyntaxOpersM3Set.copyValuesToInstAttributes(null);
+		variabilityInstVertex.put("BsSet", instInfraSyntaxOpersM3Set);
+
 		SyntaxElement infraSyntaxOpersM2RelType = new SyntaxElement('A',
 				"SeMRelTypes", false, false, "SeMRelTypes",
 				"infrasyntaxm2minigrayconcept",
@@ -1597,6 +1617,21 @@ public class InfraSyntaxOpersMMM {
 		instEdge.setEdSyntaxEle(infraSyntaxM2ConAtt);
 		instEdge.setTargetRelation(instInfraSyntaxOpersM2Attribute, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM2Element, true);
+
+		SyntaxElement infraSyntaxM2SetAtt = new SyntaxElement('P', "SeMSetAtt",
+				false, true, "Normal Relation", "defaultAsso",
+				"Concept-Concept relation", 50, 50,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
+
+		constraintInstEdges.put("SeMSetAtt", new InstPairwiseRel("SeMSetAtt",
+				infraSyntaxM2ConAtt));
+
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("set-att", instEdge);
+		instEdge.setIdentifier("set-att");
+		instEdge.setEdSyntaxEle(infraSyntaxM2SetAtt);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2Attribute, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM3Set, true);
 
 		SyntaxElement opersM2ComputationTypeEnum = new SyntaxElement('E',
 				"OpersComputationType", false, true, "OpersComputationType",
