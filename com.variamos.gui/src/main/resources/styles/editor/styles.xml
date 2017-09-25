@@ -483,13 +483,14 @@
 	</add>
 
 	<add as="constraintGraphCons">
-		<add as="shape" value="cgConstraint" />
+		<add as="shape" value="Terminator" />
 		<add as="labelBackgroundColor" value="none" />
 		<add as="endArrow" value="classic" />
 		<add as="fontSize" value="10" />
 		<add as="align" value="center" />
 		<add as="verticalAlign" value="middle" />
 		<add as="fillColor" value="#CEFEF8" />
+		<add as="strokeColor" value="black"/>
 
 	</add>
 	
