@@ -43,6 +43,7 @@ import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeE
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.Diagnosis;
 import com.variamos.reasoning.medic.model.diagnoseAlgorithm.MinimalSetsDFSIterationsHLCL;
 import com.variamos.reasoning.medic.model.graph.VertexHLCL;
+import com.variamos.reasoning.util.LogParameters;
 import com.variamos.solver.model.SolverSolution;
 
 //import graphHLCL.VertexHLCL;
@@ -665,7 +666,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			String verifHint,
 			List<OpersIOAttribute> outAttributes,  //pend
 			String outAttribute)
-			throws InterruptedException, FunctionalException {
+			throws Exception {
 		
 		//HlclFactory f = new HlclFactory();
 
@@ -683,9 +684,15 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			//aqui lo que tengo que hacer es tomar el hlcl program y quitarle la basura
 
 			MinimalSetsDFSIterationsHLCL medic= null;
-			medic= new MinimalSetsDFSIterationsHLCL(program);
+			
+			//Log parameters allow the activation of the logManager, 
+			//to start an execution using a log manager comment line 690 and uncomment line 692
+			// using a valid path and a name for the problem
+			//LogParameters params= new LogParameters();
+			LogParameters params= new LogParameters("/Users/Angela/Test/", "test");
+			medic= new MinimalSetsDFSIterationsHLCL(program, params);
 
-			LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGVariable1_value",10);
+			LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraints("CGVariable1_value",10);
 
 			System.out.println("Salida de Medic");
 			for (VertexHLCL vertexHLCL : output) {

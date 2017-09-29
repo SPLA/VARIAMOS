@@ -2,14 +2,11 @@ package com.variamos.reasoning.medic.model.diagnoseAlgorithm;
 
 
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 
 import com.variamos.common.core.exceptions.FunctionalException;
@@ -20,6 +17,7 @@ import com.variamos.reasoning.medic.model.graph.HLCL2Graph;
 import com.variamos.reasoning.medic.model.graph.NodeConstraintHLCL;
 import com.variamos.reasoning.medic.model.graph.NodeVariableHLCL;
 import com.variamos.reasoning.medic.model.graph.VertexHLCL;
+import com.variamos.reasoning.util.LogParameters;
 import com.variamos.solver.core.IntSolver;
 import com.variamos.solver.core.SWIPrologSolver;
 import com.variamos.solver.core.compiler.Hlcl2SWIProlog;
@@ -51,23 +49,13 @@ import com.variamos.solver.model.SolverSolution;
  * 
  * 
  * @author Angela Villota <Angela Villota>
- * @version 1.2
+ * @version 1.3
  * @since 0
  *
  */
 public class MinimalSetsDFSIterationsHLCL {
-//	public static final String LOGNAME="logFiles/ExecutionLog";
-//	public static final String LOGEXT=".log";
-	
-	
-	
-	
-	//StringBuilder 
-	
-	
-	//Objeto que se encarga de convertir un CSP en un archivo desde cero, o de usar un stringBuilder
-	// para escribirlo en un archivo
-//	private CSP2File csp2file;
+
+
 	
 	// Objects for the translating into the solver representation 
 	private StringBuilder sb;
@@ -77,7 +65,7 @@ public class MinimalSetsDFSIterationsHLCL {
 	private HlclProgram cspIn;
 	private ConstraintGraphHLCL graph;
 
-	
+	// log manager
 	private LogManager logMan;
 	
 	//TODO comentar estas lineas para pruebas de performance
@@ -85,13 +73,16 @@ public class MinimalSetsDFSIterationsHLCL {
 
 	private int iterations;
 	
+	private LogParameters logParameters;
+	
 	/**
 	 * Method for using the diagnosis algorithm from variamos
 	 * @param csp
 	 * @param net
 	 */
-	public MinimalSetsDFSIterationsHLCL(HlclProgram csp){
+	public MinimalSetsDFSIterationsHLCL(HlclProgram csp, LogParameters log){
 		cspIn= csp;
+		logParameters = log;
 		HLCL2Graph transformer= new HLCL2Graph(cspIn);
 		graph= transformer.transform();
 		iterations=0;
@@ -99,26 +90,7 @@ public class MinimalSetsDFSIterationsHLCL {
 		times = new ArrayList<String>();
 	}
 
-	/**
-	 * This method is useful for test and trace the diagnosis algorithm  
-	 * @param csp the inconsistent CSP
-	 * @param path the path of the problem for tests and etc
-	 * @param man is the object used to make the logfile to report the execution of the algorithm
-	 * @param net is the graph generated from the csp
-	 */
-	public MinimalSetsDFSIterationsHLCL(HlclProgram csp, String path,  LogManager man, ConstraintGraphHLCL net){
-		cspIn= csp;
-		logMan= man;
-		graph= net;
-		//problemPath= path;
-		//TODO imprime la red de restricciones
-		//printNetwork(constraintNetwork);
-		//sb= new StringBuilder();
-		
-		//TODO comentar estas lineas para pruebas de performance
-		times = new ArrayList<String>();
-		
-	}
+
 
 /**
  * Diagnosis algorithms main loop. This loop performs a defined number of searches, or until an answer can't be 
@@ -136,87 +108,124 @@ public class MinimalSetsDFSIterationsHLCL {
 	 * @param maxIterations, integer with the max amount of iteratiuons 
 	 * @param man log manager
 	 * @return
+	 * @throws Exception 
+	 * @throws FunctionalException 
 	 */
 	
-	public LinkedList<VertexHLCL> sourceOfInconsistentConstraintsLog(String source, int maxIterations){
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		String testName=date.toString();
-		logMan= new LogManager("/Users/Angela/Test/", testName);
-		logMan.initLog();
-		
-		logMan.writeInFile("Starting test of the MEDIC diagnosis algorithm, file: "+testName + "\n");
-
+	public LinkedList<VertexHLCL> sourceOfInconsistentConstraints(String source, int maxIterations) {
 		/*
 		 * Each search returns a subset of the graph and the sequence of visited vetrices, all wrapped
 		 * in a Path object
 		 */
 		Path<ConstraintGraphHLCL,VertexHLCL> path = new Path<ConstraintGraphHLCL,VertexHLCL>();
 
-		iterations=0; //number of iterations of a call in the diagnosis algorithm
-
 		
-		try{
-			
-			long startTime = System.currentTimeMillis();
-			path = searchPathLog(source, graph, cspIn);
-			// one search is already done
-			
-			/*
-			 * Lines to debug, (un)comment till the beginning of the do-while
-			 */
-			logMan.writeInFile("Size of path iteration No.1: " + path.getPath().size());
-			logMan.writeInFile("\n");
-			for (VertexHLCL vertex : path.getPath()) {
-				logMan.writeInFile(vertex.getId()+ " ");
-			}
-			logMan.writeInFile("\n");
-			
-			iterations++;
-			source= path.getPath().getLast().getId(); // source for the following iterations
-			int previousLength; //Length of the path
-			//list = recoverPath( path0.getPath().getLast(), list);
-			ConstraintGraphHLCL subGraph= path.getSubset(); //subgraph
-			HlclProgram csp = path.getSubProblem();
+		switch(logParameters.getLogType()){
+		
+		//start the diagnosis algorithm using a log file using an logMan object
+		case LogParameters.LOG:
+			//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			String testName=logParameters.getProblemName()+"_"+ date.toString();
+			logMan= new LogManager(logParameters.getPath(), testName);
+			logMan.initLog();
 
-			do{
-				logMan.writeInFile("Iteration "+ iterations);
+			logMan.writeInFile("Starting test of the MEDIC diagnosis algorithm, file: "+testName + "\n");
+
+			iterations=0; //number of iterations of a call in the diagnosis algorithm
+			try{
+				long startTime = System.currentTimeMillis();
+				path = searchPathLog(source, graph, cspIn);
+				// one search is already done
+				/*
+				 * Lines to debug, (un)comment till the beginning of the do-while
+				 */
+				logMan.writeInFile("Size of path iteration No.1: " + path.getPath().size());
 				logMan.writeInFile("\n");
-				previousLength= path.getPath().size();
-				path = searchPathLog(source, subGraph, csp);
-				source= path.getPath().getLast().getId();
-				subGraph= path.getSubset();
-				maxIterations--;
-				iterations++;
-
-				logMan.writeInFile("Size of path iteration No.: " + path.getPath().size() + "\n");
 				for (VertexHLCL vertex : path.getPath()) {
 					logMan.writeInFile(vertex.getId()+ " ");
 				}
 				logMan.writeInFile("\n");
-				
-			}
-			while(maxIterations>0 && previousLength> path.getPath().size());
-			
-			if (! (maxIterations>0)){
-				logMan.writeInFile("Execution termined for reaching a the maximun of iterations"+ "\n");
-			}else{
-				logMan.writeInFile("Execution termided for reaching a fixed point after " +  iterations+ " iterations" +"\n");
-			}
-			
-			
-			long endTime = System.currentTimeMillis();
 
+				iterations++;
+				source= path.getPath().getLast().getId(); // source for the following iterations
+				int previousLength; //Length of the path
+				//list = recoverPath( path0.getPath().getLast(), list);
+				ConstraintGraphHLCL subGraph= path.getSubset(); //subgraph
+				HlclProgram csp = path.getSubProblem();
+
+				do{
+					logMan.writeInFile("Iteration "+ iterations);
+					logMan.writeInFile("\n");
+					previousLength= path.getPath().size();
+					path = searchPathLog(source, subGraph, csp);
+					source= path.getPath().getLast().getId();
+					subGraph= path.getSubset();
+					maxIterations--;
+					iterations++;
+
+					logMan.writeInFile("Size of path iteration No.: " + path.getPath().size() + "\n");
+					for (VertexHLCL vertex : path.getPath()) {
+						logMan.writeInFile(vertex.getId()+ " ");
+					}
+					logMan.writeInFile("\n");
+				}
+				while(maxIterations>0 && previousLength> path.getPath().size());
+
+				if (! (maxIterations>0)){
+					logMan.writeInFile("Execution termined for reaching a the maximun of iterations"+ "\n");
+				}else{
+					logMan.writeInFile("Execution termided for reaching a fixed point after " +  iterations+ " iterations" +"\n");
+				}
+				long endTime = System.currentTimeMillis();
+
+				//TODO comentar estas lineas para pruebas de performance
+				//logMan.writeInFile((endTime - startTime) + "\t");
+				logMan.writeInFile("Total execution: "+(endTime - startTime) + "\n");
+			}catch (Exception e){
+				logMan.writeInFile("Execution suspended, runTime error \n"+ e.toString());
+				
+				e.printStackTrace();
+			}
+			logMan.closeLog();
 			
-			//TODO comentar estas lineas para pruebas de performance
-			//logMan.writeInFile((endTime - startTime) + "\t");
-			logMan.writeInFile("Total execution: "+(endTime - startTime) + "\n");
-		}catch (Exception e){
-			logMan.writeInFile("Execution suspended, runTime error \n"+ e.toString());
-			//writeInFile(e.getMessage());
-			e.printStackTrace();
+			break;
+		case LogParameters.NO_LOG:
+			try{
+			
+			iterations=0; //number of iterations of a call in the diagnosis algorithm
+				long startTime = System.currentTimeMillis();
+				path = searchPathLog(source, graph, cspIn);
+				// one search is already done
+				iterations++;
+				source= path.getPath().getLast().getId(); // source for the following iterations
+				int previousLength; //Length of the path
+				//list = recoverPath( path0.getPath().getLast(), list);
+				ConstraintGraphHLCL subGraph= path.getSubset(); //subgraph
+				HlclProgram csp = path.getSubProblem();
+
+				do{
+					previousLength= path.getPath().size();
+					path = searchPathLog(source, subGraph, csp);
+					source= path.getPath().getLast().getId();
+					subGraph= path.getSubset();
+					maxIterations--;
+					iterations++;
+				}
+				while(maxIterations>0 && previousLength> path.getPath().size());
+				long endTime = System.currentTimeMillis();
+
+				//TODO comentar estas lineas para pruebas de performance
+				//logMan.writeInFile((endTime - startTime) + "\t");
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			
+			break;
+		
 		}
-		logMan.closeLog();
+		
+		
 		return path.getPath();
 		
 	}
@@ -255,7 +264,7 @@ public class MinimalSetsDFSIterationsHLCL {
 	 * @throws FunctionalException 
 	 */
 	public Path<ConstraintGraphHLCL,VertexHLCL> 
-	searchPathLog(String source, ConstraintGraphHLCL graphIn, HlclProgram csp) throws FunctionalException,Exception{
+	searchPathLog(String source, ConstraintGraphHLCL graphIn, HlclProgram csp) throws Exception{
 		
 		logMan.writeInFile("\nConstraint graph in iteration "+ iterations+ "\n");
 		printNetwork(graphIn);
@@ -274,7 +283,7 @@ public class MinimalSetsDFSIterationsHLCL {
 		boolean satisfiable=true; // all empty csp is satisfiable
 		VertexHLCL actual=stack.pop(); //initializing the loop with a vertex
 		if (actual==null){
-			throw new FunctionalException(" Error while examining the vertex with id "+ source+" the vertex is not in the graph,"
+			throw new Exception(" Error while examining the vertex with id "+ source+" the vertex is not in the graph,"
 					+ "either:  the id is wrong, or there are problems in the translation of the constraint graph" );
 		}
 		else{
@@ -295,6 +304,7 @@ public class MinimalSetsDFSIterationsHLCL {
 			if (actual instanceof NodeVariableHLCL){
 				newConstraints= actual.getConstraints();
 				if (!newConstraints.isEmpty()){
+					
 					empty=false;
 				}
 			}else if (actual instanceof NodeConstraintHLCL){
@@ -354,7 +364,7 @@ public class MinimalSetsDFSIterationsHLCL {
 			}	
 		}
 		if (structure.isEmpty()){
-			throw new FunctionalException("The stack is empty, this means that the problem is consistent");
+			throw new Exception("The stack is empty, this means that the problem is consistent");
 			
 		}else{
 
