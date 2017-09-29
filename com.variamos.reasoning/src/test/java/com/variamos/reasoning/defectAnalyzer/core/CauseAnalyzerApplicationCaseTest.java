@@ -28,7 +28,7 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
 //import com.variamos.reasoning.transformer.VariabilityModelTransformer;
 //
-//public class CauseAnalyzerApplicationCaseTest {
+public class CauseAnalyzerApplicationCaseTest {
 //
 //	public void testCausesVoidModel() {
 //
@@ -455,4 +455,4 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //
 //	
 //	
-//}
+}
