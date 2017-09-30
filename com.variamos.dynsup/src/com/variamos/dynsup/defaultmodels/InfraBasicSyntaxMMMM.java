@@ -149,27 +149,29 @@ public class InfraBasicSyntaxMMMM {
 		variabilityInstVertex.put("BsNamedElement",
 				instInfraSyntaxOpersM3NamedElement);
 
-		SyntaxElement basicOpersSyntaxM3Set = new SyntaxElement('C', "BsSet",
-				true, true, "BsSet", "infrasyntaxm2bigconcept",
-				"Meta Meta Meta Element", 120, 120,
+		SyntaxElement basicOpersSyntaxM3Set = new SyntaxElement('C',
+				"BsCollection", true, true, "BsCollection",
+				"infrasyntaxm2bigconcept", "Meta Meta Meta Element", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
 		basicOpersSyntaxM3Set.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 2, "", "", 1, "<<BsSet>>\n#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"User Identifier", "", "", 0, 2, "", "", 1,
+				"<<BsCollection>>\n#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n\n", "");
 
 		// FIXME include a boolean to identify in the set should be treated as a
 		// list of values when instantiated, if not an attribute should be
 		// assumed
 
-		InstConcept instInfraSyntaxOpersM3Set = new InstConcept("BsSet",
+		InstConcept instInfraSyntaxOpersM3Set = new InstConcept("BsCollection",
 				instInfraSyntaxOpersM3Concept, basicOpersSyntaxM3Set);
 		instInfraSyntaxOpersM3Set.createInstAttributes(null);
 		instInfraSyntaxOpersM3Set.copyValuesToInstAttributes(null);
-		variabilityInstVertex.put("BsSet", instInfraSyntaxOpersM3Set);
+		variabilityInstVertex.put("BsCollection", instInfraSyntaxOpersM3Set);
 
+		// FIXME for concrete syntax
 		SyntaxElement basicOpersSyntaxM3Tree = new SyntaxElement('C', "BsTree",
 				true, true, "BsTree", "infrasyntaxm2bigconcept",
 				"Meta Meta Meta Element", 120, 120,
@@ -195,7 +197,7 @@ public class InfraBasicSyntaxMMMM {
 				instInfraSyntaxOpersM3Concept, basicOpersSyntaxM3Tree);
 		instInfraSyntaxOpersM3Set.createInstAttributes(null);
 		instInfraSyntaxOpersM3Set.copyValuesToInstAttributes(null);
-		variabilityInstVertex.put("BsTree", instInfraSyntaxOpersM3Tree);
+		// variabilityInstVertex.put("BsTree", instInfraSyntaxOpersM3Tree);
 
 		// BsEnum is currently not used but is required to move types from
 		// com.variamos.dynsup.types to dynamic definitions
@@ -587,8 +589,8 @@ public class InfraBasicSyntaxMMMM {
 				"String", false, "Instance Type", "", "", 0, 8, "", "", -1, "#"
 						+ "instanceType" + "#all#\n\n", "");
 
-		basicOpersSyntaxM3Attribute.addModelingAttribute("defaultValue",
-				"String", false, "Default Value", "", "", 0, 9, "", "", -1, "#"
+		basicOpersSyntaxM3Attribute.addModelingAttribute("defaultValue", "Any",
+				false, "Default Value", "", "", 0, 9, "", "", -1, "#"
 						+ "defaultValue" + "#all#\n\n", "");
 
 		basicOpersSyntaxM3Attribute.addModelingAttribute("domain", "String",
@@ -657,22 +659,23 @@ public class InfraBasicSyntaxMMMM {
 		instEdge.setIdentifier("co-att");
 		instEdge.setEdSyntaxEle(infraSyntaxM3ConAtt);
 		instEdge.setTargetRelation(instInfraSyntaxOpersM3Attribute, true);
-		instEdge.setSourceRelation(instInfraSyntaxOpersM3Concept, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM3NamedElement, true);
 
-		SyntaxElement infraSyntaxM3SetAtt = new SyntaxElement('P', "BsSetAtt",
-				false, true, "Normal Relation", "defaultAsso",
-				"Set-Attribute relation", 50, 50,
-				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
-
-		constraintInstEdges.put("BsSetAtt", new InstPairwiseRel("BsTreeAtt",
-				infraSyntaxM3SetAtt));
-
-		instEdge = new InstPairwiseRel();
-		constraintInstEdges.put("set-attribute", instEdge);
-		instEdge.setIdentifier("set-attribute");
-		instEdge.setEdSyntaxEle(infraSyntaxM3SetAtt);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM3Attribute, true);
-		instEdge.setSourceRelation(instInfraSyntaxOpersM3Set, true);
+		// SyntaxElement infraSyntaxM3SetAtt = new SyntaxElement('P',
+		// "BsSetAtt",
+		// false, true, "Normal Relation", "defaultAsso",
+		// "Set-Attribute relation", 50, 50,
+		// "/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
+		//
+		// constraintInstEdges.put("BsSetAtt", new InstPairwiseRel("BsTreeAtt",
+		// infraSyntaxM3SetAtt));
+		//
+		// instEdge = new InstPairwiseRel();
+		// constraintInstEdges.put("set-attribute", instEdge);
+		// instEdge.setIdentifier("set-attribute");
+		// instEdge.setEdSyntaxEle(infraSyntaxM3SetAtt);
+		// instEdge.setTargetRelation(instInfraSyntaxOpersM3Attribute, true);
+		// instEdge.setSourceRelation(instInfraSyntaxOpersM3Set, true);
 
 		SyntaxElement infraSyntaxM3TreeAtt = new SyntaxElement('P',
 				"BsTreeAtt", false, true, "Normal Relation", "defaultAsso",
@@ -725,13 +728,13 @@ public class InfraBasicSyntaxMMMM {
 		// com.variamos.dynsup.types to dynamic definitions
 
 		SyntaxElement basicOpersSyntaxM3TypesEnum = new SyntaxElement('E',
-				"TypesEnum", false, true, "TypesEnum", "infrasyntaxm2concept",
-				"Enum", 120, 120,
+				"AttribTypesEnum", false, true, "AttribTypesEnum",
+				"infrasyntaxm2concept", "Enum", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
 		InstConcept instInfraSyntaxOpersM3TypesEnum = new InstConcept(
-				"TypesEnum", instInfraSyntaxOpersM3Enum,
+				"AttribTypesEnum", instInfraSyntaxOpersM3Enum,
 				basicOpersSyntaxM3TypesEnum);
 
 		ArrayList<InstAttribute> enumVals = new ArrayList<InstAttribute>();
@@ -765,11 +768,9 @@ public class InfraBasicSyntaxMMMM {
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
 				"Class"));
-		// enumVals.add(new InstAttribute("enum8", new
-		// ElemAttribute("EnumValue",
-		// StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-		// "Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
-		// "ClassSet"));
+		enumVals.add(new InstAttribute("enum8", new ElemAttribute("EnumValue",
+				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""), "Any"));
 		enumVals.add(new InstAttribute("enum9", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
@@ -787,7 +788,8 @@ public class InfraBasicSyntaxMMMM {
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
 				"MetaElement"));
 
-		variabilityInstVertex.put("TypesEnum", instInfraSyntaxOpersM3TypesEnum);
+		variabilityInstVertex.put("AttribTypesEnum",
+				instInfraSyntaxOpersM3TypesEnum);
 
 		SyntaxElement basicOpersSyntaxM3NodeTypesEnum = new SyntaxElement('E',
 				"NodeTypesEnum", false, true, "NodeTypesEnum",
@@ -827,7 +829,7 @@ public class InfraBasicSyntaxMMMM {
 		enumVals.add(new InstAttribute("enum6", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
-				"Model"));
+				"Paradigm"));
 		enumVals.add(new InstAttribute("enum7", new ElemAttribute("EnumValue",
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),

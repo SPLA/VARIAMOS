@@ -43,10 +43,10 @@ public class InfraSyntaxOpersMMM {
 				.getVertex("BsNode");
 
 		InstElement basicOpersSyntaxM3Set = modelInstance.getSyntaxModel()
-				.getVertex("BsSet");
+				.getVertex("BsCollection");
 
 		InstElement basicOpersSyntaxM3Tree = modelInstance.getSyntaxModel()
-				.getVertex("BsTree");
+				.getVertex("BsCollection");
 
 		InstElement basicOpersSyntaxM3Gen = modelInstance.getSyntaxModel()
 				.getVertex("BsGeneralization");
