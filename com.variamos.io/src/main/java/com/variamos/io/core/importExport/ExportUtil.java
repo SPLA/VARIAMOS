@@ -11,7 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import com.variamos.common.core.exceptions.TechnicalException;
 
 /**
- * Clase utilitaria para exportar resultados en una hoja de excel
+ * Utilitary class for handling XLS files ( create row, savexls files)
  * 
  * @author LuFe
  * 
@@ -19,49 +19,41 @@ import com.variamos.common.core.exceptions.TechnicalException;
 public class ExportUtil {
 
 	/**
-	 * Crea un conjunto de celdas para una fila determinada del modelo
-	 * 
-	 * @param row
-	 * @param count
-	 * @param filePath
-	 * @param timeCounter
-	 * @param results
-	 * @param deadFeatureCount
-	 * @return
+	 * @param row: empty row
+	 * @param rowData: data to save into the row
+	 * @return HSSFRow: row with data
 	 */
-	public static HSSFRow createRow(HSSFRow row, List<String> filaResultados) {
+	public static HSSFRow createRow(HSSFRow row, List<String> rowData) {
 
-		int contadorCelda = 0;
-		for (String resultadoCelda : filaResultados) {
-			HSSFCell celda = row.createCell(contadorCelda);
+		int cont = 0;
+		for (String resultadoCelda : rowData) {
+			HSSFCell celda = row.createCell(cont);
 			celda.setCellValue(resultadoCelda);
-			contadorCelda++;
+			cont++;
 		}
 
 		return row;
 	}
 
 	/**
-	 * Se almacena informaci�n del XLS
+	 * Save a HSSWorkbook into the path received as a parameter
 	 * 
-	 * @param libro
-	 * @param rutaResultados
+	 * @param workbook to save
+	 * @param path to save the file
 	 */
-	public static void saveXls(HSSFWorkbook libro, String rutaResultados) {
-		// Se salva el libro.
+	public static void saveXls(HSSFWorkbook workbook, String path) {
 		try {
-			FileOutputStream elFichero = new FileOutputStream(rutaResultados);
-			libro.write(elFichero);
+			FileOutputStream elFichero = new FileOutputStream(path);
+			workbook.write(elFichero);
 			elFichero.close();
-		} catch (Exception e) {
-			//FIXME: Improve how to lunch this exception. 
-			throw new TechnicalException(e.getMessage());
+		} catch (Exception e) { 
+			throw new TechnicalException(e);
 		}
 	}
 
 	/**
-	 * Crea la informaci�n que se requiera en la hoja de excel definida como
-	 * par�metro de entrada
+	 * Crea la informacion que se requiera en la hoja de excel definida como
+	 * parametro de entrada
 	 * 
 	 * @param encabezadosList
 	 * @param filaInicialHoja
