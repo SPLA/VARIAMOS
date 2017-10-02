@@ -60,7 +60,10 @@ public class RefasWidgetFactory {
 		// widgetReg.put(SortIdListType.IDENTIFIER, SortIdListWidget.class);
 		widgetReg.put(ClassMultiSelectionType.IDENTIFIER, MClassWidget.class);
 		widgetReg.put("Instance", StringWidget.class);
-
+		widgetReg.put("InstanceSet", StringWidget.class);
+		widgetReg.put("SeMetaModel", StringWidget.class);
+		widgetReg.put("OpMetaModel", StringWidget.class);
+		widgetReg.put("ClassSet", StringWidget.class);
 	}
 
 	public WidgetR getWidgetFor(IntInstAttribute v) {

@@ -108,7 +108,7 @@ public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 		if (val instanceof Integer)
 			return (Integer) val;
 
-		if (val instanceof String)
+		if (val instanceof String && !val.equals(""))
 			return Integer.parseInt((String) val);
 
 		return 0;
