@@ -14,7 +14,7 @@ import com.mxgraph.io.mxCodec;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
-import com.variamos.common.core.exceptions.GraphReadingException;
+import com.variamos.common.core.exceptions.MXGraphException;
 
 /**
  * @author unknown
@@ -29,16 +29,16 @@ public class MxGraphReader {
 	 *            File to load
 	 * @param mxGraph
 	 *            Destination Graph Load file on existing LineGraph
-	 * @throws GraphReadingException 
+	 * @throws MXGraphException 
 	 */
-	public static void loadMxGraph(File file, mxGraph mxGraph, JComponent jframe) throws GraphReadingException {
+	public static void loadMxGraph(File file, mxGraph mxGraph, JComponent jframe) throws MXGraphException {
 		try {
 			Document document = mxXmlUtils.parseXml(readFile(
 					file.getAbsolutePath(), jframe));
 			mxCodec codec = new mxCodec(document);
 			codec.decode(document.getDocumentElement(), mxGraph.getModel());
 		} catch (Exception e) {
-			throw new GraphReadingException(e);
+			throw new MXGraphException(e);
 		}
 	}
 

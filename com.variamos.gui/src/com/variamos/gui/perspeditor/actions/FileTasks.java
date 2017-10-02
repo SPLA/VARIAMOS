@@ -19,7 +19,7 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 import com.variamos.common.core.exceptions.FunctionalException;
-import com.variamos.common.core.exceptions.GraphReadingException;
+import com.variamos.common.core.exceptions.MXGraphException;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.gui.api.FileHandlingAPI;
 import com.variamos.gui.core.io.ConsoleTextArea;
@@ -86,7 +86,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 	 * @see javax.swing.SwingWorker#doInBackground()
 	 */
 	@Override
-	public Void doInBackground() throws InterruptedException, GraphReadingException, IOException, FunctionalException {
+	public Void doInBackground() throws InterruptedException, MXGraphException, IOException, FunctionalException {
 		setProgress(0);
 
 		Thread.sleep(1);
@@ -124,10 +124,10 @@ public class FileTasks extends SwingWorker<Void, Void> {
 	 *            to read
 	 * @return
 	 * @throws InterruptedException
-	 * @throws GraphReadingException
+	 * @throws MXGraphException
 	 * @throws IOException
 	 */
-	private boolean openModelAction(File file) throws InterruptedException, GraphReadingException, IOException {
+	private boolean openModelAction(File file) throws InterruptedException, MXGraphException, IOException {
 		setProgress(1);
 		progressMonitor.setNote("Preparing for file load");
 		variamosEditor.resetView();
@@ -345,7 +345,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 				JOptionPane.showMessageDialog(variamosEditor, msg, "Error", JOptionPane.ERROR_MESSAGE, null);
 				ConsoleTextArea.addText(e.getMessage());
 				e.printStackTrace();
-			} else if (e.getCause() instanceof GraphReadingException) {
+			} else if (e.getCause() instanceof MXGraphException) {
 				JOptionPane.showMessageDialog(variamosEditor,
 						"unable to load the model. The structure of the file was not understood.",
 						"Model load error: " + e.getMessage(), JOptionPane.ERROR_MESSAGE, null);
