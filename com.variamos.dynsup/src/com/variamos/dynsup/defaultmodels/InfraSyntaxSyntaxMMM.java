@@ -54,7 +54,7 @@ public class InfraSyntaxSyntaxMMM {
 						false, "Semantic Type",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, 0, "", "", 1, "<<SyMLanguage>>\n{semType:\"#"
+						0, 0, "", "", 1, "<<SyMParadigm>>\n{semType:\"#"
 								+ "OperationsMMType" + "#all#\"}\n", ""));
 
 		InstConcept instInfraSyntaxOpersM2Lang = new InstConcept("SyMParadigm",

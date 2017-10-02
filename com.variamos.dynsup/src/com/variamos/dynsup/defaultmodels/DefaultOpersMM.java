@@ -1,5 +1,6 @@
 package com.variamos.dynsup.defaultmodels;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -353,6 +354,7 @@ public class DefaultOpersMM {
 	protected static InstElement metaMetaPairwiseRelation = null;
 	protected static InstConcept metaMetaInstOverTwoRel = null;
 	protected static InstElement infraMetaMetaConcept = null;
+	protected static InstElement infraMetaMetaAttribute = null;
 	protected static InstElement infraMetaMetaPairwiseRelation = null;
 	protected static InstElement infraMetaMetaOverTwoRelation = null;
 	protected static InstPairwiseRel metaPairwRelCCExt = null;
@@ -404,6 +406,8 @@ public class DefaultOpersMM {
 
 		infraMetaMetaConcept = (refas.getSyntaxModel()
 				.getVertex("SeMnmConcept"));
+		infraMetaMetaAttribute = (refas.getSyntaxModel()
+				.getVertex("SeMAttribute"));
 		infraMetaMetaPairwiseRelation = (refas.getSyntaxModel()
 				.getVertex("SeMnmPWRel"));
 		infraMetaMetaOverTwoRelation = (refas.getSyntaxModel()
@@ -10313,6 +10317,43 @@ public class DefaultOpersMM {
 		// simulOperationSubAction.addInVariable(attribute);
 
 		refas.getVariabilityVertex().put("NmVariable", instVertexVAR);
+
+		SyntaxElement infraOpersM2Attribute = new SyntaxElement('A',
+				"NmAttribute", false, true, "NmAttribute",
+				"infrasyntaxm2bigconcept", "Attributes for the meta-concept",
+				120, 120, "/com/variamos/gui/perspeditor/images/concept.png",
+				true, Color.BLUE.toString(), 3, null, true);
+
+		infraOpersM2Attribute.addModelingAttribute("Name", new ElemAttribute(
+				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
+				"", "InstAttribute", 0, 1, "", "", 1, "", ""));
+
+		infraOpersM2Attribute.addModelingAttribute("type", new ElemAttribute(
+				"type", "MetaEnumeration", AttributeType.SYNTAX, false, "Type",
+				"", "TypeEnum", "", "", 0, 3, "", "", -1, "type" + "#all#\n\n",
+				""));
+
+		// classCanName
+		infraOpersM2Attribute.addModelingAttribute("enumType", "String", false,
+				"Enumeration Type", "", "", 0, 7, "", "", -1, "#" + "enumType"
+						+ "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("configuredValue", "String",
+				false, "Configured Value", "", "", 0, 9, "", "", -1, "#"
+						+ "configuredValue" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("configuredDomain",
+				"String", false, "Configured Domain", "", "", 0, 9, "", "", -1,
+				"#" + "configuredDomain" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("domain", "String", false,
+				"Domain", "", "", 0, 10, "", "", -1, "#" + "domain"
+						+ "#all#\n\n", "");
+
+		InstConcept instInfraSyntaxOpersM2Attribute = new InstConcept(
+				"NmAttribute", infraMetaMetaAttribute, infraOpersM2Attribute);
+		refas.getVariabilityVertex().put("NmAttribute",
+				instInfraSyntaxOpersM2Attribute);
 
 		OpersVariable semLowExp = new OpersVariable("NmLowExp");
 
