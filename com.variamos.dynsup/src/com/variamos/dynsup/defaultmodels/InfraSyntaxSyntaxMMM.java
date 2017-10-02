@@ -827,6 +827,20 @@ public class InfraSyntaxSyntaxMMM {
 		instEdge.setTargetRelation(instInfraSyntaxOpersM2Element, true);
 		instEdge.setSourceRelation(instInfraSyntaxM2ViewConceptAsso, true);
 
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("vc-ot", instEdge);
+		instEdge.setIdentifier("vc-ot");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxM2OTRel, true);
+		instEdge.setSourceRelation(instInfraSyntaxM2View, true);
+
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("vc-n", instEdge);
+		instEdge.setIdentifier("vc-n");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
+		instEdge.setSourceRelation(instInfraSyntaxM2View, true);
+
 		// FIME next two relations mainatied for current compatibility, with
 		// genericity should not be needed
 
