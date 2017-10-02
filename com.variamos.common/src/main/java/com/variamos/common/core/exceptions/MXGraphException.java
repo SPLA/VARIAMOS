@@ -2,6 +2,11 @@ package com.variamos.common.core.exceptions;
 
 import java.util.Arrays;
 
+/**
+ *  Represents a logical exception when using mxgraph functionalities
+ *  @author Luisa Rincon - lufe089@gmail.com
+ *
+ */
 public class MXGraphException extends Exception {
 	/**
 	 * 
