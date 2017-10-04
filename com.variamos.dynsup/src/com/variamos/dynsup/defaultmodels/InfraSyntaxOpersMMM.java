@@ -224,8 +224,9 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMnmRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n"
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMnmBinary>>\n"// "<<SeMnmRel>>\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n"
 						+ "<<non-modifiable>>" + "\n\n", "");
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
@@ -274,8 +275,9 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMnmOTRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n"
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMnmN-ary>>\n" // "<<SeMnmOTRel>>\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n"
 						+ "<<non-modifiable>>" + "\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2nmOTRel = new InstConcept(
@@ -455,7 +457,7 @@ public class InfraSyntaxOpersMMM {
 
 		metaMetaPairwiseRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMPWRel>>\n"
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMBinary>>\n"// "<<SeMPWRel>>\n"
 						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
 				"");
 
@@ -520,7 +522,7 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMOTRel>>\n"
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMN-ary>>\n" // "<<SeMOTRel>>\n"
 						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
 				"");
 
@@ -888,7 +890,7 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2MetaModel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMModel>>\n"
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMParadigm>>\n"// "<<SeMModel>>\n"
 						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
 				"");
 
@@ -1586,14 +1588,20 @@ public class InfraSyntaxOpersMMM {
 				"String", false, "Graph Visual Cond.", "", "", 0, 17, "", "",
 				-1, "#" + "elementDisplayCondition" + "#all#\n\n", "");
 
+		// FIXME use to generalize attributes such as XX to restrict the
+		// domain to other attributes of concepts.
 		infraOpersM2Attribute.addModelingAttribute("domFiltOwnFields",
 				"String", false, "Filter domain (Own Fields)", "", "", 0, 18,
 				"", "", -1, "#" + "domFiltOwnFields" + "#all#\n\n", "");
 
+		// FIXME use to generalize attributes such as "SDReqLevel" to restrict
+		// the domain to attribute of related concepts.
 		infraOpersM2Attribute.addModelingAttribute("domFilTRelFields",
 				"String", false, "Filter domain (Rel. Fields)", "", "", 0, 19,
 				"", "", -1, "#" + "domFilTRelFields" + "#all#\n\n", "");
 
+		// FIXME use to generalize attributes such as "SDReqLevel" to define the
+		// default value dynamically with another attribute of the concept.
 		infraOpersM2Attribute.addModelingAttribute("defDomValueField",
 				"String", false, "Def. Domain (Filter Field)", "", "", 0, 20,
 				"", "", -1, "#" + "defDomValueField" + "#all#\n\n", "");

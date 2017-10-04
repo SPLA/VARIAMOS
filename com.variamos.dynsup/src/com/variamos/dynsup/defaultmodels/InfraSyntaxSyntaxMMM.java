@@ -54,7 +54,7 @@ public class InfraSyntaxSyntaxMMM {
 						false, "Semantic Type",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, 0, "", "", 1, "<<SyMParadigm>>\n{semType:\"#"
+						0, 0, "", "", 1, "<<SyMParadigm>>\n" + "{SeType:\"#"
 								+ "OperationsMMType" + "#all#\"}\n", ""));
 
 		InstConcept instInfraSyntaxOpersM2Lang = new InstConcept("SyMParadigm",
@@ -171,7 +171,7 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.OPERATION, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, 0, "", "", 1, "<<SyMConcept>>\n{SemType:\"#"
+						0, 0, "", "", 1, "<<SyMConcept>>\n{SeType:\"#"
 								+ "OperationsMMType" + "#all#\"}\n", ""));
 
 		InstConcept instInfraSyntaxOpersM2Node = new InstConcept("SyMNode",
@@ -639,8 +639,10 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.OPERATION, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "O", null, "",
-						0, 0, "", "", 1, "<<SyMOverTwoAsso>>\n{SemType:\"#"
-								+ "OperationsMMType" + "#all#\"}\n", ""));
+						0, 0, "", "", 1, "<<SyMN-ary>>\n"// "<<SyMOverTwoAsso>>\n"
+								+ "{SeType:\"#"
+								+ "OperationsMMType"
+								+ "#all#\"}\n", ""));
 		infraSyntaxM2OTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 3, "#"
@@ -676,7 +678,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2ExtendsRelation.addModelingAttribute("Name",
 				new ElemAttribute("Name", "String", AttributeType.SYNTAX,
 						false, "Concept Name", "", "", 0, -1, "", "", 1,
-						"<<SyMExtends>>\n#Name#all#\n\n", ""));
+						"<<SyMGeneralization>>\n#Name#all#\n\n", ""));
 		infraSyntaxM2ExtendsRelation.addModelingAttribute("value",
 				new ElemAttribute("value", "Set", AttributeType.SYNTAX, false,
 						"values", "",
@@ -897,8 +899,10 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "P", null, "",
-						0, 0, "", "", 1, "<<SyMPairwiseAsso>>\n{SemType:\"#"
-								+ "OperationsMMType" + "#all#\",\n", ""));
+						0, 0, "", "", 1, "<<SyMBinary>>\n" // "<<SyMPairwiseAsso>>\n"
+								+ "{SeType:\"#"
+								+ "OperationsMMType"
+								+ "#all#\",\n", ""));
 		infraSyntaxM2PWRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 3, "#"
@@ -964,19 +968,19 @@ public class InfraSyntaxSyntaxMMM {
 				infraBasicSyntaxOpersM3Node, infraSyntaxM2PWRel);
 		variabilityInstVertex.put("SyMPairwise", instInfraSyntaxM2PWRel);
 
-		// instEdge = new InstPairwiseRel();
-		// constraintInstEdges.put("cpw-pw-c", instEdge);
-		// instEdge.setIdentifier("cpw-pw-c");
-		// instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
-		// instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
-		// instEdge.setSourceRelation(instInfraSyntaxM2PWRel, true);
-		//
-		// instEdge = new InstPairwiseRel();
-		// constraintInstEdges.put("cpw-c-pw", instEdge);
-		// instEdge.setIdentifier("cpw-c-pw");
-		// instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
-		// instEdge.setTargetRelation(instInfraSyntaxM2PWRel, true);
-		// instEdge.setSourceRelation(instInfraSyntaxOpersM2Node, true);
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("cpw-pw-c", instEdge);
+		instEdge.setIdentifier("cpw-pw-c");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
+		instEdge.setSourceRelation(instInfraSyntaxM2PWRel, true);
+
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("cpw-c-pw", instEdge);
+		instEdge.setIdentifier("cpw-c-pw");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxM2PWRel, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Node, true);
 
 		instEdge = new InstPairwiseRel();
 		constraintInstEdges.put("cpw-c-c", instEdge);
