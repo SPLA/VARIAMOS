@@ -468,7 +468,7 @@ public class DefaultSyntaxMM {
 		// Feature direct relations
 
 		InstElement semGroupPaiwiseRel = refas.getOperationalModel().getVertex(
-				"HardConceptToHardOT");
+				"HardConceptToHardN-ary");
 
 		SyntaxElement metaGroupHardPairwiseRel = new SyntaxElement('P',
 				"Group Relation", true, true, "Group Relation", "",
@@ -1106,7 +1106,7 @@ public class DefaultSyntaxMM {
 
 		// FIXME change meansHardPW for meansHardToOT
 		InstElement directStructHardHardSemanticEdge = refas
-				.getOperationalModel().getVertex("meansHardPW");
+				.getOperationalModel().getVertex("MeansHardBinary");
 
 		SyntaxElement metaGrpStructHardPairwiseRel = new SyntaxElement('P',
 				"MeansEndsG", true, true, "Means Ends Relation", "",
@@ -1183,7 +1183,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("MeansEnds", instDirMeansEndsRelation);
 
 		InstElement directSideHardHardSemanticEdge = refas
-				.getOperationalModel().getVertex("TravHardPW");
+				.getOperationalModel().getVertex("TravHardBinary");
 
 		SyntaxElement metaGrpSideHardPairwiseRel = new SyntaxElement('P',
 				"TraversalHG", true, true, "Traversal Relation", "",
@@ -1268,7 +1268,7 @@ public class DefaultSyntaxMM {
 		// Hard OverTwoRelations
 
 		InstConcept semanticHardHardGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("HardOT"));
+				.getOperationalModel().getVertex("HardN-ary"));
 
 		SyntaxElement hardMetaOverTwoRel = new SyntaxElement('O', "HardOT",
 				true, true, "HardOverTwoRel", "plgroup",
@@ -1579,13 +1579,13 @@ public class DefaultSyntaxMM {
 		// Direct Soft relation
 
 		InstElement directSGSGSemEdge = refas.getOperationalModel().getVertex(
-				"SoftgoalPW");
+				"SoftgoalBinary");
 
 		InstElement directSGGRSemEdge = refas.getOperationalModel().getVertex(
-				"SoftgoalToSoftgoalOT");
+				"SgToSgN-ary");
 
 		InstElement directGRSGSemEdge = refas.getOperationalModel().getVertex(
-				"SoftgoalOTToSoftgoalPW");
+				"SgN-aryToSg");
 
 		SyntaxElement metaGroupSoftFromPairWiseRel = new SyntaxElement('P',
 				"GroupSoftFromRelation", true, true,
@@ -1682,7 +1682,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instDirSoftPairWiseRel, true);
 
 		InstConcept semanticSGSGGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("SoftgoalOT"));
+				.getOperationalModel().getVertex("SoftgoalN-ary"));
 
 		// Group soft relation
 
@@ -2116,7 +2116,7 @@ public class DefaultSyntaxMM {
 		// Direct variable relations
 
 		InstElement directCVCGSemanticEdge = refas.getOperationalModel()
-				.getVertex("NmVarToConcernPW");
+				.getVertex("NmVarToConcernBinary");
 
 		SyntaxElement metaVariableEdge = new SyntaxElement('P',
 				"Variable To Context Relation", true, true,
@@ -2203,7 +2203,7 @@ public class DefaultSyntaxMM {
 				syntaxMetaView);
 
 		InstElement semOperToOperClaimOTPW = refas.getOperationalModel()
-				.getVertex("OperToOperClaimOTPW");
+				.getVertex("OperToOperClaimN-ary");
 
 		SyntaxElement metaOperToOperCLClaimPairwiseRel = new SyntaxElement(
 				'P',
@@ -2394,7 +2394,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("CL", instVertexCL);
 
 		InstElement semDirOperClaimPW = refas.getOperationalModel().getVertex(
-				"OperClaimPW");
+				"OperClaimBinary");
 
 		InstElement semDirLfClaimPW = refas.getOperationalModel().getVertex(
 				"LfClPW");
@@ -2548,7 +2548,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semanticOperClaimGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("OperClaimOT"));
+				.getOperationalModel().getVertex("OperClaimN-ary"));
 
 		hardMetaOverTwoRel = new SyntaxElement(
 				'O',
@@ -2564,7 +2564,7 @@ public class DefaultSyntaxMM {
 				false, "white", 1, semanticOperClaimGroupRelation, false);
 
 		InstElement semOperClaimOTToClaimPW = refas.getOperationalModel()
-				.getVertex("OperClaimOTToClaimPW");
+				.getVertex("OperClaimN-aryToClaim");
 
 		SyntaxElement metaOperClaimPairwiseRel = new SyntaxElement(
 				'P',
@@ -2831,7 +2831,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instVertexFCOTR, true);
 
 		InstElement directSDSGSemanticEdge = refas.getOperationalModel()
-				.getVertex("SdSgPW");
+				.getVertex("SdSgBinary");
 
 		SyntaxElement metaSDSGEdge = new SyntaxElement(
 				'P',
@@ -2872,7 +2872,7 @@ public class DefaultSyntaxMM {
 		// MetaEdge, metaSDSGEdge));
 
 		InstElement directClaimSGSemanticEdge = refas.getOperationalModel()
-				.getVertex("ClaimSgPW");
+				.getVertex("ClaimSgBinary");
 
 		SyntaxElement metaClaimSGEdge = new SyntaxElement(
 				'P',
@@ -2975,25 +2975,25 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Asset", instVertexAsset);
 
 		InstConcept semanticAssetOperGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("AssetOperOT"));
+				.getOperationalModel().getVertex("AssetOperN-ary"));
 
 		InstConcept semanticAssetLfGroupRelation = ((InstConcept) refas
 				.getOperationalModel().getVertex("AssetLfOT"));
 
 		InstElement directAssetOperSemanticEdge = refas.getOperationalModel()
-				.getVertex("AssetOperPW");
+				.getVertex("AssetOperBinary");
 
 		InstElement instAssetOperOTtoOperPW = refas.getOperationalModel()
-				.getVertex("AssetOperOTtoOperPW");
+				.getVertex("AssetOperN-aryToOper");
 
 		InstElement directAssetLfFromSemanticEdge = refas.getOperationalModel()
 				.getVertex("AssetLfOTToLf");
 
 		InstConcept semanticAssetAssetGroupRelation = ((InstConcept) refas
-				.getOperationalModel().getVertex("AssetOT"));
+				.getOperationalModel().getVertex("AssetN-ary"));
 
 		InstElement directAssetSemanticEdge = refas.getOperationalModel()
-				.getVertex("AssetPW");
+				.getVertex("AssetBinary");
 
 		hardMetaOverTwoRel = new SyntaxElement('O', "AssetOperOT", true, true,
 				"AssetOperGroupDep", "plgroup",

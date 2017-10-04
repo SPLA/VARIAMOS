@@ -841,6 +841,13 @@ public class InfraSyntaxSyntaxMMM {
 		instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
 		instEdge.setSourceRelation(instInfraSyntaxM2View, true);
 
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("vc-nt", instEdge);
+		instEdge.setIdentifier("vc-nt");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Node, true);
+
 		// FIME next two relations mainatied for current compatibility, with
 		// genericity should not be needed
 
@@ -957,19 +964,19 @@ public class InfraSyntaxSyntaxMMM {
 				infraBasicSyntaxOpersM3Node, infraSyntaxM2PWRel);
 		variabilityInstVertex.put("SyMPairwise", instInfraSyntaxM2PWRel);
 
-		instEdge = new InstPairwiseRel();
-		constraintInstEdges.put("cpw-pw-c", instEdge);
-		instEdge.setIdentifier("cpw-pw-c");
-		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
-		instEdge.setSourceRelation(instInfraSyntaxM2PWRel, true);
-
-		instEdge = new InstPairwiseRel();
-		constraintInstEdges.put("cpw-c-pw", instEdge);
-		instEdge.setIdentifier("cpw-c-pw");
-		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
-		instEdge.setTargetRelation(instInfraSyntaxM2PWRel, true);
-		instEdge.setSourceRelation(instInfraSyntaxOpersM2Node, true);
+		// instEdge = new InstPairwiseRel();
+		// constraintInstEdges.put("cpw-pw-c", instEdge);
+		// instEdge.setIdentifier("cpw-pw-c");
+		// instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		// instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
+		// instEdge.setSourceRelation(instInfraSyntaxM2PWRel, true);
+		//
+		// instEdge = new InstPairwiseRel();
+		// constraintInstEdges.put("cpw-c-pw", instEdge);
+		// instEdge.setIdentifier("cpw-c-pw");
+		// instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		// instEdge.setTargetRelation(instInfraSyntaxM2PWRel, true);
+		// instEdge.setSourceRelation(instInfraSyntaxOpersM2Node, true);
 
 		instEdge = new InstPairwiseRel();
 		constraintInstEdges.put("cpw-c-c", instEdge);
@@ -992,6 +999,23 @@ public class InfraSyntaxSyntaxMMM {
 		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
 		instEdge.setTargetRelation(instInfraSyntaxM2PWRel, true);
 		instEdge.setSourceRelation(instInfraSyntaxM2OTRel, true);
+
+		SyntaxElement infraSyntaxM2Test = new SyntaxElement('P', "SyMTest",
+				true, true, "SyMTest", "infrasyntaxm2microconcept",
+				"SyntaxPairwiseRel", 200, 90,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instInfraSyntaxM2Test = new InstConcept("SyMTest",
+				infraBasicSyntaxOpersM3Node, infraSyntaxM2Test);
+		variabilityInstVertex.put("SyMTest", instInfraSyntaxM2Test);
+
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("cpw-pw-ct", instEdge);
+		instEdge.setIdentifier("cpw-pw-ct");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Node, true);
 
 		SyntaxElement infraOpersM2Attribute = new SyntaxElement('A',
 				"SyMAttribute", false, true, "SyMAttribute",
