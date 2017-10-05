@@ -224,10 +224,9 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMnmBinary>>\n"// "<<SeMnmRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#all#\n"
-						+ "<<non-modifiable>>" + "\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMnmBinary>>\n"//
+				"<<SeMnmRel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n" + "<<non-modifiable>>" + "\n\n", "");
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				"relTypesAttr",
@@ -275,10 +274,10 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMnmN-ary>>\n" // "<<SeMnmOTRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#all#\n"
-						+ "<<non-modifiable>>" + "\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMnmN-ary>>\n"
+															// //
+				"<<SeMnmOTRel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n" + "<<non-modifiable>>" + "\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2nmOTRel = new InstConcept(
 				"SeMnmOTRel", basicOpersSyntaxM3Node,
@@ -457,9 +456,9 @@ public class InfraSyntaxOpersMMM {
 
 		metaMetaPairwiseRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMBinary>>\n"// "<<SeMPWRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
-				"");
+				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMBinary>>\n"//
+				"<<SeMPWRel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n\n", "");
 
 		InstConcept instPairWiseRelation = new InstConcept("SeMPWRel",
 				basicOpersSyntaxM3Node, metaMetaPairwiseRel);
@@ -522,9 +521,10 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMN-ary>>\n" // "<<SeMOTRel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
-				"");
+				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMN-ary>>\n"
+															// //
+				"<<SeMOTRel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2OTRel = new InstConcept("SeMOTRel",
 				basicOpersSyntaxM3Node, infraSyntaxOpersM2OTRel);
@@ -890,9 +890,9 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2MetaModel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMParadigm>>\n"// "<<SeMModel>>\n"
-						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
-				"");
+				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMParadigm>>\n"//
+				"<<SeMModel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2MetaModel = new InstConcept(
 				"SeMModel", basicOpersSyntaxM3Node, infraSyntaxOpersM2MetaModel);

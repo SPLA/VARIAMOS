@@ -54,8 +54,9 @@ public class InfraSyntaxSyntaxMMM {
 						false, "Semantic Type",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, 0, "", "", 1, "<<SyMParadigm>>\n" + "{SeType:\"#"
-								+ "OperationsMMType" + "#all#\"}\n", ""));
+						0, 0, "", "", 1, // "<<SyMParadigm>>\n"
+						"<<SyMModel>>\n" + "{SeType:\"#" + "OperationsMMType"
+								+ "#all#\"}\n", ""));
 
 		InstConcept instInfraSyntaxOpersM2Lang = new InstConcept("SyMParadigm",
 				infraBasicSyntaxOpersM3Node, infraSyntaxM2Language);
@@ -639,10 +640,9 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.OPERATION, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "O", null, "",
-						0, 0, "", "", 1, "<<SyMN-ary>>\n"// "<<SyMOverTwoAsso>>\n"
-								+ "{SeType:\"#"
-								+ "OperationsMMType"
-								+ "#all#\"}\n", ""));
+						0, 0, "", "", 1, // "<<SyMN-ary>>\n"//
+						"<<SyMOverTwoAsso>>\n" + "{SeType:\"#"
+								+ "OperationsMMType" + "#all#\"}\n", ""));
 		infraSyntaxM2OTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 3, "#"
@@ -899,10 +899,9 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "Operations MMType",
 						"Type from the Operations Meta-Model",
 						OpersConcept.class.getCanonicalName(), "P", null, "",
-						0, 0, "", "", 1, "<<SyMBinary>>\n" // "<<SyMPairwiseAsso>>\n"
-								+ "{SeType:\"#"
-								+ "OperationsMMType"
-								+ "#all#\",\n", ""));
+						0, 0, "", "", 1, // "<<SyMBinary>>\n" //
+						"<<SyMPairwiseAsso>>\n" + "{SeType:\"#"
+								+ "OperationsMMType" + "#all#\",\n", ""));
 		infraSyntaxM2PWRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 3, "#"
