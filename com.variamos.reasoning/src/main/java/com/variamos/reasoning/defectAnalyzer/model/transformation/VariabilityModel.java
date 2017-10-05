@@ -13,10 +13,11 @@ public class VariabilityModel {
 	private NotationType notationType;
 	private HlclProgram model;
 	private Map<String, VariabilityElementDefAna> elements;
+	
 	private Map<Long, Dependency> dependencies;
 	private String name;
-	// Dependencias propias de la notación que se está utilizando y que no
-	// pueden ser modificables pq hacen parte de la semántica del modelo de
+	// Dependencias propias de la notaciï¿½n que se estï¿½ utilizando y que no
+	// pueden ser modificables pq hacen parte de la semï¿½ntica del modelo de
 	// variabilidad
 	private Map<Long, Dependency> fixedDependencies;
 
@@ -24,7 +25,7 @@ public class VariabilityModel {
 	// opcionales
 	private Map<String, VariabilityElementDefAna> optionalVariabilityElements;
 
-	// Dependencias de inclusión o exclusion. Son la dependencias para las que
+	// Dependencias de inclusiï¿½n o exclusion. Son la dependencias para las que
 	// se buscan redundancias si el modelo es un feature model
 	private Map<Long, Dependency> inclusionExclusionDependencies;
 
