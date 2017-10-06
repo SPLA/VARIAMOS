@@ -10266,24 +10266,17 @@ public class DefaultOpersMM {
 				"", 0, 7, "", "variableType" + "#==#" + "LowLevel variable",
 				-1, "", "");
 		semVariable.putSemanticAttribute("LowLevelInVarLabel", attribute);
-		semVariable.addPropEditableAttribute("07#" + "LowLevelInVarLabel");
-		semVariable.addPropVisibleAttribute("07#" + "LowLevelInVarLabel" + "#"
-				+ "variableType" + "#==#" + "LowLevel variable");
 
-		attribute = new ElemAttribute(
-				"IntegerVarInSubOper",
-				"Class",
-				AttributeType.OPERATION,
-				false,
-				"Input SubOper as int",
-				"Sub Operation to include the low-level variable previous calculated, in a low level expression, as Integer",
+		attribute = new ElemAttribute("InputSubOperAsInteger", "Class",
+				AttributeType.OPERATION, false,
+				"SubOper to associate (Input is Int)",
+				"Sub Operation to include the low-level variable previous "
+						+ "calculated in a low level expression converted "
+						+ "to an Integer value",
 				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 8, "", "variableType" + "#==#" + "LowLevel variable", -1,
 				"", "");
-		semVariable.putSemanticAttribute("IntegerVarInSubOper", attribute);
-		semVariable.addPropEditableAttribute("08#" + "IntegerVarInSubOper");
-		semVariable.addPropVisibleAttribute("08#" + "IntegerVarInSubOper" + "#"
-				+ "variableType" + "#==#" + "LowLevel variable");
+		semVariable.putSemanticAttribute("InputSubOperAsInteger", attribute);
 
 		attribute = new ElemAttribute("IntegerInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as int",
@@ -10292,18 +10285,12 @@ public class DefaultOpersMM {
 				"", 0, 9, "", "variableType" + "#==#" + "LowLevel variable",
 				-1, "", "");
 		semVariable.putSemanticAttribute("IntegerInVarLabel", attribute);
-		semVariable.addPropEditableAttribute("09#" + "IntegerInVarLabel");
-		semVariable.addPropVisibleAttribute("09#" + "IntegerInVarLabel" + "#"
-				+ "variableType" + "#==#" + "LowLevel variable");
 
 		attribute = new ElemAttribute("LowLevelVarValue", "String",
-				AttributeType.GLOBALCONFIG, false, "Fixed Input Value",
-				"Value defined for input variable", "", 0, 8, "",
+				AttributeType.GLOBALCONFIG, false, "Fixed Input Value (Float)",
+				"Fixed value defined for an input variable", "", 0, 8, "",
 				"variableType" + "#==#" + "LowLevel variable", -1, "", "");
 		semVariable.putSemanticAttribute("LowLevelVarValue", attribute);
-		semVariable.addPropEditableAttribute("08#" + "LowLevelVarValue");
-		semVariable.addPropVisibleAttribute("08#" + "LowLevelVarValue" + "#"
-				+ "variableType" + "#==#" + "LowLevel variable");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(new
@@ -10510,7 +10497,7 @@ public class DefaultOpersMM {
 		semLowVariable.addPropVisibleAttribute("07#" + "LowLevelInVarLabel");
 
 		attribute = new ElemAttribute(
-				"IntegerVarInSubOper",
+				"InputSubOperAsInteger",
 				"Class",
 				AttributeType.OPERATION,
 				false,
@@ -10518,10 +10505,12 @@ public class DefaultOpersMM {
 				"Sub Operation to include the low-level variable previous calculated, in a low level expression, as Integer",
 				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 8, "", "", -1, "", "");
-		semLowVariable.putSemanticAttribute("IntegerVarInSubOper", attribute);
-		semLowVariable.addPropEditableAttribute("08#" + "IntegerVarInSubOper");
-		semLowVariable.addPropVisibleAttribute("08#" + "IntegerVarInSubOper");
+		semLowVariable.putSemanticAttribute("InputSubOperAsInteger", attribute);
+		semLowVariable
+				.addPropEditableAttribute("08#" + "InputSubOperAsInteger");
+		semLowVariable.addPropVisibleAttribute("08#" + "InputSubOperAsInteger");
 
+		// FIXME not used at the moment
 		attribute = new ElemAttribute("IntegerInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as int",
 				"Labeling with only a set of variables for input suboper",

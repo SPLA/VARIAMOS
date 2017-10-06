@@ -59,6 +59,7 @@ public class RefasWidgetFactory {
 		widgetReg.put(SetType.IDENTIFIER, SetWidget.class);
 		// widgetReg.put(SortIdListType.IDENTIFIER, SortIdListWidget.class);
 		widgetReg.put(ClassMultiSelectionType.IDENTIFIER, MClassWidget.class);
+		widgetReg.put("MetaEnumeration", EnumerationWidget.class);
 		widgetReg.put("Instance", StringWidget.class);
 		widgetReg.put("InstanceSet", StringWidget.class);
 		widgetReg.put("SeMetaModel", StringWidget.class);
