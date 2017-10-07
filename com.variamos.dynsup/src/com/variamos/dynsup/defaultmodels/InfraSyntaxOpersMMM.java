@@ -83,9 +83,9 @@ public class InfraSyntaxOpersMMM {
 		variabilityInstVertex.put("SeMElement", instInfraSyntaxOpersM2Element);
 
 		SyntaxElement infraSyntaxM2Asso = new SyntaxElement('I',
-				"SeMAssociation", true, true, "SeMAssociation",
-				"infrasyntaxm2microconcept", "View-Concept Association", 150,
-				40, "/com/variamos/gui/perspeditor/images/concept.png", true,
+				"SeMAssociation", true, true, "SeMAssociation", "",
+				"View-Concept Association", 150, 40,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
 		InstConcept instinfraSyntaxM2Asso = new InstConcept("SeMAssociation",
@@ -224,9 +224,10 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMnmBinary>>\n"//
-				"<<SeMnmRel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#all#\n" + "<<non-modifiable>>" + "\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMnmBinary>>\n"// "<<SeMnmRel>>\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n"
+						+ "<<non-modifiable>>" + "\n\n", "");
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				"relTypesAttr",
@@ -274,10 +275,10 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMnmN-ary>>\n"
-															// //
-				"<<SeMnmOTRel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#all#\n" + "<<non-modifiable>>" + "\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMnmN-ary>>\n" // "<<SeMnmOTRel>>\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n"
+						+ "<<non-modifiable>>" + "\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2nmOTRel = new InstConcept(
 				"SeMnmOTRel", basicOpersSyntaxM3Node,
@@ -332,25 +333,88 @@ public class InfraSyntaxOpersMMM {
 		instEdge.setTargetRelation(instInfraSyntaxOpersM2Element, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM2nmConcept, true);
 
-		SyntaxElement basicOpersSyntaxM2Set = new SyntaxElement('C', "SeSet",
-				true, true, "SeSet", "infrasyntaxm2concept",
-				"Meta Meta Meta Element", 120, 120,
+		SyntaxElement basicOpersSyntaxM2nmCollection = new SyntaxElement('C',
+				"SeMnmCollection", false, false, "SeMnmCollection",
+				"infrasyntaxm2grayconcept", "Meta Meta Meta Element", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		basicOpersSyntaxM2Set.addModelingAttribute(
+		basicOpersSyntaxM2nmCollection.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 2, "", "", 1, "<<BsSet>>\n#"
-						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
+				"User Identifier", "", "", 0, 2, "", "", 1, // "<<BsSet>>\n#"
+				"<<SeMnmCollection>>\n#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n\n", "");
 
-		basicOpersSyntaxM2Set.addModelingAttribute("name", "String", false,
-				"Name", "", "", 0, 2, "", "", -1, "", "");
+		basicOpersSyntaxM2nmCollection.addModelingAttribute("name", "String",
+				false, "Name", "", "", 0, 2, "", "", -1, "", "");
 
-		InstConcept instInfraSyntaxOpersM3Set = new InstConcept("SeSet",
-				basicOpersSyntaxM3Node, basicOpersSyntaxM2Set);
-		instInfraSyntaxOpersM3Set.createInstAttributes(null);
-		instInfraSyntaxOpersM3Set.copyValuesToInstAttributes(null);
-		variabilityInstVertex.put("BsSet", instInfraSyntaxOpersM3Set);
+		InstConcept instInfraSyntaxOpersM2nmCollection = new InstConcept(
+				"SeMnmCollection", basicOpersSyntaxM3Node,
+				basicOpersSyntaxM2nmCollection);
+		instInfraSyntaxOpersM2nmCollection.createInstAttributes(null);
+		instInfraSyntaxOpersM2nmCollection.copyValuesToInstAttributes(null);
+		variabilityInstVertex.put("SeMnmCollection",
+				instInfraSyntaxOpersM2nmCollection);
+
+		SyntaxElement infraSyntaxM2EleColl = new SyntaxElement('I',
+				"SeMEleNmColl", true, true, "SeMEleNmColl", "",
+				"Element Collection Association", 150, 40,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instinfraSyntaxM2EleColl = new InstConcept("SeMEleNmColl",
+				infraBasicSyntaxOpersM3Arrow, infraSyntaxM2EleColl);
+		variabilityInstVertex.put("SeMEleNmColl", instinfraSyntaxM2EleColl);
+
+		rel = new InstPairwiseRel();
+		constraintInstEdges.put("ele-e-nmcoll1", rel);
+		rel.setIdentifier("ele-e-nmcoll1");
+		rel.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		rel.setTargetRelation(instinfraSyntaxM2EleColl, true);
+		rel.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
+
+		rel = new InstPairwiseRel();
+		constraintInstEdges.put("ele-e-nmcoll2", rel);
+		rel.setIdentifier("ele-e-nmcoll2");
+		rel.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		rel.setTargetRelation(instInfraSyntaxOpersM2nmCollection, true);
+		rel.setSourceRelation(instinfraSyntaxM2EleColl, true);
+
+		SyntaxElement basicOpersSyntaxM2Collection = new SyntaxElement('C',
+				"SeMCollection", true, true, "SeMCollection",
+				"infrasyntaxm2grayconcept", "Meta Meta Meta Element", 120, 120,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		basicOpersSyntaxM2Collection.addModelingAttribute(
+				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
+				"User Identifier", "", "", 0, 2, "", "", 1, // "<<BsSet>>\n#"
+				"<<SeMCollection>>\n#" + SyntaxElement.VAR_USERIDENTIFIER
+						+ "#all#\n\n", "");
+
+		InstConcept instInfraSyntaxOpersM2Collection = new InstConcept(
+				"SeMCollection", basicOpersSyntaxM3Node,
+				basicOpersSyntaxM2Collection);
+		instInfraSyntaxOpersM2Collection.createInstAttributes(null);
+		instInfraSyntaxOpersM2Collection.copyValuesToInstAttributes(null);
+		variabilityInstVertex.put("SeMCollection",
+				instInfraSyntaxOpersM2Collection);
+
+		SyntaxElement infraSyntaxM2nmCollGen = new SyntaxElement('P',
+				"SeMnmCollGen", false, true, "Normal Relation", "refasextends",
+				"Concept-Concept relation", 50, 50,
+				"/com/variamos/gui/perspeditor/images/plnode.png", 1, null);
+
+		constraintInstEdges.put("SeMnmCollGen", new InstPairwiseRel(
+				"SeMNodeEleGen", infraSyntaxM2nmCollGen));
+
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("co-SeMnmCollGen", instEdge);
+		instEdge.setIdentifier("co-SeMnmCollGen");
+		instEdge.setTransSupInstElement(basicOpersSyntaxM3Gen);
+		instEdge.setEdSyntaxEle(infraSyntaxM2nmCollGen);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2nmCollection, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Collection, true);
 
 		SyntaxElement infraSyntaxOpersM2RelType = new SyntaxElement('A',
 				"SeMRelTypes", false, false, "SeMRelTypes",
@@ -456,9 +520,9 @@ public class InfraSyntaxOpersMMM {
 
 		metaMetaPairwiseRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMBinary>>\n"//
-				"<<SeMPWRel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#all#\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMBinary>>\n"// "<<SeMPWRel>>\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
+				"");
 
 		InstConcept instPairWiseRelation = new InstConcept("SeMPWRel",
 				basicOpersSyntaxM3Node, metaMetaPairwiseRel);
@@ -521,10 +585,9 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMN-ary>>\n"
-															// //
-				"<<SeMOTRel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#all#\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMN-ary>>\n" // "<<SeMOTRel>>\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
+				"");
 
 		InstConcept instInfraSyntaxOpersM2OTRel = new InstConcept("SeMOTRel",
 				basicOpersSyntaxM3Node, infraSyntaxOpersM2OTRel);
@@ -886,13 +949,13 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2MetaModel.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", "", null, 0, 6, "", "", 4, "", ""));
+						false, "Name", "", null, 0, 6, "", "", -1, "", ""));
 
 		infraSyntaxOpersM2MetaModel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
-				"User Identifier", "", "", 0, 4, "", "", 4, // "<<SeMParadigm>>\n"//
-				"<<SeMModel>>\n" + "#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#all#\n\n", "");
+				"User Identifier", "", "", 0, 4, "", "", 4, "<<SeMParadigm>>\n"// "<<SeMModel>>\n"
+						+ "#" + SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n",
+				"");
 
 		InstConcept instInfraSyntaxOpersM2MetaModel = new InstConcept(
 				"SeMModel", basicOpersSyntaxM3Node, infraSyntaxOpersM2MetaModel);
@@ -1639,7 +1702,7 @@ public class InfraSyntaxOpersMMM {
 		instEdge.setIdentifier("set-att");
 		instEdge.setEdSyntaxEle(infraSyntaxM2SetAtt);
 		instEdge.setTargetRelation(instInfraSyntaxOpersM2Attribute, true);
-		instEdge.setSourceRelation(instInfraSyntaxOpersM3Set, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2nmCollection, true);
 
 		SyntaxElement opersM2ComputationTypeEnum = new SyntaxElement('E',
 				"OpersComputationType", false, true, "OpersComputationType",

@@ -511,7 +511,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 								+ attributeName.substring(1) + ":";
 					else
 						out2 += attributeName + "\n";
-					if (i.getType().equals("Element")) {
+					if (i.getType().equals("Element")
+							|| i.getType().equals("Instance")) {
 						String classN = i.getClassCanonicalName().substring(
 								i.getClassCanonicalName().lastIndexOf(".") + 1,
 								i.getClassCanonicalName().length());
