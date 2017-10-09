@@ -135,9 +135,9 @@ public class MainFrame extends JFrame {
 				// abstractModel = syntaxInfrastructure;
 
 				// TO View OperMM in Syntax Perspective
-				// abstractModel = new InstanceModel(
-				// PerspectiveType.OPERATIONSINFRASTRUCTURE,
-				// metaExpressionTypes, InfraBasicSyntax, null);
+				//abstractModel = new InstanceModel(
+				//		PerspectiveType.OPERATIONSINFRASTRUCTURE,
+				//		metaExpressionTypes, InfraBasicSyntax, null);
 
 				// TO View BasicMMM in Syntax Perspective DO NOT REMOVE
 				// abstractModel = new InstanceModel(

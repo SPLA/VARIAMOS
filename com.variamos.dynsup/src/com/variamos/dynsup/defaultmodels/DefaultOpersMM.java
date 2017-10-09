@@ -355,6 +355,7 @@ public class DefaultOpersMM {
 	protected static InstConcept metaMetaInstOverTwoRel = null;
 	protected static InstElement infraMetaMetaConcept = null;
 	protected static InstElement infraMetaMetaAttribute = null;
+	protected static InstElement infraMetaMetaCollection = null;
 	protected static InstElement infraMetaMetaPairwiseRelation = null;
 	protected static InstElement infraMetaMetaOverTwoRelation = null;
 	protected static InstPairwiseRel metaPairwRelCCExt = null;
@@ -408,6 +409,8 @@ public class DefaultOpersMM {
 				.getVertex("SeMnmConcept"));
 		infraMetaMetaAttribute = (refas.getSyntaxModel()
 				.getVertex("SeMAttribute"));
+		infraMetaMetaCollection = (refas.getSyntaxModel()
+				.getVertex("SeMCollection"));
 		infraMetaMetaPairwiseRelation = (refas.getSyntaxModel()
 				.getVertex("SeMnmPWRel"));
 		infraMetaMetaOverTwoRelation = (refas.getSyntaxModel()
@@ -10338,7 +10341,7 @@ public class DefaultOpersMM {
 						+ "#all#\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2Attribute = new InstConcept(
-				"NmAttribute", infraMetaMetaAttribute, infraOpersM2Attribute);
+				"NmAttribute", infraMetaMetaCollection, infraOpersM2Attribute);
 		refas.getVariabilityVertex().put("NmAttribute",
 				instInfraSyntaxOpersM2Attribute);
 

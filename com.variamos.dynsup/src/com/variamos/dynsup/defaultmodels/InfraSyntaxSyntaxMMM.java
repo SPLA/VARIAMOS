@@ -49,14 +49,15 @@ public class InfraSyntaxSyntaxMMM {
 				"Name", "String", AttributeType.SYNTAX, false,
 				"Meta Concept Name", "", "", 0, 3, "", "", -1, "", ""));
 
-		infraSyntaxM2Language.addModelingAttribute("semType",
-				new ElemAttribute("semType", "Class", AttributeType.OPERATION,
+		infraSyntaxM2Language.addModelingAttribute(
+				"seType",
+				new ElemAttribute("seType", "Class", AttributeType.OPERATION,
 						false, "Semantic Type",
-						"Type from the Operations Meta-Model",
-						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, 0, "", "", 1, // "<<SyMParadigm>>\n"
-						"<<SyMModel>>\n" + "{SeType:\"#" + "OperationsMMType"
-								+ "#all#\"}\n", ""));
+						"Type from the Semantic MetaModel", OpersConcept.class
+								.getCanonicalName(), "C", null, "", 0, 1, "",
+						"", 1, "<<SyMParadigm>>\n" // "<<SyMModel>>\n"
+								+ "{SeType:\"#" + "seType" + "#all#\"}\n",
+						"seType#!=#"));
 
 		InstConcept instInfraSyntaxOpersM2Lang = new InstConcept("SyMParadigm",
 				infraBasicSyntaxOpersM3Node, infraSyntaxM2Language);
@@ -167,13 +168,15 @@ public class InfraSyntaxSyntaxMMM {
 				"com.variamos.dynsup.model.ElemAttribute", "", "", 0, -1, "",
 				"", -1, "", ""));
 
-		infraSyntaxM2Node.addModelingAttribute("OperationsMMType",
+		infraSyntaxM2Node.addModelingAttribute(
+				"OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.OPERATION, false, "Operations MMType",
-						"Type from the Operations Meta-Model",
-						OpersConcept.class.getCanonicalName(), "C", null, "",
-						0, 0, "", "", 1, "<<SyMConcept>>\n{SeType:\"#"
-								+ "OperationsMMType" + "#all#\"}\n", ""));
+						"Type from the Semantic MetaModel", OpersConcept.class
+								.getCanonicalName(), "C", null, "", 0, 0, "",
+						"", 1, "<<SyMConcept>>\n{SeType:\"#"
+								+ "OperationsMMType" + "#all#\"}\n",
+						"OperationsMMType#!=#"));
 
 		InstConcept instInfraSyntaxOpersM2Node = new InstConcept("SyMNode",
 				infraBasicSyntaxOpersM3Node, infraSyntaxM2Node);
@@ -543,7 +546,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2View.addModelingAttribute("Image", new ElemAttribute(
 				"Image", "String", AttributeType.SYNTAX, false, "Image file",
 				"", "/com/variamos/gui/perspeditor/images/claim.png", 0, -1,
-				"", "", 10, "", ""));
+				"", "", -1, "", ""));
 		infraSyntaxM2View.addModelingAttribute("BorderStroke",
 				new ElemAttribute("BorderStroke", "Integer",
 						AttributeType.SYNTAX, false, "Border Stroke", "", 1, 0,
@@ -551,7 +554,7 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2View.addModelingAttribute("PaletteNames",
 				new ElemAttribute("PaletteNames", "String",
 						AttributeType.SYNTAX, false, "Palette Name", "", "", 0,
-						3, "", "", 5, "{Palettes:#" + "PaletteNames"
+						3, "", "", -1, "{Palettes:#" + "PaletteNames"
 								+ "#all#\n\n", "PaletteNames" + "#!=#" + ""));
 
 		infraSyntaxM2View.addModelingAttribute(
@@ -635,14 +638,16 @@ public class InfraSyntaxSyntaxMMM {
 				"com.variamos.dynsup.model.ElemAttribute", "", "", 0, -1, "",
 				"", -1, "", ""));
 
-		infraSyntaxM2OTRel.addModelingAttribute("OperationsMMType",
+		infraSyntaxM2OTRel.addModelingAttribute(
+				"OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.OPERATION, false, "Operations MMType",
-						"Type from the Operations Meta-Model",
-						OpersConcept.class.getCanonicalName(), "O", null, "",
-						0, 0, "", "", 1, // "<<SyMN-ary>>\n"//
-						"<<SyMOverTwoAsso>>\n" + "{SeType:\"#"
-								+ "OperationsMMType" + "#all#\"}\n", ""));
+						"Type from the Semantic MetaModel", OpersConcept.class
+								.getCanonicalName(), "O", null, "", 0, 0, "",
+						"", 1, "<<SyMN-ary>>\n"// "<<SyMOverTwoAsso>>\n"
+								+ "{SeType:\"#"
+								+ "OperationsMMType"
+								+ "#all#\"}\n", "OperationsMMType#!=#"));
 		infraSyntaxM2OTRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 3, "#"
@@ -704,7 +709,11 @@ public class InfraSyntaxSyntaxMMM {
 		variabilityInstVertex.put("SyMLangView",
 				instInfraSyntaxM2ViewLanguageView);
 
-		InstPairwiseRel instEdge = new InstPairwiseRel();
+		InstPairwiseRel instEdge;
+
+		// FIXME needs to transform into a binary relation - not a concept
+		// mediated relation
+		instEdge = new InstPairwiseRel();
 		constraintInstEdges.put("lan-v-lc", instEdge);
 		instEdge.setIdentifier("lan-v-lc");
 		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
@@ -717,6 +726,13 @@ public class InfraSyntaxSyntaxMMM {
 		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
 		instEdge.setTargetRelation(instInfraSyntaxM2View, true);
 		instEdge.setSourceRelation(instInfraSyntaxM2ViewLanguageView, true);
+		//
+		instEdge = new InstPairwiseRel();
+		constraintInstEdges.put("lan-v", instEdge);
+		instEdge.setIdentifier("lan-v");
+		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		instEdge.setTargetRelation(instInfraSyntaxM2View, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Lang, true);
 
 		InstConcept instInfraSyntaxM2ExtendsRelation = new InstConcept(
 				"SyMExtend", infraBasicSyntaxOpersM3Node,
@@ -894,14 +910,16 @@ public class InfraSyntaxSyntaxMMM {
 		// "MetaPWAsso Type", "", ConceptType.class.getCanonicalName(),
 		// "SyntaxConcept", "", 0, 0, "false", "", -1, "", ""));
 
-		infraSyntaxM2PWRel.addModelingAttribute("OperationsMMType",
+		infraSyntaxM2PWRel.addModelingAttribute(
+				"OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.SYNTAX, false, "Operations MMType",
-						"Type from the Operations Meta-Model",
-						OpersConcept.class.getCanonicalName(), "P", null, "",
-						0, 0, "", "", 1, // "<<SyMBinary>>\n" //
-						"<<SyMPairwiseAsso>>\n" + "{SeType:\"#"
-								+ "OperationsMMType" + "#all#\",\n", ""));
+						"Type from the Semantic MetaModel", OpersConcept.class
+								.getCanonicalName(), "P", null, "", 0, 0, "",
+						"", 1, "<<SyMBinary>>\n" // "<<SyMPairwiseAsso>>\n"
+								+ "{SeType:\"#"
+								+ "OperationsMMType"
+								+ "#all#\",\n", ""));
 		infraSyntaxM2PWRel.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 3, "#"
@@ -1002,23 +1020,6 @@ public class InfraSyntaxSyntaxMMM {
 		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
 		instEdge.setTargetRelation(instInfraSyntaxM2PWRel, true);
 		instEdge.setSourceRelation(instInfraSyntaxM2OTRel, true);
-
-		SyntaxElement infraSyntaxM2Test = new SyntaxElement('P', "SyMTest",
-				true, true, "SyMTest", "infrasyntaxm2microconcept",
-				"SyntaxPairwiseRel", 200, 90,
-				"/com/variamos/gui/perspeditor/images/concept.png", true,
-				Color.BLUE.toString(), 3, null, true);
-
-		InstConcept instInfraSyntaxM2Test = new InstConcept("SyMTest",
-				infraBasicSyntaxOpersM3Node, infraSyntaxM2Test);
-		variabilityInstVertex.put("SyMTest", instInfraSyntaxM2Test);
-
-		instEdge = new InstPairwiseRel();
-		constraintInstEdges.put("cpw-pw-ct", instEdge);
-		instEdge.setIdentifier("cpw-pw-ct");
-		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
-		instEdge.setSourceRelation(instInfraSyntaxOpersM2Node, true);
 
 		SyntaxElement infraOpersM2Attribute = new SyntaxElement('A',
 				"SyMAttribute", false, true, "SyMAttribute",
