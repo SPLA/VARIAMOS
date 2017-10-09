@@ -334,7 +334,7 @@ public class InfraSyntaxOpersMMM {
 		instEdge.setSourceRelation(instInfraSyntaxOpersM2nmConcept, true);
 
 		SyntaxElement basicOpersSyntaxM2nmCollection = new SyntaxElement('C',
-				"SeMnmCollection", false, false, "SeMnmCollection",
+				"SeMnmCollection", true, true, "SeMnmCollection",
 				"infrasyntaxm2grayconcept", "Meta Meta Meta Element", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
@@ -356,21 +356,22 @@ public class InfraSyntaxOpersMMM {
 		variabilityInstVertex.put("SeMnmCollection",
 				instInfraSyntaxOpersM2nmCollection);
 
-		SyntaxElement infraSyntaxM2EleColl = new SyntaxElement('I',
+		SyntaxElement infraSyntaxM2ElenmColl = new SyntaxElement('I',
 				"SeMEleNmColl", true, true, "SeMEleNmColl", "",
 				"Element Collection Association", 150, 40,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		InstConcept instinfraSyntaxM2EleColl = new InstConcept("SeMEleNmColl",
-				infraBasicSyntaxOpersM3Arrow, infraSyntaxM2EleColl);
-		variabilityInstVertex.put("SeMEleNmColl", instinfraSyntaxM2EleColl);
+		InstConcept instinfraSyntaxM2ElenmColl = new InstConcept(
+				"SeMEleNmColl", infraBasicSyntaxOpersM3Arrow,
+				infraSyntaxM2ElenmColl);
+		variabilityInstVertex.put("SeMEleNmColl", instinfraSyntaxM2ElenmColl);
 
 		rel = new InstPairwiseRel();
 		constraintInstEdges.put("ele-e-nmcoll1", rel);
 		rel.setIdentifier("ele-e-nmcoll1");
 		rel.setEdSyntaxEle(infraSyntaxM2NormalRelation);
-		rel.setTargetRelation(instinfraSyntaxM2EleColl, true);
+		rel.setTargetRelation(instinfraSyntaxM2ElenmColl, true);
 		rel.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
 
 		rel = new InstPairwiseRel();
@@ -378,11 +379,11 @@ public class InfraSyntaxOpersMMM {
 		rel.setIdentifier("ele-e-nmcoll2");
 		rel.setEdSyntaxEle(infraSyntaxM2NormalRelation);
 		rel.setTargetRelation(instInfraSyntaxOpersM2nmCollection, true);
-		rel.setSourceRelation(instinfraSyntaxM2EleColl, true);
+		rel.setSourceRelation(instinfraSyntaxM2ElenmColl, true);
 
 		SyntaxElement basicOpersSyntaxM2Collection = new SyntaxElement('C',
 				"SeMCollection", true, true, "SeMCollection",
-				"infrasyntaxm2grayconcept", "Meta Meta Meta Element", 120, 120,
+				"infrasyntaxm2concept", "Meta Meta Meta Element", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -399,6 +400,30 @@ public class InfraSyntaxOpersMMM {
 		instInfraSyntaxOpersM2Collection.copyValuesToInstAttributes(null);
 		variabilityInstVertex.put("SeMCollection",
 				instInfraSyntaxOpersM2Collection);
+
+		SyntaxElement infraSyntaxM2EleColl = new SyntaxElement('I',
+				"SeMEleNmColl", true, true, "SeMEleNmColl", "",
+				"Element Collection Association", 150, 40,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instinfraSyntaxM2EleColl = new InstConcept("SeMEleColl",
+				infraBasicSyntaxOpersM3Arrow, infraSyntaxM2EleColl);
+		variabilityInstVertex.put("SeMEleColl", instinfraSyntaxM2EleColl);
+
+		rel = new InstPairwiseRel();
+		constraintInstEdges.put("ele-e-coll1", rel);
+		rel.setIdentifier("ele-e-coll1");
+		rel.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		rel.setTargetRelation(instinfraSyntaxM2EleColl, true);
+		rel.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
+
+		rel = new InstPairwiseRel();
+		constraintInstEdges.put("ele-e-coll2", rel);
+		rel.setIdentifier("ele-e-coll2");
+		rel.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		rel.setTargetRelation(instInfraSyntaxOpersM2Collection, true);
+		rel.setSourceRelation(instinfraSyntaxM2EleColl, true);
 
 		SyntaxElement infraSyntaxM2nmCollGen = new SyntaxElement('P',
 				"SeMnmCollGen", false, true, "Normal Relation", "refasextends",
