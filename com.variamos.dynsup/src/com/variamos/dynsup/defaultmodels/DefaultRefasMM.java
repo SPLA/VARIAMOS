@@ -8641,7 +8641,7 @@ public class DefaultRefasMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"ClaimToSG", "", "", 1, -1, "", "", -1, "", ""), semExpr));
 
-		refas.getVariabilityVertex().put("ClaimSgPW",
+		refas.getVariabilityVertex().put("ClaimSgBinary",
 				instDirClaimSGSemanticEdge);
 
 		instEdge = new InstPairwiseRel();
