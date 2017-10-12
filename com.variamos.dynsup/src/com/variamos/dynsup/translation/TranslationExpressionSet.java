@@ -283,8 +283,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 												// FIXME v1.1 added to support
 												// Angela's constraints
 												if (var.getAttribute()
-														.getMetaConceptInstanceType()
-														.equals("ConstraintExpression")) {
+														.getMetaConceptInstanceType() != null
+														&& var.getAttribute()
+																.getMetaConceptInstanceType()
+																.equals("ConstraintExpression")) {
 													// FIXME use an enumeration
 													// instead of the string
 													out.add((ModelExpr) var
