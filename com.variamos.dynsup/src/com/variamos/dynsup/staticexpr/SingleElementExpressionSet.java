@@ -329,7 +329,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							boolean dr = false;
 							if (instAttribute.getValue() instanceof Integer)
 								dr = true;
-							if (!dr) {
+							if (!dr
+									&& instAttribute.getValue() instanceof ModelExpr) {
 								ModelExpr instanceExpression = (ModelExpr) instAttribute
 										.getValue();
 								if (instanceExpression != null
