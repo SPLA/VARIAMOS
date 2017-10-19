@@ -216,7 +216,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							if (instE.getInstAttribute("variableType")
 									.getValue().equals("LowLevel variable")
 									&& instE.getInstAttribute(
-											"IntegerVarInSubOper").getValue()
+											"InputSubOperAsInteger").getValue()
 											.equals(subAction)) {
 								if (instE.getInstAttribute("value").getValue() != null
 										&& !instE.getInstAttribute("value")
@@ -278,8 +278,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										// create instance expressions for
 										// conditional
 										// expressions
-										if (type.equals(ModelExpr.class
-												.getCanonicalName())) {
+										if (type.equals("Instance")) {
 											if (var.getValue() != null) {
 												// FIXME v1.1 added to support
 												// Angela's constraints
@@ -294,8 +293,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 													ModelExpr instanceExpression = new ModelExpr(
 															true,
 															var.getIdentifier()
-																	+ "Cond", true,
-															pos);
+																	+ "Cond",
+															true, pos);
 													instanceExpression
 															.setSemanticExpressionType(refas
 																	.getSemanticExpressionTypes()
@@ -818,9 +817,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * Expression for textual representation
 	 * 
 	 * @return
-	 * @throws FunctionalException 
+	 * @throws FunctionalException
 	 */
-	public List<IntExpression> getHLCLExpressions(String column) throws FunctionalException {
+	public List<IntExpression> getHLCLExpressions(String column)
+			throws FunctionalException {
 		List<IntExpression> out = new ArrayList<IntExpression>();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			// idMap.putAll(expression.(hlclFactory));
@@ -832,7 +832,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 	// Dynamic call
-	public HlclProgram getHlCLProgramExpressions(String column) throws FunctionalException {
+	public HlclProgram getHlCLProgramExpressions(String column)
+			throws FunctionalException {
 		HlclProgram prog = new HlclProgram();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
 			IntBooleanExpression newExp = (IntBooleanExpression) expression
@@ -875,4 +876,3 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 }
-

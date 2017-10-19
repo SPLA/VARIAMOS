@@ -971,7 +971,7 @@ public class DefaultRefasMM {
 
 		// ---
 		OpersConcept semanticOperClaimGroupRelation = new OpersConcept(
-				"OperClaimOT");// hardSemOverTwoRelList);
+				"OperClaimN-ary");// hardSemOverTwoRelList);
 
 		attribute = new ElemAttribute("structVal", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "No loops validation",
@@ -1038,7 +1038,7 @@ public class DefaultRefasMM {
 
 		semanticOperClaimGroupRelation.setSemanticExpressions(semExpr);
 
-		InstConcept instVertexCLGR = new InstConcept("OperClaimOT",
+		InstConcept instVertexCLGR = new InstConcept("OperClaimN-ary",
 				semanticOperClaimGroupRelation,
 				DefaultOpersMM.metaMetaInstOverTwoRel);
 
@@ -1174,7 +1174,7 @@ public class DefaultRefasMM {
 		semExpr.add(t1);
 
 		OpersConcept directOperClaimSemanticEdge = new OpersConcept(
-				"OperClaimPW");
+				"OperClaimBinary");
 
 		attribute = new ElemAttribute("outCl", "Boolean",
 				AttributeType.OPERATION, false,
@@ -1204,7 +1204,7 @@ public class DefaultRefasMM {
 						.getIdentifier(), attribute.getName(), true));
 
 		InstConcept instDirOperClaimSemanticEdge = new InstConcept(
-				"OperClaimPW", DefaultOpersMM.metaMetaPairwiseRelation,
+				"OperClaimBinary", DefaultOpersMM.metaMetaPairwiseRelation,
 				directOperClaimSemanticEdge);
 
 		attribute = new ElemAttribute("PSel", "Boolean",
@@ -1369,7 +1369,7 @@ public class DefaultRefasMM {
 						directOperClaimSemanticEdge.getIdentifier(), attribute
 								.getName(), true));
 
-		refas.getVariabilityVertex().put("OperClaimPW",
+		refas.getVariabilityVertex().put("OperClaimBinary",
 				instDirOperClaimSemanticEdge);
 
 		instEdge = new InstPairwiseRel();
@@ -1877,7 +1877,7 @@ public class DefaultRefasMM {
 		semSoftDependency.addPropVisibleAttribute("01#" + "CompExp");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		OpersConcept semHardOverTwoRelation = new OpersConcept("HardOT");// hardSemOverTwoRelList);
+		OpersConcept semHardOverTwoRelation = new OpersConcept("HardN-ary");// hardSemOverTwoRelList);
 
 		attribute = new ElemAttribute("structVal", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "No loops validation",
@@ -1897,9 +1897,9 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(semHardOverTwoRelation
 						.getIdentifier(), attribute.getName(), true));
 
-		InstConcept instVertexHHGR = new InstConcept("HardOT",
+		InstConcept instVertexHHGR = new InstConcept("HardN-ary",
 				semHardOverTwoRelation, DefaultOpersMM.metaMetaInstOverTwoRel);
-		refas.getVariabilityVertex().put("HardOT", instVertexHHGR);
+		refas.getVariabilityVertex().put("HardN-ary", instVertexHHGR);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("hhtoigr", instEdge);
@@ -1908,62 +1908,137 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(DefaultOpersMM.instNmMetaOT, true);
 		instEdge.setSourceRelation(instVertexHHGR, true);
 
-		// FIXME create two: one for means and one for traversal
+		// FIXME create two: one for means and one for MeansHardN-aryToHardersal
 		// Copy the expressions from the PW definition
 		// means 148 149 150 151 152 153 154 155 156 157
 		// trav 158 159 160 161 162 163
-		OpersConcept toHardHardSemanticEdge = new OpersConcept(
-				"HardOTToHardConcept");
+		OpersConcept altHardNaryToHardEdge = new OpersConcept(
+				"TravHardN-aryToHard");
 
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
 				"", "", 3, "[#" + "AggregationLow" + "#all#..",
 				"AggregationHigh" + "#!=#" + "0");
-		toHardHardSemanticEdge
-				.putSemanticAttribute("AggregationLow", attribute);
-		toHardHardSemanticEdge.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		toHardHardSemanticEdge
-				.addPropVisibleAttribute("03#" + "AggregationLow");
+		altHardNaryToHardEdge.putSemanticAttribute("AggregationLow", attribute);
+		altHardNaryToHardEdge
+				.addPropEditableAttribute("03#" + "AggregationLow");
+		altHardNaryToHardEdge.addPropVisibleAttribute("03#" + "AggregationLow");
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
-				toHardHardSemanticEdge.getIdentifier(), attribute.getName(),
+				altHardNaryToHardEdge.getIdentifier(), attribute.getName(),
 				true));
 		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
-				toHardHardSemanticEdge.getIdentifier(), attribute.getName(),
+				altHardNaryToHardEdge.getIdentifier(), attribute.getName(),
 				true));
 		DefaultOpersMM.simulSubOperationAction
-				.addInAttribute(new OpersIOAttribute(toHardHardSemanticEdge
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
 						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simSceSubOperationAction
-				.addInAttribute(new OpersIOAttribute(toHardHardSemanticEdge
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
 						.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("AggregationHigh", "Integer",
 				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 4,
 				"", "", 4, "#" + "AggregationHigh" + "#all#]\n",
 				"AggregationHigh" + "#!=#" + "0");
-		toHardHardSemanticEdge.putSemanticAttribute("AggregationHigh",
-				attribute);
-		toHardHardSemanticEdge.addPropEditableAttribute("04#"
+		altHardNaryToHardEdge
+				.putSemanticAttribute("AggregationHigh", attribute);
+		altHardNaryToHardEdge.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
-		toHardHardSemanticEdge.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
+		altHardNaryToHardEdge
+				.addPropVisibleAttribute("04#" + "AggregationHigh");
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
-				toHardHardSemanticEdge.getIdentifier(), attribute.getName(),
+				altHardNaryToHardEdge.getIdentifier(), attribute.getName(),
 				true));
 		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
-				toHardHardSemanticEdge.getIdentifier(), attribute.getName(),
+				altHardNaryToHardEdge.getIdentifier(), attribute.getName(),
 				true));
 		DefaultOpersMM.simulSubOperationAction
-				.addInAttribute(new OpersIOAttribute(toHardHardSemanticEdge
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
 						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simSceSubOperationAction
-				.addInAttribute(new OpersIOAttribute(toHardHardSemanticEdge
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		InstConcept instHchcHHGRHC = new InstConcept("HardOTToHardConcept",
-				DefaultOpersMM.metaMetaPairwiseRelation);
-		refas.getVariabilityVertex().put("HardOTToHardConcept", instHchcHHGRHC);
+		InstConcept instAltNaryToHard = new InstConcept("TravHardN-aryToHard",
+				DefaultOpersMM.metaMetaPairwiseRelation, altHardNaryToHardEdge);
+		refas.getVariabilityVertex().put("TravHardN-aryToHard",
+				instAltNaryToHard);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("althhotfromip", instEdge);
+		instEdge.setIdentifier("althhotfromip");
+		instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelCCExt);
+		instEdge.setTargetRelation(DefaultOpersMM.instNmMetaPW, true);
+		instEdge.setSourceRelation(instAltNaryToHard, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("althctoHHGR-HHGR-HHHHGR", instEdge);
+		instEdge.setIdentifier("althctoHHGR-HHGR-HHHHGR");
+		instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelAso);
+		instEdge.setTargetRelation(instAltNaryToHard, true);
+		instEdge.setSourceRelation(instVertexHHGR, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("althctoHHGR-HHHHGR-H", instEdge);
+		instEdge.setIdentifier("althctoHHGR-HHHHGR-H");
+		instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelAso);
+		instEdge.setTargetRelation(DefaultOpersMM.instVertexHC, true);
+		instEdge.setSourceRelation(instAltNaryToHard, true);
+
+		OpersConcept meansHardToHardNaryEdge = new OpersConcept(
+				"MeansHardN-aryToHard");
+
+		attribute = new ElemAttribute("AggregationLow", "Integer",
+				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
+				"", "", 3, "[#" + "AggregationLow" + "#all#..",
+				"AggregationHigh" + "#!=#" + "0");
+		meansHardToHardNaryEdge.putSemanticAttribute("AggregationLow",
+				attribute);
+		meansHardToHardNaryEdge.addPropEditableAttribute("03#"
+				+ "AggregationLow");
+		meansHardToHardNaryEdge.addPropVisibleAttribute("03#"
+				+ "AggregationLow");
+		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+				meansHardToHardNaryEdge.getIdentifier(), attribute.getName(),
+				true));
+		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
+				meansHardToHardNaryEdge.getIdentifier(), attribute.getName(),
+				true));
+		DefaultOpersMM.simulSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.simSceSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("AggregationHigh", "Integer",
+				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 4,
+				"", "", 4, "#" + "AggregationHigh" + "#all#]\n",
+				"AggregationHigh" + "#!=#" + "0");
+		meansHardToHardNaryEdge.putSemanticAttribute("AggregationHigh",
+				attribute);
+		meansHardToHardNaryEdge.addPropEditableAttribute("04#"
+				+ "AggregationHigh");
+		meansHardToHardNaryEdge.addPropVisibleAttribute("04#"
+				+ "AggregationHigh");
+		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
+				meansHardToHardNaryEdge.getIdentifier(), attribute.getName(),
+				true));
+		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
+				meansHardToHardNaryEdge.getIdentifier(), attribute.getName(),
+				true));
+		DefaultOpersMM.simulSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.simSceSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+
+		InstConcept instHchcHHGRHC = new InstConcept("MeansHardN-aryToHard",
+				DefaultOpersMM.metaMetaPairwiseRelation,
+				meansHardToHardNaryEdge);
+		refas.getVariabilityVertex()
+				.put("MeansHardN-aryToHard", instHchcHHGRHC);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("hhotfromip", instEdge);
@@ -1987,7 +2062,7 @@ public class DefaultRefasMM {
 		instEdge.setSourceRelation(instHchcHHGRHC, true);
 
 		OpersConcept fromHardHardSemanticEdge = new OpersConcept(
-				"HardConceptToHardOT");
+				"HardConceptToHardN-ary");
 
 		attribute = new ElemAttribute("PSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***",
@@ -2055,11 +2130,12 @@ public class DefaultRefasMM {
 				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		InstConcept instHchcHHGRGR = new InstConcept("HardConceptToHardOT",
+		InstConcept instHchcHHGRGR = new InstConcept("HardConceptToHardN-ary",
 				DefaultOpersMM.metaMetaPairwiseRelation,
 				fromHardHardSemanticEdge);
 
-		refas.getVariabilityVertex().put("HardConceptToHardOT", instHchcHHGRGR);
+		refas.getVariabilityVertex().put("HardConceptToHardN-ary",
+				instHchcHHGRGR);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("HHGRtohc-H-HHHHGR", instEdge);
@@ -2790,7 +2866,8 @@ public class DefaultRefasMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
 
-		OpersConcept directHardHardSemanticEdge = new OpersConcept("TravHardPW");
+		OpersConcept directHardHardSemanticEdge = new OpersConcept(
+				"TravHardBinary");
 
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
@@ -2839,8 +2916,8 @@ public class DefaultRefasMM {
 				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		InstConcept instDirHardHardSemanticEdge = new InstConcept("TravHardPW",
-				DefaultOpersMM.metaMetaPairwiseRelation,
+		InstConcept instDirHardHardSemanticEdge = new InstConcept(
+				"TravHardBinary", DefaultOpersMM.metaMetaPairwiseRelation,
 				directHardHardSemanticEdge);
 
 		directHardHardSemanticEdge.putSemanticAttribute("relationType",
@@ -3219,7 +3296,7 @@ public class DefaultRefasMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"condition", "", "", 1, -1, "", "", -1, "", ""), semExpr));
 
-		refas.getVariabilityVertex().put("TravHardPW",
+		refas.getVariabilityVertex().put("TravHardBinary",
 				instDirHardHardSemanticEdge);
 
 		instEdge = new InstPairwiseRel();
@@ -3237,7 +3314,7 @@ public class DefaultRefasMM {
 		instEdge.setSourceRelation(instDirHardHardSemanticEdge, true);
 
 		OpersConcept directStructHardHardSemanticEdge = new OpersConcept(
-				"meansHardPW");
+				"MeansHardBinary");
 
 		attribute = new ElemAttribute("PSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***",
@@ -3439,7 +3516,7 @@ public class DefaultRefasMM {
 						attribute.getName(), true));
 
 		InstConcept instDirStructHardHardSemanticEdge = new InstConcept(
-				"meansHardPW", DefaultOpersMM.metaMetaPairwiseRelation,
+				"MeansHardBinary", DefaultOpersMM.metaMetaPairwiseRelation,
 				directStructHardHardSemanticEdge);
 
 		instEdge = new InstPairwiseRel();
@@ -4195,7 +4272,7 @@ public class DefaultRefasMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
 
-		refas.getVariabilityVertex().put("meansHardPW",
+		refas.getVariabilityVertex().put("MeansHardBinary",
 				instDirStructHardHardSemanticEdge);
 
 		instEdge = new InstPairwiseRel();
@@ -4317,8 +4394,8 @@ public class DefaultRefasMM {
 				"NmVarToConcernPWlaimPW");
 
 		InstConcept instSemvarcntxPairwiseRel = new InstConcept(
-				"NmVarToConcernPW", DefaultOpersMM.metaMetaPairwiseRelation,
-				semvarcntxPairwiseRel);
+				"NmVarToConcernBinary",
+				DefaultOpersMM.metaMetaPairwiseRelation, semvarcntxPairwiseRel);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("vcxtoip", instEdge);
@@ -4346,7 +4423,7 @@ public class DefaultRefasMM {
 				AttributeType.OPTION, false, "Variable Context", "", "", 1, -1,
 				"", "", -1, "", ""), semExpr));
 
-		refas.getVariabilityVertex().put("NmVarToConcernPW",
+		refas.getVariabilityVertex().put("NmVarToConcernBinary",
 				instSemvarcntxPairwiseRel);
 
 		instEdge = new InstPairwiseRel();
@@ -4363,7 +4440,7 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(DefaultOpersMM.instVertexCG, true);
 		instEdge.setSourceRelation(instSemvarcntxPairwiseRel, true);
 
-		OpersConcept directSGSGSemEdge = new OpersConcept("SoftgoalPW");
+		OpersConcept directSGSGSemEdge = new OpersConcept("SoftgoalBinary");
 
 		attribute = new ElemAttribute("outConflSG", "Boolean",
 				AttributeType.OPERATION, false,
@@ -4610,10 +4687,11 @@ public class DefaultRefasMM {
 
 		directSGSGSemEdge.addPropVisibleAttribute("08#" + "AggregationHigh");
 
-		InstConcept instDirSGSGSemanticEdge = new InstConcept("SoftgoalPW",
+		InstConcept instDirSGSGSemanticEdge = new InstConcept("SoftgoalBinary",
 				DefaultOpersMM.metaMetaPairwiseRelation, directSGSGSemEdge);
 
-		refas.getVariabilityVertex().put("SoftgoalPW", instDirSGSGSemanticEdge);
+		refas.getVariabilityVertex().put("SoftgoalBinary",
+				instDirSGSGSemanticEdge);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sgsgtoip", instEdge);
@@ -5179,15 +5257,15 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(DefaultOpersMM.instVertexSG, true);
 		instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
 
-		OpersConcept semanticSGSGGroupRelation = new OpersConcept("SoftgoalOT");// hardSemOverTwoRelList);
+		OpersConcept semanticSGSGGroupRelation = new OpersConcept(
+				"SoftgoalN-ary");// hardSemOverTwoRelList);
 
-		InstConcept instVertexSGGR = new InstConcept("SoftgoalOT",
+		InstConcept instVertexSGGR = new InstConcept("SoftgoalN-ary",
 				semanticSGSGGroupRelation,
 				DefaultOpersMM.metaMetaInstOverTwoRel);
-		refas.getVariabilityVertex().put("SoftgoalOT", instVertexSGGR);
+		refas.getVariabilityVertex().put("SoftgoalN-ary", instVertexSGGR);
 
-		OpersConcept directGRSGSemEdge = new OpersConcept(
-				"SoftgoalOTToSoftgoalPW");
+		OpersConcept directGRSGSemEdge = new OpersConcept("SgN-aryToSg");
 
 		attribute = new ElemAttribute("outConflSG", "Boolean",
 				AttributeType.OPERATION, false,
@@ -5340,11 +5418,10 @@ public class DefaultRefasMM {
 		// "targetLevel");
 
 		// FIXME remove, use other
-		InstConcept instSgOTToSg = new InstConcept("SoftgoalOTToSoftgoalPW",
+		InstConcept instSgOTToSg = new InstConcept("SgN-aryToSg",
 				DefaultOpersMM.metaMetaPairwiseRelation, directGRSGSemEdge);
 
-		refas.getVariabilityVertex()
-				.put("SoftgoalOTToSoftgoalPW", instSgOTToSg);
+		refas.getVariabilityVertex().put("SgN-aryToSg", instSgOTToSg);
 
 		ia = instSgOTToSg.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -5847,8 +5924,7 @@ public class DefaultRefasMM {
 				false, "implication", "", "", 1, -1, "", "", -1, "", ""),
 				semExpr));
 
-		OpersConcept directSgToSgGRSemEdge = new OpersConcept(
-				"SoftgoalToSoftgoalOT");
+		OpersConcept directSgToSgGRSemEdge = new OpersConcept("SgToSgN-ary");
 		attribute = new ElemAttribute("sourceLevel", "Integer",
 				AttributeType.OPERATION, "Source Level", "", 1, false,
 				new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "#sourceLevel#all#",
@@ -5996,7 +6072,7 @@ public class DefaultRefasMM {
 		// directSgToSgGRSemEdge.addPanelVisibleAttribute("08#" +
 		// "sourceLevel");
 
-		InstConcept instSgToSgGR = new InstConcept("SoftgoalToSoftgoalOT",
+		InstConcept instSgToSgGR = new InstConcept("SgToSgN-ary",
 				DefaultOpersMM.metaMetaPairwiseRelation, directSgToSgGRSemEdge);
 
 		attribute = new ElemAttribute("sourceClExp", "Boolean",
@@ -6086,7 +6162,7 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		refas.getVariabilityVertex().put("SoftgoalToSoftgoalOT", instSgToSgGR);
+		refas.getVariabilityVertex().put("SgToSgN-ary", instSgToSgGR);
 
 		instSgToSgGR.createInstAttributes();
 
@@ -6382,16 +6458,17 @@ public class DefaultRefasMM {
 		// semanticVertices.add(semClaim);
 
 		OpersConcept directOperClaimToSemanticEdge = new OpersConcept(
-				"OperClaimOTToClaimPW");
+				"OperClaimN-aryToClaim");
 		InstConcept instDirOperClaimOTToClaim = new InstConcept(
-				"OperClaimOTToClaimPW",
+				"OperClaimN-aryToClaim",
 				DefaultOpersMM.metaMetaPairwiseRelation,
 				directOperClaimToSemanticEdge);
 
 		OpersConcept directOperClaimFromSemanticEdge = new OpersConcept(
-				"OperToOperClaimOTPW");
+				"OperToOperClaimN-ary");
 		InstConcept instDirOpertoOperClaimOTEdge = new InstConcept(
-				"OperToOperClaimOTPW", DefaultOpersMM.metaMetaPairwiseRelation,
+				"OperToOperClaimN-ary",
+				DefaultOpersMM.metaMetaPairwiseRelation,
 				directOperClaimFromSemanticEdge);
 
 		attribute = new ElemAttribute("AggregationLow", "Integer",
@@ -7099,7 +7176,7 @@ public class DefaultRefasMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
 
-		refas.getVariabilityVertex().put("OperClaimOT", instVertexCLGR);
+		refas.getVariabilityVertex().put("OperClaimN-ary", instVertexCLGR);
 
 		attribute = new ElemAttribute("PSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***",
@@ -7539,7 +7616,7 @@ public class DefaultRefasMM {
 				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
 				semExpr));
 
-		refas.getVariabilityVertex().put("OperClaimOTToClaimPW",
+		refas.getVariabilityVertex().put("OperClaimN-aryToClaim",
 				instDirOperClaimOTToClaim);
 
 		// extends
@@ -7564,7 +7641,7 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(instDirOperClaimOTToClaim, true);
 		instEdge.setSourceRelation(instVertexCLGR, true);
 
-		refas.getVariabilityVertex().put("OperToOperClaimOTPW",
+		refas.getVariabilityVertex().put("OperToOperClaimN-ary",
 				instDirOpertoOperClaimOTEdge);
 		// FIXME review syntax to associate it
 
@@ -7933,7 +8010,8 @@ public class DefaultRefasMM {
 
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 		// semanticVertices.add(semSoftgoal);
-		OpersConcept directClaimSGSemanticEdge = new OpersConcept("ClaimSgPW");
+		OpersConcept directClaimSGSemanticEdge = new OpersConcept(
+				"ClaimSgBinary");
 
 		attribute = new ElemAttribute("outConflClSD", "Boolean",
 				AttributeType.OPERATION, false,
@@ -8055,8 +8133,8 @@ public class DefaultRefasMM {
 		directClaimSGSemanticEdge.addPropVisibleAttribute("08#" + "CLSGLevel");
 		// directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
 		// + "CLSGLevel");
-		InstConcept instDirClaimSGSemanticEdge = new InstConcept("ClaimSgPW",
-				DefaultOpersMM.metaMetaPairwiseRelation,
+		InstConcept instDirClaimSGSemanticEdge = new InstConcept(
+				"ClaimSgBinary", DefaultOpersMM.metaMetaPairwiseRelation,
 				directClaimSGSemanticEdge);
 
 		attribute = new ElemAttribute("AggregationLow", "Integer",
@@ -8585,7 +8663,7 @@ public class DefaultRefasMM {
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 		// semanticVertices.add(semSoftgoal);
 
-		OpersConcept directSDSGSemanticEdge = new OpersConcept("SdSgPW");
+		OpersConcept directSDSGSemanticEdge = new OpersConcept("SdSgBinary");
 		attribute = new ElemAttribute("outConflClSD", "Boolean",
 				AttributeType.OPERATION, false,
 				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
@@ -8705,7 +8783,7 @@ public class DefaultRefasMM {
 		directSDSGSemanticEdge.addPropVisibleAttribute("08#" + "level");
 		// directSDSGSemanticEdge.addPanelVisibleAttribute("08#" + "level");
 
-		InstConcept instDirSDSGSemanticEdge = new InstConcept("SdSgPW",
+		InstConcept instDirSDSGSemanticEdge = new InstConcept("SdSgBinary",
 
 		DefaultOpersMM.metaMetaPairwiseRelation, directSDSGSemanticEdge);
 
@@ -8922,7 +9000,7 @@ public class DefaultRefasMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
 				"", 1, -1, "", "", -1, "", ""), semExpr));
 
-		refas.getVariabilityVertex().put("SdSgPW", instDirSDSGSemanticEdge);
+		refas.getVariabilityVertex().put("SdSgBinary", instDirSDSGSemanticEdge);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("SDSGPWAsso-OOGR", instEdge);
@@ -9001,7 +9079,8 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(DefaultOpersMM.instVertexGE, true);
 		instEdge.setSourceRelation(instVertexAsset, true);
 
-		OpersConcept semAssetOperPairwiseRel = new OpersConcept("AssetOperPW");
+		OpersConcept semAssetOperPairwiseRel = new OpersConcept(
+				"AssetOperBinary");
 
 		attribute = new ElemAttribute("pOutAnaSel", "Boolean",
 				AttributeType.OPERATION, false,
@@ -9023,7 +9102,7 @@ public class DefaultRefasMM {
 						.getIdentifier(), attribute.getName(), true));
 
 		InstConcept instSemAssetOperPairwiseRel = new InstConcept(
-				"AssetOperPW", DefaultOpersMM.metaMetaPairwiseRelation,
+				"AssetOperBinary", DefaultOpersMM.metaMetaPairwiseRelation,
 				semAssetOperPairwiseRel);
 
 		instEdge = new InstPairwiseRel();
@@ -9174,24 +9253,26 @@ public class DefaultRefasMM {
 				false, "implementedBy", "", "", 1, -1, "", "", -1, "", ""),
 				semExpr));
 
-		refas.getVariabilityVertex().put("AssetOperPW",
+		refas.getVariabilityVertex().put("AssetOperBinary",
 				instSemAssetOperPairwiseRel);
 
 		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("varAssetOperPWAsso-GR", instEdge);
-		instEdge.setIdentifier("varAssetOperPWAsso-GR");
+		refas.getConstraintInstEdges().put("varAssetOperBinaryAsso-GR",
+				instEdge);
+		instEdge.setIdentifier("varAssetOperBinaryAsso-GR");
 		instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelAso);
 		instEdge.setTargetRelation(instSemAssetOperPairwiseRel, true);
 		instEdge.setSourceRelation(instVertexAsset, true);
 
 		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("varAssetOperPW-GR-Asso", instEdge);
-		instEdge.setIdentifier("varAssetOperPW-GR-Asso");
+		refas.getConstraintInstEdges().put("varAssetOperBinary-GR-Asso",
+				instEdge);
+		instEdge.setIdentifier("varAssetOperBinary-GR-Asso");
 		instEdge.setSupportMetaPairwiseRelation(DefaultOpersMM.metaPairwRelAso);
 		instEdge.setTargetRelation(instVertexOper, true);
 		instEdge.setSourceRelation(instSemAssetOperPairwiseRel, true);
 
-		OpersConcept semAssetPairwiseRel = new OpersConcept("AssetPW");
+		OpersConcept semAssetPairwiseRel = new OpersConcept("AssetBinary");
 
 		attribute = new ElemAttribute("pOutAnaSel", "Boolean",
 				AttributeType.OPERATION, false,
@@ -9212,7 +9293,7 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(semAssetPairwiseRel
 						.getIdentifier(), attribute.getName(), true));
 
-		InstConcept instSemAssetPairwiseRel = new InstConcept("AssetPW",
+		InstConcept instSemAssetPairwiseRel = new InstConcept("AssetBinary",
 				DefaultOpersMM.metaMetaPairwiseRelation, semAssetPairwiseRel);
 
 		instEdge = new InstPairwiseRel();
@@ -9431,7 +9512,8 @@ public class DefaultRefasMM {
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "assembly",
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
 
-		refas.getVariabilityVertex().put("AssetPW", instSemAssetPairwiseRel);
+		refas.getVariabilityVertex()
+				.put("AssetBinary", instSemAssetPairwiseRel);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("varAssetPWAsso-GR", instEdge);
@@ -9449,7 +9531,8 @@ public class DefaultRefasMM {
 
 		// Asset to Asset
 
-		OpersConcept semanticAssetAssetOvertwoRel = new OpersConcept("AssetOT");// hardSemOverTwoRelList);
+		OpersConcept semanticAssetAssetOvertwoRel = new OpersConcept(
+				"AssetN-ary");// hardSemOverTwoRelList);
 
 		// attribute = new ElemAttribute("AggregationLow", "Integer",
 		// AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
@@ -9473,15 +9556,15 @@ public class DefaultRefasMM {
 		// semanticAssetAssetOvertwoRel.addPropVisibleAttribute("04#"
 		// + "AggregationHigh");
 
-		InstConcept instVertexASSETGR = new InstConcept("AssetOT",
+		InstConcept instVertexASSETGR = new InstConcept("AssetN-ary",
 				semanticAssetAssetOvertwoRel,
 				DefaultOpersMM.metaMetaInstOverTwoRel);
 
-		refas.getVariabilityVertex().put("AssetOT", instVertexASSETGR);
+		refas.getVariabilityVertex().put("AssetN-ary", instVertexASSETGR);
 
-		InstConcept instAssetassetASGR = new InstConcept(
-				"AssetToAssetOperOTPW", DefaultOpersMM.metaMetaPairwiseRelation);
-		refas.getVariabilityVertex().put("AssetToAssetOperOTPW",
+		InstConcept instAssetassetASGR = new InstConcept("AssetN-aryToAsset",
+				DefaultOpersMM.metaMetaPairwiseRelation);
+		refas.getVariabilityVertex().put("AssetN-aryToAsset",
 				instAssetassetASGR);
 
 		instEdge = new InstPairwiseRel();
@@ -9505,9 +9588,9 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(instAssetassetASGR, true);
 		instEdge.setSourceRelation(instVertexASSETGR, true);
 
-		InstConcept instAssetassetGRAS = new InstConcept(
-				"AssetToAssetOperOTPW", DefaultOpersMM.metaMetaPairwiseRelation);
-		refas.getVariabilityVertex().put("AssetToAssetOperOTPW",
+		InstConcept instAssetassetGRAS = new InstConcept("AssetToAssetN-ary",
+				DefaultOpersMM.metaMetaPairwiseRelation);
+		refas.getVariabilityVertex().put("AssetToAssetN-ary",
 				instAssetassetGRAS);
 
 		instEdge = new InstPairwiseRel();
@@ -9527,7 +9610,7 @@ public class DefaultRefasMM {
 		// Asset to Oper
 		// TODO use list of possible relations
 		OpersConcept semanticAssetOperGroupRelation = new OpersConcept(
-				"AssetOperOT");// hardSemOverTwoRelList);
+				"AssetOperN-ary");// hardSemOverTwoRelList);
 
 		attribute = new ElemAttribute("structVal", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "No loops validation",
@@ -9555,15 +9638,17 @@ public class DefaultRefasMM {
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 		// semanticVertices.add(semOperationalization);
 
-		InstConcept instVertexAssOPERGR = new InstConcept("AssetOperOT",
+		InstConcept instVertexAssOPERGR = new InstConcept("AssetOperN-ary",
 				semanticAssetOperGroupRelation,
 				DefaultOpersMM.metaMetaInstOverTwoRel);
 
-		refas.getVariabilityVertex().put("AssetOperOT", instVertexAssOPERGR);
+		refas.getVariabilityVertex().put("AssetOperN-ary", instVertexAssOPERGR);
 
-		InstConcept instAssetOperAOGR = new InstConcept("AssetOperToOT",
+		InstConcept instAssetOperAOGR = new InstConcept(
+				"AssetToAssetOperN-ary",
 				DefaultOpersMM.metaMetaPairwiseRelation);
-		refas.getVariabilityVertex().put("AssetOperToOT", instAssetOperAOGR);
+		refas.getVariabilityVertex().put("AssetToAssetOperN-ary",
+				instAssetOperAOGR);
 
 		// extends
 		instEdge = new InstPairwiseRel();
@@ -10637,7 +10722,7 @@ public class DefaultRefasMM {
 				"", "", 1, -1, "", "", -1, "", ""), semExpr));
 
 		OpersConcept groupAssetOperSemanticEdge = new OpersConcept(
-				"AssetOperOTtoOperPW");
+				"AssetOperN-aryToOper");
 
 		// attribute = new ElemAttribute("outConflSG", "Boolean",
 		// AttributeType.OPERATION, false,
@@ -10674,7 +10759,7 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(groupAssetOperSemanticEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		InstConcept instAssetOperGRAO = new InstConcept("AssetOperOTtoOperPW",
+		InstConcept instAssetOperGRAO = new InstConcept("AssetOperN-aryToOper",
 				DefaultOpersMM.metaMetaPairwiseRelation,
 				groupAssetOperSemanticEdge);
 
@@ -10803,7 +10888,7 @@ public class DefaultRefasMM {
 				false, "implemented by", "", "", 1, -1, "", "", -1, "", ""),
 				semExpr));
 
-		refas.getVariabilityVertex().put("AssetOperOTtoOperPW",
+		refas.getVariabilityVertex().put("AssetOperN-aryToOper",
 				instAssetOperGRAO);
 
 		instEdge = new InstPairwiseRel();

@@ -340,8 +340,12 @@ public class SyntaxElement implements Serializable {
 	}
 
 	public void setTransInstSemanticElement(InstElement instSemanticElement) {
-		instSemanticElementId = instSemanticElement.getIdentifier();
-		this.instSemanticElement = instSemanticElement;
+		if (instSemanticElement == null)
+			instSemanticElementId = null;
+		else {
+			instSemanticElementId = instSemanticElement.getIdentifier();
+			this.instSemanticElement = instSemanticElement;
+		}
 	}
 
 	public String getInstSemanticElementId() {
@@ -615,7 +619,7 @@ public class SyntaxElement implements Serializable {
 					elementDisplayPosition, elementDisplaySpacers,
 					elementDisplayCondition));
 	}
-	
+
 	public void removeModelingAttribute(String value) {
 		modelingAttributes.remove(value);
 	}
@@ -712,4 +716,3 @@ public class SyntaxElement implements Serializable {
 		return type;
 	}
 }
-

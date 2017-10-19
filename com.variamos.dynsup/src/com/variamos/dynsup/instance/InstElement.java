@@ -437,8 +437,11 @@ public abstract class InstElement implements Serializable, Cloneable,
 						if (!i.getType().equals("Class"))
 							v = ":" + i.getType();
 						if ((i.getType().equals("Enumeration")
-								|| i.getType().equals("MetaEnumeration") || i
-								.getType().equals("InstanceSet"))
+								|| i.getType().equals("MetaEnumeration")
+								|| i.getType().equals("MetaElement")
+								|| i.getType().equals("Element")
+								|| i.getType().equals("InstanceSet") || i
+								.getType().equals("SeMetaModel"))
 								&& i.getClassCanonicalName() != null) {
 							String classN = i.getClassCanonicalName()
 									.substring(
@@ -501,11 +504,35 @@ public abstract class InstElement implements Serializable, Cloneable,
 						&& !attributeName.equals("ExportOnConfig")
 						&& !attributeName.equals("TestConfNotSel")
 						&& !attributeName.equals("description")) {
+					ElemAttribute i = getEdOperEle().getSemanticAttribute(
+							attributeName, syntaxParents);
 					if (attributeName.length() > 1)
 						out2 += attributeName.substring(0, 1).toLowerCase()
-								+ attributeName.substring(1) + "\n";
+								+ attributeName.substring(1) + ":";
 					else
 						out2 += attributeName + "\n";
+					if (i.getType().equals("Element")
+							|| i.getType().equals("Instance")) {
+						String classN = i.getClassCanonicalName().substring(
+								i.getClassCanonicalName().lastIndexOf(".") + 1,
+								i.getClassCanonicalName().length());
+						out2 += i.getType() + "<" + classN + ">\n";
+					} else if (i.getType().equals("Class")) {
+						String classN = "";
+						if (i.getClassCanonicalName() != null) {
+							classN = i.getClassCanonicalName()
+									.substring(
+											i.getClassCanonicalName()
+													.lastIndexOf(".") + 1,
+											i.getClassCanonicalName().length());
+							out2 += ":" + classN + "<"
+									+ i.getMetaConceptInstanceType() + ">\n";
+						}
+
+					} else if (attributeName.length() > 1)
+						out2 += i.getType() + "\n";
+					else
+						out2 += i.getType() + "\n";
 				}
 			}
 		}
