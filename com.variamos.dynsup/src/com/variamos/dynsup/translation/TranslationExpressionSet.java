@@ -216,7 +216,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							if (instE.getInstAttribute("variableType")
 									.getValue().equals("LowLevel variable")
 									&& instE.getInstAttribute(
-											"IntegerVarInSubOper").getValue()
+											"InputSubOperAsInteger").getValue()
 											.equals(subAction)) {
 								if (instE.getInstAttribute("value").getValue() != null
 										&& !instE.getInstAttribute("value")
