@@ -53,7 +53,7 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
 import com.variamos.common.core.exceptions.FunctionalException;
-import com.variamos.common.core.exceptions.GraphReadingException;
+import com.variamos.common.core.exceptions.MXGraphException;
 import com.variamos.common.core.exceptions.TechnicalException;
 import com.variamos.common.core.utilities.StringUtils;
 import com.variamos.dynsup.instance.InstAttribute;
@@ -1572,7 +1572,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 				//ConsoleTextArea.addText(e.getMessage());
 				throw new TechnicalException(e);
 				//e.printStackTrace();
-			} else if (e.getCause() instanceof GraphReadingException) {
+			} else if (e.getCause() instanceof MXGraphException) {
 				JOptionPane.showMessageDialog(this,
 						"unable to load the model. The structure of the file was not understood.",
 						"Model load error: " + e.getMessage(), JOptionPane.ERROR_MESSAGE, null);

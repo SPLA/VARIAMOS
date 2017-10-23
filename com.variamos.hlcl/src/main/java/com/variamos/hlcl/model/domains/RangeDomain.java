@@ -51,8 +51,8 @@ public class RangeDomain implements IntDomain, Serializable {
 	}
 
 	/**
-	 * @param lowValue
-	 *            the lowValue to set
+	 * @param lowerValue
+	 *            the lowerValue to set
 	 */
 	public void setLowerValue(int lowerValue) {
 		this.lowerValue = lowerValue;

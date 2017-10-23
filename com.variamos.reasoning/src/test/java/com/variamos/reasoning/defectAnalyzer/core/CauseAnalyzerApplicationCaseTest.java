@@ -28,7 +28,7 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
 //import com.variamos.reasoning.transformer.VariabilityModelTransformer;
 //
-//public class CauseAnalyzerApplicationCaseTest {
+public class CauseAnalyzerApplicationCaseTest {
 //
 //	public void testCausesVoidModel() {
 //
@@ -53,12 +53,12 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //
 //			try {
 //				boolean isVoid = verifier.isVoid();
-//				System.out.println("El modelo es vacío");
+//				System.out.println("El modelo es vacio");
 //
 //				VoidModel voidModelDefect = new VoidModel(
 //						variabilityModel.getModelName());
 //
-//				// Información del DTO
+//				// InformaciOn del DTO
 //				VMCauseAnalyzerInDTO causeAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 //
 //				causeAnalyzerInDTO.setVariabilityModel(variabilityModel);
@@ -136,7 +136,7 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //						.identifyDeadFeatures(verifierInDTO
 //								.getVariabilityModel().getElements());
 //
-//				// Información del DTO
+//				// InformaciOn del DTO
 //				VMCauseAnalyzerInDTO causeAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 //
 //				causeAnalyzerInDTO.setVariabilityModel(variabilityModel);
@@ -228,7 +228,7 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //				Map<String, VariabilityElement> elementsToVerifyDomainNoneAttainable = verifierInDTO
 //						.getVariabilityModel().getElements();
 //
-//				// Se quitan de la lista las características que son full
+//				// Se quitan de la lista las caracteristicas que son full
 //				// mandatory, pq de esas se sabe que no pueden tener el valor de
 //				// cero
 //				elementsToVerifyDomainNoneAttainable.remove("Web_Portal");
@@ -295,7 +295,7 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //					verifierInDTO);
 //			try {
 //
-//				// Se prueba con una relación que sí sea redundante
+//				// Se prueba con una relaciOn que si sea redundante
 //				// Dependency: Flash-Image
 //				// id 25 (1-Flash)+ Image #>0
 //				// negacion (1-Flash)+ Image #=<0
@@ -322,7 +322,7 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //				redundacyDefects.add(redundancy1);
 //				redundacyDefects.add(redundancy2);
 //
-//				// Información del DTO
+//				// InformaciOn del DTO
 //				VMCauseAnalyzerInDTO causeAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 //
 //				causeAnalyzerInDTO.setVariabilityModel(variabilityModel);
@@ -402,7 +402,7 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //
 //	private void analyzeMCS(VariabilityModelCauseAnalyzer causesAnalyzer,
 //			List<Diagnostic> allDiagnostics) throws FunctionalException {
-//		System.out.println("ANALIZANDO LOS SUBCONJUNTOS CORRECCIÓN");
+//		System.out.println("ANALIZANDO LOS SUBCONJUNTOS CORRECCION");
 //		long startAnalysisTime = System.currentTimeMillis();
 //		List<AnalyzedCorrectionSet> analyzedCorrectionSetList = new ArrayList<AnalyzedCorrectionSet>();
 //		for (Diagnostic diagnostic : allDiagnostics) {
@@ -416,7 +416,7 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //			}
 //		}
 //
-//		System.out.println(" Resultado análisis causas");
+//		System.out.println(" Resultado analisis causas");
 //		for (AnalyzedCorrectionSet analizedCorrectionSet : analyzedCorrectionSetList) {
 //			System.out.println("Defect "
 //					+ analizedCorrectionSet.getAnalyzedDefect());
@@ -455,4 +455,4 @@ package com.variamos.reasoning.defectAnalyzer.core;
 //
 //	
 //	
-//}
+}
