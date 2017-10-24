@@ -1,5 +1,6 @@
 package com.variamos.solver.core.compiler;
 
+
 import java.util.List;
 
 import com.variamos.hlcl.model.LabelingOrderEnum;
@@ -109,3 +110,4 @@ public class PrologTransformParameters {
 	}
 
 }
+

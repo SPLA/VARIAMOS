@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,7 +41,12 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.DefectTypeEnum;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.CauCos;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeEnum;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.Diagnosis;
+import com.variamos.reasoning.medic.model.diagnoseAlgorithm.MinimalSetsDFSIterationsHLCL;
+import com.variamos.reasoning.medic.model.graph.VertexHLCL;
 import com.variamos.solver.model.SolverSolution;
+
+//import graphHLCL.VertexHLCL;
+//import minimalSets.MinimalSetsDFSIterationsHLCL;
 
 /**
  * A class to support SwingWorkers for solver execution tasks using the semantic
@@ -88,6 +94,17 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public boolean isCorrectExecution() {
 		return correctExecution;
 	}
+	/**
+	 * Method that builds what will be executed in the the worker
+	 * @param progressMonitor
+	 * @param refasModel
+	 * @param refas2hlcl
+	 * @param configHlclProgram
+	 * @param firstSimulExec
+	 * @param operations
+	 * @param lastConfiguration
+	 * @param filename
+	 */
 
 	public SolverOpersTask(ProgressMonitor progressMonitor, InstanceModel refasModel, ModelExpr2HLCL refas2hlcl,
 			HlclProgram configHlclProgram, boolean firstSimulExec, List<String> operations,
@@ -147,6 +164,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		setProgress(0);
 		try {
 			Thread.sleep(1);
+			//Method that executes the operations
 			executeOperations();
 		} catch (java.lang.UnsatisfiedLinkError e) {
 			errorMessage = "Solver not correctly configured";
@@ -285,6 +303,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	}
 
 	// dynamic call implementation
+
 	public void executeOperations() throws FunctionalException {
 		update = false;
 		long iniTime = System.currentTimeMillis();
@@ -304,20 +323,29 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			next = false;
 
 			resetFreeIdentifiers();
-			for (String operationName : operationsNames) {
-				InstElement operationObj = refas2hlcl.getRefas().getSyntaxModel().getOperationalModel()
+			
+			// for each operation in the list of operation names, the list of operation names is a parameter 
+			for (String operationName : operationsNames) {				
+				// operationObj is the hlcl program regarding the operation name
+				// the call returns the object with the id 
+				InstElement operationObj = refas2hlcl.getRefas()
+						.getSyntaxModel().getOperationalModel()
 						.getElement(operationName);
+				
 				Set<InstElement> suboperationsObjs = new TreeSet<InstElement>();
 				Map<String, InstElement> instsuboperations = new HashMap<String, InstElement>();
 				// Auto sorting with treeset
-				String operType = (String) operationObj.getInstAttributeValue("operType");
-				String computationalType = (String) operationObj.getInstAttributeValue("compType");
+				String operType = (String) operationObj  // operType is the type of the operation
+						.getInstAttributeValue("operType");
+				String computationalType = (String) operationObj  //computationalType 
+						.getInstAttributeValue("compType");
 				boolean computationalAnalysis = false;
 				if (operType.equals(StringUtils.formatEnumValue(OpersOpType.Computational_Analysis.toString()))) {
 					computationalAnalysis = true;
 					results = new int[2];
 				}
 				int subOperIndex = 0;
+				// to obtain the sub operations from operations (they may be more than one)
 				for (InstElement operpair : operationObj.getTargetRelations()) {
 					InstElement suboper = operpair.getTargetRelations().get(0);
 					instsuboperations.put(suboper.getIdentifier(), suboper);
@@ -325,34 +353,57 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				}
 				result = 0;
 				InstElement lastSubOper = null;
+				//for each suboperation in an operation
 				for (InstElement suboper : suboperationsObjs) {
-					lastSubOper = suboper;
-					if (result == -1 && operationObj.getInstAttributeValue("operType").equals("Validation"))
+					lastSubOper = suboper;		
+					//stop when the result is -1 or the operation is of type Validation
+					if (result == -1
+							&& operationObj.getInstAttributeValue("operType")
+									.equals("Validation"))
 						break;
 					try {
 						// Validation operations
 						// System.out.println(((String) suboper
-						// .getInstAttributeValue("type")));
-						String type = (String) suboper.getInstAttributeValue("type");
-						boolean showDashboard = (boolean) suboper.getInstAttributeValue("showDashboard");
+						// .getInstAttributeValue("type")));				
+						//the type of the sub-operation
+						String type = (String) suboper
+								.getInstAttributeValue("type");
+						// if the dashboard is visible or not
+						boolean showDashboard = (boolean) suboper
+								.getInstAttributeValue("showDashboard");
+						// obtain the message of the operation when there is a string defined by the user
 						if (suboper.getInstAttributeValue("completedMessage") != null
 								&& !((String) suboper.getInstAttributeValue("completedMessage")).equals(""))
 							completedMessage = (String) suboper.getInstAttributeValue("completedMessage");
 						boolean simul = false;
 						if (showDashboard)
-							this.showDashboard = showDashboard;
-						if (type.equals(StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions.toString()))) {
+							this.showDashboard = showDashboard;		
+						// determine the type of the operation and call the method implementing the operation
+						
+						// if type Number_Solutions
+						if (type.equals(StringUtils
+								.formatEnumValue(OpersSubOpType.Number_Solutions
+										.toString()))) {
 							if (computationalAnalysis) {
 								results[subOperIndex++] = countConfigurations(operationObj, suboper);
 								result = 0;
 							} else
-								countConfigurations(operationObj, suboper);
-						} else if (type
-								.equals(StringUtils.formatEnumValue(OpersSubOpType.Export_Solutions.toString()))) {
+								countConfigurations(operationObj, suboper); //Method that calls the solver and obtains the amount of solutions
+						} 
+						// type is Export_Solutions
+						else if (type
+								.equals(StringUtils
+										.formatEnumValue(OpersSubOpType.Export_Solutions
+												.toString()))) {
 							saveConfiguration(file, operationObj, suboper);
-						} else if (type.equals(StringUtils.formatEnumValue(OpersSubOpType.First_Solution.toString()))
-								|| type.equals(
-										StringUtils.formatEnumValue(OpersSubOpType.Iterate_Solutions.toString()))) {
+						} 
+						// type is First_Solution or Iterate
+						else if (type.equals(StringUtils
+								.formatEnumValue(OpersSubOpType.First_Solution
+										.toString()))
+								|| type.equals(StringUtils
+										.formatEnumValue(OpersSubOpType.Iterate_Solutions
+												.toString()))) {
 							simul = true;
 							if (lastConfiguration == null || firstSimulExec) {
 								result = refas2hlcl.execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION, operationObj,
@@ -391,8 +442,13 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							result = cauCos(0, operationObj, suboper, errorHint, outAttributes, updateOutAttributes,
 									outAttribute, operationsNames.size(), mode, indivVerExp, indivRelExp, natLanguage);
 							terminated = true;
-						} // Verification operations with DefectsVerifier
-						else if (type.equals(StringUtils.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif.toString()))
+						} 
+						
+						// Verification operations with DefectsVerifier
+						else if (type
+								.equals(StringUtils
+										.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
+												.toString()))
 								|| type.equals(StringUtils
 										.formatEnumValue(OpersSubOpType.UpdModel_Defects_Verif.toString()))) {
 							String method = (String) suboper.getInstAttributeValue("defectType");
@@ -424,7 +480,43 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									operationsNames.size(), reuseFreeIds, updateFreeIds, outAttribute,
 									updateOutAttributes, coreOperation, constraitsToVerifyRedundacies);
 							terminated = true;
-						} else {
+						} 
+						//TODO modifications by avillota for including MEDIC  -1 si fallo, 0 sin defectos, 1 en adelante 
+						else if (type
+								.equals(StringUtils
+										.formatEnumValue(OpersSubOpType.Medic
+												.toString())))
+						{
+
+//							String method = (String) suboper
+//									.getInstAttributeValue("defectType");
+							String errorHint = (String) suboper
+									.getInstAttributeValue("errorHint");
+							String outAttribute = (String) suboper
+									.getInstAttributeValue("outAttribute");
+//							boolean reuseFreeIds = (boolean) suboper
+//									.getInstAttributeValue("reuseFreeIds");
+//							boolean updateFreeIds = (boolean) suboper
+//									.getInstAttributeValue("updateFreeIds");
+
+
+
+							List<OpersIOAttribute> outAttributes = ((OpersSubOperation) suboper
+									.getEdOperEle()).getOutAttributes();
+							
+							//El metodo debe retornar un entero
+							
+							
+							
+							result = medicExecution(operationObj, suboper,
+									 errorHint, outAttributes,  outAttribute);
+							
+							// the operation should finish
+							terminated = true;
+						
+							
+						}
+						else {
 							result = -1;
 						}
 						if (result == 0) {
@@ -566,6 +658,50 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private void resetFreeIdentifiers() {
 		defectsFreeIdsName = null;
 	}
+	
+
+	//TODO medic  call
+	public int medicExecution(InstElement operation, InstElement subOper,
+			String verifHint,
+			List<OpersIOAttribute> outAttributes,  //pend
+			String outAttribute)
+			throws InterruptedException, FunctionalException {
+		
+		//HlclFactory f = new HlclFactory();
+
+		long iniTime = System.currentTimeMillis();
+		int result = 0;
+		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+				refasModel, operation, null, null);
+		
+		HlclProgram program = refas2hlcl.getHlclProgram(
+				operation, subOper.getIdentifier(),
+				OpersSubOpExecType.NORMAL, transExpSet);
+
+		if (program!=null){
+
+			//aqui lo que tengo que hacer es tomar el hlcl program y quitarle la basura
+
+			MinimalSetsDFSIterationsHLCL medic= null;
+			medic= new MinimalSetsDFSIterationsHLCL(program);
+
+			LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGVariable1_value",10);
+
+			System.out.println("Salida de Medic");
+			for (VertexHLCL vertexHLCL : output) {
+				System.out.println(vertexHLCL.getId() + " ");
+			}
+
+
+			System.out.println("medic");
+			return result;
+		}
+		else{
+			throw new FunctionalException("The translation is not working properly, the constraint program i empty");
+		}
+
+	}
+
 
 	private int defectsVerifier(InstElement operation, InstElement subOper, String method, String verifHint,
 			List<OpersIOAttribute> outAttributes, int numberOperations, boolean reuseIds, boolean updateIds,
@@ -587,6 +723,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			throw (new InterruptedException());
 		return result;
 	}
+	
+	
 
 	private int cauCos(int type, InstElement operation, InstElement subOper, String verifHint,
 			List<OpersIOAttribute> outAttributes, boolean updateOutAttributes, String outAttribute,
@@ -601,9 +739,12 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		long iniSTime = 0;
 		long endSTime = 0;
 		try {
-
-			TranslationExpressionSet transExpSet = new TranslationExpressionSet(refasModel, operation, null, null);
-			List<IntBooleanExpression> verifyList = refas2hlcl.getHlclProgram(operation, subOper.getIdentifier(),
+			// que es un translation expression set?
+			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+					refasModel, operation, null, null);
+			
+			List<IntBooleanExpression> verifyList = refas2hlcl.getHlclProgram(
+					operation, subOper.getIdentifier(),
 					OpersSubOpExecType.VERIFICATION, transExpSet);
 			HlclProgram relaxedList = refas2hlcl.getHlclProgram(operation, subOper.getIdentifier(),
 					OpersSubOpExecType.RELAXABLE, transExpSet);

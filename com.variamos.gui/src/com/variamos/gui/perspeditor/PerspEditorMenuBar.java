@@ -19,7 +19,6 @@ import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.gui.configurator.guiactions.ExportConfigurationAction;
-import com.variamos.gui.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.configurator.guiactions.SaveProductsAction;
 import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 import com.variamos.gui.core.mxgraph.editor.EditorActionsController.AlignCellsAction;
@@ -38,7 +37,6 @@ import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
 import com.variamos.gui.perspeditor.actions.CheckUpdateAction;
-import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
 import com.variamos.gui.perspeditor.actions.ElementOperationAssociationAction;
@@ -128,18 +126,23 @@ public class PerspEditorMenuBar extends JMenuBar {
 		return layoutMenu;
 	}
 
-	private void init(BasicGraphEditor editor) {
-		
-		final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
-		JMenu fileMenu = loadFileMenu();
-		add(fileMenu);
 
-		JMenu layoutMenu = loadLayoutMenu();
-		add(layoutMenu);
-		
+	private void init(BasicGraphEditor editor) {
+
+		JMenu menu=new JMenu();
+		Action al=null;
+		// Luisa: ISSUE #245 HOT FIX
+		// Configuration/simulation perspective does not need any layout functionality
+		if (editor.getPerspective() != 4) {
+			JMenu fileMenu = loadFileMenu();
+			add(fileMenu);
+			JMenu layoutMenu = loadLayoutMenu();
+			add(layoutMenu);
+		}
+		final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
 		if (editor.getPerspective() == 2) {
-			layoutMenu = (JMenu) layoutMenu.add(new JMenu(mxResources.get("models")));
-			layoutMenu.setMnemonic('M');
+			menu = (JMenu) menu.add(new JMenu(mxResources.get("models")));
+			menu.setMnemonic('M');
 			// menu.add(editor.bind(mxResources.get("verifyVoidModel"), new
 			// VerifyVoidModelAction()));
 			// menu.add(editor.bind(mxResources.get("verifyFalseProductLine"),
@@ -160,27 +163,23 @@ public class PerspEditorMenuBar extends JMenuBar {
 						finalEditor.updateDefects("Root", false);
 				}
 			});
-			layoutMenu.add(item);
+			menu.add(item);
 
-			add(layoutMenu);
+			add(menu);
 
-			layoutMenu = (JMenu) layoutMenu.add(new JMenu(mxResources.get("verifyDefects")));
-			layoutMenu.setMnemonic('I');
-			// menu.add(editor.bind(mxResources.get("verifyVoidModel"), new
-			// VerifyVoidModelAction()));
-			// menu.add(editor.bind(mxResources.get("verifyFalseProductLine"),
-			// new
-			// VerifyFalseProductLineModelAction()));
-			layoutMenu.add(editor.bind(mxResources.get("verifyRoot"), new RootElementAction()));
-			layoutMenu.add(editor.bind(mxResources.get("verifyParents"), new ParentElementAction()));
-			layoutMenu.add(editor.bind(mxResources.get("verifyDeadElement"), new VerifyDeadElementAction()));
-			layoutMenu.add(editor.bind(mxResources.get("verifyFalseOptionalElements"), new VerifyFalseOptElementAction()));
-			layoutMenu.addSeparator();
-			layoutMenu.add(editor.bind(mxResources.get("clearElements"), new ClearVerificationAction()));
-			add(layoutMenu);
+			menu = (JMenu) menu.add(new JMenu(mxResources.get("verifyDefects")));
+			menu.setMnemonic('I');
 
-			layoutMenu = (JMenu) layoutMenu.add(new JMenu(mxResources.get("verifyDefectsOptions")));
-			layoutMenu.setMnemonic('D');
+			menu.add(editor.bind(mxResources.get("verifyRoot"), new RootElementAction()));
+			menu.add(editor.bind(mxResources.get("verifyParents"), new ParentElementAction()));
+			menu.add(editor.bind(mxResources.get("verifyDeadElement"), new VerifyDeadElementAction()));
+			menu.add(editor.bind(mxResources.get("verifyFalseOptionalElements"), new VerifyFalseOptElementAction()));
+			menu.addSeparator();
+			menu.add(editor.bind(mxResources.get("clearElements"), new ClearVerificationAction()));
+			add(menu);
+
+			menu = (JMenu) menu.add(new JMenu(mxResources.get("verifyDefectsOptions")));
+			menu.setMnemonic('D');
 			item = new JCheckBoxMenuItem(mxResources.get("verifyRoot"));
 			item.setState(true);
 			item.addActionListener(new ActionListener() {
@@ -195,7 +194,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 						finalEditor.updateDefects("Root", false);
 				}
 			});
-			layoutMenu.add(item);
+			menu.add(item);
 
 			item = new JCheckBoxMenuItem(mxResources.get("verifyParents"));
 			item.setState(true);
@@ -214,7 +213,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 					}
 				}
 			});
-			layoutMenu.add(item);
+			menu.add(item);
 
 			item = new JCheckBoxMenuItem(mxResources.get("verifyDeadElement"));
 			item.setState(true);
@@ -231,7 +230,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 						finalEditor.updateDefects("Dead", false);
 				}
 			});
-			layoutMenu.add(item);
+			menu.add(item);
 
 			item = new JCheckBoxMenuItem(mxResources.get("verifyFalseOptionalElements"));
 			item.setState(true);
@@ -248,14 +247,14 @@ public class PerspEditorMenuBar extends JMenuBar {
 						finalEditor.updateDefects("FalseOpt", false);
 				}
 			});
-			layoutMenu.add(item);
-			layoutMenu.addSeparator();
-			Action al;
-			layoutMenu.add(editor.bind(mxResources.get("clearElements"), new ClearVerificationAction()));
+
+			menu.add(item);
+			menu.addSeparator();
+			menu.add(editor.bind(mxResources.get("clearElements"), new ClearVerificationAction()));
 			al = editor.bind(mxResources.get("verifyElements"), new VerificationAction());
 			al.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
-			layoutMenu.add(al);
-			add(layoutMenu);
+			menu.add(al);
+			add(menu);
 
 		}
 		if (editor.getPerspective() == 2 || (editor.getPerspective() == 4)) {
@@ -277,7 +276,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 					if ((boolean) menuElement.getInstAttribute("visible").getValue() == true
 							&& ((String) menuElement.getInstAttribute("menuType").getValue())
 									.equals(editor.getPerspective() + "")) {
-						layoutMenu = (JMenu) layoutMenu.add(
+						menu = (JMenu) menu.add(
 								new JMenu((i == 0 ? pre1 : pre2) + menuElement.getInstAttribute("opgname").getValue()));
 						// menu.setMnemonic();
 						for (InstElement operRel : menuElement.getTargetRelations()) {
@@ -290,7 +289,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 								menuItem.setName(e.getIdentifier());
 								menuItem.setAction(
 										editor.bind(menuItem, e.getIdentifier(), new OperationAction(), null));
-								layoutMenu.add(menuItem);
+								menu.add(menuItem);
 								menuItem.setText((String) e.getInstAttribute("opname").getValue());
 								boolean iterate = (boolean) e.getInstAttribute("iteration").getValue();
 								if (iterate) {
@@ -298,7 +297,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 									menuItem2.setName("N:" + e.getIdentifier());
 									menuItem2.setAction(editor.bind(menuItem2, "N:" + e.getIdentifier(),
 											new OperationAction(), null));
-									layoutMenu.add(menuItem2);
+									menu.add(menuItem2);
 									menuItem2.setText("Next Element");
 								}
 								// menu.add(editor.bind(oper.getTargetRelations()
@@ -324,98 +323,86 @@ public class PerspEditorMenuBar extends JMenuBar {
 									}
 								});
 
-								layoutMenu.add(item);
+								menu.add(item);
 							}
 						}
 						if ((boolean) menuElement.getInstAttribute("execAll").getValue() == true && i == 1) {
-							layoutMenu.add(editor.bind(mxResources.get("verifyElements"), new VerificationAction())); // FIXME
-																												// use a
-																												// dynamic
-																												// implementation
-						}
+							menu.add(editor.bind(mxResources.get("verifyElements"), new VerificationAction())); // FIXME
+				}
 						if ((boolean) menuElement.getInstAttribute("clearButton").getValue() == true) {
-							layoutMenu.addSeparator();
-							layoutMenu.add(editor.bind(mxResources.get("clearElements"), new ClearVerificationAction()));
+							menu.addSeparator();
+							menu.add(editor.bind(mxResources.get("clearElements"), new ClearVerificationAction()));
 						}
-						add(layoutMenu);
+						add(menu);
 					}
 				}
 			}
 		}
 		if (editor.getPerspective() == 1) {
-			layoutMenu = (JMenu) layoutMenu.add(new JMenu(mxResources.get("translationConfiguration")));
-			layoutMenu.setMnemonic('C');
+			menu = (JMenu) menu.add(new JMenu(mxResources
+					.get("translationConfiguration")));
+			menu.setMnemonic('C');
 			// Action a = editor.bind(mxResources.get("operationDefinition"),
 			// new OperationDefinitionAction());
 			// menu.add(a);
-			Action a = editor.bind(mxResources.get("elementOperationAssociation"),
+			Action a = editor.bind(
+					mxResources.get("elementOperationAssociation"),
 					new ElementOperationAssociationAction());
-			layoutMenu.add(a);
-			a = editor.bind(mxResources.get("variableOperationAssociation"), new VariableOperationAssociationAction());
-			layoutMenu.add(a);
-			a = editor.bind(mxResources.get("variableLabelingAssociation"), new VariableLabelingAssociationAction());
-			layoutMenu.add(a);
-			add(layoutMenu);
+			menu.add(a);
+			a = editor.bind(mxResources.get("variableOperationAssociation"),
+					new VariableOperationAssociationAction());
+			menu.add(a);
+			a = editor.bind(mxResources.get("variableLabelingAssociation"),
+					new VariableLabelingAssociationAction());
+			menu.add(a);
+			add(menu);
+			
 		}
+		
+
 		if (editor.getPerspective() == 4) {
 
-			layoutMenu = (JMenu) layoutMenu.add(new JMenu(mxResources.get("configuration")));
-			layoutMenu.setMnemonic('C');
-			Action a = editor.bind(mxResources.get("startConfiguration"), new ClearConfigurationAction());
-			a.setEnabled(false);
-			layoutMenu.add(a);
+			// Luisa: ISSUE #245 HOT FIX
+			Action a;
+			/*
+			 * menu = (JMenu) menu .add(new JMenu(mxResources.get("configuration")));
+			 * menu.setMnemonic('C'); a = editor.bind(mxResources.get("startConfiguration"),
+			 * new ClearConfigurationAction()); a.setEnabled(false); menu.add(a);
+			 * 
+			 * a = editor.bind(mxResources.get("restartConfiguration"), new
+			 * ClearConfigurationAction()); menu.add(a); menu.addSeparator();
+			 * 
+			 * a = editor.bind(mxResources.get("saveConfiguration"), new
+			 * SaveConfigurationAction(true)); menu.add(a); a.setEnabled(false); a =
+			 * editor.bind(mxResources.get("saveProducts"), new SaveProductsAction());
+			 * menu.add(a); a.setEnabled(false); menu.addSeparator();
+			 * 
+			 * add(menu);
+			 */
 
-			a = editor.bind(mxResources.get("restartConfiguration"), new ClearConfigurationAction());
-			layoutMenu.add(a);
-			layoutMenu.addSeparator();
-			a = editor.bind(mxResources.get("loadConfiguration"), new ClearSimulationAction());
-			a.setEnabled(false);
-			layoutMenu.add(a);
-			a = editor.bind(mxResources.get("saveConfiguration"), new SaveConfigurationAction(true));
-			layoutMenu.add(a);
-			a.setEnabled(false);
-			a = editor.bind(mxResources.get("saveProducts"), new SaveProductsAction());
-			layoutMenu.add(a);
-			a.setEnabled(false);
-			layoutMenu.addSeparator();
+			// Luisa: ISSUE #245 HOT FIX
 
-			add(layoutMenu);
-
-			layoutMenu = (JMenu) layoutMenu.add(new JMenu(mxResources.get("simulation")));
-			layoutMenu.setMnemonic('S');
+			menu = (JMenu) menu.add(new JMenu(mxResources.get("simulation")));
+			menu.setMnemonic('S');
 			a = editor.bind(mxResources.get("resetSimulation"), new ClearSimulationAction());
 			a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
-			layoutMenu.add(a);
+			menu.add(a);
 			a = editor.bind(mxResources.get("startSimulation"), new StartSimulationAction());
 			a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
-			layoutMenu.add(a);
+			menu.add(a);
 			a = editor.bind(mxResources.get("nextSimulation"), new NextSimulationAction());
 			a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
-			layoutMenu.add(a);
+			menu.add(a);
 
-			add(layoutMenu);
+			add(menu);
 
-			layoutMenu.addSeparator();
-
-			a = editor.bind(mxResources.get("saveCurrentSolution"), new SaveProductsAction());
-			layoutMenu.add(a);
-
-			a = editor.bind(mxResources.get("exportConfiguration"), new ExportConfigurationAction(true));
-			layoutMenu.add(a);
-
-			layoutMenu.addSeparator();
-
-			layoutMenu.setMnemonic('U');
-			a = editor.bind(mxResources.get("externalContext"), new ExternalContextAction());
-			layoutMenu.add(a);
-			add(layoutMenu);
-			layoutMenu = (JMenu) layoutMenu.add(new JMenu(mxResources.get("dashboard")));
-			layoutMenu.setMnemonic('D');
+			menu = (JMenu) menu.add(new JMenu(mxResources.get("dashboard")));
+			menu.setMnemonic('D');
 
 			a = editor.bind(mxResources.get("showSimulationDashBoard"), new ShowSimulationDashBoardAction());
 			a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, ActionEvent.CTRL_MASK));
-			layoutMenu.add(a);
-			layoutMenu.add(editor.bind(mxResources.get("hideSimulationDashBoard"), new HideSimulationDashBoardAction()));
+			menu.add(a);
+			menu.add(editor.bind(mxResources.get("hideSimulationDashBoard"), new HideSimulationDashBoardAction()));
 			JCheckBoxMenuItem item = new JCheckBoxMenuItem(mxResources.get("nameSimulationDashBoard"));
 			item.setState(true);
 			item.addActionListener(new ActionListener() {
@@ -434,26 +421,42 @@ public class PerspEditorMenuBar extends JMenuBar {
 					}
 				}
 			});
-			layoutMenu.add(item);
-			add(layoutMenu);
+			menu.add(item);
+
+			menu.addSeparator();
+
+			a = editor.bind(mxResources.get("savePartialSolution"), new SaveProductsAction());
+			menu.add(a);
+
+			a = editor.bind(mxResources.get("exportConfiguration"), new ExportConfigurationAction(true));
+			menu.add(a);
+
+			menu.addSeparator();
+
+			menu.setMnemonic('U');
+			a = editor.bind(mxResources.get("externalContext"), new ExternalContextAction());
+			menu.add(a);
+			add(menu);
+			add(menu);
 
 		}
 
-		layoutMenu = (JMenu) layoutMenu.add(new JMenu(mxResources.get("window")));
-		layoutMenu.setMnemonic('W');
-		layoutMenu.add(editor.bind(mxResources.get("showAdvancedPerspectives"), new ShowAdvancedPerspectiveAction()));
-		layoutMenu.add(editor.bind(mxResources.get("hideAdvancedPerspectives"), new HideAdvancedPerspectiveAction()));
-		layoutMenu.add(editor.bind(mxResources.get("showSimulationCustomizationBox"), new ShowSimulationCustomizationBox()));
-		layoutMenu.add(editor.bind(mxResources.get("hideSimulationCustomizationBox"), new HideSimulationsCustomizationBox()));
-		add(layoutMenu);
+		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
+		menu.setMnemonic('W');
+		menu.add(editor.bind(mxResources.get("showAdvancedPerspectives"), new ShowAdvancedPerspectiveAction()));
+		menu.add(editor.bind(mxResources.get("hideAdvancedPerspectives"), new HideAdvancedPerspectiveAction()));
+		menu.add(editor.bind(mxResources.get("showSimulationCustomizationBox"), new ShowSimulationCustomizationBox()));
+		menu.add(editor.bind(mxResources.get("hideSimulationCustomizationBox"), new HideSimulationsCustomizationBox()));
+		add(menu);
 
-		layoutMenu = (JMenu) layoutMenu.add(new JMenu(mxResources.get("help")));
-		layoutMenu.setMnemonic('H');
-		layoutMenu.add(editor.bind(mxResources.get("about"), new AboutAction()));
-		layoutMenu.add(editor.bind(mxResources.get("checkUpdates"), new CheckUpdateAction()));
-		add(layoutMenu);
+		menu = (JMenu) menu.add(new JMenu(mxResources.get("help")));
+		menu.setMnemonic('H');
+		menu.add(editor.bind(mxResources.get("about"), new AboutAction()));
+
+		menu.add(editor.bind(mxResources.get("checkUpdates"), new CheckUpdateAction()));
+		add(menu);
 	}
-
+	
 	/**
 	 * Adds menu items to the given shape menu. This is factored out because the
 	 * shape menu appears in the menubar and also in the popupmenu.
