@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.sql.Timestamp;
 
 public class LogManager {
-	public static final String LOGNAME="logFiles/ExecutionLog";
+	//public static final String LOGNAME="logFiles/ExecutionLog";
 	public static final String LOGEXT=".log";
 	private BufferedWriter out;
 	public String problemPath;
@@ -23,7 +23,8 @@ public class LogManager {
 	public void initLog(){
 		 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		 String time =timestamp.getTime()+"";
-		String fileName= problemPath+problemName.substring(0, (problemName.length() -3))+LOGEXT;
+		 //String fileName= problemPath+problemName.substring(0, (problemName.length() -3))+LOGEXT;
+		String fileName= problemPath+problemName+LOGEXT;
 		try {
 			out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
 			out.write("Log File : " + timestamp+ "File name " + fileName+ " \n");

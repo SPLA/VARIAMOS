@@ -43,6 +43,7 @@ import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeE
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.Diagnosis;
 import com.variamos.reasoning.medic.model.diagnoseAlgorithm.MinimalSetsDFSIterationsHLCL;
 import com.variamos.reasoning.medic.model.graph.VertexHLCL;
+import com.variamos.reasoning.util.LogParameters;
 import com.variamos.solver.model.SolverSolution;
 
 //import graphHLCL.VertexHLCL;
@@ -635,6 +636,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 					} catch (Exception e) {
 						// FIXME issue#230
+						e.printStackTrace();
 						throw new FunctionalException(FunctionalException.exceptionStacktraceToString(e));
 					}
 
@@ -665,32 +667,46 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			String verifHint,
 			List<OpersIOAttribute> outAttributes,  //pend
 			String outAttribute)
-			throws InterruptedException, FunctionalException {
+			throws Exception {
 		
-		//HlclFactory f = new HlclFactory();
 
 		long iniTime = System.currentTimeMillis();
 		int result = 0;
 		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
 				refasModel, operation, null, null);
 		
+		Map<IntBooleanExpression,String> table = new HashMap<>();
+		
 		HlclProgram program = refas2hlcl.getHlclProgram(
 				operation, subOper.getIdentifier(),
-				OpersSubOpExecType.NORMAL, transExpSet);
+				OpersSubOpExecType.NORMAL, transExpSet, table);
 
+		//use table
+		
 		if (program!=null){
 
-			//aqui lo que tengo que hacer es tomar el hlcl program y quitarle la basura
-
+			
+			Set<IntBooleanExpression> keys = table.keySet();
+			for(IntBooleanExpression k:keys){
+				System.out.println("constraint:"+k+"->concept:"+table.get(k));
+			}
+			
 			MinimalSetsDFSIterationsHLCL medic= null;
-			medic= new MinimalSetsDFSIterationsHLCL(program);
+			
+			//Log parameters allow the activation of the logManager, 
+			//to start an execution using a log manager comment line 690 and uncomment line 692
+			// using a valid path and a name for the problem
+			//LogParameters params= new LogParameters();
+			//LogParameters params= new LogParameters("/Users/Angela/Test/", "test");
+			//medic= new MinimalSetsDFSIterationsHLCL(program, params);
 
-			LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraintsLog("CGVariable1_value",10);
+			//LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraints("CGVariable1_value",10);
 
 			System.out.println("Salida de Medic");
-			for (VertexHLCL vertexHLCL : output) {
-				System.out.println(vertexHLCL.getId() + " ");
-			}
+//			for (VertexHLCL vertexHLCL : output) {
+//				System.out.println(vertexHLCL.getId() + " ");
+//			}
+			
 
 
 			System.out.println("medic");
@@ -709,6 +725,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			List<IntBooleanExpression> constraitsToVerifyRedundacies) throws InterruptedException, FunctionalException {
 		int result = 0;
 		executionTime = "";
+		
 
 		if (coreOperation == null && !method.equals("getRedundancies") && !method.equals("getFalsePLs"))
 			// Update core
@@ -979,6 +996,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			List<IntBooleanExpression> constraitsToVerifyRedundacies) throws InterruptedException, FunctionalException {
 		HlclFactory f = new HlclFactory();
 
+		//outAttributes
 		long iniTime = System.currentTimeMillis();
 		int result = 0;
 		// Validate if the model is correct
