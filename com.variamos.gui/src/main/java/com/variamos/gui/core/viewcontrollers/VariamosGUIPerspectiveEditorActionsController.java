@@ -3,6 +3,7 @@ package com.variamos.gui.core.viewcontrollers;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -14,8 +15,10 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.interfaces.APIDynsup;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.gui.core.io.ConsoleTextArea;
+import com.variamos.gui.core.maineditor.models.ParadigmTypeEnum;
 import com.variamos.gui.core.mxgraph.editor.DefaultFileFilter;
 import com.variamos.gui.maineditor.MainFrame;
+import com.variamos.gui.maineditor.ParadigmChooserPane;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
@@ -55,6 +58,8 @@ public class VariamosGUIPerspectiveEditorActionsController {
 					mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
 				((VariamosGraphEditor) variamosEditor).resetView();
 				System.runFinalization();
+				
+				VariamosGUIPerspectiveEditorActionsController.changeVariamosParadigmView(((MainFrame)variamosEditor.getFrame()).getGraphEditors());
 
 				if (variamosEditor.getPerspective() == 1) {
 
@@ -70,6 +75,57 @@ public class VariamosGUIPerspectiveEditorActionsController {
 				}
 			}
 		}
+	}
+	
+	public static void changeVariamosParadigmView(List<VariamosGraphEditor> graphEditors) {
+		ParadigmTypeEnum paradigmChoosed = ParadigmChooserPane.showInputDialog();
+		/*if(paradigmChoosed==null || paradigmChoosed.equals(ParadigmTypeEnum.EMPTY)) {
+			dispose();
+			System.exit(0);
+		}*/
+		
+		File sintax = null, semantic = null;
+		String prefijo = "src/main/resources/defaultmodels/";
+		switch(paradigmChoosed) {
+			case CONSTRAINTGRAPHS:
+				sintax = new File(prefijo+"constraintgraphs/syntax.vmsm");
+				semantic = new File(prefijo+"constraintgraphs/semantic.vmom");
+				break;
+			/*case CUSTOMIZED:
+				break;*/
+			case EMPTY:
+				break;
+			case FEATURES:
+				sintax = new File(prefijo+"features/syntax.vmsm");
+				semantic = new File(prefijo+"features/semantic.vmom");
+				break;
+			case REFAS:
+				sintax = new File(prefijo+"refas/syntax.vmsm");
+				semantic = new File(prefijo+"refas/semantic.vmom");
+				break;
+			default:
+				break;		
+		}
+		
+		if(sintax!=null && semantic!=null) {
+			System.out.println("sintax:"+sintax.exists()+", semantic:"+semantic.exists());
+			final VariamosGraphEditor graphEditor2 = graphEditors.get(2);
+			final File sintaxFile = sintax;
+			VariamosGUIPerspectiveEditorActionsController.loadAction(graphEditors.get(0),semantic,
+				new Runnable() {
+					public void run() {
+						VariamosGUIPerspectiveEditorActionsController.loadAction(graphEditor2,sintaxFile,
+							new Runnable() {
+							    public void run() {
+							    	
+									graphEditor2.updatePespectiveMenuTab(
+										mxResources.get("modelingPerspButton"));
+																	    	
+							    }
+						});
+					}
+				});
+		}		
 	}
 
 	/**
@@ -90,6 +146,10 @@ public class VariamosGUIPerspectiveEditorActionsController {
 	 */
 	private static void callLoadSaveFileTask(FileTasksEnum execType, File file, VariamosGraphEditor variamosEditor,
 			mxGraph graph, String message, String ext, Color bgColor) {
+		VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(execType, file, variamosEditor, graph, message, ext, bgColor, null);
+	}
+	private static void callLoadSaveFileTask(FileTasksEnum execType, File file, VariamosGraphEditor variamosEditor,
+				mxGraph graph, String message, String ext, Color bgColor,final Runnable callBack) {
 
 		// Notify progress
 		ProgressMonitor progressMonitor = new ProgressMonitor(variamosEditor, message, "", 0, 100);
@@ -102,7 +162,7 @@ public class VariamosGUIPerspectiveEditorActionsController {
 		FileTasks task = null;
 		switch (execType) {
 		case OPEN_MODEL:
-			task = new FileTasks(progressMonitor, execType, file, variamosEditor, graph);
+			task = new FileTasks(progressMonitor, execType, file, variamosEditor, graph, callBack);
 			break;
 		case SAVE_MODEL:
 		case SAVE_IMAGE_SVG:
@@ -125,69 +185,96 @@ public class VariamosGUIPerspectiveEditorActionsController {
 		((MainFrame) variamosEditor.getFrame()).waitingCursor(true);
 		task.execute();
 	}
+	
+	private static boolean graphExists(VariamosGraphEditor variamosEditor) {
+		mxGraph graph = variamosEditor.getGraphComponent().getGraph();
+		
+		// File chooser logic to find and select what file will be open.
+		if (graph != null) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private static boolean loadActionBefore(VariamosGraphEditor variamosEditor) {
+		if (variamosEditor != null) {
+			if (variamosEditor.getPerspective() == 4) {
+				JOptionPane.showMessageDialog(variamosEditor, mxResources.get("saveloadnewerror"),
+						"Operation not supported", JOptionPane.INFORMATION_MESSAGE, null);
+
+				return false;
+			}
+			// Actives the animation that shows there is a work in progress
+			((MainFrame) variamosEditor.getFrame()).waitingCursor(true);
+
+			if (!variamosEditor.isModified() || JOptionPane.showConfirmDialog(variamosEditor,
+					mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
+				
+				return VariamosGUIPerspectiveEditorActionsController.graphExists(variamosEditor);
+			}
+		}
+		return false;
+	}
+	
+	private static void loadActionAfter(VariamosGraphEditor variamosEditor) {
+		variamosEditor.refresh();
+
+		// Stops the animation once the job ends
+		((MainFrame) variamosEditor.getFrame()).waitingCursor(false);
+	}
 
 	/**
 	 * @param variamosEditor:
 	 *            main object for handling the GUI in VariaMos
 	 */
 	public static void loadAction(VariamosGraphEditor variamosEditor) {
-		if (variamosEditor != null) {
-			if (variamosEditor.getPerspective() == 4) {
-				JOptionPane.showMessageDialog(variamosEditor, mxResources.get("saveloadnewerror"),
-						"Operation not supported", JOptionPane.INFORMATION_MESSAGE, null);
-
-				return;
-			}
+		JOptionPane.showMessageDialog(null, "Hi. In loadaction.");
+		if(VariamosGUIPerspectiveEditorActionsController.loadActionBefore(variamosEditor)) {
+			
 			final VariamosGraphEditor finalEditor = variamosEditor;
-
-			// Actives the animation that shows there is a work in progress
-			((MainFrame) variamosEditor.getFrame()).waitingCursor(true);
-
-			if (!variamosEditor.isModified() || JOptionPane.showConfirmDialog(variamosEditor,
-					mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
-				mxGraph graph = variamosEditor.getGraphComponent().getGraph();
-
-				// File chooser logic to find and select what file will be open.
-				if (graph != null) {
-
-					String path = (variamosEditor.getLastDir() != null) ? variamosEditor.getLastDir()
-							: System.getProperty("user.dir");
-					JFileChooser fileChooser = new JFileChooser(path);
-
-					final String fileExtension = finalEditor.getFileExtension();
-					final String fileExtensionName = finalEditor.getExtensionName();
-
-					// Adds file filter for supported file format
-					DefaultFileFilter defaultFilter = new DefaultFileFilter("." + fileExtension,
-							fileExtensionName + " (." + fileExtension + ")") {
-						public boolean accept(File file) {
-							String lcase = file.getName().toLowerCase();
-							((MainFrame) finalEditor.getFrame()).waitingCursor(false);
-							return super.accept(file) || lcase.endsWith("." + fileExtension);
-						}
-					};
-
-					fileChooser.setFileFilter(defaultFilter);
-					int fileChooserAnswer = fileChooser.showDialog(null, mxResources.get("openFile"));
-					if (fileChooserAnswer == JFileChooser.APPROVE_OPTION) {
-						// Update the last path dir
-						String lastDir = fileChooser.getSelectedFile().getParent();
-
-						// Update the last path where files were saved or open. In this way, it is
-						// possible to record the path for next actions that open or close files
-						variamosEditor.setLastDir(lastDir);
-
-						// Call a SWING worker for loading files
-						VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.OPEN_MODEL,
-								fileChooser.getSelectedFile(), (VariamosGraphEditor) variamosEditor, graph,
-								"File opening", "", null);
-					}
+			String path = (variamosEditor.getLastDir() != null) ? variamosEditor.getLastDir()
+					: System.getProperty("user.dir");
+			JFileChooser fileChooser = new JFileChooser(path);
+	
+			final String fileExtension = finalEditor.getFileExtension();
+			final String fileExtensionName = finalEditor.getExtensionName();
+	
+			// Adds file filter for supported file format
+			DefaultFileFilter defaultFilter = new DefaultFileFilter("." + fileExtension,
+					fileExtensionName + " (." + fileExtension + ")") {
+				public boolean accept(File file) {
+					String lcase = file.getName().toLowerCase();
+					((MainFrame) finalEditor.getFrame()).waitingCursor(false);
+					return super.accept(file) || lcase.endsWith("." + fileExtension);
 				}
-			}
-			variamosEditor.refresh();
+			};
+	
+			fileChooser.setFileFilter(defaultFilter);
+			int fileChooserAnswer = fileChooser.showDialog(null, mxResources.get("openFile"));
+			if (fileChooserAnswer == JFileChooser.APPROVE_OPTION) {
+				variamosEditor.setModified(false);
+				VariamosGUIPerspectiveEditorActionsController.loadAction(variamosEditor, fileChooser.getSelectedFile(),null);
+			}				
+			VariamosGUIPerspectiveEditorActionsController.loadActionAfter(variamosEditor);
+		}
+	}
 
-			// Stops the animation once the job ends
-			((MainFrame) variamosEditor.getFrame()).waitingCursor(false);
+	/**
+	 * @param variamosEditor:
+	 *            main object for handling the GUI in VariaMos
+	 * @param theFile:
+	 * 			  the file to load
+	 */
+	public static void loadAction(VariamosGraphEditor variamosEditor, File theFile, final Runnable callBack) {
+		if(VariamosGUIPerspectiveEditorActionsController.graphExists(variamosEditor)) {
+			mxGraph graph = variamosEditor.getGraphComponent().getGraph();
+
+			// Call a SWING worker for loading files
+			VariamosGUIPerspectiveEditorActionsController.callLoadSaveFileTask(FileTasksEnum.OPEN_MODEL,
+					theFile, (VariamosGraphEditor) variamosEditor, graph,
+					"File opening", "", null, callBack);
+			VariamosGUIPerspectiveEditorActionsController.loadActionAfter(variamosEditor);					
 		}
 
 	}
