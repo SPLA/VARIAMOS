@@ -4,8 +4,8 @@ public enum ParadigmTypeEnum {
 	EMPTY("Empty"), 
 	FEATURES("Feature-based project"),
 	REFAS("Goal/soft-goal project"), 
-	CONSTRAINTGRAPHS("Constraint graph project");
-	//CUSTOMIZED("Open project")
+	CONSTRAINTGRAPHS("Constraint graph project"),
+	CUSTOMIZED("Customized project");
 	private String label;
 
 	private ParadigmTypeEnum(String label) {
