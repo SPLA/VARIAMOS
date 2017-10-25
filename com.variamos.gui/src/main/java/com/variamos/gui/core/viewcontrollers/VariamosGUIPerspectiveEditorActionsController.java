@@ -84,33 +84,35 @@ public class VariamosGUIPerspectiveEditorActionsController {
 			System.exit(0);
 		}*/
 		
-		File sintax = null, semantic = null;
+		File syntax = null, semantic = null;
 		String prefijo = "src/main/resources/defaultmodels/";
 		switch(paradigmChoosed) {
 			case CONSTRAINTGRAPHS:
-				sintax = new File(prefijo+"constraintgraphs/syntax.vmsm");
+				syntax = new File(prefijo+"constraintgraphs/syntax.vmsm");
 				semantic = new File(prefijo+"constraintgraphs/semantic.vmom");
 				break;
-			/*case CUSTOMIZED:
-				break;*/
+			case CUSTOMIZED:
+				semantic = VariamosGUIPerspectiveEditorActionsController.getFileFromChooser(graphEditors.get(0));
+				syntax = VariamosGUIPerspectiveEditorActionsController.getFileFromChooser(graphEditors.get(2));								
+				break;
 			case EMPTY:
 				break;
 			case FEATURES:
-				sintax = new File(prefijo+"features/syntax.vmsm");
+				syntax = new File(prefijo+"features/syntax.vmsm");
 				semantic = new File(prefijo+"features/semantic.vmom");
 				break;
 			case REFAS:
-				sintax = new File(prefijo+"refas/syntax.vmsm");
+				syntax = new File(prefijo+"refas/syntax.vmsm");
 				semantic = new File(prefijo+"refas/semantic.vmom");
 				break;
 			default:
 				break;		
 		}
 		
-		if(sintax!=null && semantic!=null) {
-			System.out.println("sintax:"+sintax.exists()+", semantic:"+semantic.exists());
+		if(syntax!=null && semantic!=null) {
+			System.out.println("syntax:"+syntax.exists()+", semantic:"+semantic.exists());
 			final VariamosGraphEditor graphEditor2 = graphEditors.get(2);
-			final File sintaxFile = sintax;
+			final File sintaxFile = syntax;
 			VariamosGUIPerspectiveEditorActionsController.loadAction(graphEditors.get(0),semantic,
 				new Runnable() {
 					public void run() {
@@ -125,7 +127,9 @@ public class VariamosGUIPerspectiveEditorActionsController {
 						});
 					}
 				});
-		}		
+		}else {
+			System.out.println("S");
+		}
 	}
 
 	/**
@@ -229,35 +233,42 @@ public class VariamosGUIPerspectiveEditorActionsController {
 	 *            main object for handling the GUI in VariaMos
 	 */
 	public static void loadAction(VariamosGraphEditor variamosEditor) {
-		JOptionPane.showMessageDialog(null, "Hi. In loadaction.");
+		//JOptionPane.showMessageDialog(null, "Hi. In loadaction.");
 		if(VariamosGUIPerspectiveEditorActionsController.loadActionBefore(variamosEditor)) {
-			
-			final VariamosGraphEditor finalEditor = variamosEditor;
-			String path = (variamosEditor.getLastDir() != null) ? variamosEditor.getLastDir()
-					: System.getProperty("user.dir");
-			JFileChooser fileChooser = new JFileChooser(path);
-	
-			final String fileExtension = finalEditor.getFileExtension();
-			final String fileExtensionName = finalEditor.getExtensionName();
-	
-			// Adds file filter for supported file format
-			DefaultFileFilter defaultFilter = new DefaultFileFilter("." + fileExtension,
-					fileExtensionName + " (." + fileExtension + ")") {
-				public boolean accept(File file) {
-					String lcase = file.getName().toLowerCase();
-					((MainFrame) finalEditor.getFrame()).waitingCursor(false);
-					return super.accept(file) || lcase.endsWith("." + fileExtension);
-				}
-			};
-	
-			fileChooser.setFileFilter(defaultFilter);
-			int fileChooserAnswer = fileChooser.showDialog(null, mxResources.get("openFile"));
-			if (fileChooserAnswer == JFileChooser.APPROVE_OPTION) {
-				variamosEditor.setModified(false);
-				VariamosGUIPerspectiveEditorActionsController.loadAction(variamosEditor, fileChooser.getSelectedFile(),null);
-			}				
+			File f = VariamosGUIPerspectiveEditorActionsController.getFileFromChooser(variamosEditor);
+			if(f!=null) {
+				VariamosGUIPerspectiveEditorActionsController.loadAction(variamosEditor, f,null);
+			}
 			VariamosGUIPerspectiveEditorActionsController.loadActionAfter(variamosEditor);
 		}
+	}
+	
+	private static File getFileFromChooser(VariamosGraphEditor variamosEditor) {
+		final VariamosGraphEditor finalEditor = variamosEditor;
+		String path = (variamosEditor.getLastDir() != null) ? variamosEditor.getLastDir()
+				: System.getProperty("user.dir");
+		JFileChooser fileChooser = new JFileChooser(path);
+
+		final String fileExtension = finalEditor.getFileExtension();
+		final String fileExtensionName = finalEditor.getExtensionName();
+
+		// Adds file filter for supported file format
+		DefaultFileFilter defaultFilter = new DefaultFileFilter("." + fileExtension,
+				fileExtensionName + " (." + fileExtension + ")") {
+			public boolean accept(File file) {
+				String lcase = file.getName().toLowerCase();
+				((MainFrame) finalEditor.getFrame()).waitingCursor(false);
+				return super.accept(file) || lcase.endsWith("." + fileExtension);
+			}
+		};
+
+		fileChooser.setFileFilter(defaultFilter);
+		int fileChooserAnswer = fileChooser.showDialog(null, mxResources.get("openFile"));
+		if (fileChooserAnswer == JFileChooser.APPROVE_OPTION) {
+			variamosEditor.setModified(false);
+			return fileChooser.getSelectedFile();
+		}				
+		return null;
 	}
 
 	/**
