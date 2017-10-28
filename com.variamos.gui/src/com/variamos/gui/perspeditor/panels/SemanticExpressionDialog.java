@@ -59,7 +59,7 @@ public class SemanticExpressionDialog extends JDialog {
 	private boolean displayConceptName = false;
 	private boolean displayVariableName = false;
 	private int width = 1350;
-	private int height = 760;
+	private int height = 730;
 	boolean initializing = false;
 
 	static interface SemanticExpressionButtonAction {
@@ -532,7 +532,7 @@ public class SemanticExpressionDialog extends JDialog {
 				if (semanticExpression != null
 						&& semanticExpression.getSemanticExpressionType() != null) {
 					leftPanel.add(createCombo(semanticExpression, element,
-							ExpressionVertexType.LEFTVARIABLE,
+							element, ExpressionVertexType.LEFTVARIABLE,
 							semanticExpression.getLeftValidExpressions(),
 							false, 'C', true));
 					semanticExpression
@@ -548,15 +548,15 @@ public class SemanticExpressionDialog extends JDialog {
 				if (semanticExpression != null
 						&& semanticExpression.getSemanticExpressionType() != null) {
 					JComboBox<String> conceptCombo = createCombo(
-							semanticExpression, element,
+							semanticExpression, element, element,
 							ExpressionVertexType.LEFTMODELVARS,
 							semanticExpression.getLeftValidExpressions(), true,
 							'C', true);
 					leftPanel.add(conceptCombo);
 					InstElement recElement = refasModel
 							.getVertex((String) conceptCombo.getSelectedItem());
-					leftPanel.add(createCombo(semanticExpression, recElement,
-							ExpressionVertexType.LEFTMODELVARS,
+					leftPanel.add(createCombo(semanticExpression, element,
+							recElement, ExpressionVertexType.LEFTMODELVARS,
 							semanticExpression.getLeftValidExpressions(),
 							false, 'C', true));
 					semanticExpression
@@ -569,12 +569,12 @@ public class SemanticExpressionDialog extends JDialog {
 				if (semanticExpression != null
 						&& semanticExpression.getSemanticExpressionType() != null) {
 					JComboBox<String> conceptCombo = createCombo(
-							semanticExpression, element, fixedType,
+							semanticExpression, element, element, fixedType,
 							semanticExpression.getLeftValidExpressions(), true,
 							'C', true);
 					leftPanel.add(conceptCombo);
 					leftPanel.add(createCombo(semanticExpression, element,
-							fixedType,
+							element, fixedType,
 							semanticExpression.getLeftValidExpressions(),
 							false, 'C', true));
 					semanticExpression.setLeftExpressionType(fixedType);
@@ -599,14 +599,15 @@ public class SemanticExpressionDialog extends JDialog {
 			{
 				if (semanticExpression.getSemanticExpressionType() != null) {
 					JComboBox<String> conceptCombo = createCombo(
-							semanticExpression, element,
+							semanticExpression, element, element,
 							ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 							semanticExpression.getLeftValidExpressions(), true,
 							'C', true);
 					leftPanel.add(conceptCombo);
 					InstElement recElement = refasModel
 							.getVertex((String) conceptCombo.getSelectedItem());
-					leftPanel.add(createCombo(semanticExpression, recElement,
+					leftPanel.add(createCombo(semanticExpression, element,
+							recElement,
 							ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 							semanticExpression.getLeftValidExpressions(),
 							false, 'C', true));
@@ -620,14 +621,15 @@ public class SemanticExpressionDialog extends JDialog {
 			{
 				if (semanticExpression.getSemanticExpressionType() != null) {
 					JComboBox<String> conceptCombo = createCombo(
-							semanticExpression, element,
+							semanticExpression, element, element,
 							ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 							semanticExpression.getLeftValidExpressions(), true,
 							'C', true);
 					leftPanel.add(conceptCombo);
 					InstElement recElement = refasModel
 							.getVertex((String) conceptCombo.getSelectedItem());
-					leftPanel.add(createCombo(semanticExpression, recElement,
+					leftPanel.add(createCombo(semanticExpression, element,
+							recElement,
 							ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 							semanticExpression.getLeftValidExpressions(),
 							false, 'C', true));
@@ -641,14 +643,15 @@ public class SemanticExpressionDialog extends JDialog {
 			{
 				if (semanticExpression.getSemanticExpressionType() != null) {
 					JComboBox<String> conceptCombo = createCombo(
-							semanticExpression, element,
+							semanticExpression, element, element,
 							ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE,
 							semanticExpression.getLeftValidExpressions(), true,
 							'P', true);
 					leftPanel.add(conceptCombo);
 					InstElement recElement = refasModel
 							.getVertex((String) conceptCombo.getSelectedItem());
-					leftPanel.add(createCombo(semanticExpression, recElement,
+					leftPanel.add(createCombo(semanticExpression, element,
+							recElement,
 							ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE,
 							semanticExpression.getLeftValidExpressions(),
 							false, 'P', true));
@@ -662,14 +665,15 @@ public class SemanticExpressionDialog extends JDialog {
 			{
 				if (semanticExpression.getSemanticExpressionType() != null) {
 					JComboBox<String> conceptCombo = createCombo(
-							semanticExpression, element,
+							semanticExpression, element, element,
 							ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE,
 							semanticExpression.getLeftValidExpressions(), true,
 							'P', true);
 					leftPanel.add(conceptCombo);
 					InstElement recElement = refasModel
 							.getVertex((String) conceptCombo.getSelectedItem());
-					leftPanel.add(createCombo(semanticExpression, recElement,
+					leftPanel.add(createCombo(semanticExpression, element,
+							recElement,
 							ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE,
 							semanticExpression.getLeftValidExpressions(),
 							false, 'P', true));
@@ -871,7 +875,7 @@ public class SemanticExpressionDialog extends JDialog {
 			if (rightSide.getSelectedItem().equals("This Concept Variable")) {
 				if (semanticExpression.getSemanticExpressionType() != null) {
 					rightPanel.add(createCombo(semanticExpression, element,
-							ExpressionVertexType.RIGHTCONCEPTVARIABLE,
+							element, ExpressionVertexType.RIGHTCONCEPTVARIABLE,
 							semanticExpression.getRightValidExpressions(),
 							false, 'C', false));
 					semanticExpression
@@ -886,7 +890,7 @@ public class SemanticExpressionDialog extends JDialog {
 					if (semanticExpression != null
 							&& semanticExpression.getSemanticExpressionType() != null) {
 						JComboBox<String> conceptCombo = createCombo(
-								semanticExpression, element,
+								semanticExpression, element, element,
 								ExpressionVertexType.RIGHTMODELVARS,
 								semanticExpression.getRightValidExpressions(),
 								true, 'C', false);
@@ -894,7 +898,7 @@ public class SemanticExpressionDialog extends JDialog {
 						InstElement recElement = refasModel
 								.getVertex((String) conceptCombo
 										.getSelectedItem());
-						rightPanel.add(createCombo(semanticExpression,
+						rightPanel.add(createCombo(semanticExpression, element,
 								recElement,
 								ExpressionVertexType.RIGHTMODELVARS,
 								semanticExpression.getRightValidExpressions(),
@@ -910,7 +914,7 @@ public class SemanticExpressionDialog extends JDialog {
 				{
 					if (semanticExpression.getSemanticExpressionType() != null) {
 						JComboBox<String> conceptCombo = createCombo(
-								semanticExpression, element,
+								semanticExpression, element, element,
 								ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
 								semanticExpression.getRightValidExpressions(),
 								true, 'C', false);
@@ -918,7 +922,7 @@ public class SemanticExpressionDialog extends JDialog {
 						InstElement recElement = refasModel
 								.getVertex((String) conceptCombo
 										.getSelectedItem());
-						rightPanel.add(createCombo(semanticExpression,
+						rightPanel.add(createCombo(semanticExpression, element,
 								recElement,
 								ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
 								semanticExpression.getRightValidExpressions(),
@@ -933,7 +937,7 @@ public class SemanticExpressionDialog extends JDialog {
 				{
 					if (semanticExpression.getSemanticExpressionType() != null) {
 						JComboBox<String> conceptCombo = createCombo(
-								semanticExpression, element,
+								semanticExpression, element, element,
 								ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 								semanticExpression.getRightValidExpressions(),
 								true, 'C', false);
@@ -941,7 +945,7 @@ public class SemanticExpressionDialog extends JDialog {
 						InstElement recElement = refasModel
 								.getVertex((String) conceptCombo
 										.getSelectedItem());
-						rightPanel.add(createCombo(semanticExpression,
+						rightPanel.add(createCombo(semanticExpression, element,
 								recElement,
 								ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 								semanticExpression.getRightValidExpressions(),
@@ -956,7 +960,7 @@ public class SemanticExpressionDialog extends JDialog {
 				{
 					if (semanticExpression.getSemanticExpressionType() != null) {
 						JComboBox<String> conceptCombo = createCombo(
-								semanticExpression, element,
+								semanticExpression, element, element,
 								ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE,
 								semanticExpression.getRightValidExpressions(),
 								true, 'P', false);
@@ -964,7 +968,7 @@ public class SemanticExpressionDialog extends JDialog {
 						InstElement recElement = refasModel
 								.getVertex((String) conceptCombo
 										.getSelectedItem());
-						rightPanel.add(createCombo(semanticExpression,
+						rightPanel.add(createCombo(semanticExpression, element,
 								recElement,
 								ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE,
 								semanticExpression.getRightValidExpressions(),
@@ -979,7 +983,7 @@ public class SemanticExpressionDialog extends JDialog {
 				{
 					if (semanticExpression.getSemanticExpressionType() != null) {
 						JComboBox<String> conceptCombo = createCombo(
-								semanticExpression, element,
+								semanticExpression, element, element,
 								ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE,
 								semanticExpression.getRightValidExpressions(),
 								true, 'P', false);
@@ -987,7 +991,7 @@ public class SemanticExpressionDialog extends JDialog {
 						InstElement recElement = refasModel
 								.getVertex((String) conceptCombo
 										.getSelectedItem());
-						rightPanel.add(createCombo(semanticExpression,
+						rightPanel.add(createCombo(semanticExpression, element,
 								recElement,
 								ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE,
 								semanticExpression.getRightValidExpressions(),
@@ -1081,7 +1085,7 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createCombo(final OpersExpr semanticExpression,
-			final InstElement element,
+			final InstElement element, final InstElement comboElement,
 			final ExpressionVertexType expressionVertexType, int validType,
 			final boolean showConceptName, final char elementType,
 			final boolean left) {
@@ -1090,9 +1094,9 @@ public class SemanticExpressionDialog extends JDialog {
 		String selectedElement = null;
 		selectedElement = semanticExpression.getSelectedElement(
 				expressionVertexType, showConceptName, elementType);
-		InstElement comboElement = null;
+
 		// if (elementType == 'C')
-		comboElement = element;
+
 		// if (elementType == 'P')
 		// comboElement = semanticExpression.getSelectedElement(
 		// expressionVertexType, elementType);
@@ -1561,4 +1565,3 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 }
-
