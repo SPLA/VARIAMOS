@@ -434,7 +434,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 					String v = "";
 					if (i != null) {
 						// FIXME V1.1 copy change to new version
-						if (!i.getType().equals("Class"))
+						if (!i.getType().equals("Class")
+								&& !i.getType().equals(""))
 							v = ":" + i.getType();
 						if ((i.getType().equals("Enumeration")
 								|| i.getType().equals("MetaEnumeration")
@@ -506,10 +507,12 @@ public abstract class InstElement implements Serializable, Cloneable,
 						&& !attributeName.equals("description")) {
 					ElemAttribute i = getEdOperEle().getSemanticAttribute(
 							attributeName, syntaxParents);
-					if (attributeName.length() > 1)
+					if (attributeName.length() > 1) {
 						out2 += attributeName.substring(0, 1).toLowerCase()
-								+ attributeName.substring(1) + ":";
-					else
+								+ attributeName.substring(1);
+						if (!i.getType().equals(""))
+							out2 += ":";
+					} else
 						out2 += attributeName + "\n";
 					if (i.getType().equals("Element")
 							|| i.getType().equals("Instance")) {
