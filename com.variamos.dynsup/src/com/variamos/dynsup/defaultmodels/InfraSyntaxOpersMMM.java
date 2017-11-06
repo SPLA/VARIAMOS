@@ -343,7 +343,7 @@ public class InfraSyntaxOpersMMM {
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 2, "", "", 1, // "<<BsSet>>\n#"
 				"<<SeMnmCollection>>\n#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#all#\n\n", "");
+						+ "#all#\n<<non-modifiable>>\n", "");
 
 		basicOpersSyntaxM2nmCollection.addModelingAttribute("name", "String",
 				false, "Name", "", "", 0, 2, "", "", -1, "", "");

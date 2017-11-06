@@ -26,7 +26,7 @@ public class InfraSyntaxSyntaxMMM {
 				.getSyntaxModel().getVertex("BsNode");
 
 		InstElement infraBasicSyntaxOpersM3Set = modelInstance.getSyntaxModel()
-				.getVertex("BsSet");
+				.getVertex("BsCollection");
 
 		InstElement infraBasicSyntaxOpersM3Gen = modelInstance.getSyntaxModel()
 				.getVertex("BsGeneralization");
