@@ -39,8 +39,8 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.InstanceModel;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -825,24 +825,27 @@ public class InstanceExpressionDialog extends JDialog {
 					.getVariabilityVertexCollection()) {
 				OpersElement semElement2 = instVertex
 						.getTransSupportMetaElement().getTransSemanticConcept();
-				List<InstElement> parents = instVertex
-						.getTransSupportMetaElement()
-						.getTransInstSemanticElement().getParentOpersConcept();
-				boolean child = false;
-				for (InstElement e : parents)
-					if (e.getIdentifier().equals("NmVariable"))
-						child = true;
-				if (semElement2 != null
-						&& ((semElement2.getIdentifier() != null && semElement2
-								.getIdentifier().equals("NmVariable")) || child)) {
-					String instVertexId = null;
-					if (displayVariableName)
-						instVertexId = instVertex.getInstAttribute("userId")
-								.toString();
-					else
-						instVertexId = instVertex.getIdentifier();
-					identifiersList.put(instVertexId, instVertex);
-					combo.addItem(instVertexId + "_" + "value");
+				if (semElement2 != null) {
+					List<InstElement> parents = instVertex
+							.getTransSupportMetaElement()
+							.getTransInstSemanticElement()
+							.getParentOpersConcept();
+					boolean child = false;
+					for (InstElement e : parents)
+						if (e.getIdentifier().equals("NmVariable"))
+							child = true;
+					if (semElement2 != null
+							&& ((semElement2.getIdentifier() != null && semElement2
+									.getIdentifier().equals("NmVariable")) || child)) {
+						String instVertexId = null;
+						if (displayVariableName)
+							instVertexId = instVertex
+									.getInstAttribute("userId").toString();
+						else
+							instVertexId = instVertex.getIdentifier();
+						identifiersList.put(instVertexId, instVertex);
+						combo.addItem(instVertexId + "_" + "value");
+					}
 				}
 			}
 		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE
@@ -1034,4 +1037,3 @@ public class InstanceExpressionDialog extends JDialog {
 		this.onCancel = onCancel;
 	}
 }
-

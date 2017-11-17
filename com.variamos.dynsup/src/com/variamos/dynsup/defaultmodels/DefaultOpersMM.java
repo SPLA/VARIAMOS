@@ -372,7 +372,7 @@ public class DefaultOpersMM {
 	protected static InstConcept instVertexHC = null;
 
 	public static void createOpersMetaModel(InstanceModel refas, boolean empty) {
-		createOpersMetaModelOpers(refas, empty, false);
+		createOpersMetaModelOpers(refas, empty, true);
 		createSemanticNmMetaModel(refas, empty);
 		if (!empty) {
 			createGeneralMetaModel(refas);

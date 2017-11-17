@@ -283,8 +283,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 												// FIXME v1.1 added to support
 												// Angela's constraints
 												if (var.getAttribute()
-														.getMetaConceptInstanceType()
-														.equals("ConstraintExpression")) {
+														.getMetaConceptInstanceType() != null
+														&& var.getAttribute()
+																.getMetaConceptInstanceType()
+																.equals("ConstraintExpression")) {
 													// FIXME use an enumeration
 													// instead of the string
 													out.add((ModelExpr) var
@@ -381,66 +383,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							} while (pos + 1 < expressionInstances);
 							// FIXME validate better the creation of conditional
 							// expressions
-							if (out.size() == 0) {
-								continue;
-
-							}
-
-							// for (AbstractAttribute var : operSubAction
-							// .getInVariables()) {
-							// int attributeValue = 0;
-							// InstAttribute instAttribute = instE
-							// .getInstAttribute(var.getName());
-							// // FIXME: compare attribute name and element name
-							// if (instAttribute != null
-							// && instAttribute.getAttribute() == var) {
-							// String type = (String) instAttribute.getType();
-							// if (type.equals("Integer")
-							// || type.equals("Boolean")) {
-							// if (instAttribute.getValue() instanceof Boolean)
-							// attributeValue = ((boolean) instAttribute
-							// .getValue()) ? 1 : 0;
-							// else if (instAttribute.getValue() instanceof
-							// String)
-							// attributeValue = Integer
-							// .valueOf((String) instAttribute
-							// .getValue());
-							// else
-							// attributeValue = (Integer) instAttribute
-							// .getValue();
-							// }
-							// // if (type.equals("String")) {
-							// // attributeValue = ((String) instAttribute
-							// // .getValue()).hashCode();
-							// // }
-							// InstanceExpression instanceExpression = new
-							// InstanceExpression(
-							// true, "t", true);
-							// instanceExpression
-							// .setSemanticExpressionType(refas
-							// .getSemanticExpressionTypes()
-							// .get("Equals"));
-							// instanceExpression.setLeftElement(instE);
-							// instanceExpression
-							// .setLeftAttributeName(instAttribute
-							// .getIdentifier());
-							// if (type.equals("String")) {
-							// instanceExpression
-							// .setRightValue((String) instAttribute
-							// .getValue());
-							// instanceExpression
-							// .setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
-							// } else {
-							// instanceExpression
-							// .setRightNumber(attributeValue);
-							// instanceExpression
-							// .setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
-							// }
-							// out.add(instanceExpression);
-							// }
-							// }
 						}
-
 					}
 				else {
 					int instances = instElement.getInstances(refas);

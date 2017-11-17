@@ -985,19 +985,19 @@ public class InfraSyntaxSyntaxMMM {
 				infraBasicSyntaxOpersM3Node, infraSyntaxM2PWRel);
 		variabilityInstVertex.put("SyMPairwise", instInfraSyntaxM2PWRel);
 
-		instEdge = new InstPairwiseRel();
-		constraintInstEdges.put("cpw-pw-c", instEdge);
-		instEdge.setIdentifier("cpw-pw-c");
-		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
-		instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
-		instEdge.setSourceRelation(instInfraSyntaxM2PWRel, true);
-
-		instEdge = new InstPairwiseRel();
-		constraintInstEdges.put("cpw-c-pw", instEdge);
-		instEdge.setIdentifier("cpw-c-pw");
-		instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
-		instEdge.setTargetRelation(instInfraSyntaxM2PWRel, true);
-		instEdge.setSourceRelation(instInfraSyntaxOpersM2Node, true);
+		// instEdge = new InstPairwiseRel();
+		// constraintInstEdges.put("cpw-pw-c", instEdge);
+		// instEdge.setIdentifier("cpw-pw-c");
+		// instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		// instEdge.setTargetRelation(instInfraSyntaxOpersM2Node, true);
+		// instEdge.setSourceRelation(instInfraSyntaxM2PWRel, true);
+		//
+		// instEdge = new InstPairwiseRel();
+		// constraintInstEdges.put("cpw-c-pw", instEdge);
+		// instEdge.setIdentifier("cpw-c-pw");
+		// instEdge.setEdSyntaxEle(infraSyntaxM2NormalRelation);
+		// instEdge.setTargetRelation(instInfraSyntaxM2PWRel, true);
+		// instEdge.setSourceRelation(instInfraSyntaxOpersM2Node, true);
 
 		instEdge = new InstPairwiseRel();
 		constraintInstEdges.put("cpw-c-c", instEdge);
