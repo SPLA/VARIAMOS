@@ -36,6 +36,7 @@ import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.
 import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.SaveAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
+import com.variamos.gui.perspeditor.actions.AssembleAction;
 import com.variamos.gui.perspeditor.actions.CheckUpdateAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
@@ -440,7 +441,13 @@ public class PerspEditorMenuBar extends JMenuBar {
 			add(menu);
 
 		}
-
+		
+		//codigo domain implementation
+		menu = (JMenu) menu.add(new JMenu(mxResources.get("domain")));
+		menu.add(editor.bind(mxResources.get("assembleC"), new AssembleAction()));
+		add(menu);
+		//codigo domain implementation
+		
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
 		menu.setMnemonic('W');
 		menu.add(editor.bind(mxResources.get("showAdvancedPerspectives"), new ShowAdvancedPerspectiveAction()));

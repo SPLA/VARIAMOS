@@ -1113,6 +1113,33 @@
 	</foreground>
 </shape>
 
+<shape name="refas-file" aspect="variable">
+	<background>
+		<fillstroke color="#FFFFFF"/>
+		<fillcolor color="#FFFFFF"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<stroke/>
+		<path>
+			<move x="0" y="0"/>
+			<line x="70" y="0"/>
+			<quad x1="70" y1="0" x2="100" y2="30"/>
+			<line x="100" y="100"/>
+			<line x="0" y="100"/>
+			<line x="0" y="0"/>
+			<close/>
+			<move x="70" y="0"/>
+			<line x="70" y="30"/>
+			<line x="100" y="30"/>
+			<close/>
+		</path>		
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+
 <shape name="constraintb" aspect="variable">
 <background>
 

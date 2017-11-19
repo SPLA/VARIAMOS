@@ -525,6 +525,16 @@
 		<add as="verticalAlign" value="middle"/>
 		<add as="strokeColor" value="black"/>
 	</add>
+	<add as="refasfile">
+		<add as="shape" value="refas-file"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="fillColor" value="white"/>	
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+	</add>
 	<!-- agrega Daniel assets -->
 
 </mxStylesheet>
