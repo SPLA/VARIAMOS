@@ -994,13 +994,13 @@ public class InfraSyntaxOpersMMM {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxOpersM2OperAction
-				.addModelingAttribute("operType", new ElemAttribute("operType",
-						"Enumeration", AttributeType.OPERATION, true,
-						"Operation Type",
+		infraSyntaxOpersM2OperAction.addModelingAttribute("operType",
+				new ElemAttribute("operType", "Enumeration",
+						AttributeType.OPERATION, true, "Operation Type",
 						"Sequential execution (verification, validation)",
 						OpersOpType.class.getCanonicalName(),
-						OpersOpType.Verification, "", 0, 4, "", "", -1, "", ""));
+						OpersOpType.Verification, "", 0, 4, "", "", 12,
+						"\ntype: #" + "operType" + "#all#", ""));
 		infraSyntaxOpersM2OperAction
 				.addModelingAttribute(
 						"compType",
@@ -1017,8 +1017,8 @@ public class InfraSyntaxOpersMMM {
 								OpersComputationType.class.getCanonicalName(),
 								"", "", 0, 11,
 								"operType#==#Computational analysis# ",
-								"operType#==#Computational analysis# ", -1, "",
-								""));
+								"operType#==#Computational analysis# ", 15,
+								"\n #" + "compType" + "#all#", ""));
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute(
 				"execType",
@@ -1076,7 +1076,7 @@ public class InfraSyntaxOpersMMM {
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 4, "", "", 4,
 				"<<OpMOperation>>\n#" + SyntaxElement.VAR_USERIDENTIFIER
-						+ "#all#\n", "");
+						+ "#all#", "");
 
 		InstConcept instInfraSyntaxOpersM2OperAction = new InstConcept(
 				"OpMOperation", basicOpersSyntaxM3Node,
@@ -1188,7 +1188,8 @@ public class InfraSyntaxOpersMMM {
 						"Use Verification Expressions individually with"
 								+ " multiple calls CauCos", false, 0, 11,
 						"type#==#Multi verification# ",
-						"type#==#Multi verification# ", -1, "", ""));
+						"type#==#Multi verification# ", 13, "\nindivVerExp: #"
+								+ "indivVerExp" + "#all#", ""));
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				"useNatLangExprDesc", new ElemAttribute("useNatLangExprDesc",
 						"Boolean", AttributeType.OPERATION, false,
@@ -1208,7 +1209,9 @@ public class InfraSyntaxOpersMMM {
 								"Indiv. Relax. Expr.",
 								"Use Relaxable Expressions Individually with multiple calls to CauCos",
 								false, 0, 11, "type#==#Multi verification# ",
-								"type#==#Multi verification# ", -1, "", ""));
+								"type#==#Multi verification# ", 12,
+								"\nindivRelExp: #" + "indivRelExp" + "#all#",
+								""));
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
 				"updateOutAttributes", new ElemAttribute("updateOutAttributes",

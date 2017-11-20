@@ -43,7 +43,6 @@ import com.variamos.gui.maineditor.MainFrame;
 
 public class PerspEditorGraph extends mxGraph {
 
-	
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
 	private InstanceModel modelInstance = null;
 	private int modelViewIndex = 0;
@@ -301,7 +300,7 @@ public class PerspEditorGraph extends mxGraph {
 		setLabelsVisible(true);
 		setAllowDanglingEdges(false);
 		// Register custom styles
-	
+
 		// Loads the default styles sheet from an external file
 		// To draw elements on the Graph
 		/*
@@ -317,7 +316,7 @@ public class PerspEditorGraph extends mxGraph {
 		loadStyles();
 		loadStencil();
 	}
-	
+
 	private void addListeners() {
 		addListener(mxEvent.CELLS_REMOVED, new mxIEventListener() {
 
@@ -328,7 +327,7 @@ public class PerspEditorGraph extends mxGraph {
 					mxCell cell = (mxCell) remObj;
 					removingRefaElements(cell);
 					removingVertex(cell, (mxCell) evt.getProperty("parent"));
-					if (!cell.isEdge()) 
+					if (!cell.isEdge())
 						removingClones(cell);
 				}
 			}
@@ -453,8 +452,8 @@ public class PerspEditorGraph extends mxGraph {
 
 	@Override
 	public boolean isValidConnection(Object source, Object target) {
-		// if (perspective == 3)
-		// return true;
+		if (perspective == 3)
+			return true;
 		if (perspective == 4)
 			return false;
 		if (validation) {
@@ -981,7 +980,6 @@ public class PerspEditorGraph extends mxGraph {
 		return (mxCell) ((mxGraphModel) getModel()).getCell(id);
 	}
 
-		
 	@Override
 	public String validateEdge(Object edge, Object source, Object target) {
 		return super.validateEdge(edge, source, target);
@@ -1020,7 +1018,7 @@ public class PerspEditorGraph extends mxGraph {
 	public String convertValueToString(Object obj) {
 		mxCell cell = (mxCell) obj;
 		// VariabilityPoint
-		
+
 		if (cell.getValue() instanceof InstCell) {
 			InstCell instCell = (InstCell) cell.getValue();
 			InstElement element = instCell.getInstElement();
@@ -1057,4 +1055,3 @@ public class PerspEditorGraph extends mxGraph {
 		}
 	}
 }
-
