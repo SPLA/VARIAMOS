@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
@@ -23,11 +25,11 @@ import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.panels.AboutDialog;
 
 /**
- * A class to call the about dialog. Part of PhD work at University of Paris 1
+ * A class to assemble components
  * 
- * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
+ * @author Daniel Correa <yo@danielgara.com>
  * @version 1.1
- * @since 2014-03-15
+ * @since 2017-11-20
  */
 @SuppressWarnings("serial")
 public class AssembleAction extends AbstractVariamoGUIAction {
@@ -47,103 +49,93 @@ public class AssembleAction extends AbstractVariamoGUIAction {
 			mxCodec codec = new mxCodec();
 			mxCell parent = (mxCell) root.getChildAt(0);
 			mxCell actual_for_cell=null;
-			mxCell feature_root_cell=null;
-			mxCell fragment_root_cell=null;
-			
+			mxCell fragment_root_cell=null;			
 			mxCell target_cell=null;
-			
+			mxCell source_cell=null;			
 			String style ="";
 			String id="";
-			Map<String, String> map = null;
-
-			//List<Map<String, List<Map<String, String>>>> components = new ArrayList<>();
-			//List<Map<String, List<Map<String, String>>>> files_list = new ArrayList<>();
-			//Map<String,  List<Map<String, String>>> files_map = new HashMap<String,  List<Map<String, String>>>();
-			//List<Map<String, String>> files_data = new ArrayList<>();
-			List<Map<String, String>> relations = new ArrayList<>();
 			
 			for(int i=0;i<parent.getChildCount();i++) {
 				actual_for_cell = (mxCell) parent.getChildAt(i);
 				String cellid = actual_for_cell.getId();
 				if(cellid.contains("mv") && actual_for_cell.getChildCount()>0) {
 					style = actual_for_cell.getChildAt(0).getStyle();
-					if(style.equals("plnode")) {
-						feature_root_cell=actual_for_cell;
-					}else if(style.equals("refasasset") || style.equals("refasfile")) {
+					if(style.equals("refasasset") || style.equals("refasfile")) {
 						fragment_root_cell=actual_for_cell;
 					}
 				}
 			}
 			
+			List<Map<String, String>> files = new ArrayList<>();
+			String xml_com ="";
+			String xml_file ="";
+			
 			if(fragment_root_cell!=null) {
+				//capture info
 				for(int i=0;i<fragment_root_cell.getChildCount();i++) {
 					actual_for_cell = (mxCell) fragment_root_cell.getChildAt(i);
 					style = actual_for_cell.getStyle();
 					id = actual_for_cell.getId();
 					if(!style.equals("refasasset") && !style.equals("refasfile")) {
-						String source = actual_for_cell.getSource().getId();
 						target_cell = (mxCell) actual_for_cell.getTarget();
+						source_cell = (mxCell) actual_for_cell.getSource();
 						
-						String xml =mxXmlUtils.getXml(codec.encode(target_cell));
-						int pos_pre_dyn=xml.indexOf("as=\"Name\"");
-						int pos_dyn=xml.indexOf("as=\"attId\" value=\"Name\"",pos_pre_dyn);
-						int pos_init=xml.indexOf("Value\" value=\"",pos_dyn);
-						int pos_final=xml.indexOf(">",pos_init);
-						String target=xml.substring(pos_init+14, pos_final-2);
+						int pre=xml_com.indexOf("as=\"InstAtt\"");
+						int pos_pre_dyn, pos_dyn;
+						Map<String, String> file_map = new HashMap<String, String>();
 						
-						System.out.println(source + "-" + target);
-						map = new HashMap<String, String>();
-						map.put(source, target);
-						relations.add(map);
+						//component_folder
+						xml_com =mxXmlUtils.getXml(codec.encode(target_cell));
+						pos_pre_dyn=xml_com.indexOf("as=\"Name\"",pre);
+						pos_dyn=xml_com.indexOf("as=\"attId\" value=\"Name\"",pos_pre_dyn);
+						String target=extract_string("Value\" value=\"",">",xml_com,pos_dyn);
+						file_map.put("component_folder", target);
+						//ID
+						xml_file =mxXmlUtils.getXml(codec.encode(source_cell));
+						pos_pre_dyn=xml_file.indexOf("as=\"Name\"");
+						pos_dyn=xml_file.indexOf("as=\"attId\" value=\"Name\"",pos_pre_dyn);
+						String source=extract_string("Value\" value=\"",">",xml_file,pos_dyn);
+						file_map.put("ID", source);
+						//filename
+						pos_pre_dyn=xml_file.indexOf("as=\"filename\"");
+						pos_dyn=xml_file.indexOf("as=\"attId\" value=\"filename\"",pos_pre_dyn);
+						file_map.put("filename", extract_string("Value\" value=\"",">",xml_file,pos_dyn));
+						//destination
+						pos_pre_dyn=xml_file.indexOf("as=\"destination\"");
+						pos_dyn=xml_file.indexOf("as=\"attId\" value=\"destination\"",pos_pre_dyn);
+						file_map.put("destination", extract_string("Value\" value=\"",">",xml_file,pos_dyn));
+						files.add(file_map);
 					}
-				
 				}
+				Fragmental.principal(files);
+				String found_errors=Fragmental.get_errors();
+				if(found_errors.equals("")) {
+					found_errors+="!!!Components successfully assembled!!!";
+		        }else {
+		        	found_errors+="!!!Components assembled with multiple errors!!!";
+		        }
+				JOptionPane.showMessageDialog(editor.getMainFrame(),found_errors, "Update Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
+			}else {
+				JOptionPane.showMessageDialog(editor.getMainFrame(),"There are not components files to assemble", "Update Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
 			}
-			System.out.println("Cantidad Relations:" + relations.size());
-			if(relations.size()>0) {
-				System.out.println(relations.get(0).toString());
-			}else{
-				//assemble error
-			}
 			
-			/*
-			mxCell mvc = (mxCell) parent.getChildAt(0);
-			
-			System.out.println(root.getChildCount());
-			System.out.println(root.getId());
-			System.out.println(parent.getChildCount());
-			System.out.println(parent.getId());
-			System.out.println(mvc.getChildCount());
-			System.out.println(mvc.getId());
-			
-			mxCell parent3 = (mxCell) parent.getChildAt(5);
-			System.out.println(parent3.getAttribute("identifier"));
-			mxCell parent2 = (mxCell) parent.getChildAt(7);
-			System.out.println(parent2.getAttribute("identifier"));*/
-			
-			
-			//String xml = URLEncoder.encode(mxXmlUtils.getXml(codec.encode(model)), "UTF-8");
-			//System.out.println(xml);
-			
-			//BIEN-String xml = URLEncoder.encode(mxXmlUtils.getXml(codec.encode(graph.getModel())), "UTF-8");
-			//BIEN-System.out.println(xml);
-			/*mxCell root = (mxCell) editor.getGraphComponent().getGraph().getModel().getRoot();
-			mxCell root2 = (mxCell) editor.getGraphComponent().getGraph().getModel().getRoot();
-			mxCell parent = (mxCell) root.getChildAt(0);	
-			mxCell parent2 = (mxCell) parent.getChildAt(0);
-			System.out.println(parent.getChildCount());
-			System.out.println(root.getAttribute("identifier"));
-			System.out.println(root.getAttribute("userId"));
-			System.out.println(parent2.getAttribute("identifier"));
-			System.out.println(parent2.getAttribute("userId"));
-			System.out.println(parent.getValue());*/
-			
-
-			//aca sigue mi código
-			//Fragmental.principal();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
+	
+	public static String extract_string(String s_init, String s_final, String content, int pos_ref){
+        int pos_init = content.indexOf(s_init,pos_ref);
+        int len_init = s_init.length();
+        int pos_final = content.indexOf(s_final, pos_init);
+        if((pos_init != -1) && (pos_final != -1)){
+            String f_string = content.substring(pos_init+len_init, pos_final-2).trim();
+            return f_string;
+        }else{
+            return null;
+        }
+    }
 }
