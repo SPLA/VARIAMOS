@@ -20,14 +20,16 @@ import static java.nio.file.StandardCopyOption.*;
  */
 public class Fragmental {
     
-    public static String assets_folder="E:/Proyectos/Fragmental/assets/";
-    public static String assembled_folder="E:/Proyectos/Fragmental/assembled/";
-    public static List<Map<String, String>> data = new ArrayList<>();
+    public static String assets_folder="C:/assets/";
+    public static String assembled_folder="C:/assembled/";
+    public static List<Map<String, String>> data;
     public static List<String> error_var;
 
     public static void principal(List<Map<String, String>> data_received) {
     	error_var=new ArrayList<>();
+    	data = new ArrayList<>();
         data=data_received;
+        Fragment.data_no_fragments = new ArrayList<>();
         clean_directories();
         assemble_assets();
     }

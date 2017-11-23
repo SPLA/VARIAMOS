@@ -143,7 +143,7 @@ public class Fragment {
         data.put("fpoint",extract_string("FragmentationPoint:","\n",this.content));
         data.put("pointbracketslan",extract_string("PointBracketsLan:","\n",this.content));
         data.put("destination",extract_string("Destination:","\n",this.content));
-        data.put("sourcefile",extract_string("SourceFile:","\n",this.content));        
+        //data.put("sourcefile",extract_string("SourceFile:","\n",this.content));        
         data.put("sourcecode",extract_string("[ALTERCODE-FRAG]","[/ALTERCODE-FRAG]",this.content));
     }
     
@@ -153,7 +153,6 @@ public class Fragment {
                 return data_no_fragments.get(i);
             }
         }
-        Fragmental.error_var.add("File with ID: "+ID+" not found (request at fragment: "+name+")");
         return null;
     }
     

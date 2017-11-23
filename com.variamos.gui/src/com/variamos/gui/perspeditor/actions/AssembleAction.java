@@ -84,27 +84,33 @@ public class AssembleAction extends AbstractVariamoGUIAction {
 						int pos_pre_dyn, pos_dyn;
 						Map<String, String> file_map = new HashMap<String, String>();
 						
-						//component_folder
-						xml_com =mxXmlUtils.getXml(codec.encode(target_cell));
-						pos_pre_dyn=xml_com.indexOf("as=\"Name\"",pre);
-						pos_dyn=xml_com.indexOf("as=\"attId\" value=\"Name\"",pos_pre_dyn);
-						String target=extract_string("Value\" value=\"",">",xml_com,pos_dyn);
-						file_map.put("component_folder", target);
-						//ID
-						xml_file =mxXmlUtils.getXml(codec.encode(source_cell));
-						pos_pre_dyn=xml_file.indexOf("as=\"Name\"");
-						pos_dyn=xml_file.indexOf("as=\"attId\" value=\"Name\"",pos_pre_dyn);
-						String source=extract_string("Value\" value=\"",">",xml_file,pos_dyn);
-						file_map.put("ID", source);
-						//filename
-						pos_pre_dyn=xml_file.indexOf("as=\"filename\"");
-						pos_dyn=xml_file.indexOf("as=\"attId\" value=\"filename\"",pos_pre_dyn);
-						file_map.put("filename", extract_string("Value\" value=\"",">",xml_file,pos_dyn));
-						//destination
-						pos_pre_dyn=xml_file.indexOf("as=\"destination\"");
-						pos_dyn=xml_file.indexOf("as=\"attId\" value=\"destination\"",pos_pre_dyn);
-						file_map.put("destination", extract_string("Value\" value=\"",">",xml_file,pos_dyn));
-						files.add(file_map);
+						//Check if component is selected
+						xml_com =mxXmlUtils.getXml(codec.encode(target_cell));						
+						pos_pre_dyn=xml_com.indexOf("as=\"SelectedToAssemble\"",pre);
+						pos_dyn=xml_com.indexOf("as=\"attId\" value=\"SelectedToAssemble\"",pos_pre_dyn);
+						String selected=extract_string("Value\" value=\"",">",xml_com,pos_dyn);
+						if(selected.equals("1")){
+							//Component_folder
+							pos_pre_dyn=xml_com.indexOf("as=\"Name\"",pre);
+							pos_dyn=xml_com.indexOf("as=\"attId\" value=\"Name\"",pos_pre_dyn);
+							String target=extract_string("Value\" value=\"",">",xml_com,pos_dyn);
+							file_map.put("component_folder", target);
+							//ID
+							xml_file =mxXmlUtils.getXml(codec.encode(source_cell));
+							pos_pre_dyn=xml_file.indexOf("as=\"Name\"");
+							pos_dyn=xml_file.indexOf("as=\"attId\" value=\"Name\"",pos_pre_dyn);
+							String source=extract_string("Value\" value=\"",">",xml_file,pos_dyn);
+							file_map.put("ID", source);
+							//Filename
+							pos_pre_dyn=xml_file.indexOf("as=\"filename\"");
+							pos_dyn=xml_file.indexOf("as=\"attId\" value=\"filename\"",pos_pre_dyn);
+							file_map.put("filename", extract_string("Value\" value=\"",">",xml_file,pos_dyn));
+							//Destination
+							pos_pre_dyn=xml_file.indexOf("as=\"destination\"");
+							pos_dyn=xml_file.indexOf("as=\"attId\" value=\"destination\"",pos_pre_dyn);
+							file_map.put("destination", extract_string("Value\" value=\"",">",xml_file,pos_dyn));
+							files.add(file_map);
+						}
 					}
 				}
 				Fragmental.principal(files);
