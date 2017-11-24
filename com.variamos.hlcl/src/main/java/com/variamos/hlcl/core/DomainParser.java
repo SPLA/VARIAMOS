@@ -31,6 +31,7 @@ public class DomainParser {
 
 				continue;
 			}
+			// begin: jcmunoz addition to floats
 			if (part.matches(floatD)) {
 				float v = Float.parseFloat(part);
 
@@ -40,6 +41,9 @@ public class DomainParser {
 
 				continue;
 			}
+			// end: jcmunoz addition to floats
+
+			// begin: jcmunoz addition to support ranges combined with intervals
 
 			if (part.matches(range)) {
 				int sym = part.indexOf("..");
@@ -51,6 +55,7 @@ public class DomainParser {
 				rd = new RangeDomain(lowerValue, upperValue, precision);
 				domain.getDomains().add(rd);
 			}
+			// end: jcmunoz addition to support ranges combined with intervals
 		}
 
 		if (intDom.size() == 0 && domain.getDomains().size() == 1) {

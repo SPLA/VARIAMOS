@@ -56,8 +56,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		identifiersList = HlclUtil.getUsedIdentifiers(model);
 	}
 
-	public DefectsVerifier(HlclProgram model,
-			Component parentComponent,
+	public DefectsVerifier(HlclProgram model, Component parentComponent,
 			String progressDisplay) {
 		verifiedValuesMap = new HashMap<Identifier, Set<Number>>();
 		solver = new SolverOperationsUtil();
@@ -103,7 +102,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		List<Defect> out = new ArrayList<Defect>();
 		if (additionalConstraints == null || additionalConstraints.size() == 0) {
 			boolean isFPL = solver.isFalseProductLine(model);
-			if (!isFPL)
+			if (isFPL)
 				out.add(new FalseProductLine());
 			return out;
 		}
@@ -114,12 +113,12 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			testModel.add(additional);
 
 			boolean isFPL = solver.isFalseProductLine(testModel);
-			if (!isFPL)
+			if (isFPL)
 				out.add(new FalseProductLine(additional));
 		}
 		return out;
 	}
-	
+
 	@Override
 	// jcmunoz: new method to support additional constraints in the verification
 	// of voids
@@ -296,8 +295,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 					SolverSolution copy = new SolverSolution();
 					TreeMap<String, Number> configurationValues = new TreeMap<String, Number>();
-					configurationValues
-							.putAll(configuration.getSolverSolution());
+					configurationValues.putAll(configuration
+							.getSolverSolution());
 					copy.setSolverSolution(configurationValues);
 					copy.set(identifier.getId(), definedDomainValue);
 
@@ -483,8 +482,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	public Defect isFalseOptionalElement(Identifier identifier)
 			throws FunctionalException {
 
-		return isFalseOptionalElement(identifier, new ConfigurationOptionsDTO(),
-				new SolverSolution());
+		return isFalseOptionalElement(identifier,
+				new ConfigurationOptionsDTO(), new SolverSolution());
 	}
 
 	@Override

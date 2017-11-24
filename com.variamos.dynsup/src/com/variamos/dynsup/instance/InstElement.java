@@ -434,7 +434,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 					String v = "";
 					if (i != null) {
 						// FIXME V1.1 copy change to new version
-						if (!i.getType().equals("Class"))
+						if (!i.getType().equals("Class")
+								&& !i.getType().equals(""))
 							v = ":" + i.getType();
 						if ((i.getType().equals("Enumeration")
 								|| i.getType().equals("MetaEnumeration")
@@ -506,12 +507,15 @@ public abstract class InstElement implements Serializable, Cloneable,
 						&& !attributeName.equals("description")) {
 					ElemAttribute i = getEdOperEle().getSemanticAttribute(
 							attributeName, syntaxParents);
-					if (attributeName.length() > 1)
+					if (attributeName.length() > 1) {
 						out2 += attributeName.substring(0, 1).toLowerCase()
-								+ attributeName.substring(1) + ":";
-					else
+								+ attributeName.substring(1);
+						if (!i.getType().equals(""))
+							out2 += ":";
+					} else
 						out2 += attributeName + "\n";
 					if (i.getType().equals("Element")
+							|| i.getType().equals("MetaEnumeration")
 							|| i.getType().equals("Instance")) {
 						String classN = i.getClassCanonicalName().substring(
 								i.getClassCanonicalName().lastIndexOf(".") + 1,
@@ -895,12 +899,11 @@ public abstract class InstElement implements Serializable, Cloneable,
 					int sp1 = spacer.indexOf("#");
 					int sp2 = spacer.indexOf("#", sp1 + 1);
 					int sp3 = spacer.indexOf("#", sp2 + 1);
-
-					out += spacer.substring(0, sp1).replace("/n", "\n");
+					String space = spacer.substring(0, sp1).replace("/n", "\n");
 					if (name.equals("name")
 							&& getInstAttributes().get(name).toString().trim()
 									.equals(""))
-						out += "<<NoName>>";
+						out += space + "<<NoName>>";
 					else if (name.equals("relationType")
 							&& getInstAttributes().get(name) != null
 							&& getInstAttributes().get(name).getValueObject() != null
@@ -909,7 +912,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 								.get(name).getValueObject();
 						String[] atts = ((String) att
 								.getInstAttributeAttribute("Value")).split("#");
-						out += atts[1];
+						out += space + atts[1];
 					} else {
 						InstAttribute instAttribute = getInstAttributes().get(
 								name);
@@ -917,7 +920,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 						if (instAttribute != null) {
 							if (instAttribute.getType() != null
 									&& instAttribute.getType().equals("Set")) {
-
+								out += space;
 								String attribVal = "all";
 								if (sp3 != -1 && sp3 > sp2)
 									attribVal = spacer.substring(sp2 + 1, sp3);
@@ -962,7 +965,9 @@ public abstract class InstElement implements Serializable, Cloneable,
 								// out += outt.substring(0, 1).toLowerCase()
 								// + outt.substring(1);
 								// else
-								out += instAttribute.toString().trim();
+								if (instAttribute.toString().trim().length() > 1)
+									out += space
+											+ instAttribute.toString().trim();
 							}
 						}
 					}

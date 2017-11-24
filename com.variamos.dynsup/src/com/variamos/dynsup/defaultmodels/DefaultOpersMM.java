@@ -10345,6 +10345,45 @@ public class DefaultOpersMM {
 		refas.getVariabilityVertex().put("NmAttribute",
 				instInfraSyntaxOpersM2Attribute);
 
+		SyntaxElement infraOpersM2Enum = new SyntaxElement('A',
+				"NmEnumeration", false, true, "NmEnumeration",
+				"infrasyntaxm2miniconcept", "Enumeration meta-concept", 120,
+				120, "/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instInfraSyntaxOpersM2Enum = new InstConcept(
+				"NmEnumeration", infraMetaMetaCollection, infraOpersM2Enum);
+		refas.getVariabilityVertex().put("NmEnumeration",
+				instInfraSyntaxOpersM2Enum);
+
+		SyntaxElement infraOpersM2EnumLit = new SyntaxElement('A',
+				"NmEnumLiteral", false, true, "NmEnumLiteral",
+				"infrasyntaxm2miniconcept", "Enumeration meta-concept", 120,
+				120, "/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		infraOpersM2EnumLit.addModelingAttribute("Name", new ElemAttribute(
+				"literalId", "Integer", AttributeType.SYNTAX, false,
+				"Concept Name", "", "InstAttribute", 0, 1, "", "", 1, "", ""));
+
+		infraOpersM2EnumLit
+				.addModelingAttribute("type", new ElemAttribute("litValue",
+						"String", AttributeType.SYNTAX, false, "Type", "",
+						"TypeEnum", "", "", 0, 3, "", "", -1, "type"
+								+ "#all#\n\n", ""));
+
+		InstConcept instInfraSyntaxOpersM2EnumLit = new InstConcept(
+				"NmEnumLiteral", infraMetaMetaCollection, infraOpersM2EnumLit);
+		refas.getVariabilityVertex().put("NmEnumLiteral",
+				instInfraSyntaxOpersM2EnumLit);
+
+		InstPairwiseRel instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("enutoenumlit", instEdge);
+		instEdge.setIdentifier("enutoenumlit");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2EnumLit, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Enum, true);
+
 		OpersVariable semLowExp = new OpersVariable("NmLowExp");
 
 		instVertexLowExp = new InstConcept("NmLowExp", infraMetaMetaConcept,
