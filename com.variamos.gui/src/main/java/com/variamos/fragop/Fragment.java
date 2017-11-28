@@ -21,24 +21,38 @@ import org.apache.commons.io.FileUtils;
  */
 public class Fragment {
     public String content;
+    public String filename;
     public Map<String, String> data = new HashMap<String, String>();
     public static List<Map<String, String>> data_no_fragments = new ArrayList<>();
     
-    public Fragment(String c){
-        this.set_content(c);
+    public Fragment(String c, String f){
+        this.setContent(c);
+        this.setFilename(f);
         this.parse_fragment_content();
-        this.execute_actions();
+        if(data.get("name")==null || data.get("action")==null || data.get("destination")==null || data.get("fpoint")== null || data.get("pointbracketslan")== null) {
+        	Fragmental.error_var.add("Invalid Fragment definition for:" + this.getFilename());
+        }else {
+        	this.execute_actions();
+        }
     }
 
-    public String get_content() {
+    public String getContent() {
         return content;
     }
 
-    public void set_content(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
     
-    public void execute_actions(){
+    public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public void execute_actions(){
         Map<String, String> f_to_modify = new HashMap<String, String>();
         List<String> comment_block_tags = new ArrayList<String>();
         

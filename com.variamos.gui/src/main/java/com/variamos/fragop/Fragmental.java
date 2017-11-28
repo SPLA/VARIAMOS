@@ -67,7 +67,7 @@ public class Fragmental {
         if(source_f.exists()){
             try{
                 String f_content = FileUtils.readFileToString(source_f, "utf-8");
-                Fragment f1 = new Fragment(f_content);
+                Fragment f1 = new Fragment(f_content,fragment.get("filename"));
             }
             catch(Exception e){
             	error_var.add(e.getMessage()+e.getStackTrace());
