@@ -52,7 +52,7 @@ public class AssemblyDialog extends JDialog {
 
 	public AssemblyDialog(VariamosGraphEditor editor, ElemAttribute... arguments)
 			throws URISyntaxException {
-		super(editor.getFrame(), "Configure Assembly", true);
+		super(editor.getFrame(), "Configure Integration Testing", true);
 
 		setBounds(300, 200, 300, 150);
 		setLayout(new BorderLayout());
@@ -67,7 +67,7 @@ public class AssemblyDialog extends JDialog {
 		String assemble_path= Fragmental.assembled_folder;
 		new_assets_path = new JTextField(asset_path);
 		panel.add(new_assets_path);
-		lab = new JLabel("Global Assembly Folder Path: ");
+		lab = new JLabel("Global Integration Folder Path: ");
 		panel.add(lab);
 		new_assembled_path = new JTextField(assemble_path);
 		panel.add(new_assembled_path);

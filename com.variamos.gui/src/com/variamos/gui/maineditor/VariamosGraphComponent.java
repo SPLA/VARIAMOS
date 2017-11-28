@@ -195,11 +195,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				}
 				
 				/* domain implementation */
-				if (instConcept.getInstAttribute("SelectedToAssemble") != null)
+				if (instConcept.getInstAttribute("SelectedToIntegrate") != null)
 				{
-					if (!(instConcept.getInstAttribute("SelectedToAssemble").getValue() instanceof Boolean))
+					if (!(instConcept.getInstAttribute("SelectedToIntegrate").getValue() instanceof Boolean))
 						return;
-					if ((boolean) instConcept.getInstAttribute("SelectedToAssemble").getValue()) {
+					if ((boolean) instConcept.getInstAttribute("SelectedToIntegrate").getValue()) {
 						backtophint = "Selected";
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(

@@ -21,7 +21,7 @@ import static java.nio.file.StandardCopyOption.*;
 public class Fragmental {
     
     public static String assets_folder="C:/assets/";
-    public static String assembled_folder="C:/assembled/";
+    public static String assembled_folder="C:/integrated/";
     public static List<Map<String, String>> data;
     public static List<String> error_var;
 

@@ -86,8 +86,8 @@ public class AssembleAction extends AbstractVariamoGUIAction {
 						
 						//Check if component is selected
 						xml_com =mxXmlUtils.getXml(codec.encode(target_cell));						
-						pos_pre_dyn=xml_com.indexOf("as=\"SelectedToAssemble\"",pre);
-						pos_dyn=xml_com.indexOf("as=\"attId\" value=\"SelectedToAssemble\"",pos_pre_dyn);
+						pos_pre_dyn=xml_com.indexOf("as=\"SelectedToIntegrate\"",pre);
+						pos_dyn=xml_com.indexOf("as=\"attId\" value=\"SelectedToIntegrate\"",pos_pre_dyn);
 						String selected=extract_string("Value\" value=\"",">",xml_com,pos_dyn);
 						if(selected.equals("1")){
 							//Component_folder
