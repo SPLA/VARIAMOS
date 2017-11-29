@@ -22,12 +22,15 @@ import org.apache.commons.io.FileUtils;
 public class Fragment {
     public String content;
     public String filename;
-    public Map<String, String> data = new HashMap<String, String>();
+    public int pos_frag;
+
+	public Map<String, String> data = new HashMap<String, String>();
     public static List<Map<String, String>> data_no_fragments = new ArrayList<>();
     
-    public Fragment(String c, String f){
+    public Fragment(String c, String f, int p){
         this.setContent(c);
         this.setFilename(f);
+        this.setPos_frag(p);
         this.parse_fragment_content();
         if(data.get("name")==null || data.get("action")==null || data.get("destination")==null || data.get("fpoint")== null || data.get("pointbracketslan")== null) {
         	Fragmental.error_var.add("Invalid Fragment definition for:" + this.getFilename());
@@ -50,6 +53,14 @@ public class Fragment {
 
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+	
+    public int getPos_frag() {
+		return pos_frag;
+	}
+
+	public void setPos_frag(int pos_frag) {
+		this.pos_frag = pos_frag;
 	}
 
 	public void execute_actions(){
@@ -152,7 +163,7 @@ public class Fragment {
     }
     
     public void parse_fragment_content(){
-        data.put("name",extract_string(" ","{",this.content));
+        data.put("name",extract_string("Fragment ","{",this.content));
         data.put("action",extract_string("Action:", "\n",this.content));
         data.put("fpoint",extract_string("FragmentationPoint:","\n",this.content));
         data.put("pointbracketslan",extract_string("PointBracketsLan:","\n",this.content));
@@ -170,8 +181,8 @@ public class Fragment {
         return null;
     }
     
-    public static String extract_string(String s_init, String s_final, String content){
-        int pos_init = content.indexOf(s_init);
+    public String extract_string(String s_init, String s_final, String content){
+        int pos_init = content.indexOf(s_init,this.getPos_frag());
         int len_init = s_init.length();
         int pos_final = content.indexOf(s_final, pos_init);
         if((pos_init != -1) && (pos_final != -1)){

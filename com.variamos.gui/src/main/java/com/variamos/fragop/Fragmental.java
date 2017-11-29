@@ -57,8 +57,8 @@ public class Fragmental {
         for(int i=0;i<data.size();i++){
         	if(data.get(i).get("filename").equals("")) {}
         	else if(data.get(i).get("filename").contains(".frag")){
-                parse_fragment(data.get(i));
-            }
+        		parse_fragment(data.get(i));
+        	}
         }
     }
     
@@ -67,7 +67,11 @@ public class Fragmental {
         if(source_f.exists()){
             try{
                 String f_content = FileUtils.readFileToString(source_f, "utf-8");
-                Fragment f1 = new Fragment(f_content,fragment.get("filename"));
+                int pos_frag=0;
+                while(pos_frag!=-1) {
+                	Fragment f1 = new Fragment(f_content,fragment.get("filename"),pos_frag);
+                	pos_frag=extract_multiple_fragments(f_content,pos_frag);
+                }
             }
             catch(Exception e){
             	error_var.add(e.getMessage()+e.getStackTrace());
@@ -76,6 +80,23 @@ public class Fragmental {
         	error_var.add(fragment.get("filename")+" doesn't exists, check the filename and path");
         }
     }
+    
+    public static int extract_multiple_fragments(String content, int pos_frag) {
+    	pos_frag=pos_frag+10;
+    	int pos_init = content.indexOf("Fragment ",pos_frag);
+    	if(pos_init != -1) {
+    		int pos_final = content.indexOf("{",pos_init+9);
+    		if(pos_final != -1) {
+    			return pos_init;
+    		}else {
+    			return -1;
+    		}
+    	}else {
+    		return -1;
+    	}
+    	
+    }
+    
     
     public static void move_asset(Map<String, String> asset){
         set_directories_move_file(asset.get("filename"),asset.get("destination"),asset.get("component_folder"));        
