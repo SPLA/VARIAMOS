@@ -863,10 +863,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			// .expressionStructure());
 			if (newExp != null){
 				prog.add(newExp);
-				//String id = expression.getSemanticExpression().getSemanticElement().getIdentifier();
-				String id = expression.getSourceConceptId();
-				//System.out.println("constraint:"+newExp+"->concept:"+id);
-				table.put(newExp,id);
+				if(table!=null) table.put(newExp,expression.getSourceConceptId());
 			}
 		}
 		for (ModelExpr expression : instanceLowExpr.get(column)) {
