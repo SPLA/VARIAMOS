@@ -1,8 +1,10 @@
 package com.variamos.reasoning.medic.model.graph;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeSet;
 
 import com.variamos.hlcl.core.HlclProgram;
@@ -26,21 +28,33 @@ public abstract class VertexHLCL implements Comparable<VertexHLCL>{
 	public static final int INSTACK=1;
 	public static final int NOT_VISITED=0;
 	private  String id;
-	//private ArrayList<Constraint> constraints;
 	private HlclProgram constraints;
 
 
-	private TreeSet <VertexHLCL> neighbors;
+	private List <VertexHLCL> neighbors;
 	private int searchState;
 	private VertexHLCL parent;
+	private int order;
 	
 
 
 
 
+	public int getOrder() {
+		return order;
+	}
+
+
+
+	public void setOrder(int order) {
+		this.order = order;
+	}
+
+
+
 	public void initialize(String id){
 		this.id=id;
-		neighbors= new TreeSet<VertexHLCL>(); 
+		neighbors= new LinkedList<VertexHLCL>(); 
 		constraints= new HlclProgram();
 		searchState= NOT_VISITED;
 		parent= null;
@@ -51,17 +65,17 @@ public abstract class VertexHLCL implements Comparable<VertexHLCL>{
 	public String getId(){
 		return id;
 	}
-	
+	//FIXME fix the return
 	public boolean addNeighbor(VertexHLCL v){
-		return neighbors.add(v);
+		neighbors.add(v);
+		return true;
 	}
 	
-	public TreeSet<VertexHLCL> getNeighbors(){
+	public Collection<VertexHLCL> getNeighbors(){
 		return neighbors;
 	}
 	
 	public int compareTo(VertexHLCL o) {
-		// TODO Auto-generated method stub
 		 return id.compareTo(o.getId());
 	}
 	
