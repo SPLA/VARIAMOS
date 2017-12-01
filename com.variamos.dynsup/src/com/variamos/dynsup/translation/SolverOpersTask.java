@@ -727,7 +727,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraints(root,10);
 				//LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraints("CGVariable1_value",10);
 
-				for (VertexHLCL vertex : output) {
+				for (VertexHLCL vertex : output) { 
 					if(vertex instanceof NodeVariableHLCL){
 						// Add the variable into the list of IDs to be updated
 						//Add the error message 
