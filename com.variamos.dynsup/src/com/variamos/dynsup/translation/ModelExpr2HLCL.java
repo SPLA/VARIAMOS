@@ -80,7 +80,7 @@ public class ModelExpr2HLCL {
 	// Only for old static operations
 	public static final int DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2,
 			CORE_EXEC = 3, VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5, SIMUL_MAPE = 6;
-	
+
 	public ModelExpr2HLCL(InstanceModel refas) {
 		this.refas = refas;
 		// constraintGroups = new HashMap<String, ElementExpressionSet>();
@@ -122,7 +122,8 @@ public class ModelExpr2HLCL {
 	}
 
 	// Static implementation
-	public HlclProgram relaxedTest(String element) throws FunctionalException {
+	public HlclProgram relaxedTest(String operId, String element)
+			throws FunctionalException {
 		HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createVertexExpressions(null, ModelExpr2HLCL.VAL_UPD_EXEC,
@@ -136,7 +137,7 @@ public class ModelExpr2HLCL {
 				transformations.addAll(relaxableExpressions);
 		}
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
-		createGroupExpressions(null, 4, element, constraintGroups);
+		createGroupExpressions(operId, null, 4, element, constraintGroups);
 
 		/*
 		 * List<AbstractExpression> transformations2 = new
@@ -166,7 +167,8 @@ public class ModelExpr2HLCL {
 	}
 
 	// Static implementation
-	public HlclProgram compulsoryTest(String element) throws FunctionalException {
+	public HlclProgram compulsoryTest(String operId, String element)
+			throws FunctionalException {
 		HlclProgram hlclProgram = new HlclProgram();
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createVertexExpressions(null, 4, constraintGroups);
@@ -180,7 +182,7 @@ public class ModelExpr2HLCL {
 		}
 
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
-		createEdgeExpressions(null, 4, constraintGroups);
+		createEdgeExpressions(operId, null, 4, constraintGroups);
 
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			List<AbstractExpression> compulsoryExpressions = constraintGroup
@@ -189,7 +191,7 @@ public class ModelExpr2HLCL {
 				transformations.addAll(compulsoryExpressions);
 		}
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
-		createGroupExpressions(null, 4, element, constraintGroups);
+		createGroupExpressions(operId, null, 4, element, constraintGroups);
 
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			List<AbstractExpression> compulsoryExpressions = constraintGroup
@@ -250,12 +252,14 @@ public class ModelExpr2HLCL {
 	/**
 	 * Create a new HlclProgram with the expression of all concepts and
 	 * relations and calls SWIProlog to return a solution or all solutions
-	 * @throws FunctionalException 
+	 * 
+	 * @throws FunctionalException
 	 */
 
 	// Static call without TranslationExpressionSet
-	public HlclProgram getHlclProgram(String element, int execType) throws FunctionalException {
-		return getHlclProgram(element, execType, null);
+	public HlclProgram getHlclProgram(String operId, int execType)
+			throws FunctionalException {
+		return getHlclProgram(operId, execType, null);
 	}
 
 	// Dynamic call with TranslationExpressionSet
@@ -297,7 +301,7 @@ public class ModelExpr2HLCL {
 	}
 
 	// Static call
-	public HlclProgram getHlclProgram(String element, int execType,
+	public HlclProgram getHlclProgram(String operId, int execType,
 			InstElement instElement) throws FunctionalException {
 		HlclProgram hlclProgram = new HlclProgram();
 
@@ -315,22 +319,24 @@ public class ModelExpr2HLCL {
 					constraintGroups);
 
 		if (instElement == null || instElement instanceof InstPairwiseRel)
-			createEdgeExpressions(elementIdentifier, execType, constraintGroups);
+			createEdgeExpressions(operId, elementIdentifier, execType,
+					constraintGroups);
 		// Previous call to createEdgeExpressions is required to fill the
 		// attribute names for createGroupExpressions
 
 		if (instElement == null || instElement instanceof InstOverTwoRel)
-			createGroupExpressions(elementIdentifier, execType, element,
+			createGroupExpressions(operId, elementIdentifier, execType, operId,
 					constraintGroups);
 
-		fillHlclProgram(element, null, null, hlclProgram, constraintGroups);
+		fillHlclProgram(operId, null, null, hlclProgram, constraintGroups);
 		return hlclProgram;
 	}
 
 	// Static and Dynamic calls
 	private void fillHlclProgram(String element, String subOperation,
 			OpersSubOpExecType operExecType, HlclProgram hlclProgram,
-			Map<String, ElementExpressionSet> constraintGroups) throws FunctionalException {
+			Map<String, ElementExpressionSet> constraintGroups)
+			throws FunctionalException {
 		List<AbstractExpression> staticTransformations = new ArrayList<AbstractExpression>();
 		List<IntBooleanExpression> modelExpressions = new ArrayList<IntBooleanExpression>();
 
@@ -489,8 +495,9 @@ public class ModelExpr2HLCL {
 
 					lastExecutionTime = swiSolver.getLastExecutionTime();
 				} catch (Exception ex) {
-					//FIXME issue#230
-					throw new FunctionalException(FunctionalException.exceptionStacktraceToString(ex));
+					// FIXME issue#230
+					throw new FunctionalException(
+							FunctionalException.exceptionStacktraceToString(ex));
 				}
 			} else
 				return 1;
@@ -505,9 +512,14 @@ public class ModelExpr2HLCL {
 					configuration = swiSolver.getSolution();
 				} catch (TechnicalException e) {
 
-					//FIXME issue#230
-					throw new FunctionalException("Prolog Exception" + e.getMessage()+" "+ FunctionalException.exceptionStacktraceToString(e));
-				
+					// FIXME issue#230
+					throw new FunctionalException(
+							"Prolog Exception"
+									+ e.getMessage()
+									+ " "
+									+ FunctionalException
+											.exceptionStacktraceToString(e));
+
 				}
 				lastExecutionTime += swiSolver.getLastExecutionTime();
 				if (configuration == null)
@@ -521,7 +533,8 @@ public class ModelExpr2HLCL {
 	// Dynamic implementation to export
 	public Map<String, Map<String, Integer>> execExport(
 			ProgressMonitor progressMonitor, InstElement operation,
-			InstElement suboper) throws InterruptedException, FunctionalException {
+			InstElement suboper) throws InterruptedException,
+			FunctionalException {
 		int iter = 0;
 		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
 		elements = new HashMap<String, Map<String, Integer>>();
@@ -611,14 +624,15 @@ public class ModelExpr2HLCL {
 
 	// static call implementation
 	// No longer needed when the dynamic implementation is completed
-	public boolean execute(ProgressMonitor progressMonitor, String element,
-			int solutions, int execType) throws InterruptedException, FunctionalException {
+	public boolean execute(ProgressMonitor progressMonitor, String operId,
+			int solutions, int execType) throws InterruptedException,
+			FunctionalException {
 		lastExecutionTime = 0;
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new SolverSolution();
 
-			hlclProgram = getHlclProgram(element, execType);
+			hlclProgram = getHlclProgram(operId, execType);
 
 			// Set<Identifier> identifiers = new TreeSet<Identifier>();
 			// for (Expression exp : hlclProgram) {
@@ -659,8 +673,10 @@ public class ModelExpr2HLCL {
 				swiSolver.solve(new SolverSolution(), configurationOptions);
 				lastExecutionTime = swiSolver.getLastExecutionTime();
 			} catch (Exception e) {
-				//FIXME issue#230
-				throw new FunctionalException("No solution" + e.getMessage()+" "+ FunctionalException.exceptionStacktraceToString(e));
+				// FIXME issue#230
+				throw new FunctionalException("No solution" + e.getMessage()
+						+ " "
+						+ FunctionalException.exceptionStacktraceToString(e));
 
 			}
 		}
@@ -1226,17 +1242,20 @@ public class ModelExpr2HLCL {
 		}
 	}
 
-	public ElementExpressionSet getElementConstraintGroup(String identifier,
-			String concetType, int execType) throws FunctionalException {
+	public ElementExpressionSet getElementConstraintGroup(String operId,
+			String identifier, String concetType, int execType)
+			throws FunctionalException {
 
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 
 		if (concetType.equals("vertex"))
 			createVertexExpressions(identifier, execType, constraintGroups);
 		else if (concetType.equals("edge"))
-			createEdgeExpressions(identifier, execType, constraintGroups);
+			createEdgeExpressions(operId, identifier, execType,
+					constraintGroups);
 		else if (concetType.equals("groupdep"))
-			createGroupExpressions(identifier, execType, "", constraintGroups);
+			createGroupExpressions(operId, identifier, execType, "",
+					constraintGroups);
 		return constraintGroups.get(identifier);
 	}
 
@@ -1251,7 +1270,8 @@ public class ModelExpr2HLCL {
 	}
 
 	private void createVertexExpressions(String identifier, int execType,
-			Map<String, ElementExpressionSet> constraintGroups) throws FunctionalException {
+			Map<String, ElementExpressionSet> constraintGroups)
+			throws FunctionalException {
 		if (identifier == null)
 			for (InstElement elm : refas.getConstraintVertexCollection()) {
 				// if (this.validateConceptType(elm, "GeneralConcept"))
@@ -1265,8 +1285,8 @@ public class ModelExpr2HLCL {
 							.getConstraintVertex().get(identifier), execType));
 	}
 
-	private void createEdgeExpressions(String identifier, int execType,
-			Map<String, ElementExpressionSet> constraintGroups) {
+	private void createEdgeExpressions(String operId, String identifier,
+			int execType, Map<String, ElementExpressionSet> constraintGroups) {
 		if (identifier == null)
 			for (InstPairwiseRel elm : refas.getConstraintInstEdgesCollection()) {
 				if (elm.getMetaPairwiseRelation() == null
@@ -1274,22 +1294,25 @@ public class ModelExpr2HLCL {
 								.equals("Variable To Context Relation"))
 					constraintGroups.put(
 							elm.getIdentifier(),
-							new PairwiseElementExpressionSet(elm
+							new PairwiseElementExpressionSet(operId, elm
 									.getIdentifier(), idMap, f, elm, execType));
 			}
 		else if (refas.getConstraintInstEdges().get(identifier) != null)
 			constraintGroups.put(identifier,
-					new PairwiseElementExpressionSet(identifier, idMap, f,
-							refas.getConstraintInstEdges().get(identifier),
+					new PairwiseElementExpressionSet(operId, identifier, idMap,
+							f, refas.getConstraintInstEdges().get(identifier),
 							execType));
 
 	}
 
-	private void createGroupExpressions(String identifier, int execType,
-			String element, Map<String, ElementExpressionSet> constraintGroups) throws FunctionalException{
-		createEdgeExpressions(null, execType, constraintGroups); // TODO define
-																	// a better
-																	// solution
+	private void createGroupExpressions(String operId, String identifier,
+			int execType, String element,
+			Map<String, ElementExpressionSet> constraintGroups)
+			throws FunctionalException {
+		createEdgeExpressions(operId, null, execType, constraintGroups); // TODO
+																			// define
+		// a better
+		// solution
 		if (identifier == null)
 			for (InstOverTwoRel elm : refas
 					.getInstGroupDependenciesCollection()) {
@@ -1305,10 +1328,10 @@ public class ModelExpr2HLCL {
 
 	}
 
-	public String getElementTextConstraints(String identifier, String string,
-			int execType) throws FunctionalException {
+	public String getElementTextConstraints(String operId, String identifier,
+			String string, int execType) throws FunctionalException {
 		String out = "";
-		ElementExpressionSet expressions = getElementConstraintGroup(
+		ElementExpressionSet expressions = getElementConstraintGroup(operId,
 				identifier, string, execType);
 		if (expressions != null)
 			for (IntExpression expression : expressions.getExpressions())
@@ -1582,7 +1605,8 @@ public class ModelExpr2HLCL {
 
 	// Static implementation to export
 	public Map<String, Map<String, Integer>> execCompleteSimul(
-			ProgressMonitor progressMonitor) throws InterruptedException, FunctionalException {
+			ProgressMonitor progressMonitor) throws InterruptedException,
+			FunctionalException {
 		int iter = 0;
 		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
 		elements = new HashMap<String, Map<String, Integer>>();
@@ -1649,4 +1673,3 @@ public class ModelExpr2HLCL {
 
 	}
 }
-

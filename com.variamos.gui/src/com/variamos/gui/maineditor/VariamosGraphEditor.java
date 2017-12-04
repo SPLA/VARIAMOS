@@ -668,7 +668,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						try {
 							ElementExpressionSet metaExpressionSet;
 							metaExpressionSet = refas2hlcl
-									.getElementConstraintGroup(
+									.getElementConstraintGroup("Simul",
 											lastEditableElement
 													.getInstElement()
 													.getIdentifier(),
@@ -902,14 +902,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// "GeneralConcept")
 						)
 							consoleTextArea.setText(refas2hlcl
-									.getElementTextConstraints(
+									.getElementTextConstraints("Simul",
 											finalEditElm.getIdentifier(),
 											editableElementType,
 											ModelExpr2HLCL.CONF_EXEC));
 				if (this.perspective == 4)
 
 					consoleTextArea.setText(refas2hlcl
-							.getElementTextConstraints(
+							.getElementTextConstraints("Simul",
 									finalEditElm.getIdentifier(),
 									editableElementType,
 									ModelExpr2HLCL.SIMUL_EXEC));

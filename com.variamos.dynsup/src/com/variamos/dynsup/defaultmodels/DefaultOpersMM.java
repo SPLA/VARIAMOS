@@ -2260,6 +2260,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("opname").setValue(
 					"Identify Loops in Struct. Rels");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 			instOperationAction.getInstAttribute("position").setValue(10);
@@ -2779,6 +2780,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("opname").setValue(
 					"Identify Claims & SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("vi").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 			instOperationAction.getInstAttribute("position").setValue(16);
