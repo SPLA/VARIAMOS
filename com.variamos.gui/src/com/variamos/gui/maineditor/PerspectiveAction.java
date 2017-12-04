@@ -36,7 +36,6 @@ public class PerspectiveAction extends AbstractEditorAction {
 
 		VariamosGraphEditor editor = getEditor(e);
 		String buttonText = ((JButton) e.getSource()).getText();
-		editor.updatePespectiveMenuTab(buttonText);
+		editor.updatePespectiveMenuTab(editor, buttonText);
 	}
 }
-

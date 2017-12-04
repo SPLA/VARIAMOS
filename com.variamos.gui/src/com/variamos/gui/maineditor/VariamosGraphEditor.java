@@ -668,7 +668,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						try {
 							ElementExpressionSet metaExpressionSet;
 							metaExpressionSet = refas2hlcl
-									.getElementConstraintGroup(
+									.getElementConstraintGroup("Simul",
 											lastEditableElement
 													.getInstElement()
 													.getIdentifier(),
@@ -902,14 +902,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// "GeneralConcept")
 						)
 							consoleTextArea.setText(refas2hlcl
-									.getElementTextConstraints(
+									.getElementTextConstraints("Simul",
 											finalEditElm.getIdentifier(),
 											editableElementType,
 											ModelExpr2HLCL.CONF_EXEC));
 				if (this.perspective == 4)
 
 					consoleTextArea.setText(refas2hlcl
-							.getElementTextConstraints(
+							.getElementTextConstraints("Simul",
 									finalEditElm.getIdentifier(),
 									editableElementType,
 									ModelExpr2HLCL.SIMUL_EXEC));
@@ -2035,7 +2035,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		eoad.center();
 	}
 
-	public void updatePespectiveMenuTab(String buttonText) {
+	public void updatePespectiveMenuTab(VariamosGraphEditor editor,
+			String buttonText) {
 		MainFrame mainFrame = this.getMainFrame();
 		int perspectiveInd = mainFrame.getPerspective();
 		PerspectiveToolBar perspective = this.installToolBar(mainFrame,
@@ -2075,6 +2076,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				&& buttonText.equals(mxResources.get("simulationPerspButton"))) {
 			mainFrame.setPerspective(4);
 			// System.out.println("simulationPerspButton");
+
+			editor.clearNotificationBar();
+			// editor.verifyErrors();
+			List<String> defects = new ArrayList<String>();
+			defects.add("Core");
+			editor.verify(defects);
 		}
 		perspective.updatePerspective(mainFrame.getPerspective());
 		mainFrame.validate();

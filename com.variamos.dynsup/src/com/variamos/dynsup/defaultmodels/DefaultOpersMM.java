@@ -2260,6 +2260,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("opname").setValue(
 					"Identify Loops in Struct. Rels");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 			instOperationAction.getInstAttribute("position").setValue(10);
@@ -2779,6 +2780,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("opname").setValue(
 					"Identify Claims & SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("vi").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 			instOperationAction.getInstAttribute("position").setValue(16);
@@ -10171,7 +10173,7 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("varConfValue", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "Configured Value",
-				"Configured value", 0, 0, 8, "", "", -1, "", "", "varConfDom",
+				"Configured value", 0, 0, 8, "", "", 1, "", "", "varConfDom",
 				"", null);
 
 		// semVariable.addPropVisibleAttribute("08#" + "varConfValue");

@@ -359,7 +359,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					if (actionList.get(posList).equals("Err")) {
 
 						outMessageList.add(verifyDefects(verifElement,
-								verifMessage, verifHint,
+								verifElement, verifMessage, verifHint,
 								DefectAnalyzerModeEnum.INCOMPLETE_SLOW));
 					} else {
 						if (defect == null || defect.contains("Core")
@@ -561,7 +561,12 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			Set<Identifier> identifiers = new HashSet<Identifier>();
 
 			for (String freeIndentifier : freeIdentifiers) {
-				if (!freeIndentifier.startsWith("FeatOT"))
+				if (!freeIndentifier.startsWith("FeatOT")
+						&& !freeIndentifier.startsWith("OperClaimOT")
+						&& !freeIndentifier.startsWith("HardOT")
+						&& !freeIndentifier.startsWith("AssetFeatOT")
+						&& !freeIndentifier.startsWith("AssetAssetOTAsso")
+						&& !freeIndentifier.startsWith("AssetOperOT"))
 					identifiers.add(f.newIdentifier(freeIndentifier));
 			}
 
@@ -569,11 +574,18 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					&& (defect == null || defect.contains("Dead")
 							|| defect.contains("FalseOpt") || defect
 								.contains("Core"))) {
-
-				defectVerifier = new DefectsVerifier(refas2hlcl.getHlclProgram(
-						"FalseOpt2", ModelExpr2HLCL.VAL_UPD_EXEC),
-						parentComponent,
-						"Identifing core/falseoptional/dead Elements");
+				if (defect.contains("FalseOpt") || defect.contains("Dead"))
+					defectVerifier = new DefectsVerifier(
+							refas2hlcl.getHlclProgram("FalseOpt2",
+									ModelExpr2HLCL.VAL_UPD_EXEC),
+							parentComponent,
+							"Identifing core/falseoptional/dead Elements");
+				else
+					defectVerifier = new DefectsVerifier(
+							refas2hlcl.getHlclProgram("FalseOpt",
+									ModelExpr2HLCL.VAL_UPD_EXEC),
+							parentComponent,
+							"Identifing core/falseoptional/dead Elements");
 
 				List<Defect> falseOptionalList = null;
 
@@ -588,9 +600,18 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					if (falseOptionalList.size() > 0) {
 						List<String> falseOptIdentOthers = new ArrayList<String>();
 						for (Defect conceptVariable : falseOptionalList) {
-							String[] conceptId = conceptVariable.getId().split(
-									"_");
-							falseOptIdentOthers.add(conceptId[0]);
+							String identifier = conceptVariable.getId();
+							if (!identifier.startsWith("FeatOT")
+									&& !identifier.startsWith("OperClaimOT")
+									&& !identifier.startsWith("HardOT")
+									&& !identifier.startsWith("AssetFeatOT")
+									&& !identifier
+											.startsWith("AssetAssetOTAsso")
+									&& !identifier.startsWith("AssetOperOT")) {
+								String[] conceptId = conceptVariable.getId()
+										.split("_");
+								falseOptIdentOthers.add(conceptId[0]);
+							}
 						}
 						falseOptIdentifiers.addAll(falseOptIdentOthers);
 					}
@@ -608,7 +629,13 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				// relations
 				{
 					for (String freeIndentifier : freeIdentifiers) {
-						if (!freeIndentifier.startsWith("FeatOT"))
+						if (!freeIndentifier.startsWith("FeatOT")
+								&& !freeIndentifier.startsWith("OperClaimOT")
+								&& !freeIndentifier.startsWith("HardOT")
+								&& !freeIndentifier.startsWith("AssetFeatOT")
+								&& !freeIndentifier
+										.startsWith("AssetAssetOTAsso")
+								&& !freeIndentifier.startsWith("AssetOperOT"))
 							identDeadElements.add(f
 									.newIdentifier(freeIndentifier));
 					}
@@ -627,7 +654,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 							deadIdentifiers.add(conceptId[0]);
 						}
 						out.add(deadIndetifiersList.size()
-								+ " dead elements identified.");
+								+ " dead elements identified in all the views.");
 					}
 
 				// refas2hlcl.updateCoreConcepts(outIdentifiers);
@@ -681,8 +708,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return out;
 	}
 
-	private String verifyDefects(String verifElement, String verifMessage,
-			String verifHint, DefectAnalyzerModeEnum mode)
+	private String verifyDefects(String operId, String verifElement,
+			String verifMessage, String verifHint, DefectAnalyzerModeEnum mode)
 			throws InterruptedException {
 		String outMessage = null;
 		long iniTime = System.currentTimeMillis();
@@ -692,8 +719,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 			List<IntBooleanExpression> verify = refas2hlcl
 					.verityTest(verifElement);
-			HlclProgram relaxed = refas2hlcl.relaxedTest(verifElement);
-			HlclProgram fixed = refas2hlcl.compulsoryTest(verifElement);
+			HlclProgram relaxed = refas2hlcl.relaxedTest(operId, verifElement);
+			HlclProgram fixed = refas2hlcl.compulsoryTest(operId, verifElement);
 			Defect defect = new Defect(verify);
 			defect.setDefectType(DefectTypeEnum.SEMANTIC_SPECIFIC_DEFECT);
 			HlclProgram modelToVerify = new HlclProgram();
