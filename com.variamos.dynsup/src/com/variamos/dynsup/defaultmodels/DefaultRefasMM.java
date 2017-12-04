@@ -4709,10 +4709,11 @@ public class DefaultRefasMM {
 				false, "contribution", "", "", 1, -1, "", "", -1, "", ""),
 				"contribution#contribution#true#true#true#0#-1#0#-1"));
 
-		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
-				"", "", 1, -1, "", "", -1, "", ""),
-				"conflict#conflict#false#true#true#0#-1#0#-1"));
+		// TODO Activate then the expressions are corrected
+		// ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+		// StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+		// "", "", 1, -1, "", "", -1, "", ""),
+		// "conflict#conflict#false#true#true#0#-1#0#-1"));
 
 		// ias.add(new InstAttribute("alternative", new ElemAttribute(
 		// "alternative", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -5092,9 +5093,10 @@ public class DefaultRefasMM {
 		DefaultOpersMM.sasverConflSDOperSubActionNormal
 				.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
-				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
-				"", "", 1, -1, "", "", -1, "", ""), semExpr));
+		// TODO enable when the expressions are correct
+		// ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+		// StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+		// "", "", 1, -1, "", "", -1, "", ""), semExpr));
 
 		// semExpr = new ArrayList<OpersExpr>();
 		//

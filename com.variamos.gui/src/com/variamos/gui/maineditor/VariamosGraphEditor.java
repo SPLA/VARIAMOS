@@ -2035,7 +2035,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		eoad.center();
 	}
 
-	public void updatePespectiveMenuTab(String buttonText) {
+	public void updatePespectiveMenuTab(VariamosGraphEditor editor,
+			String buttonText) {
 		MainFrame mainFrame = this.getMainFrame();
 		int perspectiveInd = mainFrame.getPerspective();
 		PerspectiveToolBar perspective = this.installToolBar(mainFrame,
@@ -2075,6 +2076,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				&& buttonText.equals(mxResources.get("simulationPerspButton"))) {
 			mainFrame.setPerspective(4);
 			// System.out.println("simulationPerspButton");
+
+			editor.clearNotificationBar();
+			// editor.verifyErrors();
+			List<String> defects = new ArrayList<String>();
+			defects.add("Core");
+			editor.verify(defects);
 		}
 		perspective.updatePerspective(mainFrame.getPerspective());
 		mainFrame.validate();
