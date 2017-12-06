@@ -973,9 +973,12 @@ public class ModelExpr implements Serializable, Cloneable {
 			configdomain = configdomain.substring(0, configdomain.length() - 1);
 			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 		} else if (attribute.getName().equals("varConfValue")) {
+			Boolean isConfigdomain = (Boolean) instVertex.getInstAttribute(
+					"isConfDom").getValue();
 			String configdomain = instVertex.getInstAttribute("varConfDom")
 					.getValue() + "";
-			if (configdomain != null && !configdomain.equals(""))
+			if (configdomain != null && isConfigdomain != null
+					&& isConfigdomain && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 			else
 				identifier.setDomain(DomainParser.parseDomain("0", 0));

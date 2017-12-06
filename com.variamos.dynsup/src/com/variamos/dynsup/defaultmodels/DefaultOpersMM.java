@@ -10171,6 +10171,8 @@ public class DefaultOpersMM {
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
 
+		// Variable with the domain restricted to the varConfDom when the
+		// isConfDomain is true
 		attribute = new ElemAttribute("varConfValue", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "Configured Value",
 				"Configured value", 0, 0, 8, "", "", 1, "", "", "varConfDom",
