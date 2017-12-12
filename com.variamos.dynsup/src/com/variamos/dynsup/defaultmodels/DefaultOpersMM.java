@@ -10175,7 +10175,7 @@ public class DefaultOpersMM {
 		// isConfDomain is true
 		attribute = new ElemAttribute("varConfValue", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "Configured Value",
-				"Configured value", 0, 0, 8, "", "", 1, "", "", "varConfDom",
+				"Configured value", 0, 0, 8, "", "", -1, "", "", "varConfDom",
 				"", null);
 
 		// semVariable.addPropVisibleAttribute("08#" + "varConfValue");
