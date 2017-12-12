@@ -214,13 +214,15 @@ public class ModelExpr implements Serializable, Cloneable {
 		setLeftElement(vertex);
 	}
 
-	public IntExpression createSGSExpression(String element) throws FunctionalException {
+	public IntExpression createSGSExpression(String element)
+			throws FunctionalException {
 		// System.out.println(element);
 		IntExpression condition = createExpression(0, -1);
 		Identifier iden = hlclFactory.newIdentifier(element + "_CompExp");
 		// System.out.println(hlclFactory.doubleImplies(iden,
 		// (BooleanExpression) condition));
-		return hlclFactory.doubleImplies(iden, (IntBooleanExpression) condition);
+		return hlclFactory
+				.doubleImplies(iden, (IntBooleanExpression) condition);
 	}
 
 	public IntExpression createSGSExpression() throws FunctionalException {
@@ -231,7 +233,8 @@ public class ModelExpr implements Serializable, Cloneable {
 
 	}
 
-	public IntExpression createExpression(int pos, int leftIterInstance) throws FunctionalException {
+	public IntExpression createExpression(int pos, int leftIterInstance)
+			throws FunctionalException {
 		int i = 0;
 		List<IntExpression> expressionTerms = expressionTerms(pos,
 				leftIterInstance, 0);
@@ -246,12 +249,41 @@ public class ModelExpr implements Serializable, Cloneable {
 		Class<? extends IntExpression> parameter1 = null, parameter2 = null;
 		parameter1 = getSemanticExpression().getSemanticExpressionType()
 				.getLeftExpressionClass();
+
+		Method factoryMethod = null;
 		if (!singleParameter) {
 			parameter2 = semanticExpressionType.getRightExpressionClass();
 			if (expressionTerms.size() < 2)
 				System.out.println("ERROR IN NUMBER OF TERMS");
 			if (expressionTerms.size() < 2 || expressionTerms.get(0) == null
 					|| expressionTerms.get(1) == null) {
+				// if (expressionTerms.get(1) != null) {
+				// try {
+				// factoryMethod = hlclFactoryClass.getMethod(
+				// semanticExpressionType.getMethod(), parameter2,
+				// parameter2);
+				// return (IntExpression) factoryMethod.invoke(
+				// hlclFactory,
+				// parameter2.cast(expressionTerms.get(1)),
+				// parameter2.cast(expressionTerms.get(1)));
+				// } catch (NoSuchMethodException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// } catch (SecurityException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// } catch (IllegalAccessException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// } catch (IllegalArgumentException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// } catch (InvocationTargetException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// }
+				//
+				// } else
 				System.out.println("ERR: expression ignored "
 						+ this.getSemanticExpressionId());
 				return null;
@@ -300,7 +332,6 @@ public class ModelExpr implements Serializable, Cloneable {
 		// // return null;
 		// }
 
-		Method factoryMethod = null;
 		try {
 			if (singleParameter) {
 				// For negation, literal and number expressions
@@ -341,14 +372,15 @@ public class ModelExpr implements Serializable, Cloneable {
 						parameter2.cast(expressionTerms.get(1)));
 			}
 		} catch (Exception e) {
-			//FIXME issue#230
-			throw new FunctionalException("EXPRR " + expressionTerms.get(0) + " "
-					+ expressionTerms.get(1) + factoryMethod.getName()+ e.getMessage());
-			
-			//ConsoleTextArea.addText(e.getStackTrace());
-			
+			// FIXME issue#230
+			throw new FunctionalException("EXPRR " + expressionTerms.get(0)
+					+ " " + expressionTerms.get(1) + factoryMethod.getName()
+					+ e.getMessage());
+
+			// ConsoleTextArea.addText(e.getStackTrace());
+
 		}
-		
+
 	}
 
 	// private Map<String, Identifier> getIdentifiers() {
@@ -941,9 +973,12 @@ public class ModelExpr implements Serializable, Cloneable {
 			configdomain = configdomain.substring(0, configdomain.length() - 1);
 			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 		} else if (attribute.getName().equals("varConfValue")) {
+			Boolean isConfigdomain = (Boolean) instVertex.getInstAttribute(
+					"isConfDom").getValue();
 			String configdomain = instVertex.getInstAttribute("varConfDom")
 					.getValue() + "";
-			if (configdomain != null && !configdomain.equals(""))
+			if (configdomain != null && isConfigdomain != null
+					&& isConfigdomain && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 			else
 				identifier.setDomain(DomainParser.parseDomain("0", 0));

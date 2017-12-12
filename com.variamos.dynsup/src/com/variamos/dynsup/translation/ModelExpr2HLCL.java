@@ -711,6 +711,8 @@ public class ModelExpr2HLCL {
 					instVertex.getInstAttribute("isConfDom").setValue(false);
 				if (instVertex.getInstAttribute("varConfValue") != null)
 					instVertex.getInstAttribute("varConfValue").setValue(0);
+				if (instVertex.getInstAttribute("varConfDom") != null)
+					instVertex.getInstAttribute("varConfDom").setValue("");
 			}
 			if (this.validateConceptType(instVertex, "GeneralConcept")) {
 

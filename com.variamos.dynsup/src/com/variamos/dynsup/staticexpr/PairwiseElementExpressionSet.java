@@ -542,7 +542,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 
 		}
 		if (instPairwiseRelation.getSourceRelations().get(0).getSupInstEleId()
-				.equals("Softgoal")) {
+				.equals("Softgoal")
+				&& instPairwiseRelation.getInstAttribute("sourceLevel") != null) {
 			EqualsComparisonExpression out21p = new EqualsComparisonExpression(
 					instPairwiseRelation, "sourceLevel", getHlclFactory()
 							.number(instPairwiseRelation.getInstAttribute(

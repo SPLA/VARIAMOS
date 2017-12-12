@@ -1073,31 +1073,47 @@ public class DefaultRefasMM {
 
 		semClaim.setSemanticExpressions(semExpr);
 
-		t1 = new OpersExpr("sub1",
+		// t1 = new OpersExpr("sub1",
+		// refas.getSemanticExpressionTypes().get("Or"),
+		// ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexCL,
+		// instVertexOper, "Sel", true, "FalseVal");
+		//
+		// t1 = new OpersExpr("ORClRel1",
+		// refas.getSemanticExpressionTypes().get(
+		// "Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+		// instVertexCL, instVertexOper, t1, "FalseVal");
+		//
+		// OpersExpr t2 = new OpersExpr("sub2",
+		// refas.getSemanticExpressionTypes()
+		// .get("Or"), ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
+		// instVertexCL, instVertexCLGR, "OSel", true, "FalseVal");
+		//
+		// t2 = new OpersExpr("ORClRel2",
+		// refas.getSemanticExpressionTypes().get(
+		// "Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+		// instVertexCL, instVertexCLGR, t2, "FalseVal");
+		//
+		// t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Or"),
+		// instVertexCL, t1, t2);
+		//
+		// t1 = new OpersExpr("090 VerCL  - outcl <=> osel or sel", refas
+		// .getSemanticExpressionTypes().get("DoubleImplies"),
+		// instVertexCL, instVertexCL, "outCl", false, t1);
+		// FIXME expression not working, FIX the implementation to support this
+		// expression
+
+		t1 = new OpersExpr("sub2",
 				refas.getSemanticExpressionTypes().get("Or"),
-				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexCL,
-				instVertexOper, "Sel", true, "FalseVal");
+				ExpressionVertexType.LEFTSUBITERINCRELVARIABLE, instVertexCL,
+				instVertexCLGR, "PSel", true, "FalseVal");
 
-		t1 = new OpersExpr("ORClRel1", refas.getSemanticExpressionTypes().get(
-				"Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexCL, instVertexOper, t1, "FalseVal");
-
-		OpersExpr t2 = new OpersExpr("sub2", refas.getSemanticExpressionTypes()
-				.get("Or"), ExpressionVertexType.LEFTSUBITERINCCONVARIABLE,
-				instVertexCL, instVertexCLGR, "OSel", true, "FalseVal");
-
-		t2 = new OpersExpr("ORClRel2", refas.getSemanticExpressionTypes().get(
-				"Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexCL, instVertexCLGR, t2, "FalseVal");
-
-		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Or"),
-				instVertexCL, t1, t2);
+		t1 = new OpersExpr("ORClRel2", refas.getSemanticExpressionTypes().get(
+				"Or"), ExpressionVertexType.LEFTITERINCRELVARIABLE,
+				instVertexCL, instVertexCLGR, t1, "FalseVal");
 
 		t1 = new OpersExpr("090 VerCL  - outcl <=> osel or sel", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexCL, instVertexCL, "outCl", false, t1);
-		// FIXME expression not working, FIX the implementation to support this
-		// expression
 
 		DefaultOpersMM.sasverClallOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverClneverOperSubActionNormal
@@ -1136,7 +1152,7 @@ public class DefaultRefasMM {
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
-		t2 = new OpersExpr("4", refas.getSemanticExpressionTypes()
+		OpersExpr t2 = new OpersExpr("4", refas.getSemanticExpressionTypes()
 				.get("Equals"), instVertexCL, instVertexCL, "Sel", true, 0);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes()
@@ -1149,8 +1165,8 @@ public class DefaultRefasMM {
 
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
-		DefaultOpersMM.sasverSDCoreOperSubActionNormal
-				.addSemanticExpression(t1);
+		// DefaultOpersMM.sasverSDCoreOperSubActionNormal
+		// .addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDallOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDneverOperSubActionNormal
 				.addSemanticExpression(t1);
@@ -1538,9 +1554,9 @@ public class DefaultRefasMM {
 				instDirOperClaimSemanticEdge, instVertexCL, "outCl", true, t1);
 
 		semExpr.add(t1);
-		DefaultOpersMM.sasverClallOperSubActionNormal.addSemanticExpression(t1);
-		DefaultOpersMM.sasverClneverOperSubActionNormal
-				.addSemanticExpression(t1);
+		// DefaultOpersMM.sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		// DefaultOpersMM.sasverClneverOperSubActionNormal
+		// .addSemanticExpression(t1);
 		// sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
 
 		// t1 = new OpersExpr("CLOperExclu1Exclu", refas
@@ -7413,8 +7429,8 @@ public class DefaultRefasMM {
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
 		// DefaultOpersMM.verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-		DefaultOpersMM.sasverSDCoreOperSubActionNormal
-				.addSemanticExpression(t1);
+		// DefaultOpersMM.sasverSDCoreOperSubActionNormal
+		// .addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDallOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDneverOperSubActionNormal
 				.addSemanticExpression(t1);
@@ -7600,10 +7616,10 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instDirOperClaimOTToClaim, instVertexCL, "outCl", true, t1);
 
-		semExpr.add(t1);
-		DefaultOpersMM.sasverClallOperSubActionNormal.addSemanticExpression(t1);
-		DefaultOpersMM.sasverClneverOperSubActionNormal
-				.addSemanticExpression(t1);
+		// semExpr.add(t1);
+		// DefaultOpersMM.sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		// DefaultOpersMM.sasverClneverOperSubActionNormal
+		// .addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -7851,8 +7867,8 @@ public class DefaultRefasMM {
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
 		// DefaultOpersMM.verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
-		DefaultOpersMM.sasverSDCoreOperSubActionNormal
-				.addSemanticExpression(t1);
+		// DefaultOpersMM.sasverSDCoreOperSubActionNormal
+		// .addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDallOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDneverOperSubActionNormal
 				.addSemanticExpression(t1);

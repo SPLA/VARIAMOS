@@ -395,7 +395,7 @@ public class InstanceModel {
 
 	public InstElement getVertexByName(String elementName) {
 		for (InstElement e : variabilityInstVertex.values()) {
-			String name = (String) e.getInstAttributeValue("name");
+			String name = (String) e.getInstAttributeValue("opname");
 			if (name != null)
 				if (name.equals(elementName))
 					return e;

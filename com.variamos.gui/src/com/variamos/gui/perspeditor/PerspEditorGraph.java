@@ -455,6 +455,9 @@ public class PerspEditorGraph extends mxGraph {
 		// Do not validate connections in the syntax mm
 		// if (perspective == 3)
 		// return true;
+		// Do not validate connections in the semantic mm
+		// if (perspective == 2)
+		// return true;
 		if (perspective == 4)
 			return false;
 		if (validation) {
