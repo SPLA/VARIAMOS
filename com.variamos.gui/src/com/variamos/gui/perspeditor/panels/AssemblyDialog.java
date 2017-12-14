@@ -25,7 +25,7 @@ import javax.swing.SwingConstants;
 
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.fragop.Fragmental;
+import com.variamos.gui.core.fragop.Fragmental;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;

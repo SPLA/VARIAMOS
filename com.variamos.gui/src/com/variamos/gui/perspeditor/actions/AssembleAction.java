@@ -18,7 +18,7 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.instance.InstCell;
-import com.variamos.fragop.Fragmental;
+import com.variamos.gui.core.fragop.Fragmental;
 import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;

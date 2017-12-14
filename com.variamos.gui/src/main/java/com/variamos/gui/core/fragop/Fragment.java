@@ -3,17 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.variamos.fragop;
+package com.variamos.gui.core.fragop;
 
-import static com.variamos.fragop.Fragmental.assembled_folder;
-import static com.variamos.fragop.Fragmental.error_var;
+import static com.variamos.gui.core.fragop.Fragmental.assembled_folder;
+import static com.variamos.gui.core.fragop.Fragmental.error_var;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.io.FileUtils;
+
+import com.variamos.common.core.utilities.FileUtilsApache;
+
+
 
 /**
  *
@@ -76,7 +79,7 @@ public class Fragment {
                 File source_f_to_modify = new File(assembled_folder+f_to_modify.get("destination"));
                 if(source_f_to_modify.exists()){
                     try{
-                        f_to_modify_content = FileUtils.readFileToString(source_f_to_modify, "utf-8");
+                        f_to_modify_content = FileUtilsApache.readFileToString(source_f_to_modify, "utf-8");
                     }
                     catch(Exception e){
                     	Fragmental.error_var.add(e.getMessage());
@@ -94,7 +97,7 @@ public class Fragment {
                             new_content += trace;
                             new_content += f_to_modify_content.substring(pos_init+string_search.length());
                             try{
-                                FileUtils.writeStringToFile(source_f_to_modify, new_content, "utf-8");
+                                FileUtilsApache.writeStringToFile(source_f_to_modify, new_content, "utf-8");
                             }
                             catch(Exception e){
                             	Fragmental.error_var.add(e.getMessage());
@@ -127,7 +130,7 @@ public class Fragment {
                         new_content += trace;
                         new_content += f_to_modify_content.substring(pos_final);
                         try{
-                            FileUtils.writeStringToFile(source_f_to_modify, new_content, "utf-8");
+                        	FileUtilsApache.writeStringToFile(source_f_to_modify, new_content, "utf-8");
                         }
                         catch(Exception e){
                         	Fragmental.error_var.add(e.getMessage());

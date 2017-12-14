@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.variamos.fragop;
+package com.variamos.gui.core.fragop;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.io.FileUtils;
+
+import com.variamos.common.core.utilities.FileUtilsApache;
+
 import static java.nio.file.StandardCopyOption.*;
 
 /**
@@ -66,7 +68,7 @@ public class Fragmental {
         File source_f = new File(assets_folder+fragment.get("component_folder")+"/"+fragment.get("filename"));
         if(source_f.exists()){
             try{
-                String f_content = FileUtils.readFileToString(source_f, "utf-8");
+                String f_content = FileUtilsApache.readFileToString(source_f, "utf-8");
                 int pos_frag=0;
                 while(pos_frag!=-1) {
                 	Fragment f1 = new Fragment(f_content,fragment.get("filename"),pos_frag);
@@ -106,7 +108,7 @@ public class Fragmental {
         File source_f = new File(assembled_folder);
         if(source_f.exists()){
             try{
-                FileUtils.deleteDirectory(source_f);
+                FileUtilsApache.deleteDirectory(source_f);
                 source_f.mkdirs();
             }
             catch(Exception e){
