@@ -1,6 +1,7 @@
 package com.variamos.reasoning.medic.model.diagnoseAlgorithm;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.variamos.hlcl.core.HlclProgram;
 
@@ -54,6 +55,17 @@ public class Path<G,V> {
 	public void setPath(LinkedList<V> path) {
 		this.path = path;
 	}
+	
+//	public List<String> getIdsFromPath(){
+//		LinkedList<String> ids = new LinkedList<String>();
+//		for (V v : path) {
+//			ids.addLast(v);
+//			
+//		}
+//		
+//		return ids;
+//		
+//	}
 
 
 }
