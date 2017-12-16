@@ -17,7 +17,7 @@ import com.variamos.hlcl.model.expressions.Identifier;
 import com.variamos.solver.model.compiler.SWIPrologSymbolsConstant;
 
 /**
- * @author Luisa Rinc�n Modified by jcmunoz to support composed domains
+ * @author Luisa Rincon Modified by jcmunoz to support composed domains
  *
  */
 public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbolsConstant {
