@@ -1834,7 +1834,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 	}
 
 	public void updatePespectiveMenuTab(String buttonText) {
-		MainFrame mainFrame = this.getMainFrame();
+		//MainFrame mainFrame = this.getMainFrame();
+		MainFrame mainFrame = (MainFrame)this.getFrame();
 		int perspectiveInd = mainFrame.getPerspective();
 		PerspectiveToolBar perspective = this.installToolBar(mainFrame, perspectiveInd);
 

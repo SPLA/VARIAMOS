@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -56,7 +58,7 @@ public class ConstraintGraphHLCL {
 		//amount of vertices and edges in a graph
 		edges=0;
 		vertices=0;
-		//graph= new UndirectedSparseGraph<Vertex,String>();
+		
 	}
 	
 
@@ -68,11 +70,7 @@ public class ConstraintGraphHLCL {
 	 */
 	public void addVertex(VertexHLCL v){
 		
-		//FIXME acomodar aqu� los llamados al constructor de cada uno de los v�rtices
 		if (v instanceof NodeConstraintHLCL){
-			//Constraint c = 
-			//addConstraint(((NodeConstraintHLCL) v).getConstraint());
-			//System.out.println();
 			constraints.put(v.getId(), (NodeConstraintHLCL) v);
 			constraintsCount++;
 		}
@@ -121,47 +119,18 @@ public class ConstraintGraphHLCL {
 		
 		Set<Identifier> vars=  HlclUtil.getUsedIdentifiers(cons);
 		
-//		String expression = cons.getExpression();
 
-//		//The id is formed by concatening the names of vars
-//		for (int i = 0; i < vars.size(); i++) {
-//			id+=vars.get(i).getId();
-//		}
-//		// Th id is sorted to avoid anagrams
-//		char[] array= id.toCharArray();
-//		Arrays.sort(array);
-//		String sortedId= new String(array);
 		NodeConstraintHLCL node= constraints.get(id);
-		
-		
-		//if there is a constraint node with same set of variables, 
-		//then add the constraint expression into the list of constraints
-		//also, if there is a constraint node it means that the nodes corresponding the variables in the constraint exist.
-//		
+	
 		if (node!=null){
 			//FIXME revisar que pasa si hay mas de una cons con el mismo id  
-//			node.addConstraint(cons);
+
 			}
 		/*
 		 * Si el nodo constraint no existe, entonces 
 		 */
 		else{
 			newNode= new NodeConstraintHLCL(id, cons);  // new node
-			// for each variable expression
-			//TODO old code
-//			for (int i = 0; i < vars.size(); i++) {
-//			
-//				NodeVariableHLCL var= variables.get(vars.get(i).getId());
-//				// if the variable does not exits, then create the variable.
-//				if (var==null){
-//					var= new NodeVariableHLCL(vars.get(i));
-//				}
-//				// in all cases, add the new constraint to the variables neighbors
-//				// add all variables to the constraint neighbors
-//				var.addNeighbor(newNode);
-//				newNode.addNeighbor(var);
-//				edges++;
-//			}
 			// for each variable ( identifier expression)
 			for (Identifier identifier : vars) {
 				//search the variable in the map
@@ -171,9 +140,7 @@ public class ConstraintGraphHLCL {
 					var= new NodeVariableHLCL(identifier);
 					variables.put(identifier.getId(), var);
 					variablesCount++;
-					System.out.println("adding variable: "+var.toString());
-
-					
+					//System.out.println("adding variable: "+var.toString());					
 				}
 				// in all cases, add the new constraint to the variables neighbors
 				// add all variables to the constraint neighbors
@@ -182,40 +149,33 @@ public class ConstraintGraphHLCL {
 				edges++;
 			}
 			constraints.put(id, newNode);
-			System.out.println("adding constraint: "+newNode.toString());
+			//System.out.println("adding constraint: "+newNode.toString());
 		}
 		
 	}
 	
-//	public boolean addVersionConstraint(String expression, String id){
-//		boolean exit=false;
-//		
-//		NodeVariableHLCL var=variables.get(id);
-//		
-//		if (var!=null)
-//			exit= var.addConstraint(new Constraint(expression));
-//		return exit;
-//	}
 	
 	public boolean addUnaryConstraint(IntBooleanExpression cons, Identifier var){
+		constraintsCount++;
 		boolean exit=false;
-		String id= var.getId();
-		NodeVariableHLCL varN=variables.get(id);
+		String id="C"+constraintsCount+"_Unary_"+ var.getId() ;  //the id of the node constraint is a consecutive
+		NodeVariableHLCL varN=variables.get(var.getId());
+		NodeConstraintHLCL newC = new NodeConstraintHLCL(id, cons);
 		// case 1: the variable exists
 		if (varN!=null){
-			exit= varN.addConstraint(cons);
-			constraintsCount++;
+			exit= varN.addUnary(newC);
+			
 			edges++;
-			System.out.println("adding unary constraint to existent var: "+varN.toString());
+			//System.out.println("adding unary constraint to existent var: "+varN.toString());
 
 		}
 		//case 2: the variable does not exists
 		else{
 			varN= addVariable(var);
-			exit= varN.addConstraint(cons);
-			constraintsCount++;
+			exit= varN.addUnary(newC);
+			//constraintsCount++;
 			edges++;
-			System.out.println("adding unary constraint to a new var: "+varN.toString());
+			//System.out.println("adding unary constraint to a new var: "+varN.toString());
 
 			
 		}
@@ -237,7 +197,7 @@ public class ConstraintGraphHLCL {
 			variables.put(var.getId(), varNode);
 			variablesCount++;
 		}
-		System.out.println("adding variable " + varNode.toString());
+		//System.out.println("adding variable " + varNode.toString());
 	
 		return varNode;
 	}
@@ -257,8 +217,10 @@ public class ConstraintGraphHLCL {
 		return variables.size();
 	}
 	
-	public TreeSet<VertexHLCL> getNeighbors(String id, boolean type){
-		TreeSet<VertexHLCL> tmp= null;
+	
+	//Cambios aquí-------------------------------------------------------
+	public Collection<VertexHLCL> getNeighbors(String id, boolean type){
+		Collection<VertexHLCL> tmp= null;
 		if (type==VertexHLCL.CONSTRAINT_TYPE)
 			tmp= constraints.get(id).getNeighbors();
 		
@@ -331,4 +293,50 @@ public class ConstraintGraphHLCL {
 	public int numVertices(){
 		return constraintsCount+variablesCount;
 	}
+	
+	public String getMaxRoot(){
+		String answer ="";
+		int max= -1;
+		NodeVariableHLCL maxVar=null;
+		
+		for (String varId : variables.keySet()) {
+			NodeVariableHLCL var= variables.get(varId);
+			int numAdjacents = var.getNeighbors().size()+ var.getUnary().size();
+			if( numAdjacents >max){
+				max = numAdjacents;
+				maxVar= var;
+			}
+		}
+		answer= maxVar.getId();
+		return answer;
+	}
+	
+	public String getRandRoot(){
+		String answer ="";
+		Object[] keys = variables.keySet().toArray();
+		int min=0;
+		int max= keys.length;
+		Random random = new Random();
+		int rand= random.nextInt(max - min + 1) + min;
+		answer= (String) keys[rand];
+		return answer;
+	}
+	
+	public String getMinRoot(){
+		String answer ="";
+		int min= 2000000;
+		NodeVariableHLCL minVar=null;
+		
+		for (String varId : variables.keySet()) {
+			NodeVariableHLCL var= variables.get(varId);
+			int numAdjacents = var.getNeighbors().size()+ var.getUnary().size();
+			if( numAdjacents <min){
+				min = numAdjacents;
+				minVar= var;
+			}
+		}
+		answer= minVar.getId();
+		return answer;
+	}
+	
 }

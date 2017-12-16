@@ -282,11 +282,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 											if (var.getValue() != null) {
 												// FIXME v1.1 added to support
 												// Angela's constraints
-												if (var.getAttribute()
+												if (!(var.getAttribute()
+														.getMetaConceptInstanceType()==null )
+														&& var.getAttribute()
 														.getMetaConceptInstanceType()
 														.equals("ConstraintExpression")) {
 													// FIXME use an enumeration
 													// instead of the string
+													if(var.getValue() instanceof ModelExpr)
 													out.add((ModelExpr) var
 															.getValue());
 												} else {
@@ -831,8 +834,26 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return out;
 	}
 
+	/**
+	 * Se agrega soporte para la tabla (restriccion->concepto)
+	 * @param column
+	 * @return
+	 * @throws FunctionalException
+	 */
+
+	public HlclProgram getHlCLProgramExpressions(String column) throws FunctionalException {
+		return getHlCLProgramExpressions(column, null);
+	}
+
+	/**
+	 * Se agrega soporte para la tabla (restriccion->concepto)
+	 * @param column
+	 * @param table
+	 * @return
+	 * @throws FunctionalException
+	 */
 	// Dynamic call
-	public HlclProgram getHlCLProgramExpressions(String column)
+	public HlclProgram getHlCLProgramExpressions(String column, Map<IntBooleanExpression,String> table)
 			throws FunctionalException {
 		HlclProgram prog = new HlclProgram();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
@@ -840,15 +861,20 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.createSGSExpression();
 			// System.out.println(expression.getSemanticExpression()
 			// .expressionStructure());
-			if (newExp != null)
+			if (newExp != null){
 				prog.add(newExp);
+				if(table!=null) table.put(newExp,expression.getSourceConceptId());
+			}
 		}
 		for (ModelExpr expression : instanceLowExpr.get(column)) {
 			IntBooleanExpression newExp = (IntBooleanExpression) expression
 					.createSGSExpression();
 
-			if (newExp != null)
+			if (newExp != null){
 				prog.add(newExp);
+				String id = expression.getSemanticExpression().getSemanticElement().getIdentifier();
+				table.put(newExp,id);
+			}
 		}
 		return prog;
 	}

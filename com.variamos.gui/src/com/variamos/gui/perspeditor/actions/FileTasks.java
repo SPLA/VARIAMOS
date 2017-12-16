@@ -47,6 +47,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 	private VariamosGraphEditor variamosEditor;
 	private mxGraph graph;
 	private Color bgColor;
+	private Runnable callFinally;
 
 	public FileTasks(ProgressMonitor progressMonitor) {
 		super();
@@ -55,12 +56,13 @@ public class FileTasks extends SwingWorker<Void, Void> {
 	}
 
 	public FileTasks(ProgressMonitor progressMonitor, FileTasksEnum execType, File file,
-			VariamosGraphEditor variamosEditor, mxGraph graph) {
+			VariamosGraphEditor variamosEditor, mxGraph graph, final Runnable callFinally) {
 		this.progressMonitor = progressMonitor;
 		this.file = file;
 		this.execType = execType;
 		this.variamosEditor = variamosEditor;
 		this.graph = graph;
+		this.callFinally = callFinally;
 	}
 
 	public FileTasks(ProgressMonitor progressMonitor, FileTasksEnum execType, String filename, String ext,
@@ -363,6 +365,12 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			// Ends the progress for finishing the progress monitor even if exceptions were
 			// launched
 			setProgress(100);
+			
+			//System.out.println("En FileTask.done() .. finally");
+			if(callFinally!=null) {
+				//System.out.println("**** callFinally!=null ****");
+				callFinally.run();
+			}
 		}
 
 	}

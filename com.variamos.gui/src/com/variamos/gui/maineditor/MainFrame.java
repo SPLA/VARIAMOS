@@ -22,6 +22,8 @@ import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.core.io.ConsoleTextArea;
+import com.variamos.gui.core.maineditor.models.ParadigmTypeEnum;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIPerspectiveEditorActionsController;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
@@ -31,13 +33,12 @@ import com.variamos.hlcl.model.expressions.HlclFactory;
 import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
 
-
 /**
  * Crea las distintas partes del editor 
  * 
  * Una instancia del variamosgraph editor por cada perspectiva
  * Carga la ventana principal
- * Controlador principal de la interfaz gráfica. 
+ * Controlador principal de la interfaz grï¿½fica. 
  * @author lufe0
  *
  */
@@ -68,6 +69,7 @@ public class MainFrame extends JFrame {
 	private List<PerspEditorMenuBar> editorsMenu;
 
 	public MainFrame(String[] args) {
+		
 		try {
 			createResources();
 		} catch (Exception e1) {
@@ -76,12 +78,14 @@ public class MainFrame extends JFrame {
 		}
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
+				
 		Map<String, OpersExprType> metaExpressionTypes = createMetaExpressionTypes();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1166, 768);
 
 		System.out
 				.print("Loading Syntax, Semantic and Operations Infrastructure...");
+
 		InstanceModel InfraBasicSyntax = new InstanceModel(
 				PerspectiveType.INFRASTRUCTUREBASICSYNTAX, metaExpressionTypes);
 		InstanceModel syntaxInfrastructure = new InstanceModel(
@@ -182,12 +186,22 @@ public class MainFrame extends JFrame {
 			System.out.println(" done");
 			editor.updateView();
 		}
-
+		
 		System.out.println("GUI load completed");
 		this.add(graphEditors.get(2));
 		this.setJMenuBar(editorsMenu.get(2));
+		
+		VariamosGUIPerspectiveEditorActionsController.changeVariamosParadigmView(graphEditors);
+		/*
+		//this sleep is a simple test
+		try {
+			Thread.sleep(5000);
+		}catch (Exception e) {
+			System.out.println("no SLEEP :(");
+		}
 		graphEditors.get(2).updatePespectiveMenuTab(
 				mxResources.get("modelingPerspButton"));
+		*/
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 			this.checkUpdates(false);
@@ -291,8 +305,6 @@ public class MainFrame extends JFrame {
 			this.setCursor(defaultCursor);
 
 	}
-
-	
 
 	public void setLayout() {
 		this.getRootPane().getContentPane().removeAll();
