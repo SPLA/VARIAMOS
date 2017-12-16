@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.20";
 	private String variamosVersionName = "1.0 Beta 20";
-	private String variamosBuild = "20171028-1800";
+	private String variamosBuild = "20171207-0400";
 	private String downloadId = "566";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -187,7 +187,7 @@ public class MainFrame extends JFrame {
 		System.out.println("GUI load completed");
 		this.add(graphEditors.get(2));
 		this.setJMenuBar(editorsMenu.get(2));
-		graphEditors.get(2).updatePespectiveMenuTab(
+		graphEditors.get(2).updatePespectiveMenuTab(modelEditor,
 				mxResources.get("modelingPerspButton"));
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {

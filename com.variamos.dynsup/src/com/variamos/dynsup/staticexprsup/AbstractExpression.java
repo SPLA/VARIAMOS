@@ -273,9 +273,12 @@ public abstract class AbstractExpression {
 			configdomain = configdomain.substring(0, configdomain.length() - 1);
 			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 		} else if (attribute.getName().equals("varConfValue")) {
+			Boolean isConfigdomain = (Boolean) instVertex.getInstAttribute(
+					"isConfDom").getValue();
 			String configdomain = (String) instVertex.getInstAttribute(
 					"varConfDom").getValue();
-			if (configdomain != null && !configdomain.equals(""))
+			if (configdomain != null && isConfigdomain && isConfigdomain
+					&& !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 		} else if (attribute.getName().equals("value")) {
 			String type = (String) instVertex.getInstAttribute("variableType")
