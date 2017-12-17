@@ -327,9 +327,11 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						if (instAttribute.getIdentifier().equals(
 								"ConditionalExpression")) {
 							boolean dr = false;
-							if (instAttribute.getValue() instanceof Integer)
+							if (instAttribute.getValue() instanceof Integer
+									|| !(instAttribute.getValue() instanceof ModelExpr))
 								dr = true;
-							if (!dr) {
+							if (!dr
+									&& instAttribute.getValue() instanceof ModelExpr) {
 								ModelExpr instanceExpression = (ModelExpr) instAttribute
 										.getValue();
 								if (instanceExpression != null

@@ -172,7 +172,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		final InstAttribute instVariableConfigDomain = new InstAttribute(
 				"varConfDom",
 				new ElemAttribute("varConfDom", StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Configured Domain", "",
+						AttributeType.SYNTAX, false, "Restricted Domain", "",
 						"", 1, -1, "", "", -1, "", ""), "");
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration

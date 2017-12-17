@@ -372,7 +372,7 @@ public class DefaultOpersMM {
 	protected static InstConcept instVertexHC = null;
 
 	public static void createOpersMetaModel(InstanceModel refas, boolean empty) {
-		createOpersMetaModelOpers(refas, empty, false);
+		createOpersMetaModelOpers(refas, empty, true);
 		createSemanticNmMetaModel(refas, empty);
 		if (!empty) {
 			createGeneralMetaModel(refas);
@@ -2273,6 +2273,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("opname").setValue(
 					"Identify Loops in Struct. Rels");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 			instOperationAction.getInstAttribute("position").setValue(10);
@@ -2792,6 +2793,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("opname").setValue(
 					"Identify Claims & SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 			instOperationAction.getInstAttribute("position").setValue(16);
@@ -10183,6 +10185,8 @@ public class DefaultOpersMM {
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
 
+		// Variable with the domain restricted to the varConfDom when the
+		// isConfDomain is true
 		attribute = new ElemAttribute("varConfValue", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "Configured Value",
 				"Configured value", 0, 0, 8, "", "", -1, "", "", "varConfDom",
@@ -10358,6 +10362,45 @@ public class DefaultOpersMM {
 				"NmAttribute", infraMetaMetaCollection, infraOpersM2Attribute);
 		refas.getVariabilityVertex().put("NmAttribute",
 				instInfraSyntaxOpersM2Attribute);
+
+		SyntaxElement infraOpersM2Enum = new SyntaxElement('A',
+				"NmEnumeration", false, true, "NmEnumeration",
+				"infrasyntaxm2miniconcept", "Enumeration meta-concept", 120,
+				120, "/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instInfraSyntaxOpersM2Enum = new InstConcept(
+				"NmEnumeration", infraMetaMetaCollection, infraOpersM2Enum);
+		refas.getVariabilityVertex().put("NmEnumeration",
+				instInfraSyntaxOpersM2Enum);
+
+		SyntaxElement infraOpersM2EnumLit = new SyntaxElement('A',
+				"NmEnumLiteral", false, true, "NmEnumLiteral",
+				"infrasyntaxm2miniconcept", "Enumeration meta-concept", 120,
+				120, "/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		infraOpersM2EnumLit.addModelingAttribute("Name", new ElemAttribute(
+				"literalId", "Integer", AttributeType.SYNTAX, false,
+				"Concept Name", "", "InstAttribute", 0, 1, "", "", 1, "", ""));
+
+		infraOpersM2EnumLit
+				.addModelingAttribute("type", new ElemAttribute("litValue",
+						"String", AttributeType.SYNTAX, false, "Type", "",
+						"TypeEnum", "", "", 0, 3, "", "", -1, "type"
+								+ "#all#\n\n", ""));
+
+		InstConcept instInfraSyntaxOpersM2EnumLit = new InstConcept(
+				"NmEnumLiteral", infraMetaMetaCollection, infraOpersM2EnumLit);
+		refas.getVariabilityVertex().put("NmEnumLiteral",
+				instInfraSyntaxOpersM2EnumLit);
+
+		InstPairwiseRel instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("enutoenumlit", instEdge);
+		instEdge.setIdentifier("enutoenumlit");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2EnumLit, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Enum, true);
 
 		OpersVariable semLowExp = new OpersVariable("NmLowExp");
 

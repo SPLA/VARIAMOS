@@ -17,14 +17,11 @@ import javax.swing.SwingWorker;
 
 import com.variamos.common.core.exceptions.FunctionalException;
 import com.variamos.common.core.utilities.StringUtils;
-import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.InstanceModel;
-import com.variamos.dynsup.model.LowExpr;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
-import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.dynsup.types.OpersComputationType;
 import com.variamos.dynsup.types.OpersOpType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
@@ -34,7 +31,6 @@ import com.variamos.hlcl.core.HlclUtil;
 import com.variamos.hlcl.model.expressions.HlclFactory;
 import com.variamos.hlcl.model.expressions.Identifier;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
-import com.variamos.hlcl.model.expressions.LiteralBooleanExpression;
 import com.variamos.io.core.importExport.ExportConfiguration;
 import com.variamos.reasoning.defectAnalyzer.core.CauCosAnayzer;
 import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
@@ -52,9 +48,6 @@ import com.variamos.reasoning.medic.model.graph.VertexHLCL;
 import com.variamos.reasoning.util.LogParameters;
 import com.variamos.solver.core.SWIPrologSolver;
 import com.variamos.solver.model.SolverSolution;
-
-//import graphHLCL.VertexHLCL;
-//import minimalSets.MinimalSetsDFSIterationsHLCL;
 
 /**
  * A class to support SwingWorkers for solver execution tasks using the semantic
@@ -102,8 +95,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public boolean isCorrectExecution() {
 		return correctExecution;
 	}
+
 	/**
 	 * Method that builds what will be executed in the the worker
+	 * 
 	 * @param progressMonitor
 	 * @param refasModel
 	 * @param refas2hlcl
@@ -172,7 +167,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		setProgress(0);
 		try {
 			Thread.sleep(1);
-			//Method that executes the operations
+			// Method that executes the operations
 			executeOperations();
 		} catch (java.lang.UnsatisfiedLinkError e) {
 			errorMessage = "Solver not correctly configured";
@@ -186,6 +181,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			errorTitle = "Verification Error";
 			correctExecution = false;
 			// FIXME issue#230
+			e.printStackTrace();
 			throw new FunctionalException(e.getMessage() + " " + FunctionalException.exceptionStacktraceToString(e));
 		}
 		task = 100;
@@ -258,7 +254,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		List<String> deadConceptsNames = new ArrayList<String>();
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(configHlclProgram, parentComponent,
 				"Configuring Selected Elements");
-				// System.out.println("FREE: " + freeIdentifiers);
+		// System.out.println("FREE: " + freeIdentifiers);
 
 		// System.out.println("CONF: " + configuredIdentNames);
 
@@ -323,7 +319,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				try {
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
-					//FIXME issue#230
+					// FIXME issue#230
 					throw new FunctionalException(FunctionalException.exceptionStacktraceToString(e));
 				}
 				continue;
@@ -331,21 +327,20 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			next = false;
 
 			resetFreeIdentifiers();
-			
-			// for each operation in the list of operation names, the list of operation names is a parameter 
-			for (String operationName : operationsNames) {				
+			// for each operation in the list of operation names, the list of operation
+			// names is a parameter
+			for (String operationName : operationsNames) {
 				// operationObj is the hlcl program regarding the operation name
-				// the call returns the object with the id 
-				InstElement operationObj = refas2hlcl.getRefas()
-						.getSyntaxModel().getOperationalModel()
+				// the call returns the object with the id
+				InstElement operationObj = refas2hlcl.getRefas().getSyntaxModel().getOperationalModel()
 						.getElement(operationName);
-				
+
 				Set<InstElement> suboperationsObjs = new TreeSet<InstElement>();
 				Map<String, InstElement> instsuboperations = new HashMap<String, InstElement>();
 				// Auto sorting with treeset
-				String operType = (String) operationObj  // operType is the type of the operation
+				String operType = (String) operationObj // operType is the type of the operation
 						.getInstAttributeValue("operType");
-				String computationalType = (String) operationObj  //computationalType 
+				String computationalType = (String) operationObj // computationalType
 						.getInstAttributeValue("compType");
 				boolean computationalAnalysis = false;
 				if (operType.equals(StringUtils.formatEnumValue(OpersOpType.Computational_Analysis.toString()))) {
@@ -361,57 +356,49 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				}
 				result = 0;
 				InstElement lastSubOper = null;
-				//for each suboperation in an operation
+				// for each suboperation in an operation
 				for (InstElement suboper : suboperationsObjs) {
-					lastSubOper = suboper;		
-					//stop when the result is -1 or the operation is of type Validation
-					if (result == -1
-							&& operationObj.getInstAttributeValue("operType")
-									.equals("Validation"))
+					lastSubOper = suboper;
+					// stop when the result is -1 or the operation is of type Validation
+					if (result == -1 && operationObj.getInstAttributeValue("operType").equals("Validation"))
 						break;
 					try {
 						// Validation operations
 						// System.out.println(((String) suboper
-						// .getInstAttributeValue("type")));				
-						//the type of the sub-operation
-						String type = (String) suboper
-								.getInstAttributeValue("type");
+						// .getInstAttributeValue("type")));
+						// the type of the sub-operation
+						String type = (String) suboper.getInstAttributeValue("type");
 						// if the dashboard is visible or not
-						boolean showDashboard = (boolean) suboper
-								.getInstAttributeValue("showDashboard");
-						// obtain the message of the operation when there is a string defined by the user
+						boolean showDashboard = (boolean) suboper.getInstAttributeValue("showDashboard");
+						// obtain the message of the operation when there is a string defined by the
+						// user
 						if (suboper.getInstAttributeValue("completedMessage") != null
 								&& !((String) suboper.getInstAttributeValue("completedMessage")).equals(""))
 							completedMessage = (String) suboper.getInstAttributeValue("completedMessage");
 						boolean simul = false;
-						if (showDashboard)
-							this.showDashboard = showDashboard;		
-						// determine the type of the operation and call the method implementing the operation
-						
+						if (showDashboard) {
+							this.showDashboard = showDashboard;
+						}
+						// determine the type of the operation and call the method implementing the
+						// operation
+
 						// if type Number_Solutions
-						if (type.equals(StringUtils
-								.formatEnumValue(OpersSubOpType.Number_Solutions
-										.toString()))) {
+						if (type.equals(StringUtils.formatEnumValue(OpersSubOpType.Number_Solutions.toString()))) {
 							if (computationalAnalysis) {
 								results[subOperIndex++] = countConfigurations(operationObj, suboper);
 								result = 0;
 							} else
-								countConfigurations(operationObj, suboper); //Method that calls the solver and obtains the amount of solutions
-						} 
+								countConfigurations(operationObj, suboper); // Method that calls the solver and obtains
+																			// the amount of solutions
+						}
 						// type is Export_Solutions
-						else if (type
-								.equals(StringUtils
-										.formatEnumValue(OpersSubOpType.Export_Solutions
-												.toString()))) {
+						else if (type.equals(StringUtils.formatEnumValue(OpersSubOpType.Export_Solutions.toString()))) {
 							saveConfiguration(file, operationObj, suboper);
-						} 
+						}
 						// type is First_Solution or Iterate
-						else if (type.equals(StringUtils
-								.formatEnumValue(OpersSubOpType.First_Solution
-										.toString()))
-								|| type.equals(StringUtils
-										.formatEnumValue(OpersSubOpType.Iterate_Solutions
-												.toString()))) {
+						else if (type.equals(StringUtils.formatEnumValue(OpersSubOpType.First_Solution.toString()))
+								|| type.equals(
+										StringUtils.formatEnumValue(OpersSubOpType.Iterate_Solutions.toString()))) {
 							simul = true;
 							if (lastConfiguration == null || firstSimulExec) {
 								result = refas2hlcl.execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION, operationObj,
@@ -450,13 +437,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							result = cauCos(0, operationObj, suboper, errorHint, outAttributes, updateOutAttributes,
 									outAttribute, operationsNames.size(), mode, indivVerExp, indivRelExp, natLanguage);
 							terminated = true;
-						} 
-						
+						}
+
 						// Verification operations with DefectsVerifier
-						else if (type
-								.equals(StringUtils
-										.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
-												.toString()))
+						else if (type.equals(StringUtils.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif.toString()))
 								|| type.equals(StringUtils
 										.formatEnumValue(OpersSubOpType.UpdModel_Defects_Verif.toString()))) {
 							String method = (String) suboper.getInstAttributeValue("defectType");
@@ -488,38 +472,27 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									operationsNames.size(), reuseFreeIds, updateFreeIds, outAttribute,
 									updateOutAttributes, coreOperation, constraitsToVerifyRedundacies);
 							terminated = true;
-						} 
-						//TODO modifications by avillota for including MEDIC   
-						else if (type
-								.equals(StringUtils
-										.formatEnumValue(OpersSubOpType.Medic
-												.toString())))
-						{
+						}
+						// TODO modifications by avillota for including MEDIC
+						else if (type.equals(StringUtils.formatEnumValue(OpersSubOpType.Medic.toString()))) {
 
+							String errorHint = (String) suboper.getInstAttributeValue("errorHint");
+							String outAttribute = (String) suboper.getInstAttributeValue("outAttribute");
+							List<OpersIOAttribute> outAttributes = ((OpersSubOperation) suboper.getEdOperEle())
+									.getOutAttributes();
 
-							String errorHint = (String) suboper
-									.getInstAttributeValue("errorHint");
-							String outAttribute = (String) suboper
-									.getInstAttributeValue("outAttribute");
-							List<OpersIOAttribute> outAttributes = ((OpersSubOperation) suboper
-									.getEdOperEle()).getOutAttributes();
+							// PONER AQUi LAS INSTRUCCIONES PARA TOMAR LOS INPUTS
 
-							
-							//PONER AQUÍ LAS INSTRUCCIONES PARA TOMAR LOS INPUTS
-							
-							//Call to the method that calls medic
+							// Call to the method that calls medic
 							// result is -1 if something fails,
 							// if the model is consistent
 							// > 1 if it has inconsistencies
-							result = medicExecution(operationObj, suboper,
-									 errorHint, outAttributes,  outAttribute);
-							
+							result = medicExecution(operationObj, suboper, errorHint, outAttributes, outAttribute);
+
 							// the operation should finish
 							terminated = true;
-						
-							
-						}
-						else {
+
+						} else {
 							result = -1;
 						}
 						if (result == 0) {
@@ -638,7 +611,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 					} catch (Exception e) {
 						// FIXME issue#230
-						e.printStackTrace(); 
 						throw new FunctionalException(FunctionalException.exceptionStacktraceToString(e));
 					}
 
@@ -662,14 +634,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private void resetFreeIdentifiers() {
 		defectsFreeIdsName = null;
 	}
-	
 
-	
 	/**
-	 * Call to the method that calls medic
-	 * result is -1 if something fails,
-	 * 0 if the model is consistent
-	 * > 1 if it has inconsistencies
+	 * Call to the method that calls medic result is -1 if something fails, 0 if the
+	 * model is consistent > 1 if it has inconsistencies
+	 * 
 	 * @param operation
 	 * @param subOper
 	 * @param verifHint
@@ -678,150 +647,139 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	 * @return
 	 * @throws Exception
 	 */
-	public int medicExecution(InstElement operation, InstElement subOper,
-			String verifHint,
-			List<OpersIOAttribute> outAttributes,  //pend
-			String outAttribute)
-			throws Exception {
+	public int medicExecution(InstElement operation, InstElement subOper, String verifHint,
+			List<OpersIOAttribute> outAttributes, // pend
+			String outAttribute) throws Exception {
 
-		int result=0;
-		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
-				refasModel, operation, null, null);
-		
-		Map<IntBooleanExpression,String> table = new HashMap<>();
-		
-		
-		
-		HlclProgram program = refas2hlcl.getHlclProgram(
-				operation, subOper.getIdentifier(),
-				OpersSubOpExecType.NORMAL, transExpSet, table);
-		
-		
+		int result = 0;
+		TranslationExpressionSet transExpSet = new TranslationExpressionSet(refasModel, operation, null, null);
 
-		//use table
-		
-		if (program!=null){
-						
-			SWIPrologSolver swiSolver= new SWIPrologSolver();
-			swiSolver.setHLCLProgram(program); //passing the hlcl program to the solver
-			swiSolver.solve(); // This method prepares the solver 
+		Map<IntBooleanExpression, String> table = new HashMap<>();
+		HlclProgram program = refas2hlcl.getHlclProgram(operation, subOper.getIdentifier(), OpersSubOpExecType.NORMAL,
+				transExpSet, table);
+
+		// use table
+
+		if (program != null) {
+
+			SWIPrologSolver swiSolver = new SWIPrologSolver();
+			swiSolver.setHLCLProgram(program); // passing the hlcl program to the solver
+			swiSolver.solve(); // This method prepares the solver
 			boolean satisfiable = swiSolver.hasSolution(); // Consulting if the solver has one solution
-			
-			if (satisfiable){
-				result= 0;
-			}
-			else{
-				ArrayList<String> inconsistentPath= new ArrayList<String>();
-				ArrayList<String> inconsistentMsg= new ArrayList<String>();				
-				//Log parameters allow the activation of the logManager, 
-				//to start an execution using a log manager comment line 722 and uncomment line 723
-				// using a valid path and a name for the problem
-				LogParameters params= new LogParameters();
-				//LogParameters params= new LogParameters("/Users/Angela/Test/", "test");
-				MinimalSetsDFSIterationsHLCL medic= new MinimalSetsDFSIterationsHLCL(program, params);
-				String root= getRoot();
-				if (root==null) //if the user did not pick a root, the algorithm starts in the first variable
-					root="CGVariable1_value";
-				else // the algorithm starts with the first variable selected
-					root+="_value";
-				LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraints(root,10);
-				//LinkedList<VertexHLCL> output= medic.sourceOfInconsistentConstraints("CGVariable1_value",10);
 
-				for (VertexHLCL vertex : output) { 
-					if(vertex instanceof NodeVariableHLCL){
+			if (satisfiable) {
+				result = 0;
+			} else {
+				ArrayList<String> inconsistentPath = new ArrayList<String>();
+				ArrayList<String> inconsistentMsg = new ArrayList<String>();
+				// Log parameters allow the activation of the logManager,
+				// to start an execution using a log manager comment line 722 and uncomment line
+				// 723
+				// using a valid path and a name for the problem
+				LogParameters params = new LogParameters();
+				// LogParameters params= new LogParameters("/Users/Angela/Test/", "test");
+				MinimalSetsDFSIterationsHLCL medic = new MinimalSetsDFSIterationsHLCL(program, params);
+				String root = getRoot();
+				if (root == null) // if the user did not pick a root, the algorithm starts in the first variable
+					root = "CGVariable1_value";
+				else // the algorithm starts with the first variable selected
+					root += "_value";
+				LinkedList<VertexHLCL> output = medic.sourceOfInconsistentConstraints(root, 10);
+				// LinkedList<VertexHLCL> output=
+				// medic.sourceOfInconsistentConstraints("CGVariable1_value",10);
+
+				for (VertexHLCL vertex : output) {
+					if (vertex instanceof NodeVariableHLCL) {
 						// Add the variable into the list of IDs to be updated
-						//Add the error message 
+						// Add the error message
 
 						inconsistentPath.add(vertex.getId().replaceFirst("_value", ""));
 						inconsistentMsg.add("variable in the inconsistent path");
 
-						//añadir la variable a la lista y después una por una las retsricciones unarias asociadas.
+						// aÃ±adir la variable a la lista y despuÃ©s una por una las retsricciones
+						// unarias asociadas.
 						for (NodeConstraintHLCL cons : ((NodeVariableHLCL) vertex).getUnary()) {
 
-							String consId= getIdFromTable(cons.getConstraint(), table).replaceFirst("_value", "");
-							//System.out.println(cons.getId() + " id:" + consId );
+							String consId = getIdFromTable(cons.getConstraint(), table).replaceFirst("_value", "");
+							// System.out.println(cons.getId() + " id:" + consId );
 							inconsistentPath.add(consId);
 							inconsistentMsg.add("Constraint in the inconsistent path");
 						}
 
-					}else {
-						String consId= getIdFromTable(((NodeConstraintHLCL) vertex).getConstraint(), table).replaceFirst("_value", "");
+					} else {
+						String consId = getIdFromTable(((NodeConstraintHLCL) vertex).getConstraint(), table)
+								.replaceFirst("_value", "");
 						inconsistentPath.add(consId);
-						//System.out.println(vertex.getId() + " id:" + consId );
+						// System.out.println(vertex.getId() + " id:" + consId );
 						inconsistentMsg.add("Constraint in the inconsistent path");
 					}
-				}				
+				}
 				refas2hlcl.updateErrorMark(inconsistentPath, verifHint, inconsistentMsg);
 
 			}
+			return result;
+		} else {
+			result = -1;
+			throw new FunctionalException("The translation is not working properly, the constraint program i empty");
+		}
 
+	}
+
+	/**
+	 * Method to obtain the Id of a contstraint represented as a HLCL expression
+	 * 
+	 * @param constraint
+	 *            hlcl expression
+	 * @param table
+	 *            map with the constraints and the Ids
+	 * @return
+	 */
+	private String getIdFromTable(IntBooleanExpression constraint, Map<IntBooleanExpression, String> table) {
+
+		return table.get(constraint);
+
+	}
+
+	private int defectsVerifier(InstElement operation, InstElement subOper, String method, String verifHint,
+			List<OpersIOAttribute> outAttributes, int numberOperations, boolean reuseIds, boolean updateIds,
+			String outAttribute, boolean updateOutAttributes, InstElement coreOperation,
+			List<IntBooleanExpression> constraitsToVerifyRedundacies) throws InterruptedException, FunctionalException {
+		int result = 0;
+		executionTime = "";
+
+		if (coreOperation == null && !method.equals("getRedundancies") && !method.equals("getFalsePLs"))
+			// Update core
+			result = defectExecution(operation, subOper, method, outAttributes, numberOperations, outAttribute,
+					updateOutAttributes);
+
+		else
+			result = defectExecution(operation, subOper, method, verifHint, outAttributes, numberOperations, reuseIds,
+					updateIds, outAttribute, updateOutAttributes, coreOperation, constraitsToVerifyRedundacies);
+
+		if (progressMonitor.isCanceled())
+			throw (new InterruptedException());
 		return result;
 	}
-	else{
-		result=-1;
-		throw new FunctionalException("The translation is not working properly, the constraint program i empty");
-	}
 
-}
+	private int cauCos(int type, InstElement operation, InstElement subOper, String verifHint,
+			List<OpersIOAttribute> outAttributes, boolean updateOutAttributes, String outAttribute,
+			int numberOperations, DefectAnalyzerModeEnum mode, boolean indivVerExp, boolean indivRelExp,
+			boolean natLanguage) throws InterruptedException {
+		int outResult = 0;
+		executionTime = "";
 
-/**
- * Method to obtain the Id of a contstraint represented as a HLCL expression
- * @param constraint hlcl expression
- * @param table map with the constraints and the Ids
- * @return
- */
-private String getIdFromTable(IntBooleanExpression constraint, Map<IntBooleanExpression,String> table){
+		// type: for future variations on the execution
+		String verifElement = operation.getIdentifier();
+		long iniTime = System.currentTimeMillis();
+		long iniSTime = 0;
+		long endSTime = 0;
+		try {
+			// que es un translation expression set?
+			TranslationExpressionSet transExpSet = new TranslationExpressionSet(refasModel, operation, null, null);
 
-	return table.get(constraint);
-
-}
-
-
-private int defectsVerifier(InstElement operation, InstElement subOper, String method, String verifHint,
-		List<OpersIOAttribute> outAttributes, int numberOperations, boolean reuseIds, boolean updateIds,
-		String outAttribute, boolean updateOutAttributes, InstElement coreOperation,
-		List<IntBooleanExpression> constraitsToVerifyRedundacies) throws InterruptedException, FunctionalException {
-	int result = 0;
-	executionTime = "";
-
-
-	if (coreOperation == null && !method.equals("getRedundancies") && !method.equals("getFalsePLs"))
-		// Update core
-		result = defectExecution(operation, subOper, method, outAttributes, numberOperations, outAttribute,
-				updateOutAttributes);
-
-	else
-		result = defectExecution(operation, subOper, method, verifHint, outAttributes, numberOperations, reuseIds,
-				updateIds, outAttribute, updateOutAttributes, coreOperation, constraitsToVerifyRedundacies);
-
-	if (progressMonitor.isCanceled())
-		throw (new InterruptedException());
-	return result;
-}
-
-
-
-private int cauCos(int type, InstElement operation, InstElement subOper, String verifHint,
-		List<OpersIOAttribute> outAttributes, boolean updateOutAttributes, String outAttribute,
-		int numberOperations, DefectAnalyzerModeEnum mode, boolean indivVerExp, boolean indivRelExp,
-		boolean natLanguage) throws InterruptedException {
-	int outResult = 0;
-	executionTime = "";
-
-	// type: for future variations on the execution
-	String verifElement = operation.getIdentifier();
-	long iniTime = System.currentTimeMillis();
-	long iniSTime = 0;
-	long endSTime = 0;
-	try {
-		// que es un translation expression set?
-		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
-				refasModel, operation, null, null);
-
-		List<IntBooleanExpression> verifyList = refas2hlcl.getHlclProgram(
-				operation, subOper.getIdentifier(),
-				OpersSubOpExecType.VERIFICATION, transExpSet);
-		HlclProgram relaxedList = refas2hlcl.getHlclProgram(operation, subOper.getIdentifier(),
+			List<IntBooleanExpression> verifyList = refas2hlcl.getHlclProgram(operation, subOper.getIdentifier(),
+					OpersSubOpExecType.VERIFICATION, transExpSet);
+			HlclProgram relaxedList = refas2hlcl.getHlclProgram(operation, subOper.getIdentifier(),
 					OpersSubOpExecType.RELAXABLE, transExpSet);
 			List<ModelExpr> relaxedMEList = refas2hlcl.getInstanceExpressions(operation, subOper.getIdentifier(),
 					OpersSubOpExecType.RELAXABLE);
@@ -1054,7 +1012,7 @@ private int cauCos(int type, InstElement operation, InstElement subOper, String 
 			List<IntBooleanExpression> constraitsToVerifyRedundacies) throws InterruptedException, FunctionalException {
 		HlclFactory f = new HlclFactory();
 
-		//outAttributes
+		// outAttributes
 		long iniTime = System.currentTimeMillis();
 		int result = 0;
 		// Validate if the model is correct
@@ -1236,27 +1194,25 @@ private int cauCos(int type, InstElement operation, InstElement subOper, String 
 		}
 		return out;
 	}
-	
-	private String getRoot()
-	{
-		String root="";
+
+	private String getRoot() {
+		String root = "";
 		for (InstElement instE : refasModel.getElements()) {
-			boolean value=false;
-			String name= (String) instE.getIdentifier();
-			if (instE.getInstAttribute("root") !=null){
-				value= (boolean)instE.getInstAttribute("root").getValue();
-				//System.out.println(instE.getInstAttribute("root").getValue());
-				System.out.println(name + " "+ value);
-				if (value){
-				root=name;
-				break;
+			boolean value = false;
+			String name = (String) instE.getIdentifier();
+			if (instE.getInstAttribute("root") != null) {
+				value = (boolean) instE.getInstAttribute("root").getValue();
+				// System.out.println(instE.getInstAttribute("root").getValue());
+				System.out.println(name + " " + value);
+				if (value) {
+					root = name;
+					break;
 				}
 			}
 		}
-		
+
 		return root;
 	}
-		
 
 	public boolean isInvalidConfigHlclProgram() {
 		return invalidConfigHlclProgram;
@@ -1269,7 +1225,7 @@ private int cauCos(int type, InstElement operation, InstElement subOper, String 
 	public String getExecutionTime() {
 		return executionTime;
 	}
-	
+
 	public List<String> getOutVariables() {
 		return outVariables;
 	}
