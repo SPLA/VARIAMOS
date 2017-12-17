@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.net.URISyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -49,7 +51,7 @@ public class ExternalContextDialog extends JDialog implements
 	private JCheckBox mapeAP;
 	private JCheckBox fileIteration;
 	private JCheckBox firstSolutionOnly;
-	private int width = 480;
+	private int width = 680;
 	private int height = 500;
 	private MonitoringWorker monitoringWorker;
 	private JTextArea results;
@@ -67,80 +69,96 @@ public class ExternalContextDialog extends JDialog implements
 		setPreferredSize(new Dimension(width, height));
 		setTitle("Simulation Control Dialog");
 		// setVisible(true);
+		String filesUrl = null;
+		try {
+			filesUrl = new File(ExternalContextDialog.class
+					.getProtectionDomain().getCodeSource().getLocation()
+					.toURI().getPath()).getParentFile().getPath()
+					.replace('\\', '/');
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		generalPanel = new JPanel();
 		generalPanel.setLayout(new BorderLayout());
 
 		panel = new JPanel();
 		panel.setLayout(new SpringLayout());
-		JLabel lab = new JLabel("Initial Config File (Optional): ");
-		lab.setToolTipText("Initial JSON config file. Leave empty to use the configuration on graph");
+		JLabel lab = new JLabel(
+				"Initial (Partial) Configuration File (Optional): ");
+		lab.setToolTipText("Initial JSON config file. If empty, the simulation uses the current model configuration");
 		panel.add(lab);
-		initialConfigFile = new JTextField("Z:/monitor/ini.conf");
+		initialConfigFile = new JTextField(filesUrl + "/monitor/ini.conf");
 		panel.add(initialConfigFile);
-		lab = new JLabel("Input Directory: ");
-		lab.setToolTipText("Input context (variables values) and configuration (operationalizations and features)");
+		lab = new JLabel("Path of (partial) configuration files: ");
+		lab.setToolTipText("Input context (variables values) and configuration (operationalizations, assets and features)");
 		panel.add(lab);
-		monitoringDirectory = new JTextField("Z:/monitor/systemtoobj/");
+		monitoringDirectory = new JTextField(filesUrl
+				+ "/monitor/inputconfiguration/");
 		panel.add(monitoringDirectory);
-		lab = new JLabel("Output Directory: ");
-		lab.setToolTipText("Output context (variables values) and configuration (operationalizations and features). A valid configuration if adaptation was required.");
+		lab = new JLabel("Path for the complete configurations: ");
+		lab.setToolTipText("Output with the complete configuration after each execution");
 		panel.add(lab);
-		outputDirectory = new JTextField("Z:/monitor/objtosystem/");
+		outputDirectory = new JTextField(filesUrl
+				+ "/monitor/outoutconfiguration/");
 		panel.add(outputDirectory);
-		lab = new JLabel("Loop speed (seconds): ");
-		lab.setToolTipText("Waiting time (seconds) to iterate over input files");
+		lab = new JLabel("Delay (seconds) between configurations: ");
+		lab.setToolTipText("Waiting time (seconds) before executing the next configuration. Only applies if the option iterate over input files is selected");
 		panel.add(lab);
 		waitBetweenExecs = new JTextField("5");
 		panel.add(waitBetweenExecs);
-		lab = new JLabel("Reconfiguration delay (seconds): ");
-		lab.setToolTipText("Delay time (seconds) to visualize not valid configurations before adaptation to a valid configuration");
+		lab = new JLabel("Delay (seconds) before a reconfiguration: ");
+		lab.setToolTipText("Delay time (seconds) to visualize a non-valid configuration. After the delay, the simulation will find a valid configuration");
 		panel.add(lab);
 		waitAfterNoSolution = new JTextField("5");
 		panel.add(waitAfterNoSolution);
-		lab = new JLabel("Include external variables: ");
-		lab.setToolTipText("Defines if the variables values are considered from the input files");
+		lab = new JLabel("Obtain variables from configuration files: ");
+		lab.setToolTipText("Defines whether the variables values defined in the configuration files are considered for the partial configuration input or not");
 		panel.add(lab);
 		monitorVariables = new JCheckBox("monVariables", true);
 		panel.add(monitorVariables);
-		lab = new JLabel("Include external operationalizations: ");
-		lab.setToolTipText("Defines if the operationalizations/leaf features selection are considered from the input files");
+		lab = new JLabel(
+				"Obtain operationalizations from configuration files: ");
+		lab.setToolTipText("Defines whether the operationalizations/leaf features in the configuration files are considered for the partial configuration input or not");
 		panel.add(lab);
 		monitorOpers = new JCheckBox("monOpers", true);
 		panel.add(monitorOpers);
-		lab = new JLabel("Include assets: ");
-		lab.setToolTipText("Defines if the assets selection are considered from the input files");
+		lab = new JLabel("Obtain assets from configuration files: ");
+		lab.setToolTipText("Defines whether the assets in the configuration files are considered for the partial configuration input or not");
 		panel.add(lab);
 		monitorAssets = new JCheckBox("monAssets", true);
 		panel.add(monitorAssets);
+		lab = new JLabel("Loop over configuration files: ");
+		lab.setToolTipText("Performs simulation iterating over existing files. If not, the simulation waits for a new file created in the folder");
+		panel.add(lab);
+		fileIteration = new JCheckBox("fileIteration", true);
+		panel.add(fileIteration);
+
 		lab = new JLabel("Execute Analysis and Planning: ");
-		lab.setToolTipText("Defines if the adaptation is perfomed. If not, the configuration is accepted");
+		lab.setToolTipText("Defines if the adaptation is perfomed. If not, the configuration is accepted as it is");
 		panel.add(lab);
 		mapeAP = new JCheckBox("mAPe", true);
 		panel.add(mapeAP);
 		mapeAP.setEnabled(false);
-		lab = new JLabel("Loop files iteration: ");
-		lab.setToolTipText("Performs simulation iterating over existing files. After ");
-		panel.add(lab);
-		fileIteration = new JCheckBox("fileIteration", true);
-		panel.add(fileIteration);
+
 		panel.add(new JLabel("Auto-selecting first solution: "));
 		firstSolutionOnly = new JCheckBox("FirstSolOnly", true);
 		panel.add(firstSolutionOnly);
 		firstSolutionOnly.setEnabled(false);
-		panel.add(new JLabel("Adapt only if configuration is invalid: "));
-		adaptoOnInvalid = new JCheckBox("AdaptOnInvalid", true);
-		panel.add(adaptoOnInvalid);
-		adaptoOnInvalid.setEnabled(false);
+		// panel.add(new JLabel("Adapt only if configuration is invalid: "));
+		// adaptoOnInvalid = new JCheckBox("AdaptOnInvalid", true);
+		// panel.add(adaptoOnInvalid);
+		// adaptoOnInvalid.setEnabled(false);
 		panel.add(new JLabel("Monitoring state: "));
 		state = new JTextField(("Not running"));
 		state.setEnabled(false);
 		panel.add(state);
-		SpringUtilities.makeCompactGrid(panel, 13, 2, 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(panel, 12, 2, 4, 4, 4, 4);
 		generalPanel.add(panel, BorderLayout.NORTH);
 		JPanel notificationPanel = new JPanel();
 		notificationPanel.setLayout(new SpringLayout());
-		notificationPanel.add(new JLabel("MAPE log: "));
+		notificationPanel.add(new JLabel("Execution log: "));
 		results = new JTextArea("");
 		results.setEditable(false);
 		notificationPanel.add(new JScrollPane(results));
@@ -197,7 +215,7 @@ public class ExternalContextDialog extends JDialog implements
 
 		buttonsPanel.add(btnStop);
 		final JButton btnCancel = new JButton();
-		btnCancel.setText("Stop and Close");
+		btnCancel.setText("Stop and Close Dialog");
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

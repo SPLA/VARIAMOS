@@ -52,7 +52,7 @@ public class ElementsOperationAssociationPanel extends JPanel implements
 	private JPanel panel = null;
 	private int dialog = 0;
 	private int width = 1250;
-	private int height = 630;
+	private int height = 600;
 	List<InstElement> operActions = null;
 	private AssociationTreeTable table = null;
 	private List<OpersSubOperationExpType> subOpersTypesColumns = null;

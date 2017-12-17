@@ -578,10 +578,16 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 
 						try {
 							ElementExpressionSet metaExpressionSet;
-							metaExpressionSet = dynamicBehaviorDTO.getRefas2hlcl().getElementConstraintGroup(
-									lastEditableElement.getInstElement().getIdentifier(), editableElementType,
-									ModelExpr2HLCL.SIMUL_EXEC);
-							expressions.configure(getEditedModel(), metaExpressionSet,
+							//FIXME:luisa no se cual dejar
+							metaExpressionSet = dynamicBehaviorDTO.getRefas2hlcl()
+									.getElementConstraintGroup("Simul",
+											lastEditableElement
+													.getInstElement()
+													.getIdentifier(),
+											editableElementType,
+											ModelExpr2HLCL.SIMUL_EXEC);
+							expressions.configure(getEditedModel(),
+									metaExpressionSet,
 									lastEditableElement.getInstElement());
 							updateExpressions = false;
 						} catch (FunctionalException e1) {
@@ -778,12 +784,18 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 						// refas2hlcl.validateConceptType(finalEditElm,
 						// "GeneralConcept")
 						)
-							consoleTextArea.setText(dynamicBehaviorDTO.getRefas2hlcl().getElementTextConstraints(
-									finalEditElm.getIdentifier(), editableElementType, ModelExpr2HLCL.CONF_EXEC));
+							consoleTextArea.setText(dynamicBehaviorDTO.getRefas2hlcl()
+									.getElementTextConstraints("Simul",
+											finalEditElm.getIdentifier(),
+											editableElementType,
+											ModelExpr2HLCL.CONF_EXEC));
 				if (this.perspective == 4)
 
-					consoleTextArea.setText(dynamicBehaviorDTO.getRefas2hlcl().getElementTextConstraints(
-							finalEditElm.getIdentifier(), editableElementType, ModelExpr2HLCL.SIMUL_EXEC));
+					consoleTextArea.setText(dynamicBehaviorDTO.getRefas2hlcl()
+							.getElementTextConstraints("Simul",
+									finalEditElm.getIdentifier(),
+									editableElementType,
+									ModelExpr2HLCL.SIMUL_EXEC));
 				// expressions.configure(
 				// getEditedModel(),
 				// refas2hlcl.getElementConstraintGroup(
@@ -1833,9 +1845,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 		eoad.center();
 	}
 
-	public void updatePespectiveMenuTab(String buttonText) {
-		//MainFrame mainFrame = this.getMainFrame();
-		MainFrame mainFrame = (MainFrame)this.getFrame();
+	public void updatePespectiveMenuTab(VariamosGraphEditor editor,
+			String buttonText) {
+		MainFrame mainFrame = this.getMainFrame();
 		int perspectiveInd = mainFrame.getPerspective();
 		PerspectiveToolBar perspective = this.installToolBar(mainFrame, perspectiveInd);
 
@@ -1866,6 +1878,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 		if (perspectiveInd != 4 && buttonText.equals(mxResources.get("simulationPerspButton"))) {
 			mainFrame.setPerspective(4);
 			// System.out.println("simulationPerspButton");
+
+			editor.clearNotificationBar();
+			// editor.verifyErrors();
+			List<String> defects = new ArrayList<String>();
+			defects.add("Core");
+			editor.verify(defects);
 		}
 		perspective.updatePerspective(mainFrame.getPerspective());
 		mainFrame.validate();

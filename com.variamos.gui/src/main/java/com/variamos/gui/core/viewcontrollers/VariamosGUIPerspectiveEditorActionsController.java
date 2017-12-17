@@ -124,7 +124,7 @@ public class VariamosGUIPerspectiveEditorActionsController {
 							new Runnable() {
 							    public void run() {
 							    	
-									graphEditor2.updatePespectiveMenuTab(
+									graphEditor2.updatePespectiveMenuTab(graphEditor2,
 										mxResources.get("modelingPerspButton"));
 																	    	
 							    }

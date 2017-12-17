@@ -58,7 +58,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	public void updateEditor(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		// editor.setPerspective(2);
-		//editor.editModelReset();
+		// editor.editModelReset();
 		// System.out.println("requirements perspective");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}
@@ -75,7 +75,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 				);
 		String viewName = editor.getEditedModel().getInstViewName(
 				modelViewIndex, -1);
-		PerspEditorGraph refasGraph = (PerspEditorGraph) graphComponent.getGraph();
+		PerspEditorGraph refasGraph = (PerspEditorGraph) graphComponent
+				.getGraph();
 		loadPalette(viewName, palettes, validElements, refasGraph);
 		editor.refreshPalette();
 	}
@@ -271,6 +272,15 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
 							List<InstElement> relations = paletteElement
 									.getInstElement().getSourceRelations();
+							ImageIcon icon = null;
+							try {
+								icon = new ImageIcon(
+										PerspEditorFunctions.class
+												.getResource(paletteElement
+														.getIcon()));
+							} catch (Exception e) {
+
+							}
 							if (editor.getPerspective() == 2)
 								search: for (InstElement relation : relations) {
 									InstConcept pairwiseRelation = (InstConcept) relation
@@ -305,10 +315,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												// mxResources.get(
 												paletteElement
 														.getElementTitle(),
-												new ImageIcon(
-														PerspEditorFunctions.class
-																.getResource(paletteElement
-																		.getIcon())),
+												icon,
 												paletteElement.getStyle(),
 												paletteElement.getWidth(),
 												paletteElement.getHeight(),
@@ -319,10 +326,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 							else {
 								palette.addTemplate(
 										// mxResources.get(
-										paletteElement.getElementTitle(),
-										new ImageIcon(PerspEditorFunctions.class
-												.getResource(paletteElement
-														.getIcon())),
+										paletteElement.getElementTitle(), icon,
 										paletteElement.getStyle(),
 										paletteElement.getWidth(),
 										paletteElement.getHeight(),
@@ -350,8 +354,6 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 		}
 
 		final PerspEditorGraph graph = plgraph;
-
-		
 
 	}
 
