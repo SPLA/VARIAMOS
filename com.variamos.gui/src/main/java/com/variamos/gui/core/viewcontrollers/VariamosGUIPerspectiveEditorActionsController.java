@@ -101,6 +101,10 @@ public class VariamosGUIPerspectiveEditorActionsController {
 				syntax = new File(prefijo+"features/syntax.vmsm");
 				semantic = new File(prefijo+"features/semantic.vmom");
 				break;
+			case ASSETS:
+				syntax = new File(prefijo+"assets/syntax.vmsm");
+				semantic = new File(prefijo+"assets/semantic.vmom");
+				break;
 			case REFAS:
 				syntax = new File(prefijo+"refas/syntax.vmsm");
 				semantic = new File(prefijo+"refas/semantic.vmom");

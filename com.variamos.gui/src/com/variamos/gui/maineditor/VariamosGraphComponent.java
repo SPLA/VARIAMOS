@@ -193,6 +193,26 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					sim_backcolor = sim_red3;
 					backtophint = "Not selected";
 				}
+				
+				/* domain implementation */
+				if (instConcept.getInstAttribute("SelectedToIntegrate") != null)
+				{
+					if (!(instConcept.getInstAttribute("SelectedToIntegrate").getValue() instanceof Boolean))
+						return;
+					if ((boolean) instConcept.getInstAttribute("SelectedToIntegrate").getValue()) {
+						backtophint = "Selected";
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource(sim_selected)),
+								backtophint);
+						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(childCell, over3);
+					}			
+				}
+				/* domain implementation */
+				
 				if (instConcept.getInstAttribute("Core") != null
 						&& instConcept.getInstAttribute("Required") != null) {
 					if (!(instConcept.getInstAttribute("Core").getValue() instanceof Boolean))

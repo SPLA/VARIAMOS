@@ -36,9 +36,11 @@ import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.
 import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.SaveAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
+import com.variamos.gui.perspeditor.actions.AssembleAction;
 import com.variamos.gui.perspeditor.actions.CheckUpdateAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
+import com.variamos.gui.perspeditor.actions.ConfigureAssemblyAction;
 import com.variamos.gui.perspeditor.actions.ElementOperationAssociationAction;
 import com.variamos.gui.perspeditor.actions.ExternalContextAction;
 import com.variamos.gui.perspeditor.actions.HideAdvancedPerspectiveAction;
@@ -440,7 +442,14 @@ public class PerspEditorMenuBar extends JMenuBar {
 			add(menu);
 
 		}
-
+		
+		//domain implementation
+		menu = (JMenu) menu.add(new JMenu(mxResources.get("domain")));
+		menu.add(editor.bind(mxResources.get("configureAssembly"), new ConfigureAssemblyAction()));
+		menu.add(editor.bind(mxResources.get("assembleC"), new AssembleAction()));
+		add(menu);
+		//domain implementation
+		
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
 		menu.setMnemonic('W');
 		menu.add(editor.bind(mxResources.get("showAdvancedPerspectives"), new ShowAdvancedPerspectiveAction()));
