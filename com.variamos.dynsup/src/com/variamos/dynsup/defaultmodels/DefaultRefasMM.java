@@ -3045,7 +3045,7 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instDirHardHardSemanticEdge, instDirHardHardSemanticEdge,
-				DefaultOpersMM.instVertexHC, "PSel", "FalseVal");
+				DefaultOpersMM.instVertexHC, "Sel", "FalseVal");
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
@@ -3066,6 +3066,8 @@ public class DefaultRefasMM {
 		t1 = new OpersExpr("059 Val - NoAggre:CONFSelected", refas
 				.getSemanticExpressionTypes().get("Implies"),
 				instDirHardHardSemanticEdge, t2, t1);
+
+		// FIXME: compare and sync with exp 095 on the catalog todo
 
 		semExpr.add(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);

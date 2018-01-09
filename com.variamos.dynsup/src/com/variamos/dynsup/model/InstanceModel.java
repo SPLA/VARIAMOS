@@ -624,7 +624,8 @@ public class InstanceModel {
 						&& targetMetaElement.getAutoIdentifier().equals(
 								metaElement2.getAutoIdentifier())
 						&& pwr.getEdSyntaxEle().getVisible())
-					out.put(pwr.getIdentifier(), pwr);
+					if (!pwr.getSupInstEleId().equals("SyMExtend"))
+						out.put(pwr.getIdentifier(), pwr);
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
 			}
