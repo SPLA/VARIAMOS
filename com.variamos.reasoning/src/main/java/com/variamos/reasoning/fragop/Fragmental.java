@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.variamos.gui.core.fragop;
+package com.variamos.reasoning.fragop;
 
 import java.io.File;
 import java.nio.file.Files;

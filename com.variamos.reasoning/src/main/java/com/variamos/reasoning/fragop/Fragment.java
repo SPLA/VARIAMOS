@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.variamos.gui.core.fragop;
+package com.variamos.reasoning.fragop;
 
-import static com.variamos.gui.core.fragop.Fragmental.assembled_folder;
-import static com.variamos.gui.core.fragop.Fragmental.error_var;
+import static com.variamos.reasoning.fragop.Fragmental.assembled_folder;
+import static com.variamos.reasoning.fragop.Fragmental.error_var;
 
 import java.io.File;
 import java.util.ArrayList;
