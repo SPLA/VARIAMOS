@@ -968,6 +968,8 @@ public abstract class InstElement implements Serializable, Cloneable,
 								if (instAttribute.toString().trim().length() > 0)
 									out += space
 											+ instAttribute.toString().trim();
+								else
+									out += space;
 							}
 						}
 					}

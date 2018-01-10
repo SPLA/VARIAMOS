@@ -25,18 +25,18 @@ import javax.swing.SwingConstants;
 
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.gui.core.fragop.Fragmental;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
+import com.variamos.reasoning.fragop.Fragmental;
 
 /**
- * A class to draw the About Dialog. Part of PhD work at University of Paris 1
+ * A class to configure the domain implementation assembly
  * 
- * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
+ * @author Daniel Correa <yo@danielgara.com>
  * @version 1.0
- * @since 2014-03-15
+ * @since 2018-01-09
  */
 @SuppressWarnings("serial")
 public class AssemblyDialog extends JDialog {

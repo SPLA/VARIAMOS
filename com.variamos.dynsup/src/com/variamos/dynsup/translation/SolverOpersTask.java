@@ -41,6 +41,7 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.DefectTypeEnum;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.CauCos;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.DefectAnalyzerModeEnum;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.Diagnosis;
+import com.variamos.reasoning.fragop.Fragmental;
 import com.variamos.reasoning.medic.model.diagnoseAlgorithm.MinimalSetsDFSIterationsHLCL;
 import com.variamos.reasoning.medic.model.graph.NodeConstraintHLCL;
 import com.variamos.reasoning.medic.model.graph.NodeVariableHLCL;
@@ -471,6 +472,62 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							result = defectsVerifier(operationObj, suboper, method, errorHint, outAttributes,
 									operationsNames.size(), reuseFreeIds, updateFreeIds, outAttribute,
 									updateOutAttributes, coreOperation, constraitsToVerifyRedundacies);
+							terminated = true;
+						} 
+						/*else if (type
+								.equals(StringUtils
+										.formatEnumValue(OpersSubOpType.ConfigIntegration
+												.toString())))
+						{
+							result = 0;
+							terminated = true;
+						}*/
+						else if (type
+								.equals(StringUtils
+										.formatEnumValue(OpersSubOpType.ExecuteIntegration
+												.toString())))
+						{
+							List<Map<String, String>> files = new ArrayList<>();
+							Boolean components_found=false;
+							
+							for (InstElement instE : refasModel.getElements()) {
+								Map<String, String> file_map = new HashMap<String, String>();
+								boolean value=false;
+								String id= (String) instE.getIdentifier();
+								if(id.startsWith("E")) {
+									List<InstElement> listT = instE.getTargetRelations();
+									InstElement instT = listT.get(0);
+									String name= (String) instT.getInstAttributeValue("Name");
+									Boolean selected= (Boolean) instT.getInstAttributeValue("SelectedToIntegrate");
+									if(selected) {
+										components_found=true;
+										file_map.put("component_folder", name);
+										List<InstElement> listS = instE.getSourceRelations();
+										InstElement instS = listS.get(0);
+										name= (String) instS.getInstAttributeValue("Name");
+										file_map.put("ID", name);
+										name= (String) instS.getInstAttributeValue("filename");
+										file_map.put("filename", name);
+										name= (String) instS.getInstAttributeValue("destination");
+										file_map.put("destination", name);
+										files.add(file_map);
+									}
+								}
+							}
+							
+							if(components_found) {
+								Fragmental.principal(files);
+								String found_errors=Fragmental.get_errors();
+								if(found_errors.equals("")) {
+									completedMessage=found_errors+"!!!Components successfully assembled!!!";
+						        }else {
+						        	completedMessage=found_errors+"!!!Components assembled with multiple errors!!!";
+						        }
+							}else {							
+								completedMessage="There are not components selected to be assembled";
+							}
+													
+							result = 0;
 							terminated = true;
 						}
 						// TODO modifications by avillota for including MEDIC
