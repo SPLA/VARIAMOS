@@ -36,7 +36,7 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
 	private int width = 1350;
-	private int height = 760;
+	private int height = 730;
 
 	static interface DialogButtonAction {
 		public boolean onAction();
@@ -45,7 +45,7 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 	public ElementsOperationAssociationDialog(final VariamosGraphEditor editor,
 			int dialog) {
 		super();
-		this.setMinimumSize(new Dimension(width, height));
+		// this.setMinimumSize(new Dimension(width, height));
 		setPreferredSize(new Dimension(width, height));
 		switch (dialog) {
 		case 0:

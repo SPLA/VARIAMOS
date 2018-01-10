@@ -1,5 +1,6 @@
 package com.variamos.dynsup.defaultmodels;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -353,6 +354,8 @@ public class DefaultOpersMM {
 	protected static InstElement metaMetaPairwiseRelation = null;
 	protected static InstConcept metaMetaInstOverTwoRel = null;
 	protected static InstElement infraMetaMetaConcept = null;
+	protected static InstElement infraMetaMetaAttribute = null;
+	protected static InstElement infraMetaMetaCollection = null;
 	protected static InstElement infraMetaMetaPairwiseRelation = null;
 	protected static InstElement infraMetaMetaOverTwoRelation = null;
 	protected static InstPairwiseRel metaPairwRelCCExt = null;
@@ -369,7 +372,7 @@ public class DefaultOpersMM {
 	protected static InstConcept instVertexHC = null;
 
 	public static void createOpersMetaModel(InstanceModel refas, boolean empty) {
-		createOpersMetaModelOpers(refas, empty, false);
+		createOpersMetaModelOpers(refas, empty, true);
 		createSemanticNmMetaModel(refas, empty);
 		if (!empty) {
 			createGeneralMetaModel(refas);
@@ -404,6 +407,10 @@ public class DefaultOpersMM {
 
 		infraMetaMetaConcept = (refas.getSyntaxModel()
 				.getVertex("SeMnmConcept"));
+		infraMetaMetaAttribute = (refas.getSyntaxModel()
+				.getVertex("SeMAttribute"));
+		infraMetaMetaCollection = (refas.getSyntaxModel()
+				.getVertex("SeMCollection"));
 		infraMetaMetaPairwiseRelation = (refas.getSyntaxModel()
 				.getVertex("SeMnmPWRel"));
 		infraMetaMetaOverTwoRelation = (refas.getSyntaxModel()
@@ -948,15 +955,13 @@ public class DefaultOpersMM {
 			instOperationGroup = new InstConcept("SimulSceGroup",
 					metaOperationMenu, operationMenu);
 			refas.getVariabilityVertex().put("SimulSceGroup",
-					instOperationGroup);
-			
+					instOperationGroup);	
 			//Luisa: ISSUE #245 HOT FIX: We hide this menu  while we separate functionalities according to the notation where they might be used
 			if (newOpers) {
 				instOperationGroup.getInstAttribute("visible").setValue(true);
 			}else {
 				instOperationGroup.getInstAttribute("visible").setValue(false);
 			}
-			
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
 			instOperationGroup.getInstAttribute("opgname").setValue(
 					"Simulation Scenarios  (Dynamic)");
@@ -2268,6 +2273,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("opname").setValue(
 					"Identify Loops in Struct. Rels");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 			instOperationAction.getInstAttribute("position").setValue(10);
@@ -2787,6 +2793,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("opname").setValue(
 					"Identify Claims & SoftDeps with Conflicts");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("visible").setValue(false);
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
 			instOperationAction.getInstAttribute("position").setValue(16);
@@ -10178,6 +10185,8 @@ public class DefaultOpersMM {
 		simSceSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
 
+		// Variable with the domain restricted to the varConfDom when the
+		// isConfDomain is true
 		attribute = new ElemAttribute("varConfValue", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "Configured Value",
 				"Configured value", 0, 0, 8, "", "", -1, "", "", "varConfDom",
@@ -10278,24 +10287,17 @@ public class DefaultOpersMM {
 				"", 0, 7, "", "variableType" + "#==#" + "LowLevel variable",
 				-1, "", "");
 		semVariable.putSemanticAttribute("LowLevelInVarLabel", attribute);
-		semVariable.addPropEditableAttribute("07#" + "LowLevelInVarLabel");
-		semVariable.addPropVisibleAttribute("07#" + "LowLevelInVarLabel" + "#"
-				+ "variableType" + "#==#" + "LowLevel variable");
 
-		attribute = new ElemAttribute(
-				"IntegerVarInSubOper",
-				"Class",
-				AttributeType.OPERATION,
-				false,
-				"Input SubOper as int",
-				"Sub Operation to include the low-level variable previous calculated, in a low level expression, as Integer",
+		attribute = new ElemAttribute("InputSubOperAsInteger", "Class",
+				AttributeType.OPERATION, false,
+				"SubOper to associate (Input is Int)",
+				"Sub Operation to include the low-level variable previous "
+						+ "calculated in a low level expression converted "
+						+ "to an Integer value",
 				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 8, "", "variableType" + "#==#" + "LowLevel variable", -1,
 				"", "");
-		semVariable.putSemanticAttribute("IntegerVarInSubOper", attribute);
-		semVariable.addPropEditableAttribute("08#" + "IntegerVarInSubOper");
-		semVariable.addPropVisibleAttribute("08#" + "IntegerVarInSubOper" + "#"
-				+ "variableType" + "#==#" + "LowLevel variable");
+		semVariable.putSemanticAttribute("InputSubOperAsInteger", attribute);
 
 		attribute = new ElemAttribute("IntegerInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as int",
@@ -10304,18 +10306,12 @@ public class DefaultOpersMM {
 				"", 0, 9, "", "variableType" + "#==#" + "LowLevel variable",
 				-1, "", "");
 		semVariable.putSemanticAttribute("IntegerInVarLabel", attribute);
-		semVariable.addPropEditableAttribute("09#" + "IntegerInVarLabel");
-		semVariable.addPropVisibleAttribute("09#" + "IntegerInVarLabel" + "#"
-				+ "variableType" + "#==#" + "LowLevel variable");
 
 		attribute = new ElemAttribute("LowLevelVarValue", "String",
-				AttributeType.GLOBALCONFIG, false, "Fixed Input Value",
-				"Value defined for input variable", "", 0, 8, "",
+				AttributeType.GLOBALCONFIG, false, "Fixed Input Value (Float)",
+				"Fixed value defined for an input variable", "", 0, 8, "",
 				"variableType" + "#==#" + "LowLevel variable", -1, "", "");
 		semVariable.putSemanticAttribute("LowLevelVarValue", attribute);
-		semVariable.addPropEditableAttribute("08#" + "LowLevelVarValue");
-		semVariable.addPropVisibleAttribute("08#" + "LowLevelVarValue" + "#"
-				+ "variableType" + "#==#" + "LowLevel variable");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(new
@@ -10329,6 +10325,82 @@ public class DefaultOpersMM {
 		// simulOperationSubAction.addInVariable(attribute);
 
 		refas.getVariabilityVertex().put("NmVariable", instVertexVAR);
+
+		SyntaxElement infraOpersM2Attribute = new SyntaxElement('A',
+				"NmAttribute", false, true, "NmAttribute",
+				"infrasyntaxm2bigconcept", "Attributes for the meta-concept",
+				120, 120, "/com/variamos/gui/perspeditor/images/concept.png",
+				true, Color.BLUE.toString(), 3, null, true);
+
+		infraOpersM2Attribute.addModelingAttribute("Name", new ElemAttribute(
+				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
+				"", "InstAttribute", 0, 1, "", "", 1, "", ""));
+
+		infraOpersM2Attribute.addModelingAttribute("type", new ElemAttribute(
+				"type", "MetaEnumeration", AttributeType.SYNTAX, false, "Type",
+				"", "TypeEnum", "", "", 0, 3, "", "", -1, "type" + "#all#\n\n",
+				""));
+
+		// classCanName
+		infraOpersM2Attribute.addModelingAttribute("enumType", "String", false,
+				"Enumeration Type", "", "", 0, 7, "", "", -1, "#" + "enumType"
+						+ "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("configuredValue", "String",
+				false, "Configured Value", "", "", 0, 9, "", "", -1, "#"
+						+ "configuredValue" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("configuredDomain",
+				"String", false, "Configured Domain", "", "", 0, 9, "", "", -1,
+				"#" + "configuredDomain" + "#all#\n\n", "");
+
+		infraOpersM2Attribute.addModelingAttribute("domain", "String", false,
+				"Domain", "", "", 0, 10, "", "", -1, "#" + "domain"
+						+ "#all#\n\n", "");
+
+		InstConcept instInfraSyntaxOpersM2Attribute = new InstConcept(
+				"NmAttribute", infraMetaMetaCollection, infraOpersM2Attribute);
+		refas.getVariabilityVertex().put("NmAttribute",
+				instInfraSyntaxOpersM2Attribute);
+
+		SyntaxElement infraOpersM2Enum = new SyntaxElement('A',
+				"NmEnumeration", false, true, "NmEnumeration",
+				"infrasyntaxm2miniconcept", "Enumeration meta-concept", 120,
+				120, "/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		InstConcept instInfraSyntaxOpersM2Enum = new InstConcept(
+				"NmEnumeration", infraMetaMetaCollection, infraOpersM2Enum);
+		refas.getVariabilityVertex().put("NmEnumeration",
+				instInfraSyntaxOpersM2Enum);
+
+		SyntaxElement infraOpersM2EnumLit = new SyntaxElement('A',
+				"NmEnumLiteral", false, true, "NmEnumLiteral",
+				"infrasyntaxm2miniconcept", "Enumeration meta-concept", 120,
+				120, "/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, null, true);
+
+		infraOpersM2EnumLit.addModelingAttribute("Name", new ElemAttribute(
+				"literalId", "Integer", AttributeType.SYNTAX, false,
+				"Concept Name", "", "InstAttribute", 0, 1, "", "", 1, "", ""));
+
+		infraOpersM2EnumLit
+				.addModelingAttribute("type", new ElemAttribute("litValue",
+						"String", AttributeType.SYNTAX, false, "Type", "",
+						"TypeEnum", "", "", 0, 3, "", "", -1, "type"
+								+ "#all#\n\n", ""));
+
+		InstConcept instInfraSyntaxOpersM2EnumLit = new InstConcept(
+				"NmEnumLiteral", infraMetaMetaCollection, infraOpersM2EnumLit);
+		refas.getVariabilityVertex().put("NmEnumLiteral",
+				instInfraSyntaxOpersM2EnumLit);
+
+		InstPairwiseRel instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("enutoenumlit", instEdge);
+		instEdge.setIdentifier("enutoenumlit");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdge.setTargetRelation(instInfraSyntaxOpersM2EnumLit, true);
+		instEdge.setSourceRelation(instInfraSyntaxOpersM2Enum, true);
 
 		OpersVariable semLowExp = new OpersVariable("NmLowExp");
 
@@ -10485,7 +10557,7 @@ public class DefaultOpersMM {
 		semLowVariable.addPropVisibleAttribute("07#" + "LowLevelInVarLabel");
 
 		attribute = new ElemAttribute(
-				"IntegerVarInSubOper",
+				"InputSubOperAsInteger",
 				"Class",
 				AttributeType.OPERATION,
 				false,
@@ -10493,10 +10565,12 @@ public class DefaultOpersMM {
 				"Sub Operation to include the low-level variable previous calculated, in a low level expression, as Integer",
 				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 8, "", "", -1, "", "");
-		semLowVariable.putSemanticAttribute("IntegerVarInSubOper", attribute);
-		semLowVariable.addPropEditableAttribute("08#" + "IntegerVarInSubOper");
-		semLowVariable.addPropVisibleAttribute("08#" + "IntegerVarInSubOper");
+		semLowVariable.putSemanticAttribute("InputSubOperAsInteger", attribute);
+		semLowVariable
+				.addPropEditableAttribute("08#" + "InputSubOperAsInteger");
+		semLowVariable.addPropVisibleAttribute("08#" + "InputSubOperAsInteger");
 
+		// FIXME not used at the moment
 		attribute = new ElemAttribute("IntegerInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as int",
 				"Labeling with only a set of variables for input suboper",

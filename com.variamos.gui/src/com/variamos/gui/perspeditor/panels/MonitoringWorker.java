@@ -16,7 +16,7 @@ import com.variamos.io.core.importExport.ConfigurationIO;
  * A class to support the thread for simulation of configurations. Part of PhD
  * work at University of Paris 1
  * 
- * Soporta la ejecucion utilizando la ventana de simulation MAPE-K que esta en 
+ * Soporta la ejecucion utilizando la ventana de simulation MAPE-K que esta en
  * basic simulation (static) en la perspectiva de configuracion y simulacion.
  * 
  * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
@@ -93,7 +93,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 							results + "ConfigFile loaded: "
 									+ monitoredFile.getAbsolutePath() + "\n");
 					Map<String, Number> config = ConfigurationIO
-							.loadMapFromJSONFile(monitoredFile.getAbsolutePath());
+							.loadMapFromJSONFile(monitoredFile
+									.getAbsolutePath());
 					List<String> selectedAttributes = new ArrayList<String>();
 					selectedAttributes.add("ConfSel");
 					selectedAttributes.add("Sel");
@@ -113,7 +114,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 						conceptTypes.add("LeafFeature");
 					}
 					if (includeAssets || lastConfig == null) {
-						conceptTypes.add("Assets");
+						conceptTypes.add("Asset");
 					}
 					// If no change, not continue
 					lastConfig = config;
@@ -136,12 +137,12 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 
 							task.setTerminated(true);
 							if (!task.isCorrectExecution() && includeVariables) {
-								results += "No solution for actual configuration... alternative proposed\n";
+								results += "No solution for input configuration... alternative configuration required\n";
 								this.firePropertyChange(
 										"results",
 										results,
 										results
-												+ "No solution for actual configuration... alternative proposed\n");
+												+ "No solution for input configuration... alternative configuration required\n");
 
 								Thread.sleep((int) (waitAfterNoSolution * 1000) + 10);
 								if (canceled)
@@ -187,9 +188,9 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 				filePosition++;
 				solIndex++;
 				if (!iterative) {
-					results += "Waiting for context file...\n";
+					results += "Waiting for a new configuration file...\n";
 					this.firePropertyChange("results", results, results
-							+ "Waiting for context file...\n");
+							+ "Waiting for a new configuration file...\n");
 					boolean noNewFile = true;
 					if (!monitoredFile.equals(initialConfigFileObject))
 						monitoredFile.delete();
@@ -224,3 +225,4 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 	}
 
 }
+

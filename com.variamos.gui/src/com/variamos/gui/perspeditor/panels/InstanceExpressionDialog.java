@@ -724,61 +724,66 @@ public class InstanceExpressionDialog extends JDialog {
 
 			OpersElement semElement2 = instVertex.getTransSupportMetaElement()
 					.getTransSemanticConcept();
-			List<InstElement> parents = instVertex.getTransSupportMetaElement()
-					.getTransInstSemanticElement().getParentOpersConcept();
-			boolean child = false;
-			for (InstElement e : parents)
-				if (e.getIdentifier().equals("NmVariable"))
-					child = true;
-			if (semElement2 != null
-					&& ((semElement2.getIdentifier() != null && semElement2
-							.getIdentifier().equals("NmVariable")) || child)) {
-				String variableType = (String) instVertex.getInstAttribute(
-						"variableType").getValue();
-				switch (variableType) {
-				case "Boolean":
-					combo.addItem(instElementId + "_" + "true");
-					combo.addItem(instElementId + "_" + "false");
-					identifiersList.put(instElementId, instVertex);
-					break;
-				case "Integer":
-					String domain = (String) instVertex.getInstAttribute(
-							"varDom").getValue();
-					IntDomain dom = (DomainParser.parseDomain(domain, 0));
-					List<Integer> intValues = dom.getPossibleValues();
-					for (Integer intValue : intValues) {
-						combo.addItem(instElementId + "_" + intValue.intValue());
-					}
-					identifiersList.put(instElementId, instVertex);
-					break;
-				case "Float":
-					domain = (String) instVertex.getInstAttribute("floatDom")
-							.getValue();
-					dom = (DomainParser.parseDomain(domain, (int) instVertex
-							.getInstAttribute("floatPrec").getValue()));
-					List<Float> floatValues = dom.getPossibleFloatValues();
-					for (Float intValue : floatValues) {
-						combo.addItem(instElementId + "_"
-								+ intValue.floatValue());
-					}
-					identifiersList.put(instElementId, instVertex);
-					break;
-				case "Enumeration":
-					Object object = instVertex.getInstAttribute("enumType")
-							.getValueObject();
-					if (object != null) {
-						@SuppressWarnings("unchecked")
-						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstElement) object)
-								.getInstAttribute(
-										SyntaxElement.VAR_METAENUMVALUE)
-								.getValue();
-						for (InstAttribute value : values)
+			if (semElement2 != null) {
+				List<InstElement> parents = instVertex
+						.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
+				boolean child = false;
+				for (InstElement e : parents)
+					if (e.getIdentifier().equals("NmVariable"))
+						child = true;
+				if (semElement2 != null
+						&& ((semElement2.getIdentifier() != null && semElement2
+								.getIdentifier().equals("NmVariable")) || child)) {
+					String variableType = (String) instVertex.getInstAttribute(
+							"variableType").getValue();
+					switch (variableType) {
+					case "Boolean":
+						combo.addItem(instElementId + "_" + "true");
+						combo.addItem(instElementId + "_" + "false");
+						identifiersList.put(instElementId, instVertex);
+						break;
+					case "Integer":
+						String domain = (String) instVertex.getInstAttribute(
+								"varDom").getValue();
+						IntDomain dom = (DomainParser.parseDomain(domain, 0));
+						List<Integer> intValues = dom.getPossibleValues();
+						for (Integer intValue : intValues) {
 							combo.addItem(instElementId + "_"
-									+ value.getValue());
-					}
-					identifiersList.put(instElementId, instVertex);
-					break;
+									+ intValue.intValue());
+						}
+						identifiersList.put(instElementId, instVertex);
+						break;
+					case "Float":
+						domain = (String) instVertex.getInstAttribute(
+								"floatDom").getValue();
+						dom = (DomainParser.parseDomain(domain,
+								(int) instVertex.getInstAttribute("floatPrec")
+										.getValue()));
+						List<Float> floatValues = dom.getPossibleFloatValues();
+						for (Float intValue : floatValues) {
+							combo.addItem(instElementId + "_"
+									+ intValue.floatValue());
+						}
+						identifiersList.put(instElementId, instVertex);
+						break;
+					case "Enumeration":
+						Object object = instVertex.getInstAttribute("enumType")
+								.getValueObject();
+						if (object != null) {
+							@SuppressWarnings("unchecked")
+							Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstElement) object)
+									.getInstAttribute(
+											SyntaxElement.VAR_METAENUMVALUE)
+									.getValue();
+							for (InstAttribute value : values)
+								combo.addItem(instElementId + "_"
+										+ value.getValue());
+						}
+						identifiersList.put(instElementId, instVertex);
+						break;
 
+					}
 				}
 			}
 		}
@@ -825,24 +830,27 @@ public class InstanceExpressionDialog extends JDialog {
 					.getVariabilityVertexCollection()) {
 				OpersElement semElement2 = instVertex
 						.getTransSupportMetaElement().getTransSemanticConcept();
-				List<InstElement> parents = instVertex
-						.getTransSupportMetaElement()
-						.getTransInstSemanticElement().getParentOpersConcept();
-				boolean child = false;
-				for (InstElement e : parents)
-					if (e.getIdentifier().equals("NmVariable"))
-						child = true;
-				if (semElement2 != null
-						&& ((semElement2.getIdentifier() != null && semElement2
-								.getIdentifier().equals("NmVariable")) || child)) {
-					String instVertexId = null;
-					if (displayVariableName)
-						instVertexId = instVertex.getInstAttribute("userId")
-								.toString();
-					else
-						instVertexId = instVertex.getIdentifier();
-					identifiersList.put(instVertexId, instVertex);
-					combo.addItem(instVertexId + "_" + "value");
+				if (semElement2 != null) {
+					List<InstElement> parents = instVertex
+							.getTransSupportMetaElement()
+							.getTransInstSemanticElement()
+							.getParentOpersConcept();
+					boolean child = false;
+					for (InstElement e : parents)
+						if (e.getIdentifier().equals("NmVariable"))
+							child = true;
+					if (semElement2 != null
+							&& ((semElement2.getIdentifier() != null && semElement2
+									.getIdentifier().equals("NmVariable")) || child)) {
+						String instVertexId = null;
+						if (displayVariableName)
+							instVertexId = instVertex
+									.getInstAttribute("userId").toString();
+						else
+							instVertexId = instVertex.getIdentifier();
+						identifiersList.put(instVertexId, instVertex);
+						combo.addItem(instVertexId + "_" + "value");
+					}
 				}
 			}
 		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE
@@ -1034,4 +1042,3 @@ public class InstanceExpressionDialog extends JDialog {
 		this.onCancel = onCancel;
 	}
 }
-

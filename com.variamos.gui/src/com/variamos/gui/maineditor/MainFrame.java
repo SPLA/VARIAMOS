@@ -38,7 +38,7 @@ import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
  * 
  * Una instancia del variamosgraph editor por cada perspectiva
  * Carga la ventana principal
- * Controlador principal de la interfaz gr�fica. 
+ * Controlador principal de la interfaz grafica. 
  * @author lufe0
  *
  */
@@ -60,7 +60,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.20";
 	private String variamosVersionName = "1.0 Beta 20";
-	private String variamosBuild = "20170914-0230";
+	private String variamosBuild = "20171207-0400";
 	private String downloadId = "566";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -190,18 +190,7 @@ public class MainFrame extends JFrame {
 		System.out.println("GUI load completed");
 		this.add(graphEditors.get(2));
 		this.setJMenuBar(editorsMenu.get(2));
-		
 		VariamosGUIPerspectiveEditorActionsController.changeVariamosParadigmView(graphEditors);
-		/*
-		//this sleep is a simple test
-		try {
-			Thread.sleep(5000);
-		}catch (Exception e) {
-			System.out.println("no SLEEP :(");
-		}
-		graphEditors.get(2).updatePespectiveMenuTab(
-				mxResources.get("modelingPerspButton"));
-		*/
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 			this.checkUpdates(false);

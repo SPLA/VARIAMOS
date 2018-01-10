@@ -57,7 +57,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 	 * @param source
 	 * @param target
 	 */
-	public PairwiseElementExpressionSet(String identifier,
+	public PairwiseElementExpressionSet(String operId, String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
 			InstPairwiseRel instPairwiseRelation, int execType) {
 		super(identifier, mxResources.get("defect-pairrelations1")
@@ -71,7 +71,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				+ mxResources.get("defect-pairrelations1") + " ", idMap,
 				hlclFactory);
 		this.instPairwiseRelation = instPairwiseRelation;
-		defineTransformations(execType);
+		defineTransformations(operId, execType);
 	}
 
 	public String getDirectEdgeType() {
@@ -82,7 +82,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 		return instPairwiseRelation;
 	}
 
-	private void defineTransformations(int execType) {
+	private void defineTransformations(String operId, int execType) {
 		// instPairwiseRelation.getSourceRelations()
 		// .get(0).setOptional(false);
 		SyntaxElement metaPairwiseRelation = instPairwiseRelation
@@ -155,7 +155,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				AbstractBooleanExpression out10 = new GreaterOrEqualsBooleanExpression(
 						transformation7, new NumberNumericExpression(1));
 				getElementExpressions().add(out10);
-				// structureList.add(out10);
+				if (!operId.equals("Core"))
+					structureList.add(out10);
 				allList.add(out10);
 
 				/*
@@ -187,6 +188,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 						transformation76, new NumberNumericExpression(1));
 				getElementExpressions().add(out9);
 				allList.add(out9);
+				if (!operId.equals("Core"))
+					structureList.add(out9);
 
 				/*
 				 * // ((SourceId_Selected) #=> targetId_Selected) #= 0
@@ -539,7 +542,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 
 		}
 		if (instPairwiseRelation.getSourceRelations().get(0).getSupInstEleId()
-				.equals("Softgoal")) {
+				.equals("Softgoal")
+				&& instPairwiseRelation.getInstAttribute("sourceLevel") != null) {
 			EqualsComparisonExpression out21p = new EqualsComparisonExpression(
 					instPairwiseRelation, "sourceLevel", getHlclFactory()
 							.number(instPairwiseRelation.getInstAttribute(
@@ -558,13 +562,16 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				.getCompulsoryExpressionList("FalseOpt");
 		if (falseList != null)
 			falseList.addAll(allList);
-		this.getCompulsoryExpressions().put("FalseOpt", allList); // FIXME not
-																	// used
+
+		// this.getCompulsoryExpressions().put("FalseOpt", allList); // FIXME
+		// not
+		// used
 
 		List<AbstractExpression> falseList2 = this
 				.getCompulsoryExpressionList("FalseOpt2");
 		if (falseList2 != null)
 			falseList2.addAll(allList);
+		// if (!operId.equals("Core"))
 		this.getCompulsoryExpressions().put("FalseOpt2", allList);
 
 		InstElement instVertex = instPairwiseRelation.getSourceRelations().get(
@@ -580,4 +587,3 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 
 	}
 }
-

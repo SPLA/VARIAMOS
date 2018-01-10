@@ -70,7 +70,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	 * @param directEdgeType
 	 * @param source
 	 * @param target
-	 * @throws FunctionalException 
+	 * @throws FunctionalException
 	 */
 	public SingleElementExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
@@ -137,7 +137,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						if (instAttribute.getValue() instanceof Boolean)
 							attributeValue = ((boolean) instAttribute
 									.getValue()) ? 1 : 0;
-						else if (instAttribute.getValue() instanceof String)
+						else if (instAttribute.getValue() instanceof String
+								&& !instAttribute.getValue().equals(""))
 							attributeValue = Integer
 									.valueOf((String) instAttribute.getValue());
 						else if (instAttribute.getValue() instanceof Float)
@@ -147,7 +148,9 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							System.out.println(instVertex.getIdentifier() + " "
 									+ instAttribute.getIdentifier());
-							attributeValue = (Integer) instAttribute.getValue();
+							if (!instAttribute.getValue().equals(""))
+								attributeValue = (Integer) instAttribute
+										.getValue();
 						}
 
 					}
@@ -324,9 +327,11 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						if (instAttribute.getIdentifier().equals(
 								"ConditionalExpression")) {
 							boolean dr = false;
-							if (instAttribute.getValue() instanceof Integer)
+							if (instAttribute.getValue() instanceof Integer
+									|| !(instAttribute.getValue() instanceof ModelExpr))
 								dr = true;
-							if (!dr) {
+							if (!dr
+									&& instAttribute.getValue() instanceof ModelExpr) {
 								ModelExpr instanceExpression = (ModelExpr) instAttribute
 										.getValue();
 								if (instanceExpression != null
