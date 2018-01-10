@@ -36,7 +36,6 @@ import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.
 import com.variamos.gui.core.viewcontrollers.VariamosGUIPerpectiveEditorActions.SaveAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
-import com.variamos.gui.perspeditor.actions.AssembleAction;
 import com.variamos.gui.perspeditor.actions.CheckUpdateAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
@@ -291,8 +290,15 @@ public class PerspEditorMenuBar extends JMenuBar {
 								menuItem.setName(e.getIdentifier());
 								menuItem.setAction(
 										editor.bind(menuItem, e.getIdentifier(), new OperationAction(), null));
-								menu.add(menuItem);
+								
+								//domain implementation menu issue
+								if(e.getInstAttribute("opname").getValue().equals("Configure Integration")) {
+									menu.add(editor.bind("Configure Integration", new ConfigureAssemblyAction()));
+								}else {
+									menu.add(menuItem);
+								}
 								menuItem.setText((String) e.getInstAttribute("opname").getValue());
+								
 								boolean iterate = (boolean) e.getInstAttribute("iteration").getValue();
 								if (iterate) {
 									JMenuItem menuItem2 = new JMenuItem("Next Element");
@@ -442,13 +448,6 @@ public class PerspEditorMenuBar extends JMenuBar {
 			add(menu);
 
 		}
-		
-		//domain implementation
-		menu = (JMenu) menu.add(new JMenu(mxResources.get("domain")));
-		menu.add(editor.bind(mxResources.get("configureAssembly"), new ConfigureAssemblyAction()));
-		menu.add(editor.bind(mxResources.get("assembleC"), new AssembleAction()));
-		add(menu);
-		//domain implementation
 		
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
 		menu.setMnemonic('W');

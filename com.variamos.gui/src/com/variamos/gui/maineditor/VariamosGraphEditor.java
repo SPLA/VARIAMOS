@@ -1414,6 +1414,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements PropertyCha
 		// use the first node as the REFAS node - fixme
 		if (refas == null)
 			refas = dynamicBehaviorDTO.getRefasModel().getSyntaxModel().getVertex("SMNode1");
+		if (refas == null)
+			refas = dynamicBehaviorDTO.getRefasModel().getSyntaxModel().getVertex("SyMNode1");
 		InstConcept element = new InstConcept("REFAS1", refas);
 		element.createInstAttributes(null);
 		this.dynamicBehaviorDTO.getRefasModel().getVariabilityVertex().put("REFAS1", element);
