@@ -664,6 +664,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 			SWIPrologSolver swiSolver = new SWIPrologSolver();
 			swiSolver.setHLCLProgram(program); // passing the hlcl program to the solver
+			System.out.println(program);
 			swiSolver.solve(); // This method prepares the solver
 			boolean satisfiable = swiSolver.hasSolution(); // Consulting if the solver has one solution
 
