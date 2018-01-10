@@ -6225,9 +6225,9 @@ public class DefaultOpersMM {
 		semNmMetaConcept.putSemanticAttribute("TrueVal", attribute);
 
 		if (!empty) {
-			voidModelSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6350,9 +6350,9 @@ public class DefaultOpersMM {
 		semNmMetaConcept.putSemanticAttribute("FalseVal", attribute);
 
 		if (!empty) {
-			voidModelSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6661,9 +6661,9 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropVisibleAttribute("02#" + "Exclu");
 
 		if (!empty) {
-			voidModelSubOperationAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			voidModelOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -6870,12 +6870,12 @@ public class DefaultOpersMM {
 		semNmMetaConcept.putSemanticAttribute("ConfSel", attribute);
 
 		if (!empty) {
-			voidModelSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			voidModelOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// voidModelOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7064,12 +7064,12 @@ public class DefaultOpersMM {
 				+ "Active" + "#==#" + "true" + "#" + "false");
 
 		if (!empty) {
-			voidModelSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			voidModelOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// voidModelOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7698,12 +7698,12 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropVisibleAttribute("07#" + "Core");
 
 		if (!empty) {
-			voidModelSubOperationAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			voidModelOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// voidModelOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction
 					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -7934,12 +7934,12 @@ public class DefaultOpersMM {
 		semNmMetaConcept.addPropVisibleAttribute("08#" + "Dead");
 
 		if (!empty) {
-			voidModelSubOperationAction
-					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			voidModelOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction
+			// .addInAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// voidModelOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -8513,10 +8513,10 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("TrueVal", attribute);
 
 		if (!empty) {
-			voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -8676,10 +8676,10 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("FalseVal", attribute);
 
 		if (!empty) {
-			voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -9130,10 +9130,10 @@ public class DefaultOpersMM {
 		// FIXME review three input of this attribute
 
 		if (!empty) {
-			voidModelSubOperationAction.addOutAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// voidModelSubOperationAction.addOutAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction
 					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
@@ -10728,7 +10728,7 @@ public class DefaultOpersMM {
 						.getSemanticExpressionTypes().get("And"), instVertexGE,
 				t1, t2);
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -10779,7 +10779,7 @@ public class DefaultOpersMM {
 						.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexGE, instVertexGE, "Exclu", true, t1);
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -10867,7 +10867,7 @@ public class DefaultOpersMM {
 				refas.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexGE, instVertexGE, "Sel", true, t1);
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -10905,7 +10905,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE, 0,
 				false, t1);
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -11561,12 +11561,24 @@ public class DefaultOpersMM {
 				"Equals"), instVertexF, instVertexF, "FeatureType", "Root");
 
 		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexF, instVertexF, "Sel", true, 1);
+
+		t1 = new OpersExpr("015*** NEW VOID (Root Implies Sel)", refas
+				.getSemanticExpressionTypes().get("Implies"), instVertexF, t1,
+				t3);
+		voidModelSubOperNormal.addSemanticExpression(t1);
+		semExpr.add(t1);
+
+		t1 = new OpersExpr("2-1", refas.getSemanticExpressionTypes().get(
+				"Equals"), instVertexF, instVertexF, "FeatureType", "Root");
+
+		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
 				.get("Equals"), instVertexF, instVertexF, "Core", true, 1);
 
 		t1 = new OpersExpr("015 (NEW Ver/Val - Root Implies Core)", refas
 				.getSemanticExpressionTypes().get("Implies"), instVertexF, t1,
 				t3);
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -11609,7 +11621,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("017 (NEW FM analysis - !Root Implies !Core)", refas
 				.getSemanticExpressionTypes().get("Implies"), instVertexF, t1,
 				t3);
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -12022,7 +12034,7 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -12209,7 +12221,7 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -13295,7 +13307,7 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -13449,7 +13461,7 @@ public class DefaultOpersMM {
 
 		semExpr.add(t1);
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -13664,7 +13676,7 @@ public class DefaultOpersMM {
 				instCrossFeatFeatFGRF, instVertexFFGR, instVertexF, "OSel",
 				"Sel");
 
-		t1 = new OpersExpr("063 (NEW Ver/Val CONFSelected)", refas
+		t1 = new OpersExpr("063 (NEW Ver/Val OSel Sel)", refas
 				.getSemanticExpressionTypes().get("LessOrEquals"),
 				instCrossFeatFeatFGRF, 1, false, t1);
 
@@ -13712,7 +13724,7 @@ public class DefaultOpersMM {
 				instCrossFeatFeatFGRF, instVertexFFGR, instVertexF, "Exclu",
 				"FalseVal");
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
@@ -13820,7 +13832,7 @@ public class DefaultOpersMM {
 				instDirFeatFeatSideSemEdge, instVertexFFGR, instVertexF,
 				"Exclu", "FalseVal");
 
-		voidModelSubOperNormal.addSemanticExpression(t1);
+		// voidModelSubOperNormal.addSemanticExpression(t1);
 		validProductSubOperNormal.addSemanticExpression(t1);
 		validPartialConfSubOperNormal.addSemanticExpression(t1);
 		allProductsSubOperNormal.addSemanticExpression(t1);
