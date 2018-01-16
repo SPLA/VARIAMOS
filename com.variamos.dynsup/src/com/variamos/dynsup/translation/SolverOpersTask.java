@@ -535,6 +535,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 							String errorHint = (String) suboper.getInstAttributeValue("errorHint");
 							String outAttribute = (String) suboper.getInstAttributeValue("outAttribute");
+							// Sub orpetion id for diferenciate the one for graphs and the one for features
+							
+	
 							List<OpersIOAttribute> outAttributes = ((OpersSubOperation) suboper.getEdOperEle())
 									.getOutAttributes();
 
@@ -707,6 +710,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public int medicExecution(InstElement operation, InstElement subOper, String verifHint,
 			List<OpersIOAttribute> outAttributes, // pend
 			String outAttribute) throws Exception {
+		
+		String subOperationID = (String) subOper.getInstAttributeValue("userId");
 
 		int result = 0;
 		TranslationExpressionSet transExpSet = new TranslationExpressionSet(refasModel, operation, null, null);
@@ -737,11 +742,24 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				LogParameters params = new LogParameters();
 				// LogParameters params= new LogParameters("/Users/Angela/Test/", "test");
 				MinimalSetsDFSIterationsHLCL medic = new MinimalSetsDFSIterationsHLCL(program, params);
+				
+				// Setting the root variable regarding the type of model
 				String root = getRoot();
-				if (root == null) // if the user did not pick a root, the algorithm starts in the first variable
-					root = "CGVariable1_value";
-				else // the algorithm starts with the first variable selected
-					root += "_value";
+				if (subOperationID.equals("Medic-features")) // Medic over feature models
+				{
+					if (root == null) // if the user did not pick a root, the algorithm starts in the root
+						root = "RootFeature1_Sel";
+					else // the algorithm starts with the  attribute "Sel" of the selected feature
+						root += "_Sel";
+				}
+				else { // Medic over constraint graphs
+					if (root == null) // if the user did not pick a root, the algorithm starts in the first variable
+						root = "CGVariable1_value";
+					else // the algorithm starts with the first variable selected
+						root += "_value";
+					
+				}
+
 				LinkedList<VertexHLCL> output = medic.sourceOfInconsistentConstraints(root, 10);
 				// LinkedList<VertexHLCL> output=
 				// medic.sourceOfInconsistentConstraints("CGVariable1_value",10);
@@ -1261,7 +1279,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			if (instE.getInstAttribute("root") != null) {
 				value = (boolean) instE.getInstAttribute("root").getValue();
 				// System.out.println(instE.getInstAttribute("root").getValue());
-				System.out.println(name + " " + value);
+				//System.out.println(name + " " + value);
 				if (value) {
 					root = name;
 					break;

@@ -53,7 +53,8 @@ public class HlclUtil {
 		}
 
 		if (e instanceof Identifier) {
-			if (!((Identifier) e).getId().endsWith("FeatureType"))
+			//if (!((Identifier) e).getId().endsWith("FeatureType"))
+			//TODO avillota quito esta linea porque causa problemas con MEDIC
 				// FIXME use the labelings for the identifiers
 				ids.add((Identifier) e);
 		}
