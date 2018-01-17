@@ -17,12 +17,10 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.core.io.ConsoleTextArea;
-import com.variamos.gui.core.maineditor.models.ParadigmTypeEnum;
 import com.variamos.gui.core.viewcontrollers.VariamosGUIPerspectiveEditorActionsController;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
@@ -34,11 +32,11 @@ import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
 
 /**
- * Crea las distintas partes del editor 
+ * Crea las distintas partes del editor
  * 
- * Una instancia del variamosgraph editor por cada perspectiva
- * Carga la ventana principal
- * Controlador principal de la interfaz grafica. 
+ * Una instancia del variamosgraph editor por cada perspectiva Carga la ventana
+ * principal Controlador principal de la interfaz grafica.
+ * 
  * @author lufe0
  *
  */
@@ -58,9 +56,9 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private static String variamosVersionNumber = "1.0.1.20";
-	private String variamosVersionName = "1.0 Beta 20";
-	private String variamosBuild = "20180109-1300";
+	private static String variamosVersionNumber = "1.1.0.1";
+	private String variamosVersionName = "1.1 Alfa 1";
+	private String variamosBuild = "20180117-2130";
 	private String downloadId = "566";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -69,7 +67,7 @@ public class MainFrame extends JFrame {
 	private List<PerspEditorMenuBar> editorsMenu;
 
 	public MainFrame(String[] args) {
-		
+
 		try {
 			createResources();
 		} catch (Exception e1) {
@@ -78,7 +76,7 @@ public class MainFrame extends JFrame {
 		}
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
-				
+
 		Map<String, OpersExprType> metaExpressionTypes = createMetaExpressionTypes();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1166, 768);
@@ -186,11 +184,12 @@ public class MainFrame extends JFrame {
 			System.out.println(" done");
 			editor.updateView();
 		}
-		
+
 		System.out.println("GUI load completed");
 		this.add(graphEditors.get(2));
 		this.setJMenuBar(editorsMenu.get(2));
-		VariamosGUIPerspectiveEditorActionsController.changeVariamosParadigmView(graphEditors);
+		VariamosGUIPerspectiveEditorActionsController
+				.changeVariamosParadigmView(graphEditors);
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 			this.checkUpdates(false);
@@ -322,7 +321,6 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	
 	public void checkUpdates(boolean b) {
 		InputStream input;
 		try {
@@ -399,12 +397,12 @@ public class MainFrame extends JFrame {
 		}
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
-		String[] resourceNames = {
-				ResourcesPathsUtil.STYLES_PATH ,
+		String[] resourceNames = { ResourcesPathsUtil.STYLES_PATH,
 				ResourcesPathsUtil.SHAPES_PATH };
 		try {
 			for (String resourceName : resourceNames) {
-				stream = getClass().getClassLoader().getResourceAsStream(resourceName);
+				stream = getClass().getClassLoader().getResourceAsStream(
+						resourceName);
 				if (stream == null) {
 					throw new Exception("Cannot get resource \"" + resourceName
 							+ "\" from Jar file.");
@@ -433,7 +431,7 @@ public class MainFrame extends JFrame {
 
 		return getFilesUrl();
 	}
-	
+
 	public static String getFilesUrl() {
 		return filesUrl + "/VariaMos-" + variamosVersionNumber + "-Resources/";
 	}
@@ -445,7 +443,7 @@ public class MainFrame extends JFrame {
 	public static boolean getSolverError() {
 		return solverError;
 	}
-	
+
 	public boolean isAdvancedPerspective() {
 		return showPerspectiveButton;
 	}
@@ -470,7 +468,7 @@ public class MainFrame extends JFrame {
 	public String getVariamosBuild() {
 		return variamosBuild;
 	}
-	
+
 	public void setPerspective(int perspective) {
 		this.perspective = perspective;
 	}
