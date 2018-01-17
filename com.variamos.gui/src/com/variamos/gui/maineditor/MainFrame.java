@@ -59,7 +59,7 @@ public class MainFrame extends JFrame {
 	private static String variamosVersionNumber = "1.1.0.1";
 	private String variamosVersionName = "1.1 Alfa 1";
 	private String variamosBuild = "20180117-2130";
-	private String downloadId = "566";
+	private String downloadId = "644";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
 
@@ -330,16 +330,27 @@ public class MainFrame extends JFrame {
 			@SuppressWarnings("resource")
 			java.util.Scanner s = new java.util.Scanner(input)
 					.useDelimiter(":");
-			String newVersion = s.hasNext() ? s.next() : null;
-			if (newVersion != null && !variamosVersionNumber.equals(newVersion))
+			boolean ok = false;
+			while (s.hasNext()) {
+				String newVersion = s.next();
+				if (newVersion != null
+						&& variamosVersionNumber.equals(newVersion)) {
+					ok = true;
+					break;
+				}
+			}
+			if (!ok)
 				// && (!newVersion.equals("1.0.1.18"))
 				// && !variamosVersionNumber
 				// .equalsIgnoreCase("1.0.1.19")))
-				JOptionPane.showMessageDialog(this, "Your current version is "
-						+ variamosVersionNumber + ". The latest version is: "
-						+ newVersion + ". Please visit variamos.com.",
-						"New VariaMos Version available",
-						JOptionPane.INFORMATION_MESSAGE, null);
+				JOptionPane
+						.showMessageDialog(
+								this,
+								"Your current version of VariaMos("
+										+ variamosVersionNumber
+										+ ") is not updated. Please visit variamos.com.",
+								"New VariaMos Version available",
+								JOptionPane.INFORMATION_MESSAGE, null);
 			else if (b)
 				JOptionPane
 						.showMessageDialog(this,
@@ -362,8 +373,9 @@ public class MainFrame extends JFrame {
 			// " already defined models, we suggest you to continue using version Beta 18.",
 			// "Update Message",
 			// JOptionPane.INFORMATION_MESSAGE, null);
-			input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId)
-					.openStream();
+			if (!b)
+				input = new URL("http://variamos.com/home/?wpdmdl="
+						+ downloadId).openStream();
 			s.close();
 		} catch (java.net.UnknownHostException e) {
 			System.out.println("Could not connect to Variamos.com.");
