@@ -332,6 +332,9 @@ public class MinimalSetsDFSIterationsHLCL {
 		swiSolver.solve(); // This methhod prepares the solver 
 		evaluation = swiSolver.hasSolution(); // Consulting if the solver has one solution
 		System.gc(); //calling the Java's garbage collector 
+		
+		//usar el llamado con parametros
+		
 		return evaluation;
 	}
 	

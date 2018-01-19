@@ -726,15 +726,20 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 			SWIPrologSolver swiSolver = new SWIPrologSolver();
 			swiSolver.setHLCLProgram(program); // passing the hlcl program to the solver
-			System.out.println(program);
+			//System.out.println(program);
+			
 			swiSolver.solve(); // This method prepares the solver
 			boolean satisfiable = swiSolver.hasSolution(); // Consulting if the solver has one solution
+			
 
 			if (satisfiable) {
 				result = 0;
 			} else {
 				ArrayList<String> inconsistentPath = new ArrayList<String>();
 				ArrayList<String> inconsistentMsg = new ArrayList<String>();
+				
+				System.out.println("======================================================================");
+				System.out.println("======================================================================");
 				// Log parameters allow the activation of the logManager,
 				// to start an execution using a log manager comment line 722 and uncomment line
 				// 723

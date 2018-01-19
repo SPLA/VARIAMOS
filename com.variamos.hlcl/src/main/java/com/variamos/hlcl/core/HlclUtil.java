@@ -53,9 +53,11 @@ public class HlclUtil {
 		}
 
 		if (e instanceof Identifier) {
-			//if (!((Identifier) e).getId().endsWith("FeatureType"))
+			
 			//TODO avillota quito esta linea porque causa problemas con MEDIC
-				// FIXME use the labelings for the identifiers
+				// FIXME use the labelings for the identifiers  se deben ignorar las variables de tipo string, para que no se incluyan en L
+				//preguntar a JCMunoz
+			//if (!((Identifier) e).getId().endsWith("FeatureType"))
 				ids.add((Identifier) e);
 		}
 
