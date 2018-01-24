@@ -433,19 +433,15 @@ public class DefaultOpersMM {
 		 * AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0, new
 		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
 		 * simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		 * dynamicBehaviorDTO.getRefasModel().getIdentifier(),
-		 * attribute.getName(), true));
-		 * dynamicBehaviorDTO.getRefasModel().putSemanticAttribute("TotalOpt",
-		 * attribute);
+		 * refasModel.getIdentifier(), attribute.getName(), true));
+		 * refasModel.putSemanticAttribute("TotalOpt", attribute);
 		 * 
 		 * attribute = new ElemAttribute("TotalSG", "Integer",
 		 * AttributeType.EXECCURRENTSTATE, false, "***TotalSG***", 0, new
 		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
-		 * simsceExecOperLabeling2.addAttribute(new
-		 * OpersIOAttribute(dynamicBehaviorDTO.getRefasModel() .getIdentifier(),
-		 * attribute.getName(), true));
-		 * dynamicBehaviorDTO.getRefasModel().putSemanticAttribute("TotalSG",
-		 * attribute);
+		 * simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(refasModel
+		 * .getIdentifier(), attribute.getName(), true));
+		 * refasModel.putSemanticAttribute("TotalSG", attribute);
 		 */
 
 		if (!empty) {
@@ -507,15 +503,9 @@ public class DefaultOpersMM {
 					metaOperationMenu, operationMenu);
 			refas.getVariabilityVertex().put("SimulationGroup",
 					instOperationGroup);
-			// Luisa: ISSUE #245 HOT FIX
-			if (newOpers) {
-				instOperationGroup.getInstAttribute("visible").setValue(true);
-			} else {
-				instOperationGroup.getInstAttribute("visible").setValue(false);
-			}
 
+			instOperationGroup.getInstAttribute("visible").setValue(true);
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
-
 			instOperationGroup.getInstAttribute("opgname").setValue(
 					"Basic Simulation (Dynamic)");
 			instOperationGroup.getInstAttribute("shortcut").setValue("S");
@@ -683,15 +673,15 @@ public class DefaultOpersMM {
 			/*
 			 * = new SemanticExpression("sub", refas
 			 * .getSemanticExpressionTypes().get("Sum"),
-			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
-			 * instdynamicBehaviorDTO.getRefasModel(), "TotalOrder", 0);
+			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
+			 * "TotalOrder", 0);
 			 * 
 			 * semanticExpressions.add(t1);
 			 * 
 			 * t1 = new SemanticExpression("sub",
 			 * refas.getSemanticExpressionTypes() .get("Sum"),
-			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
-			 * instdynamicBehaviorDTO.getRefasModel(), "TotalOpt", 0);
+			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
+			 * "TotalOpt", 0);
 			 * 
 			 * semanticExpressions.add(t1);
 			 */
@@ -960,14 +950,8 @@ public class DefaultOpersMM {
 					metaOperationMenu, operationMenu);
 			refas.getVariabilityVertex().put("SimulSceGroup",
 					instOperationGroup);
-			// Luisa: ISSUE #245 HOT FIX: We hide this menu while we separate
-			// functionalities according to the notation where they might be
-			// used
-			if (newOpers) {
-				instOperationGroup.getInstAttribute("visible").setValue(true);
-			} else {
-				instOperationGroup.getInstAttribute("visible").setValue(false);
-			}
+
+			instOperationGroup.getInstAttribute("visible").setValue(false);
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
 			instOperationGroup.getInstAttribute("opgname").setValue(
 					"Simulation Scenarios  (Dynamic)");
@@ -982,11 +966,8 @@ public class DefaultOpersMM {
 					instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(
 					OpersOpType.Validation.toString());
-			// instOperationAction.getInstAttribute("opname").setValue(
-			// "Start Simulation (Dynamic)");
-			// Luisa: ISSUE #245 HOT FIX
 			instOperationAction.getInstAttribute("opname").setValue(
-					"Start Simulation");
+					"Start Simulation (Dynamic)");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(true);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(true);
@@ -6683,9 +6664,9 @@ public class DefaultOpersMM {
 			// voidModelSubOperationAction
 			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
 			// .getIdentifier(), attribute.getName(), true));
-			voidModelOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// voidModelOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction
 					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -8532,10 +8513,10 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("TrueVal", attribute);
 
 		if (!empty) {
-			// voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
-			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			// voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -8695,10 +8676,10 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("FalseVal", attribute);
 
 		if (!empty) {
-			// voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
-			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			// voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -9874,7 +9855,6 @@ public class DefaultOpersMM {
 		// "#>>\n");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		// TODO variables
 
 		attribute = new ElemAttribute("variableType", "Enumeration",
 				AttributeType.OPERATION, true, "Variable Type",
