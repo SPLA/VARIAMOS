@@ -58,7 +58,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.1.0.1";
 	private String variamosVersionName = "1.1 Alfa 1";
-	private String variamosBuild = "20180117-2130";
+	private String variamosBuild = "20180127-0200";
 	private String downloadId = "644";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -189,7 +189,7 @@ public class MainFrame extends JFrame {
 		this.add(graphEditors.get(2));
 		this.setJMenuBar(editorsMenu.get(2));
 		VariamosGUIPerspectiveEditorActionsController
-				.changeVariamosParadigmView(graphEditors);
+				.changeVariamosParadigmView(graphEditors, getFilesUrl());
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 			this.checkUpdates(false);
@@ -435,7 +435,46 @@ public class MainFrame extends JFrame {
 					}
 					resStreamOut.close();
 				}
-				stream.close();
+				stream.close();			
+			}
+			String[] metamodels = { 
+					ResourcesPathsUtil.MM_ASSETS_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_ASSETS_SEMANTIC_PATH,
+					ResourcesPathsUtil.MM_ASSETSBIND_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_ASSETSBIND_SEMANTIC_PATH,
+					ResourcesPathsUtil.MM_CONSTRAINTGRAPH_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_CONSTRAINTGRAPH_SEMANTIC_PATH,
+					ResourcesPathsUtil.MM_FEATURES_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_FEATURES_SEMANTIC_PATH,
+					ResourcesPathsUtil.MM_REFAS_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_REFAS_SEMANTIC_PATH};
+			for (String resourceName : metamodels) {
+				stream = getClass().getClassLoader().getResourceAsStream(
+						ResourcesPathsUtil.MM_COMMON_PATH+"/"+resourceName);
+				if (stream == null) {
+					throw new Exception("Cannot get resource \"" + resourceName
+							+ "\" from Jar file.");
+				}
+				String fileName = resourceName.substring(0,resourceName
+						.indexOf("/"));
+				File dir = new File(getFilesUrl()+"/"+fileName);
+				dir.mkdir();
+
+
+				// System.out.println(fileName);
+				File file = new File(getFilesUrl() +"/"+ resourceName);
+
+				int readBytes;
+				byte[] buffer = new byte[4096];
+				if (!file.exists()) {
+					resStreamOut = new FileOutputStream(getFilesUrl()+"/"
+							+ resourceName);
+					while ((readBytes = stream.read(buffer)) > 0) {
+						resStreamOut.write(buffer, 0, readBytes);
+					}
+					resStreamOut.close();
+				}
+				stream.close();			
 			}
 		} catch (Exception ex) {
 			System.out.println(ex.toString());
