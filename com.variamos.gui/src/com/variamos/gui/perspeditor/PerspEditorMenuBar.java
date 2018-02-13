@@ -292,8 +292,8 @@ public class PerspEditorMenuBar extends JMenuBar {
 										editor.bind(menuItem, e.getIdentifier(), new OperationAction(), null));
 								
 								//domain implementation menu issue
-								if(e.getInstAttribute("opname").getValue().equals("Configure Integration")) {
-									menu.add(editor.bind("Configure Integration", new ConfigureAssemblyAction()));
+								if(e.getInstAttribute("opname").getValue().equals("Configure Derivation")) {
+									menu.add(editor.bind("Configure Derivation", new ConfigureAssemblyAction()));
 								}else {
 									menu.add(menuItem);
 								}

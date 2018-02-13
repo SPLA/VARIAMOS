@@ -49,6 +49,8 @@ import com.variamos.reasoning.medic.model.graph.VertexHLCL;
 import com.variamos.reasoning.util.LogParameters;
 import com.variamos.solver.core.SWIPrologSolver;
 import com.variamos.solver.model.SolverSolution;
+import com.variamos.componentparser.main.MainParser;
+
 
 /**
  * A class to support SwingWorkers for solver execution tasks using the semantic
@@ -473,33 +475,58 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									operationsNames.size(), reuseFreeIds, updateFreeIds, outAttribute,
 									updateOutAttributes, coreOperation, constraitsToVerifyRedundacies);
 							terminated = true;
-						} 
-						/*else if (type
-								.equals(StringUtils
-										.formatEnumValue(OpersSubOpType.ConfigIntegration
-												.toString())))
-						{
-							result = 0;
-							terminated = true;
-						}*/
+						}
 						else if (type
 								.equals(StringUtils
-										.formatEnumValue(OpersSubOpType.ExecuteIntegration
+										.formatEnumValue(OpersSubOpType.ValidateDerivation
+												.toString())))
+						{
+							MainParser.message=""; // parser
+							if(MainParser.files_to_analize.isEmpty()) {
+								completedMessage="No files to validate, please be sure to derive a product first";
+							}else {
+								completedMessage=MainParser.executeParser(Fragmental.assembled_folder);
+							}
+							result = 0;
+							terminated = true;
+						}
+						else if (type
+								.equals(StringUtils
+										.formatEnumValue(OpersSubOpType.ExecuteDerivation
 												.toString())))
 						{
 							List<Map<String, String>> files = new ArrayList<>();
 							Boolean components_found=false;
+							ArrayList<String> components_to_assemble = new ArrayList<String>();
+							MainParser.files_to_analize = new ArrayList<String>(); // parser
+							MainParser.message=""; // parser
+							
+							for (InstElement instE : refasModel.getElements()) {
+								String id="";
+								id= (String) instE.getSupSyntaxEleId();
+								if(id != null && id.startsWith("SyMPairwise2")) {
+									List<InstElement> listS = instE.getSourceRelations();
+									InstElement instS = listS.get(0);
+									Boolean selected= (Boolean) instS.getInstAttributeValue("SelectedToIntegrate");
+									if(selected) {
+										List<InstElement> listT = instE.getTargetRelations();
+										InstElement instT = listT.get(0);
+										String name= (String) instT.getInstAttributeValue("Name");
+										components_to_assemble.add(name);
+									}
+								}
+							}
 							
 							for (InstElement instE : refasModel.getElements()) {
 								Map<String, String> file_map = new HashMap<String, String>();
 								boolean value=false;
-								String id= (String) instE.getIdentifier();
-								if(id.startsWith("E")) {
+								String id="";
+								id= (String) instE.getSupSyntaxEleId();
+								if(id != null && id.startsWith("SyMPairwise1")) {
 									List<InstElement> listT = instE.getTargetRelations();
 									InstElement instT = listT.get(0);
 									String name= (String) instT.getInstAttributeValue("Name");
-									Boolean selected= (Boolean) instT.getInstAttributeValue("SelectedToIntegrate");
-									if(selected) {
+									if (components_to_assemble.contains(name)) {
 										components_found=true;
 										file_map.put("component_folder", name);
 										List<InstElement> listS = instE.getSourceRelations();
@@ -510,14 +537,16 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										file_map.put("filename", name);
 										name= (String) instS.getInstAttributeValue("destination");
 										file_map.put("destination", name);
+										MainParser.files_to_analize.add(name); //to be parsed
 										files.add(file_map);
 									}
 								}
-							}
-							
+								
+							}							
 							if(components_found) {
 								Fragmental.principal(files);
-								String found_errors=Fragmental.get_errors();
+								String found_errors=Fragmental.get_errors();								
+								
 								if(found_errors.equals("")) {
 									completedMessage=found_errors+"!!!Components successfully assembled!!!";
 						        }else {

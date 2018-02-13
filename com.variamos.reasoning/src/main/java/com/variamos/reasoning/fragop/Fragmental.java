@@ -32,6 +32,8 @@ public class Fragmental {
     	data = new ArrayList<>();
         data=data_received;
         Fragment.data_no_fragments = new ArrayList<>();
+        Fragment.fragments_pmedium = new ArrayList<Fragment>();
+        Fragment.fragments_plow = new ArrayList<Fragment>();
         clean_directories();
         assemble_assets();
     }
@@ -46,22 +48,37 @@ public class Fragmental {
     }
     
     public static void assemble_assets(){
-        //no fragments
-        for(int i=0;i<data.size();i++){
-        	if(data.get(i).get("filename").equals("")) {
-        		error_var.add("Missing filename field for: "+data.get(i).get("ID"));
-        	}else if(!data.get(i).get("filename").contains(".frag")){
-                move_asset(data.get(i));
-                Fragment.data_no_fragments.add(data.get(i));
-            }
-        }
-        //fragments
-        for(int i=0;i<data.size();i++){
-        	if(data.get(i).get("filename").equals("")) {}
-        	else if(data.get(i).get("filename").contains(".frag")){
-        		parse_fragment(data.get(i));
-        	}
-        }
+		//no fragments
+		for(int i=0;i<data.size();i++){
+			if(data.get(i).get("filename").equals("")) {
+				error_var.add("Missing filename field for: "+data.get(i).get("ID"));
+			}else if(!data.get(i).get("filename").contains(".frag")){
+		        move_asset(data.get(i));
+		        Fragment.data_no_fragments.add(data.get(i));
+		    }
+		}
+		
+		//fragments high
+		for(int i=0;i<data.size();i++){
+			if(data.get(i).get("filename").equals("")) {}
+			else if(data.get(i).get("filename").contains(".frag")){
+				parse_fragment(data.get(i));
+			}
+		}
+		
+		//fragments medium 
+		if(Fragment.fragments_pmedium.size()>0) {
+			for(int i=0;i<Fragment.fragments_pmedium.size();i++){
+				Fragment.fragments_pmedium.get(i).execute_actions();
+			}
+		}
+		
+		//fragments low
+		if(Fragment.fragments_plow.size()>0) {
+			for(int i=0;i<Fragment.fragments_plow.size();i++){
+				Fragment.fragments_plow.get(i).execute_actions();
+			}
+		}
     }
     
     public static void parse_fragment(Map<String, String> fragment){
@@ -71,7 +88,7 @@ public class Fragmental {
                 String f_content = FileUtilsApache.readFileToString(source_f, "utf-8");
                 int pos_frag=0;
                 while(pos_frag!=-1) {
-                	Fragment f1 = new Fragment(f_content,fragment.get("filename"),pos_frag);
+                	Fragment f1 = new Fragment(f_content,fragment.get("filename"),fragment.get("component_folder"),pos_frag);
                 	pos_frag=extract_multiple_fragments(f_content,pos_frag);
                 }
             }
