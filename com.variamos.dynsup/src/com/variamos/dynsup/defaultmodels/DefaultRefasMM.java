@@ -7409,7 +7409,7 @@ public class DefaultRefasMM {
 		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-				"OperToClaim#OperToClaim#true#true#true#0#-1#0#-1"));
+				"OperToClaim##true#true#true#0#-1#0#-1"));
 
 		ia = instDirOperClaimOTToClaim.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -7846,7 +7846,7 @@ public class DefaultRefasMM {
 		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
-				"OperToClaim#OperToClaim#true#true#true#0#-1#0#-1"));
+				"OperToClaim##true#true#true#0#-1#0#-1"));
 
 		ia = instDirFClaimToSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
