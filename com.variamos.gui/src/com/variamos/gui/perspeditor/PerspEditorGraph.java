@@ -369,16 +369,22 @@ public class PerspEditorGraph extends mxGraph {
 					if (cell == null)
 						return;
 
-					if (!cell.isEdge()) {
+					if (!cell.isEdge())
 						addingVertex(cell, parentCell, indexCell);
-					} else if (!addingEdge(cell, parentCell, indexCell)) {
-						System.out
-								.println("Relation not supported by the MetaModel");
+				}
+				for (Object obj : addedCells) {
+					mxCell cell = (mxCell) obj;
+					if (cell == null)
+						return;
 
+					if (cell.isEdge()) {
+						if (!addingEdge(cell, parentCell, indexCell)) {
+							System.out
+									.println("Relation not supported by the MetaModel");
+						}
 					}
 				}
 			}
-
 		});
 
 		addListener(mxEvent.CELLS_MOVED, new mxIEventListener() {
@@ -393,10 +399,10 @@ public class PerspEditorGraph extends mxGraph {
 					if (cell == null)
 						return;
 
-					if (!cell.isEdge()) {
-						movingVertex(cell, parentCell, 0);
+					// if (!cell.isEdge()) {
+					movingVertex(cell, parentCell, 0);
 
-					}
+					// }
 				}
 			}
 
@@ -560,8 +566,47 @@ public class PerspEditorGraph extends mxGraph {
 					.getInstElement();
 
 			String elementIdentifier = element.getIdentifier();
-			if (elementIdentifier != null && !"".equals(elementIdentifier))
+			if (elementIdentifier != null && !"".equals(elementIdentifier)) {
+				try {
+					InstElement value2 = ((InstCell) cell.getValue())
+							.getInstElement();
+
+					InstPairwiseRel instElement = (InstPairwiseRel) value2
+							.clone();
+					InstCell instCell = new InstCell(cell, instElement,
+							((InstCell) cell.getValue()).isCloned());
+					cell.setValue(instCell);
+
+					InstanceModel pl = getModelInstance();
+					// InstPairwiseRel directRelation = new InstPairwiseRel(map,
+					// null);
+					InstanceModel refas = getModelInstance();
+
+					id = refas.addNewConstraintInstEdge(instElement);
+					cell.setValue(new InstCell(cell, instElement, false));
+					source.addTargetRelation(instElement, true);
+					target.addSourceRelation(instElement, true);
+				//	instElement.setTransSupInstElement(value2
+				//			.getTransSupInstElement().clone());
+					mxGraphModel refasGraph = (mxGraphModel) getModel();
+					mxGraphModel model2 = refasGraph;
+					if (modelViewSubIndex != -1) {
+						refasGraph.getCells().put(
+								modelViewIndex + id + "-" + modelViewSubIndex,
+								cell);
+						cell.setId(modelViewIndex + id + "-"
+								+ modelViewSubIndex);
+					} else {
+						refasGraph.getCells().put(modelViewIndex + id, cell);
+						cell.setId(modelViewIndex + id);
+					}
+
+				} catch (CloneNotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				return true;
+			}
 		}
 		InstPairwiseRel directRelation = new InstPairwiseRel(map, null);
 		InstanceModel refas = getModelInstance();

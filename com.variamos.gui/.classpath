@@ -7,7 +7,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.solver"/>
 	<classpathentry kind="lib" path="lib/jgraphx.jar" sourcepath="O:/Dropbox/doctorado/VariaMos/jgraphx-3_5_1_2/jgraphx/src">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/O:/Dropbox/doctorado/VariaMos/jgraphx-3_5_1_2/jgraphx/docs/api/"/>
+			<attribute name="javadoc_location" value="file:/C:/programas/jgraphx-3_5_1_2/jgraphx/docs/api/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.dynsup"/>

@@ -272,6 +272,9 @@ public class InstPairwiseRel extends InstElement {
 	@Override
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
+		setDynamicVariable(VAR_AUTOIDENTIFIER, identifier);
+		setInstAttribute(VAR_AUTOIDENTIFIER, identifier);
+
 	}
 
 	@Override
