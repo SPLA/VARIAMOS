@@ -379,8 +379,10 @@ public class ModelExpr2HLCL {
 		}
 
 		// Dynamic call with TranslationExpressionSet
+		// TODO a single constraintGroup for dynamic calls
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup instanceof TranslationExpressionSet) {
+				// Get instance and low expressions
 				HlclProgram ts = ((TranslationExpressionSet) constraintGroup)
 						.getHlCLProgramExpressions(subOperation + "-"
 								+ operExecType);
