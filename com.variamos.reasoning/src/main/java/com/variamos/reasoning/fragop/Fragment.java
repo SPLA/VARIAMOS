@@ -237,7 +237,7 @@ public class Fragment {
     
     public static List<String> get_comment_block(String language){
         List<String> comment_block_tags = new ArrayList<String>();
-        if(language.equals("php") || language.equals("css") || language.equals("java")){
+        if(language.equals("php") || language.equals("css") || language.equals("sql") || language.equals("java")){
             comment_block_tags.add("/*");
             comment_block_tags.add("*/");
         }else if(language.equals("html")){

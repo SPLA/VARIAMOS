@@ -93,7 +93,7 @@ public class Fragmental {
                 }
             }
             catch(Exception e){
-            	error_var.add(e.getMessage()+e.getStackTrace());
+            	//error_var.add(e.getMessage()+e.getStackTrace());
             }
         }else {
         	error_var.add(fragment.get("filename")+" doesn't exists, check the filename and path");

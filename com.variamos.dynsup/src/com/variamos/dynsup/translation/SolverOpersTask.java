@@ -495,6 +495,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										.formatEnumValue(OpersSubOpType.ExecuteDerivation
 												.toString())))
 						{
+							//start time
+							long startTime = System.nanoTime();
+							
 							List<Map<String, String>> files = new ArrayList<>();
 							Boolean components_found=false;
 							ArrayList<String> components_to_assemble = new ArrayList<String>();
@@ -505,6 +508,17 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								String id="";
 								id= (String) instE.getSupSyntaxEleId();
 								if(id != null && id.startsWith("SyMPairwise2")) {
+									List<InstElement> listT = instE.getTargetRelations();
+									InstElement instT = listT.get(0);
+									Boolean selected= (Boolean) instT.getInstAttributeValue("SelectedToIntegrate");
+									if(selected) {
+										List<InstElement> listS = instE.getSourceRelations();
+										InstElement instS = listS.get(0);
+										String name= (String) instS.getInstAttributeValue("Name");
+										components_to_assemble.add(name);
+									}
+								}
+								/*if(id != null && id.startsWith("SyMPairwise2")) {
 									List<InstElement> listS = instE.getSourceRelations();
 									InstElement instS = listS.get(0);
 									Boolean selected= (Boolean) instS.getInstAttributeValue("SelectedToIntegrate");
@@ -514,7 +528,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										String name= (String) instT.getInstAttributeValue("Name");
 										components_to_assemble.add(name);
 									}
-								}
+								}*/
 							}
 							
 							for (InstElement instE : refasModel.getElements()) {
@@ -555,6 +569,10 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							}else {							
 								completedMessage="There are not components selected to be assembled";
 							}
+							
+							//end time
+							long elapsedTimeNs = System.nanoTime() - startTime;
+							System.out.println("Time: "+elapsedTimeNs);
 													
 							result = 0;
 							terminated = true;
