@@ -94,6 +94,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		this.operation = operation;
 	}
 
+	// Algorithm #1 jcmunoz thesis
 	public void addExpressions(InstanceModel refas, InstElement instElement,
 			String subAction, OpersSubOpExecType expressionType) {
 

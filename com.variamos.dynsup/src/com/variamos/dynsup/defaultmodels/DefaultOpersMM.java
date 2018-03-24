@@ -10663,7 +10663,7 @@ public class DefaultOpersMM {
 		commonalityOperSubActionNormal2.addSemanticExpression(t1);
 		variabfactorOperSubActionNormal1.addSemanticExpression(t1);
 		degreeOrthoOperSubActionNormal1.addSemanticExpression(t1);
-		wrongCardOperSubActionRelaxable.addSemanticExpression(t1);
+		wrongCardOperSubActionNormal.addSemanticExpression(t1);
 		simulExecOptSubOperNormal.addSemanticExpression(t1);
 		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		verifFalseOptOperSubActionNormal.addSemanticExpression(t1);
