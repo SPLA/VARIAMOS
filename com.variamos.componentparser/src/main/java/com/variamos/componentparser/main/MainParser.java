@@ -61,7 +61,7 @@ public class MainParser {
 					    MySqlParser parser = new MySqlParser( tokens );
 					    parser.removeErrorListeners();
 					    parser.addErrorListener(errorListener);
-					    parser.root(); //case sensitive
+					    /*parser.sqlStatement();*/
 				    }else if(filetype.equals("php")) {
 				    	PhpLexer lexer = new PhpLexer(af);
 				    	lexer.removeErrorListeners();	    

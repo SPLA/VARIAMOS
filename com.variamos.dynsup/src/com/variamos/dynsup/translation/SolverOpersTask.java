@@ -518,17 +518,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										components_to_assemble.add(name);
 									}
 								}
-								/*if(id != null && id.startsWith("SyMPairwise2")) {
-									List<InstElement> listS = instE.getSourceRelations();
-									InstElement instS = listS.get(0);
-									Boolean selected= (Boolean) instS.getInstAttributeValue("SelectedToIntegrate");
-									if(selected) {
-										List<InstElement> listT = instE.getTargetRelations();
-										InstElement instT = listT.get(0);
-										String name= (String) instT.getInstAttributeValue("Name");
-										components_to_assemble.add(name);
-									}
-								}*/
 							}
 							
 							for (InstElement instE : refasModel.getElements()) {
