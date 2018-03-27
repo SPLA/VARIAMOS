@@ -279,7 +279,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										// conditional
 										// expressions
 										if (type.equals("Instance")) {
-											if (var.getValue() != null) {
+											if (var.getValue() != null
+													&& !var.getValue().equals(
+															"")) {
 												// FIXME v1.1 added to support
 												// Angela's constraints
 												if (!(var.getAttribute()
@@ -307,7 +309,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 													instanceExpression
 															.setLeftAttributeName(var
 																	.getIdentifier());
-													// System.out.println(att.getIdentifier());
+													System.out.println(var
+															.getIdentifier());
 													instanceExpression
 															.setRightInstanceExpression((ModelExpr) var
 																	.getValue());

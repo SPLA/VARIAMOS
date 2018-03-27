@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -59,7 +60,7 @@ public class VariamosGUIPerspectiveEditorActionsController {
 				((VariamosGraphEditor) variamosEditor).resetView();
 				System.runFinalization();
 				
-				VariamosGUIPerspectiveEditorActionsController.changeVariamosParadigmView(((MainFrame)variamosEditor.getFrame()).getGraphEditors());
+				VariamosGUIPerspectiveEditorActionsController.changeVariamosParadigmView(((MainFrame)variamosEditor.getFrame()).getGraphEditors(), ((MainFrame)variamosEditor.getFrame()).getFilesUrl());
 
 				if (variamosEditor.getPerspective() == 1) {
 
@@ -77,7 +78,7 @@ public class VariamosGUIPerspectiveEditorActionsController {
 		}
 	}
 	
-	public static void changeVariamosParadigmView(List<VariamosGraphEditor> graphEditors) {
+	public static void changeVariamosParadigmView(List<VariamosGraphEditor> graphEditors, String filesUrl) {
 		ParadigmTypeEnum paradigmChoosed = ParadigmChooserPane.showInputDialog();
 		/*if(paradigmChoosed==null || paradigmChoosed.equals(ParadigmTypeEnum.EMPTY)) {
 			dispose();
@@ -85,10 +86,10 @@ public class VariamosGUIPerspectiveEditorActionsController {
 		}*/
 		
 		File syntax = null, semantic = null;
-		String prefijo = "src/main/resources/defaultmodels/";
+		String prefijo = filesUrl+"/";
 		switch(paradigmChoosed) {
 			case CONSTRAINTGRAPHS:
-				syntax = new File(prefijo+"constraintgraphs/syntax.vmsm");
+				syntax = new File(prefijo+"constraintgraphs/syntax.vmsm");				
 				semantic = new File(prefijo+"constraintgraphs/semantic.vmom");
 				break;
 			case CUSTOMIZED:
