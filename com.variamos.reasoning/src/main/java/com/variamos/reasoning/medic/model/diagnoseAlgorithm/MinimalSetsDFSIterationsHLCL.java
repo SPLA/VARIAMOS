@@ -45,12 +45,13 @@ public class MinimalSetsDFSIterationsHLCL {
 	private LogManager logMan;// log manager
 	
 	//varibles used for statistics
-	private int iterations;
+	private int iterations; // number of iterations in the main loop
 	private LogParameters logParameters;
-	private long time;
-	private int iterationsPath;
-	private int total=0;
-	private int numPath;
+	private long time; // execution time
+	private int iterationsPath; // number of iterations in the intern loop (Search path)
+	private int total=0; // ciclos de la busqueda, dentro del while
+	private int numPath; //total de vertices en el camino
+	int numVars=0; // variables en una salida
 
 	/**
 	 * Method for using the diagnosis algorithm from variamos
@@ -100,12 +101,14 @@ public class MinimalSetsDFSIterationsHLCL {
 			String testName=logParameters.getProblemName()+"_"+ date.toString();
 			logMan= new LogManager(logParameters.getPath(), testName);
 			logMan.initLog();
-			logMan.writeInFile("Starting test of the MEDIC diagnosis algorithm, file: "+testName + "\n");
+			logMan.writeInFile("Starting test of the MEDIC diagnosis algorithm, file: "+testName + "\n"+
+					"The strategy of the search is "+ source +"\n"+
+					"path lenght"+getPathLenght()+"main loop: "+ getIter()+ "total vertices: "+getTotal()+ "size"+ sizePath()+" \n" );
 
 
 			
 			try{
-				iterations=1; //number of iterations of a call in the diagnosis algorithm
+				iterations=1; //number of iterations of a call to the search algorithm
 				long startTime = System.currentTimeMillis();
 				path = searchPathLog(source, graph, cspIn);
 				sizes+=path.getPath().size() +", ";
@@ -141,9 +144,11 @@ public class MinimalSetsDFSIterationsHLCL {
 				}
 				logMan.writeInFile("Size of path at iteration No."+ iterations+": " + path.getPath().size() + "\n");
 				int totalVertices=0;
+				
 				for (VertexHLCL vertex : path.getPath()) {
 					totalVertices++;
 					if(vertex instanceof NodeVariableHLCL){
+						numVars++;
 						logMan.writeInFile(vertex.getId()+ " ");
 						logMan.writeInFile( "(");
 						for (NodeConstraintHLCL cons : ((NodeVariableHLCL) vertex).getUnary()) {
@@ -321,7 +326,7 @@ public class MinimalSetsDFSIterationsHLCL {
 		// the output
 		boolean evaluation;
 
-		// to transform the hllcl program into a prolog  file, 
+		// to transform the hlcl program into a prolog  file, 
 		// these lines are commented because they are useful for debugging 
 		//Hlcl2SWIProlog swiPrologTransformer = new Hlcl2SWIProlog(); 
 		//String prologProgram = swiPrologTransformer.transform(constraints);
@@ -329,7 +334,7 @@ public class MinimalSetsDFSIterationsHLCL {
 		// an instance of the solver for Swiprolog 
 		SWIPrologSolver swiSolver= new SWIPrologSolver();
 		swiSolver.setHLCLProgram(constraints); //passing the hlcl program to the solver
-		swiSolver.solve(); // This methhod prepares the solver 
+		swiSolver.solve(); // This method prepares the solver 
 		evaluation = swiSolver.hasSolution(); // Consulting if the solver has one solution
 		System.gc(); //calling the Java's garbage collector 
 		
@@ -388,9 +393,18 @@ public class MinimalSetsDFSIterationsHLCL {
 		 logMan.writeInFile(vecinos.toString());
 	}
 	
+	/**
+	 * 
+	 * @return EXECUTION TIME
+	 */
 	public long getTime(){
 		return time;
 	}
+	/**	
+	 * 
+	 * @return returns the total amount of iterations
+	 * 
+	 */
 
 	public int getTotal(){
 		return total;
@@ -401,6 +415,10 @@ public class MinimalSetsDFSIterationsHLCL {
 	}
 	public int getPathLenght(){
 		return numPath;
+	}
+	
+	public int getNumVars(){
+		return numVars;
 	}
 
 	public String graphInfo(){

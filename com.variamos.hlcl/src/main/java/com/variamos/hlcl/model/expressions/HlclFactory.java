@@ -93,6 +93,16 @@ public class HlclFactory {
 	public SymbolicExpression newSymbolic(String name, Identifier... args) {
 		return new SymbolicExpression(name, args);
 	}
+	/**
+	 * Method included by Avillota to create a RELATION global constraint with a
+	 * table of elements
+	 * @param tuples the values of the relation
+	 * @param args variables in the relation
+	 * @return
+	 */
+	public SymbolicExpression newSymbolicRelation(NumericIdentifier[][] tuples, Identifier... args) {
+		return new SymbolicExpression(tuples, args);
+	}
 
 	public IntBooleanExpression not(IntBooleanExpression e) {
 		return new BooleanNegation(e);
