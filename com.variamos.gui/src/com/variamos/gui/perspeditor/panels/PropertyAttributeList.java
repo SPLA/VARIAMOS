@@ -333,4 +333,3 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 	}
 
 }
-

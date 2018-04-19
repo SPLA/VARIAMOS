@@ -118,7 +118,8 @@ public class DefaultRefasMM {
 		attribute = new ElemAttribute("satisficingLevel", "String",
 				AttributeType.OPERATION, "Satisficing Level",
 				"Satisficing for dynamic operations (low/high/close)", "high",
-				false, null, 0, 11, "", "", -1, "", "");
+				false, null, 0, 11, "", "", 10, "<as #" + "satisficingLevel"
+						+ "#all#>\n", "satisficingLevel" + "#!=#");
 
 		semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
 		DefaultOpersMM.verifDeadElemSubOperationAction
@@ -6433,21 +6434,20 @@ public class DefaultRefasMM {
 		ia = instDirCVCGSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("Variable Context", new ElemAttribute(
-				"Variable Context", StringType.IDENTIFIER,
-				AttributeType.OPTION, false, "Variable Context", "", "", 1, -1,
-				"", "", -1, "", ""),
-				"Variable Context##false#true#true#0#-1#0#-1"));
+		ias.add(new InstAttribute("General Context", new ElemAttribute(
+				"General Context", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "General Context", "", "", 1, -1, "", "", -1, "", ""),
+				"General Context##false#true#true#0#-1#0#-1"));
 
 		ia = instDirCVCGSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semExpr = new ArrayList<OpersExpr>();
 
-		ias.add(new InstAttribute("Variable Context", new ElemAttribute(
-				"Variable Context", StringType.IDENTIFIER,
-				AttributeType.OPTION, false, "Variable Context", "", "", 1, -1,
-				"", "", -1, "", ""), semExpr));
+		ias.add(new InstAttribute("General Context", new ElemAttribute(
+				"General Context", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "General Context", "", "", 1, -1, "", "", -1, "", ""),
+				semExpr));
 
 		refas.getVariabilityVertex().put("VaClPW", instDirCVCGSemanticEdge);
 

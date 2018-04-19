@@ -10091,20 +10091,12 @@ public class DefaultOpersMM {
 				"Boolean to specify if the variable has a restricted domain",
 				0, 0, 1, "", "variableType" + "#==#" + "Integer" + "$"
 						+ "variableType" + "#==#" + "Enumeration" + "$"
-						+ "variableType" + "#==#" + "Boolean", -1, "", "",
+						+ "variableType" + "#==#" + "Boolean" + "$"
+						+ "variableType" + "#==#" + "Float", -1, "", "",
 				"varConfDom", "", null);
 
 		// TODO define multiple conditions
 		semVariable.putSemanticAttribute("isConfDom", attribute);
-		semVariable.addPropEditableAttribute("01#" + "isConfDom");
-		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
-				+ "variableType" + "#==#" + "Enumeration");
-		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
-				+ "variableType" + "#==#" + "Integer");
-		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
-				+ "variableType" + "#==#" + "Boolean");
-		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
-				+ "variableType" + "#==#" + "Float");
 
 		voidModelSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
@@ -10195,9 +10187,6 @@ public class DefaultOpersMM {
 				"User configured domain, restricts the original domain domain \"n..m,o,p..r\" (no spaces)",
 				"", 0, 2, "isConfDom" + "#==#" + "true#", "", -1, "", "");
 		semVariable.putSemanticAttribute("varConfDom", attribute);
-		semVariable.addPropEditableAttribute("02#" + "varConfDom");
-		semVariable.addPropVisibleAttribute("02#" + "varConfDom" + "#"
-				+ "isConfDom" + "#==#" + "true");
 
 		attribute = new ElemAttribute("LowLevelExpressionText",
 				LowExpr.class.getCanonicalName(), AttributeType.OPERATION,
@@ -10206,9 +10195,6 @@ public class DefaultOpersMM {
 				0, 3, "", "variableType" + "#==#" + "LowLevel expression", -1,
 				"", "");
 		semVariable.putSemanticAttribute("LowLevelExpressionText", attribute);
-		semVariable.addPropEditableAttribute("03#" + "LowLevelExpressionText");
-		semVariable.addPropVisibleAttribute("03#" + "LowLevelExpressionText"
-				+ "#" + "variableType" + "#==#" + "LowLevel expression");
 
 		attribute = new ElemAttribute("LowLevelExprSubOper", "Class",
 				AttributeType.OPERATION, false, "SubOper",
@@ -10217,9 +10203,6 @@ public class DefaultOpersMM {
 				0, 3, "", "variableType" + "#==#" + "LowLevel expression", -1,
 				"", "");
 		semVariable.putSemanticAttribute("LowLevelExprSubOper", attribute);
-		semVariable.addPropEditableAttribute("03#" + "LowLevelExprSubOper");
-		semVariable.addPropVisibleAttribute("03#" + "LowLevelExprSubOper" + "#"
-				+ "variableType" + "#==#" + "LowLevel expression");
 
 		attribute = new ElemAttribute(
 				"LowLevelVarOutSubOper",
@@ -10232,9 +10215,6 @@ public class DefaultOpersMM {
 				0, 4, "", "variableType" + "#==#" + "LowLevel variable", -1,
 				"", "");
 		semVariable.putSemanticAttribute("LowLevelVarOutSubOper", attribute);
-		semVariable.addPropEditableAttribute("04#" + "LowLevelVarOutSubOper");
-		semVariable.addPropVisibleAttribute("04#" + "LowLevelVarOutSubOper"
-				+ "#" + "variableType" + "#==#" + "LowLevel variable");
 
 		attribute = new ElemAttribute(
 				"LowLevelOutVarLabel",
@@ -10247,9 +10227,6 @@ public class DefaultOpersMM {
 				"", 0, 5, "", "variableType" + "#==#" + "LowLevel variable",
 				-1, "", "");
 		semVariable.putSemanticAttribute("LowLevelOutVarLabel", attribute);
-		semVariable.addPropEditableAttribute("05#" + "LowLevelOutVarLabel");
-		semVariable.addPropVisibleAttribute("05#" + "LowLevelOutVarLabel" + "#"
-				+ "variableType" + "#==#" + "LowLevel variable");
 
 		attribute = new ElemAttribute(
 				"LowLevelVarInSubOper",
@@ -10262,9 +10239,6 @@ public class DefaultOpersMM {
 				0, 6, "", "variableType" + "#==#" + "LowLevel variable", -1,
 				"", "");
 		semVariable.putSemanticAttribute("LowLevelVarInSubOper", attribute);
-		semVariable.addPropEditableAttribute("06#" + "LowLevelVarInSubOper");
-		semVariable.addPropVisibleAttribute("06#" + "LowLevelVarInSubOper"
-				+ "#" + "variableType" + "#==#" + "LowLevel variable");
 
 		attribute = new ElemAttribute("LowLevelInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as low var",
@@ -10399,9 +10373,6 @@ public class DefaultOpersMM {
 				"Expression at the solver level (language independent)", null,
 				0, 3, "", "", -1, "", "");
 		semLowExp.putSemanticAttribute("LowLevelExpressionText", attribute);
-		semLowExp.addPropEditableAttribute("03#" + "LowLevelExpressionText");
-		semLowExp.addPropVisibleAttribute("03#" + "LowLevelExpressionText"
-				+ "#" + "");
 
 		attribute = new ElemAttribute("LowLevelExprSubOper", "Class",
 				AttributeType.OPERATION, false, "SubOper",
@@ -10409,9 +10380,6 @@ public class DefaultOpersMM {
 				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 3, "", "", -1, "", "");
 		semLowExp.putSemanticAttribute("LowLevelExprSubOper", attribute);
-		semLowExp.addPropEditableAttribute("03#" + "LowLevelExprSubOper");
-		semLowExp.addPropVisibleAttribute("03#" + "LowLevelExprSubOper" + "#"
-				+ "");
 
 		refas.getVariabilityVertex().put("NmLowExp", instVertexLowExp);
 
@@ -10425,8 +10393,6 @@ public class DefaultOpersMM {
 				"Variable current value (defined by an operation execution)",
 				0, 1, 7, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("value", attribute);
-		semLowVariable.addPropVisibleAttribute("07#" + "value");
-		semLowVariable.addPropVisibleAttribute("07#" + "value");
 		voidModelSubOperationAction.addOutAttribute(new OpersIOAttribute(
 				semLowVariable.getIdentifier(), attribute.getName(), true));
 		voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -10502,9 +10468,6 @@ public class DefaultOpersMM {
 				0, 4, "", "variableType" + "#==#" + "LowLevel variable", -1,
 				"", "");
 		semLowVariable.putSemanticAttribute("LowLevelVarOutSubOper", attribute);
-		semLowVariable
-				.addPropEditableAttribute("04#" + "LowLevelVarOutSubOper");
-		semLowVariable.addPropVisibleAttribute("04#" + "LowLevelVarOutSubOper");
 
 		attribute = new ElemAttribute(
 				"LowLevelOutVarLabel",
@@ -10516,8 +10479,6 @@ public class DefaultOpersMM {
 				OpersLabeling.class.getCanonicalName(), "OpMLabeling", null,
 				"", 0, 5, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("LowLevelOutVarLabel", attribute);
-		semLowVariable.addPropEditableAttribute("05#" + "LowLevelOutVarLabel");
-		semLowVariable.addPropVisibleAttribute("05#" + "LowLevelOutVarLabel");
 
 		attribute = new ElemAttribute(
 				"LowLevelVarInSubOper",
@@ -10529,9 +10490,6 @@ public class DefaultOpersMM {
 				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 6, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("LowLevelVarInSubOper", attribute);
-		semLowVariable.addPropEditableAttribute("06#" + "LowLevelVarInSubOper");
-		semLowVariable.addPropVisibleAttribute("06#" + "LowLevelVarInSubOper"
-				+ "#" + "variableType" + "#==#" + "LowLevel variable");
 
 		attribute = new ElemAttribute("LowLevelInVarLabel", "Class",
 				AttributeType.OPERATION, false, "Input Labeling as low var",
@@ -10539,8 +10497,6 @@ public class DefaultOpersMM {
 				OpersLabeling.class.getCanonicalName(), "OpMLabeling", null,
 				"", 0, 7, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("LowLevelInVarLabel", attribute);
-		semLowVariable.addPropEditableAttribute("07#" + "LowLevelInVarLabel");
-		semLowVariable.addPropVisibleAttribute("07#" + "LowLevelInVarLabel");
 
 		attribute = new ElemAttribute(
 				"InputSubOperAsInteger",
@@ -10552,9 +10508,6 @@ public class DefaultOpersMM {
 				OpersConcept.class.getCanonicalName(), "OpMSubOper", null, "",
 				0, 8, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("InputSubOperAsInteger", attribute);
-		semLowVariable
-				.addPropEditableAttribute("08#" + "InputSubOperAsInteger");
-		semLowVariable.addPropVisibleAttribute("08#" + "InputSubOperAsInteger");
 
 		// FIXME not used at the moment
 		attribute = new ElemAttribute("IntegerInVarLabel", "Class",
@@ -10563,16 +10516,12 @@ public class DefaultOpersMM {
 				OpersLabeling.class.getCanonicalName(), "OpMLabeling", null,
 				"", 0, 9, "", "", -1, "", "");
 		semLowVariable.putSemanticAttribute("IntegerInVarLabel", attribute);
-		semLowVariable.addPropEditableAttribute("09#" + "IntegerInVarLabel");
-		semLowVariable.addPropVisibleAttribute("09#" + "IntegerInVarLabel");
 
 		attribute = new ElemAttribute("LowLevelVarValue", "String",
 				AttributeType.GLOBALCONFIG, false, "Fixed Input Value",
 				"Value defined for input variable", "", 0, 8, "", "", -1, "",
 				"");
 		semLowVariable.putSemanticAttribute("LowLevelVarValue", attribute);
-		semLowVariable.addPropEditableAttribute("08#" + "LowLevelVarValue");
-		semLowVariable.addPropVisibleAttribute("08#" + "LowLevelVarValue");
 
 		refas.getVariabilityVertex().put("NmLowVariable", instVertexLowVAR);
 
@@ -10592,19 +10541,25 @@ public class DefaultOpersMM {
 		// "1", 0, 6, "", "", -1, "", ""));
 		// semContextGroup.addPropEditableAttribute("06#" + "minInstances");
 		// semContextGroup.addPropVisibleAttribute("06#" + "minInstances");
-		semContextGroup
-				.putSemanticAttribute(
-						"instances",
-						new ElemAttribute(
-								"instances",
-								"Integer",
-								AttributeType.OPERATION,
-								false,
-								"Current Instances",
-								"Current active instances of the concepts of this Concern Level",
-								1, 0, 7, "", "", -1, "", ""));
-		semContextGroup.addPropEditableAttribute("07#" + "instances");
-		semContextGroup.addPropVisibleAttribute("07#" + "instances");
+		semContextGroup.putSemanticAttribute("instances", new ElemAttribute(
+				"instances", "Integer", AttributeType.OPERATION, false,
+				"Number of Instances",
+				"Number of instances of the concepts of this Concern Level", 1,
+				0, 7, "", "", 10, "instances: #instances#all#", ""));
+
+		attribute = new ElemAttribute("Scope", "Boolean",
+				AttributeType.OPERATION, true, "Global Scope", "", true, 0, 5,
+				"", "", -1, "", "");
+		semContextGroup.putSemanticAttribute("Scope", attribute);
+
+		attribute = new ElemAttribute("ConcernLevel", "Class",
+				AttributeType.OPERATION, false, "Concern Level",
+				"Concern Level of the element (Ignored for operations)",
+				InstConcept.class.getCanonicalName(), "CG", null, "", 2, 6, "",
+				"Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
+						+ "#all#>>\n", "Scope" + "#==#" + "false");
+
+		semContextGroup.putSemanticAttribute("ConcernLevel", attribute);
 
 		// semContextGroup.putSemanticAttribute("ExtVisible", new ElemAttribute(
 		// "ExtVisible", "Boolean", AttributeType.OPERATION, false,
@@ -10948,7 +10903,6 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("ConcernLevel", "Class",
 				AttributeType.OPERATION, false, "Concern Level",
 				"Concern Level of the element (Ignored for operations)",
-
 				InstConcept.class.getCanonicalName(), "CG", null, "", 2, 6, "",
 				"Scope" + "#==#" + "false", 0, "<<#" + "ConcernLevel"
 						+ "#all#>>\n", "Scope" + "#==#" + "false");
