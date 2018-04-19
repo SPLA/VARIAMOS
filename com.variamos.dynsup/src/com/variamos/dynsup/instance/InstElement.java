@@ -1174,6 +1174,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return out;
 	}
 
+	@Deprecated
 	public Set<String> getPropEditableAttributes() {
 		if (getEdOperEle() != null)
 			return getEdOperEle().getPropEditableAttributesSet(
@@ -1181,6 +1182,7 @@ public abstract class InstElement implements Serializable, Cloneable,
 		return new HashSet<String>();
 	}
 
+	@Deprecated
 	public Collection<String> getPropVisibleAttributes() {
 		if (getEdOperEle() != null)
 			return getEdOperEle().getPropVisibleAttributesSet(

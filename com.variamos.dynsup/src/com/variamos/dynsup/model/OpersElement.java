@@ -85,12 +85,14 @@ public class OpersElement implements Serializable {
 		this.panelSpacersAttributes = disPanelSpacersAttributes;
 	}
 
+	@Deprecated
 	public List<String> getDeclaredPropVisibleAttributes() {
 		List<String> syntaxAttributesNames = new ArrayList<String>();
 		syntaxAttributesNames.addAll(propVisibleAttributes);
 		return syntaxAttributesNames;
 	}
 
+	@Deprecated
 	public List<String> getPropVisibleAttributes(List<InstElement> opersParents) {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		if (opersParents != null)
@@ -101,6 +103,7 @@ public class OpersElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public Set<String> getPropVisibleAttributesSet(
 			List<InstElement> opersParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
@@ -112,10 +115,12 @@ public class OpersElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public void addPropVisibleAttribute(String visibleAttribute) {
 		propVisibleAttributes.add(visibleAttribute);
 	}
 
+	@Deprecated
 	public List<String> getDeclaredPropEditableAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		modelingAttributesNames.addAll(propEditableAttributes);
@@ -128,6 +133,7 @@ public class OpersElement implements Serializable {
 		return properties;
 	}
 
+	@Deprecated
 	public List<String> getPropEditableAttributes(
 			List<InstElement> opersDirectParents) {
 		List<String> modelingAttributesNames = new ArrayList<String>();
@@ -139,6 +145,7 @@ public class OpersElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public Set<String> getPropEditableAttributesSet(
 			List<InstElement> opersDirectParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
@@ -150,6 +157,7 @@ public class OpersElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
+	@Deprecated
 	public void addPropEditableAttribute(String editableAttribute) {
 		propEditableAttributes.add(editableAttribute);
 	}
@@ -325,5 +333,3 @@ public class OpersElement implements Serializable {
 	}
 
 }
-
-

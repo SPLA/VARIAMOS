@@ -76,10 +76,6 @@ public class DefaultRefasMM {
 		semOperationalization.putSemanticAttribute("attributeValue", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semOperationalization.addPropVisibleAttribute("06#" + "attributeValue");
-		semOperationalization
-				.addPropEditableAttribute("06#" + "attributeValue");
-
 		DefaultOpersMM.simsceExecOperLabeling1
 				.addAttribute(new OpersIOAttribute(semOperationalization
 						.getIdentifier(), "Sel", true));
@@ -221,17 +217,12 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(),
 						attribute.getName(), true));
 
-		semSoftgoal.addPropEditableAttribute("11#" + "satisficingLevel");
-		semSoftgoal.addPropVisibleAttribute("11#" + "satisficingLevel");
-
 		attribute = new ElemAttribute("satisficingType", "Enumeration",
 				AttributeType.OPERATION, false, "Satisficing Type",
 				"Satisficing for static operations",
 				SatisficingType.class.getCanonicalName(),
 				"Achieve as close as possible", "", 0, 10, "", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("satisficingType", attribute);
-		semSoftgoal.addPropEditableAttribute("10#" + "satisficingType");
-		semSoftgoal.addPropVisibleAttribute("10#" + "satisficingType");
 
 		attribute = new ElemAttribute("ConfigReqLevel", "Integer",
 				AttributeType.OPERATION, "Config Req Level (5=ignored)",
@@ -239,9 +230,7 @@ public class DefaultRefasMM {
 				new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#" + "true"
 						+ "#" + "5", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
-		semSoftgoal.addPropEditableAttribute("05#" + "ConfigReqLevel" + "#"
-				+ "Required" + "#==#" + "true" + "#" + "5");
-		semSoftgoal.addPropVisibleAttribute("05#" + "ConfigReqLevel");
+
 		DefaultOpersMM.verifDeadElemSubOperationAction
 				.addInAttribute(new OpersIOAttribute(semSoftgoal
 						.getIdentifier(), attribute.getName(), true));
@@ -945,12 +934,6 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(),
 						attribute.getName(), true));
 
-		semSoftgoal.addPropVisibleAttribute("16#" + "SDReqLevel");
-		semSoftgoal.addPropVisibleAttribute("18#" + "ClaimExpLevel");
-
-		semSoftgoal.addPropEditableAttribute("16#" + "SDReqLevel");
-		semSoftgoal.addPropEditableAttribute("18#" + "ClaimExpLevel");
-
 		attribute = new ElemAttribute("defaultDomainValue", "Integer",
 				AttributeType.OPERATION, false,
 				"Default Value (Filtered Attributes)",
@@ -958,10 +941,6 @@ public class DefaultRefasMM {
 						+ " constraints the domain (e.j. 4 for maximizing SG)",
 				0, new RangeDomain(0, 4, 0), 2, 19, "", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("defaultDomainValue", attribute);
-
-		semSoftgoal.addPropVisibleAttribute("19#" + "defaultDomainValue");
-
-		semSoftgoal.addPropEditableAttribute("19#" + "defaultDomainValue");
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sgtoge", instEdge);
@@ -1344,10 +1323,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directOperClaimSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
-		directOperClaimSemanticEdge.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		directOperClaimSemanticEdge.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directOperClaimSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -1369,10 +1345,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directOperClaimSemanticEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
-		directOperClaimSemanticEdge.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		directOperClaimSemanticEdge.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directOperClaimSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -1631,8 +1604,6 @@ public class DefaultRefasMM {
 				"#ConditionalExpression#all#", "");
 
 		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
-		semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
-		semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
 
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				semClaim.getIdentifier(), attribute.getName(), true));
@@ -1703,8 +1674,6 @@ public class DefaultRefasMM {
 				AttributeType.GLOBALCONFIG, false, "Boolean Comp. Expression",
 				"", true, 0, 1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("CompExp", attribute);
-		semClaim.addPropEditableAttribute("01#" + "CompExp");
-		semClaim.addPropVisibleAttribute("01#" + "CompExp");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -1713,8 +1682,6 @@ public class DefaultRefasMM {
 				"(Ignored for operations)", 1, false, new RangeDomain(0, 4, 0),
 				0, 5, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
-		semClaim.addPropEditableAttribute("05#" + "ConfidenceLevel");
-		semClaim.addPropVisibleAttribute("05#" + "ConfidenceLevel");
 
 		OpersConcept semSoftDependency = new OpersConcept("SoftDependency");
 
@@ -1800,10 +1767,6 @@ public class DefaultRefasMM {
 
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
 				attribute);
-		semSoftDependency.addPropEditableAttribute("03#"
-				+ "ConditionalExpression");
-		semSoftDependency.addPropVisibleAttribute("03#"
-				+ "ConditionalExpression");
 
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				semSoftDependency.getIdentifier(), attribute.getName(), true));
@@ -1892,9 +1855,6 @@ public class DefaultRefasMM {
 				AttributeType.GLOBALCONFIG, false, "Boolean Comp. Expression",
 				"", true, 2, 1, "", "", -1, "", "");
 		semSoftDependency.putSemanticAttribute("CompExp", attribute);
-		semSoftDependency.addPropEditableAttribute("01#" + "CompExp");
-		semSoftDependency.addPropVisibleAttribute("01#" + "CompExp");
-		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		OpersConcept semHardOverTwoRelation = new OpersConcept("HardN-ary");// hardSemOverTwoRelList);
 
@@ -1939,9 +1899,7 @@ public class DefaultRefasMM {
 				"", "", 3, "[#" + "AggregationLow" + "#all#..",
 				"AggregationHigh" + "#!=#" + "0");
 		altHardNaryToHardEdge.putSemanticAttribute("AggregationLow", attribute);
-		altHardNaryToHardEdge
-				.addPropEditableAttribute("03#" + "AggregationLow");
-		altHardNaryToHardEdge.addPropVisibleAttribute("03#" + "AggregationLow");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				altHardNaryToHardEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -1961,10 +1919,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		altHardNaryToHardEdge
 				.putSemanticAttribute("AggregationHigh", attribute);
-		altHardNaryToHardEdge.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		altHardNaryToHardEdge
-				.addPropVisibleAttribute("04#" + "AggregationHigh");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				altHardNaryToHardEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -2013,10 +1968,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		meansHardToHardNaryEdge.putSemanticAttribute("AggregationLow",
 				attribute);
-		meansHardToHardNaryEdge.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		meansHardToHardNaryEdge.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				meansHardToHardNaryEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -2036,10 +1988,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		meansHardToHardNaryEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
-		meansHardToHardNaryEdge.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		meansHardToHardNaryEdge.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				meansHardToHardNaryEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -2109,10 +2058,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		fromHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
-		fromHardHardSemanticEdge.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		fromHardHardSemanticEdge.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				fromHardHardSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -2132,10 +2078,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		fromHardHardSemanticEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
-		fromHardHardSemanticEdge.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		fromHardHardSemanticEdge.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				fromHardHardSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -2894,10 +2837,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
-		directHardHardSemanticEdge.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		directHardHardSemanticEdge.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directHardHardSemanticEdge.getIdentifier(),
 				attribute.getName(), true));
@@ -2917,10 +2857,6 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directHardHardSemanticEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
-		directHardHardSemanticEdge.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		directHardHardSemanticEdge.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
 
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directHardHardSemanticEdge.getIdentifier(),
@@ -2944,10 +2880,7 @@ public class DefaultRefasMM {
 						AttributeType.OPERATION, true, "Relation Type", "",
 						InstAttribute.class.getCanonicalName(), null, "", 0, 6,
 						"", "", 6, "#" + "relationType" + "#all#\n", ""));
-		directHardHardSemanticEdge.addPropEditableAttribute("06#"
-				+ "relationType");
-		directHardHardSemanticEdge.addPropVisibleAttribute("06#"
-				+ "relationType");
+
 		// directHardHardSemanticEdge.addPanelVisibleAttribute("06#"
 		// + "relationType");
 		// directHardHardSemanticEdge.addPanelSpacersAttribute("#"
@@ -3468,10 +3401,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directStructHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
-		directStructHardHardSemanticEdge.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		directStructHardHardSemanticEdge.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directStructHardHardSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -3493,10 +3423,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directStructHardHardSemanticEdge.putSemanticAttribute(
 				"AggregationHigh", attribute);
-		directStructHardHardSemanticEdge.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		directStructHardHardSemanticEdge.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directStructHardHardSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -4567,9 +4494,6 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		directSGSGSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
-		directSGSGSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
-
 		attribute = new ElemAttribute("targetLevel", "Integer",
 				AttributeType.OPERATION, "Target Level", "", 1, false,
 				new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
@@ -4663,8 +4587,6 @@ public class DefaultRefasMM {
 						.getIdentifier(), attribute.getName(), true));
 
 		directSGSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel" + "#");
-		directSGSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
-		directSGSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
 		// directSGSGSemEdge.addPanelVisibleAttribute("09#" +
 		// "targetLevel");
 
@@ -4684,10 +4606,6 @@ public class DefaultRefasMM {
 				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		directSGSGSemEdge.addPropEditableAttribute("07#" + "AggregationLow");
-
-		directSGSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
-
 		attribute = new ElemAttribute("AggregationHigh", "Integer",
 				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 8,
 				"", "", 8, "#" + "AggregationHigh" + "#all#\n",
@@ -4703,10 +4621,6 @@ public class DefaultRefasMM {
 		DefaultOpersMM.simSceSubOperationAction
 				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
 						.getIdentifier(), attribute.getName(), true));
-
-		directSGSGSemEdge.addPropEditableAttribute("08#" + "AggregationHigh");
-
-		directSGSGSemEdge.addPropVisibleAttribute("08#" + "AggregationHigh");
 
 		InstConcept instDirSGSGSemanticEdge = new InstConcept("SoftgoalBinary",
 				DefaultOpersMM.metaMetaPairwiseRelation, directSGSGSemEdge);
@@ -5395,8 +5309,6 @@ public class DefaultRefasMM {
 						.getIdentifier(), attribute.getName(), true));
 
 		directGRSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel" + "#");
-		directGRSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
-		directGRSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
 
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 7,
@@ -5414,10 +5326,6 @@ public class DefaultRefasMM {
 				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		directGRSGSemEdge.addPropEditableAttribute("07#" + "AggregationLow");
-
-		directGRSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
-
 		attribute = new ElemAttribute("AggregationHigh", "Integer",
 				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 8,
 				"", "", 8, "#" + "AggregationHigh" + "#all#\n",
@@ -5434,9 +5342,6 @@ public class DefaultRefasMM {
 				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		directGRSGSemEdge.addPropEditableAttribute("08#" + "AggregationHigh");
-
-		directGRSGSemEdge.addPropVisibleAttribute("08#" + "AggregationHigh");
 		// directGRSGSemEdge.addPanelVisibleAttribute("09#" +
 		// "targetLevel");
 
@@ -6039,9 +5944,6 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		directSgToSgGRSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
-		directSgToSgGRSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
-
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 7,
 				"", "", 7, "[#" + "AggregationLow" + "#all#..",
@@ -6059,11 +5961,6 @@ public class DefaultRefasMM {
 		DefaultOpersMM.simSceSubOperationAction
 				.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge
 						.getIdentifier(), attribute.getName(), true));
-
-		directSgToSgGRSemEdge
-				.addPropEditableAttribute("07#" + "AggregationLow");
-
-		directSgToSgGRSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
 
 		attribute = new ElemAttribute("AggregationHigh", "Integer",
 				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 8,
@@ -6083,14 +5980,6 @@ public class DefaultRefasMM {
 		DefaultOpersMM.simSceSubOperationAction
 				.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge
 						.getIdentifier(), attribute.getName(), true));
-
-		directSgToSgGRSemEdge.addPropEditableAttribute("08#"
-				+ "AggregationHigh");
-
-		directSgToSgGRSemEdge
-				.addPropVisibleAttribute("08#" + "AggregationHigh");
-		// directSgToSgGRSemEdge.addPanelVisibleAttribute("08#" +
-		// "sourceLevel");
 
 		InstConcept instSgToSgGR = new InstConcept("SgToSgN-ary",
 				DefaultOpersMM.metaMetaPairwiseRelation, directSgToSgGRSemEdge);
@@ -7351,10 +7240,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directOperClaimToSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
-		directOperClaimToSemanticEdge.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		directOperClaimToSemanticEdge.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directOperClaimToSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -7376,10 +7262,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directOperClaimToSemanticEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
-		directOperClaimToSemanticEdge.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		directOperClaimToSemanticEdge.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directOperClaimToSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -8141,10 +8024,6 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(directClaimSGSemanticEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		directClaimSGSemanticEdge.addPropEditableAttribute("08#" + "CLSGLevel");
-		directClaimSGSemanticEdge.addPropVisibleAttribute("08#" + "CLSGLevel");
-		// directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
-		// + "CLSGLevel");
 		InstConcept instDirClaimSGSemanticEdge = new InstConcept(
 				"ClaimSgBinary", DefaultOpersMM.metaMetaPairwiseRelation,
 				directClaimSGSemanticEdge);
@@ -8155,10 +8034,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directClaimSGSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
-		directClaimSGSemanticEdge.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		directClaimSGSemanticEdge.addPropVisibleAttribute("03#"
-				+ "AggregationLow");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -8178,10 +8054,7 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		directClaimSGSemanticEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
-		directClaimSGSemanticEdge.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		directClaimSGSemanticEdge.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
+
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -8791,13 +8664,8 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		directSDSGSemanticEdge.addPropEditableAttribute("08#" + "level");
-		directSDSGSemanticEdge.addPropVisibleAttribute("08#" + "level");
-		// directSDSGSemanticEdge.addPanelVisibleAttribute("08#" + "level");
-
 		InstConcept instDirSDSGSemanticEdge = new InstConcept("SdSgBinary",
-
-		DefaultOpersMM.metaMetaPairwiseRelation, directSDSGSemanticEdge);
+				DefaultOpersMM.metaMetaPairwiseRelation, directSDSGSemanticEdge);
 
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sdsgtoip", instEdge);
