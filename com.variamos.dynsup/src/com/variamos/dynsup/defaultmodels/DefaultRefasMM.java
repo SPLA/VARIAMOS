@@ -4586,10 +4586,6 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
 						.getIdentifier(), attribute.getName(), true));
 
-		directSGSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel" + "#");
-		// directSGSGSemEdge.addPanelVisibleAttribute("09#" +
-		// "targetLevel");
-
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 7,
 				"", "", 7, "[#" + "AggregationLow" + "#all#..",
@@ -5219,7 +5215,7 @@ public class DefaultRefasMM {
 		attribute = new ElemAttribute("targetLevel", "Integer",
 				AttributeType.OPERATION, "Target Level", "", 1, false,
 				new RangeDomain(0, 4, 0), 0, 9, "", "", 9,
-				":#targetLevel#all#", "");
+				"TL: #targetLevel#all#", "");
 		directGRSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
@@ -5307,8 +5303,6 @@ public class DefaultRefasMM {
 		DefaultOpersMM.sasverConflSDOperUniqueLabeling
 				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
 						.getIdentifier(), attribute.getName(), true));
-
-		directGRSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel" + "#");
 
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 7,
@@ -5852,8 +5846,8 @@ public class DefaultRefasMM {
 		OpersConcept directSgToSgGRSemEdge = new OpersConcept("SgToSgN-ary");
 		attribute = new ElemAttribute("sourceLevel", "Integer",
 				AttributeType.OPERATION, "Source Level", "", 1, false,
-				new RangeDomain(0, 4, 0), 0, 8, "", "", 8, "#sourceLevel#all#",
-				"");
+				new RangeDomain(0, 4, 0), 0, 8, "", "", 8,
+				"SL: #sourceLevel#all#", "");
 		directSgToSgGRSemEdge.putSemanticAttribute("sourceLevel", attribute);
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directSgToSgGRSemEdge.getIdentifier(), attribute.getName(),
