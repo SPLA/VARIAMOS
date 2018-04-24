@@ -133,6 +133,16 @@
 		<add as="verticalAlign" value="middle"/>
 		<add as="strokeColor" value="black"/>
 	</add>
+		<add as="refasasset-wide">
+		<add as="shape" value="refas-component-wide"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="right"/>}
+		<add as="fillColor" value="white"/>	
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+	</add>
 	<!-- End REFAS Meta-Model styles in use -->
 	
 	

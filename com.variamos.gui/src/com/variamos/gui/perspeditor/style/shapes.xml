@@ -687,6 +687,38 @@
 		<fillstroke/>
 	</foreground>
 </shape>
+<shape name="refas-component-wide" aspect="variable">
+	<background>
+		<fillstroke color="#666666"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<stroke/>
+		<path>
+			<move x="8" y="13"/>
+			<line x="100" y="13"/>
+			<line x="100" y="85"/>
+			<line x="8" y="85"/>
+			<line x="8" y="13"/>
+			<close/>
+			<move x="0" y="25"/>
+			<line x="14" y="25"/>
+			<line x="14" y="40"/>
+			<line x="0" y="40"/>
+			<line x="0" y="25"/>
+			<close/>
+			<move x="0" y="60"/>
+			<line x="14" y="60"/>
+			<line x="14" y="75"/>
+			<line x="0" y="75"/>
+			<line x="0" y="60"/>
+			<close/>
+		</path>		
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
 <shape name="meansend" aspect="variable">
 	<connections>
 		<constraint x="0.5" y="0" perimeter="0"/>

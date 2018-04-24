@@ -4589,7 +4589,7 @@ public class DefaultRefasMM {
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 7,
 				"", "", 7, "[#" + "AggregationLow" + "#all#..",
-				"AggregationHigh" + "#!=#" + "0");
+				"AggregationHigh" + "#!=#" + "-1");
 		directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
@@ -4604,8 +4604,8 @@ public class DefaultRefasMM {
 
 		attribute = new ElemAttribute("AggregationHigh", "Integer",
 				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 8,
-				"", "", 8, "#" + "AggregationHigh" + "#all#\n",
-				"AggregationHigh" + "#!=#" + "0");
+				"", "", 8, "#" + "AggregationHigh" + "#all#]\n",
+				"AggregationHigh" + "#!=#" + "-1");
 		directSGSGSemEdge.putSemanticAttribute("AggregationHigh", attribute);
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
@@ -5941,7 +5941,7 @@ public class DefaultRefasMM {
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 7,
 				"", "", 7, "[#" + "AggregationLow" + "#all#..",
-				"AggregationHigh" + "#!=#" + "0");
+				"AggregationHigh" + "#!=#" + "-1");
 		directSgToSgGRSemEdge.putSemanticAttribute("AggregationLow", attribute);
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directSgToSgGRSemEdge.getIdentifier(), attribute.getName(),
@@ -5958,7 +5958,7 @@ public class DefaultRefasMM {
 
 		attribute = new ElemAttribute("AggregationHigh", "Integer",
 				AttributeType.OPERATION, false, "AggregationHigh", "", 0, 0, 8,
-				"", "", 8, "#" + "AggregationHigh" + "#all#\n",
+				"", "", 8, "#" + "AggregationHigh" + "#all#]\n",
 				"AggregationHigh" + "#!=#" + "0");
 		directSgToSgGRSemEdge
 				.putSemanticAttribute("AggregationHigh", attribute);
