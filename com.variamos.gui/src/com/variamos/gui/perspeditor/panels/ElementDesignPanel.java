@@ -480,7 +480,7 @@ public class ElementDesignPanel extends JPanel {
 																				elementAttribute
 																						.toString(),
 																				(int) instCell
-																						.getWidth() / 8));
+																						.getWidth() / 9));
 													} else
 														elementAttribute
 																.setValue(StringUtils
@@ -614,7 +614,7 @@ public class ElementDesignPanel extends JPanel {
 																				elementAttribute
 																						.toString(),
 																				(int) instCell
-																						.getWidth() / 8));
+																						.getWidth() / 9));
 													} else
 														elementAttribute
 																.setValue(StringUtils
@@ -819,7 +819,7 @@ public class ElementDesignPanel extends JPanel {
 														elementAttribute
 																.toString(),
 														(int) instCell
-																.getWidth() / 8));
+																.getWidth() / 9));
 									} else
 										elementAttribute.setValue(StringUtils
 												.multiLine(elementAttribute

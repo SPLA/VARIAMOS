@@ -94,11 +94,12 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		this.operation = operation;
 	}
 
+	// Algorithm #1 jcmunoz thesis
 	public void addExpressions(InstanceModel refas, InstElement instElement,
 			String subAction, OpersSubOpExecType expressionType) {
 
-		List<ModelExpr> out = new ArrayList<ModelExpr>();
-		List<ModelExpr> outLow = new ArrayList<ModelExpr>();
+		List<ModelExpr> outInstanceExpressions = new ArrayList<ModelExpr>();
+		List<ModelExpr> outLowInstanceExpressions = new ArrayList<ModelExpr>();
 
 		List<LiteralBooleanExpression> outLiteral = new ArrayList<LiteralBooleanExpression>();
 
@@ -116,20 +117,22 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		// out.addAll(createElementInstanceExpressions(operAction));
 		// }
 
-		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("OpMOperation");
+		// List<InstElement> operActions = refas.getOperationalModel()
+		// .getVariabilityVertex("OpMOperation");
 		// InstElement operAction = null;
-		InstElement operSubAction = null;
+		InstElement currentSubOper = null;
 		// for (InstElement oper : operActions) {
 		// if (oper.getIdentifier().equals(operation)) {
 		// operAction = oper;
 		// break;
 		// }
 		// }
+
+		// TODO create a method to reuse getSubOper(String subOper)
 		for (InstElement rel : operation.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction)) {
-				operSubAction = subOper;
+				currentSubOper = subOper;
 				break;
 			}
 		}
@@ -142,23 +145,25 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		 * } SemanticOperationSubAction operSubAction = operAction
 		 * .getExpressionSubAction(subAction);
 		 */
-		if (operSubAction != null) {
+		if (currentSubOper != null) {
 			@SuppressWarnings("unchecked")
-			List<InstAttribute> listatt = ((List<InstAttribute>) operSubAction
+			// TODO create a method to reuse getSubOperExp(expressionType)
+			List<InstAttribute> listatt = ((List<InstAttribute>) currentSubOper
 					.getInstAttributeValue("exptype"));
-			OpersSubOperationExpType operExpType = null;
+			OpersSubOperationExpType currentSubOperType = null;
 			String subOperExpTypeName = null;
 			for (InstAttribute att : listatt) {
 				String attObj = ((InstConcept) att.getValue())
 						.getInstAttributeValue("suboperexptype").toString();
 				if (attObj.equals(expressionType.toString())) {
-					operExpType = (OpersSubOperationExpType) ((InstConcept) att
+					currentSubOperType = (OpersSubOperationExpType) ((InstConcept) att
 							.getValue()).getEdOperEle();
 					subOperExpTypeName = attObj;
 				}
 			}
-			if (operExpType != null) {
-				List<OpersExpr> semExp = operExpType.getSemanticExpressions();
+			if (currentSubOperType != null) {
+				List<OpersExpr> semExp = currentSubOperType
+						.getSemanticExpressions();
 
 				if (instElement == null)
 					for (InstElement instE : refas.getElements()) {
@@ -210,7 +215,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 													.getInstAttribute(
 															"LowLevelVarValue")
 													.getValue()));
-									outLow.add(instanceExpression);
+									outLowInstanceExpressions
+											.add(instanceExpression);
 								}
 							}
 							if (instE.getInstAttribute("variableType")
@@ -238,7 +244,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 											.setRightNumber(((Integer) instE
 													.getInstAttribute("value")
 													.getValue()));
-									outLow.add(instanceExpression);
+									outLowInstanceExpressions
+											.add(instanceExpression);
 
 								}
 							}
@@ -254,8 +261,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										.getInstAttribute("variableType")
 										.getValue()
 										.equals("LowLevel expression"))) {
-							out.addAll(createElementInstanceExpressions(instE,
-									semExp, false, expressionInstances));
+							outInstanceExpressions
+									.addAll(createElementInstanceExpressions(
+											instE, semExp, false,
+											expressionInstances));
 							int pos = -1;
 							do {
 								for (InstAttribute var : instE
@@ -266,7 +275,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										var = var.getAdditionalAttribute(pos);
 									int attributeValue = 0;
 									if (subOperExpTypeName.equals("NORMAL")
-											&& ((OpersSubOperation) operSubAction
+											&& ((OpersSubOperation) currentSubOper
 													.getEdOperEle())
 													.validateAttribute(
 															instE.getTransSupportMetaElement()
@@ -291,8 +300,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 																.equals("ConstraintExpression")) {
 													// FIXME use an enumeration
 													// instead of the string
-													out.add((ModelExpr) var
-															.getValue());
+													outInstanceExpressions
+															.add((ModelExpr) var
+																	.getValue());
 												} else {
 													ModelExpr instanceExpression = new ModelExpr(
 															true,
@@ -315,7 +325,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 																	.getValue());
 													instanceExpression
 															.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-													out.add(instanceExpression);
+													outInstanceExpressions
+															.add(instanceExpression);
 												}
 											} else {
 												ModelExpr instanceExpression = new ModelExpr(
@@ -336,7 +347,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 														.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 												instanceExpression
 														.setRightNumber(1);
-												out.add(instanceExpression);
+												outInstanceExpressions
+														.add(instanceExpression);
 											}
 										} else {
 											if (type.equals("Integer")
@@ -377,7 +389,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 												instanceExpression
 														.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 											}
-											out.add(instanceExpression);
+											outInstanceExpressions
+													.add(instanceExpression);
 										}
 
 									}
@@ -390,14 +403,17 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					}
 				else {
 					int instances = instElement.getInstances(refas);
-					out.addAll(createElementInstanceExpressions(instElement,
-							semExp, false, instances));
+					outInstanceExpressions
+							.addAll(createElementInstanceExpressions(
+									instElement, semExp, false, instances));
 				}
 
 			}
 		}
-		instanceExpressions.put(subAction + "-" + expressionType, out);
-		instanceLowExpr.put(subAction + "-" + expressionType, outLow);
+		instanceExpressions.put(subAction + "-" + expressionType,
+				outInstanceExpressions);
+		instanceLowExpr.put(subAction + "-" + expressionType,
+				outLowInstanceExpressions);
 		literalExpressions.put(subAction + "-" + expressionType, outLiteral);
 
 	}
