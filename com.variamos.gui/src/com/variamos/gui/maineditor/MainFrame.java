@@ -1,6 +1,7 @@
 package com.variamos.gui.maineditor;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExprType;
@@ -189,7 +191,8 @@ public class MainFrame extends JFrame {
 		this.add(graphEditors.get(2));
 		this.setJMenuBar(editorsMenu.get(2));
 		VariamosGUIPerspectiveEditorActionsController
-				.changeVariamosParadigmView(graphEditors, getFilesUrl());
+				.changeVariamosParadigmView(this, graphEditors, getFilesUrl(),
+						graphEditors.get(2));
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 			this.checkUpdates(false);
@@ -295,6 +298,8 @@ public class MainFrame extends JFrame {
 	}
 
 	public void setLayout() {
+		JRootPane o = this.getRootPane();
+		Container e = o.getContentPane();
 		this.getRootPane().getContentPane().removeAll();
 		this.add(graphEditors.get(perspective - 1));
 		this.setJMenuBar(editorsMenu.get(perspective - 1));
