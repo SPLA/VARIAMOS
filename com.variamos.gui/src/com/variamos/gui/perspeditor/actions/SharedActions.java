@@ -258,9 +258,57 @@ public class SharedActions {
 		return graph;
 	}
 
+	public static void removeLostElements(mxGraph graph,
+			VariamosGraphEditor editor) {
+		InstanceModel instanceModel = editor.getEditedModel();
+		mxIGraphModel refasGraph = graph.getModel();
+		Object o = refasGraph.getRoot(); // Main Root
+		mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0);
+		Object[] all0Cells = getSortedCells(graph, o1);
+
+		ArrayList<InstElement> toRemove = new ArrayList<InstElement>();
+
+		for (InstElement element : instanceModel.getElements()) {
+			boolean exist = false;
+			if (element.getIdentifier().equals("Goal24")
+
+			/*
+			 * && ((InstCell) ((mxCell) any1Cell).getValue())
+			 * .getOriginalInstElement() .getDynamicAttribute("identifier")
+			 * .equals("")
+			 */) {
+				System.out.println(element.getIdentifier());
+			}
+			for (Object any0Cell : all0Cells) {
+				// Root model view mvInd
+				mxCell mv0 = (mxCell) any0Cell;
+
+				if (refasGraph.getChildCount(mv0) > 0) {
+					// First vertices and after edges
+					Object[] all1Cells = getSortedCells(graph, mv0);
+
+					for (Object any1Cell : all1Cells) {
+						if (((mxCell) any1Cell).getId().substring(1)
+								.equals(element.getIdentifier())) {
+							exist = true;
+						}
+					}
+				}
+
+			}
+			if (!exist) {
+				System.out.println("removing... " + element.getIdentifier());
+				toRemove.add(element);
+			}
+		}
+		for (InstElement instElement : toRemove) {
+			instanceModel.removeElement(instElement);
+		}
+	}
+
 	public static mxGraph recoverClonedElements(mxGraph graph,
 			VariamosGraphEditor editor) {
-
+		removeLostElements(graph, editor);
 		setVisibleViews(graph.getModel(), true, 0, 0);
 		mxIGraphModel refasGraph = graph.getModel();
 		// editor.getGraphComponent().zoomActual();
@@ -280,6 +328,19 @@ public class SharedActions {
 						// for (int i = 0; i < refasGraph.getChildCount(mv0);
 						// i++) {
 						// mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+						if (((mxCell) any1Cell).getId().equals("0Goal24")
+								|| ((InstCell) ((mxCell) any1Cell).getValue())
+										.getInstElement() == null
+						/*
+						 * && ((InstCell) ((mxCell) any1Cell).getValue())
+						 * .getOriginalInstElement()
+						 * .getDynamicAttribute("identifier") .equals("")
+						 */) {
+							System.out.println(((mxCell) any1Cell).getId());
+							Object[] toRemove = new Object[1];
+							toRemove[0] = any1Cell;
+							graph.removeCells(toRemove);
+						}
 						mxCell mv1 = (mxCell) any1Cell;
 						if (refasGraph.getChildCount(mv1) > 0
 						// && mv0.getChildAt(0).getValue()
