@@ -202,6 +202,7 @@ public class SharedActions {
 						// && mv0.getChildAt(0).getValue()
 						// .equals(mv0.getValue())
 						) {
+							// SubViews support
 							Object[] all2Cells = getSortedCells(graph, mv1);
 							for (Object any2Cell : all2Cells) {
 								mxCell mv2 = (mxCell) any2Cell;
@@ -270,7 +271,7 @@ public class SharedActions {
 
 		for (InstElement element : instanceModel.getElements()) {
 			boolean exist = false;
-			if (element.getIdentifier().equals("Goal24")
+			if (element.getIdentifier().equals("Softgoal8")
 
 			/*
 			 * && ((InstCell) ((mxCell) any1Cell).getValue())
@@ -288,8 +289,9 @@ public class SharedActions {
 					Object[] all1Cells = getSortedCells(graph, mv0);
 
 					for (Object any1Cell : all1Cells) {
-						if (((mxCell) any1Cell).getId().substring(1)
-								.equals(element.getIdentifier())) {
+						String id = ((mxCell) any1Cell).getId().substring(1);
+						String id2 = element.getIdentifier();
+						if (id.equals(id2)) {
 							exist = true;
 						}
 					}
@@ -308,8 +310,8 @@ public class SharedActions {
 
 	public static mxGraph recoverClonedElements(mxGraph graph,
 			VariamosGraphEditor editor) {
-		removeLostElements(graph, editor);
 		setVisibleViews(graph.getModel(), true, 0, 0);
+		removeLostElements(graph, editor);
 		mxIGraphModel refasGraph = graph.getModel();
 		// editor.getGraphComponent().zoomActual();
 		if (graph instanceof PerspEditorGraph) {
@@ -336,7 +338,8 @@ public class SharedActions {
 						 * .getOriginalInstElement()
 						 * .getDynamicAttribute("identifier") .equals("")
 						 */) {
-							System.out.println(((mxCell) any1Cell).getId());
+							System.out.println("node to remove: "
+									+ ((mxCell) any1Cell).getId());
 							Object[] toRemove = new Object[1];
 							toRemove[0] = any1Cell;
 							graph.removeCells(toRemove);
@@ -393,6 +396,7 @@ public class SharedActions {
 
 		setVisibleViews(graph.getModel(), false, editor.getModelViewIndex(),
 				editor.getModelSubViewIndex());
+		System.gc();
 		return graph;
 	}
 

@@ -2022,7 +2022,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void recoverClones() {
 		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),
 				this);
-
 	}
 
 	public void showExternalContextDialog() {

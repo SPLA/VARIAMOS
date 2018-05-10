@@ -285,7 +285,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		setProgress(90);
 		progressMonitor.setNote("Load completed.");
 		resetEditor(variamosEditor);
-
+		System.gc();
 		return true;
 	}
 
@@ -343,6 +343,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.gc();
 		return true;
 	}
 
