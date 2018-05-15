@@ -12,6 +12,7 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.LowExpr;
+import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
@@ -10883,6 +10884,18 @@ public class DefaultOpersMM {
 				"com.variamos.dynsup.statictypes.SatisfactionType", "achieve",
 				"", 0, 1, "", "", -1, "", "");
 		semHardConcept.putSemanticAttribute("satType", attribute);
+
+		attribute = new ElemAttribute(
+				"condExpr",
+				"Instance",
+				AttributeType.OPERATION,
+				false,
+				"Conditional Expression",
+				"Condition to select the concept in addition to constraints of the concept and its relations",
+				ModelExpr.class.getCanonicalName(), "", "", 0, 3, "", "", -1,
+				"#ConditionalExpression#all#", "");
+
+		semHardConcept.putSemanticAttribute("condExpr", attribute);
 
 		instVertexHC = new InstConcept("HardConcept", metaMetaInstConcept,
 				semHardConcept);

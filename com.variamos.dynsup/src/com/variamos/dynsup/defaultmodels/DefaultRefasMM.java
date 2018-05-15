@@ -2871,6 +2871,18 @@ public class DefaultRefasMM {
 				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
 						.getIdentifier(), attribute.getName(), true));
 
+		attribute = new ElemAttribute(
+				"condExpr",
+				"Instance",
+				AttributeType.OPERATION,
+				false,
+				"Conditional Expression",
+				"Condition to select the relation in addition to the constraint of the concepts",
+				ModelExpr.class.getCanonicalName(), "", "", 0, 3, "", "", -1,
+				"#ConditionalExpression#all#", "");
+
+		directHardHardSemanticEdge.putSemanticAttribute("condExpr", attribute);
+
 		InstConcept instDirHardHardSemanticEdge = new InstConcept(
 				"TravHardBinary", DefaultOpersMM.metaMetaPairwiseRelation,
 				directHardHardSemanticEdge);
@@ -3462,6 +3474,19 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(
 						directStructHardHardSemanticEdge.getIdentifier(),
 						attribute.getName(), true));
+
+		attribute = new ElemAttribute(
+				"condExpr",
+				"Instance",
+				AttributeType.OPERATION,
+				false,
+				"Conditional Expression",
+				"Condition to select the relation in addition to the constraint of the concepts",
+				ModelExpr.class.getCanonicalName(), "", "", 0, 3, "", "", -1,
+				"#ConditionalExpression#all#", "");
+
+		directStructHardHardSemanticEdge.putSemanticAttribute("condExpr",
+				attribute);
 
 		InstConcept instDirStructHardHardSemanticEdge = new InstConcept(
 				"MeansHardBinary", DefaultOpersMM.metaMetaPairwiseRelation,
