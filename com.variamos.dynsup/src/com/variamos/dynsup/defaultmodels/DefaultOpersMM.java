@@ -6396,6 +6396,12 @@ public class DefaultOpersMM {
 			verifFalsePLSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
+			simulExecOperUniLab
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulSubOperationAction
 					.addInAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));

@@ -661,7 +661,7 @@ public class ModelExpr2HLCL {
 				List<IntNumericExpression> orderExpressionList = new ArrayList<IntNumericExpression>();
 				List<LabelingOrderEnum> labelingOrderList = new ArrayList<LabelingOrderEnum>();
 				labelingOrderList.add(LabelingOrderEnum.MIN);
-				labelingOrderList.add(LabelingOrderEnum.MIN);
+				// labelingOrderList.add(LabelingOrderEnum.MIN);
 				Iterator<InstElement> iterVertex = refas
 						.getVariabilityVertexCollection().iterator();
 				InstElement instVertex = iterVertex.next();
@@ -669,8 +669,8 @@ public class ModelExpr2HLCL {
 						iterVertex, "Order"));
 				iterVertex = refas.getVariabilityVertexCollection().iterator();
 				instVertex = iterVertex.next();
-				orderExpressionList.add(getSumExpression(instVertex,
-						iterVertex, "Opt"));
+				// orderExpressionList.add(getSumExpression(instVertex,
+				// iterVertex, "Opt"));
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
 				swiSolver.solve(new SolverSolution(), configurationOptions);
