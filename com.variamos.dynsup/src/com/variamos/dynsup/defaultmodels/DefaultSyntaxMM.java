@@ -2027,7 +2027,9 @@ public class DefaultSyntaxMM {
 				"plnode",
 				"Defines the relation between operationalizations and softgoals",
 				100, 80, "/com/variamos/gui/perspeditor/images/plnode.png", 3,
-				"SG Satisficing Palette - Goals", 4, null);
+				"SG Satisficing Palette - Goals"// ;SG Satisficing Palette -
+												// Features"
+				, 4, null);
 		instViewC = new InstConcept("SoftGoalsSatisficing", metaView,
 				syntaxMetaView);
 
