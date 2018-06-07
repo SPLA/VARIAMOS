@@ -7920,6 +7920,67 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(instDirLFClaimSemanticEdge, true);
 		instEdge.setSourceRelation(DefaultOpersMM.instVertexF, true);
 
+		ia = instDirLFClaimSemanticEdge.getInstAttribute("relTypesAttr");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("LfToClaim", new ElemAttribute("LfToClaim",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"LfToClaim", "", "", 1, -1, "", "", -1, "", ""),
+				"LfToClaim##true#true#true#0#-1#0#-1"));
+
+		ia = instDirOperClaimSemanticEdge.getInstAttribute("opersExprs");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semExpr = new ArrayList<OpersExpr>();
+
+		t2 = new OpersExpr("CLSGnoHighSelSel", refas
+				.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instDirOperClaimSemanticEdge, instVertexOper, instVertexCL,
+				"Sel", "TrueVal");
+
+		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instDirOperClaimSemanticEdge, instVertexCL,
+				"ConditionalExpression", false, t2);
+		// support FM with claims
+		t1 = new OpersExpr("114CP New Val - OPERCLSelected", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.RIGHTVARIABLE,
+				instDirOperClaimSemanticEdge, instDirOperClaimSemanticEdge,
+				"PSel", false, t1);
+		semExpr.add(t1);
+		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		// support FM with claims
+		t1 = new OpersExpr("115CP VerSAS/Val - OperCLEq", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTVARIABLE,
+				instDirOperClaimSemanticEdge, instVertexCL,
+				instDirOperClaimSemanticEdge, "Sel", "PSel");
+		semExpr.add(t1);
+		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		t1 = new OpersExpr("116 Ver/Val - OPERCLNotAvailable", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instDirOperClaimSemanticEdge, instVertexOper, instVertexCL,
+				"Exclu", "Exclu");
+
+		semExpr.add(t1);
+		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalseOptOperSubActionNormal
+				.addSemanticExpression(t1);
+
+		ias.add(new InstAttribute("LfToClaim", new ElemAttribute("LfToClaim",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"LfToClaim", "", "", 1, -1, "", "", -1, "", ""), semExpr));
+
 		// Claim to SG
 
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();

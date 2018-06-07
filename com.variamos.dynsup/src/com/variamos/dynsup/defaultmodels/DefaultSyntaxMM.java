@@ -2151,24 +2151,24 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLFsg.setPalette("SG Satisficing Palette - Features");
-		//
-		// InstConcept instViewLFs = new InstConcept("ViewS LF Relation",
-		// supportMetaViewPairwise, metaViewLFsg);
-		// refas.getVariabilityVertex().put("ViewS LF Relation", instViewLFs);
-		//
-		// instEdge = new InstPairwiseRel();
-		// refas.getConstraintInstEdges().put("vslf-tolf", instEdge);
-		// instEdge.setIdentifier("vslf-tolf");
-		// instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		// instEdge.setTargetRelation(instVertexLF, true);
-		// instEdge.setSourceRelation(instViewLFs, true);
-		//
-		// instEdge = new InstPairwiseRel();
-		// refas.getConstraintInstEdges().put("vslf-fromview", instEdge);
-		// instEdge.setIdentifier("vslf-fromview");
-		// instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		// instEdge.setTargetRelation(instViewLFs, true);
-		// instEdge.setSourceRelation(instViewC, true);
+
+		InstConcept instViewLFs = new InstConcept("ViewS LF Relation",
+				supportMetaViewPairwise, metaViewLFsg);
+		refas.getVariabilityVertex().put("ViewS LF Relation", instViewLFs);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("vslf-tolf", instEdge);
+		instEdge.setIdentifier("vslf-tolf");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexLF, true);
+		instEdge.setSourceRelation(instViewLFs, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("vslf-fromview", instEdge);
+		instEdge.setIdentifier("vslf-fromview");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instViewLFs, true);
+		instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semClaim = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Claim"));
@@ -3153,11 +3153,10 @@ public class DefaultSyntaxMM {
 				directViewSemanticEdge);
 		metaViewLF2.setPalette("Assets Palette - Features");
 
-		/*
-		 * InstConcept instViewLF2 = new InstConcept("View LF2 Relation",
-		 * supportMetaViewPairwise, metaViewLF2);
-		 * refas.getVariabilityVertex().put("View LF2 Relation", instViewLF2);
-		 */
+		InstConcept instViewLF2 = new InstConcept("View LF2 Relation",
+				supportMetaViewPairwise, metaViewLF2);
+		refas.getVariabilityVertex().put("View LF2 Relation", instViewLF2);
+
 		SyntaxElement metaViewLF3 = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
@@ -3182,21 +3181,21 @@ public class DefaultSyntaxMM {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instViewLF3, true);
 		instEdge.setSourceRelation(instViewC, true);
-		/*
-		 * instEdge = new InstPairwiseRelation();
-		 * refas.getConstraintInstEdges().put("vlf2-tolft", instEdge);
-		 * instEdge.setIdentifier("vlf2-tolft");
-		 * instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		 * instEdge.setTargetRelation(instVertexLF, true);
-		 * instEdge.setSourceRelation(instViewLF2, true);
-		 * 
-		 * instEdge = new InstPairwiseRelation();
-		 * refas.getConstraintInstEdges().put("vlf2-fromview", instEdge);
-		 * instEdge.setIdentifier("vlf2-fromview");
-		 * instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		 * instEdge.setTargetRelation(instViewLF2, true);
-		 * instEdge.setSourceRelation(childView, true);
-		 */
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("vlf2-tolft", instEdge);
+		instEdge.setIdentifier("vlf2-tolft");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexLF, true);
+		instEdge.setSourceRelation(instViewLF2, true);
+
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("vlf2-fromview", instEdge);
+		instEdge.setIdentifier("vlf2-fromview");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instViewLF2, true);
+		instEdge.setSourceRelation(childView, true);
+
 		SyntaxElement metaViewAsFG2 = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
