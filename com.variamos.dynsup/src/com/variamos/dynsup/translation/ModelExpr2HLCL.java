@@ -464,10 +464,10 @@ public class ModelExpr2HLCL {
 	// dynamic call implementation 0 OK, -1 General Error +1 Specific Error
 	// (general)
 	public int execute(ProgressMonitor progressMonitor, int solutions,
-			InstElement operation, InstElement suboper)
+			InstElement operation, InstElement suboper, boolean ignoreSorting)
 			throws InterruptedException, FunctionalException {
 		lastExecutionTime = 0;
-		if (solutions == 0 || swiSolver == null) {
+		if (solutions == ONE_SOLUTION || swiSolver == null) {
 			text = "";
 			configuration = new SolverSolution();
 			// FIXME: execute for all sub-operations exp types?
@@ -489,8 +489,10 @@ public class ModelExpr2HLCL {
 				try {
 					ConfigurationOptionsDTO configurationOptions = new ConfigurationOptionsDTO();
 					// FIXME support types other than normal
-					configurationOptions.setLabelings(labelings);
-					configurationOptions.setOrder(true);
+					if (!ignoreSorting) {
+						configurationOptions.setLabelings(labelings);
+						configurationOptions.setOrder(true);
+					}
 
 					configurationOptions.setStartFromZero(true);
 
@@ -509,7 +511,7 @@ public class ModelExpr2HLCL {
 		if (progressMonitor != null && progressMonitor.isCanceled())
 			return -1;
 
-		if (solutions == 0 || solutions == 1) {
+		if (solutions == ONE_SOLUTION || solutions == NEXT_SOLUTION) {
 			if (configuration != null) {
 				try {
 					configuration = swiSolver.getSolution();
@@ -549,11 +551,11 @@ public class ModelExpr2HLCL {
 					+ "(total unknown)");
 			if (first) {
 				result = execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION,
-						operation, suboper);
+						operation, suboper, false);
 				first = false;
 			} else
 				result = execute(progressMonitor, ModelExpr2HLCL.NEXT_SOLUTION,
-						operation, suboper);
+						operation, suboper, false);
 			if (result == 0 && !progressMonitor.isCanceled()) {
 				String outAttribute = (String) suboper
 						.getInstAttributeValue("outAttribute");
@@ -613,11 +615,11 @@ public class ModelExpr2HLCL {
 					+ "(total unknown)");
 			if (first) {
 				result = execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION,
-						operation, suboper);
+						operation, suboper, false);
 				first = false;
 			} else
 				result = execute(progressMonitor, ModelExpr2HLCL.NEXT_SOLUTION,
-						operation, suboper);
+						operation, suboper, false);
 			if (result == 0 && !progressMonitor.isCanceled()) {
 				iter++;
 			}
@@ -631,7 +633,7 @@ public class ModelExpr2HLCL {
 			int solutions, int execType) throws InterruptedException,
 			FunctionalException {
 		lastExecutionTime = 0;
-		if (solutions == 0 || swiSolver == null) {
+		if (solutions == ONE_SOLUTION || swiSolver == null) {
 			text = "";
 			configuration = new SolverSolution();
 
@@ -686,7 +688,7 @@ public class ModelExpr2HLCL {
 		if (progressMonitor != null && progressMonitor.isCanceled())
 			return false;
 
-		if (solutions == 0 || solutions == 1) {
+		if (solutions == ONE_SOLUTION || solutions == NEXT_SOLUTION) {
 			if (configuration != null) {
 				configuration = swiSolver.getSolution();
 				lastExecutionTime += swiSolver.getLastExecutionTime();
