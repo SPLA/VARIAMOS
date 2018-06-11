@@ -276,10 +276,10 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 												+ "#", ""));
 						// sc.addPanelVisibleAttribute("99#"
 						// + SyntaxElement.VAR_USERIDENTIFIER);
-						sc.addPropVisibleAttribute("19#"
-								+ (String) name.getValue());
-						sc.addPropEditableAttribute("19#"
-								+ (String) name.getValue());
+						// sc.addPropVisibleAttribute("19#"
+						// + (String) name.getValue());
+						// sc.addPropEditableAttribute("19#"
+						// + (String) name.getValue());
 					}
 				}
 
@@ -333,4 +333,3 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 	}
 
 }
-
