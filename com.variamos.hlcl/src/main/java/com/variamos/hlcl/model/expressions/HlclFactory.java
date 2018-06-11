@@ -125,6 +125,11 @@ public class HlclFactory {
 	public IntBooleanExpression or(IntBooleanExpression left, IntBooleanExpression right) {
 		return new BooleanOperation(left, right, BooleanOperatorEnum.Or);
 	}
+	
+	//included by avillota
+	public IntBooleanExpression xor(IntBooleanExpression left, IntBooleanExpression right) {
+		return new BooleanOperation(left, right, BooleanOperatorEnum.Xor);
+	}
 
 	public IntNumericExpression prod(IntNumericExpression... p) {
 		if (p == null || p.length == 0)

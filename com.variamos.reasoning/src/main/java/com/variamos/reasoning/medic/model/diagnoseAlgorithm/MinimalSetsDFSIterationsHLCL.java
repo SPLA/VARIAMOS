@@ -125,7 +125,19 @@ public class MinimalSetsDFSIterationsHLCL {
 					subGraph= path.getSubset();
 					maxIterations--;
 					iterations++;
-					sizes+=path.getPath().size() +", ";
+					//sizes+=path.getPath().size() +", ";
+					
+					int totalVertices=0;
+					for (VertexHLCL vertex : path.getPath()) {
+						totalVertices++;
+						if(vertex instanceof NodeVariableHLCL){
+							numVars++;
+							for (NodeConstraintHLCL cons : ((NodeVariableHLCL) vertex).getUnary()) {
+								totalVertices++;
+							}
+						}
+					}
+					sizes+=totalVertices +", ";
 
 				}
 				while(maxIterations>0 && previousLength> path.getPath().size());
@@ -188,7 +200,8 @@ public class MinimalSetsDFSIterationsHLCL {
 					subGraph= path.getSubset();
 					maxIterations--;
 					iterations++;
-					sizes+=path.getPath().size() +", ";
+					//sizes+=path.getPath().size() +", ";
+					sizes+=iterationsPath +", ";
 				}
 				while(maxIterations>0 && previousLength> path.getPath().size());
 				long endTime = System.currentTimeMillis();
