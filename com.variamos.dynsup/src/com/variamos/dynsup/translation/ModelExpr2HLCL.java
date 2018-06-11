@@ -362,6 +362,7 @@ public class ModelExpr2HLCL {
 	}
 
 	// Static and Dynamic calls
+	// Algorithm #2 jcmunoz thesis
 	private void fillHlclProgram(String element, String subOperation,
 			OpersSubOpExecType operExecType, HlclProgram hlclProgram,
 			Map<String, ElementExpressionSet> constraintGroups,
@@ -408,8 +409,10 @@ public class ModelExpr2HLCL {
 		}
 
 		// Dynamic call with TranslationExpressionSet
+		// TODO a single constraintGroup for dynamic calls, static not needed
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup instanceof TranslationExpressionSet) {
+				// Get instance and low expressions
 				HlclProgram ts = ((TranslationExpressionSet) constraintGroup)
 						.getHlCLProgramExpressions(subOperation + "-"
 								+ operExecType, table);

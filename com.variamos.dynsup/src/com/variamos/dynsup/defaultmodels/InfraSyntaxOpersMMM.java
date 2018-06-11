@@ -1682,20 +1682,28 @@ public class InfraSyntaxOpersMMM {
 		// FIXME use to generalize attributes such as XX to restrict the
 		// domain to other attributes of concepts.
 		infraOpersM2Attribute.addModelingAttribute("domFiltOwnFields",
-				"String", false, "Filter domain (Own Fields)", "", "", 0, 18,
-				"", "", -1, "#" + "domFiltOwnFields" + "#all#\n\n", "");
+				"String", false, "Filter domain (Own Fields)", "Restricts the"
+						+ " domain of the variable to the used values of the"
+						+ "variable(s) in this field (of the same concept)",
+				"", 0, 18, "", "", -1, "#" + "domFiltOwnFields" + "#all#\n\n",
+				"");
 
 		// FIXME use to generalize attributes such as "SDReqLevel" to restrict
 		// the domain to attribute of related concepts.
 		infraOpersM2Attribute.addModelingAttribute("domFilTRelFields",
-				"String", false, "Filter domain (Rel. Fields)", "", "", 0, 19,
-				"", "", -1, "#" + "domFilTRelFields" + "#all#\n\n", "");
+				"String", false, "Filter domain (Rel. Fields)", "Restricts the"
+						+ " domain of the variable to the used values of the"
+						+ "variable(s) in this field (of the related concept)",
+				"", 0, 19, "", "", -1, "#" + "domFilTRelFields" + "#all#\n\n",
+				"");
 
 		// FIXME use to generalize attributes such as "SDReqLevel" to define the
 		// default value dynamically with another attribute of the concept.
 		infraOpersM2Attribute.addModelingAttribute("defDomValueField",
-				"String", false, "Def. Domain (Filter Field)", "", "", 0, 20,
-				"", "", -1, "#" + "defDomValueField" + "#all#\n\n", "");
+				"String", false, "Def. Domain (Filter Field)",
+				"Defines the domain of the variable according to the value"
+						+ "of another variable", "", 0, 20, "", "", -1, "#"
+						+ "defDomValueField" + "#all#\n\n", "");
 
 		InstConcept instInfraSyntaxOpersM2Attribute = new InstConcept(
 				"SeMAttribute", basicOpersSyntaxM3Set, infraOpersM2Attribute);

@@ -229,6 +229,7 @@ public class InstanceModel {
 	public String addNewConstraintInstEdge(InstPairwiseRel directRelation) {
 		String id = getNextConstraintInstEdgeId(directRelation);
 		directRelation.setIdentifier(id);
+		directRelation.setInstAttribute("name", id);
 		constraintInstEdges.put(id, directRelation);
 		return id;
 	}
