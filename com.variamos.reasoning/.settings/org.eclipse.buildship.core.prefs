@@ -1,12 +1,12 @@
-#Sun Mar 25 13:40:28 CEST 2018
+#Tue Jun 05 12:01:19 CEST 2018
 connection.arguments=
 connection.jvm.arguments=
 build.commands=org.eclipse.jdt.core.javabuilder
-connection.project.dir=../com.variamos.hlcl
+connection.project.dir=..
 natures=org.eclipse.jdt.core.javanature
 connection.gradle.user.home=null
 eclipse.preferences.version=1
 connection.java.home=null
 derived.resources=.gradle,build
-connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
 project.path=\:com.variamos.reasoning
+connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
