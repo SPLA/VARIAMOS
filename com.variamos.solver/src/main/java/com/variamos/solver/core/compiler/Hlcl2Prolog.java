@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.hlcl.core.HlclUtil;
 import com.variamos.hlcl.model.HlclFunction;
@@ -258,12 +259,32 @@ public abstract class Hlcl2Prolog implements ConstraintSymbolsConstant {
 			StringBuilder out) {
 		out.append(e.getValue());
 	}
-
+	/**
+	 * Method to transform a symbolic expression, this method was modified by avillota
+	 * to include the transformation of global constraints with relations 
+	 * @param e
+	 * @param out
+	 */
 	protected void transformSymbolic(SymbolicExpression e, StringBuilder out) {
-		out.append(e.getName()).append(OPEN_PARENTHESIS);
-		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(e);
-		writeIdentifiersList(ids, out);
-		out.append(CLOSE_PARENHESIS);
+		if (e.getType() == SymbolicExpression.TYPE_REGULAR) {
+			out.append(e.getName()).append(OPEN_PARENTHESIS);
+			Set<Identifier> ids = HlclUtil.getUsedIdentifiers(e);
+			writeIdentifiersList(ids, out);
+			out.append(CLOSE_PARENHESIS);
+		}else {
+			out.append(e.getName()).append(OPEN_PARENTHESIS);
+			out.append(SPACE);
+			out.append(OPEN_BRACKET);
+			out.append(OPEN_BRACKET);
+			Set<Identifier> ids = HlclUtil.getUsedIdentifiers(e);
+			writeIdentifiersList(ids, out);
+			out.append(CLOSE_BRACKET);
+			out.append(CLOSE_BRACKET);
+			out.append(COMMA);
+			writeTuples(e.getTuples(), out);
+			out.append(CLOSE_PARENHESIS);
+		}
+
 	}
 
 	protected void transformNumericExpression(IntNumericExpression e,
@@ -353,5 +374,33 @@ public abstract class Hlcl2Prolog implements ConstraintSymbolsConstant {
 			if (i < ids.size())
 				out.append(COMMA + " ");
 		}
+	}
+	/**
+	 * Method to create a list of list containing numeric values 
+	 * @author avillota
+	 * @param tuples
+	 * @param out
+	 */
+	public void writeTuples(NumericIdentifier[][] tuples, StringBuilder out){
+		String list=OPEN_BRACKET;
+		
+		String firstList= OPEN_BRACKET+ tuples[0][0].getValue();
+		for (int j = 1; j < tuples[0].length; j++) {
+			firstList+= ","+ SPACE+ tuples[0][j].getValue();
+		}
+		firstList+=CLOSE_BRACKET;
+		
+		list+= firstList;
+		
+		for (int i = 1; i < tuples.length; i++) {
+			String innerList= OPEN_BRACKET + tuples[i][0].getValue();
+			for (int j = 1; j < tuples[0].length; j++) {
+				innerList+= ","+ SPACE+ tuples[i][j].getValue();
+			}
+			innerList+=CLOSE_BRACKET;
+			list+=","+ SPACE + innerList;
+		}
+		list+= CLOSE_BRACKET;
+		out.append(list);
 	}
 }

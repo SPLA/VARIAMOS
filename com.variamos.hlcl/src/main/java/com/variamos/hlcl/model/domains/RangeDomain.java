@@ -36,6 +36,19 @@ public class RangeDomain implements IntDomain, Serializable {
 		this.upperValue = upperValue;
 		this.precision = precision;
 	}
+	/**
+	 * Introduced by avillota
+	 * This method declares a domain of the type INF .. SUP where INF is the lower bound
+	 * and SUP is the upper value of a sequence of integers.  
+	 * @param lowerValue 
+	 * @param upperValue
+	 */
+	public RangeDomain(float lowerValue, float upperValue) {
+		super();
+		this.lowerValue = lowerValue;
+		this.upperValue = upperValue;
+		this.precision = 0;
+	}
 
 	public RangeDomain() {
 		super();

@@ -571,6 +571,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 							String errorHint = (String) suboper.getInstAttributeValue("errorHint");
 							String outAttribute = (String) suboper.getInstAttributeValue("outAttribute");
+							// Sub orpetion id for diferenciate the one for graphs and the one for features
+							
+	
 							List<OpersIOAttribute> outAttributes = ((OpersSubOperation) suboper.getEdOperEle())
 									.getOutAttributes();
 
@@ -743,28 +746,41 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	public int medicExecution(InstElement operation, InstElement subOper, String verifHint,
 			List<OpersIOAttribute> outAttributes, // pend
 			String outAttribute) throws Exception {
+		
+		String subOperationID = (String) subOper.getInstAttributeValue("userId");
 
 		int result = 0;
 		TranslationExpressionSet transExpSet = new TranslationExpressionSet(refasModel, operation, null, null);
 
 		Map<IntBooleanExpression, String> table = new HashMap<>();
 		HlclProgram program = refas2hlcl.getHlclProgram(operation, subOper.getIdentifier(), OpersSubOpExecType.NORMAL,
-				transExpSet, table);
+				transExpSet, table); 
 
-		// use table
+		// use for print table table
+//		for (IntBooleanExpression e : table.keySet()) {
+//			
+//			System.out.println(table.get(e)+" ,"+e);
+//			
+//		}
 
 		if (program != null) {
 
 			SWIPrologSolver swiSolver = new SWIPrologSolver();
 			swiSolver.setHLCLProgram(program); // passing the hlcl program to the solver
+			//System.out.println(program);
+			
 			swiSolver.solve(); // This method prepares the solver
 			boolean satisfiable = swiSolver.hasSolution(); // Consulting if the solver has one solution
+			
 
 			if (satisfiable) {
 				result = 0;
 			} else {
 				ArrayList<String> inconsistentPath = new ArrayList<String>();
 				ArrayList<String> inconsistentMsg = new ArrayList<String>();
+				
+				System.out.println("======================================================================");
+				System.out.println("======================================================================");
 				// Log parameters allow the activation of the logManager,
 				// to start an execution using a log manager comment line 722 and uncomment line
 				// 723
@@ -772,11 +788,24 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				LogParameters params = new LogParameters();
 				// LogParameters params= new LogParameters("/Users/Angela/Test/", "test");
 				MinimalSetsDFSIterationsHLCL medic = new MinimalSetsDFSIterationsHLCL(program, params);
+				
+				// Setting the root variable regarding the type of model
 				String root = getRoot();
-				if (root == null) // if the user did not pick a root, the algorithm starts in the first variable
-					root = "CGVariable1_value";
-				else // the algorithm starts with the first variable selected
-					root += "_value";
+				if (subOperationID.equals("Medic-features")) // Medic over feature models
+				{
+					if (root == null) // if the user did not pick a root, the algorithm starts in the root
+						root = "RootFeature1_Sel";
+					else // the algorithm starts with the  attribute "Sel" of the selected feature
+						root += "_Sel";
+				}
+				else { // Medic over constraint graphs
+					if (root == null) // if the user did not pick a root, the algorithm starts in the first variable
+						root = "CGVariable1_value";
+					else // the algorithm starts with the first variable selected
+						root += "_value";
+					
+				}
+
 				LinkedList<VertexHLCL> output = medic.sourceOfInconsistentConstraints(root, 10);
 				// LinkedList<VertexHLCL> output=
 				// medic.sourceOfInconsistentConstraints("CGVariable1_value",10);
@@ -785,28 +814,47 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					if (vertex instanceof NodeVariableHLCL) {
 						// Add the variable into the list of IDs to be updated
 						// Add the error message
-
-						inconsistentPath.add(vertex.getId().replaceFirst("_value", ""));
-						inconsistentMsg.add("variable in the inconsistent path");
+						String [] split =vertex.getId().split("_");
+						String varId= split[0];
+						if (!varId.equals("") && !inconsistentPath.contains(varId)) {
+							inconsistentPath.add(varId);
+							// System.out.println(vertex.getId() + " id:" + consId );
+							inconsistentMsg.add("variable in the inconsistent path");
+						}
+						//inconsistentPath.add(split[0]);
+						
 
 						// aÃ±adir la variable a la lista y despuÃ©s una por una las retsricciones
 						// unarias asociadas.
 						for (NodeConstraintHLCL cons : ((NodeVariableHLCL) vertex).getUnary()) {
-
-							String consId = getIdFromTable(cons.getConstraint(), table).replaceFirst("_value", "");
+							String [] object = getIdFromTable(cons.getConstraint(), table).split("_"); //this lines allow to obtain the id of the object
+							String consId =object[0];//the first part of the id is the name of the object
+							//String consId = getIdFromTable(cons.getConstraint(), table).replaceFirst("_value", "");
 							// System.out.println(cons.getId() + " id:" + consId );
-							inconsistentPath.add(consId);
-							inconsistentMsg.add("Constraint in the inconsistent path");
+							if (!consId.equals("") && !inconsistentPath.contains(consId)) {
+								inconsistentPath.add(consId);
+								// System.out.println(vertex.getId() + " id:" + consId );
+								inconsistentMsg.add("Constraint in the inconsistent path");
+							}
 						}
 
 					} else {
-						String consId = getIdFromTable(((NodeConstraintHLCL) vertex).getConstraint(), table)
-								.replaceFirst("_value", "");
-						inconsistentPath.add(consId);
-						// System.out.println(vertex.getId() + " id:" + consId );
-						inconsistentMsg.add("Constraint in the inconsistent path");
+						//IntBooleanExpression con= ((NodeConstraintHLCL) vertex).getConstraint();
+						//String cad= getIdFromTable(((NodeConstraintHLCL) vertex).getConstraint(), table);
+						String [] split = getIdFromTable(((NodeConstraintHLCL) vertex).getConstraint(), table).split("_");
+						String consId = split[0]; //the first part of the id is the name of the object
+						//String consId = getIdFromTable(((NodeConstraintHLCL) vertex).getConstraint(), table).replaceFirst("_value", "");
+						if (!consId.equals("") && !inconsistentPath.contains(consId)) {
+							inconsistentPath.add(consId);
+							// System.out.println(vertex.getId() + " id:" + consId );
+							inconsistentMsg.add("Constraint in the inconsistent path");
+						}
 					}
 				}
+//				for (String s: inconsistentPath) {
+//					System.out.print(s+ ",  ");
+//					
+//				}
 				refas2hlcl.updateErrorMark(inconsistentPath, verifHint, inconsistentMsg);
 
 			}
@@ -1296,7 +1344,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			if (instE.getInstAttribute("root") != null) {
 				value = (boolean) instE.getInstAttribute("root").getValue();
 				// System.out.println(instE.getInstAttribute("root").getValue());
-				System.out.println(name + " " + value);
+				//System.out.println(name + " " + value);
 				if (value) {
 					root = name;
 					break;

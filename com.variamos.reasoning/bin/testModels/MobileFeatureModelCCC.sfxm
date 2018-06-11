@@ -1,0 +1,41 @@
+<!--
+ This model was created online using SPLOT's Feature Model Editor (http://www.splot-research.org) on Tue, Jun 25, 2013 - 6:26 PM  
+-->
+<feature_model name="Celulares">
+<meta>
+<data name="description">Modelo modificado del propuesto por Segura,2008</data>
+<data name="creator">Luisa Fernanda RincOn PErez</data>
+<data name="address"/>
+<data name="email">lufrinconpe@unal.edu.co</data>
+<data name="phone"/>
+<data name="website"/>
+<data name="organization">Universidad Nacional de Colombia Sede MedellIn</data>
+<data name="department"/>
+<data name="date"/>
+<data name="reference"/>
+</meta>
+<feature_tree>
+:r Celular(_r) 
+	:m Configuracion(_r_2) 
+		:m SO(_r_3_11) 
+		:m Soporte_Java(_r_3_12) 
+	:m Utilidades(_r_3)
+		:m Llamadas(_r_2_5) 
+		:o Mensajes(_r_2_6) 
+			:g (_r_2_6_8) [1,*] 
+				: MSN(_r_2_6_8_9) 
+				: SMS(_r_2_6_8_10) 
+		:m Juegos(_r_2_7)  
+	:o Multimedia(_r_4) 
+		:o MP4(_r_4_13) 
+		:o MP3(_r_4_14) 
+		:o Camara(_r_4_16) 
+			:g (_r_4_16_21) [1,1] 
+				: VGA(_r_4_16_21_22) 
+				: Megapixeles(_r_4_16_21_23)
+</feature_tree>
+<constraints>
+constraint_1:~_r_3_12 or _r_4_16_21_22 
+constraint_2:~_r_3_11 or ~_r_4_16_21_23
+</constraints>
+</feature_model>

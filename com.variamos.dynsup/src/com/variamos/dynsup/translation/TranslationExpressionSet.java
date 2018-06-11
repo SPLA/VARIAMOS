@@ -807,7 +807,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			// .expressionStructure());
 			if (newExp != null){
 				prog.add(newExp);
-				if(table!=null) table.put(newExp,expression.getSourceConceptId());
+				if(table!=null) {
+					if (expression.getSourceConceptId()!=null) { // Avillota changed these lines because in feature models the id is obtained different
+					table.put(newExp,expression.getSourceConceptId()); //id for constraint graphs
+					}
+					else {
+						table.put(newExp,expression.getElementInstanceId());//ids for feature models
+					}
+				}
 			}
 		}
 		for (ModelExpr expression : instanceLowExpr.get(column)) {
