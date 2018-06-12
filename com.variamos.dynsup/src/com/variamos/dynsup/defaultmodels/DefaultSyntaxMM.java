@@ -1037,13 +1037,16 @@ public class DefaultSyntaxMM {
 		InstElement directStructHardHardSemanticEdge = refas
 				.getOperationalModel().getVertex("MeansHardBinary");
 
+		InstElement grpStructHardHardSemanticEdge = refas.getOperationalModel()
+				.getVertex("MeansHardN-aryToHard");
+
 		SyntaxElement metaGrpStructHardPairwiseRel = new SyntaxElement('P',
 				"MeansEndsG", true, true, "Means Ends Relation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
 				"/com/variamos/gui/perspeditor/images/ploptional.png", 1,
-				directStructHardHardSemanticEdge);
+				grpStructHardHardSemanticEdge);
 
 		InstConcept instGrpMeansEndsRelation = new InstConcept("MeansEndsG",
 				supportMetaElementPairwise, metaGrpStructHardPairwiseRel);
