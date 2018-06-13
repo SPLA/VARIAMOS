@@ -8148,6 +8148,12 @@ public class DefaultOpersMM {
 			filterOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLSubOperationAction
+					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
+			verifFalsePLElemOperUniqueLabeling
+					.addAttribute(new OpersIOAttribute(semNmMetaConcept
+							.getIdentifier(), attribute.getName(), true));
 			// redundanSubOperationAction
 			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
 			// .getIdentifier(), attribute.getName(), true));
@@ -8190,12 +8196,6 @@ public class DefaultOpersMM {
 			degreeOrthoOperUniqueLabeling1
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
-			verifFalsePLSubOperationAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			verifFalsePLElemOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
 			simulExecOperUniLab
 					.addAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -8208,84 +8208,84 @@ public class DefaultOpersMM {
 			simSceSubOperationAction
 					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
 							.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDallOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDneverOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverClallOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverClallOperUniqLab
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverClneverOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverCoreOpersOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverCoreOpersOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverAllOpersOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverSDCoreOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverSDCoreOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverSDallOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverSDallOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverSDneverOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverSDneverOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverClCoreOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverClCoreOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverClallOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverClallOperUniqLab
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverClneverOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverClneverOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverCoreOpersOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverCoreOpersOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverAllOpersOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverAllOpersOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 			// sasverNoLoopsOperationSubAction
 			// .addOutAttribute(new OpersIOAttribute(semInfraMConcept
 			// .getIdentifier(), attribute.getName(), true));
 			// sasverNoLoopsOperUniqueLabeling
 			// .addAttribute(new OpersIOAttribute(semInfraMConcept
 			// .getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semNmMetaConcept
-							.getIdentifier(), attribute.getName(), true));
+			// sasverSGConflOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverSGConflOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflClSDOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflClSDOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflClOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflClOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflSDOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflSDOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semNmMetaConcept
+			// .getIdentifier(), attribute.getName(), true));
 		}
 
 		// attribute = new ElemAttribute("NNotSel", "Boolean",
@@ -8768,27 +8768,30 @@ public class DefaultOpersMM {
 			// sasverNoLoopsOperUniqueLabeling.addAttribute(new
 			// OpersIOAttribute(
 			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverSGConflOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClSDOperUniqueLabeling
-					.addAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflClOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperationSubAction
-					.addInAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverConflSDOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverSGConflOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverSGConflOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverConflClSDOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflClSDOperUniqueLabeling
+			// .addAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflClOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflClOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverConflSDOperationSubAction
+			// .addInAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverConflSDOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		}
 
 		attribute = new ElemAttribute("Sel", "Boolean",
@@ -8874,16 +8877,14 @@ public class DefaultOpersMM {
 			verifFalsePLElemOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
-			// simulExecOperUniLab.addAttribute(new
-			// OpersIOAttribute(semInfraOTRel
-			// .getIdentifier(), attribute.getName(), true));
-			// simsceExecOperLab2.addAttribute(new
-			// OpersIOAttribute(semInfraOTRel
-			// .getIdentifier(), attribute.getName(), true));
-			// simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
-			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			// simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
-			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
+					.getIdentifier(), attribute.getName(), true));
+			simulSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			simSceSubOperationAction.addOutAttribute(new OpersIOAttribute(
+					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			sasverSDCoreOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
 							.getIdentifier(), attribute.getName(), true));
