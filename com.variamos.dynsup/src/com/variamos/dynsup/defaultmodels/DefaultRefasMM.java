@@ -1174,32 +1174,32 @@ public class DefaultRefasMM {
 		OpersConcept directOperClaimSemanticEdge = new OpersConcept(
 				"OperClaimBinary");
 
-		attribute = new ElemAttribute("outCl", "Boolean",
-				AttributeType.OPERATION, false,
-				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
-				"level#all#", "");
-		directOperClaimSemanticEdge.putSemanticAttribute("outCl", attribute);
-		DefaultOpersMM.sasverClallOperationSubAction
-				.addOutAttribute(new OpersIOAttribute(
-						directOperClaimSemanticEdge.getIdentifier(), attribute
-								.getName(), true));
-		DefaultOpersMM.sasverClallOperUniqLab
-				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
-						.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.sasverClneverOperationSubAction
-				.addOutAttribute(new OpersIOAttribute(
-						directOperClaimSemanticEdge.getIdentifier(), attribute
-								.getName(), true));
-		DefaultOpersMM.sasverClneverOperUniqueLabeling
-				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
-						.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.sasverClCoreOperationSubAction
-				.addOutAttribute(new OpersIOAttribute(
-						directOperClaimSemanticEdge.getIdentifier(), attribute
-								.getName(), true));
-		DefaultOpersMM.sasverClCoreOperUniqueLabeling
-				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
-						.getIdentifier(), attribute.getName(), true));
+		// attribute = new ElemAttribute("outCl", "Boolean",
+		// AttributeType.OPERATION, false,
+		// "Selected for CL verifications", "", false, 0, -1, "", "", -1,
+		// "level#all#", "");
+		// directOperClaimSemanticEdge.putSemanticAttribute("outCl", attribute);
+		// DefaultOpersMM.sasverClallOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(
+		// directOperClaimSemanticEdge.getIdentifier(), attribute
+		// .getName(), true));
+		// DefaultOpersMM.sasverClallOperUniqLab
+		// .addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+		// .getIdentifier(), attribute.getName(), true));
+		// DefaultOpersMM.sasverClneverOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(
+		// directOperClaimSemanticEdge.getIdentifier(), attribute
+		// .getName(), true));
+		// DefaultOpersMM.sasverClneverOperUniqueLabeling
+		// .addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+		// .getIdentifier(), attribute.getName(), true));
+		// DefaultOpersMM.sasverClCoreOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(
+		// directOperClaimSemanticEdge.getIdentifier(), attribute
+		// .getName(), true));
+		// DefaultOpersMM.sasverClCoreOperUniqueLabeling
+		// .addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+		// .getIdentifier(), attribute.getName(), true));
 
 		InstConcept instDirOperClaimSemanticEdge = new InstConcept(
 				"OperClaimBinary", DefaultOpersMM.metaMetaPairwiseRelation,
@@ -7293,35 +7293,36 @@ public class DefaultRefasMM {
 						directOperClaimToSemanticEdge.getIdentifier(),
 						attribute.getName(), true));
 
-		attribute = new ElemAttribute("outCl", "Boolean",
-				AttributeType.OPERATION, false,
-				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
-				"level#all#", "");
-		directOperClaimToSemanticEdge.putSemanticAttribute("outCl", attribute);
-		DefaultOpersMM.sasverClallOperationSubAction
-				.addOutAttribute(new OpersIOAttribute(
-						directOperClaimToSemanticEdge.getIdentifier(),
-						attribute.getName(), true));
-		DefaultOpersMM.sasverClallOperUniqLab
-				.addAttribute(new OpersIOAttribute(
-						directOperClaimToSemanticEdge.getIdentifier(),
-						attribute.getName(), true));
-		DefaultOpersMM.sasverClneverOperationSubAction
-				.addOutAttribute(new OpersIOAttribute(
-						directOperClaimToSemanticEdge.getIdentifier(),
-						attribute.getName(), true));
-		DefaultOpersMM.sasverClneverOperUniqueLabeling
-				.addAttribute(new OpersIOAttribute(
-						directOperClaimToSemanticEdge.getIdentifier(),
-						attribute.getName(), true));
-		DefaultOpersMM.sasverClCoreOperationSubAction
-				.addOutAttribute(new OpersIOAttribute(
-						directOperClaimToSemanticEdge.getIdentifier(),
-						attribute.getName(), true));
-		DefaultOpersMM.sasverClCoreOperUniqueLabeling
-				.addAttribute(new OpersIOAttribute(
-						directOperClaimToSemanticEdge.getIdentifier(),
-						attribute.getName(), true));
+		// attribute = new ElemAttribute("outCl", "Boolean",
+		// AttributeType.OPERATION, false,
+		// "Selected for CL verifications", "", false, 0, -1, "", "", -1,
+		// "level#all#", "");
+		// directOperClaimToSemanticEdge.putSemanticAttribute("outCl",
+		// attribute);
+		// DefaultOpersMM.sasverClallOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(
+		// directOperClaimToSemanticEdge.getIdentifier(),
+		// attribute.getName(), true));
+		// DefaultOpersMM.sasverClallOperUniqLab
+		// .addAttribute(new OpersIOAttribute(
+		// directOperClaimToSemanticEdge.getIdentifier(),
+		// attribute.getName(), true));
+		// DefaultOpersMM.sasverClneverOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(
+		// directOperClaimToSemanticEdge.getIdentifier(),
+		// attribute.getName(), true));
+		// DefaultOpersMM.sasverClneverOperUniqueLabeling
+		// .addAttribute(new OpersIOAttribute(
+		// directOperClaimToSemanticEdge.getIdentifier(),
+		// attribute.getName(), true));
+		// DefaultOpersMM.sasverClCoreOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(
+		// directOperClaimToSemanticEdge.getIdentifier(),
+		// attribute.getName(), true));
+		// DefaultOpersMM.sasverClCoreOperUniqueLabeling
+		// .addAttribute(new OpersIOAttribute(
+		// directOperClaimToSemanticEdge.getIdentifier(),
+		// attribute.getName(), true));
 
 		attribute = new ElemAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", "", 0, 0, 3,
