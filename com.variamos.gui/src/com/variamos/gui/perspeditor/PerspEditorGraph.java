@@ -586,8 +586,8 @@ public class PerspEditorGraph extends mxGraph {
 					cell.setValue(new InstCell(cell, instElement, false));
 					source.addTargetRelation(instElement, true);
 					target.addSourceRelation(instElement, true);
-				//	instElement.setTransSupInstElement(value2
-				//			.getTransSupInstElement().clone());
+					// instElement.setTransSupInstElement(value2
+					// .getTransSupInstElement().clone());
 					mxGraphModel refasGraph = (mxGraphModel) getModel();
 					mxGraphModel model2 = refasGraph;
 					if (modelViewSubIndex != -1) {

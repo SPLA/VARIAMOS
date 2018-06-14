@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
@@ -90,16 +91,22 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 		boolean sourceActiveAttribute = true;
 		if (instPairwiseRelation.getSourceRelations().get(0)
 				.getInstAttribute("Active") != null) {
-			sourceActiveAttribute = (boolean) instPairwiseRelation
-					.getSourceRelations().get(0).getInstAttribute("Active")
-					.getValue();
+			InstAttribute obj = instPairwiseRelation.getSourceRelations()
+					.get(0).getInstAttribute("Active");
+			if (obj.getValue() instanceof Boolean)
+				sourceActiveAttribute = (boolean) obj.getValue();
+			else
+				sourceActiveAttribute = true;
 		}
 		boolean targetActiveAttribute = true;
 		if (instPairwiseRelation.getTargetRelations().get(0)
 				.getInstAttribute("Active") != null) {
-			targetActiveAttribute = (boolean) instPairwiseRelation
-					.getTargetRelations().get(0).getInstAttribute("Active")
-					.getValue();
+			InstAttribute obj = instPairwiseRelation.getTargetRelations()
+					.get(0).getInstAttribute("Active");
+			if (obj.getValue() instanceof Boolean)
+				targetActiveAttribute = (boolean) obj.getValue();
+			else
+				targetActiveAttribute = true;
 		}
 		boolean activeVertex = false;
 		instPairwiseRelation.setOptional(false);

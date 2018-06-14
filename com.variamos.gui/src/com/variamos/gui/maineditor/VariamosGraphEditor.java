@@ -1632,14 +1632,17 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		this.refasModel.getVariabilityVertex().put("REFAS1", element);
 		// System.out.println(operations);
 		boolean first = true;
+		boolean ignoreSort = false;
 		if (operations.get(0).startsWith("N:"))
 			first = false;
-		executeOperationsThead(first, operations, filename);
+		if (operations.get(0).startsWith("I:"))
+			ignoreSort = true;
+		executeOperationsThead(first, operations, filename, ignoreSort);
 	}
 
 	// Dynamic operation's definition
 	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution,
-			List<String> operations, String filename) {
+			List<String> operations, String filename, boolean ignoreSort) {
 
 		if (!firstSimulExecution && semTask != null) {
 			semTask.setFirstSimulExec(false);
@@ -1655,7 +1658,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			semTask = new SolverOpersTask(progressMonitor, refasModel,
 					refas2hlcl, configHlclProgram, firstSimulExecution,
 					operations, lastConfiguration, filename);
-
+			semTask.setIgnoreSorting(ignoreSort);
 			semTask.addPropertyChangeListener(this);
 			semTask.execute();
 		}
@@ -2022,7 +2025,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void recoverClones() {
 		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),
 				this);
-
 	}
 
 	public void showExternalContextDialog() {

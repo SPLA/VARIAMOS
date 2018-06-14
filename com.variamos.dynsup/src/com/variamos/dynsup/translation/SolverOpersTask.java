@@ -61,6 +61,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private boolean invalidConfigHlclProgram;
 	private List<String> outVariables = new ArrayList<String>();
 	private List<String> defectsFreeIdsName = null;
+	private boolean ignoreSorting = false;
 
 	public List<String> getOutVariables() {
 		return outVariables;
@@ -350,6 +351,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 			resetFreeIdentifiers();
 			for (String operationName : operationsNames) {
+				if (operationName.startsWith("I:"))
+					operationName = operationName.substring(2);
 				InstElement operationObj = refas2hlcl.getRefas()
 						.getSyntaxModel().getOperationalModel()
 						.getElement(operationName);
@@ -423,7 +426,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								result = refas2hlcl.execute(progressMonitor,
 										ModelExpr2HLCL.ONE_SOLUTION,
 										operationObj, instsuboperations
-												.get(suboper.getIdentifier())); // type
+												.get(suboper.getIdentifier()),
+										this.ignoreSorting); // type
 
 							} else {
 								if (type.equals(StringUtils
@@ -435,7 +439,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 											ModelExpr2HLCL.NEXT_SOLUTION,
 											operationObj, instsuboperations
 													.get(suboper
-															.getIdentifier())); // type
+															.getIdentifier()),
+											false); // type
 								} else
 									continue;
 							}
@@ -976,7 +981,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		List<String> freeIdsNames = null;
 		List<String> defectsNames = new ArrayList<String>();
 		long falseOTime = 0;
-		result = refas2hlcl.execute(progressMonitor, 0, operation, subOper);
+		result = refas2hlcl.execute(progressMonitor, 0, operation, subOper,
+				false);
 		if (result == 0) {
 			Map<String, Number> currentResult = refas2hlcl.getResult();
 			freeIdsNames = getFreeIdentifiers(currentResult, outAttribute,
@@ -1097,7 +1103,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				freeIdsNames.addAll(defectsFreeIdsName);
 			} else {
 				result = refas2hlcl.execute(progressMonitor, 0, coreOperation,
-						coreSubOper);
+						coreSubOper, false);
 				if (result == 0) {
 					// FIXME update outAttributes for CoreOper
 					if (updateCoreOutAttribute)
@@ -1303,5 +1309,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	@Override
 	public void done() {
+	}
+
+	public void setIgnoreSorting(boolean ignoreSort) {
+		ignoreSorting = ignoreSort;
 	}
 }

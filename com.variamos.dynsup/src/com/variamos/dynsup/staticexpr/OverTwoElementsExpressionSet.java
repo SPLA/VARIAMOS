@@ -57,11 +57,12 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 	 * @param directEdgeType
 	 * @param source
 	 * @param target
-	 * @throws FunctionalException 
+	 * @throws FunctionalException
 	 */
 	public OverTwoElementsExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstOverTwoRel instOverTwoRelation, int execType, String element) throws FunctionalException {
+			InstOverTwoRel instOverTwoRelation, int execType, String element)
+			throws FunctionalException {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instOverTwoRelation = instOverTwoRelation;
@@ -88,7 +89,8 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 		return instOverTwoRelation;
 	}
 
-	private void defineTransformations(String element) throws FunctionalException {
+	private void defineTransformations(String element)
+			throws FunctionalException {
 
 		SyntaxElement metaGroupDep = instOverTwoRelation
 				.getTransSupportMetaElement();
@@ -264,8 +266,8 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 											String.class);
 						}
 					} catch (NoSuchMethodException | SecurityException e) {
-						//ConsoleTextArea.addText(e.getStackTrace());
-						//FIX Issue #230
+						// ConsoleTextArea.addText(e.getStackTrace());
+						// FIX Issue #230
 						throw new FunctionalException(e.getMessage());
 					}
 
@@ -408,8 +410,12 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 		// remove this line
 		if (instEdges.hasNext()) {
 			InstElement instEdge = instEdges.next();
-			while ((boolean) ((InstPairwiseRel) instEdge).getSourceRelations()
-					.get(0).getInstAttribute("Active").getValue() == false) {
+			while (true) {
+				InstAttribute obj = ((InstPairwiseRel) instEdge)
+						.getSourceRelations().get(0).getInstAttribute("Active");
+				if (obj.getValue() instanceof Boolean)
+					if ((boolean) obj.getValue() == true)
+						break;
 				if (instEdges.hasNext())
 					instEdge = instEdges.next();
 				else
@@ -459,9 +465,9 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
-					//FIX Issue #230
+					// FIX Issue #230
 					throw new FunctionalException(e.getMessage());
-				
+
 				}
 			} else
 				try {
@@ -525,7 +531,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
-					//ConsoleTextArea.addText();
+					// ConsoleTextArea.addText();
 					throw new FunctionalException(e.getMessage());
 				}
 		} else
@@ -540,6 +546,6 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 			return new AndBooleanExpression(((InstPairwiseRel) left)
 					.getSourceRelations().get(0), ((InstPairwiseRel) left)
 					.getSourceRelations().get(0), sourceName, sourceName);
-		
+
 	}
 }
