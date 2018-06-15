@@ -8959,29 +8959,31 @@ public class DefaultOpersMM {
 				"", "", -1, "", "");
 
 		if (!empty) {
-			simulExecOperUniLab.addAttribute(new OpersIOAttribute(semInfraOTRel
-					.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLab2.addAttribute(new OpersIOAttribute(semInfraOTRel
-					.getIdentifier(), attribute.getName(), true));
+			// simulExecOperUniLab.addAttribute(new
+			// OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// simsceExecOperLab2.addAttribute(new
+			// OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
 
 			updateCoreSubOperationAction.addOutAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			updateCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			variantSubOperationAction.addOutAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			variantOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperationSubAction
-					.addOutAttribute(new OpersIOAttribute(semInfraOTRel
-							.getIdentifier(), attribute.getName(), true));
-			sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// variantSubOperationAction.addOutAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// variantOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverSDCoreOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverSDCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			// sasverClCoreOperationSubAction
+			// .addOutAttribute(new OpersIOAttribute(semInfraOTRel
+			// .getIdentifier(), attribute.getName(), true));
+			// sasverClCoreOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 
 		}
 		semInfraOTRel.putSemanticAttribute("OCore", attribute);
