@@ -729,10 +729,15 @@ public class ModelExpr2HLCL {
 				case ModelExpr2HLCL.SIMUL_EXEC:
 				case ModelExpr2HLCL.SIMUL_EXPORT:
 				case ModelExpr2HLCL.SIMUL_MAPE:
+					instVertex.getInstAttribute("Sel").setValue(false);
 					break;
 				case ModelExpr2HLCL.CORE_EXEC:
 					instVertex.getInstAttribute("Core").setValue(false);
 				case ModelExpr2HLCL.DESIGN_EXEC:
+					instVertex.getInstAttribute("Sel").setValue(false);
+					instVertex.getInstAttribute("TestConfSel").setValue(false);
+					instVertex.getInstAttribute("TestConfNotSel").setValue(
+							false);
 					instVertex.getInstAttribute("ConfSel").setValue(false);
 					instVertex.getInstAttribute("ConfNotSel").setValue(false);
 					instVertex.getInstAttribute("Dead").setValue(false);

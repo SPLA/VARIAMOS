@@ -95,17 +95,6 @@ public class DefaultRefasMM {
 
 		semOperationalization.setSemanticExpressions(semExpr);
 
-		OpersExpr t1 = new OpersExpr("061 Ver CL/SD - sel==true", refas
-				.getSemanticExpressionTypes().get("Equals"), instVertexOper,
-				instVertexOper, instVertexOper, "Sel", "TrueVal");
-
-		DefaultOpersMM.sasverConflClOperSubActionVerification
-				.addSemanticExpression(t1);
-		DefaultOpersMM.sasverConflClSDOperSubActionVerification
-				.addSemanticExpression(t1);
-
-		semExpr.add(t1);
-
 		OpersConcept semSoftgoal = new OpersConcept("Softgoal");
 
 		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
@@ -424,7 +413,7 @@ public class DefaultRefasMM {
 				.get("NotEquals"), DefaultOpersMM.instVertexSG,
 				DefaultOpersMM.instVertexSG, "ConfigReqLevel", true, 5);
 
-		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes()
+		OpersExpr t1 = new OpersExpr("4", refas.getSemanticExpressionTypes()
 				.get("Equals"), DefaultOpersMM.instVertexSG,
 				DefaultOpersMM.instVertexSG, "satisficingLevel", "close");
 
@@ -440,6 +429,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("Implies"),
 				DefaultOpersMM.instVertexSG, t3, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -491,6 +488,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("Implies"),
 				DefaultOpersMM.instVertexSG, t3, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -542,6 +547,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("Implies"),
 				DefaultOpersMM.instVertexSG, t3, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDCoreOperSubActionNormal
@@ -615,6 +628,14 @@ public class DefaultRefasMM {
 				refas.getSemanticExpressionTypes().get("Implies"),
 				DefaultOpersMM.instVertexSG, t3, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -663,6 +684,14 @@ public class DefaultRefasMM {
 				refas.getSemanticExpressionTypes().get("Implies"),
 				DefaultOpersMM.instVertexSG, t3, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -711,6 +740,14 @@ public class DefaultRefasMM {
 				refas.getSemanticExpressionTypes().get("Implies"),
 				DefaultOpersMM.instVertexSG, t3, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -847,6 +884,27 @@ public class DefaultRefasMM {
 				"ConfigReqLevel", "sourceLevel;targetLevel;level;CLSGLevel",
 				"defaultDomainValue");
 		semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(semSoftgoal
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(semSoftgoal
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(semSoftgoal
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(),
+						attribute.getName(), true));
+		// DefaultOpersMM.commonalityOperUniqueLabeling1.addAttribute(new
+		// OpersIOAttribute(semSoftgoal
+		// .getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
@@ -1029,16 +1087,17 @@ public class DefaultRefasMM {
 		instEdge.setTargetRelation(DefaultOpersMM.instNmMetaOT, true);
 		instEdge.setSourceRelation(instVertexCLGR, true);
 
-		t1 = new OpersExpr("103 VerCl/SD osel ==true", refas
-				.getSemanticExpressionTypes().get("Equals"), instVertexCLGR,
-				instVertexCLGR, instVertexCLGR, "OSel", "TrueVal");// "OSel"
-
-		DefaultOpersMM.sasverConflClOperSubActionVerification
-				.addSemanticExpression(t1);
-		DefaultOpersMM.sasverConflClSDOperSubActionVerification
-				.addSemanticExpression(t1);
-
-		semExpr.add(t1);
+		// FIX remove from thesis, change for XX in Cl
+		// t1 = new OpersExpr("103 VerCl/SD osel ==true", refas
+		// .getSemanticExpressionTypes().get("Equals"), instVertexCLGR,
+		// instVertexCLGR, instVertexCLGR, "OSel", "TrueVal");// "OSel"
+		//
+		// DefaultOpersMM.sasverConflClOperSubActionVerification
+		// .addSemanticExpression(t1);
+		// DefaultOpersMM.sasverConflClSDOperSubActionVerification
+		// .addSemanticExpression(t1);
+		//
+		// semExpr.add(t1);
 
 		t1 = new OpersExpr("105 UpCore - ANDHCGrCoreConcept", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
@@ -1047,11 +1106,21 @@ public class DefaultRefasMM {
 				instVertexCL, instVertexCLGR, "Core", "OCore");
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		semExpr = new ArrayList<OpersExpr>();
 
 		semClaim.setSemanticExpressions(semExpr);
+
+		// FIX in the thesis document
+		t1 = new OpersExpr("061 Ver CL/SD - sel==true", refas
+				.getSemanticExpressionTypes().get("Equals"), instVertexCL,
+				instVertexCL, instVertexCL, "Sel", "TrueVal");
+
+		DefaultOpersMM.sasverConflClOperSubActionRelaxable
+				.addSemanticExpression(t1);
+		semExpr.add(t1);
 
 		// t1 = new OpersExpr("sub1",
 		// refas.getSemanticExpressionTypes().get("Or"),
@@ -1143,6 +1212,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("Implies"), instVertexCL, t1,
 				t2);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// DefaultOpersMM.sasverSDCoreOperSubActionNormal
@@ -1324,6 +1401,41 @@ public class DefaultRefasMM {
 		directOperClaimSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directOperClaimSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -1346,6 +1458,41 @@ public class DefaultRefasMM {
 		directOperClaimSemanticEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directOperClaimSemanticEdge.getIdentifier(), attribute
+								.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directOperClaimSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directOperClaimSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -1410,6 +1557,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("Implies"),
 				instDirOperClaimSemanticEdge, t2, t1);
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -1455,6 +1610,14 @@ public class DefaultRefasMM {
 				instDirOperClaimSemanticEdge, instVertexCL,
 				instDirOperClaimSemanticEdge, "Sel", "PSel");
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverClallOperSubActionNormal.addSemanticExpression(t1);
@@ -1513,6 +1676,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("Implies"),
 				instDirOperClaimSemanticEdge, t2, t1);
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -1548,6 +1719,14 @@ public class DefaultRefasMM {
 				"Exclu", "Exclu");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -1694,6 +1873,16 @@ public class DefaultRefasMM {
 		semExpr = new ArrayList<OpersExpr>();
 
 		semSoftDependency.setSemanticExpressions(semExpr);
+
+		t1 = new OpersExpr("XX NEW SDSelected for Val", refas
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTVARIABLE,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSD, instVertexSD,
+				instVertexSD, "Sel", "TrueVal");
+
+		DefaultOpersMM.sasverConflSDOperSubActionRelaxable
+				.addSemanticExpression(t1);
+		semExpr.add(t1);
 
 		t1 = new OpersExpr("124 VerSD - sel <=> outSd", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
@@ -1900,6 +2089,36 @@ public class DefaultRefasMM {
 				"AggregationHigh" + "#!=#" + "0");
 		altHardNaryToHardEdge.putSemanticAttribute("AggregationLow", attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				altHardNaryToHardEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -1920,6 +2139,36 @@ public class DefaultRefasMM {
 		altHardNaryToHardEdge
 				.putSemanticAttribute("AggregationHigh", attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(altHardNaryToHardEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				altHardNaryToHardEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -1969,6 +2218,36 @@ public class DefaultRefasMM {
 		meansHardToHardNaryEdge.putSemanticAttribute("AggregationLow",
 				attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				meansHardToHardNaryEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -1989,6 +2268,36 @@ public class DefaultRefasMM {
 		meansHardToHardNaryEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(meansHardToHardNaryEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				meansHardToHardNaryEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -2053,6 +2362,14 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instVertexHC, instHchcHHGRHC, "Sel", "PSel");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -2101,6 +2418,14 @@ public class DefaultRefasMM {
 				t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -2183,6 +2508,14 @@ public class DefaultRefasMM {
 				t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -2198,6 +2531,7 @@ public class DefaultRefasMM {
 
 		semExpr.add(t1);
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifParentsOperSubActionNormal
 				.addSemanticExpression(t1);
 
@@ -2212,6 +2546,14 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instVertexHC, "Exclu", false, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -2267,6 +2609,14 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instVertexHC, instHchcHHGRHC, "Sel", "PSel");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -2315,6 +2665,14 @@ public class DefaultRefasMM {
 				t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -2396,6 +2754,14 @@ public class DefaultRefasMM {
 				t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -2449,6 +2815,36 @@ public class DefaultRefasMM {
 		fromHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				fromHardHardSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -2469,6 +2865,36 @@ public class DefaultRefasMM {
 		fromHardHardSemanticEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(fromHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				fromHardHardSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
@@ -2567,6 +2993,14 @@ public class DefaultRefasMM {
 				t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -2648,6 +3082,14 @@ public class DefaultRefasMM {
 				t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -2680,6 +3122,14 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instVertexHC, "Exclu", false, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -2767,6 +3217,7 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instVertexHC, instVertexHHGR, "Core", "OCore");
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		t1 = new OpersExpr("sub",
@@ -2779,6 +3230,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
 				DefaultOpersMM.instVertexHC, t1, "Sel");// "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifFalseOptOperSubActionNormal
@@ -2822,6 +3281,7 @@ public class DefaultRefasMM {
 				instVertexHHGR, t1, "OCore");
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
@@ -2865,6 +3325,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
 				instVertexHHGR, t1, "OSel");// "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -2955,6 +3423,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexHHGR, instVertexHHGR, "OSel", true, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -2996,6 +3472,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
 				DefaultOpersMM.instVertexHC, t1, 1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -3086,6 +3570,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("Implies"), instVertexHHGR,
 				instVertexHHGR, "OSel", true, t1);// "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -3130,6 +3622,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("Implies"), instVertexHHGR,
 				instVertexHHGR, "OSel", false, t1);// "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -3183,6 +3683,7 @@ public class DefaultRefasMM {
 				t1, t2);
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
@@ -3228,6 +3729,36 @@ public class DefaultRefasMM {
 		directHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directHardHardSemanticEdge.getIdentifier(),
 				attribute.getName(), true));
@@ -3248,6 +3779,36 @@ public class DefaultRefasMM {
 		directHardHardSemanticEdge.putSemanticAttribute("AggregationHigh",
 				attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directHardHardSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directHardHardSemanticEdge.getIdentifier(),
 				attribute.getName(), true));
@@ -3373,6 +3934,14 @@ public class DefaultRefasMM {
 				instDirHardHardSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -3406,6 +3975,14 @@ public class DefaultRefasMM {
 		// FIXME: compare and sync with exp 095 on the catalog todo
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -3527,6 +4104,14 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instVertexHC, "Sel", "Sel");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -3804,6 +4389,46 @@ public class DefaultRefasMM {
 		directStructHardHardSemanticEdge.putSemanticAttribute("AggregationLow",
 				attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directStructHardHardSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -3826,6 +4451,46 @@ public class DefaultRefasMM {
 		directStructHardHardSemanticEdge.putSemanticAttribute(
 				"AggregationHigh", attribute);
 
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(
+						directStructHardHardSemanticEdge.getIdentifier(),
+						attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directStructHardHardSemanticEdge.getIdentifier(), attribute
 						.getName(), true));
@@ -3914,6 +4579,14 @@ public class DefaultRefasMM {
 				instDirStructHardHardSemanticEdge, "Sel", "PSel");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -3965,6 +4638,14 @@ public class DefaultRefasMM {
 				instDirStructHardHardSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -4053,6 +4734,14 @@ public class DefaultRefasMM {
 				instDirStructHardHardSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -4070,6 +4759,7 @@ public class DefaultRefasMM {
 
 		semExpr.add(t1);
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("MAExclu1Exclu", refas.getSemanticExpressionTypes()
 				.get("And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -4084,6 +4774,14 @@ public class DefaultRefasMM {
 				"Exclu", false, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -4148,6 +4846,14 @@ public class DefaultRefasMM {
 				instDirStructHardHardSemanticEdge, "Sel", "PSel");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -4199,6 +4905,14 @@ public class DefaultRefasMM {
 				instDirStructHardHardSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -4286,6 +5000,14 @@ public class DefaultRefasMM {
 				instDirStructHardHardSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -4686,6 +5408,37 @@ public class DefaultRefasMM {
 				"", "", 7, "[#" + "AggregationLow" + "#all#..",
 				"AggregationHigh" + "#!=#" + "-1");
 		directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
+
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
@@ -4702,6 +5455,37 @@ public class DefaultRefasMM {
 				"", "", 8, "#" + "AggregationHigh" + "#all#]\n",
 				"AggregationHigh" + "#!=#" + "-1");
 		directSGSGSemEdge.putSemanticAttribute("AggregationHigh", attribute);
+
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSGSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
@@ -4803,6 +5587,14 @@ public class DefaultRefasMM {
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -4859,6 +5651,14 @@ public class DefaultRefasMM {
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -4915,6 +5715,14 @@ public class DefaultRefasMM {
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -4980,6 +5788,14 @@ public class DefaultRefasMM {
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -5034,6 +5850,14 @@ public class DefaultRefasMM {
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -5088,6 +5912,14 @@ public class DefaultRefasMM {
 				instDirSGSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -5198,6 +6030,14 @@ public class DefaultRefasMM {
 		// .get("GreaterOrEq"), 1, false, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -5218,6 +6058,7 @@ public class DefaultRefasMM {
 		semExpr.add(t1);
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
@@ -5237,6 +6078,14 @@ public class DefaultRefasMM {
 				true, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -5404,6 +6253,37 @@ public class DefaultRefasMM {
 				"", "", 7, "[#" + "AggregationLow" + "#all#..",
 				"AggregationHigh" + "#!=#" + "0");
 		directGRSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
+
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
@@ -5420,6 +6300,37 @@ public class DefaultRefasMM {
 				"", "", 8, "#" + "AggregationHigh" + "#all#\n",
 				"AggregationHigh" + "#!=#" + "0");
 		directGRSGSemEdge.putSemanticAttribute("AggregationHigh", attribute);
+
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directGRSGSemEdge
+						.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab.addAttribute(new OpersIOAttribute(
 				directGRSGSemEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simsceExecOperLab2.addAttribute(new OpersIOAttribute(
@@ -5513,6 +6424,14 @@ public class DefaultRefasMM {
 				instSgOTToSg, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -5568,6 +6487,14 @@ public class DefaultRefasMM {
 				instSgOTToSg, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -5623,6 +6550,14 @@ public class DefaultRefasMM {
 				instSgOTToSg, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -5841,6 +6776,14 @@ public class DefaultRefasMM {
 		// .get("GreaterOrEq"), 1, false, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -5887,6 +6830,7 @@ public class DefaultRefasMM {
 		semExpr.add(t1);
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 
 		ias.add(new InstAttribute("require", new ElemAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
@@ -5904,6 +6848,14 @@ public class DefaultRefasMM {
 				instVertexSGGR, "OSel", true, t1); // "OSel"
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -6186,6 +7138,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instSgToSgGR, instSgToSgGR, "sourceClExp", true, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -6301,6 +7261,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexSGGR,
 				instVertexSGGR, t1, "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -6344,6 +7312,7 @@ public class DefaultRefasMM {
 				.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 
 		semExpr.add(t1);
 
@@ -6363,6 +7332,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexSGGR,
 				instVertexSGGR, t1, "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -6541,6 +7518,14 @@ public class DefaultRefasMM {
 				instDirOpertoOperClaimOTEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -6630,6 +7615,14 @@ public class DefaultRefasMM {
 				instDirOpertoOperClaimOTEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -6664,6 +7657,14 @@ public class DefaultRefasMM {
 				"Exclu", false, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -6783,6 +7784,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCRELVARIABLE, instVertexCLGR,
 				instVertexCLGR, t1, "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -6824,6 +7833,7 @@ public class DefaultRefasMM {
 				instVertexOper, t1, "OCore");
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
@@ -6866,6 +7876,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
 				instVertexOper, t1, "Sel"); // no "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -6943,6 +7961,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexCLGR, instVertexCLGR, "OSel", true, t1); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -6985,6 +8011,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
 				instVertexOper, t1, 1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -7027,6 +8061,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexCLGR,
 				instVertexCL, instVertexCLGR, "Sel", "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -7080,6 +8122,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexCLGR, instVertexCLGR, "OSel", true, t1); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -7132,6 +8182,7 @@ public class DefaultRefasMM {
 				t1, t2);
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
@@ -7400,6 +8451,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTVARIABLE, instDirOperClaimOTToClaim,
 				instDirOperClaimOTToClaim, "PSel", true, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -7451,6 +8510,14 @@ public class DefaultRefasMM {
 				instDirOperClaimOTToClaim, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -7467,7 +8534,14 @@ public class DefaultRefasMM {
 				false, t1);
 
 		semExpr.add(t1);
-
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -7540,6 +8614,14 @@ public class DefaultRefasMM {
 				instDirOperClaimOTToClaim, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -7550,6 +8632,14 @@ public class DefaultRefasMM {
 				instDirOperClaimOTToClaim, instVertexCLGR, instVertexCL,
 				"Exclu", "Exclu");
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -7838,6 +8928,14 @@ public class DefaultRefasMM {
 				instDirFClaimToSemanticEdge, instVertexCL, "Sel", true, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -7874,6 +8972,14 @@ public class DefaultRefasMM {
 				"Exclu", "Exclu");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -8020,6 +9126,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instDirLFClaimSemanticEdge, instVertexCL, "Sel", false, t1);
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -8031,6 +9145,14 @@ public class DefaultRefasMM {
 				instVertexCL, "Exclu", "Exclu");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -8048,24 +9170,25 @@ public class DefaultRefasMM {
 		OpersConcept directClaimSGSemanticEdge = new OpersConcept(
 				"ClaimSgBinary");
 
-		attribute = new ElemAttribute("outConflClSD", "Boolean",
-				AttributeType.OPERATION, false,
-				"Selected for SD verifications", "", false, 0, -1, "", "", -1,
-				"level#all#", "");
-		directClaimSGSemanticEdge.putSemanticAttribute("outConflClSD",
-				attribute);
-		DefaultOpersMM.sasverConflClOperationSubAction
-				.addOutAttribute(new OpersIOAttribute(directClaimSGSemanticEdge
-						.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.sasverConflClOperUniqueLabeling
-				.addAttribute(new OpersIOAttribute(directClaimSGSemanticEdge
-						.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.sasverConflClSDOperationSubAction
-				.addOutAttribute(new OpersIOAttribute(directClaimSGSemanticEdge
-						.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.sasverConflClSDOperUniqueLabeling
-				.addAttribute(new OpersIOAttribute(directClaimSGSemanticEdge
-						.getIdentifier(), attribute.getName(), true));
+		// FIX update thesis
+		// attribute = new ElemAttribute("outConflClSD", "Boolean",
+		// AttributeType.OPERATION, false,
+		// "Selected for SD verifications", "", false, 0, -1, "", "", -1,
+		// "level#all#", "");
+		// directClaimSGSemanticEdge.putSemanticAttribute("outConflClSD",
+		// attribute);
+		// DefaultOpersMM.sasverConflClOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(directClaimSGSemanticEdge
+		// .getIdentifier(), attribute.getName(), true));
+		// DefaultOpersMM.sasverConflClOperUniqueLabeling
+		// .addAttribute(new OpersIOAttribute(directClaimSGSemanticEdge
+		// .getIdentifier(), attribute.getName(), true));
+		// DefaultOpersMM.sasverConflClSDOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(directClaimSGSemanticEdge
+		// .getIdentifier(), attribute.getName(), true));
+		// DefaultOpersMM.sasverConflClSDOperUniqueLabeling
+		// .addAttribute(new OpersIOAttribute(directClaimSGSemanticEdge
+		// .getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("CLSGLevel", "Integer",
 				AttributeType.OPERATION, "Relation Level",
@@ -8286,6 +9409,14 @@ public class DefaultRefasMM {
 				instDirClaimSGSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -8329,7 +9460,7 @@ public class DefaultRefasMM {
 				.addSemanticExpression(t1);
 		DefaultOpersMM.sasverConflClSDOperSubActionRelaxable
 				.addSemanticExpression(t1);
-		DefaultOpersMM.sasverConflClOperSubActionRelaxable
+		DefaultOpersMM.sasverConflClOperSubActionNormal
 				.addSemanticExpression(t1);
 		DefaultOpersMM.sasverConflSDOperSubActionNormal
 				.addSemanticExpression(t1);
@@ -8384,6 +9515,14 @@ public class DefaultRefasMM {
 				instDirClaimSGSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// FIXME include in only one of the sets, the previous or this one
@@ -8423,6 +9562,14 @@ public class DefaultRefasMM {
 				instDirClaimSGSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -8466,7 +9613,7 @@ public class DefaultRefasMM {
 				.addSemanticExpression(t1);
 		DefaultOpersMM.sasverConflClSDOperSubActionRelaxable
 				.addSemanticExpression(t1);
-		DefaultOpersMM.sasverConflClOperSubActionRelaxable
+		DefaultOpersMM.sasverConflClOperSubActionNormal
 				.addSemanticExpression(t1);
 		DefaultOpersMM.sasverConflSDOperSubActionNormal
 				.addSemanticExpression(t1);
@@ -8521,6 +9668,14 @@ public class DefaultRefasMM {
 				instDirClaimSGSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -8559,6 +9714,14 @@ public class DefaultRefasMM {
 				instDirClaimSGSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifFalseOptOperSubActionNormal
 				.addSemanticExpression(t1);
@@ -8604,7 +9767,7 @@ public class DefaultRefasMM {
 				.addSemanticExpression(t1);
 		DefaultOpersMM.sasverConflClSDOperSubActionRelaxable
 				.addSemanticExpression(t1);
-		DefaultOpersMM.sasverConflClOperSubActionRelaxable
+		DefaultOpersMM.sasverConflClOperSubActionNormal
 				.addSemanticExpression(t1);
 		DefaultOpersMM.sasverConflSDOperSubActionNormal
 				.addSemanticExpression(t1);
@@ -8659,6 +9822,14 @@ public class DefaultRefasMM {
 				instDirClaimSGSemanticEdge, t2, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 
@@ -8773,6 +9944,12 @@ public class DefaultRefasMM {
 		DefaultOpersMM.sasverAllOpersOperUniqueLabeling
 				.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge
 						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverConflSDOperationSubAction
+				.addInAttribute(new OpersIOAttribute(directSDSGSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverConflSDOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge
+						.getIdentifier(), attribute.getName(), true));
 		// sasverNoLoopsOperationSubAction.addInAttribute(new OpersIOAttribute(
 		// directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
 		// true));
@@ -8858,6 +10035,14 @@ public class DefaultRefasMM {
 				instDirSDSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -8882,7 +10067,7 @@ public class DefaultRefasMM {
 				.addSemanticExpression(t1);
 		DefaultOpersMM.sasverConflClOperSubActionNormal
 				.addSemanticExpression(t1);
-		DefaultOpersMM.sasverConflSDOperSubActionRelaxable
+		DefaultOpersMM.sasverConflSDOperSubActionNormal
 				.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
@@ -8907,6 +10092,14 @@ public class DefaultRefasMM {
 				instDirSDSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -8931,7 +10124,7 @@ public class DefaultRefasMM {
 				.addSemanticExpression(t1);
 		DefaultOpersMM.sasverConflClOperSubActionNormal
 				.addSemanticExpression(t1);
-		DefaultOpersMM.sasverConflSDOperSubActionRelaxable
+		DefaultOpersMM.sasverConflSDOperSubActionNormal
 				.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
@@ -8956,6 +10149,14 @@ public class DefaultRefasMM {
 				instDirSDSGSemanticEdge, t3, t1);
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -8980,7 +10181,7 @@ public class DefaultRefasMM {
 				.addSemanticExpression(t1);
 		DefaultOpersMM.sasverConflClOperSubActionNormal
 				.addSemanticExpression(t1);
-		DefaultOpersMM.sasverConflSDOperSubActionRelaxable
+		DefaultOpersMM.sasverConflSDOperSubActionNormal
 				.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("126 Ver/Val - SDSelected", refas
@@ -8991,6 +10192,14 @@ public class DefaultRefasMM {
 				"ConditionalExpression");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		// DefaultOpersMM.sasverSDCoreOperSubActionNormal.addSemanticExpression(t1);
@@ -9155,6 +10364,7 @@ public class DefaultRefasMM {
 
 		semExpr.add(t1);
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 
 		t1 = new OpersExpr("135 Ver/Val - manLSelected1", refas
 				.getSemanticExpressionTypes().get("Equals"),
@@ -9164,6 +10374,14 @@ public class DefaultRefasMM {
 				"Sel", "Sel");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9207,6 +10425,7 @@ public class DefaultRefasMM {
 
 		semExpr.add(t1);
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDCoreOperSubActionNormal
 				.addSemanticExpression(t1);
 
@@ -9218,6 +10437,14 @@ public class DefaultRefasMM {
 				"Exclu", "Exclu");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9352,6 +10579,7 @@ public class DefaultRefasMM {
 
 		semExpr.add(t1);
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDCoreOperSubActionNormal
 				.addSemanticExpression(t1);
 
@@ -9362,6 +10590,14 @@ public class DefaultRefasMM {
 				"Sel", "Sel");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9399,6 +10635,14 @@ public class DefaultRefasMM {
 				"Exclu", "Exclu");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9460,6 +10704,14 @@ public class DefaultRefasMM {
 				"Sel", "Sel");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9497,6 +10749,14 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instVertexF, "Exclu", "Exclu");
 
 		semExpr.add(t1);
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9732,6 +10992,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAssOPERGR,
 				instVertexOper, instVertexAssOPERGR, "Sel", "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9771,6 +11039,7 @@ public class DefaultRefasMM {
 		// verifParentsOperSubActionNormal.addSemanticExpression(t1);
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		t1 = new OpersExpr("sub",
@@ -9783,6 +11052,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexAssOPERGR, instVertexOper, t1, "Sel"); // no "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9824,6 +11101,7 @@ public class DefaultRefasMM {
 				instVertexAssOPERGR, instVertexAsset, t1, "OCore");
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
@@ -9838,6 +11116,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAssOPERGR,
 				instVertexOper, instVertexAssOPERGR, "Sel", "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDCoreOperSubActionNormal
@@ -9877,6 +11163,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexAssOPERGR, instVertexAsset, t1, "Sel"); // no "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9919,6 +11213,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAssOPERGR,
 				instVertexOper, instVertexAssOPERGR, "Sel", "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -9963,6 +11265,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexAssOPERGR, instVertexAssOPERGR, "OSel", true, t1); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.sasverSDCoreOperSubActionNormal
@@ -10000,6 +11310,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexAssOPERGR, instVertexAsset, t1, 1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10042,6 +11360,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAssOPERGR,
 				instVertexOper, instVertexAssOPERGR, "Sel", "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10099,6 +11425,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexAssOPERGR, instVertexAssOPERGR, "OSel", true, t1); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10153,6 +11487,7 @@ public class DefaultRefasMM {
 				instVertexAssOPERGR, t1, t2);
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
@@ -10285,6 +11620,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
 				DefaultOpersMM.instVertexF, instVertexAsLFGR, "Sel", "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10322,6 +11665,7 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instVertexF, instVertexAsLFGR, "Core", "OCore");
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		t1 = new OpersExpr("sub",
@@ -10334,6 +11678,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
 				DefaultOpersMM.instVertexF, t1, "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10375,6 +11727,7 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instVertexF, t1, "OCore");
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
@@ -10389,6 +11742,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
 				DefaultOpersMM.instVertexF, instVertexAsLFGR, "Sel", "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10428,6 +11789,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
 				instVertexAsset, t1, "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10470,6 +11839,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
 				DefaultOpersMM.instVertexF, instVertexAsLFGR, "Sel", "OSel"); // "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10513,6 +11890,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexAsLFGR, DefaultOpersMM.instVertexF, "Sel", true, t1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10553,6 +11938,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexAsLFGR,
 				instVertexAsset, t1, 1);
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10595,6 +11988,14 @@ public class DefaultRefasMM {
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsLFGR,
 				DefaultOpersMM.instVertexF, instVertexAsLFGR, "Sel", "OSel");// "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10652,6 +12053,14 @@ public class DefaultRefasMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexAsLFGR, instVertexAsLFGR, "OSel", true, t1);// "OSel"
 
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10705,6 +12114,7 @@ public class DefaultRefasMM {
 				.get("Implies"), instVertexAsLFGR, t1, t2);
 
 		DefaultOpersMM.updCoreOptSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.variantOptSubOperNormal.addSemanticExpression(t1);
 		semExpr.add(t1);
 
 		t2 = new OpersExpr("R2", refas.getSemanticExpressionTypes().get("Sum"),
@@ -10817,6 +12227,15 @@ public class DefaultRefasMM {
 				"Sel");
 
 		semExpr.add(t1);
+
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10854,6 +12273,15 @@ public class DefaultRefasMM {
 				"Exclu", "Exclu");
 
 		semExpr.add(t1);
+
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -10963,6 +12391,15 @@ public class DefaultRefasMM {
 				"Sel");// "OSel"
 
 		semExpr.add(t1);
+
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
@@ -11000,6 +12437,15 @@ public class DefaultRefasMM {
 				"Exclu");
 
 		semExpr.add(t1);
+
+		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.validPartialConfSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.allProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.numProductsSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.filterSubOperNormal.addSemanticExpression(t1);
+		DefaultOpersMM.verifFalsePLOperSubActionNormal
+				.addSemanticExpression(t1);
+		DefaultOpersMM.redundanOperSubActionNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.simulScenExecOptSubOperNormal.addSemanticExpression(t1);
 		DefaultOpersMM.verifDeadElemSubOperNormal.addSemanticExpression(t1);
