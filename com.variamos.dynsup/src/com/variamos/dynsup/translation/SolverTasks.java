@@ -208,7 +208,6 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 	public void configModel() throws InterruptedException, FunctionalException {
 		// this.clearNotificationBar();
-		refas2hlcl.cleanGUIElements(ModelExpr2HLCL.CONF_EXEC);
 		Set<Identifier> freeIdentifiers = null;
 		Set<InstElement> elementSubSet = null;
 		task = 0;
@@ -218,6 +217,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		if (invalidConfigHlclProgram && element == null) {
 			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
 					ModelExpr2HLCL.CONF_EXEC);
+			// refas2hlcl.cleanGUIElements(ModelExpr2HLCL.CONF_EXEC);
 			freeIdentifiers = refas2hlcl.getFreeIdentifiers();
 		} else {
 			freeIdentifiers = new HashSet<Identifier>();
@@ -297,6 +297,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		executionTime += "ConfigExec: " + (endTime - iniTime) + "["
 				+ (falseOTime + defectVerifier.getSolverTime() / 1000000) + "]"
 				+ " -- ";
+
+		// refas2hlcl.cleanGUIElements(ModelExpr2HLCL.CONF_EXEC);
 	}
 
 	public int getExecType() {

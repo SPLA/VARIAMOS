@@ -102,6 +102,12 @@ public class VariamosDashBoardFrame extends JFrame {
 		}
 		this.refasModel = refasModel;
 		int concepts = 0;
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (updateConcepts || elements == null)
 			loadConcepts();
 		this.getContentPane().removeAll();

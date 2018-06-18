@@ -12603,7 +12603,7 @@ public class DefaultRefasMM {
 				DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexSG,
 				t1, 0);
 
-		// semExpr.add(t1); // FIXME not used
+		semExpr.add(t1); // FIXME not used
 
 		// ----------------------
 
@@ -12723,6 +12723,18 @@ public class DefaultRefasMM {
 		semExpr = new ArrayList<OpersExpr>();
 		DefaultOpersMM.simulExecOperUniLab.setSemanticExpressions(semExpr);
 
+		t1 = new OpersExpr("sub",
+				refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE,
+				DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexSG,
+				"Sel", 0);
+
+		t1 = new OpersExpr("max soft goals", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
+				DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexSG,
+				t1, 0);
+
+		semExpr.add(t1);
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFSUBTITERCONVARIABLE,

@@ -750,11 +750,11 @@ public class DefaultOpersMM {
 			sortatt.add(new InstAttribute("enum1", new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
 					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), LabelingOrderEnum.MAX));
+			sortatt.add(new InstAttribute("enum2", new ElemAttribute(
+					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
 					""), LabelingOrderEnum.MIN));
-			// sortatt.add(new InstAttribute("enum2", new ElemAttribute(
-			// "EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
-			// false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
-			// ""), LabelingOrder.MIN));
 
 			refas.getVariabilityVertex().put("BasSim-Execution-lab",
 					instLabeling);
