@@ -1567,6 +1567,19 @@ public class ModelExpr2HLCL {
 		}
 	}
 
+	/**
+	 * jcmunoz@gmail.com
+	 * 
+	 * 
+	 * @param progressMonitor  PM to update the execution evolution
+	 * @param target			Element to evaluate
+	 * @param evaluatedSet		Elements already evaluate to avoid dead-loops
+	 * @param freeIdentifiers 	Variant Elements (not pre-selected or excluded) 
+	 * @param calc				Determines if the exec return the Expressions or only the freeIdentifiers
+	 * @return					The set of expressions to execute the configuration
+	 * @throws InterruptedException
+	 * @throws FunctionalException
+	 */
 	public HlclProgram configGraph(ProgressMonitor progressMonitor,
 			InstElement target, Set<InstElement> evaluatedSet,
 			Set<Identifier> freeIdentifiers, boolean calc)

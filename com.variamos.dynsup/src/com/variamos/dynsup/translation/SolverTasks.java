@@ -214,6 +214,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		long iniTime = 0;
 		long endTime = 0;
 		iniTime = System.currentTimeMillis();
+		//InstElement test2 = refas2hlcl.getRefas().getElement("OPER2");
+		
 		if (invalidConfigHlclProgram && element == null) {
 			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
 					ModelExpr2HLCL.CONF_EXEC);
