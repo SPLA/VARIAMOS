@@ -3633,7 +3633,9 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-
+			instOperationAction.getInstAttribute("visible").setValue(false); 
+			//FIXME correct for REFAS ans N-ary and activate
+			
 			instEdgeOper = new InstPairwiseRel();
 			if (newOpers)
 				refas.getConstraintInstEdges().put("ver-menu-Redund",
@@ -3663,7 +3665,7 @@ public class DefaultOpersMM {
 			instOperationSubAction
 					.getInstAttribute("errorMsg")
 					.setValue(
-							"#number# redundancies identified.\n Please keep only one root concept.");
+							"#number# redundancies identified.\n Please remove undeeded relations.");
 			instOperationSubAction.getInstAttribute("type").setValue(
 					StringUtils
 							.formatEnumValue(OpersSubOpType.IdDef_Defects_Verif
@@ -8586,8 +8588,8 @@ public class DefaultOpersMM {
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
-			// redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
-			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
+			 redundanSubOperationAction.addInAttribute(new OpersIOAttribute(
+			 semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			// redundanOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 			// semInfraOTRel.getIdentifier(), attribute.getName(), true));
 			homogeneitySubOperationAction1.addInAttribute(new OpersIOAttribute(
@@ -10066,7 +10068,7 @@ public class DefaultOpersMM {
 						+ "variableType" + "#==#" + "Enumeration" + "$"
 						+ "variableType" + "#==#" + "Boolean" + "$"
 						+ "variableType" + "#==#" + "Float", -1, "", "",
-				"varConfDom", "", null);
+				"", "", null);
 
 		// TODO define multiple conditions
 		semVariable.putSemanticAttribute("isConfDom", attribute);
@@ -10145,16 +10147,11 @@ public class DefaultOpersMM {
 
 		// semVariable.addPropVisibleAttribute("08#" + "varConfValue");
 		// semVariable.addPropVisibleAttribute("08#" + "varConfValue");
+		//THE input value is defined by the domain not an specific value
 		semVariable.putSemanticAttribute("varConfValue", attribute);
-		validProductSubOperationAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
 		validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
-		validPartialConfSubOperationAction.addInAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
 		validPartialConfOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semVariable.getIdentifier(), attribute.getName(), true));
-		filterSubOperationAction.addInAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
 		filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
