@@ -23,11 +23,10 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.gui.core.io.ConsoleTextArea;
 
-
-
-
 /**
- * This class is useful o draw overlays for showing states and errors in operations that are executed in the GUI
+ * This class is useful o draw overlays for showing states and errors in
+ * operations that are executed in the GUI
+ * 
  * @author Juan Munoz
  *
  */
@@ -75,7 +74,6 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		});
 	}
 
-	
 	private void configureSelectionHandler() {
 		graph.getSelectionModel().addListener(mxEvent.CHANGE,
 				new mxIEventListener() {
@@ -306,18 +304,13 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute("Sel")
-							.getValue()
-							&& ((boolean) instConcept.getInstAttribute(
-									"ConfSel").getValue() || (boolean) instConcept
-									.getInstAttribute("TestConfSel").getValue())) {
+					if ((boolean) instConcept.getInstAttribute("SimulSel")
+							.getValue()) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
-												.getResource(sim_green2)),
-								"Configuration Selected");
-
-						backtophint = "Configuration Selected";
+												.getResource(sim_green3)),
+								"Simulation selected");
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -337,17 +330,23 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute("SimulSel")
-							.getValue()) {
+					if ((boolean) instConcept.getInstAttribute("Sel")
+							.getValue()
+							&& ((boolean) instConcept.getInstAttribute(
+									"ConfSel").getValue() || (boolean) instConcept
+									.getInstAttribute("TestConfSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
-												.getResource(sim_green3)),
-								"Simulation selected");
+												.getResource(sim_green2)),
+								"Configuration Selected");
+
+						backtophint = "Configuration Selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
+
 					if (!(boolean) instConcept.getInstAttribute("Exclu")
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
@@ -489,11 +488,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		}
 	}
 
-	
-	
 	@Override
 	public String getEditingValue(Object cell, EventObject trigger) {
 		return super.getEditingValue(cell, trigger);
 	}
 }
-

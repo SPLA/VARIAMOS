@@ -1822,6 +1822,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
 				}
+				semTask = null;
 			}
 			if (semTask != null) {
 				String message = String.format("Completed %d%%.\n", progress);

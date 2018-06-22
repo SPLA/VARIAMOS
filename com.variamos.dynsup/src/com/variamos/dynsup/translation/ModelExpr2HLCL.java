@@ -729,13 +729,21 @@ public class ModelExpr2HLCL {
 				case ModelExpr2HLCL.SIMUL_EXEC:
 				case ModelExpr2HLCL.SIMUL_EXPORT:
 				case ModelExpr2HLCL.SIMUL_MAPE:
+					instVertex.getInstAttribute("Sel").setValue(false);
 					break;
 				case ModelExpr2HLCL.CORE_EXEC:
 					instVertex.getInstAttribute("Core").setValue(false);
 				case ModelExpr2HLCL.DESIGN_EXEC:
+
+					instVertex.getInstAttribute("TestConfSel").setValue(false);
+					instVertex.getInstAttribute("TestConfNotSel").setValue(
+							false);
 					instVertex.getInstAttribute("ConfSel").setValue(false);
 					instVertex.getInstAttribute("ConfNotSel").setValue(false);
 					instVertex.getInstAttribute("Dead").setValue(false);
+				case ModelExpr2HLCL.CONF_EXEC:
+					instVertex.getInstAttribute("Sel").setValue(false);
+					instVertex.getInstAttribute("SimulSel").setValue(false);
 
 				}
 
@@ -773,6 +781,7 @@ public class ModelExpr2HLCL {
 						}
 					}
 					if (execType != ModelExpr2HLCL.SIMUL_EXEC
+							&& execType != ModelExpr2HLCL.CONF_EXEC
 							&& (instAttribute.getType().equals("Boolean") && (instAttribute
 									.getIdentifier().equals("TestConfSel")
 									|| instAttribute.getIdentifier().equals(
@@ -1558,6 +1567,19 @@ public class ModelExpr2HLCL {
 		}
 	}
 
+	/**
+	 * jcmunoz@gmail.com
+	 * 
+	 * 
+	 * @param progressMonitor  PM to update the execution evolution
+	 * @param target			Element to evaluate
+	 * @param evaluatedSet		Elements already evaluate to avoid dead-loops
+	 * @param freeIdentifiers 	Variant Elements (not pre-selected or excluded) 
+	 * @param calc				Determines if the exec return the Expressions or only the freeIdentifiers
+	 * @return					The set of expressions to execute the configuration
+	 * @throws InterruptedException
+	 * @throws FunctionalException
+	 */
 	public HlclProgram configGraph(ProgressMonitor progressMonitor,
 			InstElement target, Set<InstElement> evaluatedSet,
 			Set<Identifier> freeIdentifiers, boolean calc)
