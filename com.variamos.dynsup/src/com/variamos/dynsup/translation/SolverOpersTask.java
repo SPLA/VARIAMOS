@@ -71,6 +71,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	private boolean invalidConfigHlclProgram;
 	private List<String> outVariables = new ArrayList<String>();
 	private List<String> defectsFreeIdsName = null;
+	private boolean ignoreSorting = false;
 
 	private boolean test;
 	private long task = 0;
@@ -335,8 +336,13 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			for (String operationName : operationsNames) {
 				// operationObj is the hlcl program regarding the operation name
 				// the call returns the object with the id
-				InstElement operationObj = refas2hlcl.getRefas().getSyntaxModel().getOperationalModel()
-						.getElement(operationName);
+		
+				if (operationName.startsWith("I:"))
+				{
+					operationName = operationName.substring(2);
+				}
+				InstElement operationObj = refas2hlcl.getRefas()
+						.getSyntaxModel().getOperationalModel().getElement(operationName);
 
 				Set<InstElement> suboperationsObjs = new TreeSet<InstElement>();
 				Map<String, InstElement> instsuboperations = new HashMap<String, InstElement>();
@@ -404,15 +410,22 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										StringUtils.formatEnumValue(OpersSubOpType.Iterate_Solutions.toString()))) {
 							simul = true;
 							if (lastConfiguration == null || firstSimulExec) {
-								result = refas2hlcl.execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION, operationObj,
-										instsuboperations.get(suboper.getIdentifier())); // type
-
+								result = refas2hlcl.execute(progressMonitor,
+										ModelExpr2HLCL.ONE_SOLUTION,
+										operationObj, instsuboperations
+												.get(suboper.getIdentifier()),
+										this.ignoreSorting); // type
 							} else {
 								if (type.equals(
 										StringUtils.formatEnumValue(OpersSubOpType.Iterate_Solutions.toString()))) {
 									this.reloadDashBoardConcepts = false;
-									result = refas2hlcl.execute(progressMonitor, ModelExpr2HLCL.NEXT_SOLUTION,
-											operationObj, instsuboperations.get(suboper.getIdentifier())); // type
+									result = refas2hlcl.execute(
+											progressMonitor,
+											ModelExpr2HLCL.NEXT_SOLUTION,
+											operationObj, instsuboperations
+													.get(suboper
+															.getIdentifier()),
+											false); // type
 								} else
 									continue;
 							}
@@ -1071,7 +1084,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		List<String> freeIdsNames = null;
 		List<String> defectsNames = new ArrayList<String>();
 		long falseOTime = 0;
-		result = refas2hlcl.execute(progressMonitor, 0, operation, subOper);
+		result = refas2hlcl.execute(progressMonitor, 0, operation, subOper,
+				false);
 		if (result == 0) {
 			Map<String, Number> currentResult = refas2hlcl.getResult();
 			freeIdsNames = getFreeIdentifiers(currentResult, outAttribute, outAttribute);
@@ -1171,7 +1185,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			if (reuseIds && defectsFreeIdsName != null) {
 				freeIdsNames.addAll(defectsFreeIdsName);
 			} else {
-				result = refas2hlcl.execute(progressMonitor, 0, coreOperation, coreSubOper);
+				result = refas2hlcl.execute(progressMonitor, 0, coreOperation,
+						coreSubOper, false);
 				if (result == 0) {
 					// FIXME update outAttributes for CoreOper
 					if (updateCoreOutAttribute)
@@ -1395,5 +1410,9 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 	@Override
 	public void done() {
+	}
+
+	public void setIgnoreSorting(boolean ignoreSort) {
+		ignoreSorting = ignoreSort;
 	}
 }

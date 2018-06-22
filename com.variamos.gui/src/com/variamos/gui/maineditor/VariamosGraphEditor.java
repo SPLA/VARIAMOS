@@ -1595,15 +1595,17 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				.put("REFAS1", element);
 		// System.out.println(operations);
 		boolean first = true;
+		boolean ignoreSort = false;
 		if (operations.get(0).startsWith("N:"))
 			first = false;
-		executeOperationsThead(first, operations, filename);
-
+		if (operations.get(0).startsWith("I:"))
+			ignoreSort = true;
+		executeOperationsThead(first, operations, filename, ignoreSort);
 	}
 
 	// Dynamic operation's definition
 	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution,
-			List<String> operations, String filename) {
+			List<String> operations, String filename, boolean ignoreSort) {
 
 		if (!firstSimulExecution && dynamicBehaviorDTO.getSemTask() != null) {
 			dynamicBehaviorDTO.getSemTask().setFirstSimulExec(false);
@@ -1616,13 +1618,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(1);
-			SolverOpersTask semTask = new SolverOpersTask(progressMonitor,
-					dynamicBehaviorDTO.getRefasModel(),
+			
+			SolverOpersTask semTask = new SolverOpersTask(progressMonitor, dynamicBehaviorDTO.getRefasModel(),
 					dynamicBehaviorDTO.getRefas2hlcl(),
-					dynamicBehaviorDTO.getConfigHlclProgram(),
-					firstSimulExecution, operations,
+					dynamicBehaviorDTO.getConfigHlclProgram(), firstSimulExecution,
+					operations, 
 					dynamicBehaviorDTO.getLastSolution(), filename);
-
+			semTask.setIgnoreSorting(ignoreSort);
 			semTask.addPropertyChangeListener(this);
 			semTask.execute();
 
@@ -1858,6 +1860,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
 				}
+				dynamicBehaviorDTO.setSemTask(null);
 			}
 			if (dynamicBehaviorDTO.getSemTask() != null) {
 				String message = String.format("Completed %d%%.\n", progress);
@@ -2109,6 +2112,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			extension = "VariaMos-SyntaxMetaModel";
 		}
 		return extension;
+
 	}
 
 	public void showElementOperationAssociationDialog(int dialog) {

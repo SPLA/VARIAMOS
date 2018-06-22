@@ -493,10 +493,10 @@ public class ModelExpr2HLCL {
 	// dynamic call implementation 0 OK, -1 General Error +1 Specific Error
 	// (general)
 	public int execute(ProgressMonitor progressMonitor, int solutions,
-			InstElement operation, InstElement suboper)
+			InstElement operation, InstElement suboper, boolean ignoreSorting)
 			throws InterruptedException, FunctionalException {
 		lastExecutionTime = 0;
-		if (solutions == 0 || swiSolver == null) {
+		if (solutions == ONE_SOLUTION || swiSolver == null) {
 			text = "";
 			configuration = new SolverSolution();
 			// FIXME: execute for all sub-operations exp types?
@@ -518,8 +518,10 @@ public class ModelExpr2HLCL {
 				try {
 					ConfigurationOptionsDTO configurationOptions = new ConfigurationOptionsDTO();
 					// FIXME support types other than normal
-					configurationOptions.setLabelings(labelings);
-					configurationOptions.setOrder(true);
+					if (!ignoreSorting) {
+						configurationOptions.setLabelings(labelings);
+						configurationOptions.setOrder(true);
+					}
 
 					configurationOptions.setStartFromZero(true);
 
@@ -538,7 +540,7 @@ public class ModelExpr2HLCL {
 		if (progressMonitor != null && progressMonitor.isCanceled())
 			return -1;
 
-		if (solutions == 0 || solutions == 1) {
+		if (solutions == ONE_SOLUTION || solutions == NEXT_SOLUTION) {
 			if (configuration != null) {
 				try {
 					configuration = swiSolver.getSolution();
@@ -578,11 +580,11 @@ public class ModelExpr2HLCL {
 					+ "(total unknown)");
 			if (first) {
 				result = execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION,
-						operation, suboper);
+						operation, suboper, false);
 				first = false;
 			} else
 				result = execute(progressMonitor, ModelExpr2HLCL.NEXT_SOLUTION,
-						operation, suboper);
+						operation, suboper, false);
 			if (result == 0 && !progressMonitor.isCanceled()) {
 				String outAttribute = (String) suboper
 						.getInstAttributeValue("outAttribute");
@@ -642,11 +644,11 @@ public class ModelExpr2HLCL {
 					+ "(total unknown)");
 			if (first) {
 				result = execute(progressMonitor, ModelExpr2HLCL.ONE_SOLUTION,
-						operation, suboper);
+						operation, suboper, false);
 				first = false;
 			} else
 				result = execute(progressMonitor, ModelExpr2HLCL.NEXT_SOLUTION,
-						operation, suboper);
+						operation, suboper, false);
 			if (result == 0 && !progressMonitor.isCanceled()) {
 				iter++;
 			}
@@ -660,7 +662,7 @@ public class ModelExpr2HLCL {
 			int solutions, int execType) throws InterruptedException,
 			FunctionalException {
 		lastExecutionTime = 0;
-		if (solutions == 0 || swiSolver == null) {
+		if (solutions == ONE_SOLUTION || swiSolver == null) {
 			text = "";
 			configuration = new SolverSolution();
 
@@ -690,7 +692,7 @@ public class ModelExpr2HLCL {
 				List<IntNumericExpression> orderExpressionList = new ArrayList<IntNumericExpression>();
 				List<LabelingOrderEnum> labelingOrderList = new ArrayList<LabelingOrderEnum>();
 				labelingOrderList.add(LabelingOrderEnum.MIN);
-				labelingOrderList.add(LabelingOrderEnum.MIN);
+				// labelingOrderList.add(LabelingOrderEnum.MIN);
 				Iterator<InstElement> iterVertex = refas
 						.getVariabilityVertexCollection().iterator();
 				InstElement instVertex = iterVertex.next();
@@ -698,8 +700,8 @@ public class ModelExpr2HLCL {
 						iterVertex, "Order"));
 				iterVertex = refas.getVariabilityVertexCollection().iterator();
 				instVertex = iterVertex.next();
-				orderExpressionList.add(getSumExpression(instVertex,
-						iterVertex, "Opt"));
+				// orderExpressionList.add(getSumExpression(instVertex,
+				// iterVertex, "Opt"));
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
 				swiSolver.solve(new SolverSolution(), configurationOptions);
@@ -715,7 +717,7 @@ public class ModelExpr2HLCL {
 		if (progressMonitor != null && progressMonitor.isCanceled())
 			return false;
 
-		if (solutions == 0 || solutions == 1) {
+		if (solutions == ONE_SOLUTION || solutions == NEXT_SOLUTION) {
 			if (configuration != null) {
 				configuration = swiSolver.getSolution();
 				lastExecutionTime += swiSolver.getLastExecutionTime();
@@ -756,13 +758,21 @@ public class ModelExpr2HLCL {
 				case ModelExpr2HLCL.SIMUL_EXEC:
 				case ModelExpr2HLCL.SIMUL_EXPORT:
 				case ModelExpr2HLCL.SIMUL_MAPE:
+					instVertex.getInstAttribute("Sel").setValue(false);
 					break;
 				case ModelExpr2HLCL.CORE_EXEC:
 					instVertex.getInstAttribute("Core").setValue(false);
 				case ModelExpr2HLCL.DESIGN_EXEC:
+
+					instVertex.getInstAttribute("TestConfSel").setValue(false);
+					instVertex.getInstAttribute("TestConfNotSel").setValue(
+							false);
 					instVertex.getInstAttribute("ConfSel").setValue(false);
 					instVertex.getInstAttribute("ConfNotSel").setValue(false);
 					instVertex.getInstAttribute("Dead").setValue(false);
+				case ModelExpr2HLCL.CONF_EXEC:
+					instVertex.getInstAttribute("Sel").setValue(false);
+					instVertex.getInstAttribute("SimulSel").setValue(false);
 
 				}
 
@@ -800,6 +810,7 @@ public class ModelExpr2HLCL {
 						}
 					}
 					if (execType != ModelExpr2HLCL.SIMUL_EXEC
+							&& execType != ModelExpr2HLCL.CONF_EXEC
 							&& (instAttribute.getType().equals("Boolean") && (instAttribute
 									.getIdentifier().equals("TestConfSel")
 									|| instAttribute.getIdentifier().equals(
@@ -1585,6 +1596,19 @@ public class ModelExpr2HLCL {
 		}
 	}
 
+	/**
+	 * jcmunoz@gmail.com
+	 * 
+	 * 
+	 * @param progressMonitor  PM to update the execution evolution
+	 * @param target			Element to evaluate
+	 * @param evaluatedSet		Elements already evaluate to avoid dead-loops
+	 * @param freeIdentifiers 	Variant Elements (not pre-selected or excluded) 
+	 * @param calc				Determines if the exec return the Expressions or only the freeIdentifiers
+	 * @return					The set of expressions to execute the configuration
+	 * @throws InterruptedException
+	 * @throws FunctionalException
+	 */
 	public HlclProgram configGraph(ProgressMonitor progressMonitor,
 			InstElement target, Set<InstElement> evaluatedSet,
 			Set<Identifier> freeIdentifiers, boolean calc)

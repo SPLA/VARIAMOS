@@ -202,6 +202,7 @@ public class SharedActions {
 						// && mv0.getChildAt(0).getValue()
 						// .equals(mv0.getValue())
 						) {
+							// SubViews support
 							Object[] all2Cells = getSortedCells(graph, mv1);
 							for (Object any2Cell : all2Cells) {
 								mxCell mv2 = (mxCell) any2Cell;
@@ -258,10 +259,59 @@ public class SharedActions {
 		return graph;
 	}
 
+	public static void removeLostElements(mxGraph graph,
+			VariamosGraphEditor editor) {
+		InstanceModel instanceModel = editor.getEditedModel();
+		mxIGraphModel refasGraph = graph.getModel();
+		Object o = refasGraph.getRoot(); // Main Root
+		mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0);
+		Object[] all0Cells = getSortedCells(graph, o1);
+
+		ArrayList<InstElement> toRemove = new ArrayList<InstElement>();
+
+		for (InstElement element : instanceModel.getElements()) {
+			boolean exist = false;
+			if (element.getIdentifier().equals("Softgoal8")
+
+			/*
+			 * && ((InstCell) ((mxCell) any1Cell).getValue())
+			 * .getOriginalInstElement() .getDynamicAttribute("identifier")
+			 * .equals("")
+			 */) {
+				System.out.println(element.getIdentifier());
+			}
+			for (Object any0Cell : all0Cells) {
+				// Root model view mvInd
+				mxCell mv0 = (mxCell) any0Cell;
+
+				if (refasGraph.getChildCount(mv0) > 0) {
+					// First vertices and after edges
+					Object[] all1Cells = getSortedCells(graph, mv0);
+
+					for (Object any1Cell : all1Cells) {
+						String id = ((mxCell) any1Cell).getId().substring(1);
+						String id2 = element.getIdentifier();
+						if (id.equals(id2)) {
+							exist = true;
+						}
+					}
+				}
+
+			}
+			if (!exist) {
+				System.out.println("removing... " + element.getIdentifier());
+				toRemove.add(element);
+			}
+		}
+		for (InstElement instElement : toRemove) {
+			instanceModel.removeElement(instElement);
+		}
+	}
+
 	public static mxGraph recoverClonedElements(mxGraph graph,
 			VariamosGraphEditor editor) {
-
 		setVisibleViews(graph.getModel(), true, 0, 0);
+		removeLostElements(graph, editor);
 		mxIGraphModel refasGraph = graph.getModel();
 		// editor.getGraphComponent().zoomActual();
 		if (graph instanceof PerspEditorGraph) {
@@ -280,6 +330,20 @@ public class SharedActions {
 						// for (int i = 0; i < refasGraph.getChildCount(mv0);
 						// i++) {
 						// mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+						if (((mxCell) any1Cell).getId().equals("0Goal24")
+								|| ((InstCell) ((mxCell) any1Cell).getValue())
+										.getInstElement() == null
+						/*
+						 * && ((InstCell) ((mxCell) any1Cell).getValue())
+						 * .getOriginalInstElement()
+						 * .getDynamicAttribute("identifier") .equals("")
+						 */) {
+							System.out.println("node to remove: "
+									+ ((mxCell) any1Cell).getId());
+							Object[] toRemove = new Object[1];
+							toRemove[0] = any1Cell;
+							graph.removeCells(toRemove);
+						}
 						mxCell mv1 = (mxCell) any1Cell;
 						if (refasGraph.getChildCount(mv1) > 0
 						// && mv0.getChildAt(0).getValue()
@@ -332,6 +396,7 @@ public class SharedActions {
 
 		setVisibleViews(graph.getModel(), false, editor.getModelViewIndex(),
 				editor.getModelSubViewIndex());
+		System.gc();
 		return graph;
 	}
 

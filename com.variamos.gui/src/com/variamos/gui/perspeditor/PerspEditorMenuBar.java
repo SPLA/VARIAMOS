@@ -60,7 +60,6 @@ import com.variamos.gui.perspeditor.actions.VerifyDeadElementAction;
 import com.variamos.gui.perspeditor.actions.VerifyFalseOptElementAction;
 
 @SuppressWarnings("serial")
-
 public class PerspEditorMenuBar extends JMenuBar {
 
 	private VariamosGraphEditor editor;
@@ -301,7 +300,19 @@ public class PerspEditorMenuBar extends JMenuBar {
 								
 								boolean iterate = (boolean) e.getInstAttribute("iteration").getValue();
 								if (iterate) {
-									JMenuItem menuItem2 = new JMenuItem("Next Element");
+									JMenuItem menuItem1 = new JMenuItem(
+											"Next Element");
+									menuItem1.setName("I:" + e.getIdentifier());
+									menuItem1.setAction(editor.bind(menuItem1,
+											"I:" + e.getIdentifier(),
+											new OperationAction(), null));
+									menu.add(menuItem1);
+									menuItem1.setText((String) e
+											.getInstAttribute("opname")
+											.getValue()
+											+ " - Ignore Sort");
+									JMenuItem menuItem2 = new JMenuItem(
+											"Next Element");
 									menuItem2.setName("N:" + e.getIdentifier());
 									menuItem2.setAction(editor.bind(menuItem2, "N:" + e.getIdentifier(),
 											new OperationAction(), null));
@@ -403,6 +414,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 			menu.add(a);
 
 			add(menu);
+
 
 			menu = (JMenu) menu.add(new JMenu(mxResources.get("dashboard")));
 			menu.setMnemonic('D');

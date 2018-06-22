@@ -484,12 +484,14 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						 * .getIdentifier(), getHlclFactory().number(
 						 * attributeValue))); }
 						 */
-						if (instAttribute.getIdentifier().equals("TestConfSel")) {
-							getElementExpressions().add(
-									new EqualsComparisonExpression(instVertex,
-											instAttribute.getIdentifier(),
-											getHlclFactory().number(0)));
-						}
+						// if
+						// (instAttribute.getIdentifier().equals("TestConfSel"))
+						// {
+						// getElementExpressions().add(
+						// new EqualsComparisonExpression(instVertex,
+						// instAttribute.getIdentifier(),
+						// getHlclFactory().number(0)));
+						// }
 
 						if (instAttribute.getIdentifier().equals(
 								"TestConfNotSel")) {
@@ -498,40 +500,41 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											instAttribute.getIdentifier(),
 											getHlclFactory().number(0)));
 						}
-
-						if (instAttribute.getIdentifier().equals("Opt")) {
-							// Opt #<==>
-							if (execType != ModelExpr2HLCL.CORE_EXEC
-									&& (execType != ModelExpr2HLCL.DESIGN_EXEC)) {
-								AbstractNumericExpression transformation50 = new SumNumericExpression(
-										instVertex, instVertex, "SimulSel",
-										"ConfSel");
-								AbstractNumericExpression transformation51 = new ProdNumericExpression(
-										instVertex, "TestConfSel", true,
-										transformation50);
-
-								AbstractNumericExpression transformation52 = new SumNumericExpression(
-										instVertex, instVertex, "TestConfSel",
-										"ConfSel");
-								AbstractNumericExpression transformation53 = new ProdNumericExpression(
-										instVertex, "SimulSel", true,
-										transformation52);
-
-								AbstractNumericExpression transformation54 = new SumNumericExpression(
-										transformation51, transformation53);
-
-								getElementExpressions().add(
-										new EqualsComparisonExpression(
-												instVertex, "Opt", true,
-												transformation54));
-							}
-							// Opt#=0
-
-							getElementExpressions().add(
-									new EqualsComparisonExpression(instVertex,
-											"Opt", getHlclFactory().number(0)));
-
-						}
+						//
+						// if (instAttribute.getIdentifier().equals("Opt")) {
+						// // Opt #<==>
+						// if (execType != ModelExpr2HLCL.CORE_EXEC
+						// && (execType != ModelExpr2HLCL.DESIGN_EXEC)) {
+						// AbstractNumericExpression transformation50 = new
+						// SumNumericExpression(
+						// instVertex, instVertex, "SimulSel",
+						// "ConfSel");
+						// AbstractNumericExpression transformation51 = new
+						// ProdNumericExpression(
+						// instVertex, "TestConfSel", true,
+						// transformation50);
+						//
+						// AbstractNumericExpression transformation52 = new
+						// ProdNumericExpression(
+						// instVertex, instVertex, "SimulSel",
+						// "ConfSel");
+						//
+						// AbstractNumericExpression transformation54 = new
+						// SumNumericExpression(
+						// transformation51, transformation52);
+						//
+						// getElementExpressions().add(
+						// new EqualsComparisonExpression(
+						// instVertex, "Opt", true,
+						// transformation54));
+						// }
+						// // Opt#=0
+						//
+						// getElementExpressions().add(
+						// new EqualsComparisonExpression(instVertex,
+						// "Opt", getHlclFactory().number(0)));
+						//
+						// }
 						// Order#<==>
 						if (instAttribute.getIdentifier().equals("Order")
 								&& (execType != ModelExpr2HLCL.CORE_EXEC && (execType != ModelExpr2HLCL.DESIGN_EXEC))) {
@@ -576,17 +579,75 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									getHlclFactory().number(4));
 							AbstractNumericExpression transformation50 = new SumNumericExpression(
 									transformation49, transformation48);
-							AbstractNumericExpression transformation55 = new SumNumericExpression(
-									instVertex, "TestConfSel", true,
-									transformation50);
-
 							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
-											"Order", true, transformation55));
+											"Order", true, transformation50));
+						}
+						if (instAttribute.getIdentifier().equals("SimulSel")) {
+							// identifierId_Selected #<=>
+							// ( ( ( identifierId_ConfigSelected
+							// #\/ identifierId_NextPrefSelected ) #\/
+							// identifierId_NextReqSelected ) )
+
+							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
+									instVertex, instVertex, "Core", "ConfSel");
+							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
+									instVertex, "SimulSel", true,
+									transformation6);
+							getElementExpressions().add(
+									new DoubleImplicationBooleanExpression(
+											instVertex, "Sel", true,
+											transformation7));
+
+							// identifierId_Selected ) *
+							// identifierId_NotAvailable ) #= 0
+							AbstractNumericExpression transformation61 = new ProdNumericExpression(
+									instVertex, instVertex, "Sel", "Exclu");
+							EqualsComparisonExpression transformation62 = new EqualsComparisonExpression(
+									transformation61,
+									new NumberNumericExpression(0));
+							getElementExpressions().add(transformation62);
+
 						}
 					}
 
 					// End Simulation Only
+					// //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+					// Init Configuration Only
+					// //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+					if (execType == ModelExpr2HLCL.CONF_EXEC) {
+						if (instAttribute.getIdentifier().equals("SimulSel")) {
+							// identifierId_Selected #<=>
+							// ( ( ( identifierId_ConfigSelected
+							// #\/ identifierId_NextPrefSelected ) #\/
+							// identifierId_NextReqSelected ) )
+
+							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
+									instVertex, instVertex, "Core", "ConfSel");
+							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
+									instVertex, instVertex, "SimulSel",
+									"TestConfSel");
+							AbstractBooleanExpression transformation8 = new OrBooleanExpression(
+									transformation7, transformation6);
+							getElementExpressions().add(
+									new DoubleImplicationBooleanExpression(
+											instVertex, "Sel", true,
+											transformation8));
+
+							// identifierId_Selected ) *
+							// identifierId_NotAvailable ) #= 0
+							AbstractNumericExpression transformation61 = new ProdNumericExpression(
+									instVertex, instVertex, "Sel", "Exclu");
+							EqualsComparisonExpression transformation62 = new EqualsComparisonExpression(
+									transformation61,
+									new NumberNumericExpression(0));
+							getElementExpressions().add(transformation62);
+
+						}
+					}
+					// End Configuration Only
 					// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 					// identifierId_Active #= value for simulation
@@ -680,35 +741,6 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 								new DoubleImplicationBooleanExpression(
 										instVertex, "Exclu", true,
 										transformation7));
-					}
-
-					if (instAttribute.getIdentifier().equals("SimulSel")) {
-						// identifierId_Selected #<=>
-						// ( ( ( identifierId_ConfigSelected
-						// #\/ identifierId_NextPrefSelected ) #\/
-						// identifierId_NextReqSelected ) )
-
-						AbstractBooleanExpression transformation6 = new OrBooleanExpression(
-								instVertex, instVertex, "Core", "ConfSel");
-						AbstractBooleanExpression transformation7 = new OrBooleanExpression(
-								instVertex, instVertex, "SimulSel",
-								"TestConfSel");
-						AbstractBooleanExpression transformation8 = new OrBooleanExpression(
-								transformation7, transformation6);
-						getElementExpressions().add(
-								new DoubleImplicationBooleanExpression(
-										instVertex, "Sel", true,
-										transformation8));
-
-						// identifierId_Selected ) *
-						// identifierId_NotAvailable ) #= 0
-						AbstractNumericExpression transformation61 = new ProdNumericExpression(
-								instVertex, instVertex, "Sel", "Exclu");
-						EqualsComparisonExpression transformation62 = new EqualsComparisonExpression(
-								transformation61,
-								new NumberNumericExpression(0));
-						getElementExpressions().add(transformation62);
-
 					}
 				}
 				List<AbstractExpression> coreList = this

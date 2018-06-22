@@ -211,7 +211,9 @@ public class ModelExpressionSet extends ElementExpressionSet {
 		 * 
 		 * }
 		 */
-		if (prefOutExp != null) {
+		if (prefOutExp != null
+				&& (execType != ModelExpr2HLCL.SIMUL_MAPE
+						&& execType != ModelExpr2HLCL.SIMUL_EXEC && execType != ModelExpr2HLCL.SIMUL_EXPORT)) {
 			Map<String, Identifier> idMap = new HashMap<String, Identifier>();
 
 			idMap.putAll(prefOutExp.getIdentifiers(getHlclFactory()));

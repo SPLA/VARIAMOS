@@ -1,5 +1,8 @@
 /bin/
 /build/
 /.gradle/
+<<<<<<< HEAD
 /VARIAMOS/
 /.classpath
+=======
+>>>>>>> refs/remotes/origin/master

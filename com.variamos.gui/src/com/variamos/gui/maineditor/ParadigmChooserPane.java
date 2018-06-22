@@ -177,10 +177,11 @@ public class ParadigmChooserPane extends JDialog implements ActionListener, Mous
 	
 	private void closeDialog() {
 		int option = JOptionPane.showConfirmDialog(this,
-				"You should choose a paradigm in order to use Variamos properly.\n"
-				+ "Are you sure to close the dialog without choosing any options?",
+				"Are you sure to close the dialog without choosing "
+				+ "any option and use the default metamodels "
+				+ "pre-loaded in VariaMos instead?",
 				"Closing Paradigm Choose Dialog",
-				JOptionPane.YES_NO_OPTION
+				JOptionPane.YES_NO_OPTION 
 				);
 		if(option==JOptionPane.YES_OPTION) {
 			optionChoosed = ParadigmTypeEnum.EMPTY;

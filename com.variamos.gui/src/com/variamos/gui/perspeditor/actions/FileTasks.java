@@ -223,6 +223,8 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		SharedActions.afterOpenCloneGraph(graph, variamosEditor);
 		setProgress(90);
 		variamosEditor.resetEditor();
+		progressMonitor.setNote("Load completed.");
+		System.gc();
 		return true;
 	}
 
@@ -322,6 +324,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			JOptionPane.showMessageDialog(variamosEditor, mxResources.get("noImageData"), "Saving error",
 					JOptionPane.ERROR_MESSAGE, null);
 		}
+		System.gc();
 		return true;
 	}
 
