@@ -1030,6 +1030,8 @@ public class DefaultRefasMM {
 		DefaultOpersMM.sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
 		semExpr.add(t1);
+		
+		
 
 		OpersConcept directOperClaimSemanticEdge = new OpersConcept("OperClaimBinary");
 
@@ -3111,7 +3113,7 @@ public class DefaultRefasMM {
 
 		attribute = new ElemAttribute("condExpr", "Instance", AttributeType.OPERATION, false, "Conditional Expression",
 				"Condition to select the relation in addition to the constraint of the concepts",
-				ModelExpr.class.getCanonicalName(), "", "", 0, 3, "", "", -1, "#ConditionalExpression#all#", "");
+				ModelExpr.class.getCanonicalName(), "", "", 0, 3, "", "", -1, "#condExpr#all#", "");
 
 		directHardHardSemanticEdge.putSemanticAttribute("condExpr", attribute);
 
@@ -3640,7 +3642,7 @@ public class DefaultRefasMM {
 
 		attribute = new ElemAttribute("condExpr", "Instance", AttributeType.OPERATION, false, "Conditional Expression",
 				"Condition to select the relation in addition to the constraint of the concepts",
-				ModelExpr.class.getCanonicalName(), "", "", 0, 3, "", "", -1, "#ConditionalExpression#all#", "");
+				ModelExpr.class.getCanonicalName(), "", "", 0, 3, "", "", -1, "#condExpr#all#", "");
 
 		directStructHardHardSemanticEdge.putSemanticAttribute("condExpr", attribute);
 

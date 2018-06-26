@@ -217,6 +217,9 @@ public class DefaultOpersMM {
 
 	protected static OpersConcept simulOper = null;
 	protected static OpersSubOperationExpType simulExecOptSubOperNormal = null;
+	
+	protected static OpersConcept simulCondOper = null;
+	protected static OpersSubOperationExpType simulCondExecOptSubOperNormal = null;
 
 	protected static OpersConcept simulScenOper = null;
 	protected static OpersSubOperationExpType simulScenExecOptSubOperNormal = null;
@@ -305,6 +308,9 @@ public class DefaultOpersMM {
 
 	protected static OpersLabeling simulExecOperUniLab = new OpersLabeling(
 			"unique");
+	
+	protected static OpersLabeling simulCondExecOperUniLab = new OpersLabeling(
+			"unique");
 
 	protected static OpersLabeling simsceExecOperLabeling1 = new OpersLabeling(
 			"all");
@@ -382,6 +388,8 @@ public class DefaultOpersMM {
 			DefaultRefasMM.createRefasSatisficing(refas);
 			DefaultRefasMM.createREFASMetaConcept(refas);
 			DefaultRefasMM.createRefasAssets(refas);
+			
+			simulCondExecOptSubOperNormal.addSemanticExpressions(simulCondExecOptSubOperNormal.getDeclaredSemanticExpressions());
 		}
 	}
 
@@ -946,6 +954,116 @@ public class DefaultOpersMM {
 			// instEdgeOper.setTargetRelation(instOperationSubAction, true);
 			// instEdgeOper.setSourceRelation(instOperationAction, true);
 
+			
+			// NEW Oper to Demostrate ConditionalExpressions for Features
+			
+			simulCondOper = new OpersConcept("BasicCondSimulOper");
+
+			 instOperationAction = new InstConcept("BasicCondSimulOper",
+					metaOperationAction, simulCondOper);
+			refas.getVariabilityVertex().put("BasicCondSimulOper",
+					instOperationAction);
+			instOperationAction.getInstAttribute("operType").setValue(
+					OpersOpType.Validation.toString());
+			instOperationAction.getInstAttribute("opname").setValue(
+					"Start Simulation with Custom Constraints (Dynamic)");
+			instOperationAction.getInstAttribute("shortcut").setValue("S");
+			instOperationAction.getInstAttribute("iteration").setValue(true);
+			instOperationAction.getInstAttribute("iterationName").setValue(
+					"Next Solution");
+			instOperationAction.getInstAttribute("visible").setValue(
+					false);
+			instOperationAction.getInstAttribute("prevSpacer").setValue(true);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sim-menu", instEdgeOper);
+			instEdgeOper.setIdentifier("sim-menu");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationAction, true);
+			instEdgeOper.setSourceRelation(instOperationGroup, true);
+			
+			instOperationSubAction = new InstConcept("BasSim-ExecutionSubOper",
+					metaOperationSubAction, simulSubOperationAction);
+			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("errorTitle").setValue(
+					"Model Simulation Error");
+			instOperationSubAction
+					.getInstAttribute("errorText")
+					.setValue(
+							"Last changes on the model makes it inconsistent. "
+									+ "\n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.");
+
+			instOperationSubAction.getInstAttribute("type").setValue(
+					StringUtils
+							.formatEnumValue(OpersSubOpType.Iterate_Solutions
+									.toString()));
+			instOperationSubAction.getInstAttribute("completedMessage")
+					.setValue("");
+			instOperationSubAction.getInstAttribute("showDashboard").setValue(
+					true);
+			// instOperationSubAction.getInstAttribute("iteration").setValue(true);
+			instOperationSubAction.getInstAttribute("index").setValue(3);
+
+			refas.getVariabilityVertex().put("BasSim-ExecutionSubOper",
+					instOperationSubAction);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sim-exec", instEdgeOper);
+			instEdgeOper.setIdentifier("sim-exec");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instOperationSubAction, true);
+			instEdgeOper.setSourceRelation(instOperationAction, true);
+
+			simulCondExecOptSubOperNormal = new OpersSubOperationExpType();
+
+			instOperSubOperationExpType = new InstConcept("exptype",
+					metaExpType, simulCondExecOptSubOperNormal);
+
+			instOperSubOperationExpType.getInstAttribute("suboperexptype")
+					.setValue("NORMAL");
+
+			((List<InstAttribute>) instOperationSubAction
+					.getInstAttributeValue("exptype")).add(new InstAttribute(
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
+
+			instLabeling = new InstConcept("BasSimCond-Execution-lab",
+					metaLabeling, simulCondExecOperUniLab);
+			instLabeling.getInstAttribute("labelId").setValue("L1");
+			instLabeling.getInstAttribute("position").setValue(1);
+			instLabeling.getInstAttribute("once").setValue(false);
+			instLabeling.getInstAttribute("order").setValue(true);
+
+			sortatt = (List<InstAttribute>) instLabeling
+					.getInstAttribute("sortorder").getValue();
+			sortatt.add(new InstAttribute("enum1", new ElemAttribute(
+					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), LabelingOrderEnum.MAX));
+			sortatt.add(new InstAttribute("enum2", new ElemAttribute(
+					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), LabelingOrderEnum.MIN));
+
+			refas.getVariabilityVertex().put("BasSimCond-Execution-lab",
+					instLabeling);
+
+			instEdgeOper = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("BasSimCond-execution-lab",
+					instEdgeOper);
+			instEdgeOper.setIdentifier("BasSimCond-execution-lab");
+			instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+			instEdgeOper.setTargetRelation(instLabeling, true);
+			instEdgeOper.setSourceRelation(instOperationSubAction, true);
+			
+			// END new oper for custom expressions
+			
+			
+			
+			
 			operationMenu = new OpersConcept("SimulSCeOper");
 
 			instOperationGroup = new InstConcept("SimulSceGroup",
@@ -11016,6 +11134,41 @@ public class DefaultOpersMM {
 		// filterSubOperNormal.addSemanticExpression(t1);
 		// simulExecOptSubOperNormal.addSemanticExpression(t1);
 		// simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+
+		semExpr.add(t1);
+		
+		t2 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Equals"), instVertexHC, instVertexHC,
+				"Sel", true, 0);
+
+		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Equals"), instVertexHC, instVertexHC,
+				"condExpr", true, 0);
+
+		t1 = new OpersExpr("091XNEW condxpr Ver/Val - No Cond - No sel", refas.getSemanticExpressionTypes().get("Implies"),
+				instVertexHC, t1, t2);
+
+		validProductSubOperNormal.addSemanticExpression(t1);
+		validPartialConfSubOperNormal.addSemanticExpression(t1);
+		allProductsSubOperNormal.addSemanticExpression(t1);
+		numProductsSubOperNormal.addSemanticExpression(t1);
+		filterSubOperNormal.addSemanticExpression(t1);
+		verifFalsePLOperSubActionNormal.addSemanticExpression(t1);
+		redundanOperSubActionNormal.addSemanticExpression(t1);
+		simulExecOptSubOperNormal.addSemanticExpression(t1);
+		simulScenExecOptSubOperNormal.addSemanticExpression(t1);
+		// DefaultOpersMM.sasverSDCoreOperSubActionNormal
+		// .addSemanticExpression(t1);
+		sasverSDallOperSubActionNormal.addSemanticExpression(t1);
+		sasverSDneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverClCoreOperSubActionNormal.addSemanticExpression(t1);
+		sasverClallOperSubActionNormal.addSemanticExpression(t1);
+		sasverClneverOperSubActionNormal.addSemanticExpression(t1);
+		sasverCoreOpersOperSubActionNormal.addSemanticExpression(t1);
+		sasverAllOpersOperSubActionNormal.addSemanticExpression(t1);
+		// sasverNoLoopsOperSubActionNormal.addSemanticExpression(t1);
+		sasverSGConflOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClSDOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflClOperSubActionNormal.addSemanticExpression(t1);
+		sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
 		semExpr.add(t1);
 
