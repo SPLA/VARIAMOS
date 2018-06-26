@@ -195,7 +195,7 @@ public class DefaultRefasMM {
 		semSoftgoal.putSemanticAttribute("satisficingType", attribute);
 
 		attribute = new ElemAttribute("ConfigReqLevel", "Integer", AttributeType.OPERATION,
-				"Config Req Level (5=ignored)", "SG required level (defined: 0..4 ignored: 5) ", 5, false,
+				"Conf. Req Level", "SG required level (defined: 0..4 ignored: 5) ", 5, false,
 				new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#" + "true" + "#" + "5", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
 
@@ -829,8 +829,8 @@ public class DefaultRefasMM {
 				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("defaultDomainValue", "Integer", AttributeType.OPERATION, false,
-				"Default Value (Filtered Attributes)",
-				"Default value for ClaimExpLevel/SDReqLevel when no Claim/SD"
+				"Default Value",
+				"Default value for ClaimExpLevel/SDReqLevel when no Claim/SD (Filtered Attributes)"
 						+ " constraints the domain (e.j. 4 for maximizing SG)",
 				0, new RangeDomain(0, 4, 0), 2, 19, "", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("defaultDomainValue", attribute);
@@ -6273,12 +6273,12 @@ DefaultOpersMM.filterOperUniqueLabeling
 		semExpr.add(t1);
 
 		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
-				ExpressionVertexType.LEFTSUBITERINCRELVARIABLE, instVertexCLGR, instDirOpertoOperClaimOTEdge, "Exclu",
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexCLGR, instVertexOper, "Exclu",
 				true, "FalseVal");
 
 		// FIXME add to thesis
 		t1 = new OpersExpr("104XNEW exclu Ver/Val - ANDOperCLhardSelRel",
-				refas.getSemanticExpressionTypes().get("DoubleImplies"), ExpressionVertexType.LEFTITERINCRELVARIABLE,
+				refas.getSemanticExpressionTypes().get("DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexCLGR, instVertexCLGR, t1, "Exclu");
 
 		DefaultOpersMM.validProductSubOperNormal.addSemanticExpression(t1);

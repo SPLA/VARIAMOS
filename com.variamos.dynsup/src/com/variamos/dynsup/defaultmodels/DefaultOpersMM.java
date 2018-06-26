@@ -2503,7 +2503,7 @@ public class DefaultOpersMM {
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(false);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(false);
-			instOperationAction.getInstAttribute("position").setValue(12);
+			instOperationAction.getInstAttribute("position").setValue(1);
 
 			instEdgeOper = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sasver-sg-confl", instEdgeOper);
@@ -3519,6 +3519,8 @@ public class DefaultOpersMM {
 			instOperationSubAction = new InstConcept("WrongcardSubOper",
 					metaOperationSubAction, wrongCardSubOperationAction);
 			instOperationSubAction.getInstAttribute("name").setValue(" ");
+			instOperationSubAction.getInstAttribute("completedMessage")
+			.setValue("No errors found");
 			instOperationSubAction.getInstAttribute("errorTitle").setValue(
 					"Model Verification Error");
 			instOperationSubAction
