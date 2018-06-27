@@ -1700,6 +1700,100 @@ public class DefaultRefasMM {
 		instEdge.setSourceRelation(instAltNaryToHard, true);
 
 		OpersConcept meansHardToHardNaryEdge = new OpersConcept("MeansHardN-aryToHard");
+		
+		attribute = new ElemAttribute("PSel", "Boolean", AttributeType.EXECCURRENTSTATE, false, "***Selected***",
+				"Element selected for this solution (green)", false, 2, -1, "", "", -1, "", "");
+
+		meansHardToHardNaryEdge.putSemanticAttribute("PSel", attribute);
+
+		DefaultOpersMM.voidModelSubOperationAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.voidModelOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductSubOperationAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+
+		DefaultOpersMM.filterOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.simulExecOperUniLab.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.simsceExecOperLab2.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.simulSubOperationAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.simSceSubOperationAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverSDCoreOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverSDCoreOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverSDallOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverSDallOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverSDneverOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverSDneverOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverClCoreOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverClCoreOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverClallOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverClallOperUniqLab.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverClneverOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverClneverOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverCoreOpersOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverCoreOpersOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverAllOpersOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverAllOpersOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperationSubAction
+		// .addOutAttribute(new OpersIOAttribute(semGeneralPair
+		// .getIdentifier(), attribute.getName(), true));
+		// sasverNoLoopsOperUniqueLabeling.addAttribute(new
+		// OpersIOAttribute(
+		// semGeneralPair.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverSGConflOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverSGConflOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverConflClSDOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverConflClSDOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverConflClOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverConflClOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverConflSDOperationSubAction.addOutAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.sasverConflSDOperUniqueLabeling.addAttribute(
+				new OpersIOAttribute(meansHardToHardNaryEdge.getIdentifier(), attribute.getName(), true));
+
 
 		attribute = new ElemAttribute("AggregationLow", "Integer", AttributeType.OPERATION, false, "Aggregation Low",
 				"", 0, 0, 3, "", "", 3, "[#" + "AggregationLow" + "#all#..", "AggregationHigh" + "#!=#" + "0");

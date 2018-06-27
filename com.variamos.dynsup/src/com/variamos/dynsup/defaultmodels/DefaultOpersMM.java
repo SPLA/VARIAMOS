@@ -10839,7 +10839,7 @@ public class DefaultOpersMM {
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexFFGR, instVertexF, null, "Sel", 0, true);
 
-		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("LessOrEquals"),
+		t2 = new OpersExpr("1xe", refas.getSemanticExpressionTypes().get("LessOrEquals"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexFFGR, instVertexFFGR, t2, instVertexFFGR,
 				"HighRange");
 		// FIXME v1.1 copy change to new version Luisa
