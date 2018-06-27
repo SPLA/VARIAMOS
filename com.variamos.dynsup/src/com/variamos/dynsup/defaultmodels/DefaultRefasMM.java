@@ -10411,10 +10411,9 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFSUBTITERCONVARIABLE, DefaultOpersMM.instGeneralModel,
 				DefaultOpersMM.instVertexGE, "SimulSel", 0); // "Order"
 
-		// t1 = new OpersExpr("OrderMin",
-		// refas.getSemanticExpressionTypes().get(
-		// "Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-		// instRefasModel, instVertexGE, t1, "FalseVal");
+		 t1 = new OpersExpr("Min number of elements",		 refas.getSemanticExpressionTypes().get(
+		 "Sum"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
+				 DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexGE, t1, 0);
 
 		semExpr.add(t1);
 
@@ -10434,10 +10433,9 @@ public class DefaultRefasMM {
 				ExpressionVertexType.LEFSUBTITERCONVARIABLE, DefaultOpersMM.instGeneralModel,
 				DefaultOpersMM.instVertexGE, "SimulSel", 0); // "Order"
 
-		// t1 = new OpersExpr("OrderMin",
-		// refas.getSemanticExpressionTypes().get(
-		// "Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-		// instRefasModel, instVertexGE, t1, "FalseVal");
+		 t1 = new OpersExpr("Min number of elements", refas.getSemanticExpressionTypes().get(
+				 "Sum"), ExpressionVertexType.LEFTITERCONCEPTVARIABLE,
+						 DefaultOpersMM.instGeneralModel, DefaultOpersMM.instVertexGE, t1, 0);
 
 		semExpr.add(t1);
 
