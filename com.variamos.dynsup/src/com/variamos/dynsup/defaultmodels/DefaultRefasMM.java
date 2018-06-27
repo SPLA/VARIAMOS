@@ -100,26 +100,26 @@ public class DefaultRefasMM {
 				"<as #" + "satisficingLevel" + "#all#>\n", "satisficingLevel" + "#!=#");
 
 		semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
-		DefaultOpersMM.validProductSubOperationAction.addInAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.validProductOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.validPartialConfSubOperationAction.addInAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.validPartialConfOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.allProductsSubOperationAction.addInAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.allProductsOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.numProductsSubOperationAction.addInAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.numProductsOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.filterSubOperationAction.addInAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.filterOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductSubOperationAction
+				.addInAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.verifDeadElemSubOperationAction
 				.addInAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.verifDeadElemOperUniqueLabeling
@@ -194,9 +194,9 @@ public class DefaultRefasMM {
 				"Achieve as close as possible", "", 0, 10, "", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("satisficingType", attribute);
 
-		attribute = new ElemAttribute("ConfigReqLevel", "Integer", AttributeType.OPERATION,
-				"Conf. Req Level", "SG required level (defined: 0..4 ignored: 5) ", 5, false,
-				new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#" + "true" + "#" + "5", "", -1, "", "");
+		attribute = new ElemAttribute("ConfigReqLevel", "Integer", AttributeType.OPERATION, "Conf. Req Level",
+				"SG required level (defined: 0..4 ignored: 5) ", 5, false, new RangeDomain(0, 5, 0), 0, 5,
+				"Required" + "#==#" + "true" + "#" + "5", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
 
 		DefaultOpersMM.voidModelSubOperationAction
@@ -649,43 +649,31 @@ public class DefaultRefasMM {
 				new RangeDomain(0, 4, 0), 2, 16, "", "", -1, "", "", "ConfigReqLevel",
 				"sourceLevel;targetLevel;level;CLSGLevel", "defaultDomainValue");
 		semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
-		DefaultOpersMM.voidModelSubOperationAction.addOutAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(),
-				true));
-		DefaultOpersMM.voidModelOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(),
-				true));
+		DefaultOpersMM.voidModelSubOperationAction
+				.addOutAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.voidModelOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.validProductSubOperationAction
-				.addOutAttribute(new OpersIOAttribute(semSoftgoal
-						.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.validProductOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(),
-				true));
+				.addOutAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.validPartialConfSubOperationAction
-				.addOutAttribute(new OpersIOAttribute(semSoftgoal
-						.getIdentifier(), attribute.getName(), true));
+				.addOutAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.validPartialConfOperUniqueLabeling
-				.addAttribute(new OpersIOAttribute(semSoftgoal
-						.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.allProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(),
-				true));
-		DefaultOpersMM.allProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(),
-				true));
-		DefaultOpersMM.numProductsSubOperationAction.addOutAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(),
-				true));
-		DefaultOpersMM.numProductsOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(),
-				true));
-		DefaultOpersMM.filterSubOperationAction.addOutAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(),
-				true));
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addOutAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addOutAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addOutAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 
-		DefaultOpersMM.filterOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semSoftgoal.getIdentifier(), attribute.getName(),
-				true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab
 				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simsceExecOperLab2
@@ -828,8 +816,7 @@ public class DefaultRefasMM {
 		DefaultOpersMM.sasverConflSDOperUniqueLabeling
 				.addAttribute(new OpersIOAttribute(semSoftgoal.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("defaultDomainValue", "Integer", AttributeType.OPERATION, false,
-				"Default Value",
+		attribute = new ElemAttribute("defaultDomainValue", "Integer", AttributeType.OPERATION, false, "Default Value",
 				"Default value for ClaimExpLevel/SDReqLevel when no Claim/SD (Filtered Attributes)"
 						+ " constraints the domain (e.j. 4 for maximizing SG)",
 				0, new RangeDomain(0, 4, 0), 2, 19, "", "", -1, "", "");
@@ -1030,8 +1017,6 @@ public class DefaultRefasMM {
 		DefaultOpersMM.sasverConflSDOperSubActionNormal.addSemanticExpression(t1);
 
 		semExpr.add(t1);
-		
-		
 
 		OpersConcept directOperClaimSemanticEdge = new OpersConcept("OperClaimBinary");
 
@@ -1463,7 +1448,7 @@ public class DefaultRefasMM {
 				.addInAttribute(new OpersIOAttribute(semClaim.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.sasverConflSDOperationSubAction
 				.addInAttribute(new OpersIOAttribute(semClaim.getIdentifier(), attribute.getName(), true));
-		
+
 		attribute = new ElemAttribute("CompExp", "Boolean", AttributeType.GLOBALCONFIG, false,
 				"Boolean Comp. Expression", "", true, 0, 1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("CompExp", attribute);
@@ -5577,25 +5562,25 @@ public class DefaultRefasMM {
 				"", 0, 0, 8, "", "", 8, "#" + "AggregationHigh" + "#all#]\n", "AggregationHigh" + "#!=#" + "0");
 		directSgToSgGRSemEdge.putSemanticAttribute("AggregationHigh", attribute);
 		DefaultOpersMM.validProductSubOperationAction
-		.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
-DefaultOpersMM.validProductOperUniqueLabeling
-		.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
-DefaultOpersMM.validPartialConfSubOperationAction
-		.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
-DefaultOpersMM.validPartialConfOperUniqueLabeling
-		.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
-DefaultOpersMM.allProductsSubOperationAction
-		.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
-DefaultOpersMM.allProductsOperUniqueLabeling
-		.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
-DefaultOpersMM.numProductsSubOperationAction
-		.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
-DefaultOpersMM.numProductsOperUniqueLabeling
-		.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
-DefaultOpersMM.filterSubOperationAction
-		.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
-DefaultOpersMM.filterOperUniqueLabeling
-		.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+				.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterSubOperationAction
+				.addInAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab
 				.addAttribute(new OpersIOAttribute(directSgToSgGRSemEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simsceExecOperLab2
@@ -6275,8 +6260,8 @@ DefaultOpersMM.filterOperUniqueLabeling
 		semExpr.add(t1);
 
 		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
-				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexCLGR, instVertexOper, "Exclu",
-				true, "FalseVal");
+				ExpressionVertexType.LEFTSUBITERINCCONVARIABLE, instVertexCLGR, instVertexOper, "Exclu", true,
+				"FalseVal");
 
 		// FIXME add to thesis
 		t1 = new OpersExpr("104XNEW exclu Ver/Val - ANDOperCLhardSelRel",
@@ -8128,24 +8113,24 @@ DefaultOpersMM.filterOperUniqueLabeling
 
 		DefaultOpersMM.validProductSubOperationAction.addInAttribute(
 				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.validProductOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validProductOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.validPartialConfSubOperationAction.addInAttribute(
 				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.validPartialConfOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.validPartialConfOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.allProductsSubOperationAction.addInAttribute(
 				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.allProductsOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.allProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.numProductsSubOperationAction.addInAttribute(
 				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.numProductsOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.numProductsOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.filterSubOperationAction.addInAttribute(
 				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
-		DefaultOpersMM.filterOperUniqueLabeling.addAttribute(
-				new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
+		DefaultOpersMM.filterOperUniqueLabeling
+				.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulExecOperUniLab
 				.addAttribute(new OpersIOAttribute(directSDSGSemanticEdge.getIdentifier(), attribute.getName(), true));
 		DefaultOpersMM.simulSubOperationAction.addInAttribute(
@@ -10412,6 +10397,29 @@ DefaultOpersMM.filterOperUniqueLabeling
 		// --------------------------
 		semExpr = new ArrayList<OpersExpr>();
 		DefaultOpersMM.simulExecOperUniLab.setSemanticExpressions(semExpr);
+
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE, DefaultOpersMM.instGeneralModel,
+				DefaultOpersMM.instVertexSG, "Sel", 0);
+
+		t1 = new OpersExpr("max soft goals", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, DefaultOpersMM.instGeneralModel,
+				DefaultOpersMM.instVertexSG, t1, 0);
+
+		semExpr.add(t1);
+		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFSUBTITERCONVARIABLE, DefaultOpersMM.instGeneralModel,
+				DefaultOpersMM.instVertexGE, "SimulSel", 0); // "Order"
+
+		// t1 = new OpersExpr("OrderMin",
+		// refas.getSemanticExpressionTypes().get(
+		// "Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+		// instRefasModel, instVertexGE, t1, "FalseVal");
+
+		semExpr.add(t1);
+
+		semExpr = new ArrayList<OpersExpr>();
+		DefaultOpersMM.simulCondExecOperUniLab.setSemanticExpressions(semExpr);
 
 		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFSUBTITERCONVARIABLE, DefaultOpersMM.instGeneralModel,
