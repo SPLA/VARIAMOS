@@ -6,3 +6,6 @@
 /.classpath
 =======
 >>>>>>> refs/remotes/origin/master
+*.sprefs
+*.classpath
+com.variamos.gui/VariaMos.lnk
