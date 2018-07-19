@@ -53,7 +53,13 @@ import com.variamos.hlcl.model.domains.IntDomain;
 import com.variamos.hlcl.model.expressions.IntExpression;
 
 /**
- * @author unknown
+ * A class to support the visual edition of Model Expressions including
+ * conditional expressions for claims and SD. Part of PhD work at University of
+ * Paris 1
+ * 
+ * @author Juan C. Munoz Fernandez <jcmunoz@gmail.com>
+ * @version 1.0
+ * @since 2015-01-28*
  *
  */
 @SuppressWarnings("serial")
@@ -75,8 +81,7 @@ public class InstanceExpressionDialog extends JDialog {
 		public boolean onAction();
 	}
 
-	public InstanceExpressionDialog(VariamosGraphEditor editor,
-			InstElement instElement, boolean multiExpression,
+	public InstanceExpressionDialog(VariamosGraphEditor editor, InstElement instElement, boolean multiExpression,
 			List<ModelExpr> instanceExpressions, boolean editable) {
 		super(editor.getFrame(), "Expressions Editor");
 		this.multiExpressions = multiExpression;
@@ -87,8 +92,7 @@ public class InstanceExpressionDialog extends JDialog {
 		sourceElement = instElement;
 	}
 
-	public void initialize(final InstElement element,
-			List<ModelExpr> instanceExpressions) {
+	public void initialize(final InstElement element, List<ModelExpr> instanceExpressions) {
 		this.getContentPane().removeAll();
 		// removeAll();
 		if (this.getWidth() != 0)
@@ -113,36 +117,31 @@ public class InstanceExpressionDialog extends JDialog {
 			solutionPanel = new JPanel();
 			solutionPanel.setAutoscrolls(true);
 			solutionPanel.setMaximumSize(new Dimension(900, 200));
-			showExpression(instanceExpression, element, solutionPanel,
-					OpersExprType.BOOLEXP, 255);
+			showExpression(instanceExpression, element, solutionPanel, OpersExprType.BOOLEXP, 255);
 
-			solutionPanel.addPropertyChangeListener("value",
-					new PropertyChangeListener() {
-						@Override
-						public void propertyChange(PropertyChangeEvent evt) {
-							revalidate();
-							doLayout();
-							pack();
-						}
-					});
+			solutionPanel.addPropertyChangeListener("value", new PropertyChangeListener() {
+				@Override
+				public void propertyChange(PropertyChangeEvent evt) {
+					revalidate();
+					doLayout();
+					pack();
+				}
+			});
 			panel.add(new JScrollPane(solutionPanel));
 			if (displayTextExpression) {
 				JPanel textExpression = new JPanel();
 				JTextArea textTextualExpression;
 				try {
-					IntExpression exp = instanceExpression
-							.createSGSExpression(element.getIdentifier());
+					IntExpression exp = instanceExpression.createSGSExpression(element.getIdentifier());
 					textTextualExpression = new JTextArea(exp.toString());
 
 				} catch (Exception e) {
 
-					textTextualExpression = new JTextArea(
-							"Expression Incomplete or Invalid");
+					textTextualExpression = new JTextArea("Expression Incomplete or Invalid");
 
 				}
 				textTextualExpression.setWrapStyleWord(true);
-				textTextualExpression.setPreferredSize(new Dimension(this
-						.getWidth() - 50, this.height / 3));
+				textTextualExpression.setPreferredSize(new Dimension(this.getWidth() - 50, this.height / 3));
 				textTextualExpression.setEditable(false);
 				textTextualExpression.setAutoscrolls(true);
 				textTextualExpression.setLineWrap(true);
@@ -181,8 +180,7 @@ public class InstanceExpressionDialog extends JDialog {
 				repaint();
 			}
 		});
-		JCheckBox varNamesCheck = new JCheckBox(
-				"Display Variable User Identifiers (not Auto Identifiers)");
+		JCheckBox varNamesCheck = new JCheckBox("Display Variable User Identifiers (not Auto Identifiers)");
 		// varNamesCheck.setEnabled(false);
 		if (displayVariableName)
 			varNamesCheck.setSelected(true);
@@ -227,8 +225,7 @@ public class InstanceExpressionDialog extends JDialog {
 			options.add(addButton);
 		}
 		panel.add(options);
-		SpringUtilities.makeCompactGrid(panel,
-				this.instanceExpressions.size() * 2 + 1, 1, 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(panel, this.instanceExpressions.size() * 2 + 1, 1, 4, 4, 4, 4);
 
 		add(panel, BorderLayout.CENTER);
 
@@ -300,13 +297,11 @@ public class InstanceExpressionDialog extends JDialog {
 
 	public void createRelations(VariamosGraphEditor editor) {
 
-		PerspEditorGraph refasGraph = ((PerspEditorGraph) editor
-				.getGraphComponent().getGraph());
+		PerspEditorGraph refasGraph = ((PerspEditorGraph) editor.getGraphComponent().getGraph());
 		List<InstElement> concepts = instanceExpressions.get(0).getConcepts();
 
 		for (InstPairwiseRel e : refasModel.getConstraintInstEdges().values()) {
-			if (e.getSupInstEleId().equals("Test-Cl-Var")
-					&& e.getSourceRelations().get(0).equals(sourceElement)) {
+			if (e.getSupInstEleId().equals("Test-Cl-Var") && e.getSourceRelations().get(0).equals(sourceElement)) {
 				refasGraph.removeEdge(e);
 				refasModel.removeElement(e);
 			}
@@ -318,10 +313,8 @@ public class InstanceExpressionDialog extends JDialog {
 			directRelation.setIdentifier(sourceElement.getIdentifier() + i++);
 			directRelation.setTargetRelation(concept, true);
 			directRelation.setSourceRelation(sourceElement, true);
-			InstElement metaPairwiseRelNormal = refasModel.getSyntaxModel()
-					.getElement("Test-Cl-Var");
-			directRelation
-					.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+			InstElement metaPairwiseRelNormal = refasModel.getSyntaxModel().getElement("Test-Cl-Var");
+			directRelation.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 			directRelation.setSupSyntaxEleId("Test-Cl-Var");
 			directRelation.setSupInstEleId("Test-Cl-Var");
 			this.refasModel.addNewConstraintInstEdge(directRelation);
@@ -329,8 +322,7 @@ public class InstanceExpressionDialog extends JDialog {
 		}
 	}
 
-	private void showExpression(final ModelExpr instanceExpression,
-			final InstElement element, JPanel parentPanel,
+	private void showExpression(final ModelExpr instanceExpression, final InstElement element, JPanel parentPanel,
 			int topExpressionType, int color) {
 		final InstElement ele = element;
 		final ModelExpr exp = instanceExpression;
@@ -368,10 +360,8 @@ public class InstanceExpressionDialog extends JDialog {
 			public void mouseExited(MouseEvent e) {
 			}
 		});
-		JComboBox<String> leftSide = createSidesCombo(instanceExpression,
-				element, true);
-		JComboBox<String> rightSide = createSidesCombo(instanceExpression,
-				element, false);
+		JComboBox<String> leftSide = createSidesCombo(instanceExpression, element, true);
+		JComboBox<String> rightSide = createSidesCombo(instanceExpression, element, false);
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBackground(Color.getHSBColor(0.45f, 0.27f, color / 255f));
 		leftPanel.addMouseListener(new MouseListener() {
@@ -440,50 +430,37 @@ public class InstanceExpressionDialog extends JDialog {
 			default:
 			}
 		if (leftSide.getSelectedItem().equals("SubExpression")) {
-			if (instanceExpression.getSemanticExpression()
-					.getSemanticExpressionType() != null) {
+			if (instanceExpression.getSemanticExpression().getSemanticExpressionType() != null) {
 				if (instanceExpression.getLeftInstanceExpression() == null)
-					instanceExpression.setLeftInstanceExpression(
-							ExpressionVertexType.LEFTSUBEXPRESSION, null,
-							instanceExpression.getSemanticExpressionId()
-									+ "Sub", -1);
-				showExpression(instanceExpression.getLeftInstanceExpression(),
-						element, leftPanel,
+					instanceExpression.setLeftInstanceExpression(ExpressionVertexType.LEFTSUBEXPRESSION, null,
+							instanceExpression.getSemanticExpressionId() + "Sub", -1);
+				showExpression(instanceExpression.getLeftInstanceExpression(), element, leftPanel,
 						instanceExpression.getLeftValidExpressions(),
 						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
-				instanceExpression
-						.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
+				instanceExpression.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 			}
 		}
 		if (leftSide.getSelectedItem().equals("Number")) {
 			if (instanceExpression.getLeftExpressionType() != null)
-				if (instanceExpression.getLeftExpressionType().equals(
-						ExpressionVertexType.LEFTNUMERICVALUE)) {
-					basePanel.add(createTextField(instanceExpression, element,
-							ExpressionVertexType.LEFTNUMERICVALUE));
+				if (instanceExpression.getLeftExpressionType().equals(ExpressionVertexType.LEFTNUMERICVALUE)) {
+					basePanel.add(createTextField(instanceExpression, element, ExpressionVertexType.LEFTNUMERICVALUE));
 				}
 		}
 		if (leftSide.getSelectedItem().equals("Variable")) {
 			{
-				if (instanceExpression.getSemanticExpression()
-						.getSemanticExpressionType() != null) {
-					leftPanel.add(createVarCombo(instanceExpression, element,
-							ExpressionVertexType.LEFTVARIABLE,
+				if (instanceExpression.getSemanticExpression().getSemanticExpressionType() != null) {
+					leftPanel.add(createVarCombo(instanceExpression, element, ExpressionVertexType.LEFTVARIABLE,
 							instanceExpression.getLeftValidExpressions()));
-					instanceExpression
-							.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
+					instanceExpression.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
 				}
 			}
 		}
 		if (leftSide.getSelectedItem().equals("VariableValue")) {
 			{
-				if (instanceExpression.getSemanticExpression()
-						.getSemanticExpressionType() != null) {
-					leftPanel.add(createVarCombo(instanceExpression, element,
-							ExpressionVertexType.LEFTVARIABLEVALUE,
+				if (instanceExpression.getSemanticExpression().getSemanticExpressionType() != null) {
+					leftPanel.add(createVarCombo(instanceExpression, element, ExpressionVertexType.LEFTVARIABLEVALUE,
 							instanceExpression.getLeftValidExpressions()));
-					instanceExpression
-							.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
+					instanceExpression.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
 				}
 			}
 		}
@@ -518,9 +495,8 @@ public class InstanceExpressionDialog extends JDialog {
 			public void mouseExited(MouseEvent e) {
 			}
 		});
-		JComboBox<String> centerCombo = createOperatorsCombo(
-				instanceExpression, element, instanceExpression.getOperation(),
-				topExpressionType);
+		JComboBox<String> centerCombo = createOperatorsCombo(instanceExpression, element,
+				instanceExpression.getOperation(), topExpressionType);
 		if (selectedExpression == instanceExpression) {
 			centerPanel.setBorder(raisedbevel);
 		}
@@ -562,51 +538,35 @@ public class InstanceExpressionDialog extends JDialog {
 				basePanel.add(rightSide);
 			}
 			if (rightSide.getSelectedItem().equals("SubExpression")) {
-				if (instanceExpression.getSemanticExpression()
-						.getSemanticExpressionType() != null) {
+				if (instanceExpression.getSemanticExpression().getSemanticExpressionType() != null) {
 					if (instanceExpression.getRightInstanceExpression() == null)
-						instanceExpression.setRightInstanceExpression(
-								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
-								instanceExpression.getSemanticExpressionId()
-										+ "Sub", -1);
-					showExpression(
-							instanceExpression.getRightInstanceExpression(),
-							element, rightPanel,
+						instanceExpression.setRightInstanceExpression(ExpressionVertexType.RIGHTSUBEXPRESSION, null,
+								instanceExpression.getSemanticExpressionId() + "Sub", -1);
+					showExpression(instanceExpression.getRightInstanceExpression(), element, rightPanel,
 							instanceExpression.getRightValidExpressions(),
-							color > 20 ? color - 20 : color > 5 ? color - 5
-									: color);
-					instanceExpression
-							.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+							color > 20 ? color - 20 : color > 5 ? color - 5 : color);
+					instanceExpression.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 				}
 			}
 			if (rightSide.getSelectedItem().equals("Number")) {
 				if (instanceExpression.getRightExpressionType() != null)
-					if (instanceExpression.getRightExpressionType().equals(
-							ExpressionVertexType.RIGHTNUMERICVALUE)) {
-						rightPanel
-								.add(createTextField(instanceExpression,
-										element,
-										ExpressionVertexType.RIGHTNUMERICVALUE));
+					if (instanceExpression.getRightExpressionType().equals(ExpressionVertexType.RIGHTNUMERICVALUE)) {
+						rightPanel.add(
+								createTextField(instanceExpression, element, ExpressionVertexType.RIGHTNUMERICVALUE));
 					}
 			}
 			if (rightSide.getSelectedItem().equals("Variable")) {
-				if (instanceExpression.getSemanticExpression()
-						.getSemanticExpressionType() != null) {
-					rightPanel.add(createVarCombo(instanceExpression, element,
-							ExpressionVertexType.RIGHTVARIABLE,
+				if (instanceExpression.getSemanticExpression().getSemanticExpressionType() != null) {
+					rightPanel.add(createVarCombo(instanceExpression, element, ExpressionVertexType.RIGHTVARIABLE,
 							instanceExpression.getRightValidExpressions()));
-					instanceExpression
-							.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+					instanceExpression.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
 				}
 			}
 			if (rightSide.getSelectedItem().equals("VariableValue")) {
-				if (instanceExpression.getSemanticExpression()
-						.getSemanticExpressionType() != null) {
-					rightPanel.add(createVarCombo(instanceExpression, element,
-							ExpressionVertexType.RIGHTVARIABLEVALUE,
+				if (instanceExpression.getSemanticExpression().getSemanticExpressionType() != null) {
+					rightPanel.add(createVarCombo(instanceExpression, element, ExpressionVertexType.RIGHTVARIABLEVALUE,
 							instanceExpression.getRightValidExpressions()));
-					instanceExpression
-							.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
+					instanceExpression.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 				}
 			}
 		}
@@ -615,17 +575,14 @@ public class InstanceExpressionDialog extends JDialog {
 		parentPanel.add(basePanel);
 	}
 
-	private JTextField createTextField(final ModelExpr instanceExpression,
-			final InstElement element,
+	private JTextField createTextField(final ModelExpr instanceExpression, final InstElement element,
 			final ExpressionVertexType expressionVertexType) {
 		JTextField textField;
 
 		if (expressionVertexType.equals(ExpressionVertexType.LEFTNUMERICVALUE))
-			textField = new JTextField(""
-					+ (instanceExpression).getLeftNumber());
+			textField = new JTextField("" + (instanceExpression).getLeftNumber());
 		else
-			textField = new JTextField(""
-					+ (instanceExpression).getRightNumber());
+			textField = new JTextField("" + (instanceExpression).getRightNumber());
 		if (!editable)
 			textField.setEnabled(false);
 		textField.addFocusListener(new FocusListener() {
@@ -638,40 +595,32 @@ public class InstanceExpressionDialog extends JDialog {
 				selectedExpression = instanceExpression;
 				String item = ((JTextField) event.getSource()).getText();
 				if (item != null) {
-					if (expressionVertexType
-							.equals(ExpressionVertexType.LEFTNUMERICVALUE))
+					if (expressionVertexType.equals(ExpressionVertexType.LEFTNUMERICVALUE))
 						instanceExpression.setLeftNumber(Integer.parseInt(item));
 					else
-						instanceExpression.setRightNumber(Integer
-								.parseInt(item));
+						instanceExpression.setRightNumber(Integer.parseInt(item));
 				}
 			}
 		});
 		return textField;
 	}
 
-	private JComboBox<String> createVarCombo(
-			final ModelExpr instanceExpression, final InstElement element,
+	private JComboBox<String> createVarCombo(final ModelExpr instanceExpression, final InstElement element,
 			final ExpressionVertexType expressionVertexType, int validType) {
 		if (instanceExpression.getSideElement(expressionVertexType) == null) {
-			String id = instanceExpression.getSideElementIdentifier(
-					expressionVertexType, false);
-			instanceExpression.setInstElement(refasModel.getVertex(id),
-					expressionVertexType);
+			String id = instanceExpression.getSideElementIdentifier(expressionVertexType, false);
+			instanceExpression.setInstElement(refasModel.getVertex(id), expressionVertexType);
 		}
 		JComboBox<String> identifierList = null;
 		final Map<String, InstElement> identifierTree = new HashMap<String, InstElement>();
 		String varIdentifier = null;
-		varIdentifier = instanceExpression.getElementAttributeIdentifier(
-				expressionVertexType, displayVariableName);
+		varIdentifier = instanceExpression.getElementAttributeIdentifier(expressionVertexType, displayVariableName);
 		if (varIdentifier == null) {
-			varIdentifier = instanceExpression.getSideElementIdentifier(
-					expressionVertexType, false);
+			varIdentifier = instanceExpression.getSideElementIdentifier(expressionVertexType, false);
 			InstElement instVertex = refasModel.getVertex(varIdentifier);
 			instanceExpression.setInstElement(instVertex, expressionVertexType);
 		}
-		identifierList = createIdentifiersCombo(expressionVertexType, element,
-				varIdentifier, identifierTree);
+		identifierList = createIdentifiersCombo(expressionVertexType, element, varIdentifier, identifierTree);
 		identifierList.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent event) {
@@ -679,15 +628,11 @@ public class InstanceExpressionDialog extends JDialog {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					String itemName[] = ((String) event.getItem()).split("_");
 
-					String item = identifierTree.get(itemName[0])
-							.getIdentifier();
+					String item = identifierTree.get(itemName[0]).getIdentifier();
 					if (item != null) {
 						// String[] split = item.split("_");
-						instanceExpression.setInstElement(
-								refasModel.getVertex(item),
-								expressionVertexType);
-						instanceExpression.setAttributeName(itemName[1],
-								expressionVertexType);
+						instanceExpression.setInstElement(refasModel.getVertex(item), expressionVertexType);
+						instanceExpression.setAttributeName(itemName[1], expressionVertexType);
 						new Thread() {
 							@Override
 							public void run() {
@@ -702,18 +647,16 @@ public class InstanceExpressionDialog extends JDialog {
 		return identifierList;
 	}
 
-	private JComboBox<String> createIdentifiersValueCombo(InstElement element,
-			String selectedElement, Map<String, InstElement> identifiersList) {
+	private JComboBox<String> createIdentifiersValueCombo(InstElement element, String selectedElement,
+			Map<String, InstElement> identifiersList) {
 		JComboBox<String> combo = new JComboBox<String>();
 		if (!editable)
 			combo.setEnabled(false);
-		for (InstElement instVertex : refasModel
-				.getVariabilityVertexCollection()) {
+		for (InstElement instVertex : refasModel.getVariabilityVertexCollection()) {
 			String instElementId = null;
 			if (displayVariableName) {
 				if (instVertex.getInstAttribute("userId") != null)
-					instElementId = instVertex.getInstAttribute("userId")
-							.toString();
+					instElementId = instVertex.getInstAttribute("userId").toString();
 				else
 					instElementId = instVertex.getIdentifier();
 
@@ -722,21 +665,18 @@ public class InstanceExpressionDialog extends JDialog {
 
 			}
 
-			OpersElement semElement2 = instVertex.getTransSupportMetaElement()
-					.getTransSemanticConcept();
+			OpersElement semElement2 = instVertex.getTransSupportMetaElement().getTransSemanticConcept();
 			if (semElement2 != null) {
-				List<InstElement> parents = instVertex
-						.getTransSupportMetaElement()
-						.getTransInstSemanticElement().getParentOpersConcept();
+				List<InstElement> parents = instVertex.getTransSupportMetaElement().getTransInstSemanticElement()
+						.getParentOpersConcept();
 				boolean child = false;
 				for (InstElement e : parents)
 					if (e.getIdentifier().equals("NmVariable"))
 						child = true;
 				if (semElement2 != null
-						&& ((semElement2.getIdentifier() != null && semElement2
-								.getIdentifier().equals("NmVariable")) || child)) {
-					String variableType = (String) instVertex.getInstAttribute(
-							"variableType").getValue();
+						&& ((semElement2.getIdentifier() != null && semElement2.getIdentifier().equals("NmVariable"))
+								|| child)) {
+					String variableType = (String) instVertex.getInstAttribute("variableType").getValue();
 					switch (variableType) {
 					case "Boolean":
 						combo.addItem(instElementId + "_" + "true");
@@ -744,41 +684,32 @@ public class InstanceExpressionDialog extends JDialog {
 						identifiersList.put(instElementId, instVertex);
 						break;
 					case "Integer":
-						String domain = (String) instVertex.getInstAttribute(
-								"varDom").getValue();
+						String domain = (String) instVertex.getInstAttribute("varDom").getValue();
 						IntDomain dom = (DomainParser.parseDomain(domain, 0));
 						List<Integer> intValues = dom.getPossibleValues();
 						for (Integer intValue : intValues) {
-							combo.addItem(instElementId + "_"
-									+ intValue.intValue());
+							combo.addItem(instElementId + "_" + intValue.intValue());
 						}
 						identifiersList.put(instElementId, instVertex);
 						break;
 					case "Float":
-						domain = (String) instVertex.getInstAttribute(
-								"floatDom").getValue();
+						domain = (String) instVertex.getInstAttribute("floatDom").getValue();
 						dom = (DomainParser.parseDomain(domain,
-								(int) instVertex.getInstAttribute("floatPrec")
-										.getValue()));
+								(int) instVertex.getInstAttribute("floatPrec").getValue()));
 						List<Float> floatValues = dom.getPossibleFloatValues();
 						for (Float intValue : floatValues) {
-							combo.addItem(instElementId + "_"
-									+ intValue.floatValue());
+							combo.addItem(instElementId + "_" + intValue.floatValue());
 						}
 						identifiersList.put(instElementId, instVertex);
 						break;
 					case "Enumeration":
-						Object object = instVertex.getInstAttribute("enumType")
-								.getValueObject();
+						Object object = instVertex.getInstAttribute("enumType").getValueObject();
 						if (object != null) {
 							@SuppressWarnings("unchecked")
 							Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstElement) object)
-									.getInstAttribute(
-											SyntaxElement.VAR_METAENUMVALUE)
-									.getValue();
+									.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE).getValue();
 							for (InstAttribute value : values)
-								combo.addItem(instElementId + "_"
-										+ value.getValue());
+								combo.addItem(instElementId + "_" + value.getValue());
 						}
 						identifiersList.put(instElementId, instVertex);
 						break;
@@ -791,118 +722,94 @@ public class InstanceExpressionDialog extends JDialog {
 		return combo;
 	}
 
-	private JComboBox<String> createIdentifiersCombo(ExpressionVertexType type,
-			InstElement element, String selectedElement,
-			Map<String, InstElement> identifiersList) {
+	private JComboBox<String> createIdentifiersCombo(ExpressionVertexType type, InstElement element,
+			String selectedElement, Map<String, InstElement> identifiersList) {
 		JComboBox<String> combo = new JComboBox<String>();
 		String instElementId = null, instRelElementId = null;
 		if (displayVariableName) {
 			instElementId = element.getInstAttribute("userId").toString();
-			if (element instanceof InstPairwiseRel
-					|| element.getTransSupportMetaElement().getType() == 'P')
-				instRelElementId = ((InstPairwiseRel) element)
-						.getSourceRelations().get(0).getInstAttribute("userId")
+			if (element instanceof InstPairwiseRel || element.getTransSupportMetaElement().getType() == 'P')
+				instRelElementId = ((InstPairwiseRel) element).getSourceRelations().get(0).getInstAttribute("userId")
 						.toString();
-			if (element instanceof InstOverTwoRel
-					|| element.getTransSupportMetaElement().getType() == 'O'
+			if (element instanceof InstOverTwoRel || element.getTransSupportMetaElement().getType() == 'O'
 					|| element.getTransSupportMetaElement().getType() == 'T')
-				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
-						.getTargetRelations().get(0)).getTargetRelations()
-						.get(0).getInstAttribute("userId").toString();
+				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element).getTargetRelations().get(0))
+						.getTargetRelations().get(0).getInstAttribute("userId").toString();
 		} else {
 			instElementId = element.getIdentifier();
-			if (element instanceof InstPairwiseRel
-					|| element.getTransSupportMetaElement().getType() == 'P')
-				instRelElementId = ((InstPairwiseRel) element)
-						.getSourceRelations().get(0).getIdentifier();
-			if (element instanceof InstOverTwoRel
-					|| element.getTransSupportMetaElement().getType() == 'O'
+			if (element instanceof InstPairwiseRel || element.getTransSupportMetaElement().getType() == 'P')
+				instRelElementId = ((InstPairwiseRel) element).getSourceRelations().get(0).getIdentifier();
+			if (element instanceof InstOverTwoRel || element.getTransSupportMetaElement().getType() == 'O'
 					|| element.getTransSupportMetaElement().getType() == 'T')
-				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
-						.getTargetRelations().get(0)).getTargetRelations()
-						.get(0).getIdentifier();
+				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element).getTargetRelations().get(0))
+						.getTargetRelations().get(0).getIdentifier();
 		}
 		if (!editable)
 			combo.setEnabled(false);
-		if (type == ExpressionVertexType.LEFTVARIABLE
-				|| type == ExpressionVertexType.RIGHTVARIABLE) {
-			for (InstElement instVertex : refasModel
-					.getVariabilityVertexCollection()) {
-				OpersElement semElement2 = instVertex
-						.getTransSupportMetaElement().getTransSemanticConcept();
+		if (type == ExpressionVertexType.LEFTVARIABLE || type == ExpressionVertexType.RIGHTVARIABLE) {
+			for (InstElement instVertex : refasModel.getVariabilityVertexCollection()) {
+				OpersElement semElement2 = instVertex.getTransSupportMetaElement().getTransSemanticConcept();
 				if (semElement2 != null) {
-					List<InstElement> parents = instVertex
-							.getTransSupportMetaElement()
-							.getTransInstSemanticElement()
+					List<InstElement> parents = instVertex.getTransSupportMetaElement().getTransInstSemanticElement()
 							.getParentOpersConcept();
 					boolean child = false;
-					for (InstElement e : parents)
-						if (e.getIdentifier().equals("NmVariable"))
+					String instVertexId = null;
+					if (displayVariableName)
+						instVertexId = instVertex.getInstAttribute("userId").toString();
+					else
+						instVertexId = instVertex.getIdentifier();
+					for (InstElement e : parents) {
+						if (e.getIdentifier().equals("NmVariable")) {
 							child = true;
-					if (semElement2 != null
-							&& ((semElement2.getIdentifier() != null && semElement2
-									.getIdentifier().equals("NmVariable")) || child)) {
-						String instVertexId = null;
-						if (displayVariableName)
-							instVertexId = instVertex
-									.getInstAttribute("userId").toString();
-						else
-							instVertexId = instVertex.getIdentifier();
+						}
+					}
+					if (semElement2 != null && ((semElement2.getIdentifier() != null
+							&& semElement2.getIdentifier().equals("NmVariable")) || child)) {
 						identifiersList.put(instVertexId, instVertex);
 						combo.addItem(instVertexId + "_" + "value");
+					} else {
+						identifiersList.put(instVertexId, instVertex);
+						combo.addItem(instVertexId + "_" + "Sel");
+						combo.addItem(instVertexId + "_" + "Exclu");
 					}
 				}
 			}
-		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE
-				|| type == ExpressionVertexType.RIGHTVARIABLEVALUE) {
-			return createIdentifiersValueCombo(element, selectedElement,
-					identifiersList);
+		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE || type == ExpressionVertexType.RIGHTVARIABLEVALUE) {
+			return createIdentifiersValueCombo(element, selectedElement, identifiersList);
 		} else
 
 		{
 			if (element instanceof InstConcept)
-				for (String attributeName : element.getInstAttributes()
-						.keySet())
+				for (String attributeName : element.getInstAttributes().keySet())
 					combo.addItem(instElementId + "_" + attributeName);
 
 			if (element instanceof InstPairwiseRel) {
-				for (String attributeName : ((InstPairwiseRel) element)
-						.getSourceRelations().get(0).getInstAttributes()
+				for (String attributeName : ((InstPairwiseRel) element).getSourceRelations().get(0).getInstAttributes()
 						.keySet())
 					combo.addItem(instRelElementId + "_" + attributeName);
-				for (String attributeName : ((InstPairwiseRel) element)
-						.getTargetRelations().get(0).getInstAttributes()
+				for (String attributeName : ((InstPairwiseRel) element).getTargetRelations().get(0).getInstAttributes()
 						.keySet())
 					combo.addItem(instRelElementId + "_" + attributeName);
-				for (String attributeName : element.getInstAttributes()
-						.keySet())
+				for (String attributeName : element.getInstAttributes().keySet())
 					combo.addItem(instElementId + "_" + attributeName);
 			}
 
 			if (element instanceof InstOverTwoRel) {
 				if (((InstOverTwoRel) element).getTargetRelations().size() > 0)
-					for (String attributeName : ((InstPairwiseRel) ((InstOverTwoRel) element)
-							.getTargetRelations().get(0)).getTargetRelations()
-							.get(0).getInstAttributes().keySet())
+					for (String attributeName : ((InstPairwiseRel) ((InstOverTwoRel) element).getTargetRelations()
+							.get(0)).getTargetRelations().get(0).getInstAttributes().keySet())
 						combo.addItem(instRelElementId + "_" + attributeName);
-				for (InstElement sourceRelation : ((InstOverTwoRel) element)
-						.getSourceRelations())
-					for (String attributeName : ((InstPairwiseRel) sourceRelation)
-							.getSourceRelations().get(0).getInstAttributes()
-							.keySet())
+				for (InstElement sourceRelation : ((InstOverTwoRel) element).getSourceRelations())
+					for (String attributeName : ((InstPairwiseRel) sourceRelation).getSourceRelations().get(0)
+							.getInstAttributes().keySet())
 						if (displayVariableName)
-							combo.addItem(((InstPairwiseRel) sourceRelation)
-									.getSourceRelations().get(0)
-									.getInstAttribute("userId").toString()
-									+ "_" + attributeName);
+							combo.addItem(((InstPairwiseRel) sourceRelation).getSourceRelations().get(0)
+									.getInstAttribute("userId").toString() + "_" + attributeName);
 						else
-							combo.addItem(((InstPairwiseRel) sourceRelation)
-									.getSourceRelations().get(0)
-									.getIdentifier()
+							combo.addItem(((InstPairwiseRel) sourceRelation).getSourceRelations().get(0).getIdentifier()
 									+ "_" + attributeName);
 
-				for (String attributeName : element.getInstAttributes()
-						.keySet())
+				for (String attributeName : element.getInstAttributes().keySet())
 					combo.addItem(instElementId + "_" + attributeName);
 			}
 		}
@@ -913,16 +820,13 @@ public class InstanceExpressionDialog extends JDialog {
 		return combo;
 	}
 
-	private JComboBox<String> createOperatorsCombo(
-			final ModelExpr instanceExpression, final InstElement element,
+	private JComboBox<String> createOperatorsCombo(final ModelExpr instanceExpression, final InstElement element,
 			String selectedOperator, int topExpressionType) {
 		JComboBox<String> combo = new JComboBox<String>();
 		if (!editable)
 			combo.setEnabled(false);
 		List<OpersExprType> semanticExpressionTypes = OpersExprType
-				.getValidSemanticExpressionTypes(refasModel
-						.getSemanticExpressionTypes().values(),
-						topExpressionType);
+				.getValidSemanticExpressionTypes(refasModel.getSemanticExpressionTypes().values(), topExpressionType);
 
 		for (OpersExprType semanticExpressionType : semanticExpressionTypes) {
 			combo.addItem(semanticExpressionType.getTextConnector());
@@ -935,8 +839,7 @@ public class InstanceExpressionDialog extends JDialog {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					String item = (String) event.getItem();
 					if (item != null) {
-						instanceExpression.setSemanticExpressionType(refasModel
-								.getSemanticExpressionTypes().get(item));
+						instanceExpression.setSemanticExpressionType(refasModel.getSemanticExpressionTypes().get(item));
 					}
 					new Thread() {
 						@Override
@@ -950,8 +853,7 @@ public class InstanceExpressionDialog extends JDialog {
 		return combo;
 	}
 
-	private JComboBox<String> createSidesCombo(
-			final ModelExpr instanceExpression, final InstElement element,
+	private JComboBox<String> createSidesCombo(final ModelExpr instanceExpression, final InstElement element,
 			final boolean left) {
 		JComboBox<String> combo = new JComboBox<String>();
 		if (!editable)
@@ -974,35 +876,27 @@ public class InstanceExpressionDialog extends JDialog {
 						switch (item) {
 						case "SubExpression":
 							if (left)
-								instanceExpression
-										.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
+								instanceExpression.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 							else
-								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+								instanceExpression.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 							break;
 						case "Variable":
 							if (left)
-								instanceExpression
-										.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
+								instanceExpression.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
 							else
-								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+								instanceExpression.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
 							break;
 						case "Number":
 							if (left)
-								instanceExpression
-										.setLeftExpressionType(ExpressionVertexType.LEFTNUMERICVALUE);
+								instanceExpression.setLeftExpressionType(ExpressionVertexType.LEFTNUMERICVALUE);
 							else
-								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+								instanceExpression.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 							break;
 						case "VariableValue":
 							if (left)
-								instanceExpression
-										.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
+								instanceExpression.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
 							else
-								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
+								instanceExpression.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 							break;
 						}
 						new Thread() {

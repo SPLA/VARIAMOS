@@ -34,6 +34,10 @@ public class OpersSubOperationExpType extends OpersElement {
 	public void addSemanticExpression(OpersExpr semanticExpression) {
 		semanticExpressions.add(semanticExpression);
 	}
+	
+	public void addSemanticExpressions(List<OpersExpr> semanticExpressions) {
+		this.semanticExpressions.addAll(semanticExpressions);
+	}
 
 	public boolean hasSemanticExpression(String identifier) {
 		for (OpersExpr s : semanticExpressions)

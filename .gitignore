@@ -2,6 +2,7 @@
 /build/
 /.gradle/
 <<<<<<< HEAD
+<<<<<<< HEAD
 /VARIAMOS/
 /.classpath
 =======
@@ -9,3 +10,27 @@
 *.sprefs
 *.classpath
 com.variamos.gui/VariaMos.lnk
+=======
+.settings/org.eclipse.buildship.core.prefs
+.settings/org.eclipse.buildship.core.prefs
+com.variamos.common/.classpath
+.settings/org.eclipse.buildship.core.prefs
+*.prefs
+com.variamos.common/.settings/org.eclipse.buildship.core.prefs
+com.variamos.gui/VariaMos.lnk
+com.variamos.hlcl/.classpath
+com.variamos.hlcl/.settings/org.eclipse.buildship.core.prefs
+com.variamos.io/.classpath
+com.variamos.io/.settings/org.eclipse.buildship.core.prefs
+com.variamos.reasoning/.classpath
+com.variamos.solver/.classpath
+com.variamos.solver/.settings/org.eclipse.buildship.core.prefs
+.settings/org.eclipse.buildship.core.prefs
+.settings/org.eclipse.buildship.core.prefs
+>>>>>>> refs/remotes/upstream/master
+*.prefs
+.settings/org.eclipse.buildship.core.prefs
+com.variamos.common/.classpath
+com.variamos.common/.settings/org.eclipse.buildship.core.prefs
+com.variamos.common/.settings/org.eclipse.buildship.core.prefs
+*.prefs
