@@ -496,7 +496,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						{
 							MainParser.message=""; // parser
 							if(MainParser.files_to_analize.isEmpty()) {
-								completedMessage="No files to validate, please be sure to derive a product first";
+								completedMessage="No files to validate, please derive a product first";
 							}else {
 								completedMessage=MainParser.executeParser(Fragmental.assembled_folder);
 							}
@@ -514,6 +514,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							List<Map<String, String>> files = new ArrayList<>();
 							Boolean components_found=false;
 							ArrayList<String> components_to_assemble = new ArrayList<String>();
+							Fragmental.component_folders = new ArrayList<String>(); // used in customization
 							MainParser.files_to_analize = new ArrayList<String>(); // parser
 							MainParser.message=""; // parser
 							
@@ -545,6 +546,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									if (components_to_assemble.contains(name)) {
 										components_found=true;
 										file_map.put("component_folder", name);
+										
+										if(!Fragmental.component_folders.contains(name)) {
+											Fragmental.component_folders.add(name); // used in customization
+										}										
+										
 										List<InstElement> listS = instE.getSourceRelations();
 										InstElement instS = listS.get(0);
 										name= (String) instS.getInstAttributeValue("Name");
@@ -555,6 +561,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 										file_map.put("destination", name);
 										MainParser.files_to_analize.add(name); //to be parsed
 										files.add(file_map);
+										
+										
 									}
 								}
 								

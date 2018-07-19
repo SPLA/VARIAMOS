@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 import com.variamos.common.core.utilities.FileUtilsApache;
 
@@ -22,6 +24,7 @@ import static java.nio.file.StandardCopyOption.*;
  */
 public class Fragmental {
     
+	public static ArrayList<String> component_folders = new ArrayList<String>();
     public static String assets_folder="C:/assets/";
     public static String assembled_folder="C:/integrated/";
     public static List<Map<String, String>> data;
@@ -143,13 +146,100 @@ public class Fragmental {
                 dest_path.mkdirs();
             }
             try{
-                Files.copy(source_f.toPath(), dest_f.toPath(), REPLACE_EXISTING);
+                //Files.copy(source_f.toPath(), dest_f.toPath(), REPLACE_EXISTING);
+                Files.copy(source_f.toPath(), dest_f.toPath());
             }
             catch(Exception e){
-            	error_var.add(e.getMessage()+e.getStackTrace());
+            	error_var.add("C04 - "+e.getMessage()+e.getStackTrace());
             }
         }else{
         	error_var.add(filename+" doesn't exists, check the filename and path");
         }
-    }    
+    }
+    
+    //start customization functions
+    
+    public static ArrayList<String> check_folder(String foldername){
+    	ArrayList<String> data_file = new ArrayList<String>();
+    	File source_f = new File(assets_folder+foldername+"/customization.json");
+        if(source_f.exists()){
+            try{
+                String f_content = FileUtilsApache.readFileToString(source_f, "utf-8");
+                JSONObject json = new JSONObject(f_content);
+                
+                if (json.get("CustomizationPoints") instanceof JSONArray) {
+                	JSONArray cpoints = (JSONArray) json.get("CustomizationPoints");
+                	JSONArray plans = (JSONArray) json.get("PointBracketsLans");
+                	JSONArray ids = (JSONArray) json.get("IDs");
+                	data_file.add("multiple");
+                	data_file.add(Integer.toString(cpoints.length()));
+
+                	for (int i = 0; i < cpoints.length(); i++) {
+                		String cpoint = cpoints.get(i).toString();
+	                	String plan = plans.get(i).toString();
+	                	String id = ids.get(i).toString();
+	                	data_file.add(id);
+	                	data_file.add(cpoint);
+	                	data_file.add(plan);
+                	}
+                }else {
+                	String cpoint = json.getString("CustomizationPoints");
+                	String plan = json.getString("PointBracketsLans");
+                	String id = json.getString("IDs");
+                	data_file.add("one");
+                	data_file.add(id);
+                	data_file.add(cpoint);
+                	data_file.add(plan);
+                }
+            }
+            catch(Exception e){
+            	//error_var.add(e.getMessage()+e.getStackTrace());
+            }
+        }else {
+        	data_file.add("no");
+        }
+    	return data_file;
+    }
+    
+    public static String customize_one(String ID, String cpoint, String plan){
+    	return Fragment.get_customization_code(ID, cpoint, plan);
+    }
+    
+    public static void set_customize_one(String ID, String cpoint, String plan, String ccode){
+    	Fragment.set_customization_code(ID, cpoint, plan, ccode);
+    }
+    
+    /*public static void customize() {
+    	for(String foldername : component_folders) {
+	    	File source_f = new File(assets_folder+foldername+"/customization.json");
+	        if(source_f.exists()){
+	            try{
+	                String f_content = FileUtilsApache.readFileToString(source_f, "utf-8");
+	                JSONObject json = new JSONObject(f_content);
+	                
+	                if (json.get("CustomizationPoints") instanceof JSONArray) {
+	                	JSONArray cpoints = (JSONArray) json.get("CustomizationPoints");
+	                	JSONArray plans = (JSONArray) json.get("PointBracketsLans");
+	                	JSONArray ids = (JSONArray) json.get("IDs");
+
+	                	for (int i = 0; i < cpoints.length(); i++) {
+	                		String cpoint = cpoints.get(i).toString();
+		                	String plan = plans.get(i).toString();
+		                	String id = ids.get(i).toString();
+	                		//System.out.println(i);
+	                	}
+	                }else {
+	                	String cpoint = json.getString("CustomizationPoints");
+	                	String plan = json.getString("PointBracketsLans");
+	                	String id = json.getString("IDs");
+	                	//System.out.println(cpoint);
+	                }
+	            }
+	            catch(Exception e){
+	            	//error_var.add(e.getMessage()+e.getStackTrace());
+	            }
+	        }
+    	}
+    }*/
+    
 }

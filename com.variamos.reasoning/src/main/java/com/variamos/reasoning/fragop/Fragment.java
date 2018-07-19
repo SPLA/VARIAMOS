@@ -116,7 +116,7 @@ public class Fragment {
 		                        f_to_modify_content = FileUtilsApache.readFileToString(source_f_to_modify, "utf-8");
 		                    }
 		                    catch(Exception e){
-		                    	Fragmental.error_var.add(e.getMessage());
+		                    	Fragmental.error_var.add("C01 - "+e.getMessage());
 		                    }
 		                }                
 		                //ADD CODE OR FILE
@@ -133,7 +133,7 @@ public class Fragment {
 		                                FileUtilsApache.writeStringToFile(source_f_to_modify, new_content, "utf-8");
 		                            }
 		                            catch(Exception e){
-		                            	Fragmental.error_var.add(e.getMessage());
+		                            	Fragmental.error_var.add("C02 - "+e.getMessage());
 		                            }
 		                        }
 		                        else {
@@ -164,7 +164,7 @@ public class Fragment {
 		                        	FileUtilsApache.writeStringToFile(source_f_to_modify, new_content, "utf-8");
 		                        }
 		                        catch(Exception e){
-		                        	Fragmental.error_var.add(e.getMessage());
+		                        	Fragmental.error_var.add("C03 - "+e.getMessage());
 		                        }
 		                    }else {
 		                    	Fragmental.error_var.add("Invalid fragmentation point: "+string_search+", doesn't exists (At file "+f_to_modify.get(h).get("filename")+") - (Fragment "+data.get("name")+")");
@@ -248,4 +248,68 @@ public class Fragment {
         }
         return comment_block_tags;
     }
+    
+    //customization functions
+    
+    public static String get_customization_code(String ID, String cpoint, String plan) {
+    	String file_code = "";
+    	String customization_code = "";
+    	Map<String, String> component_file = new HashMap<String, String>();
+    	component_file = get_fragment_by_ID(ID);
+    	List<String> comment_block_tags=get_comment_block(plan);
+    	
+    	File source_f_to_modify = new File(assembled_folder+component_file.get("destination"));
+        if(source_f_to_modify.exists()){
+            try{
+            	file_code = FileUtilsApache.readFileToString(source_f_to_modify, "utf-8");
+            	String string_search = comment_block_tags.get(0)+"BCP-"+cpoint+comment_block_tags.get(1);
+                String string_search2 = comment_block_tags.get(0)+"ECP-"+cpoint+comment_block_tags.get(1);
+                
+                int pos_init = file_code.indexOf(string_search);
+                int pos_final = file_code.indexOf(string_search2);
+                
+                if(pos_init != -1 && pos_final != -1){
+                	customization_code = file_code.substring(pos_init+string_search.length(),pos_final);
+                }
+            }
+            catch(Exception e){
+            	//Fragmental.error_var.add("C01 - "+e.getMessage());
+            }
+        }  
+    	return customization_code;
+    }
+    
+    public static void set_customization_code(String ID, String cpoint, String plan, String customized_code) {
+    	String file_code = "";
+    	Map<String, String> component_file = new HashMap<String, String>();
+    	component_file = get_fragment_by_ID(ID);
+    	List<String> comment_block_tags=get_comment_block(plan);
+    	
+    	File source_f_to_modify = new File(assembled_folder+component_file.get("destination")); 	
+    	
+    	if(source_f_to_modify.exists()){
+            try{
+            	file_code = FileUtilsApache.readFileToString(source_f_to_modify, "utf-8");
+            	String string_search = comment_block_tags.get(0)+"BCP-"+cpoint+comment_block_tags.get(1);
+                String string_search2 = comment_block_tags.get(0)+"ECP-"+cpoint+comment_block_tags.get(1);
+            	int pos_init = file_code.indexOf(string_search);
+                int pos_final = file_code.indexOf(string_search2);
+                if(pos_init != -1 && pos_final != -1){
+                    String new_content = file_code.substring(0,pos_init+string_search.length());
+                    new_content += customized_code;
+                    new_content += file_code.substring(pos_final);
+	                try{
+	                	FileUtilsApache.writeStringToFile(source_f_to_modify, new_content, "utf-8");
+	                }
+	                catch(Exception e){
+	                	Fragmental.error_var.add("C05 - "+e.getMessage());
+	                }
+            	}
+            }
+            catch(Exception e){
+            	//Fragmental.error_var.add("C01 - "+e.getMessage());
+            }
+        }  
+    }
+    
 }
