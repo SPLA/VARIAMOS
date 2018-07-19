@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="com.variamos.perspsupport.expressionsupport.OpersExpr" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/OpersExpr.java" binary="false" 
+  <class id="1" language="java" name="com.variamos.dynsup.model.OpersExpr" 
+    project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/perspsupport/expressionsupport/OpersExpr.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="316" width="216" x="753" y="-81"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -12,9 +12,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="com.variamos.perspsupport.expressionsupport.OpersExprType" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/OpersExprType.java" binary="false" 
+  <class id="2" language="java" name="com.variamos.dynsup.model.OpersExprType" 
+    project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/perspsupport/expressionsupport/OpersExprType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="211" width="229" x="439" y="-322"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -23,9 +23,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.variamos.perspsupport.expressionsupport.ModelExpr" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/ModelExpr.java" binary="false" 
+  <class id="3" language="java" name="com.variamos.dynsup.model.ModelExpr" 
+    project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/perspsupport/expressionsupport/ModelExpr.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="237" width="206" x="92" y="-448"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -34,9 +34,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.variamos.perspsupport.instance.InstElement" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instance/InstElement.java" binary="false" 
+  <class id="4" language="java" name="com.variamos.dynsup.instance.InstElement" 
+    project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/perspsupport/instance/InstElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="62" width="222" x="359" y="21"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -45,9 +45,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="5" language="java" name="com.variamos.perspsupport.types.OperationSubActionExecType" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/types/OperationSubActionExecType.java" binary="false" 
+  <enumeration id="5" language="java" name="com.variamos.dynsup.types.OpersSubOpExecType" 
+    project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/perspsupport/types/OperationSubActionExecType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="109" width="197" x="670" y="244"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -56,9 +56,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="6" language="java" name="com.variamos.perspsupport.expressionsupport.InstanceExprSubAction" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/InstanceExprSubAction.java" 
+  <class id="6" language="java" name="com.variamos.dynsup.model.InstanceExprSubAction" 
+    project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/perspsupport/expressionsupport/InstanceExprSubAction.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="483" y="313"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -67,9 +67,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="7" language="java" name="com.variamos.perspsupport.types.ExpressionVertexType" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/types/ExpressionVertexType.java" binary="false" 
+  <enumeration id="7" language="java" name="com.variamos.dynsup.types.ExpressionVertexType" 
+    project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/perspsupport/types/ExpressionVertexType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="678" width="208" x="100" y="-57"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -78,9 +78,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="8" language="java" name="com.variamos.semantic.expressions.AbstractExpression" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/semantic/expressions/AbstractExpression.java" binary="false" 
+  <class id="8" language="java" name="com.variamos.dynsup.staticexpsup.AbstractExpression" 
+    project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/semantic/expressions/AbstractExpression.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="491" y="536"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -89,9 +89,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="9" language="java" name="com.variamos.perspsupport.types.OperationSubActionType" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/types/OperationSubActionType.java" binary="false" 
+  <enumeration id="9" language="java" name="com.variamos.dynsup.types.OperationSubActionType" 
+    project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/perspsupport/types/OpersSubOpType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="842" y="-165"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

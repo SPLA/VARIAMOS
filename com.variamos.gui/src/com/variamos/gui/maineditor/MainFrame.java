@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private static String variamosVersionNumber = "1.0.1.20";
 	private String variamosVersionName = "1.0 Beta 20";
-	private String variamosBuild = "20180614-2300";
+	private String variamosBuild = "20180627-2100";
 	private String downloadId = "566";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
@@ -81,16 +81,13 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1166, 768);
 
-		System.out
-				.print("Loading Syntax, Semantic and Operations Infrastructure...");
-		InstanceModel InfraBasicSyntax = new InstanceModel(
-				PerspectiveType.INFRASTRUCTUREBASICSYNTAX, metaExpressionTypes);
-		InstanceModel syntaxInfrastructure = new InstanceModel(
-				PerspectiveType.SYNTAXINFRASTRUCTURE, metaExpressionTypes,
-				InfraBasicSyntax, null);
-		InstanceModel operationsInfrastructure = new InstanceModel(
-				PerspectiveType.OPERATIONSINFRASTRUCTURE, metaExpressionTypes,
-				InfraBasicSyntax, null);
+		System.out.print("Loading Syntax, Semantic and Operations Infrastructure...");
+		InstanceModel InfraBasicSyntax = new InstanceModel(PerspectiveType.INFRASTRUCTUREBASICSYNTAX,
+				metaExpressionTypes);
+		InstanceModel syntaxInfrastructure = new InstanceModel(PerspectiveType.SYNTAXINFRASTRUCTURE,
+				metaExpressionTypes, InfraBasicSyntax, null);
+		InstanceModel operationsInfrastructure = new InstanceModel(PerspectiveType.OPERATIONSINFRASTRUCTURE,
+				metaExpressionTypes, InfraBasicSyntax, null);
 		InstanceModel semanticSuperstructure = null;
 		InstanceModel syntaxSuperstructure = null;
 		InstanceModel abstractModel = null;
@@ -102,29 +99,22 @@ public class MainFrame extends JFrame {
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
 			case 0: // operations 1
-				System.out
-						.print("Loading Semantic and Operations Meta-Models Perspective...");
-				abstractModel = new InstanceModel(metaExpressionTypes,
-						operationsInfrastructure);
+				System.out.print("Loading Semantic and Operations Meta-Models Perspective...");
+				abstractModel = new InstanceModel(metaExpressionTypes, operationsInfrastructure);
 				semanticSuperstructure = abstractModel;
-				syntaxSuperstructure = new InstanceModel(
-						PerspectiveType.SYNTAXSUPERSTRUCTURE,
-						metaExpressionTypes, syntaxInfrastructure,
-						semanticSuperstructure);
+				syntaxSuperstructure = new InstanceModel(PerspectiveType.SYNTAXSUPERSTRUCTURE, metaExpressionTypes,
+						syntaxInfrastructure, semanticSuperstructure);
 				bgColor = new Color(255, 244, 255);
-				perspTitle = "Semantic & Operations - VariaMos "
-						+ variamosVersionNumber + "b" + variamosBuild;
+				perspTitle = "Semantic & Operations - VariaMos " + variamosVersionNumber + "b" + variamosBuild;
 				break;
 
 			case 1:// modeling 2
 				System.out.print("Loading Modeling Perspective...");
-				abstractModel = new InstanceModel(PerspectiveType.MODELING,
-						metaExpressionTypes, syntaxSuperstructure,
+				abstractModel = new InstanceModel(PerspectiveType.MODELING, metaExpressionTypes, syntaxSuperstructure,
 						semanticSuperstructure);
 
 				bgColor = new Color(240, 244, 255);
-				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber
-						+ "b" + variamosBuild;
+				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber + "b" + variamosBuild;
 				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
@@ -145,28 +135,22 @@ public class MainFrame extends JFrame {
 				// metaExpressionTypes, InfraBasicSyntax, null);
 
 				bgColor = new Color(255, 255, 245);
-				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b"
-						+ variamosBuild;
+				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b" + variamosBuild;
 				break;
 
 			case 3:// simulation 4
-				System.out
-						.print("Loading Configuration and Simulation Perspective...");
-				abstractModel = new InstanceModel(
-						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
+				System.out.print("Loading Configuration and Simulation Perspective...");
+				abstractModel = new InstanceModel(PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
 						syntaxSuperstructure, semanticSuperstructure);
 				bgColor = new Color(236, 252, 255);
-				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber
-						+ "b" + variamosBuild;
+				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber + "b" + variamosBuild;
 				break;
 			}
 
 			refasGraph = new PerspEditorGraph(i + 1, abstractModel);
 
-			VariamosGraphEditor editor = new VariamosGraphEditor(this,
-					perspTitle,
-					new VariamosGraphComponent(refasGraph, bgColor), i + 1,
-					abstractModel);
+			VariamosGraphEditor editor = new VariamosGraphEditor(this, perspTitle,
+					new VariamosGraphComponent(refasGraph, bgColor), i + 1, abstractModel);
 			editor.setGraphEditorFunctions(new PerspEditorFunctions(editor));
 			if (i == 1)
 				modelEditor = editor;
@@ -187,15 +171,13 @@ public class MainFrame extends JFrame {
 		System.out.println("GUI load completed");
 		this.add(graphEditors.get(2));
 		this.setJMenuBar(editorsMenu.get(2));
-		graphEditors.get(2).updatePespectiveMenuTab(modelEditor,
-				mxResources.get("modelingPerspButton"));
+		graphEditors.get(2).updatePespectiveMenuTab(modelEditor, mxResources.get("modelingPerspButton"));
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 			this.checkUpdates(false);
 		}
 		if (args != null
-				&& (args.length > 0 && args[0].equals("debug") || (args.length == 2 && args[1]
-						.equals("debug")))) {
+				&& (args.length > 0 && args[0].equals("debug") || (args.length == 2 && args[1].equals("debug")))) {
 			ConsoleTextArea.setDebug(true);
 		}
 		try {
@@ -203,14 +185,11 @@ public class MainFrame extends JFrame {
 				verifySolver();
 		} catch (UnsatisfiedLinkError e) {
 			ConsoleTextArea.addText(e.getStackTrace());
-			JOptionPane
-					.showMessageDialog(
-							this,
-							"The SWIProlog Solver is not correctly configured for VariaMos. \n"
-									+ "Double check you have the version 7.2.3 and the required variables \n"
-									+ "defined. Please visit http://variamos.com and follow the steps",
-							"Solver Configuration Error: Operations will not work",
-							JOptionPane.ERROR_MESSAGE, null);
+			JOptionPane.showMessageDialog(this,
+					"The SWIProlog Solver is not correctly configured for VariaMos. \n"
+							+ "Double check you have the version 7.2.3 and the required variables \n"
+							+ "defined. Please visit http://variamos.com and follow the steps",
+					"Solver Configuration Error: Operations will not work", JOptionPane.ERROR_MESSAGE, null);
 			solverError = true;
 		}
 	}
@@ -225,62 +204,44 @@ public class MainFrame extends JFrame {
 
 	private Map<String, OpersExprType> createMetaExpressionTypes() {
 		Map<String, OpersExprType> out = new HashMap<String, OpersExprType>();
-		out.put("And", new OpersExprType("And", "#/\"", "#/\"", "and",
-				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
+		out.put("And", new OpersExprType("And", "#/\"", "#/\"", "and", OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
 				OpersExprType.BOOLEXP, false, false));
-		out.put("Assign", new OpersExprType("Assign", "=", "=", "assign",
-				OpersExprType.IDEN, OpersExprType.EXP, OpersExprType.NONE,
-				false, false));
-		out.put("Is", new OpersExprType("Is", "is", "is", "is",
-				OpersExprType.IDEN, OpersExprType.EXP, OpersExprType.NONE,
-				false, false));
-		out.put("Subtraction", new OpersExprType("Subtraction", "-", "-",
-				"diff", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
-				OpersExprType.NUMEXP, false, false));
-		out.put("DoubleImplies", new OpersExprType("DoubleImplies", "#<==>",
-				"#<==>", "doubleImplies", OpersExprType.BOOLEXP,
-				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP, false, false));
-		out.put("Equals", new OpersExprType("Equals", "#=", "#=", "equals",
-				OpersExprType.EXP, OpersExprType.EXP, OpersExprType.BOOLEXP,
-				false, false));
-		out.put("Greater", new OpersExprType("Greater", "#>", "#>",
-				"greaterThan", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+		out.put("Assign", new OpersExprType("Assign", "=", "=", "assign", OpersExprType.IDEN, OpersExprType.EXP,
+				OpersExprType.NONE, false, false));
+		out.put("Is", new OpersExprType("Is", "is", "is", "is", OpersExprType.IDEN, OpersExprType.EXP,
+				OpersExprType.NONE, false, false));
+		out.put("Subtraction", new OpersExprType("Subtraction", "-", "-", "diff", OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP, false, false));
+		out.put("DoubleImplies", new OpersExprType("DoubleImplies", "#<==>", "#<==>", "doubleImplies",
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP, OpersExprType.BOOLEXP, false, false));
+		out.put("Equals", new OpersExprType("Equals", "#=", "#=", "equals", OpersExprType.EXP, OpersExprType.EXP,
 				OpersExprType.BOOLEXP, false, false));
-		out.put("GreaterOrEq", new OpersExprType("GreaterOrEq", "#>=", "#>=",
-				"greaterOrEqualsThan", OpersExprType.NUMEXP,
+		out.put("Greater", new OpersExprType("Greater", "#>", "#>", "greaterThan", OpersExprType.NUMEXP,
 				OpersExprType.NUMEXP, OpersExprType.BOOLEXP, false, false));
-		out.put("Implies", new OpersExprType("Implies", "#==>", "#==>",
-				"implies", OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
+		out.put("GreaterOrEq", new OpersExprType("GreaterOrEq", "#>=", "#>=", "greaterOrEqualsThan",
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP, OpersExprType.BOOLEXP, false, false));
+		out.put("Implies", new OpersExprType("Implies", "#==>", "#==>", "implies", OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP, false, false));
+		out.put("Less", new OpersExprType("Less", "#<", "#<", "lessThan", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
 				OpersExprType.BOOLEXP, false, false));
-		out.put("Less", new OpersExprType("Less", "#<", "#<", "lessThan",
-				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
-				OpersExprType.BOOLEXP, false, false));
-		out.put("LessOrEquals", new OpersExprType("LessOrEquals", "#<=", "#<=",
-				"lessOrEqualsThan", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
-				OpersExprType.BOOLEXP, false, false));
+		out.put("LessOrEquals", new OpersExprType("LessOrEquals", "#<=", "#<=", "lessOrEqualsThan",
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP, OpersExprType.BOOLEXP, false, false));
 		/*
-		 * out.put("LiteralBool", new SemanticExpressionType("LiteralBool", "",
-		 * "", "literalBooleanExpression", SemanticExpressionType.LIT,
-		 * SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP, true,
-		 * false));
+		 * out.put("LiteralBool", new SemanticExpressionType("LiteralBool", "", "",
+		 * "literalBooleanExpression", SemanticExpressionType.LIT,
+		 * SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP, true, false));
 		 */
-		out.put("Negation", new OpersExprType("Negation", "-", "-", "not",
-				OpersExprType.BOOLEXP, OpersExprType.NONE,
+		out.put("Negation", new OpersExprType("Negation", "-", "-", "not", OpersExprType.BOOLEXP, OpersExprType.NONE,
 				OpersExprType.BOOLEXP, true, false));
-		out.put("Number", new OpersExprType("Number", "", "", "number",
-				OpersExprType.INTVAL, OpersExprType.NONE, OpersExprType.NUMEXP,
-				true, false));
-		out.put("NotEquals", new OpersExprType("NotEquals", "\\==", "\\==",
-				"notEquals", OpersExprType.EXP, OpersExprType.EXP,
+		out.put("Number", new OpersExprType("Number", "", "", "number", OpersExprType.INTVAL, OpersExprType.NONE,
+				OpersExprType.NUMEXP, true, false));
+		out.put("NotEquals", new OpersExprType("NotEquals", "\\==", "\\==", "notEquals", OpersExprType.EXP,
+				OpersExprType.EXP, OpersExprType.BOOLEXP, false, false));
+		out.put("Or", new OpersExprType("Or", "#\"/", "#\"/", "or", OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
 				OpersExprType.BOOLEXP, false, false));
-		out.put("Or", new OpersExprType("Or", "#\"/", "#\"/", "or",
-				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
-				OpersExprType.BOOLEXP, false, false));
-		out.put("Product", new OpersExprType("Product", "*", "*", "prod",
-				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+		out.put("Product", new OpersExprType("Product", "*", "*", "prod", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
 				OpersExprType.NUMEXP, false, true));
-		out.put("Sum", new OpersExprType("Sum", "+", "+", "sum",
-				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+		out.put("Sum", new OpersExprType("Sum", "+", "+", "sum", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
 				OpersExprType.NUMEXP, false, true));
 		return out;
 	}
@@ -328,8 +289,7 @@ public class MainFrame extends JFrame {
 		return showPerspectiveButton;
 	}
 
-	public void setShowSimulationCustomizationBox(
-			boolean showSimulationCustomizationBox) {
+	public void setShowSimulationCustomizationBox(boolean showSimulationCustomizationBox) {
 		this.showSimulationCustomizationBox = showSimulationCustomizationBox;
 	}
 
@@ -352,29 +312,23 @@ public class MainFrame extends JFrame {
 	public void checkUpdates(boolean b) {
 		InputStream input;
 		try {
-			input = new URL("http://variamos.com/home/Variamos.txt")
-					.openStream();
+			input = new URL("http://variamos.com/home/Variamos.txt").openStream();
 
 			@SuppressWarnings("resource")
-			java.util.Scanner s = new java.util.Scanner(input)
-					.useDelimiter(":");
+			java.util.Scanner s = new java.util.Scanner(input).useDelimiter(":");
 			String newVersion = s.hasNext() ? s.next() : null;
 			if (newVersion != null && !variamosVersionNumber.equals(newVersion))
 				// && (!newVersion.equals("1.0.1.18"))
 				// && !variamosVersionNumber
 				// .equalsIgnoreCase("1.0.1.19")))
-				JOptionPane.showMessageDialog(this, "Your current version is "
-						+ variamosVersionNumber + ". The latest version is: "
-						+ newVersion + ". Please visit variamos.com.",
-						"New VariaMos Version available",
-						JOptionPane.INFORMATION_MESSAGE, null);
+				JOptionPane.showMessageDialog(this,
+						"Your current version is " + variamosVersionNumber + ". The latest version is: " + newVersion
+								+ ". Please visit variamos.com.",
+						"New VariaMos Version available", JOptionPane.INFORMATION_MESSAGE, null);
 			else if (b)
-				JOptionPane
-						.showMessageDialog(this,
-								"Your current version of VariaMos "
-										+ variamosVersionNumber
-										+ "  is up to date.", "Update Message",
-								JOptionPane.INFORMATION_MESSAGE, null);
+				JOptionPane.showMessageDialog(this,
+						"Your current version of VariaMos " + variamosVersionNumber + "  is up to date.",
+						"Update Message", JOptionPane.INFORMATION_MESSAGE, null);
 			// else if (variamosVersionNumber.equalsIgnoreCase("1.0.1.19"))
 			// JOptionPane
 			// .showMessageDialog(
@@ -383,15 +337,16 @@ public class MainFrame extends JFrame {
 			// +
 			// " Nevertheless, models created in version Beta 18 and older are not\n"
 			// +
-			// " compatible with this unstable compilation of Beta 19. Also, models created in this\n"
+			// " compatible with this unstable compilation of Beta 19. Also, models created
+			// in this\n"
 			// +
-			// " compilation may have small compatibility issues in the stable compilation of Beta 19. If you \n"
+			// " compilation may have small compatibility issues in the stable compilation
+			// of Beta 19. If you \n"
 			// +
 			// " already defined models, we suggest you to continue using version Beta 18.",
 			// "Update Message",
 			// JOptionPane.INFORMATION_MESSAGE, null);
-			input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId)
-					.openStream();
+			input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId).openStream();
 			s.close();
 		} catch (java.net.UnknownHostException e) {
 			System.out.println("Could not connect to Variamos.com.");
@@ -405,38 +360,31 @@ public class MainFrame extends JFrame {
 	// based on
 	// http://stackoverflow.com/questions/10308221/how-to-copy-file-inside-jar-to-outside-the-jar
 	private String createResources() throws Exception {
-		filesUrl = new File(MainFrame.class.getProtectionDomain()
-				.getCodeSource().getLocation().toURI().getPath())
+		filesUrl = new File(MainFrame.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath())
 				.getParentFile().getPath().replace('\\', '/');
 
 		File directory = new File(getFilesUrl());
 		directory.mkdir();
-		if (!directory.exists() || !directory.canRead()
-				|| !directory.canWrite()) {
+		if (!directory.exists() || !directory.canRead() || !directory.canWrite()) {
 			System.out.println("VariaMos needs the folder " + getFilesUrl()
-					+ " with writing privileges. Please change the"
-					+ " privileges or manually create the folder "
+					+ " with writing privileges. Please change the" + " privileges or manually create the folder "
 					+ "with writing privileges and execute VariaMos againt");
-			JOptionPane.showMessageDialog(this, "VariaMos needs the folder "
-					+ getFilesUrl() + " with writing privileges. Please change"
-					+ " the privileges or manually create the "
-					+ "folder with writing privileges", "Fatal Error",
-					JOptionPane.ERROR_MESSAGE, null);
+			JOptionPane.showMessageDialog(this,
+					"VariaMos needs the folder " + getFilesUrl() + " with writing privileges. Please change"
+							+ " the privileges or manually create the " + "folder with writing privileges",
+					"Fatal Error", JOptionPane.ERROR_MESSAGE, null);
 		}
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
-		String[] resourceNames = {
-				"/com/variamos/gui/perspeditor/style/styles.xml",
+		String[] resourceNames = { "/com/variamos/gui/perspeditor/style/styles.xml",
 				"/com/variamos/gui/perspeditor/style/shapes.xml" };
 		try {
 			for (String resourceName : resourceNames) {
 				stream = MainFrame.class.getResourceAsStream(resourceName);
 				if (stream == null) {
-					throw new Exception("Cannot get resource \"" + resourceName
-							+ "\" from Jar file.");
+					throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
 				}
-				String fileName = resourceName.substring(resourceName
-						.lastIndexOf("/") + 1);
+				String fileName = resourceName.substring(resourceName.lastIndexOf("/") + 1);
 
 				// System.out.println(fileName);
 				File file = new File(getFilesUrl() + fileName);
@@ -444,8 +392,7 @@ public class MainFrame extends JFrame {
 				int readBytes;
 				byte[] buffer = new byte[4096];
 				if (!file.exists()) {
-					resStreamOut = new FileOutputStream(getFilesUrl()
-							+ fileName);
+					resStreamOut = new FileOutputStream(getFilesUrl() + fileName);
 					while ((readBytes = stream.read(buffer)) > 0) {
 						resStreamOut.write(buffer, 0, readBytes);
 					}

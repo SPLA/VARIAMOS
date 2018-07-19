@@ -1042,6 +1042,7 @@ public class ElementDesignPanel extends JPanel {
 
 			if (editElm.getSupInstEleId() != null
 					&& ((editElm.getSupInstEleId().equals("OPER")
+							|| editElm.getInstAttribute("attributeValue") != null
 							|| (editElm.getSupInstEleId().equals("ME")) || (editElm
 								.getSupInstEleId().equals("BsEnum"))))) {
 
@@ -1066,7 +1067,8 @@ public class ElementDesignPanel extends JPanel {
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
-				} else if (editElm.getSupInstEleId().equals("OPER")) {
+				} else if (editElm.getSupInstEleId().equals("OPER") 
+						|| editElm.getInstAttribute("attributeValue") != null) {
 					// FIXME generalize with the dynamic attribute - Find how to
 					// show more than one.
 					VariableAttributeList attList = new VariableAttributeList(

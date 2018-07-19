@@ -558,9 +558,14 @@ public abstract class InstElement implements Serializable, Cloneable,
 	public void addInstAttribute(String name, ElemAttribute modelingAttribute,
 			Object value) {
 		if (getInstAttribute(name) == null) {
+			Object defValue = null;
+			if (value != null)
+				defValue = value;
+			else
+				if (modelingAttribute != null)
+					defValue = modelingAttribute.getDefaultValue();
 			InstAttribute instAttribute = new InstAttribute(name,
-					modelingAttribute,
-					value == null ? modelingAttribute.getDefaultValue() : value);
+					modelingAttribute,defValue);
 			getInstAttributes().put(name, instAttribute);
 			// instAttributes.put(name, instAttribute);
 		}// else {
