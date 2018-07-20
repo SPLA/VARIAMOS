@@ -66,8 +66,8 @@ public class CustomizeDialog extends JDialog {
 	private int max_multi_cf;
 	private boolean multi_cp;
 	private boolean set_next_cp;
-	private int current_folder;
-	private int max_folders;
+	private int current_file;
+	private int max_files;
 	private String current_id;
 	private String current_cpoint;
 	private String current_plan;
@@ -80,8 +80,8 @@ public class CustomizeDialog extends JDialog {
 			throws URISyntaxException {
 		super(editor.getFrame(), "Customize Derivation", true);
 		
-		current_folder = 0;
-		max_folders = Fragmental.component_folders.size();
+		current_file = 0;
+		max_files = Fragmental.customize_files.size();
 		current_cf = 1;
 		current_multi_cf = 0;
 		max_multi_cf = 0;
@@ -190,11 +190,11 @@ public class CustomizeDialog extends JDialog {
 		btnAccept.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(Fragmental.component_folders.isEmpty()) {
+				if(Fragmental.customize_files.isEmpty()) {
 					lab4.setText("Customization not carried out. " +
 					"Please derivate a product first");
 				}else {
-					folder_iterator();
+					file_iterator();
 				}
 			}
 		});
@@ -210,7 +210,13 @@ public class CustomizeDialog extends JDialog {
 				if(set_next_cp) {
 					Fragmental.set_customize_one(current_id, current_cpoint, current_plan, new_content.getText());
 				}
-				folder_iterator();
+				
+				if(current_file<max_files) {
+					file_iterator();
+				}else {
+					btnNext.setEnabled(false); // revisar con multiple
+					lab4.setText("Customization finalized!!");
+				}
 			}
 		});
 		c.insets = new Insets(0,10,10,10);
@@ -236,16 +242,16 @@ public class CustomizeDialog extends JDialog {
 		pack();
 	}
 	
-	public void folder_iterator(){
-		for (int i = current_folder; i < max_folders; i++) {
-			String foldername = Fragmental.component_folders.get(i);
+	public void file_iterator(){
+		for (int i = current_file; i < max_files; i++) {
+			String filedest = Fragmental.customize_files.get(i);
 			ArrayList<String> data_file = new ArrayList<String>();
-			data_file = Fragmental.check_folder(foldername);
+			data_file = Fragmental.check_file(filedest);
 
 			if(data_file.get(0).equals("no")) {
-				current_folder++;
+				current_file++;
 			}else if(data_file.get(0).equals("one")) {
-				current_folder++;
+				current_file++;
 				btnAccept.setEnabled(false);
 				
 				current_id=data_file.get(1);
@@ -271,16 +277,16 @@ public class CustomizeDialog extends JDialog {
 					multi_cp = false;
 					current_multi_cf=1;
 					max_multi_cf=0;
-					current_folder++;					
+					current_file++;					
 				}
 				current_multi_cf++;
 				break;
 			}
 		}
-		if(current_folder>=max_folders-1) {
+		/*if(current_file>max_files) {
 			btnNext.setEnabled(false); // revisar con multiple
 			lab4.setText("Customization finalized!!");
-		}
+		}*/
 	}
 	
 	public void customize_one() {
