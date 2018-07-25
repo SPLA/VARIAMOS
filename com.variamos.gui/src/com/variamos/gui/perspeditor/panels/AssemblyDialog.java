@@ -52,7 +52,7 @@ public class AssemblyDialog extends JDialog {
 
 	public AssemblyDialog(VariamosGraphEditor editor, ElemAttribute... arguments)
 			throws URISyntaxException {
-		super(editor.getFrame(), "Configure Integration Testing", true);
+		super(editor.getFrame(), "Set Derivation Parameters", true);
 
 		setBounds(300, 200, 300, 150);
 		setLayout(new BorderLayout());

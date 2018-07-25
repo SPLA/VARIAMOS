@@ -496,7 +496,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						{
 							MainParser.message=""; // parser
 							if(MainParser.files_to_analize.isEmpty()) {
-								completedMessage="No files to validate, please be sure to derive a product first";
+								completedMessage="No files to validate, please derive a product first";
 							}else {
 								completedMessage=MainParser.executeParser(Fragmental.assembled_folder);
 							}
@@ -514,6 +514,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							List<Map<String, String>> files = new ArrayList<>();
 							Boolean components_found=false;
 							ArrayList<String> components_to_assemble = new ArrayList<String>();
+							Fragmental.customize_files = new ArrayList<String>(); // used in customization
 							MainParser.files_to_analize = new ArrayList<String>(); // parser
 							MainParser.message=""; // parser
 							
@@ -541,20 +542,30 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 								if(id != null && id.startsWith("SyMPairwise1")) {
 									List<InstElement> listT = instE.getTargetRelations();
 									InstElement instT = listT.get(0);
-									String name= (String) instT.getInstAttributeValue("Name");
+									String name = (String) instT.getInstAttributeValue("Name");
+									String folderc = "";
+									String filec = "";
 									if (components_to_assemble.contains(name)) {
 										components_found=true;
 										file_map.put("component_folder", name);
+										folderc = name;
+										
 										List<InstElement> listS = instE.getSourceRelations();
 										InstElement instS = listS.get(0);
 										name= (String) instS.getInstAttributeValue("Name");
 										file_map.put("ID", name);
 										name= (String) instS.getInstAttributeValue("filename");
+										filec=name;
 										file_map.put("filename", name);
 										name= (String) instS.getInstAttributeValue("destination");
 										file_map.put("destination", name);
-										MainParser.files_to_analize.add(name); //to be parsed
-										files.add(file_map);
+										
+										if(filec.equals("customization.json")) {
+											Fragmental.customize_files.add(folderc+"/"+filec); // used in customization
+										}else {
+											MainParser.files_to_analize.add(name); //to be parsed
+											files.add(file_map);
+										}
 									}
 								}
 								

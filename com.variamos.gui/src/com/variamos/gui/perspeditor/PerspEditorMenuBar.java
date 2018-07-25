@@ -40,6 +40,7 @@ import com.variamos.gui.perspeditor.actions.CheckUpdateAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
 import com.variamos.gui.perspeditor.actions.ConfigureAssemblyAction;
+import com.variamos.gui.perspeditor.actions.CustomizeDerivation;
 import com.variamos.gui.perspeditor.actions.ElementOperationAssociationAction;
 import com.variamos.gui.perspeditor.actions.ExternalContextAction;
 import com.variamos.gui.perspeditor.actions.HideAdvancedPerspectiveAction;
@@ -293,9 +294,12 @@ public class PerspEditorMenuBar extends JMenuBar {
 								//domain implementation menu issue
 								if(e.getInstAttribute("opname").getValue().equals("Set Derivation Parameters")) {
 									menu.add(editor.bind("Set Derivation Parameters", new ConfigureAssemblyAction()));
+								}else if(e.getInstAttribute("opname").getValue().equals("Customize Derivation")) {
+									menu.add(editor.bind("Customize Derivation", new CustomizeDerivation()));
 								}else {
 									menu.add(menuItem);
 								}
+								
 								menuItem.setText((String) e.getInstAttribute("opname").getValue());
 								
 								boolean iterate = (boolean) e.getInstAttribute("iteration").getValue();

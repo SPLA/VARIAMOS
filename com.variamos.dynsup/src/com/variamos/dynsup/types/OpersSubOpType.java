@@ -13,6 +13,7 @@ public enum OpersSubOpType {
 	Medic,
 	SetDerivationParameters,
 	ExecuteDerivation,
-	ValidateDerivation
+	ValidateDerivation,
+	CustomizeDerivation
 }
 
