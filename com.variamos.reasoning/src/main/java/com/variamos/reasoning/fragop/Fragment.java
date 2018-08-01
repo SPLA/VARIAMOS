@@ -110,66 +110,68 @@ public class Fragment {
 	        if(f_to_modify!=null){
 	            if(data.get("action").equals("replace") || data.get("action").equals("hide") || (data.get("action").equals("add") && data.get("sourcecode") != null ) || (data.get("action").equals("remove") && data.get("fpoint") != null )){
 	            	for(int h=0;h<f_to_modify.size();h++){
-		                File source_f_to_modify = new File(assembled_folder+f_to_modify.get(h).get("destination"));
-		                if(source_f_to_modify.exists()){
-		                    try{
-		                        f_to_modify_content = FileUtilsApache.readFileToString(source_f_to_modify, "utf-8");
-		                    }
-		                    catch(Exception e){
-		                    	Fragmental.error_var.add("C01 - "+e.getMessage());
-		                    }
-		                }                
-		                //ADD CODE OR FILE
-		                if(data.get("action").equals("add")){
-		                    if(data.get("sourcecode") != null){
-		                        String string_search = comment_block_tags.get(0)+"B-"+split_point[h]+comment_block_tags.get(1);
-		                        int pos_init = f_to_modify_content.indexOf(string_search);
-		                        if(pos_init != -1){
-		                            String new_content = f_to_modify_content.substring(0,pos_init+string_search.length());
-		                            String trace = this.add_trace(comment_block_tags,data.get("sourcecode"),"add","injected");
-		                            new_content += trace;
-		                            new_content += f_to_modify_content.substring(pos_init+string_search.length());
-		                            try{
-		                                FileUtilsApache.writeStringToFile(source_f_to_modify, new_content, "utf-8");
-		                            }
-		                            catch(Exception e){
-		                            	Fragmental.error_var.add("C02 - "+e.getMessage());
-		                            }
-		                        }
-		                        else {
-		                        	Fragmental.error_var.add("Invalid fragmentation point: "+string_search+", doesn't exists (At file "+f_to_modify.get(h).get("filename")+") - (Fragment "+data.get("name")+")");
-		                        }
-		                    }
-		                }//REPLACE - HIDE CODE
-			            else if(data.get("action").equals("replace") || data.get("action").equals("hide")){                 
-		            		String string_search = comment_block_tags.get(0)+"B-"+split_point[h]+comment_block_tags.get(1);
-		                    String string_search2 = comment_block_tags.get(0)+"E-"+split_point[h]+comment_block_tags.get(1);
-		                    
-		                    int pos_init = f_to_modify_content.indexOf(string_search);
-		                    int pos_final = f_to_modify_content.indexOf(string_search2);
-		                    if(pos_init != -1 && pos_final != -1){
-		                        String new_content = f_to_modify_content.substring(0,pos_init+string_search.length());
-		                        String trace = "";
-		                        if(data.get("sourcecode") != null && data.get("action").equals("replace")){
-		                            trace = this.add_trace(comment_block_tags,data.get("sourcecode"),"add","replaced");
-		                        }else if(data.get("action").equals("hide")){
-		                            String new_code=f_to_modify_content.substring(pos_init+string_search.length(),pos_final);
-		                            trace = this.add_trace(comment_block_tags,new_code,"hide","hidden");
-		                        }else if(data.get("action").equals("remove")){
-		                            trace = this.add_trace(comment_block_tags,"","remove","removed");
-		                        }
-		                        new_content += trace;
-		                        new_content += f_to_modify_content.substring(pos_final);
-		                        try{
-		                        	FileUtilsApache.writeStringToFile(source_f_to_modify, new_content, "utf-8");
-		                        }
-		                        catch(Exception e){
-		                        	Fragmental.error_var.add("C03 - "+e.getMessage());
-		                        }
-		                    }else {
-		                    	Fragmental.error_var.add("Invalid fragmentation point: "+string_search+", doesn't exists (At file "+f_to_modify.get(h).get("filename")+") - (Fragment "+data.get("name")+")");
-		                    }
-		                }
+	            		
+		                try{
+		                	File source_f_to_modify = new File(assembled_folder+f_to_modify.get(h).get("destination"));
+		                	f_to_modify_content = FileUtilsApache.readFileToString(source_f_to_modify, "utf-8");
+		                	
+		                	if(data.get("action").equals("add")){
+				                    if(data.get("sourcecode") != null){
+				                        String string_search = comment_block_tags.get(0)+"B-"+split_point[h]+comment_block_tags.get(1);
+				                        int pos_init = f_to_modify_content.indexOf(string_search);
+				                        if(pos_init != -1){
+				                            String new_content = f_to_modify_content.substring(0,pos_init+string_search.length());
+				                            String trace = this.add_trace(comment_block_tags,data.get("sourcecode"),"add","injected");
+				                            new_content += trace;
+				                            new_content += f_to_modify_content.substring(pos_init+string_search.length());
+				                            try{
+				                                FileUtilsApache.writeStringToFile(source_f_to_modify, new_content, "utf-8");
+				                            }
+				                            catch(Exception e){
+				                            	Fragmental.error_var.add("C02 - "+e.getMessage());
+				                            }
+				                        }
+				                        else {
+				                        	Fragmental.error_var.add("Invalid fragmentation point: "+string_search+", doesn't exists (At file "+f_to_modify.get(h).get("filename")+") - (Fragment "+data.get("name")+")");
+				                        }
+				                    }
+				                }//REPLACE - HIDE CODE
+					            else if(data.get("action").equals("replace") || data.get("action").equals("hide")){					            	
+				            		String string_search = comment_block_tags.get(0)+"B-"+split_point[h]+comment_block_tags.get(1);
+				                    String string_search2 = comment_block_tags.get(0)+"E-"+split_point[h]+comment_block_tags.get(1);
+				                    
+				                    int pos_init = f_to_modify_content.indexOf(string_search);
+				                    int pos_final = f_to_modify_content.indexOf(string_search2);
+				                    if(pos_init != -1 && pos_final != -1){
+				                        String new_content = f_to_modify_content.substring(0,pos_init+string_search.length());
+				                        String trace = "";
+				                        if(data.get("sourcecode") != null && data.get("action").equals("replace")){
+				                            trace = this.add_trace(comment_block_tags,data.get("sourcecode"),"add","replaced");
+				                        }else if(data.get("action").equals("hide")){
+				                            String new_code=f_to_modify_content.substring(pos_init+string_search.length(),pos_final);
+				                            trace = this.add_trace(comment_block_tags,new_code,"hide","hidden");
+				                        }else if(data.get("action").equals("remove")){
+				                            trace = this.add_trace(comment_block_tags,"","remove","removed");
+				                        }
+				                        new_content += trace;
+				                        new_content += f_to_modify_content.substring(pos_final);
+				                        try{
+				                        	FileUtilsApache.writeStringToFile(source_f_to_modify, new_content, "utf-8");
+				                        }
+				                        catch(Exception e){
+				                        	Fragmental.error_var.add("C03 - "+e.getMessage());
+				                        }
+				                    }else {
+				                    	Fragmental.error_var.add("Invalid fragmentation point: "+string_search+", doesn't exists (At file "+f_to_modify.get(h).get("filename")+") - (Fragment "+data.get("name")+")");
+				                    }
+				                }
+		                	
+		                	
+		                }catch(Exception e){
+		                	//Revisar
+	                    	//Fragmental.error_var.add("C01 - "+e.getMessage());
+	                    }
+		                
 	            	}
 	            }else{
 	            	Fragmental.error_var.add("Invalid action: "+data.get("action")+")");
