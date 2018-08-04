@@ -26,8 +26,7 @@ public class OpersLabeling extends OpersElement {
 
 	public boolean hasAttribute(String concept, String name) {
 		for (OpersIOAttribute s : attributes)
-			if (s.getConceptId().equals(concept)
-					&& s.getAttributeId().equals(name))
+			if (s.getConceptId().equals(concept) && s.getAttributeId().equals(name))
 				return true;
 		return false;
 	}
@@ -42,6 +41,10 @@ public class OpersLabeling extends OpersElement {
 
 	public void addAttribute(OpersIOAttribute attribute) {
 		attributes.add(attribute);
+	}
+
+	public void addAttributes(List<OpersIOAttribute> attributes) {
+		this.attributes.addAll(attributes);
 	}
 
 	public void removeAttribute(OpersIOAttribute attribute) {
@@ -66,15 +69,13 @@ public class OpersLabeling extends OpersElement {
 				break;
 			element = null;
 			for (InstElement e : elt.getTargetRelations()) {
-				if (((InstPairwiseRel) e).getSupportMetaPairwiseRelIden()
-						.equals("ExtendsRelation")) {
+				if (((InstPairwiseRel) e).getSupportMetaPairwiseRelIden().equals("ExtendsRelation")) {
 					element = e.getTargetRelations().get(0);
 				}
 			}
 		}
 		for (OpersIOAttribute ioAtt : attributes) {
-			if (attribute.equals(ioAtt.getAttributeId())
-					&& parents.contains(ioAtt.getConceptId()))
+			if (attribute.equals(ioAtt.getAttributeId()) && parents.contains(ioAtt.getConceptId()))
 				if (ioAtt.isInclude()) {
 					if (include > parents.indexOf(ioAtt.getConceptId()))
 						include = parents.indexOf(ioAtt.getConceptId());

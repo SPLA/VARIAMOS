@@ -2,7 +2,7 @@
 <class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="com.variamos.dynsup.model.OpersExpr" 
-    project="com.variamos.perspsupport" 
+    project="com.variamos.dynsup" 
     file="/com.variamos.perspsupport/src/com/variamos/dynsup/model/OpersExpr.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="375" width="256" x="474" y="-382"/>    
@@ -13,7 +13,7 @@
     </display>  
   </class>  
   <class id="2" language="java" name="com.variamos.dynsup.model.OpersExprType" 
-    project="com.variamos.perspsupport" 
+    project="com.variamos.dynsup" 
     file="/com.variamos.perspsupport/src/com/variamos/dynsup/model/OpersExprType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="388" width="224" x="808" y="-404"/>    
@@ -24,7 +24,7 @@
     </display>  
   </class>  
   <class id="3" language="java" name="com.variamos.dynsup.model.ModelExpr" 
-    project="com.variamos.perspsupport" 
+    project="com.variamos.dynsup" 
     file="/com.variamos.perspsupport/src/com/variamos/dynsup/model/ModelExpr.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="258" width="314" x="-29" y="-448"/>    
@@ -35,7 +35,7 @@
     </display>  
   </class>  
   <class id="4" language="java" name="com.variamos.dynsup.instance.InstElement" 
-    project="com.variamos.perspsupport" 
+    project="com.variamos.dynsup" 
     file="/com.variamos.perspsupport/src/com/variamos/dynsup/instance/InstElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="62" width="205" x="25" y="-127"/>    
@@ -46,7 +46,7 @@
     </display>  
   </class>  
   <class id="5" language="java" name="com.variamos.dynsup.staticexprsup.AbstractExpression" 
-    project="com.variamos.perspsupport" 
+    project="com.variamos.dynsup" 
     file="/com.variamos.perspsupport/src/com/variamos/dynsup/staticexprsup/AbstractExpression.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="221" width="285" x="-13" y="-14"/>    
@@ -57,7 +57,7 @@
     </display>  
   </class>  
   <class id="6" language="java" name="com.variamos.dynsup.staticexprsup.AbstractBooleanExpression" 
-    project="com.variamos.perspsupport" 
+    project="com.variamos.dynsup" 
     file="/com.variamos.perspsupport/src/com/variamos/dynsup/staticexprsup/AbstractBooleanExpression.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="576" y="175"/>    
@@ -68,7 +68,7 @@
     </display>  
   </class>  
   <class id="7" language="java" name="com.variamos.dynsup.staticexprsup.AbstractComparisonExpression" 
-    project="com.variamos.perspsupport" 
+    project="com.variamos.dynsup" 
     file="/com.variamos.perspsupport/src/com/variamos/dynsup/staticexprsup/AbstractComparisonExpression.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="824" y="134"/>    
@@ -79,7 +79,7 @@
     </display>  
   </class>  
   <class id="8" language="java" name="com.variamos.dynsup.staticexprsup.AbstractNumericExpression" 
-    project="com.variamos.perspsupport" 
+    project="com.variamos.dynsup" 
     file="/com.variamos.perspsupport/src/com/variamos/dynsup/staticexprsup/AbstractNumericExpression.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="574" y="95"/>    

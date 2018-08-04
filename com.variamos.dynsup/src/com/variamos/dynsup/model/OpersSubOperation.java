@@ -16,8 +16,7 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
  * @version 1.1
  * @since 2014-02-05
  */
-public class OpersSubOperation extends OpersElement implements
-		Comparable<OpersSubOperation> {
+public class OpersSubOperation extends OpersElement implements Comparable<OpersSubOperation> {
 
 	/**
 	 * 
@@ -56,8 +55,7 @@ public class OpersSubOperation extends OpersElement implements
 
 	public boolean hasInVariable(String concept, String attribute) {
 		for (OpersIOAttribute var : inAttributes)
-			if (var.getConceptId().equals(concept)
-					&& var.getAttributeId().equals(attribute))
+			if (var.getConceptId().equals(concept) && var.getAttributeId().equals(attribute))
 				return true;
 		return false;
 	}
@@ -80,14 +78,17 @@ public class OpersSubOperation extends OpersElement implements
 
 	public boolean hasOutVariable(String concept, String attribute) {
 		for (OpersIOAttribute var : outAttributes)
-			if (var.getConceptId().equals(concept)
-					&& var.getAttributeId().equals(attribute))
+			if (var.getConceptId().equals(concept) && var.getAttributeId().equals(attribute))
 				return true;
 		return false;
 	}
 
 	public void addInAttribute(OpersIOAttribute attribute) {
 		inAttributes.add(attribute);
+	}
+
+	public void addInAttributes(List<OpersIOAttribute> attributes) {
+		inAttributes.addAll(attributes);
 	}
 
 	public void removeInAttribute(OpersIOAttribute attribute) {
@@ -103,6 +104,10 @@ public class OpersSubOperation extends OpersElement implements
 		outAttributes.add(attribute);
 	}
 
+	public void addOutAttributes(List<OpersIOAttribute> attributes) {
+		outAttributes.addAll(attributes);
+	}
+
 	public void removeOutAttribute(OpersIOAttribute attribute) {
 		for (OpersIOAttribute s : outAttributes)
 			if (s.getConceptId().equals(attribute.getConceptId())
@@ -113,8 +118,7 @@ public class OpersSubOperation extends OpersElement implements
 	}
 
 	// 1 include, -1 exclude, 0 unknown
-	public int validateAttribute(InstElement instElement, String attribute,
-			boolean in) {
+	public int validateAttribute(InstElement instElement, String attribute, boolean in) {
 		int include = 99999;
 		int exclude = 99999;
 		List<String> parents = new ArrayList<String>();
@@ -126,16 +130,14 @@ public class OpersSubOperation extends OpersElement implements
 				break;
 			element = null;
 			for (InstElement e : elt.getTargetRelations()) {
-				if (((InstPairwiseRel) e).getSupportMetaPairwiseRelIden()
-						.equals("ExtendsRelation")) {
+				if (((InstPairwiseRel) e).getSupportMetaPairwiseRelIden().equals("ExtendsRelation")) {
 					element = e.getTargetRelations().get(0);
 				}
 			}
 		}
 		if (in)
 			for (OpersIOAttribute ioAtt : inAttributes) {
-				if (attribute.equals(ioAtt.getAttributeId())
-						&& parents.contains(ioAtt.getConceptId()))
+				if (attribute.equals(ioAtt.getAttributeId()) && parents.contains(ioAtt.getConceptId()))
 					if (ioAtt.isInclude()) {
 						if (include > parents.indexOf(ioAtt.getConceptId()))
 							include = parents.indexOf(ioAtt.getConceptId());
@@ -144,8 +146,7 @@ public class OpersSubOperation extends OpersElement implements
 			}
 		if (!in)
 			for (OpersIOAttribute ioAtt : outAttributes) {
-				if (attribute.equals(ioAtt.getAttributeId())
-						&& parents.contains(ioAtt.getConceptId()))
+				if (attribute.equals(ioAtt.getAttributeId()) && parents.contains(ioAtt.getConceptId()))
 					if (ioAtt.isInclude()) {
 						if (include > parents.indexOf(ioAtt.getConceptId()))
 							include = parents.indexOf(ioAtt.getConceptId());
