@@ -3,6 +3,13 @@ package com.variamos.common.core.utilities;
 import java.util.regex.Pattern;
 
 public class StringUtils {
+	/**
+	 * This method searches for a "_" in a String and returns the first part
+	 * of the String before "_" with notation UpperCamelCase
+	 * @param enumValue String where pattern will be searched
+	 * @return  First part of the string before "_" 
+	 * in notation UpperCamelCase and without white spaces. 
+	 */
 	public static String formatEnumValue(String enumValue) {
 		String patternString = "([_])";
 		Pattern p = Pattern.compile(patternString);

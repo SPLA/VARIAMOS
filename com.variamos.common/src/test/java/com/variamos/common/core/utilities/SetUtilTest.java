@@ -8,40 +8,55 @@ import org.junit.Test;
 
 import com.variamos.common.core.utilities.SetUtil;
 
+/**
+ * Verifies functionality of SetUtil class
+ */
 public class SetUtilTest {
 
+	/**
+	 * Verifies maintainNoSubsets method
+	 * in 3 ways, true, false, error.
+	 */
 	@Test
 	public void maintainNoSubsets() {
+		/**
+		 * Creates 3 sets, set 1 is subset of set 2
+		 * expect : 2 sets (set2,set3)
+		 * Most basic test. 
+		 */
+
+		 //Set 1
 		List<String> set1 = new ArrayList<String>();
 		set1.add("ROOT#<==>F1,");
-
+		//Set 2
 		List<String> set2 = new ArrayList<String>();
 		set2.add("F1#<==>F6,");
 		set2.add("F4#<==>F8,");
 		set2.add("ROOT#<==>F1,");
-
+		//Set 3
 		List<String> set3 = new ArrayList<String>();
 		set3.add("F1#<==>F6,");
 		set3.add("(1-F5)+(1-F3)#>0,");
 		set3.add("(1-F3)+(1-F8)#>0,");
-
+		
+		//Collection of set1,set2,set3
 		List<List<String>> originalCollectionOfSets = new ArrayList<List<String>>();
 		originalCollectionOfSets.add(set1);
 		originalCollectionOfSets.add(set2);
 		originalCollectionOfSets.add(set3);
 
+		//Copies the collection for comparison.
 		List<List<String>> newCollectionOfSets = new ArrayList<List<String>>();
 		newCollectionOfSets.addAll(originalCollectionOfSets);
 
+		//Calls MaintainNoSubsets into the copy
 		newCollectionOfSets = SetUtil.maintainNoSubsets(newCollectionOfSets);
 
-		for (List<String> elements : newCollectionOfSets) {
-			System.out.println("NEW COLLECTION:" + elements.toString());
-		}
-
+		
 		Assert.assertTrue(newCollectionOfSets.size() < originalCollectionOfSets
 				.size());
 		Assert.assertTrue(!newCollectionOfSets.contains(set1));
+		Assert.assertTrue(newCollectionOfSets.contains(set1));
 
 	}
 

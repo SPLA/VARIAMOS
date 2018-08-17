@@ -8,15 +8,14 @@ import java.util.List;
 import java.util.Set;
 /**
  * This class implements the logic related with set operations
- * 
  * @author Luisa Rincon - lufe089@gmail.com
  * 
  */
 public class SetUtil {
 
 	
-	/**
-	 * @param sets
+	/**Gets union of collection of sets
+	 * @param Collection<sets>
 	 * @return Union of sets without repetitions
 	 */
 	@SafeVarargs
@@ -35,17 +34,28 @@ public class SetUtil {
 
 	}
 
+	/**Gets the intersection of 2 sets
+	 * @param Set1 
+	 * @param Set2
+	 * @return Intersection of sets without repetitions
+	 */
+
 	public static <E> List<E> intersection(Collection<E> set1,
 			Collection<E> set2) {
 
 		List<E> setCopy = new ArrayList<E>();
+		
 		setCopy.addAll(set1);
-
 		setCopy.retainAll(set2);
 
 		return setCopy;
-
 	}
+
+	/**Gets complement of a set
+	 * @param universalSet set of the universe
+	 * @param setOfSets sets to remove from universe
+	 * @return Complement of setOfSets (Universe - setOfSets)
+	 */
 
 	public static <E> List<E> complementOfSets(Collection<E> universalSet,
 			List<List<E>> setOfSets) {
@@ -60,6 +70,11 @@ public class SetUtil {
 		return universalSetCopy;
 	}
 
+	/**Gets the difference between set1 and set2
+	 * @param set1 
+	 * @param set2
+	 * @return Difference of set1 minus set2
+	 */
 	public static <E> Collection<E> difference(Collection<E> set1,
 			Collection<E> set2) {
 		List<E> differenceCopy = new ArrayList<E>();
@@ -69,6 +84,12 @@ public class SetUtil {
 
 	}
 
+	/**Removes elements from a set 
+	 * @param set of elements to remove
+	 * @param elementsToRemove from the set
+	 * @return set without elementsToRemove (Set - elementsToRemove)
+	 */
+	
 	public static <E extends Collection<E>> Collection<E> removeElementsOfList(
 			Collection<E> set, Collection<E> elementsToRemove) {
 
@@ -82,10 +103,10 @@ public class SetUtil {
 
 	}
 
-	/**
-	 * @param originalCollectionOfSets
-	 * @param setsToRemove
-	 * @return
+	/**Removes sets of a collection of sets
+	 * @param originalCollectionOfSets main collection fo sets. 
+	 * @param setsToRemove group of sets to remove
+	 * @return CollectionOfSets without setsToRemove (CollectionOfSets - setsToRemove) 
 	 */
 	public static <E> Collection<List<E>> removeSets(
 			Collection<List<E>> originalCollectionOfSets,
@@ -98,6 +119,13 @@ public class SetUtil {
 		return originalCollectionOfSets;
 	}
 
+
+
+	/**Removes elements from a set
+	 * @param set 
+	 * @param obj object in set to remove
+	 * @return set without object (set - object)
+	 */
 	public static <E extends Collection<E>, T> Collection<E> removeOneElementsOfList(
 			Collection<E> set, T obj) {
 
@@ -111,9 +139,9 @@ public class SetUtil {
 
 
 	/**
-	 *Verify if a set exist in other set of sets
+	 * Verify if a set exist in other set of sets(Collection of sets)
 	 * @param setToVerify
-	 * @param setOfSets
+	 * @param setOfSets collection of sets
 	 * @return True exist the set, false otherwise
 	 */
 	public static <E> boolean verifyExistSetInSetofSets(List<E> setToVerify,
@@ -134,9 +162,8 @@ public class SetUtil {
 
 	/**
 	 * Verify if a set is subset of other set
-	 * 
 	 * @param subSet
-	 * @param superSet
+	 * @param superSet Set to verify if cantains subSet param
 	 * @return True is subset, false otherwise
 	 */
 	public static <E> boolean isSubset(Collection<E> subSet,
@@ -157,10 +184,10 @@ public class SetUtil {
 
 	}
 
-	/**
-	 * @param set1
+	/**Verifies if a set is equals to another set
+	 * @param set1 
 	 * @param set2
-	 * @return true: Set1 has the same elements of Set2
+	 * @return true: Set1 has the same elements of false : otherwise
 	 */
 	public static <E> boolean isEquals(Collection<E> set1, Collection<E> set2) {
 
@@ -175,9 +202,9 @@ public class SetUtil {
 	
 	/**
 	 * Verify if a set is superset of other set
-	 * @param superSet
-	 * @param subSet
-	 * @return
+	 * @param superSet 
+	 * @param subSet 
+	 * @return true : if subset is in superSet, false : otherwise
 	 */
 	public static <E> boolean isSuperSet(Collection<E> superSet,
 			Collection<E> subSet) {
@@ -185,11 +212,12 @@ public class SetUtil {
 
 	}
 
-	
-	/**
+	//FLAG0 isn't verifyExistSetInSetofSets same? 
+
+	/**Verify if a set is contained into a colecctions of sets 
 	 * @param inputSet
 	 * @param collectionOfSets
-	 * @return True Set is contained in the collection set. Otherwise False
+	 * @return True : if Set is contained in the collection set. False : Otherwise
 	 */
 	public static <E> boolean verifyCollectionSetContainsSet(List<E> inputSet,
 			List<List<E>> collectionOfSets) {
@@ -203,15 +231,14 @@ public class SetUtil {
 		return false;
 	}
 
-
-	/**
+	//FLAG1 With this logic returns true if inputSet contains at least 1 set of collections. 
+	//error in name? (It should be verifySetIsSuperSetOfSetInCollectionSets)
+	/**Verifies if  a set is superSet of collectionOfSets 
 	 * @param inputSet
 	 * @param collectionOfSets
 	 * @return true:Set is superset of some set of collection of sets.
-	 *         Otherwise False Ejm inputSet es {a,b,c} y not collectionOfSets
-	 *         tiene un elemento con el valor de {a,c}. En este caso el inputSet
-	 *         es superset pq tiene los mismos elementos( o más ) que el set de
-	 *         collectionOfSets
+	 *         Otherwise Set is not superset of some set of collection of sets
+	 * 		   
 	 */
 	public static <E> boolean verifySetIsSuperSetOfCollectionSets(
 			List<E> inputSet, List<List<E>> collectionOfSets) {
@@ -228,6 +255,12 @@ public class SetUtil {
 		return false;
 	}
 
+	//FLAG3 error in the name. 
+	/**Verifies if an element is in a set of a collection of sets
+	 * @param input 
+	 * @param colecctionOfSets
+	 * @return True : input element is in a subset of a collection of sets set False : otherwise
+	 */
 	public static <E> boolean verifyElementIsSubSetOfCollectionSets(E input,
 			List<List<E>> collectionOfSets) {
 
@@ -240,7 +273,13 @@ public class SetUtil {
 		}
 		return false;
 	}
-
+	
+//FLAG2 error in the name (Should be verifySetIsSubSetOfSetInColecctionSets)
+	/**Verifies if a set is sub set of a set in collection of sets
+	 * @param inputSet 
+	 * @param collectionOfSets
+	 * @return True : If set is subSet of a collection of sets False : Otherwise 
+	 */
 	public static <E> boolean verifySetIsSubSetOfCollectionSets(
 			List<E> inputSet, List<List<E>> collectionOfSets) {
 		if (inputSet != null && collectionOfSets != null) {
@@ -254,6 +293,12 @@ public class SetUtil {
 		return false;
 	}
 
+
+	/**Gets a super set whichs contains an input set
+	 * @param inputSet 
+	 * @param clauses collection of super sets.
+	 * @return Set Of sets which contains inputSet param 
+	 */
 	public static <E> List<List<E>> getSuperSetsOfSet(List<E> inputSet,
 			List<List<E>> clauses) {
 
@@ -271,9 +316,7 @@ public class SetUtil {
 		return superSetOfInputSet;
 	}
 
-	/**
-	 * 
-	 * 
+	/**Gets the union of a collection of sets
 	 * @param collectionOfSets
 	 * @return union without repetitions of a collection of sets
 	 */
@@ -290,11 +333,10 @@ public class SetUtil {
 	}
 
 	/**
-	 * Removes any set in inputCollectionOfSets that is now a superset of some
+	 * Removes any set in a collection of sets that is a superset of some
 	 * other
-	 * 
 	 * @param inputCollectionOfSets
-	 * @return
+	 * @return Collection of sets which are'nt superSets of some other set
 	 */
 	public static <E> List<List<E>> maintainNoSupersets(
 			List<List<E>> inputCollectionOfSets) {
@@ -303,7 +345,7 @@ public class SetUtil {
 		List<E> inputSet = null;
 		Set<List<E>> setsToRemove = new HashSet<List<E>>();
 
-		// Se ordenan los conjuntos por tamaño de menor mayor
+		// Se ordenan los conjuntos por tamaï¿½o de menor mayor
 		Collections
 				.sort(inputCollectionOfSets, new CollectionsSizeComparator());
 
@@ -326,7 +368,7 @@ public class SetUtil {
 				}
 
 			}// Cierra while que recorre lista desde la segunda posicion
-		}// Cierra while que recorre la lista desde la primera posición
+		}// Cierra while que recorre la lista desde la primera posiciï¿½n
 
 		// Se eliminan los elementos
 		if (!setsToRemove.isEmpty()) {
@@ -338,9 +380,8 @@ public class SetUtil {
 	}// Cierra metodo
 
 	/**
-	 * Removes any set in inputCollectionOfSets that is now a superset of some
-	 * other
-	 * 
+	 * Removes any set in a collection of sets that is
+	 * a sub set of some other set 
 	 * @param inputCollectionOfSets
 	 * @return
 	 */
@@ -359,7 +400,7 @@ public class SetUtil {
 				if (i != j) {
 					if (!inputSet.equals(testSet)) {
 						if (SetUtil.<E> isSubset(testSet, inputSet)) {
-							// Se debe eliminar pq es super set
+							// Se debe eliminar pq es sub set
 							setsToRemove.add(testSet);
 							System.out.println(" A remover set: " + testSet);
 						}
@@ -372,9 +413,8 @@ public class SetUtil {
 				}
 
 			}// Cierra while que recorre lista de MCS desde la segunda posicion
-		}// Cierra while que recorre la lista de MCS desde la primera posición
+		}// Cierra while que recorre la lista de MCS desde la primera posiciï¿½n
 
-		// Se eliminan los elementos
 		// Se eliminan los elementos
 		if (!setsToRemove.isEmpty()) {
 			removeSets(inputCollectionOfSets, setsToRemove);
@@ -383,9 +423,8 @@ public class SetUtil {
 	}// Cierra metodo
 
 	/**
-	 * Removes any set in inputCollectionOfSets that is now a superset of some
-	 * other
-	 * 
+	 * Removes any duplicate set in 
+	 * a colecction of sets
 	 * @param inputCollectionOfSets
 	 * @return
 	 */
@@ -406,6 +445,7 @@ public class SetUtil {
 			for (int i = j + 1; i < inputCollectionOfSets.size(); i++) {
 				testSet = sets.get(i);
 				if (inputSet.size()==testSet.size()) {
+					
 					if (SetUtil.<E> isSubset(testSet, inputSet)) {
 						// Se debe eliminar pq es super set
 						setsToRemove.add(testSet);
@@ -424,12 +464,9 @@ public class SetUtil {
 	}//
 
 	/**
-	 * Transform of Collection to List
-	 * 
-	 * @param <E>
-	 * 
+	 * Transforms Collection into List
 	 * @param collection
-	 * @return
+	 * @return List of collections content
 	 */
 	public static <E> List<E> transformCollectionTOList(Collection<E> collection) {
 
@@ -442,11 +479,9 @@ public class SetUtil {
 	}
 
 	/**
-	 * Transform of Collection to Set
-	 * @param <E>
-	 * 
+	 * Transforms Collection into Set
 	 * @param collection
-	 * @return
+	 * @return Set of collection content
 	 */
 	public static <E> Set<E> transformCollectionTOSet(Collection<E> collection) {
 
