@@ -27,17 +27,17 @@ public class SetUtilTest {
 
 		 //Set 1
 		List<String> set1 = new ArrayList<String>();
-		set1.add("ROOT#<==>F1,");
+		set1.add("A");
 		//Set 2
 		List<String> set2 = new ArrayList<String>();
-		set2.add("F1#<==>F6,");
-		set2.add("F4#<==>F8,");
-		set2.add("ROOT#<==>F1,");
+		set2.add("A");
+		set2.add("B");
+		set2.add("C");
 		//Set 3
 		List<String> set3 = new ArrayList<String>();
-		set3.add("F1#<==>F6,");
-		set3.add("(1-F5)+(1-F3)#>0,");
-		set3.add("(1-F3)+(1-F8)#>0,");
+		set3.add("D");
+		set3.add("E");
+		set3.add("F");
 		
 		//Collection of set1,set2,set3
 		List<List<String>> originalCollectionOfSets = new ArrayList<List<String>>();
@@ -56,7 +56,7 @@ public class SetUtilTest {
 		Assert.assertTrue(newCollectionOfSets.size() < originalCollectionOfSets
 				.size());
 		Assert.assertTrue(!newCollectionOfSets.contains(set1));
-		Assert.assertTrue(newCollectionOfSets.contains(set1));
+
 
 	}
 

@@ -1,0 +1,28 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "com.variamos.common",
+                "projectName": "com.variamos.common",
+                "workingDirectory": "/home/estc123/Programación/Applies/VARIAMOS/com.variamos.common",
+                "args": [],
+                "vmargs": [],
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "com.variamos.common",
+                "projectName": "com.variamos.common",
+                "workingDirectory": "/home/estc123/Programación/Applies/VARIAMOS/com.variamos.common",
+                "args": [],
+                "vmargs": [],
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}

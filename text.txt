@@ -1,0 +1,437 @@
+./com.variamos.io/src/main/java/com/variamos/io/core/importExport/ConfigurationIO.java:14:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.io/src/main/java/com/variamos/io/core/importExport/ConfigurationIO.java:19: *This module only can have dependencies with the common 
+./com.variamos.io/src/main/java/com/variamos/io/core/importExport/ExportDefectAnalyzer.java:10:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.io/src/main/java/com/variamos/io/core/importExport/ExportUtil.java:11:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.io/build.gradle:8:    compile project(':com.variamos.common')
+./com.variamos.io/.classpath:6:	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.common"/>
+Binary file ./com.variamos.io/bin/com/variamos/io/core/importExport/ExportDefectAnalyzer.class matches
+Binary file ./com.variamos.io/bin/com/variamos/io/core/importExport/ConfigurationIO.class matches
+Binary file ./com.variamos.io/bin/com/variamos/io/core/importExport/ExportUtil.class matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/1528992167.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/1676918938.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/3749278764.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/637820208.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/3463509369.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/3619423087.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/3713672538.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat matches
+./.metadata/.plugins/org.eclipse.ui.workbench/workingsets.xml:4:<item elementID="=com.variamos.common/src\/main\/java" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+./.metadata/.plugins/org.eclipse.ui.workbench/workingsets.xml:5:<item elementID="=com.variamos.common/src\/test\/java" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+./.metadata/.plugins/org.eclipse.recommenders.news.impl/downloads/http%3A%2F%2Fwww.eclipse.org%2Fhome%2Feclipsenews.rss:8:      <url>http://eclipse.org/eclipse.org-common/themes/Nova/images/eclipse.png</url>
+./.metadata/.plugins/org.eclipse.debug.core/.launches/Main.launch:16:<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry path=&quot;3&quot; projectName=&quot;com.variamos.common&quot; type=&quot;1&quot;/&gt;&#10;"/>
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:3:  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditor&quot; name=&quot;Class.class&quot; tooltip=&quot;java.lang.Class&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=com.variamos.common/\/usr\/lib\/jvm\/java-8-openjdk\/jre\/lib\/rt.jar&amp;lt;java.lang(Class.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;SWIPrologTest.java&quot; tooltip=&quot;com.variamos.solver/src/test/java/com/variamos/solver/core/SWIPrologTest.java&quot;>&#xA;&lt;persistable path=&quot;/com.variamos.solver/src/test/java/com/variamos/solver/core/SWIPrologTest.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Main.java&quot; tooltip=&quot;com.variamos.gui/src/com/variamos/gui/maineditor/Main.java&quot;>&#xA;&lt;persistable path=&quot;/com.variamos.gui/src/com/variamos/gui/maineditor/Main.java&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:1711:  <descriptors xmi:id="_hVbDwJ8MEeiNReBbJevNzw" elementId="org.eclipse.wst.common.snippets.internal.ui.SnippetsView" label="Snippets" iconURI="platform:/plugin/org.eclipse.wst.common.snippets/icons/snippets_view.gif" tooltip="" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:1712:    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.wst.common.snippets.internal.ui.SnippetsView"/>
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:1713:    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.wst.common.snippets"/>
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:2329:  <commands xmi:id="_hPtdbJ8MEeiNReBbJevNzw" elementId="org.eclipse.epp.package.common.contribute" commandName="Contribute" description="Contribute to the development and success of the Eclipse IDE!" category="_hPk6c58MEeiNReBbJevNzw"/>
+Binary file ./.metadata/.plugins/org.eclipse.linuxtools.cdt.libhover/C/devhelp.libhover matches
+Binary file ./.metadata/.plugins/org.eclipse.linuxtools.cdt.libhover/C/glibc_library.libhover matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.root/4.tree matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.root/3.tree matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.io/org.eclipse.jdt.core/state.dat matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.solver/.markers matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.reasoning/.markers.bak matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.reasoning/.markers matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.reasoning/.markers.snap matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.common/org.eclipse.jdt.core/state.dat matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.common/.markers matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.common/.location matches
+./.metadata/.plugins/org.eclipse.core.resources/.history/cb/90dfec8b109f0018169cf59089e2bcfc:7:import com.variamos.common.core.exceptions.FunctionalException;
+./.metadata/.plugins/org.eclipse.core.resources/.history/e3/80e8e74c109f0018169cf59089e2bcfc:7:import com.variamos.common.core.exceptions.FunctionalException;
+./.metadata/.plugins/org.eclipse.core.resources/.history/f8/70318a9e109f0018169cf59089e2bcfc:7:import com.variamos.common.core.exceptions.FunctionalException;
+./.metadata/.plugins/org.eclipse.core.resources/.history/13/10d990fa109f0018169cf59089e2bcfc:7:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.solver/src/main/java/com/variamos/solver/core/SWIPrologSolver.java:19:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.solver/src/main/java/com/variamos/solver/core/SWIPrologSolver.java:20:import com.variamos.common.core.utilities.FileUtils;
+./com.variamos.solver/src/main/java/com/variamos/solver/core/compiler/Hlcl2SWIProlog.java:6:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.solver/build.gradle:8:    compile project(':com.variamos.common')
+Binary file ./com.variamos.solver/bin/com/variamos/solver/core/SWIPrologSolver.class matches
+Binary file ./com.variamos.solver/bin/com/variamos/solver/core/compiler/Hlcl2SWIProlog.class matches
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/ConstraintRepresentationUtil.java:10:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/ConstraintRepresentationUtil.java:11:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/ConstraintRepresentationUtil.java:12:import com.variamos.common.core.utilities.FileUtils;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/ConstraintRepresentationUtil.java:13:import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/PowerSetUtil.java:8:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/VariabilityModelTransformer.java:6:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/VariabilityModelTransformer.java:7:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/VariabilityModelTransformer.java:8:import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/ITransformer.java:3:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/FeatureModelSPLOTransformer.java:12:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelCausesCorrectionsSorter.java:8:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/CauCosAnayzer.java:10:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/CauCosAnayzer.java:11:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/CauCosAnayzer.java:12:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/DefectsVerifier.java:15:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/DefectsVerifier.java:16:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/IntCauCosAnalyzer.java:5:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/DefectAnalyzerController.java:6:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/HittingSetIdentifier.java:10:import com.variamos.common.core.utilities.CollectionsSizeComparator;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/HittingSetIdentifier.java:11:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/IntDefectsVerifier.java:6:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/model/dto/VMAnalyzerInDTO.java:3:import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/model/dto/VMTransformerInDTO.java:3:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/model/dto/VMTransformerInDTO.java:4:import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/model/transformation/VariabilityModel.java:7:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerTest.java:13:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerTest.java:14:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelTransformerTest.java:5:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelTransformerTest.java:6:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/VerificatorTest.java:11:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/VerificatorTest.java:12:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerApplicationCaseTest.java:17://import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerApplicationCaseTest.java:18://import com.variamos.common.core.exceptions.TransformerException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerApplicationCaseTest.java:19://import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerApplicationCaseTest.java:20://import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/build.gradle:8:    compile project(':com.variamos.common')
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/util/PowerSetUtil.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/util/ConstraintRepresentationUtil.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/core/transformer/ITransformer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/core/transformer/FeatureModelSPLOTransformer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/core/transformer/VariabilityModelTransformer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/DefectAnalyzerController.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/CauCosAnayzer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerTest.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/VerificatorTest.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/IntDefectsVerifier.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelTransformerTest.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/DefectsVerifier.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/IntCauCosAnalyzer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelCausesCorrectionsSorter.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/HittingSetIdentifier.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/model/dto/VMTransformerInDTO.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/model/dto/VMAnalyzerInDTO.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/model/transformation/VariabilityModel.class matches
+./.vscode/launch.test.json:6:                "name": "com.variamos.common",
+./.vscode/launch.test.json:7:                "projectName": "com.variamos.common",
+./.vscode/launch.test.json:59:                "name": "com.variamos.common",
+./.vscode/launch.test.json:60:                "projectName": "com.variamos.common",
+./.gitignore:6:com.variamos.common/.classpath
+./.gitignore:9:com.variamos.common/.settings/org.eclipse.buildship.core.prefs
+./com.variamos.dynsup/src/com/variamos/dynsup/instance/InstVertex.java:7: * A class to represented the common aspects of modeling vertex of concepts from
+./com.variamos.dynsup/src/com/variamos/dynsup/instance/InstElement.java:15:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/TranslationExpressionSet.java:10:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/SolverOpersTask.java:17:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/SolverOpersTask.java:18:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/SolverTasks.java:15:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/ModelExpr2HLCL.java:15:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/ModelExpr2HLCL.java:16:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:7:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:5019:			instLabeling = new InstConcept("Ver-common-lab2", metaLabeling, commonalityOperUniqueLabeling2);
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:5026:				refas.getVariabilityVertex().put("Ver-common-lab2", instLabeling);
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:5030:				refas.getConstraintInstEdges().put("ver-common-lab2", instEdgeOper);
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:5031:			instEdgeOper.setIdentifier("ver-common-lab2");
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/InfraSyntaxOpersMMM.java:8:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultSyntaxMM.java:1652:						+ " is defined to associate variables with common"
+./com.variamos.dynsup/src/com/variamos/dynsup/staticexpr/OverTwoElementsExpressionSet.java:11:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/staticexpr/SingleElementExpressionSet.java:9:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/model/ModelExpr.java:12:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/.classpath:10:	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.common"/>
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/instance/InstElement.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/translation/TranslationExpressionSet.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/translation/SolverOpersTask.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/translation/SolverTasks.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/translation/ModelExpr2HLCL.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/defaultmodels/InfraSyntaxOpersMMM.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/defaultmodels/DefaultSyntaxMM.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/defaultmodels/DefaultOpersMM.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/staticexpr/SingleElementExpressionSet.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/staticexpr/OverTwoElementsExpressionSet.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/model/ModelExpr.class matches
+./com.variamos.hlcl/build.gradle:11:  compile project(':com.variamos.common')
+./com.variamos.common/.vscode/launch.test.json:6:                "name": "com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:7:                "projectName": "com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:8:                "workingDirectory": "/home/estc123/Programación/Applies/VARIAMOS/com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:19:                "name": "com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:20:                "projectName": "com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:21:                "workingDirectory": "/home/estc123/Programación/Applies/VARIAMOS/com.variamos.common",
+./com.variamos.common/src/main/java/com/variamos/common/core/exceptions/TechnicalException.java:4:package com.variamos.common.core.exceptions;
+./com.variamos.common/src/main/java/com/variamos/common/core/exceptions/FunctionalException.java:1:package com.variamos.common.core.exceptions;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/StringUtils.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/CollectionsSizeComparator.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/SetUtil.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/FileUtils.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/FileUtils.java:11:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.common/src/main/java/com/variamos/common/model/enums/SolverEditorType.java:1:package com.variamos.common.model.enums;
+./com.variamos.common/src/main/java/com/variamos/common/model/enums/NotationType.java:1:package com.variamos.common.model.enums;
+./com.variamos.common/src/test/java/com/variamos/common/core/utilities/SetUtilTest.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/test/java/com/variamos/common/core/utilities/SetUtilTest.java:9:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.common/.project:3:	<name>com.variamos.common</name>
+./com.variamos.common/build.gradle:3:archivesBaseName = 'com.variamos.common'
+Binary file ./com.variamos.common/bin/com/variamos/common/core/exceptions/TechnicalException.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/exceptions/FunctionalException.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/SetUtil.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/StringUtils.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/CollectionsSizeComparator.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/FileUtils.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/SetUtilTest.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/model/enums/SolverEditorType.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/model/enums/NotationType.class matches
+./build.gradle:1:/* Configurations here represents common characteristics shared for each of the sub projects*/
+./com.variamos.gui/src/com/variamos/gui/common/jelements/AbstractConfigurationPanel.java:1:package com.variamos.gui.common.jelements;
+./com.variamos.gui/src/com/variamos/gui/perspeditor/widgets/EnumerationWidget.java:9:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.gui/src/com/variamos/gui/perspeditor/actions/OpenAction.java:9://import com.cfm.common.AbstractModel;
+./com.variamos.gui/src/com/variamos/gui/perspeditor/panels/ElementDesignPanel.java:27:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.gui/src/com/variamos/gui/maineditor/Main.java:7:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.gui/src/com/variamos/gui/maineditor/VariamosGraphEditor.java:52:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.gui/src/com/variamos/gui/maineditor/VariamosGraphEditor.java:53:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.gui/.classpath:14:	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.common"/>
+Binary file ./com.variamos.gui/bin/com/variamos/gui/common/jelements/AbstractConfigurationPanel.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/perspeditor/widgets/EnumerationWidget.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/perspeditor/panels/ElementDesignPanel$4.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/perspeditor/panels/ElementDesignPanel$3.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/perspeditor/panels/ElementDesignPanel.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$11.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$12.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/Main.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$4.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$3.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$5.class matches
+Binary file ./.git/index matches
+./settings.gradle:1:include ":com.variamos.common",":com.variamos.hlcl",":com.variamos.solver",":com.variamos.reasoning", ":com.variamos.io"
+./com.variamos.io/src/main/java/com/variamos/io/core/importExport/ConfigurationIO.java:14:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.io/src/main/java/com/variamos/io/core/importExport/ConfigurationIO.java:19: *This module only can have dependencies with the common 
+./com.variamos.io/src/main/java/com/variamos/io/core/importExport/ExportDefectAnalyzer.java:10:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.io/src/main/java/com/variamos/io/core/importExport/ExportUtil.java:11:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.io/build.gradle:8:    compile project(':com.variamos.common')
+./com.variamos.io/.classpath:6:	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.common"/>
+Binary file ./com.variamos.io/bin/com/variamos/io/core/importExport/ExportDefectAnalyzer.class matches
+Binary file ./com.variamos.io/bin/com/variamos/io/core/importExport/ConfigurationIO.class matches
+Binary file ./com.variamos.io/bin/com/variamos/io/core/importExport/ExportUtil.class matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/1528992167.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/1676918938.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/3749278764.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/637820208.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/3463509369.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/3619423087.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/3713672538.index matches
+Binary file ./.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat matches
+./.metadata/.plugins/org.eclipse.ui.workbench/workingsets.xml:4:<item elementID="=com.variamos.common/src\/main\/java" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+./.metadata/.plugins/org.eclipse.ui.workbench/workingsets.xml:5:<item elementID="=com.variamos.common/src\/test\/java" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+./.metadata/.plugins/org.eclipse.recommenders.news.impl/downloads/http%3A%2F%2Fwww.eclipse.org%2Fhome%2Feclipsenews.rss:8:      <url>http://eclipse.org/eclipse.org-common/themes/Nova/images/eclipse.png</url>
+./.metadata/.plugins/org.eclipse.debug.core/.launches/Main.launch:16:<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry path=&quot;3&quot; projectName=&quot;com.variamos.common&quot; type=&quot;1&quot;/&gt;&#10;"/>
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:3:  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditor&quot; name=&quot;Class.class&quot; tooltip=&quot;java.lang.Class&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=com.variamos.common/\/usr\/lib\/jvm\/java-8-openjdk\/jre\/lib\/rt.jar&amp;lt;java.lang(Class.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;SWIPrologTest.java&quot; tooltip=&quot;com.variamos.solver/src/test/java/com/variamos/solver/core/SWIPrologTest.java&quot;>&#xA;&lt;persistable path=&quot;/com.variamos.solver/src/test/java/com/variamos/solver/core/SWIPrologTest.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Main.java&quot; tooltip=&quot;com.variamos.gui/src/com/variamos/gui/maineditor/Main.java&quot;>&#xA;&lt;persistable path=&quot;/com.variamos.gui/src/com/variamos/gui/maineditor/Main.java&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:1711:  <descriptors xmi:id="_hVbDwJ8MEeiNReBbJevNzw" elementId="org.eclipse.wst.common.snippets.internal.ui.SnippetsView" label="Snippets" iconURI="platform:/plugin/org.eclipse.wst.common.snippets/icons/snippets_view.gif" tooltip="" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:1712:    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.wst.common.snippets.internal.ui.SnippetsView"/>
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:1713:    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.wst.common.snippets"/>
+./.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi:2329:  <commands xmi:id="_hPtdbJ8MEeiNReBbJevNzw" elementId="org.eclipse.epp.package.common.contribute" commandName="Contribute" description="Contribute to the development and success of the Eclipse IDE!" category="_hPk6c58MEeiNReBbJevNzw"/>
+Binary file ./.metadata/.plugins/org.eclipse.linuxtools.cdt.libhover/C/devhelp.libhover matches
+Binary file ./.metadata/.plugins/org.eclipse.linuxtools.cdt.libhover/C/glibc_library.libhover matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.root/4.tree matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.root/3.tree matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.io/org.eclipse.jdt.core/state.dat matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.solver/.markers matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.reasoning/.markers.bak matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.reasoning/.markers matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.reasoning/.markers.snap matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.common/org.eclipse.jdt.core/state.dat matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.common/.markers matches
+Binary file ./.metadata/.plugins/org.eclipse.core.resources/.projects/com.variamos.common/.location matches
+./.metadata/.plugins/org.eclipse.core.resources/.history/cb/90dfec8b109f0018169cf59089e2bcfc:7:import com.variamos.common.core.exceptions.FunctionalException;
+./.metadata/.plugins/org.eclipse.core.resources/.history/e3/80e8e74c109f0018169cf59089e2bcfc:7:import com.variamos.common.core.exceptions.FunctionalException;
+./.metadata/.plugins/org.eclipse.core.resources/.history/f8/70318a9e109f0018169cf59089e2bcfc:7:import com.variamos.common.core.exceptions.FunctionalException;
+./.metadata/.plugins/org.eclipse.core.resources/.history/13/10d990fa109f0018169cf59089e2bcfc:7:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.solver/src/main/java/com/variamos/solver/core/SWIPrologSolver.java:19:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.solver/src/main/java/com/variamos/solver/core/SWIPrologSolver.java:20:import com.variamos.common.core.utilities.FileUtils;
+./com.variamos.solver/src/main/java/com/variamos/solver/core/compiler/Hlcl2SWIProlog.java:6:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.solver/build.gradle:8:    compile project(':com.variamos.common')
+Binary file ./com.variamos.solver/bin/com/variamos/solver/core/SWIPrologSolver.class matches
+Binary file ./com.variamos.solver/bin/com/variamos/solver/core/compiler/Hlcl2SWIProlog.class matches
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/ConstraintRepresentationUtil.java:10:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/ConstraintRepresentationUtil.java:11:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/ConstraintRepresentationUtil.java:12:import com.variamos.common.core.utilities.FileUtils;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/ConstraintRepresentationUtil.java:13:import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/util/PowerSetUtil.java:8:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/VariabilityModelTransformer.java:6:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/VariabilityModelTransformer.java:7:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/VariabilityModelTransformer.java:8:import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/ITransformer.java:3:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/core/transformer/FeatureModelSPLOTransformer.java:12:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelCausesCorrectionsSorter.java:8:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/CauCosAnayzer.java:10:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/CauCosAnayzer.java:11:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/CauCosAnayzer.java:12:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/DefectsVerifier.java:15:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/DefectsVerifier.java:16:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/IntCauCosAnalyzer.java:5:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/DefectAnalyzerController.java:6:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/HittingSetIdentifier.java:10:import com.variamos.common.core.utilities.CollectionsSizeComparator;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/HittingSetIdentifier.java:11:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/core/IntDefectsVerifier.java:6:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/model/dto/VMAnalyzerInDTO.java:3:import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/model/dto/VMTransformerInDTO.java:3:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/model/dto/VMTransformerInDTO.java:4:import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/src/main/java/com/variamos/reasoning/defectAnalyzer/model/transformation/VariabilityModel.java:7:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerTest.java:13:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerTest.java:14:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelTransformerTest.java:5:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelTransformerTest.java:6:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/VerificatorTest.java:11:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/VerificatorTest.java:12:import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerApplicationCaseTest.java:17://import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerApplicationCaseTest.java:18://import com.variamos.common.core.exceptions.TransformerException;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerApplicationCaseTest.java:19://import com.variamos.common.model.enums.NotationType;
+./com.variamos.reasoning/src/test/java/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerApplicationCaseTest.java:20://import com.variamos.common.model.enums.SolverEditorType;
+./com.variamos.reasoning/build.gradle:8:    compile project(':com.variamos.common')
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/util/PowerSetUtil.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/util/ConstraintRepresentationUtil.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/core/transformer/ITransformer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/core/transformer/FeatureModelSPLOTransformer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/core/transformer/VariabilityModelTransformer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/DefectAnalyzerController.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/CauCosAnayzer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/CauseAnalyzerTest.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/VerificatorTest.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/IntDefectsVerifier.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelTransformerTest.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/DefectsVerifier.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/IntCauCosAnalyzer.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/VariabilityModelCausesCorrectionsSorter.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/core/HittingSetIdentifier.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/model/dto/VMTransformerInDTO.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/model/dto/VMAnalyzerInDTO.class matches
+Binary file ./com.variamos.reasoning/bin/com/variamos/reasoning/defectAnalyzer/model/transformation/VariabilityModel.class matches
+./.vscode/launch.test.json:6:                "name": "com.variamos.common",
+./.vscode/launch.test.json:7:                "projectName": "com.variamos.common",
+./.vscode/launch.test.json:59:                "name": "com.variamos.common",
+./.vscode/launch.test.json:60:                "projectName": "com.variamos.common",
+./.gitignore:6:com.variamos.common/.classpath
+./.gitignore:9:com.variamos.common/.settings/org.eclipse.buildship.core.prefs
+./com.variamos.dynsup/src/com/variamos/dynsup/instance/InstVertex.java:7: * A class to represented the common aspects of modeling vertex of concepts from
+./com.variamos.dynsup/src/com/variamos/dynsup/instance/InstElement.java:15:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/TranslationExpressionSet.java:10:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/SolverOpersTask.java:17:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/SolverOpersTask.java:18:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/SolverTasks.java:15:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/ModelExpr2HLCL.java:15:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/translation/ModelExpr2HLCL.java:16:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:7:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:5019:			instLabeling = new InstConcept("Ver-common-lab2", metaLabeling, commonalityOperUniqueLabeling2);
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:5026:				refas.getVariabilityVertex().put("Ver-common-lab2", instLabeling);
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:5030:				refas.getConstraintInstEdges().put("ver-common-lab2", instEdgeOper);
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultOpersMM.java:5031:			instEdgeOper.setIdentifier("ver-common-lab2");
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/InfraSyntaxOpersMMM.java:8:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.dynsup/src/com/variamos/dynsup/defaultmodels/DefaultSyntaxMM.java:1652:						+ " is defined to associate variables with common"
+./com.variamos.dynsup/src/com/variamos/dynsup/staticexpr/OverTwoElementsExpressionSet.java:11:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/staticexpr/SingleElementExpressionSet.java:9:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/src/com/variamos/dynsup/model/ModelExpr.java:12:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.dynsup/.classpath:10:	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.common"/>
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/instance/InstElement.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/translation/TranslationExpressionSet.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/translation/SolverOpersTask.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/translation/SolverTasks.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/translation/ModelExpr2HLCL.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/defaultmodels/InfraSyntaxOpersMMM.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/defaultmodels/DefaultSyntaxMM.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/defaultmodels/DefaultOpersMM.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/staticexpr/SingleElementExpressionSet.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/staticexpr/OverTwoElementsExpressionSet.class matches
+Binary file ./com.variamos.dynsup/bin/com/variamos/dynsup/model/ModelExpr.class matches
+./com.variamos.hlcl/build.gradle:11:  compile project(':com.variamos.common')
+./com.variamos.common/.vscode/launch.test.json:6:                "name": "com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:7:                "projectName": "com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:8:                "workingDirectory": "/home/estc123/Programación/Applies/VARIAMOS/com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:19:                "name": "com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:20:                "projectName": "com.variamos.common",
+./com.variamos.common/.vscode/launch.test.json:21:                "workingDirectory": "/home/estc123/Programación/Applies/VARIAMOS/com.variamos.common",
+./com.variamos.common/src/main/java/com/variamos/common/core/exceptions/TechnicalException.java:4:package com.variamos.common.core.exceptions;
+./com.variamos.common/src/main/java/com/variamos/common/core/exceptions/FunctionalException.java:1:package com.variamos.common.core.exceptions;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/StringUtils.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/CollectionsSizeComparator.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/SetUtil.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/FileUtils.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/main/java/com/variamos/common/core/utilities/FileUtils.java:11:import com.variamos.common.core.exceptions.TechnicalException;
+./com.variamos.common/src/main/java/com/variamos/common/model/enums/SolverEditorType.java:1:package com.variamos.common.model.enums;
+./com.variamos.common/src/main/java/com/variamos/common/model/enums/NotationType.java:1:package com.variamos.common.model.enums;
+./com.variamos.common/src/test/java/com/variamos/common/core/utilities/SetUtilTest.java:1:package com.variamos.common.core.utilities;
+./com.variamos.common/src/test/java/com/variamos/common/core/utilities/SetUtilTest.java:9:import com.variamos.common.core.utilities.SetUtil;
+./com.variamos.common/.project:3:	<name>com.variamos.common</name>
+./com.variamos.common/build.gradle:3:archivesBaseName = 'com.variamos.common'
+Binary file ./com.variamos.common/bin/com/variamos/common/core/exceptions/TechnicalException.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/exceptions/FunctionalException.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/SetUtil.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/StringUtils.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/CollectionsSizeComparator.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/FileUtils.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/core/utilities/SetUtilTest.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/model/enums/SolverEditorType.class matches
+Binary file ./com.variamos.common/bin/com/variamos/common/model/enums/NotationType.class matches
+./build.gradle:1:/* Configurations here represents common characteristics shared for each of the sub projects*/
+./com.variamos.gui/src/com/variamos/gui/common/jelements/AbstractConfigurationPanel.java:1:package com.variamos.gui.common.jelements;
+./com.variamos.gui/src/com/variamos/gui/perspeditor/widgets/EnumerationWidget.java:9:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.gui/src/com/variamos/gui/perspeditor/actions/OpenAction.java:9://import com.cfm.common.AbstractModel;
+./com.variamos.gui/src/com/variamos/gui/perspeditor/panels/ElementDesignPanel.java:27:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.gui/src/com/variamos/gui/maineditor/Main.java:7:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.gui/src/com/variamos/gui/maineditor/VariamosGraphEditor.java:52:import com.variamos.common.core.exceptions.FunctionalException;
+./com.variamos.gui/src/com/variamos/gui/maineditor/VariamosGraphEditor.java:53:import com.variamos.common.core.utilities.StringUtils;
+./com.variamos.gui/.classpath:14:	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.common"/>
+Binary file ./com.variamos.gui/bin/com/variamos/gui/common/jelements/AbstractConfigurationPanel.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/perspeditor/widgets/EnumerationWidget.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/perspeditor/panels/ElementDesignPanel$4.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/perspeditor/panels/ElementDesignPanel$3.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/perspeditor/panels/ElementDesignPanel.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$11.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$12.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/Main.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$4.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$3.class matches
+Binary file ./com.variamos.gui/bin/com/variamos/gui/maineditor/VariamosGraphEditor$5.class matches
+Binary file ./.git/index matches
+./settings.gradle:1:include ":com.variamos.common",":com.variamos.hlcl",":com.variamos.solver",":com.variamos.reasoning", ":com.variamos.io"
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/estc123/Programación/Applies/VARIAMOS/./build.gradle to top_dir
+Creating filelist for com.variamos.common
+Creating filelist for com.variamos.compiler
+Creating filelist for com.variamos.componentparser
+Creating filelist for com.variamos.dynsup
+Creating filelist for com.variamos.gui
+Creating filelist for com.variamos.hlcl
+Creating filelist for com.variamos.io
+Creating filelist for com.variamos.reasoning
+Creating filelist for com.variamos.solver
+Adding /home/estc123/Programación/Applies/VARIAMOS/./CONTRIBUTING.md to top_dir
+Creating filelist for docs
+Adding /home/estc123/Programación/Applies/VARIAMOS/./issue_template.md to top_dir
+Adding /home/estc123/Programación/Applies/VARIAMOS/./README.md to top_dir
+Adding /home/estc123/Programación/Applies/VARIAMOS/./settings.gradle to top_dir
+Adding /home/estc123/Programación/Applies/VARIAMOS/./text.txt to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+114392  com.variamos.componentparser java=114264,sh=128
+36485   com.variamos.dynsup java=36485
+22388   com.variamos.gui java=22388
+5661    com.variamos.reasoning java=5401,perl=260
+1900    com.variamos.solver java=1900
+1808    com.variamos.hlcl java=1808
+651     com.variamos.common java=651
+244     com.variamos.io java=244
+0       com.variamos.compiler (none)
+0       docs            (none)
+0       top_dir         (none)
+
+
+Totals grouped by language (dominant language first):
+java:        183141 (99.79%)
+perl:           260 (0.14%)
+sh:             128 (0.07%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 183,529
+Development Effort Estimate, Person-Years (Person-Months) = 47.63 (571.61)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 2.33 (27.90)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 20.49
+Total Estimated Cost to Develop                           = $ 6,434,748
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."

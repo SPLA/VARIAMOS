@@ -10,7 +10,8 @@ public class CollectionsSizeComparator  implements Comparator  {
     
     //FLAG what is it supposed to do?
     /**
-     * Verifies the size of two objects 
+     * Verifies the size of two objects, returns -1 if obj1 is smaller than obj2. 
+     * returns 1 (always?) if obj1 is bigger than obj1. 
      * @param o1 
      * @param o2
      * @return 1 if (obj1 > obj1), -1 if(obj1 < obj2) otherwise 0

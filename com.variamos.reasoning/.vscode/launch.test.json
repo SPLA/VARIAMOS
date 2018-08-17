@@ -1,0 +1,28 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "com.variamos.reasoning",
+                "projectName": "com.variamos.reasoning",
+                "workingDirectory": "/home/estc123/Programación/Applies/VARIAMOS/com.variamos.reasoning",
+                "args": [],
+                "vmargs": [],
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "com.variamos.reasoning",
+                "projectName": "com.variamos.reasoning",
+                "workingDirectory": "/home/estc123/Programación/Applies/VARIAMOS/com.variamos.reasoning",
+                "args": [],
+                "vmargs": [],
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}
