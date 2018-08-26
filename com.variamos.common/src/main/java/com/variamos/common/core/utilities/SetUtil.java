@@ -9,17 +9,17 @@ import java.util.Set;
 /**
  * This class implements the logic related with set operations
  * @author Luisa Rincon - lufe089@gmail.com
- * 
+ * @documented by Esteban Echavarría - Monitor Investigativo - Eafit 2018. 
  */
 public class SetUtil {
 
-	
-	/**Gets union of collection of sets
+	//Flag what does it should return? a collection or a set? 
+	/**Gets union of collections of sets
 	 * @param Collection<sets>
-	 * @return Union of sets without repetitions
+	 * @return Collection - union of sets without repetitions
 	 */
 	@SafeVarargs
-	public static <E> Collection<E> union(Collection<E>... sets) {
+	public static <E> Set<E> union(Collection<E>... sets) {
 
 		Set<E> union = new HashSet<E>();
 
@@ -54,7 +54,7 @@ public class SetUtil {
 	/**Gets complement of a set
 	 * @param universalSet set of the universe
 	 * @param setOfSets sets to remove from universe
-	 * @return Complement of setOfSets (Universe - setOfSets)
+	 * @return Complement of setOfSets (Universe - everySet)
 	 */
 
 	public static <E> List<E> complementOfSets(Collection<E> universalSet,
@@ -73,7 +73,7 @@ public class SetUtil {
 	/**Gets the difference between set1 and set2
 	 * @param set1 
 	 * @param set2
-	 * @return Difference of set1 minus set2
+	 * @return Difference of set1 minus set2 (Set1 - Set2)
 	 */
 	public static <E> Collection<E> difference(Collection<E> set1,
 			Collection<E> set2) {
@@ -162,9 +162,9 @@ public class SetUtil {
 
 	/**
 	 * Verify if a set is subset of other set
-	 * @param subSet
+	 * @param subSet Set to verify if it's contained in superSet param
 	 * @param superSet Set to verify if cantains subSet param
-	 * @return True is subset, false otherwise
+	 * @return True if subSet is subset of superSet, false otherwise
 	 */
 	public static <E> boolean isSubset(Collection<E> subSet,
 			Collection<E> superSet) {
@@ -185,8 +185,8 @@ public class SetUtil {
 	}
 
 	/**Verifies if a set is equals to another set
-	 * @param set1 
-	 * @param set2
+	 * @param set1 set to verify if has same elements as set2
+	 * @param set2 set to verify if has same elements as set1
 	 * @return true: Set1 has the same elements of false : otherwise
 	 */
 	public static <E> boolean isEquals(Collection<E> set1, Collection<E> set2) {
@@ -202,8 +202,8 @@ public class SetUtil {
 	
 	/**
 	 * Verify if a set is superset of other set
-	 * @param superSet 
-	 * @param subSet 
+	 * @param superSet set to verify if contains subSet param
+	 * @param subSet set to verify is it's contained into superSet param
 	 * @return true : if subset is in superSet, false : otherwise
 	 */
 	public static <E> boolean isSuperSet(Collection<E> superSet,
@@ -215,8 +215,8 @@ public class SetUtil {
 	//FLAG0 isn't verifyExistSetInSetofSets same? 
 
 	/**Verify if a set is contained into a colecctions of sets 
-	 * @param inputSet
-	 * @param collectionOfSets
+	 * @param inputSet set to verify if it's in collectionOfSets param
+	 * @param collectionOfSets set to verify if contains inputSet
 	 * @return True : if Set is contained in the collection set. False : Otherwise
 	 */
 	public static <E> boolean verifyCollectionSetContainsSet(List<E> inputSet,
@@ -231,8 +231,8 @@ public class SetUtil {
 		return false;
 	}
 
-	//FLAG1 With this logic returns true if inputSet contains at least 1 set of collections. 
-	//error in name? (It should be verifySetIsSuperSetOfSetInCollectionSets)
+	//FLAG1 With this logic returns true if inputSet contains at least 1 set of collection of sets. 
+	//error in name? (It should be verifySetIsSuperSetOfSetInCollectionOfSets)
 	/**Verifies if  a set is superSet of collectionOfSets 
 	 * @param inputSet
 	 * @param collectionOfSets
@@ -336,7 +336,7 @@ public class SetUtil {
 	 * Removes any set in a collection of sets that is a superset of some
 	 * other
 	 * @param inputCollectionOfSets
-	 * @return Collection of sets which are'nt superSets of some other set
+	 * @return Collection of sets which aren't superSets of some other set
 	 */
 	public static <E> List<List<E>> maintainNoSupersets(
 			List<List<E>> inputCollectionOfSets) {
@@ -383,7 +383,7 @@ public class SetUtil {
 	 * Removes any set in a collection of sets that is
 	 * a sub set of some other set 
 	 * @param inputCollectionOfSets
-	 * @return
+	 * @return Collection of sets which aren't SubSets of some other set
 	 */
 	public static <E> List<List<E>> maintainNoSubsets(
 			List<List<E>> inputCollectionOfSets) {
