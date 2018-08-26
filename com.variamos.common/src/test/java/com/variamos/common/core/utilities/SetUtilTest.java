@@ -13,7 +13,7 @@ import com.variamos.common.core.utilities.SetUtil;
 
 /**
  * Verifies functionality of SetUtil class
- * @author Esteban Echavarría - Monitor Investigativo - Eafit 2018. 
+ * @author Esteban Echavarria - Monitor Investigativo - Eafit 2018. 
  * @author Luisa Rincon
  */
 public class SetUtilTest {
