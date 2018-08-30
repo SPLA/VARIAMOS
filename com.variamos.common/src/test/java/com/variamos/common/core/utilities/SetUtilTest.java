@@ -209,49 +209,6 @@ public class SetUtilTest {
 
 	@Test
 	/** 
-	 * Verifies verifyCollectionSetContainsSet method
-	 */
-	public void verifyCollectionSetContainsSet(){
-		//Set1
-		List<String> set1 = new ArrayList<String>();
-		set1.add("A");
-		set1.add("B");
-		set1.add("C");
-		set1.add("D");
-
-		//Set2
-		List<String> set2 = new ArrayList<String>();
-		set2.add("E");
-		set2.add("F");
-		set2.add("G");
-		//Set3
-		List<String> set3 = new ArrayList<String>();
-		set3.add("H");
-		set3.add("I");
-		//Set4
-		List<String> set4 = new ArrayList<String>();
-		set4.add("B");
-		set4.add("A");
-		set4.add("C");
-		set4.add("D");
-		
-		//Collection 1
-		List<List<String>> collectionOfSets = new ArrayList<List<String>>();
-		collectionOfSets.add(set1);
-		collectionOfSets.add(set2);
-		collectionOfSets.add(set3);
-
-
-		boolean result;
-		result = SetUtil.verifyCollectionSetContainsSet(set4, collectionOfSets);
-		
-		//Assert true if result is as expected (True)
-		Assert.assertTrue(result);
-		Assert.assertFalse(!result);
-	}
-
-	@Test
-	/** 
 	 * Verifies verifySetIsSubSetOfCollectionSets method
 	 */
 	public void verifySetIsSubSetOfCollectionSets(){
