@@ -5,13 +5,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 
 @SuppressWarnings("serial")
-public class NewAction extends AbstractEditorAction {
+public class NewAction extends AbstractVariamoGUIAction {
 	public NewAction() {
 		super();
 

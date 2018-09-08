@@ -101,6 +101,11 @@ public class ModelExpr implements Serializable, Cloneable {
 	private String targetInstanceId = "";
 	private String elementInstanceId = "";
 
+	/**
+	 * It sourceConceptId represents the id in the model  
+	 */
+	private String sourceConceptId;
+	
 	public String getLastLeft() {
 		return lastLeft;
 	}
@@ -121,6 +126,11 @@ public class ModelExpr implements Serializable, Cloneable {
 		customExpression = false;
 	}
 
+	public ModelExpr(String conceptId) {
+		sourceConceptId = conceptId;
+		customExpression = false;
+	}
+
 	public void loadVolatileElements(Map<String, InstElement> instVertices) {
 		if (leftInstElementId != null)
 			volatileLeftInstElement = instVertices.get(leftInstElementId);
@@ -130,6 +140,21 @@ public class ModelExpr implements Serializable, Cloneable {
 			leftInstanceExpression.loadVolatileElements(instVertices);
 		if (rightInstanceExpression != null)
 			rightInstanceExpression.loadVolatileElements(instVertices);
+	}
+	
+	/**
+	 * Se incluye el identificador conceptId
+	 * @param conceptId
+	 * @param customExpression
+	 * @param id
+	 * @param first
+	 * @param instance
+	 */
+	public ModelExpr(String conceptId, boolean customExpression, String id, boolean first,
+			int instance) {
+		this(customExpression, id, first,
+				instance);
+		sourceConceptId = conceptId;
 	}
 
 	public ModelExpr(boolean customExpression, String id, boolean first,
@@ -1188,8 +1213,8 @@ public class ModelExpr implements Serializable, Cloneable {
 			case RIGHTUNIQUEOUTCONVARIABLE:
 			case RIGHTUNIQUEINCCONVARIABLE:
 				if (iter) {
-					elemetType = getSemanticExpression()
-							.getLeftSemanticElement().getIdentifier();
+					//elemetType = getSemanticExpression()
+					//		.getLeftSemanticElement().getIdentifier();
 					if (pos == -1)
 						leftInstElement = elements.get(0);
 					else
@@ -2540,5 +2565,13 @@ public class ModelExpr implements Serializable, Cloneable {
 
 	public void setElementInstanceId(String elementInstanceId) {
 		this.elementInstanceId = elementInstanceId;
+	}
+	
+	public String getSourceConceptId() {
+		return sourceConceptId;
+	}
+	
+	public void setSourceConceptId(String sourceConceptId) {
+		this.sourceConceptId = sourceConceptId;
 	}
 }

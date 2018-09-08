@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class ParentElementAction extends AbstractEditorAction {
+public class ParentElementAction extends AbstractVariamoGUIAction {
 	
 	
 	public ParentElementAction() {

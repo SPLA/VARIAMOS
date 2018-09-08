@@ -40,7 +40,7 @@ import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OpersSubOpExecType;
-import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.core.mxgraph.editor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
@@ -145,6 +145,8 @@ public class ElementDesignPanel extends JPanel {
 			return;
 		} else {
 			InstElement editElm = instCell.getInstElement();
+			//modificado para soportar la tabla de restriciones-concepto
+			final String conceptId= editElm.getIdentifier();
 			List<InstElement> syntaxParent = editor.getEditedModel()
 					.getParentSMMSyntaxElement(editElm);
 
@@ -256,11 +258,15 @@ public class ElementDesignPanel extends JPanel {
 										List<ModelExpr> ie = new ArrayList<ModelExpr>();
 										if (finalInstAttribute.getValue() != null
 												&& !finalInstAttribute
-														.getValue().equals(""))
+														.getValue().equals("")){
+											((ModelExpr) finalInstAttribute
+													.getValue()).setSourceConceptId(conceptId);
 											ie.add((ModelExpr) finalInstAttribute
 													.getValue());
+										}
 										else
-											ie.add(new ModelExpr(true,
+											// modicado para soprtar la tabla de id's
+											ie.add(new ModelExpr(conceptId,true,
 													finalInstAttribute
 															.getIdentifier()
 															+ "Exp", true, -1));

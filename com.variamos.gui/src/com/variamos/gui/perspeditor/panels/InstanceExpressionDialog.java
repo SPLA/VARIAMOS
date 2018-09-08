@@ -210,7 +210,7 @@ public class InstanceExpressionDialog extends JDialog {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					finalInstanceExpressions.add(new ModelExpr());
+					finalInstanceExpressions.add(new ModelExpr(sourceElement.getIdentifier()));
 
 					new Thread() {
 						@Override

@@ -106,6 +106,32 @@ public class SWIPrologSolver implements IntSolver {
 		System.out.println("");
 		// }
 	}
+	
+	public void solve(){				
+		endSolving();
+
+		//doQuery
+		if ((hlclProgram == null || hlclProgram.isEmpty())) {
+			throw new TechnicalException("HlclProgram was not initialized");
+
+		}
+		else {
+			PrologTransformParameters params =null;
+			programPath = createPrologFile(hlclProgram, params);
+			long initTime = System.nanoTime();
+			loadSWIProgram(programPath);
+			lastExecutionTime = System.nanoTime() - initTime;
+			
+			String consulta= "productline(L).";
+			 qr = new Query(consulta);
+			 lastExecutionTime += System.nanoTime() - initTime;
+			//System.out.println(q2.hasSolution());
+//			Map<String, Term>[] table = q2.nSolutions(1);
+//			salida= (table.length >= 1);
+			//salida= q2.hasSolution();
+		}
+
+	}
 
 	private void doQuery(SolverSolution config, ConfigurationOptionsDTO options) {
 
@@ -493,11 +519,17 @@ public class SWIPrologSolver implements IntSolver {
 		return paramList;
 	}
 
-	private String createPrologFile(HlclProgram hlclProgram,
-			PrologTransformParameters params) {
+
+	private String createPrologFile(HlclProgram hlclProgram, PrologTransformParameters params) {
+		String prologProgram ="";
+		if (params==null){
+			
+			Hlcl2SWIProlog swiPrologTransformer = new Hlcl2SWIProlog();
+			prologProgram = swiPrologTransformer.transform(hlclProgram);
+			
+		}else{
 		Hlcl2SWIProlog swiPrologTransformer = new Hlcl2SWIProlog();
-		String prologProgram = swiPrologTransformer.transform(hlclProgram,
-				params);
+		prologProgram = swiPrologTransformer.transform(hlclProgram, params);}
 		String path;
 		try {
 			// Create a temporary file

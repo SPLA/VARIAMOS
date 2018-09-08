@@ -293,16 +293,18 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 															"")) {
 												// FIXME v1.1 added to support
 												// Angela's constraints
-												if (var.getAttribute()
-														.getMetaConceptInstanceType() != null
+												if (!(var.getAttribute()
+														.getMetaConceptInstanceType()==null )
 														&& var.getAttribute()
-																.getMetaConceptInstanceType()
-																.equals("ConstraintExpression")) {
+														.getMetaConceptInstanceType()
+														.equals("ConstraintExpression")) {
 													// FIXME use an enumeration
 													// instead of the string
-													outInstanceExpressions
-															.add((ModelExpr) var
-																	.getValue());
+													if(var.getValue() instanceof ModelExpr) {
+														outInstanceExpressions
+																.add((ModelExpr) var
+																		.getValue());
+													}
 												} else {
 													ModelExpr instanceExpression = new ModelExpr(
 															true,
@@ -793,8 +795,26 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return out;
 	}
 
+	/**
+	 * Se agrega soporte para la tabla (restriccion->concepto)
+	 * @param column
+	 * @return
+	 * @throws FunctionalException
+	 */
+
+	public HlclProgram getHlCLProgramExpressions(String column) throws FunctionalException {
+		return getHlCLProgramExpressions(column, null);
+	}
+
+	/**
+	 * Se agrega soporte para la tabla (restriccion->concepto)
+	 * @param column
+	 * @param table
+	 * @return
+	 * @throws FunctionalException
+	 */
 	// Dynamic call
-	public HlclProgram getHlCLProgramExpressions(String column)
+	public HlclProgram getHlCLProgramExpressions(String column, Map<IntBooleanExpression,String> table)
 			throws FunctionalException {
 		HlclProgram prog = new HlclProgram();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
@@ -802,15 +822,27 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.createSGSExpression();
 			// System.out.println(expression.getSemanticExpression()
 			// .expressionStructure());
-			if (newExp != null)
+			if (newExp != null){
 				prog.add(newExp);
+				if(table!=null) {
+					if (expression.getSourceConceptId()!=null) { // Avillota changed these lines because in feature models the id is obtained different
+					table.put(newExp,expression.getSourceConceptId()); //id for constraint graphs
+					}
+					else {
+						table.put(newExp,expression.getElementInstanceId());//ids for feature models
+					}
+				}
+			}
 		}
 		for (ModelExpr expression : instanceLowExpr.get(column)) {
 			IntBooleanExpression newExp = (IntBooleanExpression) expression
 					.createSGSExpression();
 
-			if (newExp != null)
+			if (newExp != null){
 				prog.add(newExp);
+				String id = expression.getSemanticExpression().getSemanticElement().getIdentifier();
+				table.put(newExp,id);
+			}
 		}
 		return prog;
 	}

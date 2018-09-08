@@ -16,7 +16,6 @@ import com.variamos.hlcl.core.HlclUtil;
 import com.variamos.hlcl.model.expressions.Identifier;
 import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.model.transformation.Dependency;
-import com.variamos.solver.core.compiler.Hlcl2GnuProlog;
 import com.variamos.solver.core.compiler.Hlcl2SWIProlog;
 
 public class ConstraintRepresentationUtil {
@@ -66,10 +65,6 @@ public class ConstraintRepresentationUtil {
 				Hlcl2SWIProlog swiPrologTransformer = new Hlcl2SWIProlog();
 				constraintProgramString = swiPrologTransformer
 						.transform(hlclProgram);
-			} else if (SolverEditorType.GNU_PROLOG.equals(solverEditorType)) {
-				Hlcl2GnuProlog gnuPrologTransformer = new Hlcl2GnuProlog();
-				constraintProgramString = gnuPrologTransformer
-						.transform(hlclProgram);
 			} else {
 				throw new TechnicalException(
 						"None  transformer is implemented for the solver "
@@ -92,15 +87,6 @@ public class ConstraintRepresentationUtil {
 		String constraintProgramString = new String();
 		if (!constraintRepresentation.isEmpty()) {
 			hlclProgram = expressionToHlclProgram(constraintRepresentation);
-			if (SolverEditorType.GNU_PROLOG.equals(solverEditorType)) {
-				Hlcl2GnuProlog gnuPrologTransformer = new Hlcl2GnuProlog();
-				constraintProgramString = gnuPrologTransformer
-						.transform(hlclProgram,domainList);
-			} else {
-				throw new TechnicalException(
-						"None  transformer is implemented for the solver "
-								+ solverEditorType.name());
-			}
 		} else {
 			throw new FunctionalException(
 					"Not received any expression that represents the variability model");

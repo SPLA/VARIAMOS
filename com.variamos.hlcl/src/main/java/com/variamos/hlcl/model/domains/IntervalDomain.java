@@ -12,10 +12,7 @@ public class IntervalDomain implements IntDomain, Serializable {
 	private static final long serialVersionUID = 2380680149654660602L;
 	protected List<Integer> rangeValues;
 
-	public List<Integer> getDomainValues() {
-		return rangeValues;
-	}
-
+	
 	public IntervalDomain() {
 		super();
 		rangeValues = new ArrayList<Integer>();
@@ -160,4 +157,8 @@ public class IntervalDomain implements IntDomain, Serializable {
 		}
 		return vals;
 	}
+	public List<Integer> getDomainValues() {
+		return rangeValues;
+	}
+
 }

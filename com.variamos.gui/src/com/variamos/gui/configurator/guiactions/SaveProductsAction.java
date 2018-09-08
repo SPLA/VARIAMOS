@@ -7,15 +7,15 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.core.mxgraph.editor.DefaultFileFilter;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.io.core.importExport.ConfigurationIO;
 
 //jcmunoz: removed unused method and imports of the method
 
 @SuppressWarnings("serial")
-public class SaveProductsAction extends AbstractEditorAction {
+public class SaveProductsAction extends AbstractVariamoGUIAction {
 
 	/**
 	 * 
@@ -71,7 +71,7 @@ public class SaveProductsAction extends AbstractEditorAction {
 				filename += ".conf";
 
 			try {
-				ConfigurationIO.saveMapToJSONFile(editor.getRefas2hlcl()
+				ConfigurationIO.saveMapToJSONFile(editor.getDynamicBehaviorDTO().getRefas2hlcl()
 						.getConfiguration().getSolverSolution(), filename);
 				// ConfiguratorPanel configurator =
 				// getEditor(e).getConfigurator();

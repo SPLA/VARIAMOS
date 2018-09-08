@@ -261,11 +261,40 @@ public class ModelExpr2HLCL {
 			throws FunctionalException {
 		return getHlclProgram(operId, execType, null);
 	}
-
-	// Dynamic call with TranslationExpressionSet
+	
+	/**
+	 * Se sobrecarga para soportar un parametro adicional hastable (restricion->concepto)
+	 * @autor Juan Reyes <jmreyesgarcia@gmail.com>
+	 * @param operation
+	 * @param subOperation
+	 * @param operExecType
+	 * @param transExpSet
+	 * @return 
+	 * @since 2017-10-23
+	 * @throws FunctionalException
+	 */
 	public HlclProgram getHlclProgram(InstElement operation,
 			String subOperation, OpersSubOpExecType operExecType,
 			TranslationExpressionSet transExpSet) throws FunctionalException {
+		return getHlclProgram(operation,
+				subOperation, operExecType,
+				transExpSet, null);
+	}
+	
+// Dynamic call with TranslationExpressionSet
+	// for dynamic operations (created by the dynamic part of the)
+	/**
+	 * 
+	 * @param operation
+	 * @param subOperation
+	 * @param operExecType
+	 * @param transExpSet 
+	 * @return
+	 */	
+	//TODO VIENE DE SOLVER OPERS TASK
+	public HlclProgram getHlclProgram(InstElement operation,
+			String subOperation, OpersSubOpExecType operExecType,
+			TranslationExpressionSet transExpSet, Map<IntBooleanExpression,String> table) throws FunctionalException {
 		if (transExpSet == null)
 			transExpSet = new TranslationExpressionSet(refas, operation, null,
 					null);
@@ -285,7 +314,7 @@ public class ModelExpr2HLCL {
 		// transExpSet.getLabelings(refas, subOperation, operExecType);
 		constraintGroups.put(operationName, transExpSet);
 		fillHlclProgram(operationName, subOperation, operExecType, hlclProgram,
-				constraintGroups);
+				constraintGroups,table);//modificado por jmreyes - se agrega table como ultimo parametro (este parametro es el map (restriccion, concepto)
 		return hlclProgram;
 	}
 
@@ -328,7 +357,7 @@ public class ModelExpr2HLCL {
 			createGroupExpressions(operId, elementIdentifier, execType, operId,
 					constraintGroups);
 
-		fillHlclProgram(operId, null, null, hlclProgram, constraintGroups);
+		fillHlclProgram(operId, null, null, hlclProgram, constraintGroups, null);//modificado por jmreyes - se agrega null como ultimo parametro (este parametro es el map (restriccion, concepto)
 		return hlclProgram;
 	}
 
@@ -336,8 +365,8 @@ public class ModelExpr2HLCL {
 	// Algorithm #2 jcmunoz thesis
 	private void fillHlclProgram(String element, String subOperation,
 			OpersSubOpExecType operExecType, HlclProgram hlclProgram,
-			Map<String, ElementExpressionSet> constraintGroups)
-			throws FunctionalException {
+			Map<String, ElementExpressionSet> constraintGroups,
+			Map<IntBooleanExpression,String> table) throws FunctionalException {
 		List<AbstractExpression> staticTransformations = new ArrayList<AbstractExpression>();
 		List<IntBooleanExpression> modelExpressions = new ArrayList<IntBooleanExpression>();
 
@@ -386,7 +415,7 @@ public class ModelExpr2HLCL {
 				// Get instance and low expressions
 				HlclProgram ts = ((TranslationExpressionSet) constraintGroup)
 						.getHlCLProgramExpressions(subOperation + "-"
-								+ operExecType);
+								+ operExecType, table);
 				if (ts != null) {
 					hlclProgram.addAll(ts);
 				}
@@ -1702,3 +1731,4 @@ public class ModelExpr2HLCL {
 
 	}
 }
+

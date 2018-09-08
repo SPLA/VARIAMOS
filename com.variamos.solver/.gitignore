@@ -1,4 +1,11 @@
 /bin/
+<<<<<<< HEAD
+/.gradle/
+/build/
+/.settings/
+.classpath
+.project
+=======
 
 /.gradle/
 
@@ -8,3 +15,4 @@
 
 .classpath
 .project
+>>>>>>> f796019e8a2a491c2e0100bc7c0d4a1a25bce0a2

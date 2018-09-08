@@ -1,6 +1,7 @@
 package com.variamos.gui.maineditor;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,20 +17,31 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 
-import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.model.InstanceModel;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.core.io.ConsoleTextArea;
+import com.variamos.gui.core.viewcontrollers.VariamosGUIPerspectiveEditorActionsController;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
+import com.variamos.gui.util.ResourcesPathsUtil;
 import com.variamos.hlcl.core.HlclProgram;
 import com.variamos.hlcl.model.expressions.HlclFactory;
 import com.variamos.reasoning.defectAnalyzer.core.DefectsVerifier;
 import com.variamos.reasoning.defectAnalyzer.core.IntDefectsVerifier;
 
+/**
+ * Crea las distintas partes del editor
+ * 
+ * Una instancia del variamosgraph editor por cada perspectiva Carga la ventana
+ * principal Controlador principal de la interfaz grafica.
+ * 
+ * @author lufe0
+ *
+ */
 public class MainFrame extends JFrame {
 	public List<VariamosGraphEditor> getGraphEditors() {
 		return graphEditors;
@@ -46,29 +58,18 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private static String variamosVersionNumber = "1.0.1.20";
-	private String variamosVersionName = "1.0 Beta 20";
-	private String variamosBuild = "20180627-2100";
-	private String downloadId = "566";
+	private static String variamosVersionNumber = "1.1.0.1";
+	private String variamosVersionName = "1.1 Alfa 1";
+	private String variamosBuild = "20180804-0630";
+	private String downloadId = "644";
 	private static boolean solverError = false;
 	private static String filesUrl = "";
-
-	public static String getFilesUrl() {
-		return filesUrl + "/VariaMos-" + variamosVersionNumber + "-Resources/";
-	}
-
-	public int getPerspective() {
-		return perspective;
-	}
-
-	public static boolean getSolverError() {
-		return solverError;
-	}
 
 	private List<VariamosGraphEditor> graphEditors;
 	private List<PerspEditorMenuBar> editorsMenu;
 
 	public MainFrame(String[] args) {
+
 		try {
 			createResources();
 		} catch (Exception e1) {
@@ -77,17 +78,20 @@ public class MainFrame extends JFrame {
 		}
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
+
 		Map<String, OpersExprType> metaExpressionTypes = createMetaExpressionTypes();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1166, 768);
 
 		System.out.print("Loading Syntax, Semantic and Operations Infrastructure...");
+
 		InstanceModel InfraBasicSyntax = new InstanceModel(PerspectiveType.INFRASTRUCTUREBASICSYNTAX,
 				metaExpressionTypes);
 		InstanceModel syntaxInfrastructure = new InstanceModel(PerspectiveType.SYNTAXINFRASTRUCTURE,
 				metaExpressionTypes, InfraBasicSyntax, null);
 		InstanceModel operationsInfrastructure = new InstanceModel(PerspectiveType.OPERATIONSINFRASTRUCTURE,
 				metaExpressionTypes, InfraBasicSyntax, null);
+
 		InstanceModel semanticSuperstructure = null;
 		InstanceModel syntaxSuperstructure = null;
 		InstanceModel abstractModel = null;
@@ -171,7 +175,9 @@ public class MainFrame extends JFrame {
 		System.out.println("GUI load completed");
 		this.add(graphEditors.get(2));
 		this.setJMenuBar(editorsMenu.get(2));
-		graphEditors.get(2).updatePespectiveMenuTab(modelEditor, mxResources.get("modelingPerspButton"));
+		VariamosGUIPerspectiveEditorActionsController.changeVariamosParadigmView(this, graphEditors, getFilesUrl(),
+				graphEditors.get(2));
+
 		this.setVisible(true);
 		if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 			this.checkUpdates(false);
@@ -254,11 +260,9 @@ public class MainFrame extends JFrame {
 
 	}
 
-	public void setPerspective(int perspective) {
-		this.perspective = perspective;
-	}
-
 	public void setLayout() {
+		JRootPane o = this.getRootPane();
+		Container e = o.getContentPane();
 		this.getRootPane().getContentPane().removeAll();
 		this.add(graphEditors.get(perspective - 1));
 		this.setJMenuBar(editorsMenu.get(perspective - 1));
@@ -285,45 +289,31 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public boolean isAdvancedPerspective() {
-		return showPerspectiveButton;
-	}
-
-	public void setShowSimulationCustomizationBox(boolean showSimulationCustomizationBox) {
-		this.showSimulationCustomizationBox = showSimulationCustomizationBox;
-	}
-
-	public boolean isShowSimulationCustomizationBox() {
-		return showSimulationCustomizationBox;
-	}
-
-	public static String getVariamosVersionNumber() {
-		return variamosVersionNumber;
-	}
-
-	public String getVariamosVersionName() {
-		return variamosVersionName;
-	}
-
-	public String getVariamosBuild() {
-		return variamosBuild;
-	}
-
 	public void checkUpdates(boolean b) {
 		InputStream input;
 		try {
 			input = new URL("http://variamos.com/home/Variamos.txt").openStream();
 
 			@SuppressWarnings("resource")
+
 			java.util.Scanner s = new java.util.Scanner(input).useDelimiter(":");
-			String newVersion = s.hasNext() ? s.next() : null;
-			if (newVersion != null && !variamosVersionNumber.equals(newVersion))
+			boolean ok = false;
+			while (s.hasNext()) {
+				String newVersion = s.next();
+				if (newVersion != null && variamosVersionNumber.equals(newVersion)) {
+					ok = true;
+					break;
+				}
+			}
+			if (!ok)
+
 				// && (!newVersion.equals("1.0.1.18"))
 				// && !variamosVersionNumber
 				// .equalsIgnoreCase("1.0.1.19")))
+
 				JOptionPane.showMessageDialog(this,
-						"Your current version is " + variamosVersionNumber + ". The latest version is: " + newVersion
-								+ ". Please visit variamos.com.",
+						"Your current version of VariaMos(" + variamosVersionNumber
+								+ ") is not updated. Please visit variamos.com.",
 						"New VariaMos Version available", JOptionPane.INFORMATION_MESSAGE, null);
 			else if (b)
 				JOptionPane.showMessageDialog(this,
@@ -346,7 +336,9 @@ public class MainFrame extends JFrame {
 			// " already defined models, we suggest you to continue using version Beta 18.",
 			// "Update Message",
 			// JOptionPane.INFORMATION_MESSAGE, null);
-			input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId).openStream();
+
+			if (!b)
+				input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId).openStream();
 			s.close();
 		} catch (java.net.UnknownHostException e) {
 			System.out.println("Could not connect to Variamos.com.");
@@ -376,11 +368,10 @@ public class MainFrame extends JFrame {
 		}
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
-		String[] resourceNames = { "/com/variamos/gui/perspeditor/style/styles.xml",
-				"/com/variamos/gui/perspeditor/style/shapes.xml" };
+		String[] resourceNames = { ResourcesPathsUtil.STYLES_PATH, ResourcesPathsUtil.SHAPES_PATH };
 		try {
 			for (String resourceName : resourceNames) {
-				stream = MainFrame.class.getResourceAsStream(resourceName);
+				stream = getClass().getClassLoader().getResourceAsStream(resourceName);
 				if (stream == null) {
 					throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
 				}
@@ -400,10 +391,80 @@ public class MainFrame extends JFrame {
 				}
 				stream.close();
 			}
+			String[] metamodels = { ResourcesPathsUtil.MM_ASSETS_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_ASSETS_SEMANTIC_PATH, ResourcesPathsUtil.MM_ASSETSBIND_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_ASSETSBIND_SEMANTIC_PATH, ResourcesPathsUtil.MM_CONSTRAINTGRAPH_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_CONSTRAINTGRAPH_SEMANTIC_PATH, ResourcesPathsUtil.MM_FEATURES_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_FEATURES_SEMANTIC_PATH, ResourcesPathsUtil.MM_REFAS_SYNTAX_PATH,
+					ResourcesPathsUtil.MM_REFAS_SEMANTIC_PATH };
+			for (String resourceName : metamodels) {
+				stream = getClass().getClassLoader()
+						.getResourceAsStream(ResourcesPathsUtil.MM_COMMON_PATH + "/" + resourceName);
+				if (stream == null) {
+					throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
+				}
+				String fileName = resourceName.substring(0, resourceName.indexOf("/"));
+				File dir = new File(getFilesUrl() + "/" + fileName);
+				dir.mkdir();
+
+				// System.out.println(fileName);
+				File file = new File(getFilesUrl() + "/" + resourceName);
+
+				int readBytes;
+				byte[] buffer = new byte[4096];
+				if (!file.exists()) {
+					resStreamOut = new FileOutputStream(getFilesUrl() + "/" + resourceName);
+					while ((readBytes = stream.read(buffer)) > 0) {
+						resStreamOut.write(buffer, 0, readBytes);
+					}
+					resStreamOut.close();
+				}
+				stream.close();
+			}
 		} catch (Exception ex) {
 			System.out.println(ex.toString());
 		}
 
 		return getFilesUrl();
+	}
+
+	public static String getFilesUrl() {
+		return filesUrl + "/VariaMos-" + variamosVersionNumber + "-Resources/";
+	}
+
+	public int getPerspective() {
+		return perspective;
+	}
+
+	public static boolean getSolverError() {
+		return solverError;
+	}
+
+	public boolean isAdvancedPerspective() {
+		return showPerspectiveButton;
+	}
+
+	public void setShowSimulationCustomizationBox(boolean showSimulationCustomizationBox) {
+		this.showSimulationCustomizationBox = showSimulationCustomizationBox;
+	}
+
+	public boolean isShowSimulationCustomizationBox() {
+		return showSimulationCustomizationBox;
+	}
+
+	public static String getVariamosVersionNumber() {
+		return variamosVersionNumber;
+	}
+
+	public String getVariamosVersionName() {
+		return variamosVersionName;
+	}
+
+	public String getVariamosBuild() {
+		return variamosBuild;
+	}
+
+	public void setPerspective(int perspective) {
+		this.perspective = perspective;
 	}
 }

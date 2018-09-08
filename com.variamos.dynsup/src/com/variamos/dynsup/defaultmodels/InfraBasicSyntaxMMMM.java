@@ -97,19 +97,16 @@ public class InfraBasicSyntaxMMMM {
 		instInfraSyntaxOpersM3Concept.createInstAttributes(null);
 		instInfraSyntaxOpersM3Concept.copyValuesToInstAttributes(null);
 		variabilityInstVertex.put("BsNode", instInfraSyntaxOpersM3Concept);
-
 		SyntaxElement basicOpersSyntaxM3Classifier = new SyntaxElement('C',
 				"BsClassifier", false, true, "BsClassifier",
 				"infrasyntaxm2bigconcept", "Meta Meta Meta Element", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
-
 		basicOpersSyntaxM3Classifier.addModelingAttribute(
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 2, "", "", 1,
 				"<<BsOperElement>>\n#" + SyntaxElement.VAR_USERIDENTIFIER
 						+ "#all#\n\n", "");
-
 		InstConcept instInfraSyntaxOpersM3Classifier = new InstConcept(
 				"BsClassifier", instInfraSyntaxOpersM3Concept,
 				basicOpersSyntaxM3Classifier);
@@ -139,7 +136,6 @@ public class InfraBasicSyntaxMMMM {
 				new ElemAttribute("displayName", "String",
 						AttributeType.SYNTAX, false, "Concept Display Name",
 						"", "", 0, 3, "", "", -1, "", ""));
-
 		InstConcept instInfraSyntaxOpersM3NamedElement = new InstConcept(
 				"BsNamedElement", instInfraSyntaxOpersM3Concept,
 				basicOpersSyntaxM3Named);
@@ -309,12 +305,10 @@ public class InfraBasicSyntaxMMMM {
 				SyntaxElement.VAR_USERIDENTIFIER, "String", false,
 				"User Identifier", "", "", 0, 2, "", "", 1, "<<BsArrow>>\n#"
 						+ SyntaxElement.VAR_USERIDENTIFIER + "#all#\n\n", "");
-
 		basicOpersSyntaxM3Arrow.addModelingAttribute("Style",
 				new ElemAttribute("Style", "String", AttributeType.SYNTAX,
 						false, "Drawing Style", "", "refasclaim", 0, 8, "", "",
 						-1, "", ""));
-
 		InstConcept instInfraSyntaxOpersM3Arrow = new InstConcept("BsArrow",
 				instInfraSyntaxOpersM3Concept, basicOpersSyntaxM3Arrow);
 		variabilityInstVertex.put("BsArrow", instInfraSyntaxOpersM3Arrow);
@@ -396,16 +390,13 @@ public class InfraBasicSyntaxMMMM {
 				"Relations for the meta-concept", 120, 120,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
-
 		basicOpersSyntaxM3Asso.addModelingAttribute("lowerBound",
 				new ElemAttribute("lowerBound", "Integer",
 						AttributeType.SYNTAX, false, "Low Cardinality", "", "",
 						0, 1, "", "", -1, "", ""));
-
 		basicOpersSyntaxM3Asso.addModelingAttribute("upperBound", "Integer",
 				false, "High Cardinality", "", "", 0, 2, "", "", -1, "#"
 						+ "highCard" + "#all#\n\n", "");
-
 		InstConcept instInfraSyntaxOpersM3Asso = new InstConcept(
 				"BsAssociation", instInfraSyntaxOpersM3Arrow,
 				basicOpersSyntaxM3Asso);
@@ -583,7 +574,6 @@ public class InfraBasicSyntaxMMMM {
 		basicOpersSyntaxM3Attribute.addModelingAttribute("enumType", "String",
 				false, "Enumeration Type", "", "", 0, 7, "", "", -1, "#"
 						+ "enumType" + "#all#\n\n", "");
-
 		// metaCInstType
 		basicOpersSyntaxM3Attribute.addModelingAttribute("instanceType",
 				"String", false, "Instance Type", "", "", 0, 8, "", "", -1, "#"
@@ -787,7 +777,6 @@ public class InfraBasicSyntaxMMMM {
 				StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 				"Enumeration Value", "", "", 1, -1, "", "", -1, "", ""),
 				"MetaElement"));
-
 		variabilityInstVertex.put("AttribTypesEnum",
 				instInfraSyntaxOpersM3TypesEnum);
 

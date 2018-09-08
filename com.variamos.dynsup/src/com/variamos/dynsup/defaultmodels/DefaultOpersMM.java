@@ -393,14 +393,22 @@ public class DefaultOpersMM {
 		 * AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0, new
 		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
 		 * simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-		 * refasModel.getIdentifier(), attribute.getName(), true));
-		 * refasModel.putSemanticAttribute("TotalOpt", attribute);
+		 * dynamicBehaviorDTO.getRefasModel().getIdentifier(), attribute.getName(),
+		 * true)); dynamicBehaviorDTO.getRefasModel().putSemanticAttribute("TotalOpt",
+		 * attribute);
 		 * 
-		 * attribute = new ElemAttribute("TotalSG", "Integer",
+		 * attribute = new ElemAttribute("TotalSG", "Integer", <<<<<<< HEAD
 		 * AttributeType.EXECCURRENTSTATE, false, "***TotalSG***", 0, new RangeDomain(0,
 		 * 2000), 2, -1, "", "", -1, "", ""); simsceExecOperLabeling2.addAttribute(new
-		 * OpersIOAttribute(refasModel .getIdentifier(), attribute.getName(), true));
-		 * refasModel.putSemanticAttribute("TotalSG", attribute);
+		 * OpersIOAttribute(dynamicBehaviorDTO.getRefasModel() .getIdentifier(),
+		 * attribute.getName(), true));
+		 * dynamicBehaviorDTO.getRefasModel().putSemanticAttribute("TotalSG",
+		 * attribute); ======= AttributeType.EXECCURRENTSTATE, false, "***TotalSG***",
+		 * 0, new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
+		 * simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(refasModel
+		 * .getIdentifier(), attribute.getName(), true));
+		 * refasModel.putSemanticAttribute("TotalSG", attribute); >>>>>>>
+		 * refs/remotes/upstream/master
 		 */
 
 		if (!empty) {
@@ -453,8 +461,13 @@ public class DefaultOpersMM {
 
 			InstConcept instOperationGroup = new InstConcept("SimulationGroup", metaOperationMenu, operationMenu);
 			refas.getVariabilityVertex().put("SimulationGroup", instOperationGroup);
+			// Luisa: ISSUE #245 HOT FIX
+			if (newOpers) {
+				instOperationGroup.getInstAttribute("visible").setValue(true);
+			} else {
+				instOperationGroup.getInstAttribute("visible").setValue(false);
+			}
 
-			instOperationGroup.getInstAttribute("visible").setValue(true);
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
 			instOperationGroup.getInstAttribute("opgname").setValue("Basic Simulation (Dynamic)");
 			instOperationGroup.getInstAttribute("shortcut").setValue("S");
@@ -606,15 +619,21 @@ public class DefaultOpersMM {
 
 			/*
 			 * = new SemanticExpression("sub", refas
-			 * .getSemanticExpressionTypes().get("Sum"),
+			 * .getSemanticExpressionTypes().get("Sum"), <<<<<<< HEAD
+			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
+			 * instdynamicBehaviorDTO.getRefasModel(), "TotalOrder", 0); =======
 			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel, "TotalOrder",
-			 * 0);
+			 * 0); >>>>>>> refs/remotes/upstream/master
 			 * 
 			 * semanticExpressions.add(t1);
 			 * 
-			 * t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
-			 * .get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
-			 * "TotalOpt", 0);
+			 * <<<<<<< HEAD t1 = new SemanticExpression("sub",
+			 * refas.getSemanticExpressionTypes() .get("Sum"),
+			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
+			 * instdynamicBehaviorDTO.getRefasModel(), ======= t1 = new
+			 * SemanticExpression("sub", refas.getSemanticExpressionTypes() .get("Sum"),
+			 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel, >>>>>>>
+			 * refs/remotes/upstream/master "TotalOpt", 0);
 			 * 
 			 * semanticExpressions.add(t1);
 			 */
@@ -964,7 +983,13 @@ public class DefaultOpersMM {
 			instOperationGroup = new InstConcept("SimulSceGroup", metaOperationMenu, operationMenu);
 			refas.getVariabilityVertex().put("SimulSceGroup", instOperationGroup);
 
-			instOperationGroup.getInstAttribute("visible").setValue(false);
+			// Luisa: ISSUE #245 HOT FIX: We hide this menu while we separate
+			// functionalities according to the notation where they might be used
+			if (newOpers) {
+				instOperationGroup.getInstAttribute("visible").setValue(true);
+			} else {
+				instOperationGroup.getInstAttribute("visible").setValue(false);
+			}
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
 			instOperationGroup.getInstAttribute("opgname").setValue("Simulation Scenarios  (Dynamic)");
 			instOperationGroup.getInstAttribute("shortcut").setValue("C");
@@ -975,6 +1000,9 @@ public class DefaultOpersMM {
 			instOperationAction = new InstConcept("SceSimulOper", metaOperationAction, simulScenOper);
 			refas.getVariabilityVertex().put("SceSimulOper", instOperationAction);
 			instOperationAction.getInstAttribute("operType").setValue(OpersOpType.Validation.toString());
+			// instOperationAction.getInstAttribute("opname").setValue(
+			// "Start Simulation (Dynamic)");
+			// Luisa: ISSUE #245 HOT FIX
 			instOperationAction.getInstAttribute("opname").setValue("Start Simulation (Dynamic)");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(true);
@@ -8091,9 +8119,13 @@ public class DefaultOpersMM {
 		// simulOperationSubAction.addInVariable(attribute);
 		// TODO: use concern level
 
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// TODO variables
+
 		attribute = new ElemAttribute("variableType", "Enumeration", AttributeType.OPERATION, true, "Variable Type",
 				"Type of variable", VariableType.class.getCanonicalName(), "String", "", 0, 2, "", "", 5,
 				"{#" + "variableType" + "#all#} ", "variableType" + "#!=#" + "Enumeration");
+
 		semVariable.putSemanticAttribute("variableType", attribute);
 
 		attribute = new ElemAttribute("varDom", "String", AttributeType.OPERATION, false, "Variable Domain",

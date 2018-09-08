@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.net.URISyntaxException;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.AboutDialog;
 
@@ -16,7 +16,7 @@ import com.variamos.gui.perspeditor.panels.AboutDialog;
  * @since 2014-03-15
  */
 @SuppressWarnings("serial")
-public class AboutAction extends AbstractEditorAction {
+public class AboutAction extends AbstractVariamoGUIAction {
 
 	public AboutAction() {
 		this.putValue(SHORT_DESCRIPTION, mxResources.get("verifyParents"));

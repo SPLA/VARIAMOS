@@ -4,12 +4,13 @@ import java.awt.event.ActionEvent;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
-import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.core.viewcontrollers.AbstractVariamoGUIAction;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class StartSimulationAction extends AbstractEditorAction {
+@Deprecated
+public class StartSimulationAction extends AbstractVariamoGUIAction {
 
 	public StartSimulationAction() {
 		this.putValue(SHORT_DESCRIPTION, mxResources.get("startSimulation"));
