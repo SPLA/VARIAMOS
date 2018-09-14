@@ -9,10 +9,7 @@ public class NumericIdentifier implements IntNumericExpression {
 		this.intValue = value;
 	}
 
-	NumericIdentifier(float value) {
-		super();
-		this.floatValue = value;
-	}
+	
 
 	/**
 	 * jcmunoz: added to validate expressions in editor

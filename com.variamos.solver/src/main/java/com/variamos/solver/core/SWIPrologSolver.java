@@ -37,7 +37,7 @@ public class SWIPrologSolver implements IntSolver {
 	private HlclProgram hlclProgram;
 	private String programPath = null;
 	private Query qr;
-	boolean sucessfullLoad;
+	
 	private Map<String, Variable> vars;
 	private int outLabels = 0;
 	private List<Map<String, Variable>> labelVars;

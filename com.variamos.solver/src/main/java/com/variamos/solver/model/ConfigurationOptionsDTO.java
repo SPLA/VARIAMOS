@@ -26,7 +26,7 @@ public class ConfigurationOptionsDTO {
 	private List<LabelingOrderEnum> labelingOrder;
 	private List<IntNumericExpression> orderExpressions;
 
-	// Sirve para saber cuando cerrar la conexión anterior para abrir una nueva
+	// Sirve para saber cuando cerrar la conexiï¿½n anterior para abrir una nueva
 	public boolean startFromZero;
 
 	public String programName;
@@ -82,19 +82,14 @@ public class ConfigurationOptionsDTO {
 		return additionalConstraintExpressions.add(e);
 	}
 
-	public void addAdditionalExpression(int index, IntBooleanExpression element) {
-		additionalConstraintExpressions.add(index, element);
-	}
+	
 
 	public boolean addAllAdditionalExpression(
 			Collection<? extends IntBooleanExpression> c) {
 		return additionalConstraintExpressions.addAll(c);
 	}
 
-	public boolean addAllAdditionalExpression(int index,
-			Collection<? extends IntBooleanExpression> c) {
-		return additionalConstraintExpressions.addAll(index, c);
-	}
+	
 
 	public boolean isFf() {
 		return ff;

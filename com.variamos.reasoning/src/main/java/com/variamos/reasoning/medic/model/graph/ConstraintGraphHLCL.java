@@ -210,12 +210,8 @@ public class ConstraintGraphHLCL {
 		return variablesCount;
 	}
 	
-	public int constraintsSize(){
-		return constraints.size();
-	}
-	public int variablesSize(){
-		return variables.size();
-	}
+	
+	
 	
 	
 	//Cambios aquí-------------------------------------------------------
@@ -247,44 +243,7 @@ public class ConstraintGraphHLCL {
 		return ver;
 	}
 	
-	public void printNetwork(ConstraintGraphHLCL net){
-		System.out.print("\nConstraint network: \n");
-		System.out.print("Total vertices: "+net.numVertices()+
-				           " vars: "+net.getVariablesCount()+
-				           " cons: "+net.getConstraintsCount()+
-				           " Total edges: "+net.numEdges()+  "\n");
-		
-		System.out.print("Problem variables\n");
-		 
-		 for (String id : variables.keySet()) {
-			 System.out.print("adjacent nodes of variable "+ id + ": " );
-			 NodeVariableHLCL var = variables.get(id);
-			 for (VertexHLCL v: var.getNeighbors()){
-				 System.out.print(v.getId()+",  ");	 
-			 }
-			 System.out.print("\n");
-			 System.out.print("unary constraints: \n" );
-			 for (IntBooleanExpression unary :  var.getConstraints()) {
-				 System.out.print(unary.toString()+"\n");	 
-			}
-		 }
-			 
-			 
-		
-			
 	
-		 
-		//neighbors for constraint nodes
-		 System.out.print("Problem constraints\n");
-		 
-		 for (String id : constraints.keySet()) {
-			 System.out.print("adjacent nodes of constraint "+ id + ": " );
-			 for (VertexHLCL v: net.getNeighbors(id, VertexHLCL.CONSTRAINT_TYPE)){
-				 System.out.print(v.getId()+",  ");	 
-			 }
-			 System.out.print("\n");
-		}
-	}
 
 	public int numEdges(){
 		return edges;

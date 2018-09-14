@@ -26,11 +26,7 @@ public class NotBooleanExpression extends AbstractBooleanExpression {
 		operation = TRANSFORMATION;
 	}
 
-	public NotBooleanExpression(AbstractExpression subExpression) {
-		super(null, null, false, subExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	@Override
 	public IntBooleanExpression transform(HlclFactory f,

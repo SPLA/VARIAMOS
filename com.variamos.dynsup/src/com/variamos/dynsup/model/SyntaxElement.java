@@ -212,13 +212,7 @@ public class SyntaxElement implements Serializable {
 		this.type = type;
 	}
 
-	public SyntaxElement(char type, String identifier, boolean visible,
-			boolean editable, String name, String style, String description,
-			int width, int height, String image, int borderStroke) {
-		this(identifier, visible, editable, name, style, description, width,
-				height, image, borderStroke, null);
-		this.type = type;
-	}
+	
 
 	public SyntaxElement(char type, String identifier, boolean visible,
 			boolean editable, String name, String style, String description,
@@ -427,14 +421,7 @@ public class SyntaxElement implements Serializable {
 		return image;
 	}
 
-	public Set<String> getAllSemanticAttributesNames(
-			List<InstElement> syntaxParents) {
-		Set<String> semanticAttributesNames = new HashSet<String>();
-		if (getTransInstSemanticElement() != null)
-			semanticAttributesNames.addAll(getTransInstSemanticElement()
-					.getAllSemanticAttributesNames(syntaxParents));
-		return semanticAttributesNames;
-	}
+	
 
 	public Set<String> getAllAttributesNames(List<InstElement> syntaxParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
@@ -516,19 +503,13 @@ public class SyntaxElement implements Serializable {
 		return modelingAttributes;
 	}
 
-	public ElemAttribute getDeclaredModelingAttribute(String name) {
-		return modelingAttributes.get(name);
-	}
+	
 
 	protected ElemAttribute getModelingAttribute(String name) {
 		return modelingAttributes.get(name);
 	}
 
-	public String getModelingAttributeName(String name) {
-		if (modelingAttributes.get(name) != null)
-			return modelingAttributes.get(name).getName();
-		return null;
-	}
+	
 
 	public ElemAttribute getModelingAttribute(String name,
 			List<InstElement> parents) {
@@ -585,21 +566,7 @@ public class SyntaxElement implements Serializable {
 			modelingAttributes.put(name, abstractAttribute);
 	}
 
-	public void addModelingAttribute(String name, String type,
-			boolean affectProperties, String displayName, String toolTipText,
-			String enumType, Object defaultValue, int defaultGroup,
-			int propTabPosition, String propTabEditionCondition,
-			String propTabVisualCondition, int elementDisplayPosition,
-			String elementDisplaySpacers, String elementDisplayCondition) {
-		if (!name.equals(VAR_AUTOIDENTIFIER)
-				&& modelingAttributes.get(name) == null)
-			modelingAttributes.put(name, new ElemAttribute(name, type,
-					AttributeType.SYNTAX, affectProperties, displayName,
-					toolTipText, enumType, defaultValue, defaultGroup,
-					propTabPosition, propTabEditionCondition,
-					propTabVisualCondition, elementDisplayPosition,
-					elementDisplaySpacers, elementDisplayCondition));
-	}
+	
 
 	// FIXME v1.1 add this method
 	public void addModelingAttribute(String name, String type,
@@ -628,9 +595,7 @@ public class SyntaxElement implements Serializable {
 		return visible;
 	}
 
-	public boolean setVisible(boolean visible) {
-		return this.visible = visible;
-	}
+	
 
 	public String getDescription() {
 		return description;
@@ -683,23 +648,7 @@ public class SyntaxElement implements Serializable {
 		this.type = type;
 	}
 
-	public SyntaxElement(char type, String identifier, boolean visible,
-			boolean editable, String name, String style, String description,
-			int width, int height, String image, int borderStroke,
-			InstElement instSemanticElement, boolean topConcept,
-			String backgroundColor, boolean resizable,
-			List<String> propVisibleAttributes,
-			List<String> propEditableAttributes,
-			List<String> panelVisibleAttributes,
-			List<String> panelSparerAttributes,
-			Map<String, ElemAttribute> attributes) {
-		this(identifier, visible, editable, name, style, description, width,
-				height, image, borderStroke, instSemanticElement, topConcept,
-				backgroundColor, resizable, propVisibleAttributes,
-				propEditableAttributes, panelVisibleAttributes,
-				panelSparerAttributes, attributes);
-		this.type = type;
-	}
+	
 
 	public SyntaxElement(char type, String identifier, boolean visible,
 			boolean editable, String name, String style, String description,

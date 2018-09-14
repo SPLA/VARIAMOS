@@ -17,13 +17,9 @@ public class HlclFactory {
 		return new AssignExpression(identifier, expression);
 	}
 
-	public AssignExpression is(Identifier identifier, IntExpression expression) {
-		return new AssignExpression(identifier, expression, AssignTypeEnum.Is);
-	}
+	
 
-	public FunctionDeclarationExpression declare(SymbolicExpression exp) {
-		return new FunctionDeclarationExpression(exp);
-	}
+	
 
 	public IntNumericExpression diff(IntNumericExpression left,
 			IntNumericExpression right) {
@@ -39,9 +35,7 @@ public class HlclFactory {
 		return new ComparisonExpression(left, right, ComparisonTypeEnum.Equals);
 	}
 
-	public ComparisonExpression equals(Identifier left, Identifier right) {
-		return new ComparisonExpression(left, right, ComparisonTypeEnum.Equals);
-	}
+	
 
 	public ComparisonExpression greaterOrEqualsThan(IntNumericExpression left,
 			IntNumericExpression right) {
@@ -74,9 +68,7 @@ public class HlclFactory {
 		return new LiteralBooleanExpression(expression);
 	}
 
-	public HlclFunction newFunction(FunctionDeclarationExpression fde) {
-		return new HlclFunction(fde);
-	}
+	
 
 	public Identifier newIdentifier(String id) {
 		return new Identifier(id);
@@ -86,23 +78,12 @@ public class HlclFactory {
 		return new Identifier(id);
 	}
 
-	public ListDefinitionExpression newList(List<Identifier> values) {
-		return new ListDefinitionExpression(values);
-	}
+	
 
 	public SymbolicExpression newSymbolic(String name, Identifier... args) {
 		return new SymbolicExpression(name, args);
 	}
-	/**
-	 * Method included by Avillota to create a RELATION global constraint with a
-	 * table of elements
-	 * @param tuples the values of the relation
-	 * @param args variables in the relation
-	 * @return
-	 */
-	public SymbolicExpression newSymbolicRelation(NumericIdentifier[][] tuples, Identifier... args) {
-		return new SymbolicExpression(tuples, args);
-	}
+	
 
 	public IntBooleanExpression not(IntBooleanExpression e) {
 		return new BooleanNegation(e);
@@ -126,10 +107,7 @@ public class HlclFactory {
 		return new BooleanOperation(left, right, BooleanOperatorEnum.Or);
 	}
 	
-	//included by avillota
-	public IntBooleanExpression xor(IntBooleanExpression left, IntBooleanExpression right) {
-		return new BooleanOperation(left, right, BooleanOperatorEnum.Xor);
-	}
+	
 
 	public IntNumericExpression prod(IntNumericExpression... p) {
 		if (p == null || p.length == 0)

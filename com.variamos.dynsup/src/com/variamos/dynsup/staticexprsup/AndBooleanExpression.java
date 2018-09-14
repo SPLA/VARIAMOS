@@ -27,12 +27,7 @@ public class AndBooleanExpression extends AbstractBooleanExpression {
 		operation = TRANSFORMATION;
 	}
 
-	public AndBooleanExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, AbstractExpression subExpression) {
-		super(vertex, attributeName, replaceRight, subExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	/*
 	 * public AndBooleanTransformation(InstVertex vertex, String attributeName,

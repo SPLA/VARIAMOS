@@ -42,14 +42,7 @@ public class IntervalDomain implements IntDomain, Serializable {
 		return rangeValues.add(e);
 	}
 
-	/**
-	 * @param index
-	 * @return
-	 * @see java.util.List#remove(int)
-	 */
-	public Integer remove(int index) {
-		return rangeValues.remove(index);
-	}
+	
 
 	/*
 	 * (non-Javadoc)

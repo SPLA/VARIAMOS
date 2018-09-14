@@ -92,16 +92,7 @@ public class OpersElement implements Serializable {
 		return syntaxAttributesNames;
 	}
 
-	@Deprecated
-	public List<String> getPropVisibleAttributes(List<InstElement> opersParents) {
-		List<String> modelingAttributesNames = new ArrayList<String>();
-		if (opersParents != null)
-			for (InstElement parent : opersParents)
-				modelingAttributesNames.addAll(parent.getEdOperEle()
-						.getDeclaredPropVisibleAttributes());
-		modelingAttributesNames.addAll(getDeclaredPropVisibleAttributes());
-		return modelingAttributesNames;
-	}
+	
 
 	@Deprecated
 	public Set<String> getPropVisibleAttributesSet(
@@ -133,17 +124,7 @@ public class OpersElement implements Serializable {
 		return properties;
 	}
 
-	@Deprecated
-	public List<String> getPropEditableAttributes(
-			List<InstElement> opersDirectParents) {
-		List<String> modelingAttributesNames = new ArrayList<String>();
-		if (opersDirectParents != null)
-			for (InstElement parent : opersDirectParents)
-				modelingAttributesNames.addAll(parent.getEdOperEle()
-						.getDeclaredPropEditableAttributes());
-		modelingAttributesNames.addAll(getDeclaredPropEditableAttributes());
-		return modelingAttributesNames;
-	}
+	
 
 	@Deprecated
 	public Set<String> getPropEditableAttributesSet(
@@ -157,10 +138,7 @@ public class OpersElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
-	@Deprecated
-	public void addPropEditableAttribute(String editableAttribute) {
-		propEditableAttributes.add(editableAttribute);
-	}
+	
 
 	@Deprecated
 	public List<String> getDeclaredPanelVisibleAttributes() {
@@ -181,10 +159,7 @@ public class OpersElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
-	@Deprecated
-	public void addPanelVisibleAttribute(String visibleAttribute) {
-		panelVisibleAttributes.add(visibleAttribute);
-	}
+	
 
 	@Deprecated
 	public List<String> getDeclaredPanelSpacersAttributes() {
@@ -204,9 +179,7 @@ public class OpersElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
-	public void addPanelSpacersAttribute(String spacerAttribute) {
-		panelSpacersAttributes.add(spacerAttribute);
-	}
+	
 
 	public Set<String> getAllSemanticAttributesNames(
 			List<InstElement> opersParents) {
@@ -260,16 +233,7 @@ public class OpersElement implements Serializable {
 		this.semanticAttributes = semanticProperties;
 	}
 
-	public void setSemanticAttribute(String name,
-			ElemAttribute semanticAttribute, List<InstElement> opersParents) {
-		ElemAttribute semAtt = semanticAttributes.get(name);
-		if (semAtt != null)
-			semanticAttributes.put(name, semanticAttribute);
-		else if (opersParents != null)
-			for (InstElement parent : opersParents)
-				parent.getEdOperEle().setSemanticAttribute(name,
-						semanticAttribute, null);
-	}
+	
 
 	public void putSemanticAttribute(String name,
 			ElemAttribute abstractAttribute) {

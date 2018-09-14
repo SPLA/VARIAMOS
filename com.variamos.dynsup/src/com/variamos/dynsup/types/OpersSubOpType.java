@@ -11,9 +11,7 @@ public enum OpersSubOpType {
 
 	Multi_Verification,
 	Medic,
-	SetDerivationParameters,
 	ExecuteDerivation,
 	ValidateDerivation,
-	CustomizeDerivation
-}
+	}
 

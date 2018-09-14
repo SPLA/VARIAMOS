@@ -21,10 +21,7 @@ public class Path<G,V> {
 	public Path(){
 		
 	}
-	public Path(G inNet, LinkedList <V> inPath){
-		subset= inNet;
-		path= inPath;
-	}
+	
 	
 	public Path(G inNet, LinkedList <V> inPath, HlclProgram sub){
 		subset= inNet;
@@ -56,16 +53,5 @@ public class Path<G,V> {
 		this.path = path;
 	}
 	
-//	public List<String> getIdsFromPath(){
-//		LinkedList<String> ids = new LinkedList<String>();
-//		for (V v : path) {
-//			ids.addLast(v);
-//			
-//		}
-//		
-//		return ids;
-//		
-//	}
-
 
 }

@@ -31,16 +31,6 @@ public class VerifierUtilExpression {
 	}
 
 
-	public static IntBooleanExpression verifyFalseOptionalExpression(
-			VariabilityElementDefAna variabilityElementDefAna) {
-
-		// VariabilityElement = 0
-		Identifier element = f
-				.newIdentifier(variabilityElementDefAna.getName());
-		NumericIdentifier nonValue = f
-				.number(TransformerConstants.NON_SELECTED_VALUE);
-		IntBooleanExpression numericExpression = f.equals(element, nonValue);
-		return numericExpression;
-	}
+	
 
 }

@@ -14,14 +14,7 @@ public class ConfigurationTask implements Runnable{
 	private int solFound = 0;
 	private ConfigurationOptionsDTO options;
 	
-	public ConfigurationTask(IntSolver solver, SolverSolution configuration, ConfigurationOptionsDTO options, ConfigurationTaskListener listener) {
-		super();
-		this.solver = solver;
-		this.configuration = configuration;
-		this.listener = listener;
-		this.options = options;
-		stopCall = false;
-	}
+	
 
 	@Override
 	public void run() {

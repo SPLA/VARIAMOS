@@ -386,38 +386,7 @@ public class ElemAttribute implements Serializable {
 				elementDisplaySpacers, elementDisplayCondition);
 	}
 
-	/**
-	 * set local attributes not received with null
-	 * 
-	 * @param name
-	 *            local identifier of the attribute
-	 * @param type
-	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param affectProperties
-	 *            Name to display on properties JLabel
-	 * @param displayName
-	 *            Name to display on properties JLabel
-	 * @param defaultValue
-	 *            Default value for the attribute
-	 * @param hint
-	 *            Hint to display on the property tab (not currently
-	 *            implemented)
-	 * @param defaultGroup
-	 *            Default defaultGroup for the attribute
-	 */
-	public ElemAttribute(String name, String type, AttributeType attributeType,
-			boolean affectProperties, String displayName, String toolTipText,
-			Object defaultValue, String hint, int defaultGroup,
-			int propTabPosition, String propTabEditionCondition,
-			String propTabVisualCondition, int elementDisplayPosition,
-			String elementDisplaySpacers, String elementDisplayCondition) {
-		this(name, type, attributeType, affectProperties, displayName,
-				toolTipText, null, null, defaultValue, null, hint,
-				defaultGroup, propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
-	}
+	
 
 	/**
 	 * set local attributes not received with null

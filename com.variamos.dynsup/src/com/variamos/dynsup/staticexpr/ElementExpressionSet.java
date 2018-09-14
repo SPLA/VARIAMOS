@@ -85,9 +85,7 @@ public abstract class ElementExpressionSet {
 		this.description = description;
 	}
 
-	protected void setIdentifier(String identifier) {
-		this.identifier = identifier;
-	}
+	
 
 	protected void setOptional(boolean optional) {
 		this.optional = optional;
@@ -182,19 +180,6 @@ public abstract class ElementExpressionSet {
 		return prog;
 	}
 
-	public HlclProgram getHlclRelaxableExpressions(String element) {
-		HlclProgram prog = new HlclProgram();
-		for (AbstractExpression transformation : relaxableExpressions
-				.get(element)) {
-			idMap.putAll(transformation.getIdentifiers(hlclFactory));
-			if (transformation instanceof AbstractBooleanExpression)
-				prog.add(((AbstractBooleanExpression) transformation)
-						.transform(hlclFactory, idMap));
-			else
-				prog.add(((AbstractComparisonExpression) transformation)
-						.transform(hlclFactory, idMap));
-		}
-		return prog;
-	}
+	
 
 }

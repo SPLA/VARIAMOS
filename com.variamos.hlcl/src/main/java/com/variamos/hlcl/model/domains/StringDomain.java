@@ -55,14 +55,7 @@ public class StringDomain implements IntDomain, Serializable {
 		return stringValues.add(e);
 	}
 
-	/**
-	 * @param index
-	 * @return
-	 * @see java.util.List#remove(int)
-	 */
-	public String remove(int index) {
-		return stringValues.remove(index);
-	}
+	
 
 	/*
 	 * (non-Javadoc)

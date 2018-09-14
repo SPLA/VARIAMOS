@@ -38,12 +38,7 @@ public class EqualsComparisonExpression extends AbstractComparisonExpression {
 		operation = TRANSFORMATION;
 	}
 
-	public EqualsComparisonExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, IntBooleanExpression simpleExpression) {
-		super(vertex, attributeName, replaceRight, simpleExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	public EqualsComparisonExpression(InstElement vertex, String attributeName,
 			boolean replaceRight, NumericIdentifier numericIdentifier) {
@@ -59,12 +54,7 @@ public class EqualsComparisonExpression extends AbstractComparisonExpression {
 		operation = TRANSFORMATION;
 	}
 
-	public EqualsComparisonExpression(IntNumericExpression numericExpression1,
-			boolean replaceRight, IntNumericExpression numericExpression2) {
-		super(numericExpression1, replaceRight, numericExpression2);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	public EqualsComparisonExpression(AbstractExpression leftSubExpression,
 			AbstractExpression rightSubExpression) {

@@ -41,21 +41,7 @@ public abstract class Hlcl2Prolog implements ConstraintSymbolsConstant {
 		return transform(program, new PrologTransformParameters());
 	}
 
-	/**
-	 * Used when a prolog program must be directly analyzed
-	 * 
-	 * @param program
-	 * @param domains
-	 * @return
-	 */
-	public String transform(HlclProgram program, List<String> domains) {
-
-		StringBuilder out = new StringBuilder();
-		writeHeaderWithDefinedDomains(program, domains, out);
-		transformProgram(program, out);
-		writeFooter(out);
-		return out.toString();
-	}
+	
 
 	public String transform(HlclProgram program,
 			PrologTransformParameters params) {
@@ -356,25 +342,9 @@ public abstract class Hlcl2Prolog implements ConstraintSymbolsConstant {
 		}
 	}
 
-	public void writeList(List<String> ids, StringBuilder out) {
-		int i = 0;
-		for (String id : ids) {
-			out.append(id);
-			i++;
-			if (i < ids.size())
-				out.append(COMMA + " ");
-		}
-	}
+	
 
-	public void writeIdentifiersList(List<Identifier> ids, StringBuilder out) {
-		int i = 0;
-		for (Identifier id : ids) {
-			out.append(id.getId());
-			i++;
-			if (i < ids.size())
-				out.append(COMMA + " ");
-		}
-	}
+	
 	/**
 	 * Method to create a list of list containing numeric values 
 	 * @author avillota

@@ -67,11 +67,7 @@ public class SolverSolution {
 		return configuration.get(id).floatValue();
 	}
 
-	public void debugPrint() {
-		for (String key : configuration.keySet()) {
-			System.out.println(key + " : " + configuration.get(key));
-		}
-	}
+	
 
 	@Override
 	public boolean equals(Object obj) {

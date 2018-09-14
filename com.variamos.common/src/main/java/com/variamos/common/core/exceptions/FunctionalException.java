@@ -49,14 +49,6 @@ public class FunctionalException extends Exception {
 		 
 	}
 
-	public FunctionalException(String arg0, Throwable arg1, boolean arg2,
-			boolean arg3) {
-		super(arg0, arg1, arg2, arg3);
-		 
-	}
 	
-	public static String exceptionStacktraceToString(Exception e)
-	{
-	    return Arrays.toString(e.getStackTrace());
-	}
+	
 }

@@ -13,11 +13,7 @@ public class ConfigurationDTO {
 		values = new SolverSolution();
 	}
 	
-	public ConfigurationDTO(ConfigurationOptionsDTO options, SolverSolution values) {
-		super();
-		this.options = options;
-		this.values = values;
-	}
+	
 
 
 	public ConfigurationOptionsDTO getOptions() {

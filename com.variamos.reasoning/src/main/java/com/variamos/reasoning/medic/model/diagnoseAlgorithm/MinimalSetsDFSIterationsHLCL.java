@@ -358,53 +358,7 @@ public class MinimalSetsDFSIterationsHLCL {
 	
 
 	
-	/**
-	 * Method to print a constraint graph in the log file
-	 * This method is used just for debugging
-	 * @param net is the constraint graph
-	 */
-	public void printNetwork(ConstraintGraphHLCL net){
-		logMan.writeInFile("\nConstraint network: \n");
-		logMan.writeInFile("Total vertices: "+net.numVertices()+
-				           " vars: "+net.getVariablesCount()+
-				           " cons: "+net.getConstraintsCount()+
-				           " Total edges: "+net.numEdges()+  "\n");
-		
-		StringBuilder vecinos= new StringBuilder();
-		
-		logMan.writeInFile("Problem variables\n");
-		 HashMap<String,NodeVariableHLCL> vars= net.getVariables();
-		 for (String id : vars.keySet()) {
-			 logMan.writeInFile(id+"\n");
-			 vecinos.append("adjacent nodes of variable "+ id + ": " );
-			 for (VertexHLCL v: net.getNeighbors(id, VertexHLCL.VARIABLE_TYPE)){
-				 vecinos.append(v.getId()+",  ");	 
-			 }
-			 vecinos.append("\n");
-		}
-		 
-		//neighbors for constraint nodes
-		 logMan.writeInFile("Problem constraints\n");
-		 HashMap<String,NodeConstraintHLCL> cons= net.getConstraints();
-		 for (String id : cons.keySet()) {
-			 logMan.writeInFile(id+"\n");
-			 vecinos.append("adjacent nodes of constraint "+ id + ": " );
-			 for (VertexHLCL v: net.getNeighbors(id, VertexHLCL.CONSTRAINT_TYPE)){
-				 vecinos.append(v.getId()+",  ");	 
-			 }
-			 vecinos.append("\n");
-		}
-		 for (String id : vars.keySet()) {
-			 NodeVariableHLCL var1= vars.get(id);
-			 //logMan.writeInFile(id+"\n");
-			 //vecinos.append("adjacent nodes of variable "+ id + ": " );
-			 for (NodeConstraintHLCL v: var1.getUnary()){
-				 logMan.writeInFile(v.getId()+ " , "+ v.getConstraint()+"\n"); 
-			 }
-			 vecinos.append("\n");
-		}
-		 logMan.writeInFile(vecinos.toString());
-	}
+	
 	
 	/**
 	 * 
@@ -434,12 +388,7 @@ public class MinimalSetsDFSIterationsHLCL {
 		return numVars;
 	}
 
-	public String graphInfo(){
-		String salida="";
-		salida += graph.getVariablesCount() + ", "+ graph.getConstraintsCount() +", "+(graph.getVariablesCount()+ graph.getConstraintsCount())+ ","+ graph.numEdges();
-
-		return salida;
-	}
+	
 
 	String sizes="";
 	public String sizePath(){

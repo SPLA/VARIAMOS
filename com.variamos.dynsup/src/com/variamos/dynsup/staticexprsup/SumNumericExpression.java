@@ -36,12 +36,7 @@ public class SumNumericExpression extends AbstractNumericExpression {
 		operation = TRANSFORMATION;
 	}
 
-	public SumNumericExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, IntBooleanExpression simpleExpression) {
-		super(vertex, attributeName, replaceRight, simpleExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	public SumNumericExpression(InstElement vertex, String attributeName,
 			boolean replaceRight, NumericIdentifier numericIdentifier) {

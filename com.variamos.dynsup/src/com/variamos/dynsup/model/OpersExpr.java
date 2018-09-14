@@ -107,16 +107,7 @@ public class OpersExpr implements Serializable {
 	public OpersExpr() {
 	}
 
-	public OpersExpr(InstElement instElement) {
-		identifier = "     ";
-		naturalLangDesc = "     ";
-		this.setSemanticElement(instElement);
-		this.setLeftSemanticElement(instElement);
-		this.setRightSemanticElement(instElement);
-		setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
-		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
-		this.setSemanticExpressionType(semanticExpressionType);
-	}
+	
 
 	public OpersExpr(InstElement instElement,
 			OpersExprType semanticExpressionType) {
@@ -130,10 +121,7 @@ public class OpersExpr implements Serializable {
 		this.setSemanticExpressionType(semanticExpressionType);
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc) {
-		this(identifier);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier) {
 		this.identifier = identifier;
@@ -170,15 +158,7 @@ public class OpersExpr implements Serializable {
 		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc,
-			OpersExprType semanticExpressionType, InstElement semanticElement,
-			InstElement leftSemanticElement, InstElement rightSemanticElement,
-			String leftAttributeName, String rightAttributeName) {
-		this(identifier, semanticExpressionType, semanticElement,
-				leftSemanticElement, rightSemanticElement, leftAttributeName,
-				rightAttributeName);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement semanticElement, InstElement leftSemanticElement,
@@ -226,14 +206,7 @@ public class OpersExpr implements Serializable {
 		setRightExpressionType(rightExpressionVertexType);
 	}
 
-	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
-			InstElement semanticElement, InstElement semanticConElement,
-			String attributeName, boolean replaceRight, int number,
-			String naturalLangDesc) {
-		this(identifier, semanticExpressionType, semanticElement,
-				semanticConElement, attributeName, replaceRight, number);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement semanticElement, InstElement semanticConElement,
@@ -283,17 +256,7 @@ public class OpersExpr implements Serializable {
 		setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc,
-			OpersExprType semanticExpressionType,
-			ExpressionVertexType expressionVertexType,
-			InstElement semanticElement, InstElement leftSemanticElement,
-			String leftAttributeName, boolean replaceRight,
-			String rightAttributeName) {
-		this(identifier, semanticExpressionType, expressionVertexType,
-				semanticElement, leftSemanticElement, leftAttributeName,
-				replaceRight, rightAttributeName);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
@@ -311,16 +274,7 @@ public class OpersExpr implements Serializable {
 		setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
 	}
 
-	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
-			ExpressionVertexType expressionVertexType,
-			InstElement semanticElement, InstElement semanticConElement,
-			String attributeName, boolean replaceRight, int number,
-			String naturalLangDesc) {
-		this(identifier, semanticExpressionType, expressionVertexType,
-				semanticElement, semanticConElement, attributeName,
-				replaceRight, number);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
@@ -346,17 +300,7 @@ public class OpersExpr implements Serializable {
 		}
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc,
-			OpersExprType semanticExpressionType,
-			ExpressionVertexType expressionVertexType,
-			InstElement semanticElement, InstElement semanticConElement,
-			InstElement semanticRelElement, String attributeName1,
-			String attributeName2, boolean replaceRight) {
-		this(identifier, semanticExpressionType, expressionVertexType,
-				semanticElement, semanticConElement, semanticRelElement,
-				attributeName1, attributeName2, replaceRight);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
@@ -383,17 +327,7 @@ public class OpersExpr implements Serializable {
 		}
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc,
-			OpersExprType semanticExpressionType,
-			ExpressionVertexType expressionVertexType,
-			InstElement semanticElement, InstElement semanticConElement,
-			InstElement semanticRelElement, String attributeName1,
-			int attributeValue, boolean replaceRight) {
-		this(identifier, semanticExpressionType, expressionVertexType,
-				semanticElement, semanticConElement, semanticRelElement,
-				attributeName1, attributeValue, replaceRight);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
@@ -418,16 +352,7 @@ public class OpersExpr implements Serializable {
 		}
 	}
 
-	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
-			ExpressionVertexType expressionVertexType,
-			InstElement semanticElement, InstElement semanticConElement,
-			OpersExpr semanticExpression, int rightNumber,
-			String naturalLangDesc) {
-		this(identifier, semanticExpressionType, expressionVertexType,
-				semanticElement, semanticConElement, semanticExpression,
-				rightNumber);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
@@ -443,16 +368,7 @@ public class OpersExpr implements Serializable {
 		setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 	}
 
-	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
-			ExpressionVertexType expressionVertexType,
-			InstElement semanticElement, InstElement semanticConElement,
-			OpersExpr semanticExpression, String rightAttribute,
-			String naturalLangDesc) {
-		this(identifier, semanticExpressionType, expressionVertexType,
-				semanticElement, semanticConElement, semanticExpression,
-				rightAttribute);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
@@ -486,13 +402,7 @@ public class OpersExpr implements Serializable {
 		setRightExpressionType(rightExpressionVertexType);
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc,
-			OpersExprType semanticExpressionType, InstElement semanticElement,
-			int number, boolean replaceTarget, OpersExpr semanticExpression) {
-		this(identifier, semanticExpressionType, semanticElement, number,
-				replaceTarget, semanticExpression);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement semanticElement, int number, boolean replaceTarget,
@@ -535,16 +445,7 @@ public class OpersExpr implements Serializable {
 		setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc,
-			OpersExprType semanticExpressionType,
-			ExpressionVertexType leftExpressionVertexType,
-			InstElement semanticElement, InstElement leftSemanticElement,
-			String leftAttributeName, String rightString) {
-		this(identifier, semanticExpressionType, leftExpressionVertexType,
-				semanticElement, leftSemanticElement, leftAttributeName,
-				rightString);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType leftExpressionVertexType,
@@ -560,13 +461,7 @@ public class OpersExpr implements Serializable {
 		setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
 	}
 
-	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
-			String string, boolean replaceTarget, OpersExpr semanticExpression,
-			String naturalLangDesc) {
-		this(identifier, semanticExpressionType, string, replaceTarget,
-				semanticExpression);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			String string, boolean replaceTarget, OpersExpr semanticExpression) {
@@ -620,15 +515,7 @@ public class OpersExpr implements Serializable {
 		}
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc,
-			OpersExprType semanticExpressionType, InstElement semanticElement,
-			InstElement semanticConElement, String attributeName,
-			boolean replaceTarget, OpersExpr semanticExpression) {
-		this(identifier, semanticExpressionType, semanticElement,
-				semanticConElement, attributeName, replaceTarget,
-				semanticExpression);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement semanticElement, InstElement semanticConElement,
@@ -652,13 +539,7 @@ public class OpersExpr implements Serializable {
 		}
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc,
-			OpersExprType semanticExpressionType, InstElement semanticElement,
-			OpersExpr semanticExpression, int rightNumber) {
-		this(identifier, semanticExpressionType, semanticElement,
-				semanticExpression, rightNumber);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement semanticElement, OpersExpr semanticExpression,
@@ -672,13 +553,7 @@ public class OpersExpr implements Serializable {
 		this.rightNumber = rightNumber;
 	}
 
-	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
-			OpersExpr semanticExpression, String attributeName,
-			String naturalLangDesc) {
-		this(identifier, semanticExpressionType, semanticExpression,
-				attributeName);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			OpersExpr semanticExpression, String attributeName) {
@@ -737,13 +612,7 @@ public class OpersExpr implements Serializable {
 		setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 	}
 
-	public OpersExpr(String identifier, String naturalLangDesc,
-			OpersExprType semanticExpressionType,
-			InstElement leftSemanticElement, String attributeName) {
-		this(identifier, semanticExpressionType, leftSemanticElement,
-				attributeName);
-		this.naturalLangDesc = naturalLangDesc;
-	}
+	
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement leftSemanticElement, String attributeName) {
@@ -1227,65 +1096,9 @@ public class OpersExpr implements Serializable {
 
 	}
 
-	public String getSideElementIdentifier(
-			ExpressionVertexType expressionVertexType) {
-		switch (expressionVertexType) {
-		case LEFTMODELVARS:
-		case LEFTVARIABLE:
-		case LEFTITERINCRELVARIABLE:
-		case LEFTITEROUTRELVARIABLE:
-		case LEFTITERANYRELVARIABLE:
+	
 
-		case LEFTCONCEPTVARIABLE:
-		case LEFTITERCONCEPTVARIABLE:
-		case LEFTUNIQUEINCCONVARIABLE:
-		case LEFTUNIQUEOUTCONVARIABLE:
-		case LEFTUNIQUEINCRELVARIABLE:
-		case LEFTUNIQUEOUTRELVARIABLE:
-			if (volatileLeftSemanticElement != null)
-				return volatileLeftSemanticElement.getIdentifier();
-			break;
-		case RIGHTMODELVARS:
-		case RIGHTVARIABLE:
-		case RIGHTCONCEPTVARIABLE:
-		case RIGHTUNIQUEOUTCONVARIABLE:
-		case RIGHTUNIQUEINCCONVARIABLE:
-		case RIGHTUNIQUEOUTRELVARIABLE:
-		case RIGHTUNIQUEINCRELVARIABLE:
-			if (volatileRightSemanticElement != null)
-				return volatileRightSemanticElement.getIdentifier();
-			break;
-		default:
-		}
-		return null;
-	}
-
-	public InstElement getSideElement(ExpressionVertexType expressionVertexType) {
-		switch (expressionVertexType) {
-		case LEFTITERINCRELVARIABLE:
-		case LEFTITEROUTRELVARIABLE:
-		case LEFTITERANYRELVARIABLE:
-		case LEFTCONCEPTVARIABLE:
-		case LEFTITERCONCEPTVARIABLE:
-		case LEFTVARIABLE:
-		case LEFTMODELVARS:
-		case LEFTUNIQUEOUTCONVARIABLE:
-		case LEFTUNIQUEINCCONVARIABLE:
-		case LEFTUNIQUEOUTRELVARIABLE:
-		case LEFTUNIQUEINCRELVARIABLE:
-			return volatileLeftSemanticElement;
-		case RIGHTMODELVARS:
-		case RIGHTVARIABLE:
-		case RIGHTCONCEPTVARIABLE:
-		case RIGHTUNIQUEOUTCONVARIABLE:
-		case RIGHTUNIQUEINCCONVARIABLE:
-		case RIGHTUNIQUEOUTRELVARIABLE:
-		case RIGHTUNIQUEINCRELVARIABLE:
-			return volatileRightSemanticElement;
-		default:
-		}
-		return null;
-	}
+	
 
 	public String getNaturalLangDesc() {
 		return naturalLangDesc;
@@ -1368,85 +1181,6 @@ public class OpersExpr implements Serializable {
 		else
 			return variable;
 
-	}
-
-	public InstElement getSelectedElement(
-			ExpressionVertexType expressionVertexType, char elementType) {
-		InstElement concept = null;
-		switch (expressionVertexType) {
-
-		case LEFTITERINCRELVARIABLE:
-		case LEFTITEROUTRELVARIABLE:
-		case LEFTITERANYRELVARIABLE:
-
-		case LEFTMODELVARS:
-
-		case LEFTCONCEPTVARIABLE:
-		case LEFTITERCONCEPTVARIABLE:
-		case LEFTUNIQUEINCCONVARIABLE:
-		case LEFTUNIQUEOUTCONVARIABLE:
-		case LEFTUNIQUEINCRELVARIABLE:
-		case LEFTUNIQUEOUTRELVARIABLE:
-			if (volatileLeftSemanticElement != null) {
-				concept = volatileLeftSemanticElement;
-			}
-			break;
-		case RIGHTMODELVARS:
-		case RIGHTCONCEPTVARIABLE:
-		case RIGHTUNIQUEOUTCONVARIABLE:
-		case RIGHTUNIQUEINCCONVARIABLE:
-		case RIGHTUNIQUEOUTRELVARIABLE:
-		case RIGHTUNIQUEINCRELVARIABLE:
-			if (volatileRightSemanticElement != null) {
-				concept = volatileRightSemanticElement;
-			}
-			break;
-		default:
-			return null;
-		}
-		return concept;
-	}
-
-	public void setInstElement(InstElement intSemanticElement,
-			ExpressionVertexType expressionVertexType, char elementType) {
-		switch (expressionVertexType) {
-		case LEFTMODELVARS:
-		case LEFTVARIABLE:
-		case LEFTVARIABLEVALUE:
-		case LEFTCONCEPTVARIABLE:
-
-		case LEFSUBTITERCONVARIABLE:
-		case LEFTSUBITERINCCONVARIABLE:
-		case LEFTSUBITEROUTCONVARIABLE:
-		case LEFTSUBITERINCRELVARIABLE:
-		case LEFTSUBITEROUTRELVARIABLE:
-		case LEFTSUBITERANYVARIABLE:
-
-		case LEFTITERINCRELVARIABLE:
-		case LEFTITEROUTRELVARIABLE:
-		case LEFTITERINCCONVARIABLE:
-		case LEFTITEROUTCONVARIABLE:
-		case LEFTITERANYRELVARIABLE:
-		case LEFTITERANYCONVARIABLE:
-		case LEFTITERCONCEPTVARIABLE:
-
-		case LEFTUNIQUEINCCONVARIABLE:
-		case LEFTUNIQUEOUTCONVARIABLE:
-		case LEFTUNIQUEINCRELVARIABLE:
-		case LEFTUNIQUEOUTRELVARIABLE:
-			this.setLeftSemanticElement(intSemanticElement);
-			break;
-		case RIGHTMODELVARS:
-		case RIGHTVARIABLE:
-		case RIGHTVARIABLEVALUE:
-		case RIGHTUNIQUEOUTCONVARIABLE:
-		case RIGHTUNIQUEINCCONVARIABLE:
-		case RIGHTUNIQUEOUTRELVARIABLE:
-		case RIGHTUNIQUEINCRELVARIABLE:
-			this.setRightSemanticElement(intSemanticElement);
-			break;
-		default:
-		}
 	}
 
 	public void setAttributeName(String attributeName,

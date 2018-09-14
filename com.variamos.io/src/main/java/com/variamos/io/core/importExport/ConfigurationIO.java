@@ -21,13 +21,7 @@ import com.variamos.solver.model.SolverSolution;
  */
 @Deprecated
 public class ConfigurationIO {
-	public static void saveToFile(ConfigurationDTO dto, String fileAbsPath) throws IOException {
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-		FileWriter writer = new FileWriter(fileAbsPath);
-		writer.write(gson.toJson(dto));
-		writer.close();
-	}
+	
 
 	public static void saveMapToJSONFile(Map<String, Number> config, String fileAbsPath) throws IOException {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -37,12 +31,7 @@ public class ConfigurationIO {
 		writer.close();
 	}
 
-	public static ConfigurationDTO loadObjectFromJSONFile(String fileAbsPath) throws FileNotFoundException {
-		Gson gson = new GsonBuilder().create();
-
-		FileReader fr = new FileReader(fileAbsPath);
-		return gson.fromJson(fr, ConfigurationDTO.class);
-	}
+	
 
 	public static Map<String, Number> loadMapFromJSONFile(String fileAbsPath) throws FileNotFoundException {
 		Gson gson = new GsonBuilder().create();
@@ -58,28 +47,5 @@ public class ConfigurationIO {
 		return out;
 	}
 
-	/**
-	 * FIXME: Make a more generic method which could be use for save CSV without
-	 * consider which is the basic object
-	 * 
-	 * @param solutions
-	 * @param fileAbsPath
-	 * @throws FileNotFoundException
-	 */
-	public static void saveSolutionsAsCSV(List<SolverSolution> solutions, String fileAbsPath)
-			throws FileNotFoundException {
-		// Create a csv file
-		PrintWriter out = new PrintWriter(new File(fileAbsPath));
-		SolverSolution first = solutions.get(0);
-		for (String strName : first.getSolverSolution().keySet()) {
-			out.print(strName);
-			out.print(",");
-			for (SolverSolution c : solutions) {
-				out.print(c.stateOf(strName));
-				out.print(",");
-			}
-			out.println();
-		}
-		out.close();
-	}
+	
 }

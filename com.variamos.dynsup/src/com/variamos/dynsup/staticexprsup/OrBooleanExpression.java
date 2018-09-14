@@ -35,19 +35,9 @@ public class OrBooleanExpression extends AbstractBooleanExpression {
 		operation = TRANSFORMATION;
 	}
 
-	public OrBooleanExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, IntBooleanExpression simpleExpression) {
-		super(vertex, attributeName, replaceRight, simpleExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
-	public OrBooleanExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, NumericIdentifier numericIdentifier) {
-		super(vertex, attributeName, replaceRight, numericIdentifier);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	public OrBooleanExpression(AbstractExpression leftSubExpression,
 			AbstractExpression rightSubExpression) {

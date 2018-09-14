@@ -18,10 +18,7 @@ public class RangeDomainDefectAnalyzer extends RangeDomain implements
 
 	}
 
-	public RangeDomainDefectAnalyzer(int lowerValue, int upperValue) {
-		super(lowerValue, upperValue, 0);
-
-	}
+	
 
 	private List<Integer> allowedValues = new ArrayList<Integer>();
 
