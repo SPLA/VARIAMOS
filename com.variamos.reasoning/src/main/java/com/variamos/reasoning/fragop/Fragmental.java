@@ -6,17 +6,14 @@
 package com.variamos.reasoning.fragop;
 
 import java.io.File;
-import java.nio.file.Files;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
 import com.variamos.common.core.utilities.FileUtilsApache;
-
-import static java.nio.file.StandardCopyOption.*;
 
 /**
  *
@@ -138,22 +135,31 @@ public class Fragmental {
     }
     
     public static void set_directories_move_file(String filename, String destination, String component_folder){
-        File source_f = new File(assets_folder+component_folder+"/"+filename);
-        if(source_f.exists()){
-            File dest_f = new File(assembled_folder+destination);
-            File dest_path = new File(dest_f.getParent());
-            if(!dest_path.exists()){
-                dest_path.mkdirs();
-            }
-            try{
-                //Files.copy(source_f.toPath(), dest_f.toPath(), REPLACE_EXISTING);
-                Files.copy(source_f.toPath(), dest_f.toPath());
-            }
-            catch(Exception e){
-            	error_var.add("C04 - "+e.getMessage()+e.getStackTrace());
-            }
-        }else{
-        	error_var.add(filename+" doesn't exists, check the filename and path");
+    	try {
+    		File source_f = new File(assets_folder+component_folder+"/"+filename);
+    	
+	        if(source_f.exists()){
+	            File dest_f = new File(assembled_folder+destination);
+	            File dest_path = new File(dest_f.getParent());
+	            if(!dest_path.exists()){
+	                dest_path.mkdirs();
+	            }
+	            try{
+	                //Files.copy(source_f.toPath(), dest_f.toPath(), REPLACE_EXISTING);
+	                //Files.copy(source_f.toPath(), dest_f.toPath());
+	            	FileUtilsApache.copyFile(source_f, dest_f);
+	            }
+	            catch(IOException e){
+	            	error_var.add("C04d - "+e.getMessage()+e.getStackTrace());
+	            }
+	            catch(Exception e){
+	            	error_var.add("C04 - "+e.getMessage()+e.getStackTrace());
+	            }
+	        }else{
+	        	error_var.add(filename+" doesn't exists, check the filename and path");
+	        }
+    	}catch(Exception e){
+        	error_var.add("C011 - "+e.getMessage()+e.getStackTrace());
         }
     }
     

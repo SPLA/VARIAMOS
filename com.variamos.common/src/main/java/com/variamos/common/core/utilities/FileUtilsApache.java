@@ -29,4 +29,8 @@ public class FileUtilsApache {
 	public static void deleteDirectory(File f) throws IOException {
 		FileUtils.deleteDirectory(f); 
 	}
+	
+	public static void copyFile(File srcFile, File destFile) throws IOException {
+		FileUtils.copyFile(srcFile, destFile);
+	}
 }

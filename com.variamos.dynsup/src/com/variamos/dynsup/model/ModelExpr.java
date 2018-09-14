@@ -1172,8 +1172,8 @@ public class ModelExpr implements Serializable, Cloneable {
 			case RIGHTUNIQUEOUTCONVARIABLE:
 			case RIGHTUNIQUEINCCONVARIABLE:
 				if (iter) {
-					elemetType = getSemanticExpression()
-							.getLeftSemanticElement().getIdentifier();
+					//elemetType = getSemanticExpression()
+					//		.getLeftSemanticElement().getIdentifier();
 					if (pos == -1)
 						leftInstElement = elements.get(0);
 					else
