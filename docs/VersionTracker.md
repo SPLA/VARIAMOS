@@ -10,7 +10,7 @@ Note : deleted class, are not in bold.
 ### **Update 14/09/2018** 
 
 ##### **Branch:**  integration_variamos.
-##### **Actual version ID(Before Delete):** b93ef12ccf51e8196a85cd1d8aa9fc84e04acee1
+##### **Actual version ID(Before Delete):** 855fadae001c24048410a23d58611dfec91d88a3
 ##### **Update reason:** some related methods deleted because no use. 
 
 #### **com.variamos.common** 
