@@ -40,13 +40,7 @@ public class GreaterOrEqualsBooleanExpression extends
 		operation = TRANSFORMATION;
 	}
 
-	public GreaterOrEqualsBooleanExpression(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			IntBooleanExpression simpleExpression) {
-		super(vertex, attributeName, replaceRight, simpleExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	public GreaterOrEqualsBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceRight,

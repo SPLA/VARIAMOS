@@ -105,16 +105,9 @@ public class Labeling {
 		this.variables = variables;
 	}
 
-	public void addAttribute(Identifier attribute) {
-		variables.add(attribute);
-	}
+	
 
-	public boolean hasAttribute(String name) {
-		for (Identifier s : variables)
-			if (s.getId().equals(name))
-				return true;
-		return false;
-	}
+	
 
 	public Object getName() {
 		return name;

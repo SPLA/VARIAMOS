@@ -32,28 +32,11 @@ public class DynamicBehaviorDTO {
 		this.progressMonitor = progressMonitor;
 	}
 
-	// Static operation's definition
-	public void executeSimulation(boolean firstSimulExecution, boolean reloadDashboard, int type) {
-		executeSimulation(firstSimulExecution, reloadDashboard, type, true, "");
-	}
+	
 
 	// TODO support ALL operations dynamically, not only the first
 
-	public void callOperations(List<String> operations, String filename) {
-		// FIXME support multiple models selected from the menu not only REFAS
-		InstElement refas = getRefasModel().getSyntaxModel().getVertex("GeneralModel");
-		// use the first node as the REFAS node - fixme
-		if (refas == null)
-			refas = getRefasModel().getSyntaxModel().getVertex("SMNode1");
-		InstConcept element = new InstConcept("REFAS1", refas);
-		element.createInstAttributes(null);
-		this.getRefasModel().getVariabilityVertex().put("REFAS1", element);
-		// System.out.println(operations);
-		boolean first = true;
-		if (operations.get(0).startsWith("N:"))
-			first = false;
-		executeOperationsThead(first, operations, filename);
-	}
+	
 
 	// Dynamic operation's definition
 	public SolverOpersTask executeOperationsThead(boolean firstSimulExecution, List<String> operations,

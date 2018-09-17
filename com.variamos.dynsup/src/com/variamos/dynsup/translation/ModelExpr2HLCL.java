@@ -1153,24 +1153,7 @@ public class ModelExpr2HLCL {
 		}
 	}
 
-	/**
-	 * Updates the GUI errors
-	 */
-	public void updateErrorMark(Collection<String> identifiers) {
-		// Call the SWIProlog and obtain the result
-
-		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
-			InstAttribute instAttribute = instVertex
-					.getInstAttribute("VerificationError");
-			// System.out.println(vertexId + " " + attribute);
-			if (identifiers != null
-					&& identifiers.contains(instVertex.getIdentifier()))
-				instAttribute.setValue(true);
-			else
-				instAttribute.setValue(false);
-		}
-
-	}
+	
 
 	/**
 	 * Updates the GUI errors
@@ -1275,17 +1258,7 @@ public class ModelExpr2HLCL {
 		}
 	}
 
-	/**
-	 * Resets the GUI optional variable
-	 */
-	public void cleanElementsOptional() {
-		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
-			InstAttribute instAttribute = instVertex
-					.getInstAttribute("Optional");
-			if (instAttribute.getType().equals("Boolean"))
-				instAttribute.setValue(false);
-		}
-	}
+	
 
 	public ElementExpressionSet getElementConstraintGroup(String operId,
 			String identifier, String concetType, int execType)

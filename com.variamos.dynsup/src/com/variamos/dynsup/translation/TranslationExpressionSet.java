@@ -715,28 +715,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return out;
 	}
 
-	@Deprecated
-	protected List<ModelExpr> createElementInstanceExpressions(
-			InstElement instElement, int expressionInstance) {
-		OpersElement semElement = instElement.getTransSupportMetaElement()
-				.getTransSemanticConcept();
-		List<ModelExpr> out = new ArrayList<ModelExpr>();
-		List<InstElement> opersParents = instElement
-				.getTransSupportMetaElement().getTransInstSemanticElement()
-				.getParentOpersConcept();
-		if (semElement != null
-				&& semElement.getAllSemanticExpressions(opersParents) != null)
-			for (OpersExpr semExpression : semElement
-					.getAllSemanticExpressions(opersParents)) {
-				ModelExpr instanceExpression = new ModelExpr(refas, false,
-						semExpression, false);
-				instanceExpression.createFromSemanticExpression(instElement, 0,
-						expressionInstance, false, 0);
-				out.add(instanceExpression);
-			}
-
-		return out;
-	}
+	
 
 	// protected List<InstanceExpression> createElementInstanceExpressions(
 	// IntOpersElement semElement) {
@@ -777,34 +756,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return instanceExpressions.get(column);
 	}
 
-	/**
-	 * Expression for textual representation
-	 * 
-	 * @return
-	 * @throws FunctionalException
-	 */
-	public List<IntExpression> getHLCLExpressions(String column)
-			throws FunctionalException {
-		List<IntExpression> out = new ArrayList<IntExpression>();
-		for (ModelExpr expression : instanceExpressions.get(column)) {
-			// idMap.putAll(expression.(hlclFactory));
-			IntExpression newExp = expression.createSGSExpression();
-			if (newExp != null)
-				out.add(newExp);
-		}
-		return out;
-	}
+	
 
-	/**
-	 * Se agrega soporte para la tabla (restriccion->concepto)
-	 * @param column
-	 * @return
-	 * @throws FunctionalException
-	 */
-
-	public HlclProgram getHlCLProgramExpressions(String column) throws FunctionalException {
-		return getHlCLProgramExpressions(column, null);
-	}
+	
 
 	/**
 	 * Se agrega soporte para la tabla (restriccion->concepto)

@@ -40,13 +40,7 @@ public class LessOrEqualsBooleanExpression extends
 		operation = TRANSFORMATION;
 	}
 
-	public LessOrEqualsBooleanExpression(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			IntBooleanExpression simpleExpression) {
-		super(vertex, attributeName, replaceRight, simpleExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	public LessOrEqualsBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceRight,

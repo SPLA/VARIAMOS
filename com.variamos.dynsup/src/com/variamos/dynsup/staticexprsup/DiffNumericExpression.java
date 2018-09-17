@@ -23,37 +23,10 @@ import com.variamos.hlcl.model.expressions.NumericIdentifier;
 public class DiffNumericExpression extends AbstractNumericExpression {
 	public static final String TRANSFORMATION = "-";
 
-	public DiffNumericExpression(InstElement left, InstElement right,
-			String leftAttributeName, String rightAttributeName) {
-		super(left, right, leftAttributeName, rightAttributeName);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
-
-	public DiffNumericExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, AbstractExpression subExpression) {
-		super(vertex, attributeName, replaceRight, subExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
-
-	public DiffNumericExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, IntBooleanExpression simpleExpression) {
-		super(vertex, attributeName, replaceRight, simpleExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
 
 	public DiffNumericExpression(InstElement vertex, String attributeName,
 			boolean replaceRight, NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
-
-	public DiffNumericExpression(AbstractExpression leftSubExpression,
-			AbstractExpression rightSubExpression) {
-		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
 	}

@@ -183,14 +183,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		this.expressionInstance = expressionInstance;
 	}
 
-	public ModelExpr(boolean customExpression, OpersExpr semanticExpression) {
-		this.customExpression = customExpression;
-		if (customExpression) {
-			customSemanticExpression = semanticExpression;
-		} else
-			volatileSemanticExpression = semanticExpression;
-		semanticExpressionId = semanticExpression.getIdentifier();
-	}
+	
 
 	public ModelExpr(InstanceModel refas, boolean customExpression,
 			OpersExpr semanticExpression, boolean iterInstance) {
@@ -204,40 +197,6 @@ public class ModelExpr implements Serializable, Cloneable {
 		semanticExpressionId = semanticExpression.getIdentifier();
 	}
 
-	public ModelExpr(OpersExpr semanticExpression, InstElement left,
-			InstElement right) {
-		this.volatileSemanticExpression = semanticExpression;
-		this.semanticExpressionId = semanticExpression.getIdentifier();
-		setLeftElement(left);
-		setRightElement(right);
-	}
-
-	public ModelExpr(OpersExpr semanticExpression, InstElement vertex,
-			boolean replaceTarget, ModelExpr instanceExpression) {
-		this.volatileSemanticExpression = semanticExpression;
-		this.semanticExpressionId = semanticExpression.getIdentifier();
-		if (replaceTarget) {
-			setLeftElement(vertex);
-			this.rightInstanceExpression = instanceExpression;
-		} else {
-			setRightElement(vertex);
-			this.leftInstanceExpression = instanceExpression;
-		}
-	}
-
-	public ModelExpr(OpersExpr semanticExpression,
-			ModelExpr leftInstanceExpression, ModelExpr rightInstanceExpression) {
-		this.volatileSemanticExpression = semanticExpression;
-		this.semanticExpressionId = semanticExpression.getIdentifier();
-		this.leftInstanceExpression = leftInstanceExpression;
-		this.rightInstanceExpression = rightInstanceExpression;
-	}
-
-	public ModelExpr(OpersExpr semanticExpression, InstElement vertex) {
-		this.volatileSemanticExpression = semanticExpression;
-		this.semanticExpressionId = semanticExpression.getIdentifier();
-		setLeftElement(vertex);
-	}
 
 	public IntExpression createSGSExpression(String element)
 			throws FunctionalException {
@@ -1631,12 +1590,6 @@ public class ModelExpr implements Serializable, Cloneable {
 		getSemanticExpression().setLeftExpressionType(type);
 	}
 
-	public void setLeftElement(InstElement instElement, String attribute) {
-		getSemanticExpression().setLeftExpressionType(
-				ExpressionVertexType.LEFTVARIABLE);
-		this.volatileLeftInstElement = instElement;
-		getSemanticExpression().setLeftAttributeName(attribute);
-	}
 
 	public void setRightInstanceExpression(ExpressionVertexType type,
 			OpersExprType semanticExpressionType, String id, int instance) {
@@ -1920,142 +1873,7 @@ public class ModelExpr implements Serializable, Cloneable {
 		return "";// expressionStructure();
 	}
 
-	public String expressionStructure() {
-		String out = "";
-		for (ExpressionVertexType expressionVertex : getSemanticExpression()
-				.getExpressionTypes()) {
-			// if (expressionConnectors.size() > i)
-			// out += " " + expressionConnectors.get(i) + " ";
-			switch (expressionVertex) {
-			case LEFTVARIABLEVALUE:
-				out += leftValue;
-				break;
-			case RIGHTVARIABLEVALUE:
-				out += rightValue;
-				break;
-			case LEFTVARIABLE:
-				out += this.getLeftInstElementId() + ":";
-				out += getLeftAttributeName() + " ";
-				break;
-			case RIGHTVARIABLE:
-				out += getRightAttributeName() + " ";
-
-				break;
-			case LEFTSUBEXPRESSION:
-				out += "(" + leftInstanceExpression.expressionStructure() + ")";
-				break;
-			case RIGHTSUBEXPRESSION:
-				out += "(" + rightInstanceExpression.expressionStructure()
-						+ ")";
-				break;
-			case LEFTBOOLEANEXPRESSION:
-				break;
-			case LEFTCONCEPTVARIABLE:
-				out += this.getLeftInstElementId() + ":";
-				out += getLeftAttributeName() + " ";
-				break;
-			case LEFTITERANYCONVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTSUBITERANYVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTITERANYRELVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTITERCONCEPTVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFSUBTITERCONVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTSUBITERINCCONVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTITERINCCONVARIABLE:
-				if (leftInstanceExpression != null)
-					out += "(" + leftInstanceExpression.expressionStructure()
-							+ ")";
-				break;
-			case LEFTSUBITERINCRELVARIABLE:
-				out += this.getLeftInstElementId() + ":";
-				out += getLeftAttributeName();
-				break;
-			case LEFTITERINCRELVARIABLE:
-				out += this.getLeftInstElementId() + ":";
-				out += getLeftAttributeName();
-				break;
-			case LEFTSUBITEROUTCONVARIABLE:
-				out += this.getLeftInstElementId() + ":";
-				out += getLeftAttributeName();
-				break;
-			case LEFTITEROUTCONVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTSUBITEROUTRELVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTITEROUTRELVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTMODELVARS:
-				break;
-			case LEFTNUMERICVALUE:
-				break;
-			case LEFTSTRINGVALUE:
-				break;
-			case LEFTUNIQUEINCCONVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTUNIQUEINCRELVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTUNIQUEOUTCONVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case LEFTUNIQUEOUTRELVARIABLE:
-				out += getLeftAttributeName();
-				break;
-			case RIGHTBOOLEANEXPRESSION:
-				break;
-			case RIGHTCONCEPTVARIABLE:
-				out += this.getRightInstElementId() + ":";
-				out += getRightAttributeName();
-				break;
-			case RIGHTMODELVARS:
-				out += this.getRightInstElementId() + ":";
-				out += getRightAttributeName();
-				break;
-			case RIGHTNUMERICVALUE:
-				break;
-			case RIGHTSTRINGVALUE:
-				break;
-			case RIGHTUNIQUEINCCONVARIABLE:
-
-				out += this.getRightInstElementId() + ":";
-				out += getRightAttributeName();
-				break;
-			case RIGHTUNIQUEINCRELVARIABLE:
-
-				out += this.getRightInstElementId() + ":";
-				out += getRightAttributeName();
-				break;
-			case RIGHTUNIQUEOUTCONVARIABLE:
-
-				out += this.getRightInstElementId() + ":";
-				out += getRightAttributeName();
-				break;
-			case RIGHTUNIQUEOUTRELVARIABLE:
-
-				out += this.getRightInstElementId() + ":";
-				out += getRightAttributeName();
-				break;
-			default:
-				break;
-			}
-		}
-		return out;
-	}
+	
 
 	public List<OpersSubOperation> getSemExprSubActions() {
 		return SemExprSubActions;

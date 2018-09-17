@@ -9,11 +9,5 @@ package com.variamos.dynsup.statictypes;
  * @version 1.1
  * @since 2014-11-23
  */
-public enum SatisficingType {
-	Achieve_as_High_as_Possible,
-	Achieve_as_Low_as_Possible,
-	Achieve_as_Close_as_Possible,
-	Maintaint_as_High_as_Possible,
-	Maintaint_as_Low_as_Possible,
-	Maintaint_as_Close_as_Possible
+public enum SatisficingType {	
 }

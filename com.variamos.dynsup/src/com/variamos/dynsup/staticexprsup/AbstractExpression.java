@@ -390,40 +390,7 @@ public abstract class AbstractExpression {
 		return operation;
 	}
 
-	public String expressionStructure() {
-		String out = "";
-		int i = 0;
-		for (ExpressionVertexType expressionVertex : expressionVertexTypes) {
-			if (expressionConnectors.size() > i)
-				out += " " + expressionConnectors.get(i) + " ";
-			switch (expressionVertex) {
-			case LEFTBOOLEANEXPRESSION:
-				out += leftBooleanExpression;
-				break;
-			case RIGHTBOOLEANEXPRESSION:
-				out += rightBooleanExpression;
-				break;
-			case LEFTVARIABLE:
-				out += leftAttributeName;
-				break;
-			case RIGHTVARIABLE:
-				out += rightAttributeName;
-
-				break;
-			case LEFTSUBEXPRESSION:
-				out += "(" + leftSubExpression.expressionStructure() + ")";
-				break;
-			case RIGHTSUBEXPRESSION:
-				out += "(" + rightSubExpression.expressionStructure() + ")";
-				break;
-			default:
-				break;
-
-			}
-			i++;
-		}
-		return out;
-	}
+	
 
 	protected List<IntExpression> expressionTerms(HlclFactory f,
 			Map<String, Identifier> idMap) {

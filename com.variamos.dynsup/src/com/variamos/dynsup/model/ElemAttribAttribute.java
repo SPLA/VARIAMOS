@@ -47,12 +47,7 @@ public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 		this.value = valueObject;
 	}
 
-	public ElemAttribAttribute(String identifier, String type, String name) {
-		this.identifier = identifier;
-		this.type = type;
-		this.name = name;
-		this.value = null;
-	}
+	
 
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;

@@ -34,12 +34,7 @@ public class FalseProductLine extends Defect {
 		this.isFalsePL = isFalsePL;
 	}
 
-	public FalseProductLine(VariabilityModel variabilityModel) {
-		super();
-		this.variabilityModel = variabilityModel;
-		defectType = DefectTypeEnum.FALSE_PRODUCT_LINE;
-
-	}
+	
 
 	/**
 	 * @return the variabilityModel

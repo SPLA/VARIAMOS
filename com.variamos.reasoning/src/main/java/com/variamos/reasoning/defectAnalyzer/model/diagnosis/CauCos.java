@@ -44,21 +44,13 @@ public class CauCos {
 		this.id = id;
 	}
 	
-	public boolean add(IntBooleanExpression e) {
-		return elements.add(e);
-	}
+	
 
-	public void add(int index, IntBooleanExpression element) {
-		elements.add(index, element);
-	}
+	
 
-	public boolean addAll(Collection<? extends IntBooleanExpression> c) {
-		return elements.addAll(c);
-	}
+	
 
-	public boolean addAll(int index, Collection<? extends IntBooleanExpression> c) {
-		return elements.addAll(index, c);
-	}
+	
 
 	@Override
 	public String toString() {

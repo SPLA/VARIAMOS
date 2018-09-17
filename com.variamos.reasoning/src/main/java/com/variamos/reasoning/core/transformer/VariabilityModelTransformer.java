@@ -61,20 +61,5 @@ public class VariabilityModelTransformer {
 
 	}
 
-	public void printTransformedModelGNUProlog(VariabilityModel variabilityModel) {
-		Collection<IntBooleanExpression> expressions = ConstraintRepresentationUtil
-				.dependencyToExpressionList(variabilityModel.getDependencies(),
-						variabilityModel.getFixedDependencies());
-
-		try {
-			String program = ConstraintRepresentationUtil
-					.constraintToPrologProgram(expressions,
-							SolverEditorType.GNU_PROLOG);
-			System.out.println(program);
-		} catch (FunctionalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+	
 }

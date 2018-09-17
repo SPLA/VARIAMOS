@@ -23,34 +23,12 @@ public class ImplicationBooleanExpression extends
 		AbstractBooleanExpression {
 	public static final String TRANSFORMATION = "#==>";
 
-	public ImplicationBooleanExpression(InstElement left,
-			InstElement right, String leftAttributeName,
-			String rightAttributeName) {
-		super(left, right, leftAttributeName, rightAttributeName);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	public ImplicationBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			AbstractExpression subExpression) {
 		super(vertex, attributeName, replaceTarget, subExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
-
-	public ImplicationBooleanExpression(InstElement vertex,
-			String attributeName, boolean replaceTarget,
-			IntBooleanExpression booleanExpression) {
-		super(vertex, attributeName, replaceTarget, booleanExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
-
-	public ImplicationBooleanExpression(InstElement vertex,
-			String attributeName, boolean replaceTarget,
-			IntNumericExpression numericExpression) {
-		super(vertex, attributeName, replaceTarget, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
 	}

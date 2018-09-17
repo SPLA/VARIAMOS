@@ -212,27 +212,7 @@ public class EditorPalette extends JPanel {
 		revalidate();
 	}
 
-	/**
-	 * 
-	 * @param name
-	 * @param icon
-	 * @param style
-	 * @param width
-	 * @param height
-	 * @param value
-	 */
-	public void addEdgeTemplate(final String name, ImageIcon icon,
-			String style, int width, int height, Object value) {
-		mxGeometry geometry = new mxGeometry(0, 0, width, height);
-		geometry.setTerminalPoint(new mxPoint(0, height), true);
-		geometry.setTerminalPoint(new mxPoint(width, 0), false);
-		geometry.setRelative(true);
-
-		mxCell cell = new mxCell(value, geometry, style);
-		cell.setEdge(true);
-
-		addTemplate(name, icon, cell);
-	}
+	
 
 	/**
 	 * 
@@ -363,15 +343,7 @@ public class EditorPalette extends JPanel {
 		add(entry);
 	}
 
-	/**
-	 * @param eventName
-	 * @param listener
-	 * @see com.mxgraph.util.mxEventSource#addListener(java.lang.String,
-	 *      com.mxgraph.util.mxEventSource.mxIEventListener)
-	 */
-	public void addListener(String eventName, mxIEventListener listener) {
-		eventSource.addListener(eventName, listener);
-	}
+	
 
 	/**
 	 * @return whether or not event are enabled for this palette
@@ -381,23 +353,9 @@ public class EditorPalette extends JPanel {
 		return eventSource.isEventsEnabled();
 	}
 
-	/**
-	 * @param listener
-	 * @see com.mxgraph.util.mxEventSource#removeListener(com.mxgraph.util.mxEventSource.mxIEventListener)
-	 */
-	public void removeListener(mxIEventListener listener) {
-		eventSource.removeListener(listener);
-	}
+	
 
-	/**
-	 * @param eventName
-	 * @param listener
-	 * @see com.mxgraph.util.mxEventSource#removeListener(java.lang.String,
-	 *      com.mxgraph.util.mxEventSource.mxIEventListener)
-	 */
-	public void removeListener(mxIEventListener listener, String eventName) {
-		eventSource.removeListener(listener, eventName);
-	}
+	
 
 	/**
 	 * @param eventsEnabled

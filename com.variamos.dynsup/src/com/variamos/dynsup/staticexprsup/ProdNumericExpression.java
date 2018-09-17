@@ -37,12 +37,7 @@ public class ProdNumericExpression extends AbstractNumericExpression {
 		operation = TRANSFORMATION;
 	}
 
-	public ProdNumericExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, IntBooleanExpression simpleExpression) {
-		super(vertex, attributeName, replaceRight, simpleExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	public ProdNumericExpression(InstElement vertex, String attributeName,
 			boolean replaceRight, NumericIdentifier numericIdentifier) {

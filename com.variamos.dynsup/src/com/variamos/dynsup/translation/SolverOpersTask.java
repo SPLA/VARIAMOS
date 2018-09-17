@@ -130,13 +130,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		this.file = filename;
 	}
 
-	public SolverOpersTask(ProgressMonitor progressMonitor, String operationIdentifier, InstanceModel refasModel,
-			ModelExpr2HLCL refas2hlcl, String file) {
-		this.progressMonitor = progressMonitor;
-		this.refasModel = refasModel;
-		this.refas2hlcl = refas2hlcl;
-		// this.file = file;
-	}
+	
 
 	public boolean isFirstSimulExec() {
 		return firstSimulExec;
@@ -224,91 +218,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return elements;
 	}
 
-	// TODO Modify for dynamic operations
-	@Deprecated
-	public void configModel() throws InterruptedException, FunctionalException {
-		// this.clearNotificationBar();
-		refas2hlcl.cleanGUIElements(ModelExpr2HLCL.CONF_EXEC);
-		Set<Identifier> freeIdentifiers = null;
-		Set<InstElement> elementSubSet = null;
-		task = 0;
-		long iniTime = 0;
-		long endTime = 0;
-		iniTime = System.currentTimeMillis();
-		if (invalidConfigHlclProgram && element == null) {
-			configHlclProgram = refas2hlcl.getHlclProgram("Simul", ModelExpr2HLCL.CONF_EXEC);
-			freeIdentifiers = refas2hlcl.getFreeIdentifiers();
-		} else {
-			freeIdentifiers = new HashSet<Identifier>();
-			elementSubSet = new HashSet<InstElement>();
-			refas2hlcl.configGraph(progressMonitor, element, elementSubSet, freeIdentifiers, false);
-			elementSubSet = new HashSet<InstElement>();
-			configHlclProgram = refas2hlcl.configGraph(progressMonitor, element, elementSubSet, freeIdentifiers, true);
-			task = 10;
-			setProgress((int) task);
-		}
-
-		invalidConfigHlclProgram = false;
-		TreeMap<String, Number> configuredIdentNames = refas2hlcl.getConfiguredIdentifier(elementSubSet);
-		SolverSolution config = new SolverSolution();
-
-		config.setSolverSolution(configuredIdentNames);
-
-		List<String> requiredConceptsNames = new ArrayList<String>();
-		List<String> deadConceptsNames = new ArrayList<String>();
-		IntDefectsVerifier defectVerifier = new DefectsVerifier(configHlclProgram, parentComponent,
-				"Configuring Selected Elements");
-		// System.out.println("FREE: " + freeIdentifiers);
-
-		// System.out.println("CONF: " + configuredIdentNames);
-
-		if (freeIdentifiers.size() > 0) {
-
-			List<Defect> requiredConcepts = null;
-
-			requiredConcepts = defectVerifier.getFalseOptionalElements(freeIdentifiers, null, config);
-			executionTime += "FalseOpt: " + defectVerifier.getTotalTime() + "["
-					+ defectVerifier.getSolverTime() / 1000000 + "]" + " -- ";
-			if (requiredConcepts.size() > 0) {
-				for (Defect conceptVariable : requiredConcepts) {
-					String[] conceptId = conceptVariable.getId().split("_");
-					requiredConceptsNames.add(conceptId[0]);
-				}
-
-			}
-
-		}
-		long falseOTime = defectVerifier.getSolverTime() / 1000000;
-		task = 80;
-		setProgress((int) task);
-		// System.out.println("newSEL: " + requiredConceptsNames);
-		refas2hlcl.updateRequiredConcepts(requiredConceptsNames, test);
-		if (freeIdentifiers.size() > 0) {
-			List<Defect> deadIndetifiersList = null;
-			defectVerifier.resetTime();
-			deadIndetifiersList = defectVerifier.getDeadElements(freeIdentifiers, null, config);
-			executionTime += "Dead: " + defectVerifier.getTotalTime() + "[" + defectVerifier.getSolverTime() / 1000000
-					+ "]" + " -- ";
-			if (deadIndetifiersList.size() > 0) {
-				for (Defect conceptVariable : deadIndetifiersList) {
-					String[] conceptId = conceptVariable.getId().split("_");
-					deadConceptsNames.add(conceptId[0]);
-				}
-
-			}
-
-		}
-
-		task = 100;
-		setProgress((int) task);
-
-		System.out.println("newNOTAV: " + deadConceptsNames);
-		refas2hlcl.updateDeadConfigConcepts(deadConceptsNames, test);
-
-		endTime = System.currentTimeMillis();
-		executionTime += "ConfigExec: " + (endTime - iniTime) + "["
-				+ (falseOTime + defectVerifier.getSolverTime() / 1000000) + "]" + " -- ";
-	}
+	
 
 	// dynamic call implementation
 

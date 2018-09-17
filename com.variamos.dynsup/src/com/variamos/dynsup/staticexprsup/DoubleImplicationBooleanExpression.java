@@ -39,21 +39,9 @@ public class DoubleImplicationBooleanExpression extends
 		operation = TRANSFORMATION;
 	}
 
-	public DoubleImplicationBooleanExpression(InstElement vertex,
-			String attributeName, boolean replaceTarget,
-			IntBooleanExpression comparativeExpression) {
-		super(vertex, attributeName, replaceTarget, comparativeExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
-	public DoubleImplicationBooleanExpression(InstElement vertex,
-			String attributeName, boolean replaceTarget,
-			IntNumericExpression comparativeExpression) {
-		super(vertex, attributeName, replaceTarget, comparativeExpression);
-		this.expressionConnectors.add(TRANSFORMATION);
-		operation = TRANSFORMATION;
-	}
+	
 
 	public DoubleImplicationBooleanExpression(
 			AbstractExpression leftSubExpression,

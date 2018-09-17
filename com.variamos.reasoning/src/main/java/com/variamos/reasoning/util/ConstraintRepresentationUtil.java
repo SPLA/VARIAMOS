@@ -1,6 +1,5 @@
 package com.variamos.reasoning.util;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,38 +19,10 @@ import com.variamos.solver.core.compiler.Hlcl2SWIProlog;
 
 public class ConstraintRepresentationUtil {
 
-	/**
-	 * Realiza la lógica de convertir la representación de constraints agnostica
-	 * a el solver que corresponda y guardarlo en un archivo temporal que luego
-	 * es analizado
-	 * 
-	 * @param prologTempPath
-	 * @param constraintRepresentation
-	 * @param solverEditorType
-	 * @throws FunctionalException
-	 */
-	public static void savePrologRepresentationProgram(String prologTempPath,
-			Collection<IntBooleanExpression> constraintRepresentation,
-			SolverEditorType solverEditorType) throws FunctionalException {
-
-		String constraintProgramString = constraintToPrologProgram(
-				constraintRepresentation, solverEditorType);
-
-		// Se guarda la representación en el archivo temporal de prolog
-		FileUtils.writeFile(prologTempPath, constraintProgramString);
-	}
 	
 	
-	public static void savePrologRepresentationProgram(String prologTempPath,
-			Collection<IntBooleanExpression> constraintRepresentation,List<String>domainList,
-			SolverEditorType solverEditorType) throws FunctionalException {
-
-		String constraintProgramString = constraintToPrologProgram(
-				constraintRepresentation, domainList,solverEditorType);
-
-		// Se guarda la representación en el archivo temporal de prolog
-		FileUtils.writeFile(prologTempPath, constraintProgramString);
-	}
+	
+	
 
 	public static String constraintToPrologProgram(
 			Collection<IntBooleanExpression> constraintRepresentation,
@@ -103,21 +74,7 @@ public class ConstraintRepresentationUtil {
 		return hlclProgram;
 	}
 	
-	/**
-	 * @param expressionsList
-	 * @return creates a HLCLProgram list from a boolean Expression matrix
-	 */
-	public List<HlclProgram> expresions2HlclProgramList(
-			List<List<IntBooleanExpression>> expressionsList) {
-
-		List<HlclProgram> hlcLProgramList = new ArrayList<HlclProgram>();
-		for (List<IntBooleanExpression> expressions : expressionsList) {
-			HlclProgram expressionProgram = new HlclProgram();
-			expressionProgram.addAll(expressions);
-			hlcLProgramList.add(expressionProgram);
-		}
-		return hlcLProgramList;
-	}
+	
 
 	public static Collection<IntBooleanExpression> dependencyListToExpressionList(
 			Collection<Dependency> dependencies) {
@@ -142,40 +99,9 @@ public class ConstraintRepresentationUtil {
 
 	}
 
-	public static Collection<IntBooleanExpression> dependencyToExpressionList(
-			List<Dependency> dependenciesSet, List<Dependency> fixedDependencies) {
-
-		List<Dependency> allDependenciesList = new ArrayList<Dependency>();
-		allDependenciesList.addAll(dependenciesSet);
-		allDependenciesList.addAll(fixedDependencies);
-		return dependencyListToExpressionList(allDependenciesList);
-
-	}
 	
-	public static Collection<IntBooleanExpression> dependencyToExpressionList(
-			List<Dependency> dependenciesSet,Map<Long, Dependency> fixedDependencies) {
+	
+	
 
-		List<Dependency> allDependenciesList = new ArrayList<Dependency>();
-		allDependenciesList.addAll(dependenciesSet);
-		allDependenciesList.addAll(fixedDependencies.values());
-		return dependencyListToExpressionList(allDependenciesList);
-
-	}
-
-	/**
-	 * Se hace este método para que el resto del código no tenga que preocuparse
-	 * por volver las expressions hlclcPrograms
-	 * 
-	 * @param constraintRepresentation
-	 * @return
-	 */
-	public static Collection<Identifier> getIdentifiersSet(
-			Collection<IntBooleanExpression> constraintRepresentation) {
-		HlclProgram hlclProgram = new HlclProgram();
-		hlclProgram
-				.addAll((Collection<? extends IntBooleanExpression>) constraintRepresentation);
-		Collection<Identifier> ids = HlclUtil.getUsedIdentifiers(hlclProgram);
-		return ids;
-
-	}
+	
 }

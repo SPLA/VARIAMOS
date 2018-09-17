@@ -22,13 +22,9 @@ public class SetType extends Type {
 
 	private Set<String> elements = new HashSet<>();
 
-	public boolean add(String element) {
-		return elements.add(element);
-	}
+	
 
-	public int size() {
-		return elements.size();
-	}
+	
 
 	public Set<String> getElements() {
 		return elements;

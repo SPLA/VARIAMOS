@@ -292,11 +292,7 @@ public class BasicGraphEditor extends JPanel {
 
 	
 
-	protected void reinstallComponent() {
-		undoManager();
-		installHandlers();
-		installGraphComponentListeners();
-	}
+	
 
 	protected void undoManager() {
 		final mxGraph graph = graphComponent.getGraph();
@@ -704,27 +700,7 @@ public class BasicGraphEditor extends JPanel {
 		return newAction;
 	}
 
-	public Action bind(String identifier, String name, final Action action,
-			String iconUrl) {
-		AbstractAction newAction = new AbstractAction(name,
-				(iconUrl != null) ? new ImageIcon(
-						BasicGraphEditor.class.getResource(iconUrl)) : null) {
-			/**
-							 * 
-							 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				action.actionPerformed(new ActionEvent(getGraphComponent(), e
-						.getID(), e.getActionCommand()));
-			}
-		};
-
-		newAction.putValue(Action.SHORT_DESCRIPTION, identifier);
-
-		return newAction;
-	}
+	
 
 	/**
 	 * 
@@ -774,25 +750,7 @@ public class BasicGraphEditor extends JPanel {
 		}
 	}
 
-	/**
-	 * 
-	 */
-	public void about() {
-		JFrame frame = (JFrame) SwingUtilities.windowForComponent(this);
-
-		if (frame != null) {
-			EditorAboutFrame about = new EditorAboutFrame(frame);
-			about.setModal(true);
-
-			// Centers inside the application frame
-			int x = frame.getX() + (frame.getWidth() - about.getWidth()) / 2;
-			int y = frame.getY() + (frame.getHeight() - about.getHeight()) / 2;
-			about.setLocation(x, y);
-
-			// Shows the modal dialog and waits
-			about.setVisible(true);
-		}
-	}
+	
 
 	/**
 	 * 
@@ -824,12 +782,7 @@ public class BasicGraphEditor extends JPanel {
 		}
 	}
 
-	/**
-	 * 
-	 */
-	public JFrame createFrame() {
-		return createFrame(null);
-	}
+	
 
 	public JFrame createFrame(JMenuBar menuBar) {
 		frame = new JFrame();

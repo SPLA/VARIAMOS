@@ -20,13 +20,7 @@ public class MXGraphException extends Exception {
 		
 	}
 
-	/**
-	 * @param arg0 string text
-	 */
-	public MXGraphException(String arg0) {
-		super(arg0);
-		 
-	}
+	
 
 
 	/**
@@ -53,8 +47,5 @@ public class MXGraphException extends Exception {
 		 
 	}
 	
-	public static String exceptionStacktraceToString(Exception e)
-	{
-	    return Arrays.toString(e.getStackTrace());
-	}
+	
 }
