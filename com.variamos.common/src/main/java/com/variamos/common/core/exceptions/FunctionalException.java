@@ -48,6 +48,11 @@ public class FunctionalException extends Exception {
 		super(arg0, arg1);
 		 
 	}
+	
+	public static String exceptionStacktraceToString(Exception e)
+	{
+	    return Arrays.toString(e.getStackTrace());
+	}
 
 	
 	
