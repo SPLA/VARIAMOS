@@ -24,15 +24,15 @@ public class VariabilityModelCausesCorrectionsSorter {
 	public ClassifiedElement classifyDiagnosis(List<Diagnosis> allDiagnoses,
 			ClassificationTypeEnum classsificationType) {
 
-		// Almacena la colecci髇 completa de todos los MUSes o de todos los
-		// MCSes seg鷑 el par醡etro de entrada
+		// Almacena la colecci贸n completa de todos los MUSes o de todos los
+		// MCSes seg煤n el par谩metro de entrada
 		List<CauCos> cauCosAllElements = new ArrayList<CauCos>();
 		Set<CauCos> caucosAllElementsSet = new HashSet<CauCos>();
 		List<ClassifiableDiagnosis> commonDiagnosis = new ArrayList<ClassifiableDiagnosis>();
 		List<ClassifiableDiagnosis> noCommonDiagnosis = new ArrayList<ClassifiableDiagnosis>();
 
-		// Se obtiene la colecci髇 de todos las causas o correcciones
-		// seg鷑 el classificationType
+		// Se obtiene la colecci贸n de todos las causas o correcciones
+		// seg煤n el classificationType
 		for (Diagnosis diagnosis : allDiagnoses) {
 			if (classsificationType.equals(ClassificationTypeEnum.CAUSES)) {
 				cauCosAllElements.addAll(diagnosis.getCauses());
@@ -48,7 +48,7 @@ public class VariabilityModelCausesCorrectionsSorter {
 			caucosAllElementsSet.add(cauCos);
 		}
 		int setSize=caucosAllElementsSet.size();
-		// Se eliminan los repetidos que ten韆n orden distinto y no eran
+		// Se eliminan los repetidos que ten铆an orden distinto y no eran
 		// detectados por el equals de la clase CauCos
 		List<List<IntBooleanExpression>> cauCosExpressionsList = new ArrayList<List<IntBooleanExpression>>();
 		for (CauCos cauCos : caucosAllElementsSet) {
@@ -59,8 +59,8 @@ public class VariabilityModelCausesCorrectionsSorter {
 		SetUtil.maintainNoSupersets(cauCosExpressionsList);
 		//FIXME terminar el filtro para que no tenga valores repetidos
 
-		// Se recorre la uni髇 anteriormente obtenida ( es una causa una
-		// correci髇)
+		// Se recorre la uni贸n anteriormente obtenida ( es una causa una
+		// correci贸n)
 		long id = 1;
 		for (CauCos cauCos : cauCosAllElements) {
 
@@ -93,12 +93,12 @@ public class VariabilityModelCausesCorrectionsSorter {
 	private List<Defect> searchDiagnosisByDefects(List<Diagnosis> allDiagnoses,
 			CauCos cauCos, ClassificationTypeEnum classsificationType) {
 
-		// Lista de defectos en los que se encuentra la causa o correcci髇
+		// Lista de defectos en los que se encuentra la causa o correcci贸n
 		List<Defect> defects = new ArrayList<Defect>();
 		for (Diagnosis diagnosis : allDiagnoses) {
 
 			if (classsificationType.equals(ClassificationTypeEnum.CAUSES)) {
-				// Se verifica si en la colecci髇 de causas de este diagnostico
+				// Se verifica si en la colecci贸n de causas de este diagnostico
 				// esta la causa o correccion a revisar
 				List<CauCos> causes = diagnosis.getCauses();
 				if (causes.contains(cauCos)) {
@@ -107,7 +107,7 @@ public class VariabilityModelCausesCorrectionsSorter {
 			} else if (classsificationType
 					.equals(ClassificationTypeEnum.CORRECTIONS)) {
 
-				// Se verifica si en la colecci髇 de correcciones de este
+				// Se verifica si en la colecci贸n de correcciones de este
 				// diagnostico
 				// esta ese conjunto
 				List<CauCos> corrections = diagnosis.getCorrections();

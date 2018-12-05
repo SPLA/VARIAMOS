@@ -68,8 +68,8 @@ public class ExportUtil {
 
 		int contadorCelda = 0;
 		int filaInicialHoja = 0;
-		// Informaci�n con los tiempos
-		// Fila con las estad�sticas
+		// Informaciï¿½n con los tiempos
+		// Fila con las estadï¿½sticas
 		HSSFRow estadisticasTitle = sheet.createRow(filaInicialHoja);
 		HSSFCell celda0 = estadisticasTitle.createCell(0);
 		celda0.setCellValue("Statistics");

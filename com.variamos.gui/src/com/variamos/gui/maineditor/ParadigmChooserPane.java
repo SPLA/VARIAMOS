@@ -222,6 +222,6 @@ public class ParadigmChooserPane extends JDialog implements ActionListener, Mous
 	
 	public static void main(String[] args) {
 		ParadigmTypeEnum optionChoosed = ParadigmChooserPane.showInputDialog();
-		System.out.println("La opción elegida es: "+optionChoosed);
+		System.out.println("La opciÃ³n elegida es: "+optionChoosed);
 	}
 }

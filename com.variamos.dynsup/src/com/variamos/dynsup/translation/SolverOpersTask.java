@@ -848,7 +848,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 						//inconsistentPath.add(split[0]);
 						
 
-						// aÃ±adir la variable a la lista y despuÃ©s una por una las retsricciones
+						// aÃÂ±adir la variable a la lista y despuÃÂ©s una por una las retsricciones
 						// unarias asociadas.
 						for (NodeConstraintHLCL cons : ((NodeVariableHLCL) vertex).getUnary()) {
 							String [] object = getIdFromTable(cons.getConstraint(), table).split("_"); //this lines allow to obtain the id of the object

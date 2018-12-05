@@ -7,8 +7,8 @@ import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
 
 /**
- * Objeto que representa el defecto, las causas y los subconjuntos corrección
- * que podrían solucionar el defecto
+ * Objeto que representa el defecto, las causas y los subconjuntos correcciÃ³n
+ * que podrÃ­an solucionar el defecto
  * 
  * @author LuFe
  * 
@@ -51,7 +51,7 @@ public class Diagnosis {
 		int i = 1;
 		System.out.println("Defecto" + defect.getId());
 		for (CauCos correction : corrections) {
-			System.out.println("Corrección: " + i);
+			System.out.println("CorrecciÃ³n: " + i);
 			printCorrectionSet(correction.getElements());
 			i++;
 		}

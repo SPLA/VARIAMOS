@@ -75,7 +75,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 	}
 
 	/**
-	 * Lee el xml para identificar las caracter�sticas raices
+	 * Lee el xml para identificar las caracterï¿½sticas raices
 	 * 
 	 * @param node
 	 * @param tab
@@ -209,10 +209,18 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 
 				// Se recorre los hijos de la cardinalidad para construir la
 				// restriccion
-				Enumeration<FeatureTreeNode> childrenNodes = node.children();
+				
+				// One should not use deprecated types
+				@SuppressWarnings("rawtypes")
+				Enumeration dummies = node.children();
+				List<FeatureTreeNode> childrenNodes = new ArrayList<>();
+				while(dummies.hasMoreElements()) {
+					childrenNodes.add((FeatureTreeNode) dummies.nextElement());
+				}
+				
+				 		
 
-				while (childrenNodes.hasMoreElements()) {
-					FeatureTreeNode childNode = childrenNodes.nextElement();
+				for(FeatureTreeNode childNode : childrenNodes){
 					String childFeatureName = transformName(childNode.getName());
 					VariabilityElementDefAna variabilityElementDefAna = new VariabilityElementDefAna(
 							childFeatureName);

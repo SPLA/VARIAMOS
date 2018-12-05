@@ -41,7 +41,7 @@ public interface IntSolver {
 	public Map<String, List<Integer>> reduceDomain(SolverSolution config,
 			ConfigurationOptionsDTO params);
 
-	// Esto para qué sirve?: jcmunoz para que la ejecución ya no continue sobre
-	// la iteración anterior, no funciona igual que en la version anterior
+	// Esto para quÃ© sirve?: jcmunoz para que la ejecuciÃ³n ya no continue sobre
+	// la iteraciÃ³n anterior, no funciona igual que en la version anterior
 	public void clearQueryMonitor();
 }

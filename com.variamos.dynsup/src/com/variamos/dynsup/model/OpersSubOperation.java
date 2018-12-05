@@ -11,7 +11,7 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
  * operationalization with GUI edition. Part of PhD work at University of Paris
  * 1
  * 
- * @author Juan C. Mu�oz Fern�ndez <jcmunoz@gmail.com>
+ * @author Juan C. Muï¿½oz Fernï¿½ndez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-02-05

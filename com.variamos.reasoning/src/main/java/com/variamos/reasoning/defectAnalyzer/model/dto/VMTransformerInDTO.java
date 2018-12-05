@@ -12,7 +12,7 @@ public class VMTransformerInDTO {
 	private NotationType notationType;
 	
 	
-	//Para transformar desde Prolog Indica en que notación esta el modelo a transformar
+	//Para transformar desde Prolog Indica en que notaciÃ³n esta el modelo a transformar
 	private SolverEditorType prologEditorTypeFileToTransform;
 		
 	/**

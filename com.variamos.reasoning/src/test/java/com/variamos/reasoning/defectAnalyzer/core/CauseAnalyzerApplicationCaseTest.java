@@ -55,12 +55,12 @@ public class CauseAnalyzerApplicationCaseTest {
 	//
 	// try {
 	// boolean isVoid = verifier.isVoid();
-	// System.out.println("El modelo es vacío");
+	// System.out.println("El modelo es vacÃ­o");
 	//
 	// VoidModel voidModelDefect = new VoidModel(
 	// variabilityModel.getModelName());
 	//
-	// // Información del DTO
+	// // InformaciÃ³n del DTO
 	// VMCauseAnalyzerInDTO causeAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 	//
 	// causeAnalyzerInDTO.setVariabilityModel(variabilityModel);
@@ -142,7 +142,7 @@ public class CauseAnalyzerApplicationCaseTest {
 	// .identifyDeadFeatures(verifierInDTO
 	// .getVariabilityModel().getElements());
 	//
-	// // Información del DTO
+	// // InformaciÃ³n del DTO
 	// VMCauseAnalyzerInDTO causeAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 	//
 	// causeAnalyzerInDTO.setVariabilityModel(variabilityModel);
@@ -237,7 +237,7 @@ public class CauseAnalyzerApplicationCaseTest {
 	// verifierInDTO
 	// .getVariabilityModel().getElements();
 	//
-	// // Se quitan de la lista las características que son full
+	// // Se quitan de la lista las caracterÃ­sticas que son full
 	// // mandatory, pq de esas se sabe que no pueden tener el valor de
 	// // cero
 	// elementsToVerifyDomainNoneAttainable.remove("Web_Portal");
@@ -305,7 +305,7 @@ public class CauseAnalyzerApplicationCaseTest {
 	// verifierInDTO);
 	// try {
 	//
-	// // Se prueba con una relación que sí sea redundante
+	// // Se prueba con una relaciÃ³n que sÃ­ sea redundante
 	// // Dependency: Flash-Image
 	// // id 25 (1-Flash)+ Image #>0
 	// // negacion (1-Flash)+ Image #=<0
@@ -332,7 +332,7 @@ public class CauseAnalyzerApplicationCaseTest {
 	// redundacyDefects.add(redundancy1);
 	// redundacyDefects.add(redundancy2);
 	//
-	// // Información del DTO
+	// // InformaciÃ³n del DTO
 	// VMCauseAnalyzerInDTO causeAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 	//
 	// causeAnalyzerInDTO.setVariabilityModel(variabilityModel);
@@ -415,7 +415,7 @@ public class CauseAnalyzerApplicationCaseTest {
 	//
 	// private void analyzeMCS(VariabilityModelCauseAnalyzer causesAnalyzer,
 	// List<Diagnostic> allDiagnostics) throws FunctionalException {
-	// System.out.println("ANALIZANDO LOS SUBCONJUNTOS CORRECCIÓN");
+	// System.out.println("ANALIZANDO LOS SUBCONJUNTOS CORRECCIÃ“N");
 	// long startAnalysisTime = System.currentTimeMillis();
 	// List<AnalyzedCorrectionSet> analyzedCorrectionSetList = new
 	// ArrayList<AnalyzedCorrectionSet>();
@@ -430,7 +430,7 @@ public class CauseAnalyzerApplicationCaseTest {
 	// }
 	// }
 	//
-	// System.out.println(" Resultado análisis causas");
+	// System.out.println(" Resultado anÃ¡lisis causas");
 	// for (AnalyzedCorrectionSet analizedCorrectionSet :
 	// analyzedCorrectionSetList) {
 	// System.out.println("Defect "

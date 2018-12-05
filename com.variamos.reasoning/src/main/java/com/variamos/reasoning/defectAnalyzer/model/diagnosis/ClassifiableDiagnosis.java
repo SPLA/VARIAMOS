@@ -6,7 +6,7 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
 
 public class ClassifiableDiagnosis {
 
-	// Puede ser una causa o una corrección según como se use
+	// Puede ser una causa o una correcciÃ³n segÃºn como se use
 
 	private CauCos cauCos;
 	private Long id;

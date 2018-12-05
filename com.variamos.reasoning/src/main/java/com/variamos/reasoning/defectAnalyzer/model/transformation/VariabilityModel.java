@@ -16,8 +16,8 @@ public class VariabilityModel {
 	
 	private Map<Long, Dependency> dependencies;
 	private String name;
-	// Dependencias propias de la notaci�n que se est� utilizando y que no
-	// pueden ser modificables pq hacen parte de la sem�ntica del modelo de
+	// Dependencias propias de la notaciï¿½n que se estï¿½ utilizando y que no
+	// pueden ser modificables pq hacen parte de la semï¿½ntica del modelo de
 	// variabilidad
 	private Map<Long, Dependency> fixedDependencies;
 
@@ -25,7 +25,7 @@ public class VariabilityModel {
 	// opcionales
 	private Map<String, VariabilityElementDefAna> optionalVariabilityElements;
 
-	// Dependencias de inclusi�n o exclusion. Son la dependencias para las que
+	// Dependencias de inclusiï¿½n o exclusion. Son la dependencias para las que
 	// se buscan redundancias si el modelo es un feature model
 	private Map<Long, Dependency> inclusionExclusionDependencies;
 

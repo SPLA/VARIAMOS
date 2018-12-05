@@ -8,7 +8,7 @@ import com.variamos.reasoning.defectAnalyzer.model.diagnosis.ClassifiedElement;
 import com.variamos.reasoning.defectAnalyzer.model.diagnosis.Diagnosis;
 
 /**
- * Entrega los resultados del an·lisis del defecto causas y correcciones
+ * Entrega los resultados del an√°lisis del defecto causas y correcciones
  * 
  * @author LuFe
  * 

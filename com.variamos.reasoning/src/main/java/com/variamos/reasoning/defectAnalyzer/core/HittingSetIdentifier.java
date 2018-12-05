@@ -12,7 +12,7 @@ import com.variamos.common.core.utilities.SetUtil;
 
 
 /**
- * Contiene los mÈtodos relacionados con la identificaciÛn de los MUSes
+ * Contiene los m√©todos relacionados con la identificaci√≥n de los MUSes
  * @author LuFe
  *
  */
@@ -21,14 +21,14 @@ public class HittingSetIdentifier {
 
 	
 	/*
-	 * Implementa la lÛgica propuesta en Lifton(2009) pero se modifica pq el
-	 * algoritmo original omitÌa algunos subconjuntos
+	 * Implementa la l√≥gica propuesta en Lifton(2009) pero se modifica pq el
+	 * algoritmo original omit√≠a algunos subconjuntos
 	 */
 
 	public static <E> void allMUSes(List<List<E>> minimalCorrectionSubsets,
 			List<E> actualHittingSet, List<List<E>> hittingSets) {
 
-		// Adiciona al MUS actual los conjutos de la lista que tengan tamaÒo
+		// Adiciona al MUS actual los conjutos de la lista que tengan tama√±o
 		// 1.
 		// Estos siempre tienen que ir y permite ganar en velocidad. Elimina
 		// luego estos conjuntos de la lista, y si hay mas conjuntos que
@@ -45,7 +45,7 @@ public class HittingSetIdentifier {
 			return;
 		} else {
 
-			// UniÛn de elementos que formar·n los hitting sets
+			// Uni√≥n de elementos que formar√°n los hitting sets
 			Collection<E> allClausesMCSes = SetUtil
 					.getUnionCollectionOfSets(minimalCorrectionSubsets);
 			boolean stop = Boolean.FALSE;
@@ -99,7 +99,7 @@ public class HittingSetIdentifier {
 		// List<List<T>> newMCSes = new ArrayList<List<T>>();
 		Collection<List<T>> minimalCorrectionSubsetsToRemove = new ArrayList<List<T>>();
 
-		// Se ordenan los conjuntos por tamaÒo de menor mayor
+		// Se ordenan los conjuntos por tama√±o de menor mayor
 		Collections.sort(minimalCorrectionSubsets,
 				new CollectionsSizeComparator());
 
@@ -109,12 +109,12 @@ public class HittingSetIdentifier {
 			if (list.size() == 1) {
 				actualMUS.addAll(list);
 				minimalCorrectionSubsetsToRemove.add(list);
-				// Se eliminan de los otros conjuntos las cl·usulas que contiene
+				// Se eliminan de los otros conjuntos las cl√°usulas que contiene
 				// el conjunto con un solo elemento
 				clausesToRemove.addAll(list);
 			} else {
-				// Como esta ordenado por tamaÒo, si la lista no es de tamaÒo 1
-				// es pq no hay m·s de ese tamaÒo y se puede terminar el ciclo
+				// Como esta ordenado por tama√±o, si la lista no es de tama√±o 1
+				// es pq no hay m√°s de ese tama√±o y se puede terminar el ciclo
 				break;
 			}
 		}
@@ -127,7 +127,7 @@ public class HittingSetIdentifier {
 					testMCS.remove(clause);
 				}
 				if (testMCS.isEmpty()) {
-					// Si la lista es vacÌa se elimina del la lista de MCSes
+					// Si la lista es vac√≠a se elimina del la lista de MCSes
 					minimalCorrectionSubsetsToRemove.add(testMCS);
 				}
 
@@ -138,7 +138,7 @@ public class HittingSetIdentifier {
 		minimalCorrectionSubsets.removeAll(minimalCorrectionSubsetsToRemove);
 
 		// La lista modificada de minimalCorrectionsSUbsets y el actualMUS sale
-		// de aqui modificado pq los par·metros fueron pasados por referencia
+		// de aqui modificado pq los par√°metros fueron pasados por referencia
 
 	}
 
@@ -146,7 +146,7 @@ public class HittingSetIdentifier {
 
 	/**
 	 * Verifica que no existan superconjuntos en los hitting sets generados para
-	 * garantizar que cada hitting set es mÌnimo
+	 * garantizar que cada hitting set es m√≠nimo
 	 * 
 	 * @param minimalCorrectionSubsets
 	 * @param actualMUS
@@ -158,15 +158,15 @@ public class HittingSetIdentifier {
 			List<List<E>> hittingSubsets) {
 
 		// En caso de que la lista de entrada tenga supersets se eliminan (
-		// Para la formaciÛn de un hitting set esto no deberÌa pasar, pero se
+		// Para la formaci√≥n de un hitting set esto no deber√≠a pasar, pero se
 		// hace por seguridad)
 		List<List<E>> collectionOfSetCopy = cloneSet(minimalCorrectionSubsets);
 		collectionOfSetCopy = SetUtil.maintainNoSupersets(collectionOfSetCopy);
 		allMUSes(collectionOfSetCopy, actualMUS, hittingSubsets);
 
 		// Se eliminan los supersets de los hitting sets. Esto para garantizar
-		// que los hittings sets identificados sean mÌnimo
-		// Un hitting set es mÌnimo si sus subconjuntos propios no son hitting
+		// que los hittings sets identificados sean m√≠nimo
+		// Un hitting set es m√≠nimo si sus subconjuntos propios no son hitting
 		// sets, por lo tanto, no pueden haber supersets entre los conjuntos
 		// para cumplir con esta propiedad
 		SetUtil.maintainNoSupersets(hittingSubsets);
@@ -192,7 +192,7 @@ public class HittingSetIdentifier {
 
 
 	/**
-	 * Selecciona la siguiente cl·usula con la cu·l probar la generaciÛn del MUS
+	 * Selecciona la siguiente cl√°usula con la cu√°l probar la generaci√≥n del MUS
 	 * 
 	 * @param collectionOfSets
 	 * @param blockedClauses
@@ -212,7 +212,7 @@ public class HittingSetIdentifier {
 			}
 		}
 
-		// Se retorna el primer elemento si la lista no es vacÌa
+		// Se retorna el primer elemento si la lista no es vac√≠a
 		if (!set.isEmpty()) {
 			return set.get(0);
 		}
@@ -222,9 +222,9 @@ public class HittingSetIdentifier {
 
 	
 	/**
-	 * Implementa la lÛgica propuesta en Lifton(2009). Pero modifica la parte en
+	 * Implementa la l√≥gica propuesta en Lifton(2009). Pero modifica la parte en
 	 * la que elimina las clausulas del MCS seleccionado de otros conjuntos pq
-	 * estaba descartando hitting set mÌnimos
+	 * estaba descartando hitting set m√≠nimos
 	 * 
 	 * @param mCSes
 	 * @param clauseToAdd
@@ -236,16 +236,16 @@ public class HittingSetIdentifier {
 
 		Collection<List<E>> minimalCorrectionSubsetsToRemove = new ArrayList<List<E>>();
 		if (!mCSes.isEmpty()) {
-			// Se eliminan los subconjuntos que tienen la cl·usula que se
-			// seleccionÛ
+			// Se eliminan los subconjuntos que tienen la cl√°usula que se
+			// seleccion√≥
 			for (List<E> testMCS : mCSes) {
 				// Remove any other MCSes hit by choosing thisClause, because
-				// they have now been ìsatisfiedî by the partial
+				// they have now been ¬ìsatisfied¬î by the partial
 				// solution(Lifton,2009)
 				if (testMCS.contains(clauseToAdd)) {
 					minimalCorrectionSubsetsToRemove.add(testMCS);
-					// Se deben eliminar las cl·usulas de este MCS de los otros
-					// MCS pq no son cl·usulas v·lidas
+					// Se deben eliminar las cl√°usulas de este MCS de los otros
+					// MCS pq no son cl√°usulas v√°lidas
 					// clausesToRemove.addAll(testMCS);
 				}
 			}
@@ -264,7 +264,7 @@ public class HittingSetIdentifier {
 
 		if (!elements.isEmpty()) {
 
-			// Se guarda la colecciÛn en una lista
+			// Se guarda la colecci√≥n en una lista
 			List<E> elementsToCount = new ArrayList<E>();
 			for (E element : elements) {
 				elementsToCount.add(element);
@@ -275,7 +275,7 @@ public class HittingSetIdentifier {
 				return elementsToCount.get(0);
 			}
 
-			// Vector que almacena el n˙mero de ocurrencias que tiene cada
+			// Vector que almacena el n√∫mero de ocurrencias que tiene cada
 			// elemento del set elements en la collectionOfSets
 			int recordCount[] = new int[elements.size()];
 
@@ -291,7 +291,7 @@ public class HittingSetIdentifier {
 				recordCount[i] = count;
 			}
 
-			// Se verifica cu·l es la posiciÛn del array que tiene el n˙mero m·s
+			// Se verifica cu√°l es la posici√≥n del array que tiene el n√∫mero m√°s
 			// grande
 			int position = 0;
 			for (int i = 1; i < recordCount.length; i++) {
@@ -300,8 +300,8 @@ public class HittingSetIdentifier {
 				}
 			}
 
-			// Se retorna la dependencia de la lista que este en la posiciÛn que
-			// tenÌa el mayor n˙mero de ocurrencias y se elimina de la lista
+			// Se retorna la dependencia de la lista que este en la posici√≥n que
+			// ten√≠a el mayor n√∫mero de ocurrencias y se elimina de la lista
 			// original para que avance el ciclo
 			elements.remove(elementsToCount.get(position));
 			return elementsToCount.get(position);

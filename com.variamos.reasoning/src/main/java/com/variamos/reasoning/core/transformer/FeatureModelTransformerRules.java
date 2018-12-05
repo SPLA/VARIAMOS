@@ -36,7 +36,7 @@ public class FeatureModelTransformerRules {
 	}
 
 	/**
-	 * M�todo para negar una restricci�n mandatory
+	 * Mï¿½todo para negar una restricciï¿½n mandatory
 	 * 
 	 * @param element1
 	 * @param element2

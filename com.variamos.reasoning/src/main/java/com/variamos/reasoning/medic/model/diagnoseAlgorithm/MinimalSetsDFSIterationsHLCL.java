@@ -220,7 +220,7 @@ public class MinimalSetsDFSIterationsHLCL {
 	 * This method performs a DFS until an insatisfiable constraint is found
 	 * @param source is a string with the id of the vertex source of the search
 	 * @param csp is a copy of the inconsistent CSP with the variables and domains of the problem, 
-	 * no se esta usando por ahora, sirve cuando se haga la ejecución incremental 
+	 * no se esta usando por ahora, sirve cuando se haga la ejecuciÃ³n incremental 
 	 * @param cc is the list of inconsistent constraints 
 	 * @return path is a linked-list containing the sequence of visited vertices.  
 	 * The last vertex in path is the inconsistent contains the inconsistent constraint

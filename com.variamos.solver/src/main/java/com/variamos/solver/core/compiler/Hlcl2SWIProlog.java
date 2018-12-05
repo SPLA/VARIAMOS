@@ -233,7 +233,7 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbolsConst
 	}
 
 	private StringBuilder makeDomainsAndVariables(Set<Identifier> ids) {
-		// Se contruye la lista de caracter�sticas y de dominios
+		// Se contruye la lista de caracterï¿½sticas y de dominios
 		StringBuilder dommainAndVariables = new StringBuilder("L=[");
 		StringBuilder variablesList = new StringBuilder();
 		StringBuilder domainString = new StringBuilder();

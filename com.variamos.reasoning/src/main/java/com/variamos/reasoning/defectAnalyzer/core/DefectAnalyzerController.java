@@ -33,7 +33,7 @@ public class DefectAnalyzerController {
 		// Se valida que existan los directorios antes de continuar
 		File file = new File(outputDirectoryPath);
 		if (!file.exists()) {
-			// Si no existe el directorio se lanza una excepci髇
+			// Si no existe el directorio se lanza una excepci贸n
 			throw new FunctionalException("output directory "
 					+ outputDirectoryPath + " does not exist");
 		}
@@ -83,7 +83,7 @@ public class DefectAnalyzerController {
 				ClassificationType.CORRECTIONS);
 		printAllClassifiedDiagnosis(classifiedCauses, ClassificationType.CAUSES);
 
-		// Informaci髇 DTO de salida que sirve para analizar xls resumidos
+		// Informaci贸n DTO de salida que sirve para analizar xls resumidos
 		defectAnalyzerControllerOut.setAllDiagnostics(causeAnalizerOutDTO
 				.getAllDiagnosis());
 		defectAnalyzerControllerOut.setTime(totalCorrectionSetTestTime);
@@ -128,7 +128,7 @@ public class DefectAnalyzerController {
 			ClassifiedElement classifiedDiagnosis,
 			ClassificationType classificationType) {
 
-		System.out.println(" \n CLASIFICACI覰:" + classificationType.name());
+		System.out.println(" \n CLASIFICACI脫N:" + classificationType.name());
 		System.out.println("_______________________________________");
 		System.out.println("A.Comunes");
 		System.out.println("Cantidad: "
@@ -199,7 +199,7 @@ public class DefectAnalyzerController {
 
 		List<List<String>> defectos = new ArrayList<List<String>>();
 
-		// Estadist韈as
+		// Estadist铆cas
 		List<String> numCaracteristicas = new ArrayList<String>();
 		numCaracteristicas.add("#Caracteristicas");
 		numCaracteristicas.add(Integer.toString(defectAnalyzerInDTO
@@ -263,12 +263,12 @@ public class DefectAnalyzerController {
 		general.add(Integer.toString(cantidadDefectos));
 		defectos.add(general);
 		List<String> defectoVoidModelo = new ArrayList<String>();
-		defectoVoidModelo.add("Modelo vac韔");
+		defectoVoidModelo.add("Modelo vac铆o");
 		defectoVoidModelo.add(Boolean.toString(vmVerifierOutDTO.isVoidModel()));
 		defectos.add(defectoVoidModelo);
 
 		List<String> defectoFalseProductLine = new ArrayList<String>();
-		defectoFalseProductLine.add("Falsa L韓ea de productos");
+		defectoFalseProductLine.add("Falsa L铆nea de productos");
 		defectoFalseProductLine.add(Boolean.toString(vmVerifierOutDTO
 				.isFalseProductLineModel()));
 		defectos.add(defectoFalseProductLine);
@@ -280,14 +280,14 @@ public class DefectAnalyzerController {
 		defectos.addAll(saveDefects("Redundancies",
 				vmVerifierOutDTO.getRedundanciesList()));
 
-		// Se pone informaci髇 en la hoja
+		// Se pone informaci贸n en la hoja
 		ExportUtil.adicionarInfoHoja(Arrays.asList(titulosDefectos), 0,
 				hojaDefectos, defectos, tiempoTest, cont);
 
 		// CAUSAS Y CORECCIONES
-		// Informaci髇 para guardar
+		// Informaci贸n para guardar
 		String titulos[] = { "Defecto", "#elementos relajados",
-				"Soluci髇 n鷐ero", "correcionsets" };
+				"Soluci贸n n煤mero", "correcionsets" };
 
 		HSSFSheet hoja = resultadosLibro.createSheet();
 		List<Diagnosis> allDiagnostics = causeAnalyzerOutDTO
@@ -344,11 +344,11 @@ public class DefectAnalyzerController {
 			resultadosAnalisis.add(new ArrayList<String>());
 		}
 
-		// Se pone informaci髇 en la hoja
+		// Se pone informaci贸n en la hoja
 		ExportUtil.adicionarInfoHoja(Arrays.asList(titulos), 0, hoja,
 				resultadosAnalisis, tiempoTest, cont);
 
-		// Se crea una nueva hoja para poner la clasificaci髇 de las causas y
+		// Se crea una nueva hoja para poner la clasificaci贸n de las causas y
 		// las correciones
 		HSSFSheet hojaClasificacion = resultadosLibro.createSheet();
 
@@ -368,7 +368,7 @@ public class DefectAnalyzerController {
 		clasificacion.addAll(saveClassification("correcciones no Comunes",
 				classifiedCorrections.getNoCommonDiagnosis()));
 
-		// Se pone informaci髇 en la hoja
+		// Se pone informaci贸n en la hoja
 		ExportUtil.adicionarInfoHoja(Arrays.asList(titulosClasificacion), 0,
 				hojaClasificacion, clasificacion, tiempoTest, cont);
 
@@ -405,7 +405,7 @@ public class DefectAnalyzerController {
 	}
 
 	/**
-	 * Crea la informaci髇 para guardar la clasificaci髇 en una hoja de excel
+	 * Crea la informaci贸n para guardar la clasificaci贸n en una hoja de excel
 	 * 
 	 * @param encabezado
 	 * @param classifiedCausesCorrectionsList
@@ -488,7 +488,7 @@ public class DefectAnalyzerController {
 	}
 
 	/**
-	 * Identifica las causas de los defectos identificados seg鷑 los criterios
+	 * Identifica las causas de los defectos identificados seg煤n los criterios
 	 * definidos en el DTO de entrada
 	 * 
 	 * @param defectAnalyzerInDTO
@@ -500,7 +500,7 @@ public class DefectAnalyzerController {
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO,
 			VerificationResultDTO verifierOutDTO) throws FunctionalException {
 
-		// Informaci髇 del DTO
+		// Informaci贸n del DTO
 		VMAnalyzerInDTO vmAnalyzerInDTO = new VMAnalyzerInDTO();
 		vmAnalyzerInDTO.setVariabilityModel(defectAnalyzerInDTO
 				.getVariabilityModel());

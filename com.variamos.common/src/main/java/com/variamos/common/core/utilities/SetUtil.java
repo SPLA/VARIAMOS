@@ -210,7 +210,7 @@ public class SetUtil {
 	 * @return true:Set is superset of some set of collection of sets.
 	 *         Otherwise False Ejm inputSet es {a,b,c} y not collectionOfSets
 	 *         tiene un elemento con el valor de {a,c}. En este caso el inputSet
-	 *         es superset pq tiene los mismos elementos( o más ) que el set de
+	 *         es superset pq tiene los mismos elementos( o mÃ¡s ) que el set de
 	 *         collectionOfSets
 	 */
 	public static <E> boolean verifySetIsSuperSetOfCollectionSets(
@@ -303,7 +303,7 @@ public class SetUtil {
 		List<E> inputSet = null;
 		Set<List<E>> setsToRemove = new HashSet<List<E>>();
 
-		// Se ordenan los conjuntos por tamaño de menor mayor
+		// Se ordenan los conjuntos por tamaÃ±o de menor mayor
 		Collections
 				.sort(inputCollectionOfSets, new CollectionsSizeComparator());
 
@@ -326,7 +326,7 @@ public class SetUtil {
 				}
 
 			}// Cierra while que recorre lista desde la segunda posicion
-		}// Cierra while que recorre la lista desde la primera posición
+		}// Cierra while que recorre la lista desde la primera posiciÃ³n
 
 		// Se eliminan los elementos
 		if (!setsToRemove.isEmpty()) {
@@ -372,7 +372,7 @@ public class SetUtil {
 				}
 
 			}// Cierra while que recorre lista de MCS desde la segunda posicion
-		}// Cierra while que recorre la lista de MCS desde la primera posición
+		}// Cierra while que recorre la lista de MCS desde la primera posiciÃ³n
 
 		// Se eliminan los elementos
 		// Se eliminan los elementos

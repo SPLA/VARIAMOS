@@ -21,7 +21,7 @@ import com.variamos.solver.core.compiler.Hlcl2SWIProlog;
 public class ConstraintRepresentationUtil {
 
 	/**
-	 * Realiza la l骻ica de convertir la representaci髇 de constraints agnostica
+	 * Realiza la l贸gica de convertir la representaci贸n de constraints agnostica
 	 * a el solver que corresponda y guardarlo en un archivo temporal que luego
 	 * es analizado
 	 * 
@@ -37,7 +37,7 @@ public class ConstraintRepresentationUtil {
 		String constraintProgramString = constraintToPrologProgram(
 				constraintRepresentation, solverEditorType);
 
-		// Se guarda la representaci髇 en el archivo temporal de prolog
+		// Se guarda la representaci贸n en el archivo temporal de prolog
 		FileUtils.writeFile(prologTempPath, constraintProgramString);
 	}
 	
@@ -49,7 +49,7 @@ public class ConstraintRepresentationUtil {
 		String constraintProgramString = constraintToPrologProgram(
 				constraintRepresentation, domainList,solverEditorType);
 
-		// Se guarda la representaci髇 en el archivo temporal de prolog
+		// Se guarda la representaci贸n en el archivo temporal de prolog
 		FileUtils.writeFile(prologTempPath, constraintProgramString);
 	}
 
@@ -163,7 +163,7 @@ public class ConstraintRepresentationUtil {
 	}
 
 	/**
-	 * Se hace este m閠odo para que el resto del c骴igo no tenga que preocuparse
+	 * Se hace este m茅todo para que el resto del c贸digo no tenga que preocuparse
 	 * por volver las expressions hlclcPrograms
 	 * 
 	 * @param constraintRepresentation

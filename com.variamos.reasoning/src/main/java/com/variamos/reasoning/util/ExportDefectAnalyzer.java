@@ -33,7 +33,7 @@ public class ExportDefectAnalyzer {
 		List<List<String>> resultadosAnalisis = new ArrayList<List<String>>();
 		HSSFWorkbook resultadosLibro = new HSSFWorkbook();
 		int cont = 1;
-		// Información para guardar
+		// InformaciÃ³n para guardar
 		String titulos[] = { "Modelo", "#feat", "#depen", "#NonTraversal",
 				"%NonTraversal", "#traver", "%traver", "tipoDefecto",
 				"Defecto", "TamCorrec", "#Causas", "Tiempo", "Correc",
@@ -145,7 +145,7 @@ public class ExportDefectAnalyzer {
 
 		}
 
-		// Se pone información en la hoja
+		// Se pone informaciÃ³n en la hoja
 		ExportUtil.adicionarInfoHoja(Arrays.asList(titulos), 0, hoja,
 				resultadosAnalisis, 0, cont);
 
@@ -157,7 +157,7 @@ public class ExportDefectAnalyzer {
 
 	/**
 	 * Entrega para cada modelo analizado para cada defecto cuantas causas y
-	 * correcciones encontró
+	 * correcciones encontrÃ³
 	 * 
 	 * @param defectAnalyzerControllerOutDTOList
 	 * @param directoryName
@@ -173,7 +173,7 @@ public class ExportDefectAnalyzer {
 		List<List<String>> resultadosAnalisis = new ArrayList<List<String>>();
 		HSSFWorkbook resultadosLibro = new HSSFWorkbook();
 		int cont = 1;
-		// Información para guardar
+		// InformaciÃ³n para guardar
 		String titulos[] = { "Modelo", "#carac", "#depen", "#NonTraversal",
 				"%NonTraversal", "#traver", "%traver", "tipDef", "def",
 				"#caus", "#corr", "tiemp" };
@@ -230,7 +230,7 @@ public class ExportDefectAnalyzer {
 
 		}
 
-		// Se pone información en la hoja
+		// Se pone informaciÃ³n en la hoja
 		ExportUtil.adicionarInfoHoja(Arrays.asList(titulos), 0, hoja,
 				resultadosAnalisis, 0, cont);
 
@@ -258,7 +258,7 @@ public class ExportDefectAnalyzer {
 		List<List<String>> resultadosAnalisis = new ArrayList<List<String>>();
 		HSSFWorkbook resultadosLibro = new HSSFWorkbook();
 		int cont = 1;
-		// Información para guardar
+		// InformaciÃ³n para guardar
 		String titulos[] = { "modelo", "#caract", "#depen", "#NonTraversal",
 				"%NonTraversal", "#traver", "%traver", "#def", "vac", "FPL",
 				"CM", "FO", "Redun", "#caus", "#corr", "#causCom",
@@ -349,7 +349,7 @@ public class ExportDefectAnalyzer {
 
 		}
 
-		// Se pone información en la hoja
+		// Se pone informaciÃ³n en la hoja
 		ExportUtil.adicionarInfoHoja(Arrays.asList(titulos), 0, hoja,
 				resultadosAnalisis, 0, cont);
 
@@ -370,7 +370,7 @@ public class ExportDefectAnalyzer {
 		List<List<String>> resultadosAnalisis = new ArrayList<List<String>>();
 		HSSFWorkbook resultadosLibro = new HSSFWorkbook();
 		int cont = 1;
-		// Información para guardar
+		// InformaciÃ³n para guardar
 		String titulos[] = { "modelo", "#caract", "#depen", "#NonTraversal",
 				"%NonTraversal", "#traver", "%traver", "#def", "vac", "CM",
 				"FO", "#corr", "tiempo", "correccionesMayores" };
@@ -436,7 +436,7 @@ public class ExportDefectAnalyzer {
 
 		}
 
-		// Se pone información en la hoja
+		// Se pone informaciÃ³n en la hoja
 		ExportUtil.adicionarInfoHoja(Arrays.asList(titulos), 0, hoja,
 				resultadosAnalisis, 0, cont);
 
@@ -450,7 +450,7 @@ public class ExportDefectAnalyzer {
 			throws FunctionalException {
 		File file = new File(outputDirectoryPath);
 		if (!file.exists()) {
-			// Si no existe el directorio se lanza una excepción
+			// Si no existe el directorio se lanza una excepciÃ³n
 			throw new FunctionalException("El directorio de salida "
 					+ outputDirectoryPath + " no existe");
 		}

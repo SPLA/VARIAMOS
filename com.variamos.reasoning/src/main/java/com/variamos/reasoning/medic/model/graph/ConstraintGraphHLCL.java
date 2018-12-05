@@ -22,7 +22,7 @@ import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 /**
  * Esta es la clase que implementa una constraint network
  * using an adjacencies list.
- * Un vértice en esta clase es una variable o una constraint
+ * Un vÃ©rtice en esta clase es una variable o una constraint
  * Edges in this class represent the aparition of a constraint containing a variable
  * @author Angela Villota <Angela Villota>
  *
@@ -108,9 +108,9 @@ public class ConstraintGraphHLCL {
 	
 	/**
 	 * 
-	 * @param expression, es una expresion con la restricción.  En la versión 0 es un string.
+	 * @param expression, es una expresion con la restricciÃ³n.  En la versiÃ³n 0 es un string.
 	 * @param vars debe ser una lista o arreglo de expresiones de variables.  
-	 * En la versión 0 las expresiones variable son objetos de la clase Variable
+	 * En la versiÃ³n 0 las expresiones variable son objetos de la clase Variable
 	 */
 	public void addConstraint(IntBooleanExpression cons){
 		constraintsCount++; //number of constraints in the problem, could be different than the number of nodes 
@@ -218,7 +218,7 @@ public class ConstraintGraphHLCL {
 	}
 	
 	
-	//Cambios aquí-------------------------------------------------------
+	//Cambios aquÃ­-------------------------------------------------------
 	public Collection<VertexHLCL> getNeighbors(String id, boolean type){
 		Collection<VertexHLCL> tmp= null;
 		if (type==VertexHLCL.CONSTRAINT_TYPE)

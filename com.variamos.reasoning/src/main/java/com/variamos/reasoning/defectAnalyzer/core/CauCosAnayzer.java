@@ -85,8 +85,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		int indexDependencyToRemove = 0;
 		if (!dependenciesToChange.isEmpty()) {
 			// Antes de cambiar se verifica que no sea subconjunto de las
-			// cl·usulas bloquedas, si es subconjunto no se analiza esa
-			// combinaciÛn
+			// cl√°usulas bloquedas, si es subconjunto no se analiza esa
+			// combinaci√≥n
 			for (int i = 0; i < dependenciesToChange.size(); i++) {
 				if (blockedClausesSets == null || !SetUtil
 						.verifySetIsSubSetOfCollectionSets(dependenciesToChange.get(i), blockedClausesSets)) {
@@ -107,13 +107,13 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	}
 
 	/**
-	 * Identifica los MCS para un conjunto de dependencies seg˙n el mode
-	 * ingresado ( Todos los MCS o los m·s pequeÒos)
+	 * Identifica los MCS para un conjunto de dependencies seg√∫n el mode
+	 * ingresado ( Todos los MCS o los m√°s peque√±os)
 	 * 
 	 * @param mode
 	 * @param maxK
-	 *            : TamaÒo m·ximo del conjunto correcciÛn cuando se desea
-	 *            restringir el tamaÒo del espacio de b˙squeda
+	 *            : Tama√±o m√°ximo del conjunto correcci√≥n cuando se desea
+	 *            restringir el tama√±o del espacio de b√∫squeda
 	 * @return
 	 * @throws FunctionalException
 	 * @throws PrologException
@@ -129,7 +129,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		List<List<IntBooleanExpression>> allMCSes = new ArrayList<List<IntBooleanExpression>>();
 
 		// Combinaciones de potenciales MCS que no deben ser analizadas pq se
-		// sabe previamente que no van a generar ning˙n resultado
+		// sabe previamente que no van a generar ning√∫n resultado
 		List<List<IntBooleanExpression>> blockedConstraints = new ArrayList<List<IntBooleanExpression>>();
 
 		HlclProgram modelExpressions = new HlclProgram();
@@ -143,16 +143,16 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			}
 			System.out.println("Defecto" + defectToAnalyze);
 			System.out.println("McsIdentificados" + allMCSes);
-			System.out.println("Construyendo combinationes tamaÒo " + r + " ... ");
+			System.out.println("Construyendo combinationes tama√±o " + r + " ... ");
 
 			// Se construye el powerset de relaciones a ajustar se podan los
-			// elementos del MCS ya identificados y las cl·usulas que se
+			// elementos del MCS ya identificados y las cl√°usulas que se
 			// deben bloquear.
 			List<List<IntBooleanExpression>> subSets = PowerSetUtil.calculateSets(new ArrayList<IntBooleanExpression>(),
 					modelExpressions, new ArrayList<List<IntBooleanExpression>>(), r, allMCSes, blockedConstraints);
 
 			if (subSets.isEmpty()) {
-				// No se pudieron hacer combinaciones de tamaÒo k con los
+				// No se pudieron hacer combinaciones de tama√±o k con los
 				// elementos de entrada, entonces se termina el algoritmo
 				advance = Boolean.FALSE;
 			} else {
@@ -182,7 +182,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 					allMCSes = unsatisfiableSets;
 
 				}
-				// Se incrementa el tamaÒo del nivel de b˙squeda
+				// Se incrementa el tama√±o del nivel de b√∫squeda
 				r++;
 			}
 		}
@@ -238,7 +238,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	 * Reemplaza en el programa de restricciones de entrada una a una las
 	 * restricciones que se encuentran en dependenciesToChange y verifica si el
 	 * nuevo programa es satisfacible, si es satisfacible entonces esa
-	 * restricciÛn es un MCS
+	 * restricci√≥n es un MCS
 	 * 
 	 * @param expressionsToTest
 	 * @param modelToTest
@@ -262,7 +262,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		int n = expressionsToTest.size();
 		List<List<IntBooleanExpression>> MCSes = new ArrayList<List<IntBooleanExpression>>();
 		List<List<IntBooleanExpression>> newUnsatisfiableSet = new ArrayList<List<IntBooleanExpression>>();
-		// System.out.println("INICIO IDENTIFICACI”N NIVEL " + r);
+		// System.out.println("INICIO IDENTIFICACI√ìN NIVEL " + r);
 
 		while (advance) {
 
@@ -276,8 +276,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				analyzedSets++;
 				isMCS = Boolean.FALSE;
 
-				// Se crea la colecciÛn de dependencias a verificar
-				// excluyendo las cl·usulas que deben ser removidas
+				// Se crea la colecci√≥n de dependencias a verificar
+				// excluyendo las cl√°usulas que deben ser removidas
 				modelExpressions.clear();
 				modelExpressions.addAll(modelToTest);
 				modelExpressions.removeAll(candidateMCS);
@@ -287,7 +287,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 				// Si es satisfacible entonces se adiciona al conjunto de MCS
 				// identificados, se
-				// actualizan las cl·usulas a bloquear y se veridia si se puede
+				// actualizan las cl√°usulas a bloquear y se veridia si se puede
 				// terminar
 				if (isMCS) {
 					System.out.println("Identifing MCS size " + r);
@@ -296,7 +296,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				} else {
 
 					// System.out
-					// .println("Iniciando bloqueo dicotÛmico tamaÒo K: "
+					// .println("Iniciando bloqueo dicot√≥mico tama√±o K: "
 					// + candidateMCS.size());
 					newUnsatisfiableSet.add(blockConstraints(modelExpressions, modelToTest, fixedExpressions,
 							unsatisifableSets, blockedConstraints, r, defect));
@@ -321,7 +321,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	/**
 	 * Tomado de: Hemery, F., Lecoutre, C., Sais, L., & Boussemart, F. (2006).
 	 * Extracting MUCs from Constraint Networks. Proceedings of the 17th
-	 * European Conference on Artificial Intelligence (pp. 113ñ117). Riva del
+	 * European Conference on Artificial Intelligence (pp. 113¬ñ117). Riva del
 	 * Garda, Italy: IOS Press.
 	 * 
 	 * @return
@@ -350,7 +350,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				max = center;
 			}
 		}
-		// Se resta 1 pq en java los vectores comienzan con la posiciÛn cero y
+		// Se resta 1 pq en java los vectores comienzan con la posici√≥n cero y
 		// llegan hasta n-1
 		return (min - 1);
 
@@ -429,7 +429,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		List<IntBooleanExpression> modelToTestCopy = new ArrayList<IntBooleanExpression>();
 		List<IntBooleanExpression> newUnsatisfiableSetComplement = new ArrayList<IntBooleanExpression>();
 
-		// Guardar· la copia que queda al final de cl·usulas insatisfacibles (
+		// Guardar√° la copia que queda al final de cl√°usulas insatisfacibles (
 		// sin el defecto a analizar)
 		unsatisifableSetCopy.addAll(expressionsToTest);
 
@@ -443,7 +443,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 					"Error with the dicothomic approach.Please verify that fixed restrictions do not conflict with verification constraints");
 		}
 
-		// Se adiciona a la colecciÛn general de clausulas
+		// Se adiciona a la colecci√≥n general de clausulas
 		// unsatisfiables
 		addedColllection = addUnsatisfiableConstraints(unsatisfiableSets, newUnsatisfiableSet);
 
@@ -452,14 +452,14 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			// original, para
 			// obtener el complemento correctamente. Sino como
 			// el
-			// paso es por referencia se afecta la colecciÛn
+			// paso es por referencia se afecta la colecci√≥n
 			// original
 			modelToTestCopy.clear();
 			modelToTestCopy.addAll(modelToTest);
 			newUnsatisfiableSetComplement.clear();
 			newUnsatisfiableSetComplement.addAll(SetUtil.difference(modelToTestCopy, newUnsatisfiableSet));
 
-			// Se adiciona al conjunto de cl·usulas
+			// Se adiciona al conjunto de cl√°usulas
 			// insatisfacibles
 			// completo
 			blockedConstraints = addConstraintsToBlock(blockedConstraints, newUnsatisfiableSetComplement, k);
@@ -471,7 +471,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	}
 
 	/**
-	 * Adiciona a la collecciÛn de sets los sets insatisfacibles. Verificando
+	 * Adiciona a la collecci√≥n de sets los sets insatisfacibles. Verificando
 	 * que no existan subsets
 	 * 
 	 * @param blockedSets
@@ -481,12 +481,12 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	private List<List<IntBooleanExpression>> addConstraintsToBlock(List<List<IntBooleanExpression>> blockedSets,
 			List<IntBooleanExpression> setToBlock, int minimalSize) {
 
-		// Se adiciona la cl·usula y luego se eliminan los subsets que existan
-		// dentro de la lista de cl·usulas a bloquear, pq son innecesarios
+		// Se adiciona la cl√°usula y luego se eliminan los subsets que existan
+		// dentro de la lista de cl√°usulas a bloquear, pq son innecesarios
 
 		if (setToBlock != null && !setToBlock.isEmpty()) {
-			// Si la cl·usula a bloquear es mayor al tamaÒo de las cl·usulas que
-			// se est·n analizando se adiciona. Sino no, pues ya se habrÌa
+			// Si la cl√°usula a bloquear es mayor al tama√±o de las cl√°usulas que
+			// se est√°n analizando se adiciona. Sino no, pues ya se habr√≠a
 			// analizado esa coleccion
 			if (blockedSets != null) {
 				if (setToBlock.size() >= minimalSize) {
@@ -494,11 +494,11 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 						blockedSets.add(setToBlock);
 						SetUtil.maintainNoSubsets(blockedSets);
 					} else {
-						System.out.println("Set a bloquear ya existÌa");
+						System.out.println("Set a bloquear ya exist√≠a");
 					}
 
 				} else {
-					System.out.println("No cumple el tamaÒo mÌnimo el set a bloquear");
+					System.out.println("No cumple el tama√±o m√≠nimo el set a bloquear");
 				}
 			}
 		}
@@ -508,7 +508,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	}
 
 	/**
-	 * Adiciona a la collecciÛn de sets las restricciones insatisfacibles.
+	 * Adiciona a la collecci√≥n de sets las restricciones insatisfacibles.
 	 * Verificando que no existan supersets
 	 * 
 	 * @param unsatisfiableCollectionOfSets
@@ -518,8 +518,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	private boolean addUnsatisfiableConstraints(List<List<IntBooleanExpression>> unsatisfiableCollectionOfSets,
 			List<IntBooleanExpression> clausesToAdd) {
 
-		// Se adiciona la cl·usula y luego se eliminan los supersets que existan
-		// dentro de la lista de cl·usulas a bloquear, pq son innecesarios
+		// Se adiciona la cl√°usula y luego se eliminan los supersets que existan
+		// dentro de la lista de cl√°usulas a bloquear, pq son innecesarios
 		boolean addedCollection = false;
 		if (clausesToAdd != null && !clausesToAdd.isEmpty()) {
 			if (unsatisfiableCollectionOfSets != null) {
@@ -528,7 +528,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 					unsatisfiableCollectionOfSets.add(clausesToAdd);
 					addedCollection = true;
 				} else {
-					System.out.println("Unsatisfiable set ya existÌa");
+					System.out.println("Unsatisfiable set ya exist√≠a");
 				}
 			}
 		}
@@ -631,7 +631,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	@Override
 	public List<CauCos> getCorrections(Defect defect, HlclProgram model, HlclProgram fixedConstraints,
 			DefectAnalyzerModeEnum mode) throws FunctionalException {
-		// La lista vacÌa se envÌa para guardar los conjuntos irresolubles. Esto
+		// La lista vac√≠a se env√≠a para guardar los conjuntos irresolubles. Esto
 		// es importante cuando se hallan causas y correcciones juntas
 		List<CauCos> corrections = getCorrections(defect, model, fixedConstraints,
 				new ArrayList<List<IntBooleanExpression>>(), mode);
@@ -647,10 +647,10 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			progressMonitor.setProgress(1);
 		}
 		if (defect instanceof Redundancy) {
-			// Se quita de la lista la expresiÛn que se considera
-			// redundante para que pueda ponerse su instrucciÛn de verificaciÛn.
-			// Si ambas se dejan juntas se estarÌa generando una contradicciÛn
-			// en el que la soluciÛn es quitar la misma restricciÛn redundante y
+			// Se quita de la lista la expresi√≥n que se considera
+			// redundante para que pueda ponerse su instrucci√≥n de verificaci√≥n.
+			// Si ambas se dejan juntas se estar√≠a generando una contradicci√≥n
+			// en el que la soluci√≥n es quitar la misma restricci√≥n redundante y
 			// eso
 			// no tiene sentido en este caso
 			HlclProgram modelCopy = new HlclProgram();

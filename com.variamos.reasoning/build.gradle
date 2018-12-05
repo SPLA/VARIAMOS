@@ -4,8 +4,26 @@ archivesBaseName = 'com.variamos.reasoner'
 version = '1.0-SNAPSHOT'
 
 dependencies {
-    compile fileTree(dir: 'lib', include: ['*.jar'])
-    compile project(':com.variamos.common')
-    compile project(':com.variamos.hlcl')
-    compile project(':com.variamos.solver')
+compile group: 'jpl', name: 'jpl', version: '7.4.0'
+compile 'org.json:json:20180813'
+ compile files('lib/sxfm-1.0.0.jar')
+compile project(':com.variamos.common')
+compile project(':com.variamos.hlcl')
+compile project(':com.variamos.solver')
+
 }
+
+dependencies {
+  testCompile 'junit:junit:4.12'
+}
+
+test {
+	environment "LD_LIBRARY_PATH", project.JPL_LIB_PATH
+
+}
+
+repositories {
+
+    mavenCentral()
+}
+

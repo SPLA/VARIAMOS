@@ -116,7 +116,7 @@ public class AboutDialog extends JDialog {
 				"http://www.flaticon.com/free-icon/settings_23408#term=configuration&page=1&position=3"));
 		panel.add(new JLabel(
 				"Organization of notification for elements and some icons:"));
-		panel.add(new JLabel("Jose Andr�s Moncada"));
+		panel.add(new JLabel("Jose Andrï¿½s Moncada"));
 
 		SpringUtilities.makeCompactGrid(panel, 14, 1, 4, 4, 4, 4);
 

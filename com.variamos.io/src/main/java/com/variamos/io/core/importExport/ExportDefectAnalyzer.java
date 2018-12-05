@@ -29,7 +29,7 @@ public class ExportDefectAnalyzer {
 		List<List<String>> resultadosAnalisis = new ArrayList<List<String>>();
 		HSSFWorkbook resultadosLibro = new HSSFWorkbook();
 		int cont = 1;
-		// Informaci�n para guardar
+		// Informacion para guardar
 		String titulos[] = { "Modelo", "#carac", "#depen", "#NonTraversal",
 				"%NonTraversal", "#traver", "%traver", "tipDef", "def",
 				"#caus", "#corr", "tiemp" };
@@ -55,7 +55,7 @@ public class ExportDefectAnalyzer {
 			throws FunctionalException {
 		File file = new File(outputDirectoryPath);
 		if (!file.exists()) {
-			// Si no existe el directorio se lanza una excepci�n
+			// Si no existe el directorio se lanza una excepcion
 			throw new FunctionalException("El directorio de salida "
 					+ outputDirectoryPath + " no existe");
 		}

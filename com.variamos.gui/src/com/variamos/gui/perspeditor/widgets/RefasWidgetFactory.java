@@ -22,7 +22,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
  * A class to dynamically load appropriate widget. Based on WidgetFactory from
  * ProductLine. Part of PhD work at University of Paris 1
  * 
- * @author Juan C. MuÒoz Fern·ndez <jcmunoz@gmail.com>
+ * @author Juan C. Mu√±oz Fern√°ndez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-10

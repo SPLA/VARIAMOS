@@ -37,8 +37,8 @@ import com.variamos.solver.model.SolverSolution;
 
 public class DefectsVerifier implements IntDefectsVerifier {
 
-	// Variables usadas para almacenar información que es útil cuando se hacen
-	// otras operaciones de verificación
+	// Variables usadas para almacenar informaciÃ³n que es Ãºtil cuando se hacen
+	// otras operaciones de verificaciÃ³n
 	private Map<Identifier, Set<Number>> verifiedValuesMap;
 	private SolverOperationsUtil solver;
 	private HlclProgram model;
@@ -145,7 +145,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	}
 
 	private boolean existValue(Identifier identifier, int valueToTest) {
-		// Cada vez que se hace una configuración se bloquean valores no tener
+		// Cada vez que se hace una configuraciÃ³n se bloquean valores no tener
 		// que verificar luego estos valores
 		Set<Number> attainableDomains = verifiedValuesMap.get(identifier);
 		if (attainableDomains == null
@@ -168,7 +168,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 		IntBooleanExpression verificationExpression = null;
 
-		// Se verifica si el modelo es vacío
+		// Se verifica si el modelo es vacÃ­o
 		boolean isSatisfiable = solver.isSatisfiable(model);
 		if (isSatisfiable) {
 
@@ -186,12 +186,12 @@ public class DefectsVerifier implements IntDefectsVerifier {
 							.verifyAssignValueToVariabilityElementExpression(
 									identifier, valueToTest);
 
-					// Se adiciona la restricción al conjunto de restricciones
+					// Se adiciona la restricciÃ³n al conjunto de restricciones
 					// que representa el modelo de variabilidad
 					ConfigurationOptionsDTO options = new ConfigurationOptionsDTO();
 					options.addAdditionalExpression(verificationExpression);
 
-					// Se obtiene una configuración del solver
+					// Se obtiene una configuraciÃ³n del solver
 					SolverSolution configurationResult = solver
 							.getConfiguration(model, new SolverSolution(),
 									options);
@@ -230,7 +230,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 		for (Identifier identifier : identifiersList) {
 
-			// Se busca en la configuración el id del identificador
+			// Se busca en la configuraciÃ³n el id del identificador
 			if (configurationValues.containsKey(identifier.getId())) {
 
 				number = configurationValues.get(identifier.getId());
@@ -367,7 +367,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	// constraintToAdd = VerifierUtilExpression
 	// .verifyAssignValueToVariabilityElementExpression(
 	// identifier, definedDomainValue);
-	// // Se adiciona la restricción al conjunto de restricciones
+	// // Se adiciona la restricciÃ³n al conjunto de restricciones
 	// // que representa el modelo de variabilidad
 	// ConfigurationOptions options = new ConfigurationOptions();
 	// options.addAdditionalExpression(constraintToAdd);
@@ -446,7 +446,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	//
 	// verificationExpression = VerifierUtilExpression
 	// .verifyFalseOptionalExpression(identifier);
-	// // Se adiciona la restricción de verificacion al conjunto de
+	// // Se adiciona la restricciÃ³n de verificacion al conjunto de
 	// // restricciones
 	// // que representa el modelo de variabilidad
 	// ConfigurationOptions options = new ConfigurationOptions();
@@ -577,12 +577,12 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			isSatisfiable = solver.isSatisfiable(modelWithoutRedundancy);
 
 			if (!isSatisfiable) {
-				// La relación no es redundante, pq se requiere para que el
+				// La relaciÃ³n no es redundante, pq se requiere para que el
 				// modelo funcione
 				return null;
 			} else {
 				// Si el nuevo modelo es resoluble entonces se adicionan las
-				// instrucciones que corresponen a la negación de la restricción
+				// instrucciones que corresponen a la negaciÃ³n de la restricciÃ³n
 				// que se cree redundante
 
 				HlclFactory f = new HlclFactory();
@@ -590,8 +590,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				Identifier reification;
 				IntBooleanExpression reifedExpression;
 				List<IntBooleanExpression> negationList = new ArrayList<IntBooleanExpression>();
-				// Se reifica la expresión a negar en una variable, luego se
-				// aplica la negación sobre esa variable que es ( 1- Variable)
+				// Se reifica la expresiÃ³n a negar en una variable, luego se
+				// aplica la negaciÃ³n sobre esa variable que es ( 1- Variable)
 				// #> 0
 				reification = f.newIdentifier("ReifRedundancy");
 				reifedExpression = f.doubleImplies(reification,
@@ -607,7 +607,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 						new SolverSolution(), options);
 
 				if (!isSatisfiable) {
-					// La restricción si es redundante pq el modelo se volvió
+					// La restricciÃ³n si es redundante pq el modelo se volviÃ³
 					// irresoluble
 					Defect redundancy = new Redundancy(negationList,
 							expressionToVerify);

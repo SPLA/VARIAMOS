@@ -51,15 +51,15 @@ public class VariabilityElementDefAna  implements
 	}
 
 	/**
-	 * // Se agrega a la lista de características, la actual (se pone sus //
-	 * letras en mayúscula, se intercambian los espacios por _ y // se
+	 * // Se agrega a la lista de caracterÃ­sticas, la actual (se pone sus //
+	 * letras en mayÃºscula, se intercambian los espacios por _ y // se
 	 * reemplazan los simbolos de + y - por Plus y Minus, // respectivamente)
 	 * 
 	 * @param name
 	 * @return
 	 */
 	private String transformName(String name) {
-		// Se pasa a mayúsculas la primera letra para garantizar
+		// Se pasa a mayÃºsculas la primera letra para garantizar
 		// que sea interpretada como variable en los solvers por ejemplo en
 		// Prolog
 		String changedName = evaluateFirstCharacter(name.charAt(0))

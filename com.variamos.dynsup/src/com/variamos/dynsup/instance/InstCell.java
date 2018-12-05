@@ -8,7 +8,7 @@ import com.mxgraph.model.mxCell;
  * A class to support clones of instance elements with shared values. Part of
  * PhD work at University of Paris 1
  * 
- * @author Juan C. Mu�oz Fern�ndez <jcmunoz@gmail.com>
+ * @author Juan C. Muï¿½oz Fernï¿½ndez <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-01-29 *

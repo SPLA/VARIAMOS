@@ -89,7 +89,7 @@ public class FileUtils {
 	public static String writeFile(File file, String content)
 			throws TechnicalException {
 
-		// Se guarda la representaci�n en el archivo temporal de prolog
+		// Se guarda la representaciï¿½n en el archivo temporal de prolog
 		FileUtils.writeFile(file.getAbsolutePath(), content);
 		return file.getAbsolutePath();
 		

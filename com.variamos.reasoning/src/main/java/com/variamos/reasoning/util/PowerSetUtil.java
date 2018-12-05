@@ -11,7 +11,7 @@ public class PowerSetUtil {
 
 
 	/**
-	 * Crea las combinaciones de k elementos de un conjunto de tamaÒo n
+	 * Crea las combinaciones de k elementos de un conjunto de tama√±o n
 	 * 
 	 * @param prefix
 	 * @param elements
@@ -60,9 +60,9 @@ public class PowerSetUtil {
 	}
 
 	/**
-	 * Invoca el algoritmo que hace las combinaciones v·lidas.
+	 * Invoca el algoritmo que hace las combinaciones v√°lidas.
 	 * 
-	 * Construye las combinaciones de tamaÒo r de elementos que no son
+	 * Construye las combinaciones de tama√±o r de elementos que no son
 	 * superconjuntos de los conjuntos bloqueados, ni superconjuntos de los
 	 * conjuntos no permitidos
 	 * @param prefix
@@ -94,7 +94,7 @@ public class PowerSetUtil {
 	}
 
 	/**
-	 * Crea las combinaciones de k elementos de un conjunto de tamaÒo n
+	 * Crea las combinaciones de k elementos de un conjunto de tama√±o n
 	 * 
 	 * @param prefix
 	 * @param elements
@@ -145,12 +145,12 @@ public class PowerSetUtil {
 			List<List<E>> resultListValids = new ArrayList<List<E>>();
 			resultListValids = doCombinations(prefix2, validElements,
 					resultListValids, notAllowedListSuperSets, r);
-			// Si hay elementos v·lidos
+			// Si hay elementos v√°lidos
 			if (!resultListValids.isEmpty()) {
 				resultList.addAll(resultListValids);
 			}
 		}
-		// Ciclo con los que no se pueden ( debe ser menor al tamaÒo mÌnimo de r
+		// Ciclo con los que no se pueden ( debe ser menor al tama√±o m√≠nimo de r
 		// en al menos 1)
 		if (!elementsToBlock.isEmpty() && r > 1) {
 			for (int j = 0; j < elementsToBlock.size(); j++) {
@@ -163,7 +163,7 @@ public class PowerSetUtil {
 						.<E> verifySetIsSuperSetOfCollectionSets(prefix2,
 								notAllowedListSuperSets))) {
 
-					// Se obtiene la posiciÛn del elemento a bloquear en la
+					// Se obtiene la posici√≥n del elemento a bloquear en la
 					// lista de entrada
 					int actualPosition = elements.indexOf(elementsToBlock
 							.get(j));
@@ -175,7 +175,7 @@ public class PowerSetUtil {
 										elements.size()), resultListValids,
 								r - 1, notAllowedListSuperSets,
 								notAllowedCollectionOfSets);
-						// Si hay elementos v·lidos
+						// Si hay elementos v√°lidos
 						if (!resultListValids.isEmpty()) {
 							resultList.addAll(resultListValids);
 						}
@@ -199,7 +199,7 @@ public class PowerSetUtil {
 			cont = 0;
 			for (E prefixElement : prefix) {
 				// Si el subconjunto a bloquear no tiene el elemento, entonces
-				// se contin˙a con el siguiente
+				// se contin√∫a con el siguiente
 				if (!notAllowedList.contains(prefixElement)) {
 					break;
 				} else {

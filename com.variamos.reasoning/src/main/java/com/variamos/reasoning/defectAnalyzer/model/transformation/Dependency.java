@@ -9,9 +9,9 @@ public class Dependency implements Cloneable {
 
 	private IntBooleanExpression constraintExpression;
 
-	// Negación de la expresión. Sirve para identificar las redundancias
-	// automáticamente en modelos de caraacteristicas. En las otras notaciones
-	// si se debe escribir la expresión manualmente
+	// NegaciÃ³n de la expresiÃ³n. Sirve para identificar las redundancias
+	// automÃ¡ticamente en modelos de caraacteristicas. En las otras notaciones
+	// si se debe escribir la expresiÃ³n manualmente
 	
 	private IntBooleanExpression negationExpression;
 

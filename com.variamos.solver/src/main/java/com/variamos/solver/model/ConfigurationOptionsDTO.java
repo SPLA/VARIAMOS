@@ -26,7 +26,7 @@ public class ConfigurationOptionsDTO {
 	private List<LabelingOrderEnum> labelingOrder;
 	private List<IntNumericExpression> orderExpressions;
 
-	// Sirve para saber cuando cerrar la conexión anterior para abrir una nueva
+	// Sirve para saber cuando cerrar la conexiÃ³n anterior para abrir una nueva
 	public boolean startFromZero;
 
 	public String programName;

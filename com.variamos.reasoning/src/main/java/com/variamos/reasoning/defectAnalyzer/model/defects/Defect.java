@@ -10,7 +10,7 @@ public class Defect {
 	protected String id;
 	protected DefectTypeEnum defectType;
 	// Guarda la lista de restricciones que se usan para identificar el defecto
-	// con las operaciones de verificación
+	// con las operaciones de verificaciÃ³n
 	protected List<IntBooleanExpression> verificationExpressions;
 
 	public Defect() {
